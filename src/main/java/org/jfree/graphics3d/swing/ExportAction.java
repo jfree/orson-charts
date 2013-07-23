@@ -18,7 +18,6 @@ import org.jfree.graphics2d.demo.SVGBarChartDemo1;
 import org.jfree.graphics2d.pdf.PDFDocument;
 import org.jfree.graphics2d.pdf.PDFGraphics2D;
 import org.jfree.graphics2d.pdf.Page;
-import org.jfree.graphics2d.svg.SVGGraphics2D;
 import org.jfree.graphics3d.Panel3D;
 
 /**
@@ -35,51 +34,34 @@ public class ExportAction extends AbstractAction implements Action {
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    JFileChooser jfc = new JFileChooser();
-    jfc.setFileFilter(new SVGFileFilter());
-    int option = jfc.showSaveDialog(this.panel);
-    if (option == JFileChooser.APPROVE_OPTION) {
-        System.out.println("You chose " + jfc.getSelectedFile());
-        PDFDocument pdfDoc = new PDFDocument();
-        Page page = pdfDoc.createPage(new Rectangle(0, 0, this.panel.getWidth(), this.panel.getHeight()));
-        PDFGraphics2D g2 = page.getGraphics2D();
-//        SVGGraphics2D g2 = new SVGGraphics2D(this.panel.getWidth(), this.panel.getHeight());
-//        g2.setGeometryDP(0);
-//        g2.setTransformDP(0);
-        panel.drawContent(g2);
-        pdfDoc.writeToFile(jfc.getSelectedFile());
-//        try {
-//            writeToHTML(jfc.getSelectedFile(), g2.getSVG());
-//        } catch (IOException ex) {
-//            Logger.getLogger(ExportAction.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-    }
+    ExportController controller = new ExportController(this.panel);
+      try {
+          controller.showExportDialog();
+      //    JFileChooser jfc = new JFileChooser();
+      //    jfc.setFileFilter(new SVGFileFilter());
+      //    int option = jfc.showSaveDialog(this.panel);
+      //    if (option == JFileChooser.APPROVE_OPTION) {
+      //        System.out.println("You chose " + jfc.getSelectedFile());
+      //        PDFDocument pdfDoc = new PDFDocument();
+      //        Page page = pdfDoc.createPage(new Rectangle(0, 0, this.panel.getWidth(), this.panel.getHeight()));
+      //        PDFGraphics2D g2 = page.getGraphics2D();
+      ////        SVGGraphics2D g2 = new SVGGraphics2D(this.panel.getWidth(), this.panel.getHeight());
+      ////        g2.setGeometryDP(0);
+      ////        g2.setTransformDP(0);
+      //        panel.drawContent(g2);
+      //        pdfDoc.writeToFile(jfc.getSelectedFile());
+      ////        try {
+      ////            writeToHTML(jfc.getSelectedFile(), g2.getSVG());
+      ////        } catch (IOException ex) {
+      ////            Logger.getLogger(ExportAction.class.getName()).log(Level.SEVERE, null, ex);
+      //    }
+      //    }
+      } catch (IOException ex) {
+          Logger.getLogger(ExportAction.class.getName()).log(Level.SEVERE, null, ex);
+      }
     
   }
-    public static void writeToHTML(File f, String svg) throws IOException {
-        BufferedWriter writer = null;
-        try {
-            writer = new BufferedWriter(new FileWriter(f));
-            writer.write("<!DOCTYPE html>\n");
-            writer.write("<html>\n");
-            writer.write("<head>\n");
-            writer.write("<title>Export Test</title>\n");
-            writer.write("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n"); 
-            writer.write("</head>\n");
-            writer.write("<body>\n");
-            writer.write(svg + "\n");
-            writer.write("</body>\n");
-            writer.write("</html>\n");
-            writer.flush();
-        } finally {
-            try {
-                if (writer != null) {
-                    writer.close();
-                }
-            } catch (IOException ex) {
-                Logger.getLogger(SVGBarChartDemo1.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } 
-    }
+  
+
 
 }
