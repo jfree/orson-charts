@@ -7,12 +7,16 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
-import java.awt.Paint;
 import java.awt.Stroke;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.Objects;
+import javax.swing.event.EventListenerList;
+import org.jfree.chart3d.event.Axis3DChangeEvent;
+import org.jfree.chart3d.event.Axis3DChangeListener;
+import org.jfree.graphics3d.ArgChecks;
 
 /**
  * An axis in 3D space.
@@ -22,20 +26,27 @@ public class NumberAxis3D implements Axis3D {
   /** The axis label (if null, no label is displayed). */
   private String label;
   
+  /** The label font (never <code>null</code>). */
   private Font labelFont;
  
+  /** The stroke used to draw the axis line. */
+  private Stroke lineStroke;
+
+  /** The color used to draw the axis line. */
+  private Color lineColor;
+  
+  /** The axis range. */
   private Range range;
 
   private double tickSize;
 
   private Font valueLabelFont = new Font("SansSerif", Font.PLAIN, 12);
-  
-  private Stroke lineStroke;
-
-  private Paint linePaint;
 
   NumberFormat tickFormatter;
 
+  /** Storage for registered change listeners. */
+  private transient EventListenerList listenerList;
+  
   /**
    * Creates a new axis with the specified range.
    *
@@ -49,7 +60,8 @@ public class NumberAxis3D implements Axis3D {
     this.tickFormatter = new DecimalFormat("0.00");
     this.tickSize = range.getLength() / 10.0;  // FIXME
     this.lineStroke = new BasicStroke(1.0f);
-    this.linePaint = Color.GRAY;
+    this.lineColor = Color.GRAY;
+    this.listenerList = new EventListenerList();
   }
   
   /**
@@ -62,28 +74,117 @@ public class NumberAxis3D implements Axis3D {
   }
   
   /**
-   * Sets the axis label.
+   * Sets the axis label and sends a change event to all registered listeners.
    * 
    * @param label  the label (<code>null</code> permitted). 
    */
   public void setLabel(String label) {
     this.label = label;
+    fireChangeEvent();
   }
 
+  /**
+   * Returns the font used to display the axis label.
+   * 
+   * @return The font used to display the axis label (never <code>null</code>). 
+   */
+  public Font getLabelFont() {
+    return this.labelFont;
+  }
+  
+  /**
+   * Sets the font used to display the axis label and sends a change event to
+   * all registered listeners.
+   * 
+   * @param font  the new font (<code>null</code> not permitted). 
+   */
+  public void setLabelFont(Font font) {
+    ArgChecks.nullNotPermitted(font, "font");
+    this.labelFont = font;
+    fireChangeEvent();
+  }
+  
+  /**
+   * Returns the stroke used to draw the axis line.
+   * 
+   * @return The stroke used to draw the axis line (never <code>null</code>).
+   */
+  public Stroke getLineStroke() {
+    return this.lineStroke;
+  }
+  
+  /**
+   * Sets the stroke used to draw the axis line and sends a change event
+   * to all registered listeners.
+   * 
+   * @param stroke  the new stroke (<code>null</code> not permitted).
+   */
+  public void setLineStroke(Stroke stroke) {
+    ArgChecks.nullNotPermitted(stroke, "stroke");
+    this.lineStroke = stroke;
+    fireChangeEvent();
+  }
+
+  /**
+   * Returns the color used to draw the axis line.
+   * 
+   * @return The color used to draw the axis line (never <code>null</code>). 
+   */
+  public Color getLineColor() {
+    return this.lineColor;
+  }
+  
+  /**
+   * Sets the color used to draw the axis line and sends a change event to 
+   * all registered listeners.
+   * 
+   * @param color  the new color (<code>null</code> not permitted). 
+   */
+  public void setLineColor(Color color) {
+    ArgChecks.nullNotPermitted(color, "color");
+    this.lineColor = color;
+    fireChangeEvent();
+  }
+
+  /**
+   * Returns the axis range.
+   * 
+   * @return the axis range (never <code>null</code>).
+   */
+  @Override
+  public Range getRange() {
+    return this.range;
+  }
+  
+  /**
+   * Sets the axis range (bounds) and sends a change event to all registered
+   * listeners.
+   * 
+   * @param range  the new range (<code>null</code> not permitted).
+   */
+  public void setRange(Range range) {
+    ArgChecks.nullNotPermitted(range, "range");
+    this.range = range;
+    fireChangeEvent();
+  }
+  
+  /**
+   * Returns the tick size.
+   * 
+   * @return The tick size.
+   */
   public double getTickSize() {
     return this.tickSize;
   }
 
+  /**
+   * Sets the tick size and sends a change event to all registered listeners.
+   * 
+   * @param tickSize  the new tick size.
+   */
   public void setTickSize(double tickSize) {
     this.tickSize = tickSize;
-  }
-
-  public void setLineStroke(Stroke stroke) {
-    this.lineStroke = stroke;
-  }
-
-  public void setLinePaint(Paint paint) {
-    this.linePaint = paint;
+    fireChangeEvent();
   }
 
   /**
@@ -98,7 +199,7 @@ public class NumberAxis3D implements Axis3D {
    */
   public void render(Graphics2D g2, Point2D pt0, Point2D pt1, Point2D opposingPt, boolean labels) {
     g2.setStroke(this.lineStroke);
-    g2.setPaint(this.linePaint);
+    g2.setPaint(this.lineColor);
     Line2D axisLine = new Line2D.Float(pt0, pt1);
     g2.draw(axisLine);
 
@@ -200,9 +301,69 @@ public class NumberAxis3D implements Axis3D {
   public double translateToWorld(double value, double length) {
     return length * (value - this.range.getMin()) / this.range.getLength();
   }
-
-  @Override
-  public Range getRange() {
-    return this.range;
+  
+  /**
+   * Tests this instance for equality with an arbitrary object.
+   * 
+   * @param obj  the object to test against (<code>null</code> permitted).
+   * 
+   * @return A boolean. 
+   */
+  public boolean equals(Object obj) {
+    if (obj == this) {
+      return true;
+    }
+    if (!(obj instanceof NumberAxis3D)) {
+      return false;
+    }
+    NumberAxis3D that = (NumberAxis3D) obj;
+    if (!Objects.equals(this.label, that.label)) {
+      return false;
+    }
+    if (!this.labelFont.equals(that.labelFont)) {
+      return false;
+    }
+    if (!this.lineStroke.equals(that.lineStroke)) {
+      return false;
+    }
+    if (!this.lineColor.equals(that.lineColor)) {
+      return false;
+    }
+    if (!this.range.equals(that.range)) {
+      return false;
+    }
+    if (this.tickSize != that.tickSize) {
+      return false;
+    }
+    return true;
+  }
+  
+  public void addChangeListener(Axis3DChangeListener listener) {
+    this.listenerList.add(Axis3DChangeListener.class, listener);   
+  }
+  
+  public void removeChangeListener(Axis3DChangeListener listener) {
+    this.listenerList.remove(Axis3DChangeListener.class, listener);  
+  }
+  
+  /**
+   * Notifies all registered listeners that the plot has been modified.
+   *
+   * @param event  information about the change event.
+   */
+  public void notifyListeners(Axis3DChangeEvent event) {
+    Object[] listeners = this.listenerList.getListenerList();
+    for (int i = listeners.length - 2; i >= 0; i -= 2) {
+      if (listeners[i] == Axis3DChangeListener.class) { 
+        ((Axis3DChangeListener) listeners[i + 1]).axisChanged(event);
+      }
+    }
+  }
+  
+  /**
+   * Sends a {@link Axis3DChangeEvent} to all registered listeners.
+   */
+  protected void fireChangeEvent() {
+    notifyListeners(new Axis3DChangeEvent(this, this));
   }
 }
