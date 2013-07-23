@@ -9,19 +9,20 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.util.List;
 import org.jfree.chart3d.axis.Axis3D;
 import org.jfree.chart3d.axis.TextAnchor;
 import org.jfree.chart3d.axis.TextUtils;
+import org.jfree.chart3d.event.Chart3DChangeEvent;
+import org.jfree.chart3d.event.Chart3DChangeListener;
 import org.jfree.chart3d.plot.PiePlot3D;
 import org.jfree.chart3d.plot.XYZPlot;
 import org.jfree.graphics3d.Dimension3D;
 import org.jfree.graphics3d.Face;
 import org.jfree.graphics3d.Object3D;
-import org.jfree.graphics3d.Panel3D;
 import org.jfree.graphics3d.Tools2D;
 import org.jfree.graphics3d.World;
+import org.jfree.graphics3d.swing.Panel3D;
 
 /**
  * A panel designed to display a JFreeChart3D.  The panel will manage:
@@ -32,7 +33,7 @@ import org.jfree.graphics3d.World;
  * - viewing controls (zoom in/out/best-fit, buttons for rotations)
  * - export to PNG, SVG and PDF.
  */
-public class ChartPanel3D extends Panel3D {
+public class ChartPanel3D extends Panel3D implements Chart3DChangeListener {
 
   /** The chart being rendered. */
   private JFreeChart3D chart;
@@ -48,6 +49,7 @@ public class ChartPanel3D extends Panel3D {
   public ChartPanel3D(JFreeChart3D chart) {
     super(new World());
     this.chart = chart;
+    this.chart.addChangeListener(this);
     setWorld(renderWorld());
   }
   
@@ -83,7 +85,7 @@ public class ChartPanel3D extends Panel3D {
     g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
             RenderingHints.VALUE_ANTIALIAS_ON);
     
-    g2.translate(dim.width / 2, (dim.height - 40) / 2);
+    g2.translate(dim.width / 2, dim.height / 2);
 
     Dimension3D dim3D = this.chart.getPlot().getDimensions();
     double w = dim3D.getWidth();
@@ -235,6 +237,12 @@ public class ChartPanel3D extends Panel3D {
     }
     return result;
   }
+
+    @Override
+    public void chartChanged(Chart3DChangeEvent event) {
+      World world = renderWorld();
+      setWorld(world);
+    }
 
 
 }
