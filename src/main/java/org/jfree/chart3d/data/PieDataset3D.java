@@ -6,7 +6,7 @@ package org.jfree.chart3d.data;
 /**
  * An interface for obtaining data for a pie chart.
  */
-public interface PieDataset3D {
+public interface PieDataset3D extends Dataset3D {
 
   /**
    * Returns the number of items in the dataset.

@@ -6,7 +6,7 @@ package org.jfree.chart3d.data;
 /**
  * A default XYZDataset implementation.
  */
-public class DefaultXYZDataset implements XYZDataset {
+public class DefaultXYZDataset extends AbstractDataset3D implements XYZDataset {
 
   private static final int POINTS = 2500;
   private double[][] xValues;

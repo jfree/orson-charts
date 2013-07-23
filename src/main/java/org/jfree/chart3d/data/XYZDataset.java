@@ -7,7 +7,7 @@ package org.jfree.chart3d.data;
  * Defines the methods used to access data in the form of multiple series
  * containing (x, y, z) data items.
  */
-public interface XYZDataset {
+public interface XYZDataset extends Dataset3D {
 
   public int getSeriesCount();
 

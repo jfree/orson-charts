@@ -10,7 +10,8 @@ import org.jfree.graphics3d.ArgChecks;
 /**
  * A pie dataset.
  */
-public class DefaultPieDataset3D implements PieDataset3D {
+public class DefaultPieDataset3D extends AbstractDataset3D 
+    implements PieDataset3D {
 
   private List<KeyValueItem> items;
 
@@ -22,7 +23,8 @@ public class DefaultPieDataset3D implements PieDataset3D {
   }
 
   /**
-   * Adds a value to the dataset.
+   * Adds a value to the dataset (if there is already a value with the given
+   * key, the value is overwritten).
    * 
    * @param key  the key (<code>null</code> not permitted).
    * @param value 

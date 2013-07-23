@@ -10,7 +10,7 @@ import org.jfree.graphics3d.ArgChecks;
 /**
  * A collection of XYZSeries objects.
  */
-public class XYZSeriesCollection implements XYZDataset {
+public class XYZSeriesCollection extends AbstractDataset3D implements XYZDataset {
 
   private List<XYZSeries> series;
 
