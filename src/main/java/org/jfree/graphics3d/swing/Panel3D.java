@@ -1,7 +1,7 @@
 /**
  * (C)opyright 2013, by Object Refinery Limited
  */
-package org.jfree.graphics3d;
+package org.jfree.graphics3d.swing;
 
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
@@ -34,6 +34,13 @@ import java.util.logging.Logger;
 import javax.swing.JButton;
 
 import javax.swing.JPanel;
+import org.jfree.graphics3d.ArgChecks;
+import org.jfree.graphics3d.Face;
+import org.jfree.graphics3d.Point3D;
+import org.jfree.graphics3d.Tools2D;
+import org.jfree.graphics3d.ViewPoint3D;
+import org.jfree.graphics3d.World;
+import org.jfree.graphics3d.ZOrderComparator;
 import org.jfree.graphics3d.swing.ExportAction;
 import org.jfree.graphics3d.swing.LeftAction;
 import org.jfree.graphics3d.swing.RightAction;
@@ -80,7 +87,7 @@ public class Panel3D extends JPanel implements ActionListener, MouseListener,
    */
   public Panel3D(World world) {
     super(new BorderLayout());
-    add(createButtonPanel(), BorderLayout.SOUTH);
+//    add(createButtonPanel(), BorderLayout.SOUTH);
     ArgChecks.nullNotPermitted(world, "world");
     this.world = world;
     this.viewPoint = new ViewPoint3D((float) (3 * Math.PI / 2.0), (float) Math.PI / 6, 40.0f);
@@ -90,46 +97,6 @@ public class Panel3D extends JPanel implements ActionListener, MouseListener,
     addMouseWheelListener(this);
 //        this.faceVisible = new boolean[this.world.getFaces().size()];
     
-  }
-  
-  private static final int FONT_SIZE = 18;
-  
-  private JPanel createButtonPanel() {
-    JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 2, 2));
-    JButton zoomInButton = new JButton(new ZoomInAction(this));
-    zoomInButton.setFont(Panel3D.getFontAwesomeFont(FONT_SIZE));
-    JButton zoomOutButton = new JButton(new ZoomOutAction(this));
-    zoomOutButton.setFont(Panel3D.getFontAwesomeFont(FONT_SIZE));
-    JButton leftButton = new JButton(new LeftAction(this));
-    leftButton.setFont(Panel3D.getFontAwesomeFont(FONT_SIZE));
-    JButton rightButton = new JButton(new RightAction(this));
-    rightButton.setFont(Panel3D.getFontAwesomeFont(FONT_SIZE));
-    JButton upButton = new JButton(new RotateUpAction(this));
-    upButton.setFont(Panel3D.getFontAwesomeFont(FONT_SIZE));
-    JButton downButton = new JButton(new RotateDownAction(this));
-    downButton.setFont(Panel3D.getFontAwesomeFont(FONT_SIZE));
-    JButton rotateLeftButton = new JButton(new RollLeftAction(this));
-    rotateLeftButton.setFont(Panel3D.getFontAwesomeFont(FONT_SIZE));
-    JButton rotateRightButton = new JButton(new RollRightAction(this));
-    rotateRightButton.setFont(Panel3D.getFontAwesomeFont(FONT_SIZE));
-    JButton exportButton = new JButton(new ExportAction(this));
-    exportButton.setFont(Panel3D.getFontAwesomeFont(FONT_SIZE));
-    leftPanel.add(zoomInButton);
-    leftPanel.add(zoomOutButton);
-    leftPanel.add(leftButton);
-    leftPanel.add(rightButton);
-    leftPanel.add(upButton);
-    leftPanel.add(downButton);
-    leftPanel.add(rotateLeftButton);
-    leftPanel.add(rotateRightButton);
-    
-    JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 2, 2));
-    rightPanel.add(exportButton);
-    
-    JPanel result = new JPanel(new BorderLayout());
-    result.add(leftPanel, BorderLayout.WEST);
-    result.add(rightPanel, BorderLayout.EAST);
-    return result;
   }
 
   /**
@@ -150,7 +117,7 @@ public class Panel3D extends JPanel implements ActionListener, MouseListener,
   public void setWorld(World world) {
     ArgChecks.nullNotPermitted(world, "world");
     this.world = world;
-    // TODO: this should trigger a repaint
+    repaint();
   }
 
   public void setOverlayWorld(World world) {
@@ -196,7 +163,7 @@ public class Panel3D extends JPanel implements ActionListener, MouseListener,
     g2.setPaint(Color.WHITE);
     g2.fillRect(0, 0, dim.width, dim.height);
     AffineTransform saved = g2.getTransform();
-    g2.translate(dim.width / 2, (dim.height - 40) / 2);
+    g2.translate(dim.width / 2, dim.height / 2);
     g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
             RenderingHints.VALUE_ANTIALIAS_ON);
 
@@ -251,7 +218,7 @@ public class Panel3D extends JPanel implements ActionListener, MouseListener,
    */
   @Override
   public void mouseClicked(MouseEvent e) {
-    // TODO Auto-generated method stub
+    // nothing to do
   }
 
   /* (non-Javadoc)
@@ -259,7 +226,7 @@ public class Panel3D extends JPanel implements ActionListener, MouseListener,
    */
   @Override
   public void mouseEntered(MouseEvent e) {
-    // TODO Auto-generated method stub
+    // nothing to do
   }
 
   /* (non-Javadoc)
@@ -267,7 +234,7 @@ public class Panel3D extends JPanel implements ActionListener, MouseListener,
    */
   @Override
   public void mouseExited(MouseEvent e) {
-    // TODO Auto-generated method stub
+    // nothing to do
   }
 
   /* (non-Javadoc)
@@ -306,14 +273,13 @@ public class Panel3D extends JPanel implements ActionListener, MouseListener,
    */
   @Override
   public void mouseMoved(MouseEvent e) {
-    // TODO Auto-generated method stub
+    // nothing to do
   }
 
   @Override
   public void mouseWheelMoved(MouseWheelEvent mwe) {
     float units = mwe.getUnitsToScroll();
     float valRho = Math.max(10.0f, this.viewPoint.getRho() + units);
-    System.out.println(valRho);
     float valTheta = this.viewPoint.getTheta();
     float valPhi = this.viewPoint.getPhi();
     setViewPoint(new ViewPoint3D(valTheta, valPhi, valRho));
@@ -328,7 +294,7 @@ public class Panel3D extends JPanel implements ActionListener, MouseListener,
     private static Font FONT_AWESOME;
     
     public static final Font getFontAwesomeFont(int size) {
-      InputStream in = Panel3D.class.getResourceAsStream("swing/fontawesome-webfont.ttf");
+      InputStream in = Panel3D.class.getResourceAsStream("fontawesome-webfont.ttf");
       if (FONT_AWESOME == null) {
         try {
           FONT_AWESOME = Font.createFont(Font.TRUETYPE_FONT, in);

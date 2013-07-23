@@ -20,7 +20,6 @@ import org.jfree.graphics2d.demo.SVGBarChartDemo1;
 import org.jfree.graphics2d.pdf.PDFDocument;
 import org.jfree.graphics2d.pdf.Page;
 import org.jfree.graphics2d.svg.SVGGraphics2D;
-import org.jfree.graphics3d.Panel3D;
 
 /**
  * A controller class for the export option.
@@ -99,7 +98,7 @@ public class ExportController implements ActionListener {
     int height = this.panel.getHeight();
     SVGGraphics2D g2 = new SVGGraphics2D(width, height); 
     this.panel.drawContent(g2);
-    writeToSVG(new File(fileName), g2.getSVG());
+    writeToSVGFile(new File(fileName), g2.getSVGElement());
   }
   
   public static void writeToHTML(File f, String svg) throws IOException {
@@ -127,13 +126,14 @@ public class ExportController implements ActionListener {
       }
     } 
   }
-  public static void writeToSVG(File f, String svg) throws IOException {
+  public static void writeToSVGFile(File f, String svgElement) throws IOException {
     BufferedWriter writer = null;
     try {
       writer = new BufferedWriter(new FileWriter(f));
       writer.write("<?xml version=\"1.0\"?>\n");
-      writer.write("<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.0//EN\" \"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd\">\n");
-      writer.write(svg + "\n");
+      writer.write("<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.0//EN\" ");
+      writer.write("\"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd\">\n");
+      writer.write(svgElement + "\n");
       writer.flush();
     } finally {
       try {

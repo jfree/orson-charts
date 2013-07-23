@@ -6,7 +6,6 @@ package org.jfree.graphics3d.swing;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
-import org.jfree.graphics3d.Panel3D;
 import org.jfree.graphics3d.ViewPoint3D;
 
 /**
