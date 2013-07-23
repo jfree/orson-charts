@@ -37,4 +37,28 @@ public class Range {
   public boolean contains(double value) {
     return value >= this.min && value <= this.max;
   }
+  
+  /**
+   * Tests this instance for equality with an arbitrary object.
+   * 
+   * @param obj  the object (<code>null</code> permitted).
+   * 
+   * @return A boolean. 
+   */
+  public boolean equals(Object obj) {
+    if (obj == this) {
+      return true;
+    }
+    if (!(obj instanceof Range)) {
+      return false;
+    }
+    Range that = (Range) obj;
+    if (this.min != that.min) {
+      return false;
+    }
+    if (this.max != that.max) {
+      return false;
+    }
+    return true;
+  }
 }
