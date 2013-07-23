@@ -3,12 +3,21 @@
  */
 package org.jfree.chart3d.event;
 
+import java.util.EventObject;
+
 /**
  * A dataset change event.
  */
-public class Dataset3DChangeEvent {
+public class Dataset3DChangeEvent extends EventObject {
 
-  public Dataset3DChangeEvent() {
-    
+  private Object dataset;
+  
+  public Dataset3DChangeEvent(Object source, Object dataset) {
+    super(source);
+    this.dataset = dataset;
+  }
+  
+  public Object getDataset() {
+    return this.dataset;
   }
 }

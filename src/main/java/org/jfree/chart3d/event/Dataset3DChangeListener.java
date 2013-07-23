@@ -3,10 +3,12 @@
  */
 package org.jfree.chart3d.event;
 
+import java.util.EventListener;
+
 /**
  * The interface through which dataset change events are passed in JFreeChart3D.
  */
-public interface Dataset3DChangeListener {
+public interface Dataset3DChangeListener extends EventListener {
 
   public void datasetChanged(Dataset3DChangeEvent event);
 }
