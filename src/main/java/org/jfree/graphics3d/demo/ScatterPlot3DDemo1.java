@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import org.jfree.chart3d.ChartPanel3D;
 import org.jfree.chart3d.JFreeChart3D;
 import org.jfree.chart3d.plot.XYZPlot;
-import org.jfree.chart3d.axis.Axis3D;
+import org.jfree.chart3d.axis.NumberAxis3D;
 import org.jfree.chart3d.axis.Range;
 import org.jfree.chart3d.data.DefaultXYZDataset;
 import org.jfree.chart3d.renderer.ScatterXYZRenderer;
@@ -18,7 +18,7 @@ import org.jfree.chart3d.renderer.ScatterXYZRenderer;
 /**
  * A test app.
  */
-public class ScatterPlot3DDemo extends JFrame {
+public class ScatterPlot3DDemo1 extends JFrame {
 
   JFreeChart3D chart;
 
@@ -29,7 +29,7 @@ public class ScatterPlot3DDemo extends JFrame {
    *
    * @param title  the frame title.
    */
-  public ScatterPlot3DDemo(String title) {
+  public ScatterPlot3DDemo1(String title) {
     super(title);
     addWindowListener(new WindowAdapter() {
       public void windowClosing(WindowEvent e) {
@@ -42,9 +42,9 @@ public class ScatterPlot3DDemo extends JFrame {
   JPanel createContent() {
     JPanel content = new JPanel(new BorderLayout());
     content.setPreferredSize(new Dimension(600, 400));
-    Axis3D xAxis = new Axis3D("X", new Range(0.0, 10.0));
-    Axis3D yAxis = new Axis3D("Y", new Range(0.0, 20.0));
-    Axis3D zAxis = new Axis3D("Z", new Range(0.0, 30.0));
+    NumberAxis3D xAxis = new NumberAxis3D("X", new Range(0.0, 10.0));
+    NumberAxis3D yAxis = new NumberAxis3D("Y", new Range(0.0, 10.0));
+    NumberAxis3D zAxis = new NumberAxis3D("Z", new Range(0.0, 10.0));
     XYZPlot plot = new XYZPlot(xAxis, yAxis, zAxis);
     plot.setDataset(new DefaultXYZDataset(3, 100));
     plot.setRenderer(new ScatterXYZRenderer());
@@ -60,7 +60,7 @@ public class ScatterPlot3DDemo extends JFrame {
    * @param args  command line arguments (ignored).
    */
   public static void main(String[] args) {
-    ScatterPlot3DDemo app = new ScatterPlot3DDemo("JFreeChart3D : ScatterPlot3DDemo1.java");
+    ScatterPlot3DDemo1 app = new ScatterPlot3DDemo1("JFreeChart3D : ScatterPlot3DDemo1.java");
     app.pack();
     app.setVisible(true);
   }
