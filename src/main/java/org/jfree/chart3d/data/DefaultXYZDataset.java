@@ -19,7 +19,7 @@ public class DefaultXYZDataset implements XYZDataset {
     this.zValues = new double[seriesCount][pointCount];
     for (int s = 0; s < seriesCount; s++) {
       for (int i = 0; i < pointCount; i++) {
-        xValues[s][i] = Math.random() * 20.0;
+        xValues[s][i] = Math.random() * 10.0;
         yValues[s][i] = Math.random() * 10.0;
         zValues[s][i] = Math.random() * 10.0;
       }
