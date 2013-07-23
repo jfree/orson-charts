@@ -15,7 +15,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import org.jfree.graphics3d.Object3D;
-import org.jfree.graphics3d.Panel3D;
+import org.jfree.graphics3d.swing.Panel3D;
 import org.jfree.graphics3d.ViewPoint3D;
 import org.jfree.graphics3d.World;
 

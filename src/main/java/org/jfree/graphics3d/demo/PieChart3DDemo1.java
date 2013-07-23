@@ -16,6 +16,7 @@ import org.jfree.chart3d.JFreeChart3D;
 import org.jfree.chart3d.data.DefaultPieDataset3D;
 import org.jfree.chart3d.data.PieDataset3D;
 import org.jfree.chart3d.plot.PiePlot3D;
+import org.jfree.graphics3d.swing.DisplayPanel3D;
 
 /**
  * A test app.
@@ -50,7 +51,7 @@ public class PieChart3DDemo1 extends JFrame {
     plot.setSectionColor("New Zealand", new Color(0xFDAE61));
     plot.setSectionColor("United Kingdom", new Color(0xFFFFBF));
     this.chartPanel3D = new ChartPanel3D(new JFreeChart3D(plot));
-    content.add(this.chartPanel3D);
+    content.add(new DisplayPanel3D(this.chartPanel3D, true));
     return content;
   }
 
@@ -68,7 +69,7 @@ public class PieChart3DDemo1 extends JFrame {
    * @param args  command line arguments (ignored).
    */
   public static void main(String[] args) {
-    PieChart3DDemo1 app = new PieChart3DDemo1("JFreeChart3D: PieChart3DDemo.java");
+    PieChart3DDemo1 app = new PieChart3DDemo1("JFreeChart3D: PieChart3DDemo1.java");
     app.pack();
     app.setVisible(true);
   }

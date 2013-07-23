@@ -13,7 +13,9 @@ import org.jfree.chart3d.plot.XYZPlot;
 import org.jfree.chart3d.axis.NumberAxis3D;
 import org.jfree.chart3d.axis.Range;
 import org.jfree.chart3d.data.DefaultXYZDataset;
+import org.jfree.chart3d.data.XYZDataset;
 import org.jfree.chart3d.renderer.ScatterXYZRenderer;
+import org.jfree.graphics3d.swing.DisplayPanel3D;
 
 /**
  * A test app.
@@ -42,15 +44,14 @@ public class ScatterPlot3DDemo1 extends JFrame {
   JPanel createContent() {
     JPanel content = new JPanel(new BorderLayout());
     content.setPreferredSize(new Dimension(600, 400));
+    XYZDataset dataset = new DefaultXYZDataset(3, 100);
     NumberAxis3D xAxis = new NumberAxis3D("X", new Range(0.0, 10.0));
     NumberAxis3D yAxis = new NumberAxis3D("Y", new Range(0.0, 10.0));
     NumberAxis3D zAxis = new NumberAxis3D("Z", new Range(0.0, 10.0));
-    XYZPlot plot = new XYZPlot(xAxis, yAxis, zAxis);
-    plot.setDataset(new DefaultXYZDataset(3, 100));
+    XYZPlot plot = new XYZPlot(dataset, xAxis, yAxis, zAxis);
     plot.setRenderer(new ScatterXYZRenderer());
     this.chartPanel3D = new ChartPanel3D(new JFreeChart3D(plot));
-    content.add(this.chartPanel3D);
-
+    content.add(new DisplayPanel3D(this.chartPanel3D, true));
     return content;
   }
 
