@@ -34,4 +34,7 @@ public class Range {
     return this.max - this.min;
   }
 
+  public boolean contains(double value) {
+    return value >= this.min && value <= this.max;
+  }
 }
