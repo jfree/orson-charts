@@ -14,12 +14,13 @@ import javax.swing.JPanel;
 import org.jfree.chart3d.ChartPanel3D;
 import org.jfree.chart3d.JFreeChart3D;
 import org.jfree.chart3d.data.DefaultPieDataset3D;
+import org.jfree.chart3d.data.PieDataset3D;
 import org.jfree.chart3d.plot.PiePlot3D;
 
 /**
  * A test app.
  */
-public class PieChart3DDemo extends JFrame {
+public class PieChart3DDemo1 extends JFrame {
 
   JFreeChart3D chart;
 
@@ -30,7 +31,7 @@ public class PieChart3DDemo extends JFrame {
    *
    * @param title  the frame title.
    */
-  public PieChart3DDemo(String title) {
+  public PieChart3DDemo1(String title) {
     super(title);
     addWindowListener(new WindowAdapter() {
       public void windowClosing(WindowEvent e) {
@@ -42,13 +43,8 @@ public class PieChart3DDemo extends JFrame {
 
   JPanel createContent() {
     JPanel content = new JPanel(new BorderLayout());
-    content.setPreferredSize(new Dimension(600, 400));
-    DefaultPieDataset3D dataset = new DefaultPieDataset3D();
-    dataset.add("United States", new Double(30.0));
-    dataset.add("France", new Double(20.0));
-    dataset.add("New Zealand", new Double(12.0));
-    dataset.add("United Kingdom", new Double(43.3));
-    PiePlot3D plot = new PiePlot3D(dataset);
+    content.setPreferredSize(new Dimension(720, 400));
+    PiePlot3D plot = new PiePlot3D(createDataset());
     plot.setSectionColor("United States", new Color(0x1A9641));
     plot.setSectionColor("France", new Color(0xA6D96A));
     plot.setSectionColor("New Zealand", new Color(0xFDAE61));
@@ -58,13 +54,21 @@ public class PieChart3DDemo extends JFrame {
     return content;
   }
 
+  PieDataset3D createDataset() {
+    DefaultPieDataset3D dataset = new DefaultPieDataset3D();
+    dataset.add("United States", new Double(30.0));
+    dataset.add("France", new Double(20.0));
+    dataset.add("New Zealand", new Double(12.0));
+    dataset.add("United Kingdom", new Double(43.3));
+    return dataset; 
+  }
   /**
    * Starting point for the app.
    *
    * @param args  command line arguments (ignored).
    */
   public static void main(String[] args) {
-    PieChart3DDemo app = new PieChart3DDemo("JFreeChart3D: PieChart3DDemo.java");
+    PieChart3DDemo1 app = new PieChart3DDemo1("JFreeChart3D: PieChart3DDemo.java");
     app.pack();
     app.setVisible(true);
   }
