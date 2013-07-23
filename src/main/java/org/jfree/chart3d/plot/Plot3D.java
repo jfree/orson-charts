@@ -3,6 +3,7 @@
  */
 package org.jfree.chart3d.plot;
 
+import org.jfree.chart3d.event.Plot3DChangeListener;
 import org.jfree.graphics3d.Dimension3D;
 import org.jfree.graphics3d.World;
 
@@ -33,4 +34,8 @@ public interface Plot3D {
   public void composeToWorld(World world, double xOffset, double yOffset, 
           double zOffset);
 
+  public void addChangeListener(Plot3DChangeListener listener);
+  
+  public void removeChangeListener(Plot3DChangeListener listener);
+  
 }

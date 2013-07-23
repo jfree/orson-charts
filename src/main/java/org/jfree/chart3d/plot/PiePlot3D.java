@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.jfree.chart3d.data.PieDataset3D;
+import org.jfree.graphics3d.ArgChecks;
 import org.jfree.graphics3d.Dimension3D;
 import org.jfree.graphics3d.Dot3D;
 import org.jfree.graphics3d.Object3D;
@@ -18,7 +19,7 @@ import org.jfree.graphics3d.World;
 /**
  * A pie plot in 3D.
  */
-public class PiePlot3D implements Plot3D {
+public class PiePlot3D extends AbstractPlot3D {
 
   /** The dataset. */
   private PieDataset3D dataset;
@@ -46,34 +47,81 @@ public class PiePlot3D implements Plot3D {
   /**
    * Creates a new pie plot in 3D.
    * 
-   * @param dataset  the dataset. 
+   * @param dataset  the dataset (<code>null</code> not permitted). 
    */
   public PiePlot3D(PieDataset3D dataset) {
+    ArgChecks.nullNotPermitted(dataset, "dataset");
     this.dataset = dataset;
+    this.dataset.addChangeListener(this);
     this.radius = 8.0;    
     this.depth = 1.0;
     this.sectionColors = new HashMap<Comparable, Color>();
+   
   }
 
   /**
    * Returns the dataset.
    * 
-   * @return The dataset. 
+   * @return The dataset (never <code>null</code>). 
    */
   public PieDataset3D getDataset() {
     return this.dataset;
   }
 
   /**
-   * Sets the dataset.
+   * Sets the dataset and notifies registered listeners that the dataset has
+   * been updated.
    * 
-   * @param dataset  the dataset. 
+   * @param dataset  the dataset (<code>null</code> not permitted). 
    */
   public void setDataset(PieDataset3D dataset) {
+    ArgChecks.nullNotPermitted(dataset, "dataset");
+    this.dataset.removeChangeListener(this);
     this.dataset = dataset;
-    // TODO: fire change event
+    this.dataset.addChangeListener(this);
+    fireChangeEvent();
   }
 
+  /**
+   * Returns the radius of the pie (the default value is 8.0).
+   * 
+   * @return The radius of the pie. 
+   */
+  public double getRadius() {
+    return this.radius;
+  }
+  
+  /**
+   * Sets the radius of the pie chart and sends a change event to all registered
+   * listeners.
+   * 
+   * @param radius  the radius. 
+   */
+  public void setRadius(double radius) {
+    this.radius = radius;
+    fireChangeEvent();
+  }
+  
+  /**
+   * Returns the depth of the pie (the default value is 2.0).
+   * 
+   * @return The depth of the pie. 
+   */
+  public double getDepth() {
+    return this.depth;
+  }
+
+  /**
+   * Sets the depth of the pie chart and sends a change event to all registered
+   * listeners.
+   * 
+   * @param depth  the depth. 
+   */
+  public void setDepth(double depth) {
+    this.depth = depth;
+    fireChangeEvent();
+  }
+  
   private Color lookupSectionColor(Comparable key) {
     Color c = this.sectionColors.get(key);
     if (c != null) {
@@ -104,14 +152,6 @@ public class PiePlot3D implements Plot3D {
     // TODO : fire a change event.
   }
   
-  public double getRadius() {
-    return this.radius;
-  }
-  
-  public double getDepth() {
-    return this.depth;
-  }
-
   /**
    * Returns the dimensions for the plot.  For the pie chart, it is more 
    * natural to specify the dimensions in terms of a radius and a depth, so
@@ -192,6 +232,20 @@ public class PiePlot3D implements Plot3D {
       }
     }
     return result;
+  }
+  
+  public boolean equals(Object obj) {
+    if (obj == this) {
+      return true;
+    }
+    if (!(obj instanceof PiePlot3D)) {
+      return false;
+    }
+    PiePlot3D that = (PiePlot3D) obj;
+    if (this.radius != that.radius) {
+      return false;
+    }
+    return true;
   }
 
 }

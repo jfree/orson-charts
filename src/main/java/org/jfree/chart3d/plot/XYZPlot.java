@@ -4,16 +4,16 @@
 package org.jfree.chart3d.plot;
 
 import org.jfree.chart3d.axis.Axis3D;
-import org.jfree.chart3d.axis.NumberAxis3D;
 import org.jfree.chart3d.data.XYZDataset;
 import org.jfree.chart3d.renderer.XYZRenderer;
+import org.jfree.graphics3d.ArgChecks;
 import org.jfree.graphics3d.Dimension3D;
 import org.jfree.graphics3d.World;
 
 /**
  * An XYZ plot.
  */
-public class XYZPlot implements Plot3D {
+public class XYZPlot extends AbstractPlot3D {
 
   private XYZDataset dataset;
 
@@ -29,8 +29,22 @@ public class XYZPlot implements Plot3D {
 
   private XYZRenderer renderer;
 
-  public XYZPlot(NumberAxis3D xAxis, NumberAxis3D yAxis, NumberAxis3D zAxis) {
+  /**
+   * Creates a new plot with the specified axes.
+   * 
+   * @param dataset  the dataset (<code>null</code> not permitted).
+   * @param xAxis  the x-axis (<code>null</code> not permitted).
+   * @param yAxis  the y-axis (<code>null</code> not permitted).
+   * @param zAxis  the z-axis (<code>null</code> not permitted).
+   */
+  public XYZPlot(XYZDataset dataset, Axis3D xAxis, Axis3D yAxis, Axis3D zAxis) {
+    ArgChecks.nullNotPermitted(dataset, "dataset");
+    ArgChecks.nullNotPermitted(xAxis, "xAxis");
+    ArgChecks.nullNotPermitted(yAxis, "yAxis");
+    ArgChecks.nullNotPermitted(zAxis, "zAxis");
     this.dimensions = new Dimension3D(10, 10, 10);
+    this.dataset = dataset;
+    this.dataset.addChangeListener(this);
     this.xAxis = xAxis;
     this.yAxis = yAxis;
     this.zAxis = zAxis;
@@ -46,13 +60,40 @@ public class XYZPlot implements Plot3D {
   public Dimension3D getDimensions() {
     return this.dimensions;
   }
+  
+  /**
+   * Sets the dimensions for the plot and notifies registered listeners that
+   * the plot dimensions have been changed.
+   * 
+   * @param dim  the new dimensions (<code>null</code> not permitted).
+   */
+  public void setDimensions(Dimension3D dim) {
+    ArgChecks.nullNotPermitted(dim, "dim");
+    this.dimensions = dim;
+    fireChangeEvent();
+  }
 
+  /**
+   * Returns the dataset for the plot.
+   * 
+   * @return The dataset (never <code>null</code>). 
+   */
   public XYZDataset getDataset() {
     return this.dataset;
   }
 
+  /**
+   * Sets the dataset and sends a change event notification to all registered
+   * listeners.
+   * 
+   * @param dataset  the new dataset (<code>null</code> not permitted).
+   */
   public void setDataset(XYZDataset dataset) {
+    ArgChecks.nullNotPermitted(dataset, "dataset");
+    this.dataset.removeChangeListener(this);
     this.dataset = dataset;
+    this.dataset.addChangeListener(this);
+    fireChangeEvent();
   }
 
   public Axis3D getXAxis() {
@@ -115,4 +156,17 @@ public class XYZPlot implements Plot3D {
     }
   }
 
+  public boolean equals(Object obj) {
+    if (obj == this) {
+      return true;
+    }
+    if (!(obj instanceof XYZPlot)) {
+      return false;
+    }
+    XYZPlot that = (XYZPlot) obj;
+    if (!this.dimensions.equals(that.dimensions)) {
+      return false;
+    }
+    return true;
+  }
 }
