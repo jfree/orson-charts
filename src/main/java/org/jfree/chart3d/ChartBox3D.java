@@ -97,12 +97,12 @@ public class ChartBox3D {
     box.addVertex(v5);   // 0, 0, 1
     box.addVertex(v6);   // 1, 0, 1
     box.addVertex(v7);   // 1, 1, 1
-    faceA = new Face(new int[] {0, 5, 6, 1}, color);
-    faceB = new Face(new int[] {0, 1, 2, 3}, color);
-    faceC = new Face(new int[] {7, 4, 3, 2}, color);
-    faceD = new Face(new int[] {5, 4, 7, 6}, color);
-    faceE = new Face(new int[] {0, 3, 4, 5}, color);
-    faceF = new Face(new int[] {6, 7, 2, 1}, color);
+    faceA = new CBFace(new int[] {0, 5, 6, 1}, color);
+    faceB = new CBFace(new int[] {0, 1, 2, 3}, color);
+    faceC = new CBFace(new int[] {7, 4, 3, 2}, color);
+    faceD = new CBFace(new int[] {5, 4, 7, 6}, color);
+    faceE = new CBFace(new int[] {0, 3, 4, 5}, color);
+    faceF = new CBFace(new int[] {6, 7, 2, 1}, color);
     box.addFace(faceA);
     box.addFace(faceB);
     box.addFace(faceC);
@@ -112,4 +112,16 @@ public class ChartBox3D {
     return box;
   }
 
+  static class CBFace extends Face {
+      
+    public CBFace(int[] vertices, Color color) {
+      super(vertices, color);
+    }
+
+    @Override
+    public float calculateAverageZValue(Point3D[] points) {
+      return -123456f;
+    }
+      
+  }
 }
