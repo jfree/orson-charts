@@ -160,6 +160,33 @@ public class Object3D {
     return cube;
   }
 
+  public static Object3D createBar(double size, double x, double y, double z, Color color) {
+    Object3D bar = new Object3D();
+    double delta = size / 2.0;
+    bar.addVertex(new Point3D(x - delta, 0, z - delta));
+    bar.addVertex(new Point3D(x + delta, 0, z - delta));
+    bar.addVertex(new Point3D(x + delta, 0, z + delta));
+    bar.addVertex(new Point3D(x - delta, 0, z + delta));
+    bar.addVertex(new Point3D(x - delta, y, z - delta));
+    bar.addVertex(new Point3D(x + delta, y, z - delta));
+    bar.addVertex(new Point3D(x + delta, y, z + delta));
+    bar.addVertex(new Point3D(x - delta, y, z + delta));
+
+    bar.addFace(new Face(new int[] {0, 1, 5, 4}, color));
+    bar.addFace(new Face(new int[] {4, 5, 1, 0}, color));
+    bar.addFace(new Face(new int[] {1, 2, 6, 5}, color));
+    bar.addFace(new Face(new int[] {5, 6, 2, 1}, color));
+    bar.addFace(new Face(new int[] {2, 3, 7, 6}, color));
+    bar.addFace(new Face(new int[] {6, 7, 3, 2}, color));
+    bar.addFace(new Face(new int[] {0, 4, 7, 3}, color));
+    bar.addFace(new Face(new int[] {3, 7, 4, 0}, color));
+    bar.addFace(new Face(new int[] {4, 5, 6, 7}, color));
+    bar.addFace(new Face(new int[] {3, 2, 1, 0}, color));
+    bar.addFace(new Face(new int[] {7, 6, 5, 4}, color));
+    bar.addFace(new Face(new int[] {0, 1, 2, 3}, color));
+    return bar;      
+  }
+
   public static Object3D createTetrahedron(double size, double xOffset,
       double yOffset, double zOffset, Color color) {
     Object3D tetra = new Object3D();
