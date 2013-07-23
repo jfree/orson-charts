@@ -16,7 +16,7 @@ public class JFreeChart3D {
   /**
    * Creates a 3D chart for the specified plot.
    * 
-   * @param plot 
+   * @param plot  the plot (<code>null</code> not permitted).
    */
   public JFreeChart3D(Plot3D plot) {
     ArgChecks.nullNotPermitted(plot, "plot");
@@ -26,7 +26,7 @@ public class JFreeChart3D {
   /**
    * Returns the plot.
    *
-   * @return The plot.
+   * @return The plot (never <code>null</code>).
    */
   public Plot3D getPlot() {
     return this.plot;
