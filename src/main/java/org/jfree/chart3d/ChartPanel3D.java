@@ -3,10 +3,8 @@
  */
 package org.jfree.chart3d;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
@@ -71,21 +69,17 @@ public class ChartPanel3D extends Panel3D {
   }
 
   /**
-   * Paints the 3D chart to the panel.
-   *
-   * @param g  the graphics target for the panel (never <code>null</code>)
+   * Draws the chart to the specified output target.
+   * 
+   * @param g2  the output target. 
    */
   @Override
-  public void paintComponent(Graphics g) {
-    super.paintComponent(g);
-
-    Graphics2D g2 = (Graphics2D) g;
+  public void drawContent(Graphics2D g2) {
+    super.drawContent(g2); 
     Dimension dim = getSize();
     AffineTransform saved = g2.getTransform();
-    Map hints = new HashMap();
-    hints.put(RenderingHints.KEY_ANTIALIASING,
+    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
             RenderingHints.VALUE_ANTIALIAS_ON);
-    g2.addRenderingHints(hints);
     
     g2.translate(dim.width / 2, (dim.height - 40) / 2);
 
@@ -108,19 +102,9 @@ public class ChartPanel3D extends Panel3D {
           Point2D pt = Tools2D.centrePoint(pts[f.getVertexIndex(0)], pts[f.getVertexIndex(1)], pts[f.getVertexIndex(2)], pts[f.getVertexIndex(3)]);
           TextUtils.drawAlignedString(key.toString(), g2, (float) pt.getX(), (float) pt.getY(), TextAnchor.CENTER);
          }
-          
-        //Point2D pt = pts[2 + i * 2];
       }
-//      Color color = Color.RED;
-//      for (Point2D pt : labelPts2D) {
-//        g2.setPaint(color);
-//        g2.fill(new Rectangle2D.Double(pt.getX()-2.0, pt.getY()-2.0, 4.0, 4.0));
-//        if (color.equals(Color.RED)) {
-//            color = Color.BLUE;
-//        } else {
-//            color = Color.RED;
-//        }
-//      }
+
+      
     }
     
     // if a CategoryPlot3D then there will be a ChartBox overlay
@@ -174,14 +158,14 @@ public class ChartPanel3D extends Panel3D {
 
       XYZPlot plot = (XYZPlot) this.chart.getPlot();
       Axis3D xAxis = plot.getXAxis();//new Axis3D(new Range(0.0, 10.0));
-      xAxis.setLineStroke(new BasicStroke(3.0f));
-      xAxis.setLinePaint(Color.RED);
+    //  xAxis.setLineStroke(new BasicStroke(3.0f));
+   //   xAxis.setLinePaint(Color.RED);
       Axis3D yAxis = plot.getYAxis();//new Axis3D(new Range(0.0, 10.0));
-      yAxis.setLineStroke(new BasicStroke(3.0f));
-      yAxis.setLinePaint(Color.GREEN);
+    //  yAxis.setLineStroke(new BasicStroke(3.0f));
+   //   yAxis.setLinePaint(Color.GREEN);
       Axis3D zAxis = plot.getZAxis(); //new Axis3D(new Range(0.0, 10.0));
-      zAxis.setLineStroke(new BasicStroke(3.0f));
-      zAxis.setLinePaint(Color.BLUE);
+   //   zAxis.setLineStroke(new BasicStroke(3.0f));
+  //    zAxis.setLinePaint(Color.BLUE);
 
       double ab = (count(a, b) == 1 ? v0.distance(v1) : 0.0);
       double bc = (count(b, c) == 1 ? v3.distance(v2) : 0.0);
