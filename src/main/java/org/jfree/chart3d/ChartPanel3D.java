@@ -10,14 +10,13 @@ import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.jfree.chart3d.axis.Axis3D;
 import org.jfree.chart3d.axis.TextAnchor;
 import org.jfree.chart3d.axis.TextUtils;
 import org.jfree.chart3d.plot.PiePlot3D;
 import org.jfree.chart3d.plot.XYZPlot;
+import org.jfree.graphics3d.Dimension3D;
 import org.jfree.graphics3d.Face;
 import org.jfree.graphics3d.Object3D;
 import org.jfree.graphics3d.Panel3D;
@@ -58,14 +57,17 @@ public class ChartPanel3D extends Panel3D {
     World world = new World();  // TODO: when we re-render the chart, should we
         // create a new world, or recycle the existing one?
     
+    Dimension3D dim = this.chart.getPlot().getDimensions();
+    double w = dim.getWidth();
+    double h = dim.getHeight();
+    double d = dim.getDepth();
     if (!(this.chart.getPlot() instanceof PiePlot3D)) {
-      this.chartBox = new ChartBox3D(20, 10, 10, -10.0, -5.0, -5.0, Color.WHITE);
+      this.chartBox = new ChartBox3D(w, h, d, -w / 2, -h / 2, -d / 2, Color.WHITE);
       world.add(chartBox.getObject3D());    
     }
 
-    this.chart.getPlot().composeToWorld(world, -10.0, -5.0, -5.0);
+    this.chart.getPlot().composeToWorld(world, -w / 2, -h / 2, -d / 2);
     return world;
-
   }
 
   /**
@@ -83,11 +85,16 @@ public class ChartPanel3D extends Panel3D {
     
     g2.translate(dim.width / 2, (dim.height - 40) / 2);
 
+    Dimension3D dim3D = this.chart.getPlot().getDimensions();
+    double w = dim3D.getWidth();
+    double h = dim3D.getHeight();
+    double depth = dim3D.getDepth();
+    
     // if a PiePlot3D then there will be an overlay to track the pie label positions
     if (this.chart.getPlot() instanceof PiePlot3D) {
       PiePlot3D p = (PiePlot3D) this.chart.getPlot();
       World labelOverlay = new World();
-      List<Object3D> objs = p.getLabelFaces(-10.0, -5.0, -5.0);
+      List<Object3D> objs = p.getLabelFaces(-w / 2, -h / 2, -depth / 2);
       for (Object3D obj : objs) {
         labelOverlay.add(obj);
       }
@@ -102,9 +109,7 @@ public class ChartPanel3D extends Panel3D {
           Point2D pt = Tools2D.centrePoint(pts[f.getVertexIndex(0)], pts[f.getVertexIndex(1)], pts[f.getVertexIndex(2)], pts[f.getVertexIndex(3)]);
           TextUtils.drawAlignedString(key.toString(), g2, (float) pt.getX(), (float) pt.getY(), TextAnchor.CENTER);
          }
-      }
-
-      
+      }      
     }
     
     // if a CategoryPlot3D then there will be a ChartBox overlay
@@ -112,31 +117,31 @@ public class ChartPanel3D extends Panel3D {
     // if an XYZPlot then there will be a ChartBox overlay
     if (this.chart.getPlot() instanceof XYZPlot) {
       World labelOverlay = new World();
-      ChartBox3D cb = new ChartBox3D(20, 10, 10, -10.0, -5.0, -5.0, new Color(0, 0, 255, 200));
+      ChartBox3D cb = new ChartBox3D(w, h, depth, -w / 2, -h / 2, -depth / 2, new Color(0, 0, 255, 200));
       labelOverlay.add(cb.getObject3D());
       Point2D[] axisPts2D = labelOverlay.calculateProjectedPoints(getViewPoint(),
            1000f);
-      Point2D axisPt = axisPts2D[0];
-      g2.setPaint(Color.YELLOW);
-      g2.fill(new Rectangle2D.Double(axisPt.getX()-2.0, axisPt.getY()-2.0, 4.0, 4.0));
-
-      g2.setPaint(Color.RED);
-      axisPt = axisPts2D[1];
-      g2.fill(new Rectangle2D.Double(axisPt.getX()-2.0, axisPt.getY()-2.0, 4.0, 4.0));
-      axisPt = axisPts2D[2];
-      g2.fill(new Rectangle2D.Double(axisPt.getX()-2.0, axisPt.getY()-2.0, 4.0, 4.0));
-      axisPt = axisPts2D[3];
-      g2.fill(new Rectangle2D.Double(axisPt.getX()-2.0, axisPt.getY()-2.0, 4.0, 4.0));
-
-      g2.setPaint(Color.GREEN);
-      axisPt = axisPts2D[4];
-      g2.fill(new Rectangle2D.Double(axisPt.getX()-2.0, axisPt.getY()-2.0, 4.0, 4.0));
-      axisPt = axisPts2D[5];
-      g2.fill(new Rectangle2D.Double(axisPt.getX()-2.0, axisPt.getY()-2.0, 4.0, 4.0));
-      axisPt = axisPts2D[6];
-      g2.fill(new Rectangle2D.Double(axisPt.getX()-2.0, axisPt.getY()-2.0, 4.0, 4.0));
-      axisPt = axisPts2D[7];
-      g2.fill(new Rectangle2D.Double(axisPt.getX()-2.0, axisPt.getY()-2.0, 4.0, 4.0));
+//      Point2D axisPt = axisPts2D[0];
+//      g2.setPaint(Color.YELLOW);
+//      g2.fill(new Rectangle2D.Double(axisPt.getX()-2.0, axisPt.getY()-2.0, 4.0, 4.0));
+//
+//      g2.setPaint(Color.RED);
+//      axisPt = axisPts2D[1];
+//      g2.fill(new Rectangle2D.Double(axisPt.getX()-2.0, axisPt.getY()-2.0, 4.0, 4.0));
+//      axisPt = axisPts2D[2];
+//      g2.fill(new Rectangle2D.Double(axisPt.getX()-2.0, axisPt.getY()-2.0, 4.0, 4.0));
+//      axisPt = axisPts2D[3];
+//      g2.fill(new Rectangle2D.Double(axisPt.getX()-2.0, axisPt.getY()-2.0, 4.0, 4.0));
+//
+//      g2.setPaint(Color.GREEN);
+//      axisPt = axisPts2D[4];
+//      g2.fill(new Rectangle2D.Double(axisPt.getX()-2.0, axisPt.getY()-2.0, 4.0, 4.0));
+//      axisPt = axisPts2D[5];
+//      g2.fill(new Rectangle2D.Double(axisPt.getX()-2.0, axisPt.getY()-2.0, 4.0, 4.0));
+//      axisPt = axisPts2D[6];
+//      g2.fill(new Rectangle2D.Double(axisPt.getX()-2.0, axisPt.getY()-2.0, 4.0, 4.0));
+//      axisPt = axisPts2D[7];
+//      g2.fill(new Rectangle2D.Double(axisPt.getX()-2.0, axisPt.getY()-2.0, 4.0, 4.0));
 
       // vertices
       Point2D v0 = axisPts2D[0];
@@ -157,15 +162,9 @@ public class ChartPanel3D extends Panel3D {
       boolean f = this.chartBox.faceF().isRendered();
 
       XYZPlot plot = (XYZPlot) this.chart.getPlot();
-      Axis3D xAxis = plot.getXAxis();//new Axis3D(new Range(0.0, 10.0));
-    //  xAxis.setLineStroke(new BasicStroke(3.0f));
-   //   xAxis.setLinePaint(Color.RED);
-      Axis3D yAxis = plot.getYAxis();//new Axis3D(new Range(0.0, 10.0));
-    //  yAxis.setLineStroke(new BasicStroke(3.0f));
-   //   yAxis.setLinePaint(Color.GREEN);
-      Axis3D zAxis = plot.getZAxis(); //new Axis3D(new Range(0.0, 10.0));
-   //   zAxis.setLineStroke(new BasicStroke(3.0f));
-  //    zAxis.setLinePaint(Color.BLUE);
+      Axis3D xAxis = plot.getXAxis();
+      Axis3D yAxis = plot.getYAxis();
+      Axis3D zAxis = plot.getZAxis();
 
       double ab = (count(a, b) == 1 ? v0.distance(v1) : 0.0);
       double bc = (count(b, c) == 1 ? v3.distance(v2) : 0.0);

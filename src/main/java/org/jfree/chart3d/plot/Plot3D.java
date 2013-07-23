@@ -3,6 +3,7 @@
  */
 package org.jfree.chart3d.plot;
 
+import org.jfree.graphics3d.Dimension3D;
 import org.jfree.graphics3d.World;
 
 /**
@@ -11,6 +12,14 @@ import org.jfree.graphics3d.World;
  */
 public interface Plot3D {
 
+  /**
+   * Returns the dimensions for the plot in the 3D world in which it will 
+   * be composed.
+   * 
+   * @return The dimensions (never <code>null</code>). 
+   */
+  public Dimension3D getDimensions();
+  
   /**
    * Adds 3D objects representing the current data for the plot to the specified
    * world.  After the world has been populated (or constructed) in this way,

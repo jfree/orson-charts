@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import org.jfree.chart3d.ChartPanel3D;
 import org.jfree.chart3d.JFreeChart3D;
-import org.jfree.chart3d.axis.Axis3D;
+import org.jfree.chart3d.axis.NumberAxis3D;
 import org.jfree.chart3d.axis.Range;
 import org.jfree.chart3d.data.DefaultXYZDataset;
 import org.jfree.chart3d.plot.XYZPlot;
@@ -51,13 +51,13 @@ public class BarChart3DDemo1 extends JFrame {
     //ChartBox3D chartBox = new ChartBox3D(10, 10, 10, 0.0, 0.0, 0.0, new Color(0, 0, 255, 200));
     //world.addObject(chartBox.getObject3D());
 
-    Axis3D xAxis = new Axis3D("Category X", new Range(0.0, 10.0));
+    NumberAxis3D xAxis = new NumberAxis3D("Category X", new Range(0.0, 10.0));
 //    xAxis.setLineStroke(new BasicStroke(3.0f));
 //    xAxis.setLinePaint(Color.RED);
-    Axis3D yAxis = new Axis3D("Value", new Range(0.0, 20.0));
+    NumberAxis3D yAxis = new NumberAxis3D("Value", new Range(0.0, 20.0));
 //    yAxis.setLineStroke(new BasicStroke(3.0f));
 //    yAxis.setLinePaint(Color.GREEN);
-    Axis3D zAxis = new Axis3D("Category Z", new Range(0.0, 30.0));
+    NumberAxis3D zAxis = new NumberAxis3D("Category Z", new Range(0.0, 30.0));
 //    zAxis.setLineStroke(new BasicStroke(3.0f));
 //    zAxis.setLinePaint(Color.BLUE);
     XYZPlot plot = new XYZPlot(xAxis, yAxis, zAxis);

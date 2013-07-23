@@ -1,20 +1,20 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * (C)opyright 2013, by Object Refinery Limited
  */
 package org.jfree.chart3d.renderer;
 
 import java.awt.Color;
 import java.awt.Paint;
 import org.jfree.chart3d.data.XYZDataset;
+import org.jfree.chart3d.plot.XYZPlot;
+import org.jfree.graphics3d.Dimension3D;
 import org.jfree.graphics3d.Object3D;
 import org.jfree.graphics3d.World;
 
 /**
- *
- * @author dgilbert
+ * A renderer that draws 3D bars on an {@link XYZPlot}.
  */
-public class BarXYZRenderer implements XYZRenderer {
+public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer {
     
   public BarXYZRenderer() {
 
@@ -31,7 +31,9 @@ public class BarXYZRenderer implements XYZRenderer {
   }
 
   @Override
-  public void composeItem(World world, XYZDataset dataset, int series, int item, double xOffset, double yOffset, double zOffset) {
+  public void composeItem(XYZDataset dataset, int series, int item, 
+      World world, Dimension3D dimensions, double xOffset, double yOffset, 
+      double zOffset) {
     double x = dataset.getX(series, item);
     double y = dataset.getY(series, item);
     double z = dataset.getZ(series, item);

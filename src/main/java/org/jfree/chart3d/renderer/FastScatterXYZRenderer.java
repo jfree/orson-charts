@@ -6,6 +6,7 @@ package org.jfree.chart3d.renderer;
 import java.awt.Color;
 import java.awt.Paint;
 import org.jfree.chart3d.data.XYZDataset;
+import org.jfree.graphics3d.Dimension3D;
 import org.jfree.graphics3d.Dot3D;
 import org.jfree.graphics3d.Object3D;
 import org.jfree.graphics3d.World;
@@ -13,7 +14,8 @@ import org.jfree.graphics3d.World;
 /**
  * A renderer for 3D scatter plots.
  */
-public class FastScatterXYZRenderer implements XYZRenderer {
+public class FastScatterXYZRenderer extends AbstractXYZRenderer 
+    implements XYZRenderer {
 
   public FastScatterXYZRenderer() {
 
@@ -30,7 +32,9 @@ public class FastScatterXYZRenderer implements XYZRenderer {
   }
 
   @Override
-  public void composeItem(World world, XYZDataset dataset, int series, int item, double xOffset, double yOffset, double zOffset) {
+  public void composeItem(XYZDataset dataset, int series, int item, 
+      World world, Dimension3D dimensions, double xOffset, double yOffset, 
+      double zOffset) {
     double x = dataset.getX(series, item);
     double y = dataset.getY(series, item);
     double z = dataset.getZ(series, item);

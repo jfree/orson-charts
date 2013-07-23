@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.jfree.chart3d.data.PieDataset3D;
+import org.jfree.graphics3d.Dimension3D;
 import org.jfree.graphics3d.Dot3D;
 import org.jfree.graphics3d.Object3D;
 import org.jfree.graphics3d.World;
@@ -49,8 +50,8 @@ public class PiePlot3D implements Plot3D {
    */
   public PiePlot3D(PieDataset3D dataset) {
     this.dataset = dataset;
-    this.radius = 30.0;    
-    this.depth = 6.0;
+    this.radius = 8.0;    
+    this.depth = 1.0;
     this.sectionColors = new HashMap<Comparable, Color>();
   }
 
@@ -103,8 +104,24 @@ public class PiePlot3D implements Plot3D {
     // TODO : fire a change event.
   }
   
+  public double getRadius() {
+    return this.radius;
+  }
+  
   public double getDepth() {
-      return this.depth;
+    return this.depth;
+  }
+
+  /**
+   * Returns the dimensions for the plot.  For the pie chart, it is more 
+   * natural to specify the dimensions in terms of a radius and a depth, so
+   * we use those values to calculate the dimensions here.
+   * 
+   * @return The dimensions for the plot. 
+   */
+  @Override
+  public Dimension3D getDimensions() {
+    return new Dimension3D(this.radius * 2, this.depth, this.radius * 2);
   }
   
   public Font getDefaultSectionFont() {
@@ -141,13 +158,9 @@ public class PiePlot3D implements Plot3D {
         Color c = this.lookupSectionColor(this.dataset.getKey(i));
         world.add(Object3D.createPieSegment(this.radius, 0.0, yOffset, 
             this.depth, r, r + angle, Math.PI / this.segments, c));
-//        world.addAll(Object3D.createPieLabelMarkers(this.radius * 1.2, 0.0, yOffset - 0.5, 
-//            this.depth + 0.5, r, r + angle));
         r = r + angle;
       }
     }
-
-    
   }
   
   public List<Object3D> getLabelFaces(double xOffset, double yOffset, double zOffset) {
