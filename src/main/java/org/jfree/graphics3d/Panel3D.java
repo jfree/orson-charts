@@ -8,10 +8,14 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -20,21 +24,39 @@ import java.awt.event.MouseWheelListener;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 
 import javax.swing.JPanel;
+import org.jfree.graphics3d.swing.ExportAction;
+import org.jfree.graphics3d.swing.LeftAction;
+import org.jfree.graphics3d.swing.RightAction;
+import org.jfree.graphics3d.swing.RollLeftAction;
+import org.jfree.graphics3d.swing.RollRightAction;
+import org.jfree.graphics3d.swing.RotateDownAction;
+import org.jfree.graphics3d.swing.RotateUpAction;
+import org.jfree.graphics3d.swing.ZoomInAction;
+import org.jfree.graphics3d.swing.ZoomOutAction;
 
 /**
  * A panel that displays a set of 3D objects from some viewing point.
  */
-public class Panel3D extends JPanel implements MouseListener, 
+public class Panel3D extends JPanel implements ActionListener, MouseListener, 
         MouseMotionListener, MouseWheelListener {
 
+  static final String ZOOM_IN_CMD = "ZOOM_IN";
+  
+  static final String ZOOM_OUT_CMD = "ZOOM_OUT";
+  
   /** The world of 3D objects being displayed. */
   private World world;
 
@@ -56,7 +78,7 @@ public class Panel3D extends JPanel implements MouseListener,
 
   /** Tracks whether each face was visible in the previous rendering. */
   private boolean[] faceVisible;
-
+  
   /**
    * Creates a new panel with the specified view point and objects to
    * display.
@@ -78,10 +100,41 @@ public class Panel3D extends JPanel implements MouseListener,
   }
   
   private JPanel createButtonPanel() {
-    JPanel panel = new JPanel(new FlowLayout());
-    JButton button1 = new JButton("Export...");
-    panel.add(button1);
-    return panel;
+    JPanel leftPanel = new JPanel(new FlowLayout());
+    JButton zoomInButton = new JButton(new ZoomInAction(this));
+    zoomInButton.setFont(Panel3D.getFontAwesomeFont(24));
+    JButton zoomOutButton = new JButton(new ZoomOutAction(this));
+    zoomOutButton.setFont(Panel3D.getFontAwesomeFont(24));
+    JButton leftButton = new JButton(new LeftAction(this));
+    leftButton.setFont(Panel3D.getFontAwesomeFont(24));
+    JButton rightButton = new JButton(new RightAction(this));
+    rightButton.setFont(Panel3D.getFontAwesomeFont(24));
+    JButton upButton = new JButton(new RotateUpAction(this));
+    upButton.setFont(Panel3D.getFontAwesomeFont(24));
+    JButton downButton = new JButton(new RotateDownAction(this));
+    downButton.setFont(Panel3D.getFontAwesomeFont(24));
+    JButton rotateLeftButton = new JButton(new RollLeftAction(this));
+    rotateLeftButton.setFont(Panel3D.getFontAwesomeFont(24));
+    JButton rotateRightButton = new JButton(new RollRightAction(this));
+    rotateRightButton.setFont(Panel3D.getFontAwesomeFont(24));
+    JButton exportButton = new JButton(new ExportAction(this));
+    exportButton.setFont(Panel3D.getFontAwesomeFont(24));
+    leftPanel.add(zoomInButton);
+    leftPanel.add(zoomOutButton);
+    leftPanel.add(leftButton);
+    leftPanel.add(rightButton);
+    leftPanel.add(upButton);
+    leftPanel.add(downButton);
+    leftPanel.add(rotateLeftButton);
+    leftPanel.add(rotateRightButton);
+    
+    JPanel rightPanel = new JPanel(new FlowLayout());
+    rightPanel.add(exportButton);
+    
+    JPanel result = new JPanel(new BorderLayout());
+    result.add(leftPanel, BorderLayout.WEST);
+    result.add(rightPanel, BorderLayout.EAST);
+    return result;
   }
 
   /**
@@ -137,19 +190,20 @@ public class Panel3D extends JPanel implements MouseListener,
    */
   @Override
   public void paintComponent(Graphics g) {
-    Graphics2D g2 = (Graphics2D) g;
+    super.paintComponent(g);
+    drawContent((Graphics2D) g);
+  }
+  
+  public void drawContent(Graphics2D g2) {
+    Dimension dim = getSize();
     g2.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_ROUND,
             BasicStroke.JOIN_ROUND));
-    Dimension dim = getSize();
-    g2.setPaint(Color.white);
+    g2.setPaint(Color.WHITE);
     g2.fillRect(0, 0, dim.width, dim.height);
-    g2.setPaint(Color.blue);
     AffineTransform saved = g2.getTransform();
     g2.translate(dim.width / 2, (dim.height - 40) / 2);
-    Map hints = new HashMap();
-    hints.put(RenderingHints.KEY_ANTIALIASING,
+    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
             RenderingHints.VALUE_ANTIALIAS_ON);
-    g2.addRenderingHints(hints);
 
     Point3D[] eyePts = this.world.calculateEyeCoordinates(this.viewPoint);
 
@@ -184,7 +238,7 @@ public class Panel3D extends JPanel implements MouseListener,
         if (c != null) {
           g2.setPaint(new Color((int) (c.getRed() * shade),
                   (int) (c.getGreen() * shade),
-                  (int) (c.getBlue() * shade)));
+                  (int) (c.getBlue() * shade), c.getAlpha()));
           g2.fill(p);
           g2.draw(p);
         }
@@ -194,7 +248,7 @@ public class Panel3D extends JPanel implements MouseListener,
       }
 
     }
-    g2.setTransform(saved);
+    g2.setTransform(saved);      
   }
 
   /* (non-Javadoc)
@@ -269,5 +323,27 @@ public class Panel3D extends JPanel implements MouseListener,
     float valPhi = this.viewPoint.getPhi();
     setViewPoint(new ViewPoint3D(valTheta, valPhi, valRho));
   }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      String cmd = e.getActionCommand();
+      
+    }
+    
+    private static Font FONT_AWESOME;
+    
+    public static final Font getFontAwesomeFont(int size) {
+      InputStream in = Panel3D.class.getResourceAsStream("swing/fontawesome-webfont.ttf");
+      if (FONT_AWESOME == null) {
+        try {
+          FONT_AWESOME = Font.createFont(Font.TRUETYPE_FONT, in);
+        } catch (FontFormatException ex) {
+          Logger.getLogger(Panel3D.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+          Logger.getLogger(Panel3D.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      }
+      return FONT_AWESOME.deriveFont(Font.PLAIN, size);
+    }
 
 }
