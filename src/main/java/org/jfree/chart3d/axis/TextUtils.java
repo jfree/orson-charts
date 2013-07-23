@@ -8,7 +8,10 @@ import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.font.FontRenderContext;
 import java.awt.font.LineMetrics;
+import java.awt.font.TextLayout;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
+import java.text.AttributedString;
 
 /**
  *
@@ -245,7 +248,208 @@ public class TextUtils {
         final double height = fm.getHeight();
         return new Rectangle2D.Double(0.0, -fm.getAscent(), width, height);
     }
+    /**
+     * Draws a string that is aligned by one anchor point and rotated about
+     * another anchor point.
+     *
+     * @param text  the text.
+     * @param g2  the graphics device.
+     * @param x  the x-coordinate for positioning the text.
+     * @param y  the y-coordinate for positioning the text.
+     * @param textAnchor  the text anchor.
+     * @param angle  the rotation angle.
+     * @param rotationX  the x-coordinate for the rotation anchor point.
+     * @param rotationY  the y-coordinate for the rotation anchor point.
+     */
+    public static void drawRotatedString(final String text,
+            final Graphics2D g2, final float x, final float y,
+            final TextAnchor textAnchor, final double angle,
+            final float rotationX, final float rotationY) {
 
+        if (text == null || text.equals("")) {
+            return;
+        }
+        final float[] textAdj = deriveTextBoundsAnchorOffsets(g2, text,
+                textAnchor);
+        drawRotatedString(text, g2, x + textAdj[0], y + textAdj[1], angle,
+                rotationX, rotationY);
+    }
+
+    /**
+     * Draws a string that is aligned by one anchor point and rotated about
+     * another anchor point.
+     *
+     * @param text  the text.
+     * @param g2  the graphics device.
+     * @param x  the x-coordinate for positioning the text.
+     * @param y  the y-coordinate for positioning the text.
+     * @param textAnchor  the text anchor.
+     * @param angle  the rotation angle (in radians).
+     * @param rotationAnchor  the rotation anchor.
+     */
+    public static void drawRotatedString(final String text, final Graphics2D g2,
+            final float x, final float y, final TextAnchor textAnchor,
+            final double angle, final TextAnchor rotationAnchor) {
+
+        if (text == null || text.equals("")) {
+            return;
+        }
+        final float[] textAdj = deriveTextBoundsAnchorOffsets(g2, text,
+                textAnchor);
+        final float[] rotateAdj = deriveRotationAnchorOffsets(g2, text,
+                rotationAnchor);
+        drawRotatedString(text, g2, x + textAdj[0], y + textAdj[1],
+                angle, x + textAdj[0] + rotateAdj[0],
+                y + textAdj[1] + rotateAdj[1]);
+
+    }
+        /**
+     * A utility method that calculates the rotation anchor offsets for a
+     * string.  These offsets are relative to the text starting coordinate
+     * (BASELINE_LEFT).
+     *
+     * @param g2  the graphics device.
+     * @param text  the text.
+     * @param anchor  the anchor point.
+     *
+     * @return  The offsets.
+     */
+    private static float[] deriveRotationAnchorOffsets(final Graphics2D g2,
+            final String text, final TextAnchor anchor) {
+
+        final float[] result = new float[2];
+        final FontRenderContext frc = g2.getFontRenderContext();
+        final LineMetrics metrics = g2.getFont().getLineMetrics(text, frc);
+        final FontMetrics fm = g2.getFontMetrics();
+        final Rectangle2D bounds = TextUtils.getTextBounds(text, g2, fm);
+        final float ascent = metrics.getAscent();
+        final float halfAscent = ascent / 2.0f;
+        final float descent = metrics.getDescent();
+        final float leading = metrics.getLeading();
+        float xAdj = 0.0f;
+        float yAdj = 0.0f;
+
+        if (anchor == TextAnchor.TOP_LEFT
+                || anchor == TextAnchor.CENTER_LEFT
+                || anchor == TextAnchor.BOTTOM_LEFT
+                || anchor == TextAnchor.BASELINE_LEFT
+                || anchor == TextAnchor.HALF_ASCENT_LEFT) {
+
+            xAdj = 0.0f;
+
+        }
+        else if (anchor == TextAnchor.TOP_CENTER
+                || anchor == TextAnchor.CENTER
+                || anchor == TextAnchor.BOTTOM_CENTER
+                || anchor == TextAnchor.BASELINE_CENTER
+                || anchor == TextAnchor.HALF_ASCENT_CENTER) {
+
+            xAdj = (float) bounds.getWidth() / 2.0f;
+
+        }
+        else if (anchor == TextAnchor.TOP_RIGHT
+                || anchor == TextAnchor.CENTER_RIGHT
+                || anchor == TextAnchor.BOTTOM_RIGHT
+                || anchor == TextAnchor.BASELINE_RIGHT
+                || anchor == TextAnchor.HALF_ASCENT_RIGHT) {
+
+            xAdj = (float) bounds.getWidth();
+
+        }
+
+        if (anchor == TextAnchor.TOP_LEFT
+                || anchor == TextAnchor.TOP_CENTER
+                || anchor == TextAnchor.TOP_RIGHT) {
+
+            yAdj = descent + leading - (float) bounds.getHeight();
+
+        }
+        else if (anchor == TextAnchor.CENTER_LEFT
+                || anchor == TextAnchor.CENTER
+                || anchor == TextAnchor.CENTER_RIGHT) {
+
+            yAdj = descent + leading - (float) (bounds.getHeight() / 2.0);
+
+        }
+        else if (anchor == TextAnchor.HALF_ASCENT_LEFT
+                || anchor == TextAnchor.HALF_ASCENT_CENTER
+                || anchor == TextAnchor.HALF_ASCENT_RIGHT) {
+
+            yAdj = -halfAscent;
+
+        }
+        else if (anchor == TextAnchor.BASELINE_LEFT
+                || anchor == TextAnchor.BASELINE_CENTER
+                || anchor == TextAnchor.BASELINE_RIGHT) {
+
+            yAdj = 0.0f;
+
+        }
+        else if (anchor == TextAnchor.BOTTOM_LEFT
+                || anchor == TextAnchor.BOTTOM_CENTER
+                || anchor == TextAnchor.BOTTOM_RIGHT) {
+
+            yAdj = metrics.getDescent() + metrics.getLeading();
+
+        }
+        result[0] = xAdj;
+        result[1] = yAdj;
+        return result;
+
+    }
+    
+        /**
+     * A utility method for drawing rotated text.
+     * <P>
+     * A common rotation is -Math.PI/2 which draws text 'vertically' (with the
+     * top of the characters on the left).
+     *
+     * @param text  the text.
+     * @param g2  the graphics device.
+     * @param angle  the angle of the (clockwise) rotation (in radians).
+     * @param x  the x-coordinate.
+     * @param y  the y-coordinate.
+     */
+    public static void drawRotatedString(final String text, final Graphics2D g2,
+            final double angle, final float x, final float y) {
+        drawRotatedString(text, g2, x, y, angle, x, y);
+    }
+
+    /**
+     * A utility method for drawing rotated text.
+     * <P>
+     * A common rotation is -Math.PI/2 which draws text 'vertically' (with the
+     * top of the characters on the left).
+     *
+     * @param text  the text.
+     * @param g2  the graphics device.
+     * @param textX  the x-coordinate for the text (before rotation).
+     * @param textY  the y-coordinate for the text (before rotation).
+     * @param angle  the angle of the (clockwise) rotation (in radians).
+     * @param rotateX  the point about which the text is rotated.
+     * @param rotateY  the point about which the text is rotated.
+     */
+    public static void drawRotatedString(final String text, final Graphics2D g2,
+            final float textX, final float textY, final double angle,
+            final float rotateX, final float rotateY) {
+
+        if ((text == null) || (text.equals(""))) {
+            return;
+        }
+
+        final AffineTransform saved = g2.getTransform();
+
+        // apply the rotation...
+        final AffineTransform rotate = AffineTransform.getRotateInstance(
+                angle, rotateX, rotateY);
+        g2.transform(rotate);
+
+        AttributedString as = new AttributedString(text, 
+                g2.getFont().getAttributes());
+        g2.drawString(as.getIterator(), textX, textY);
+        g2.setTransform(saved);
+
+    }
 }
 
 
