@@ -160,13 +160,13 @@ public class Object3D {
     return cube;
   }
 
-  public static Object3D createBar(double size, double x, double y, double z, Color color) {
+  public static Object3D createBar(double size, double x, double y, double z, double zero, Color color) {
     Object3D bar = new Object3D();
     double delta = size / 2.0;
-    bar.addVertex(new Point3D(x - delta, 0, z - delta));
-    bar.addVertex(new Point3D(x + delta, 0, z - delta));
-    bar.addVertex(new Point3D(x + delta, 0, z + delta));
-    bar.addVertex(new Point3D(x - delta, 0, z + delta));
+    bar.addVertex(new Point3D(x - delta, zero, z - delta));
+    bar.addVertex(new Point3D(x + delta, zero, z - delta));
+    bar.addVertex(new Point3D(x + delta, zero, z + delta));
+    bar.addVertex(new Point3D(x - delta, zero, z + delta));
     bar.addVertex(new Point3D(x - delta, y, z - delta));
     bar.addVertex(new Point3D(x + delta, y, z - delta));
     bar.addVertex(new Point3D(x + delta, y, z + delta));
