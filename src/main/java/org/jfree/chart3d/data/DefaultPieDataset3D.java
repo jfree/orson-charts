@@ -13,13 +13,13 @@ import org.jfree.graphics3d.ArgChecks;
 public class DefaultPieDataset3D extends AbstractDataset3D 
     implements PieDataset3D {
 
-  private List<KeyValueItem> items;
+  private List<DefaultKeyedValue> items;
 
   /**
    * Creates a new (empty) dataset.
    */
   public DefaultPieDataset3D() {
-    this.items = new ArrayList<KeyValueItem>();
+    this.items = new ArrayList<DefaultKeyedValue>();
   }
 
   /**
@@ -32,7 +32,7 @@ public class DefaultPieDataset3D extends AbstractDataset3D
   public void add(Comparable key, Number value) {
     ArgChecks.nullNotPermitted(key, "key");
     // TODO : need to validate that the keys are unique
-    this.items.add(new KeyValueItem(key, value));
+    this.items.add(new DefaultKeyedValue(key, value));
   }
 
   /**
@@ -47,13 +47,13 @@ public class DefaultPieDataset3D extends AbstractDataset3D
 
   @Override
   public Comparable getKey(int item) {
-    KeyValueItem kvi = this.items.get(item);
+    DefaultKeyedValue kvi = this.items.get(item);
     return kvi.getKey();
   }
 
   @Override
   public Number getValue(int item) {
-    KeyValueItem kvi = this.items.get(item);
+    DefaultKeyedValue kvi = this.items.get(item);
     return kvi.getValue();
   }
 
