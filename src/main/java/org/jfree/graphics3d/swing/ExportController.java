@@ -3,6 +3,8 @@
  */
 package org.jfree.graphics3d.swing;
 
+import com.orsonpdf.PDFDocument;
+import com.orsonpdf.Page;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -12,13 +14,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
-import org.jfree.graphics2d.demo.SVGBarChartDemo1;
-import org.jfree.graphics2d.pdf.PDFDocument;
-import org.jfree.graphics2d.pdf.Page;
 import org.jfree.graphics2d.svg.SVGGraphics2D;
 
 /**
@@ -122,7 +119,7 @@ public class ExportController implements ActionListener {
           writer.close();
         }
       } catch (IOException ex) {
-        Logger.getLogger(SVGBarChartDemo1.class.getName()).log(Level.SEVERE, null, ex);
+        throw new RuntimeException(ex);
       }
     } 
   }
@@ -141,7 +138,7 @@ public class ExportController implements ActionListener {
           writer.close();
         }
       } catch (IOException ex) {
-        Logger.getLogger(SVGBarChartDemo1.class.getName()).log(Level.SEVERE, null, ex);
+        throw new RuntimeException(ex);
       }
     } 
   }
