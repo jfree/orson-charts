@@ -1,6 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * (C)opyright 2013, by Object Refinery Limited
  */
 package org.jfree.chart3d.data;
 
@@ -11,7 +10,7 @@ import java.util.List;
  * (key, key, value).  This could be used for a 3D bar chart, or a stacked
  * 3D bar chart.
  */
-public interface CategoryDataset3D extends Dataset3D {
+public interface CategoryDataset3D extends KeyedValues3D, Dataset3D {
 
   public List<Comparable> getSeriesKeys();  
   public List<Comparable> getRowKeys();  
