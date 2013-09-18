@@ -29,23 +29,27 @@ public class XYZSeriesCollection extends AbstractDataset3D implements XYZDataset
   }
 
   @Override
-  public int getItemCount(int series) {
+  public int getItemCount(int seriesIndex) {
     ArgChecks.nullNotPermitted(this, null);
-    throw new UnsupportedOperationException("Not supported yet.");
+    XYZSeries s = this.series.get(seriesIndex);
+    return s.getItemCount();
   }
 
   @Override
-  public double getX(int series, int item) {
-    throw new UnsupportedOperationException("Not supported yet.");
+  public double getX(int seriesIndex, int itemIndex) {
+    XYZSeries s = this.series.get(seriesIndex);
+    return s.getXValue(itemIndex);
   }
 
   @Override
-  public double getY(int series, int item) {
-    throw new UnsupportedOperationException("Not supported yet.");
+  public double getY(int seriesIndex, int itemIndex) {
+    XYZSeries s = this.series.get(seriesIndex);
+    return s.getYValue(itemIndex);
   }
 
   @Override
-  public double getZ(int series, int item) {
-    throw new UnsupportedOperationException("Not supported yet.");
+  public double getZ(int seriesIndex, int itemIndex) {
+    XYZSeries s = this.series.get(seriesIndex);
+    return s.getZValue(itemIndex);
   }
 }
