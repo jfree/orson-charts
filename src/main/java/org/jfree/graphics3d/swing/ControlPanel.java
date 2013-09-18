@@ -12,6 +12,7 @@ import javax.swing.JPanel;
  * Controls for a 3D display.
  */
 public class ControlPanel extends JPanel {
+    
   private static final int FONT_SIZE = 18;
   
   public ControlPanel(Panel3D parent) {
