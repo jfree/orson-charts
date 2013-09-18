@@ -6,7 +6,7 @@ package org.jfree.chart3d.data;
 /**
  * A data item where a key is associated with a numerical value.
  */
-public class DefaultKeyedValue {
+public class DefaultKeyedValue implements KeyedValue {
 
   private Comparable key;
 
@@ -28,6 +28,7 @@ public class DefaultKeyedValue {
    * 
    * @return The key (never <code>null</code>). 
    */
+  @Override
   public Comparable getKey() {
     return this.key;
   }
@@ -37,8 +38,16 @@ public class DefaultKeyedValue {
    * 
    * @return The value (possibly <code>null</code>). 
    */
+  @Override
   public Number getValue() {
     return this.value;
+  }
+  
+  /**
+   * Sets the value.
+   */
+  public void setValue(Number value) {
+    this.value = value;
   }
   
   @Override

@@ -45,15 +45,25 @@ public class DefaultKeyedValues implements KeyedValues {
    * @param value  the value.
    */
   public void addValue(Comparable key, Number value) {
-    
+    DefaultKeyedValue dkv;
+    int index = getIndex(key);
+    if (index >= 0) {
+      dkv = (DefaultKeyedValue) this.data.get(index);
+      dkv.setValue(value);
+    } else {
+      this.data.add(new DefaultKeyedValue(key, value));
+    }
   }
   
   public void removeValue(Comparable key) {
-      
+    int index = getIndex(key);
+    if (index >= 0) {
+      removeValue(index);
+    }
   }
   
   public void removeValue(int index) {
-      
+    this.data.remove(index);
   }
   
   @Override
@@ -64,7 +74,13 @@ public class DefaultKeyedValues implements KeyedValues {
 
   @Override
   public int getIndex(Comparable key) {
-    throw new UnsupportedOperationException("Not supported yet."); 
+    for (int i = 0; i < this.data.size(); i++) {
+      KeyedValue kv = this.data.get(i);
+      if (kv.getKey().equals(key)) {
+        return i;
+      }
+    }
+    return -1;
   }
 
   @Override

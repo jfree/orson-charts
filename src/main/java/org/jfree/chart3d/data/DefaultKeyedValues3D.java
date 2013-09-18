@@ -1,13 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * (C)opyright 2013, by Object Refinery Limited
  */
 package org.jfree.chart3d.data;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 /**
  * A three dimensional table of numerical values, implementing the 
@@ -95,7 +93,7 @@ public class DefaultKeyedValues3D implements KeyedValues3D {
 
   @Override
   public Number getValue(int xIndex, int yIndex, int zIndex) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    return this.data.get(zIndex).getValue(xIndex, yIndex);
   }
     
   @Override
@@ -103,7 +101,8 @@ public class DefaultKeyedValues3D implements KeyedValues3D {
     return getValue(getXIndex(xKey), getYIndex(yKey), getZIndex(zKey));
   }
 
-  public void addValue(Number n, Comparable xKey, Comparable yKey, Comparable zKey) {
+  public void addValue(Number n, Comparable xKey, Comparable yKey, 
+          Comparable zKey) {
       // cases:
       // 1 - the dataset is empty, so we just need to add a new layer with the
       //     given keys;

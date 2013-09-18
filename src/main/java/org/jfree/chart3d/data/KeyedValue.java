@@ -8,6 +8,18 @@ package org.jfree.chart3d.data;
  */
 public interface KeyedValue {
   
+  /**
+   * Returns the key.
+   * 
+   * @return The key. 
+   */
   public Comparable getKey();
-  public Number getValue(); 
+  
+  /**
+   * Returns the value.
+   * 
+   * @return The value (possibly <code>null</code>). 
+   */
+  public Number getValue();
+  
 }
