@@ -38,6 +38,10 @@ public class Range {
     return value >= this.min && value <= this.max;
   }
   
+  public double percent(double value) {
+    return (value - this.min) / getLength();
+  }
+  
   /**
    * Tests this instance for equality with an arbitrary object.
    * 
