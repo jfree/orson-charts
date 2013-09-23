@@ -1,15 +1,17 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * ===========
+ * OrsonCharts
+ * ===========
+ * 
+ * (C)opyright 2013 by Object Refinery Limited.
+ * 
  */
 package com.orsoncharts.renderer;
 
 import java.awt.Color;
-import java.awt.Paint;
 
 /**
- *
- * @author dgilbert
+ * 
  */
 public class DefaultCategory3DPaintSource implements Category3DPaintSource {
 

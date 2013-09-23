@@ -102,7 +102,7 @@ public class DefaultCategoryDataset3D extends AbstractDataset3D
  
     public void addSeries(Comparable seriesKey, KeyedValues data) {
         for (Comparable key : data.getKeys()) {
-            setValue(data.getValue(key), seriesKey, key, seriesKey);
+            setValue(data.getValue(key), seriesKey, seriesKey, key);
         }
     }
 }

@@ -19,13 +19,13 @@ import com.orsoncharts.data.DefaultCategoryDataset3D;
 import com.orsoncharts.data.DefaultKeyedValues;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.plot.CategoryPlot3D;
-import com.orsoncharts.renderer.BarRenderer3D;
 import com.orsoncharts.renderer.CategoryRenderer3D;
+import com.orsoncharts.renderer.LineRenderer3D;
 
 /**
- * A demo of a 3D bar chart.
+ * A demo of a 3D line chart.
  */
-public class BarChart3DDemo2 extends JFrame {
+public class LineChart3DDemo1 extends JFrame {
     
     Chart3D chart;
 
@@ -36,7 +36,7 @@ public class BarChart3DDemo2 extends JFrame {
      *
      * @param title  the frame title.
      */
-    public BarChart3DDemo2(String title) {
+    public LineChart3DDemo1(String title) {
         super(title);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -46,26 +46,23 @@ public class BarChart3DDemo2 extends JFrame {
         getContentPane().add(createContent());
     }
 
-    JPanel createContent() {
+    final JPanel createContent() {
         JPanel content = new JPanel(new BorderLayout());
         content.setPreferredSize(new Dimension(600, 400));
         CategoryDataset3D dataset = createDataset();
-        CategoryAxis3D rowAxis = new CategoryAxis3D("Company");
-        //rowAxis.setRange(0, 3);
-        rowAxis.setCategoryLabel("Google", 1.0);
-        rowAxis.setCategoryLabel("Yahoo", 2.0);
-
         CategoryAxis3D columnAxis = new CategoryAxis3D("Quarter");
-        //columnAxis.setRange(0.0, 5.0);
+        columnAxis.setRange(0.0, 5.0);
         columnAxis.setCategoryLabel("Q1", 1.0);
         columnAxis.setCategoryLabel("Q2", 2.0);
         columnAxis.setCategoryLabel("Q3", 3.0);
         columnAxis.setCategoryLabel("Q4", 4.0);
         NumberAxis3D yAxis = new NumberAxis3D("Value", new Range(0.0, 5.0));
-        //zAxis.setCategoryLabel("J.P.Morgan", 2.5);
+        CategoryAxis3D rowAxis = new CategoryAxis3D("Company");
+        rowAxis.setRange(0, 3);
+        rowAxis.setCategoryLabel("Google", 1.0);
+        rowAxis.setCategoryLabel("Yahoo", 2.0);
         CategoryPlot3D plot = new CategoryPlot3D(dataset, rowAxis, columnAxis, yAxis);
-        //plot.setDimensions(new Dimension3D(10, 5, 6));
-        CategoryRenderer3D renderer = new BarRenderer3D();
+        CategoryRenderer3D renderer = new LineRenderer3D();
         plot.setRenderer(renderer);
         renderer.setPlot(plot);
     
@@ -105,8 +102,8 @@ public class BarChart3DDemo2 extends JFrame {
      * @param args  command line arguments (ignored).
      */
     public static void main(String[] args) {
-        BarChart3DDemo2 app = new BarChart3DDemo2(
-                "OrsonCharts: BarChart3DDemo2.java");
+        LineChart3DDemo1 app = new LineChart3DDemo1(
+                "OrsonCharts: LineChart3DDemo1.java");
         app.pack();
         app.setVisible(true);
     }

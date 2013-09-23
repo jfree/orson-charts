@@ -11,39 +11,25 @@ package com.orsoncharts.renderer;
 import java.awt.Color;
 
 import com.orsoncharts.axis.Axis3D;
-import com.orsoncharts.axis.Range;
 import com.orsoncharts.data.CategoryDataset3D;
-import com.orsoncharts.data.DataUtilities;
-import com.orsoncharts.data.Values3D;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.plot.CategoryPlot3D;
 
 /**
- * An area renderer for 3D charts.
+ * A line renderer for 3D (category) charts.
+ * 
+ * TODO: handling null values, and values that are isolated
  */
-public class AreaRenderer3D extends AbstractCategoryRenderer3D {
+public class LineRenderer3D extends AbstractCategoryRenderer3D {
     
-    private double base;
-    
-    private double thickness = 0.6;
+    private double thickness = 0.4;
     
     /**
      * Default constructor.
      */
-    public AreaRenderer3D() {
-        this.base = 0.0;    
-    }
-
-    @Override
-    public RendererType getRendererType() {
-        return RendererType.BY_ITEM;
-    }
-
-    @Override
-    public Range findValueRange(Values3D data) {
-        return DataUtilities.findValueRange(data, this.base);
+    public LineRenderer3D() { 
     }
 
     @Override
@@ -70,9 +56,6 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D {
                     dimensions.getHeight()) + yOffset;
             double z0 = rowAxis.translateToWorld(row + 1, 
                     dimensions.getDepth()) + zOffset;
-
-            double zero = valueAxis.translateToWorld(this.base, 
-                    dimensions.getHeight()) + yOffset;
     
             double x1 = columnAxis.translateToWorld(column + 2, 
                     dimensions.getWidth()) + xOffset;
@@ -89,17 +72,8 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D {
             obj.addVertex(x1, y1, z0 + delta);
             obj.addVertex(x1, y1, z0 - delta);
             
-            obj.addVertex(x1, zero, z0 - delta);
-            obj.addVertex(x1, zero, z0 + delta);
-            obj.addVertex(x0, zero, z0 + delta);
-            obj.addVertex(x0, zero, z0 - delta);
-
             obj.addFace(new int[] {0, 1, 2, 3}, color);
-            //obj.addFace(new int[] {3, 2, 1, 0}, Color.GRAY);
-            obj.addFace(new int[] {0, 3, 4, 7}, color);
-            obj.addFace(new int[] {6, 5, 2, 1}, color);
-            
-            obj.addFace(new int[] {5, 6, 7, 4}, Color.GRAY);
+            obj.addFace(new int[] {3, 2, 1, 0}, Color.GRAY);
             world.add(obj);
    
         } else {
@@ -109,3 +83,4 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D {
     }
 
 }
+

@@ -399,13 +399,22 @@ public class Object3D {
 
     /**
      * Adds a new vertex for the object.
+     * 
+     * @param x  the x-coordinate.
+     * @param y  the y-coordinate.
+     * @param z  the z-coordinate.
+     */
+    public void addVertex(double x, double y, double z) {
+        addVertex(new Point3D(x, y, z));    
+    }
+    
+    /**
+     * Adds a new vertex for the object.
      *
      * @param vertex  the vertex (<code>null</code> not permitted).
      */
     public void addVertex(Point3D vertex) {
-        if (vertex == null) {
-            throw new IllegalArgumentException("Null 'vertex' argument.");
-        }
+        ArgChecks.nullNotPermitted(vertex, "vertex");
         this.vertices.add(vertex);
     }
 
@@ -418,15 +427,17 @@ public class Object3D {
         return this.faces.size();
     }
 
+    public void addFace(int[] vertices, Color color) {
+        addFace(new Face(vertices, color));
+    }
+    
     /**
      * Adds a face.
      *
      * @param face  the face (<code>null</code> not permitted).
      */
     public void addFace(Face face) {
-        if (face == null) {
-            throw new IllegalArgumentException("Null 'face' argument.");
-        }
+        ArgChecks.nullNotPermitted(face, "face");
         this.faces.add(face);
     }
 

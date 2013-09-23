@@ -1,15 +1,23 @@
 /**
- * (C)opyright 2013, by Object Refinery Limited
+ * ===========
+ * OrsonCharts
+ * ===========
+ * 
+ * (C)opyright 2013 by Object Refinery Limited.
+ * 
  */
 package com.orsoncharts.renderer;
 
+import java.awt.Color;
 import com.orsoncharts.axis.Axis3D;
+import com.orsoncharts.axis.Range;
 import com.orsoncharts.data.CategoryDataset3D;
+import com.orsoncharts.data.DataUtilities;
+import com.orsoncharts.data.Values3D;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.plot.CategoryPlot3D;
-import java.awt.Color;
 
 /**
  * A bar renderer in 3D
@@ -41,8 +49,19 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
         return this.barThickness;
     }
     
+    /**
+     * Sets the bar thickness and fires a renderer change event.
+     * 
+     * @param thickness  the new thickness.
+     */
     public void setBarThickness(double thickness) {
         this.barThickness = thickness;
+        // TODO : change event
+    }
+
+    @Override
+    public Range findValueRange(Values3D data) {
+        return DataUtilities.findValueRange(data, this.base);
     }
 
     @Override
