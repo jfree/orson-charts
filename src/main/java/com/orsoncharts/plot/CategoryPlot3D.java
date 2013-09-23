@@ -6,7 +6,7 @@ package com.orsoncharts.plot;
 import com.orsoncharts.axis.Axis3D;
 import com.orsoncharts.axis.Range;
 import com.orsoncharts.data.CategoryDataset3D;
-import com.orsoncharts.event.Dataset3DChangeEvent;
+import com.orsoncharts.data.Dataset3DChangeEvent;
 import com.orsoncharts.graphics3d.ArgChecks;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.World;

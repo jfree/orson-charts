@@ -1,7 +1,7 @@
 /**
  * (C)opyright 2013, by Object Refinery Limited
  */
-package com.orsoncharts.event;
+package com.orsoncharts.axis;
 
 import java.util.EventObject;
 import com.orsoncharts.axis.Axis3D;

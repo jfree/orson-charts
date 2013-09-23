@@ -7,7 +7,7 @@
  * 
  */
 
-package com.orsoncharts.event;
+package com.orsoncharts.renderer;
 
 import java.util.EventObject;
 

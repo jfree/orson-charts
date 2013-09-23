@@ -7,8 +7,6 @@ import java.util.Arrays;
 import java.util.EventListener;
 import java.util.List;
 import javax.swing.event.EventListenerList;
-import com.orsoncharts.event.Dataset3DChangeEvent;
-import com.orsoncharts.event.Dataset3DChangeListener;
 
 /**
  * A base class that can be used to create new dataset classes.

@@ -4,8 +4,6 @@
  */
 package com.orsoncharts.renderer;
 
-import com.orsoncharts.event.Renderer3DChangeListener;
-
 /**
  * A base interface for renderers.
  */

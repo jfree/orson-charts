@@ -4,10 +4,8 @@
 package com.orsoncharts.plot;
 
 import javax.swing.event.EventListenerList;
-import com.orsoncharts.event.Dataset3DChangeEvent;
-import com.orsoncharts.event.Dataset3DChangeListener;
-import com.orsoncharts.event.Plot3DChangeEvent;
-import com.orsoncharts.event.Plot3DChangeListener;
+import com.orsoncharts.data.Dataset3DChangeEvent;
+import com.orsoncharts.data.Dataset3DChangeListener;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.World;
 

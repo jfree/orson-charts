@@ -1,7 +1,7 @@
 /**
  * (C)opyright 2013, by Object Refinery Limited
  */
-package com.orsoncharts.event;
+package com.orsoncharts.data;
 
 import java.util.EventObject;
 

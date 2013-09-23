@@ -3,7 +3,6 @@
  */
 package com.orsoncharts.plot;
 
-import com.orsoncharts.event.Plot3DChangeListener;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.World;
 

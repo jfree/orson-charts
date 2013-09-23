@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.orsoncharts.event;
+package com.orsoncharts.renderer;
 
+import com.orsoncharts.renderer.Renderer3DChangeEvent;
 import java.util.EventListener;
 
 /**

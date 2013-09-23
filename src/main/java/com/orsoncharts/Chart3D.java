@@ -4,10 +4,8 @@
 package com.orsoncharts;
 
 import javax.swing.event.EventListenerList;
-import com.orsoncharts.event.Chart3DChangeEvent;
-import com.orsoncharts.event.Chart3DChangeListener;
-import com.orsoncharts.event.Plot3DChangeEvent;
-import com.orsoncharts.event.Plot3DChangeListener;
+import com.orsoncharts.plot.Plot3DChangeEvent;
+import com.orsoncharts.plot.Plot3DChangeListener;
 import com.orsoncharts.plot.Plot3D;
 import com.orsoncharts.graphics3d.ArgChecks;
 

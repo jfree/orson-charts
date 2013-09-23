@@ -9,9 +9,7 @@
 package com.orsoncharts.renderer;
 
 import javax.swing.event.EventListenerList;
-import com.orsoncharts.event.Plot3DChangeListener;
-import com.orsoncharts.event.Renderer3DChangeEvent;
-import com.orsoncharts.event.Renderer3DChangeListener;
+import com.orsoncharts.plot.Plot3DChangeListener;
 
 /**
  * A base class for 3D renderers.

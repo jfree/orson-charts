@@ -1,8 +1,9 @@
 /**
  * (C)opyright 2013, by Object Refinery Limited
  */
-package com.orsoncharts.event;
+package com.orsoncharts;
 
+import com.orsoncharts.Chart3DChangeEvent;
 import java.util.EventListener;
 
 /**

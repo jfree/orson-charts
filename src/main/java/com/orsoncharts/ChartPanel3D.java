@@ -13,8 +13,6 @@ import java.util.List;
 import com.orsoncharts.axis.Axis3D;
 import com.orsoncharts.axis.TextAnchor;
 import com.orsoncharts.axis.TextUtils;
-import com.orsoncharts.event.Chart3DChangeEvent;
-import com.orsoncharts.event.Chart3DChangeListener;
 import com.orsoncharts.plot.PiePlot3D;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.graphics3d.Dimension3D;
