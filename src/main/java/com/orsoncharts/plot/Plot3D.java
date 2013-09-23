@@ -34,8 +34,19 @@ public interface Plot3D {
   public void composeToWorld(World world, double xOffset, double yOffset, 
           double zOffset);
 
+  /**
+   * Registers a listener to receive notification of changes to the plot.
+   * 
+   * @param listener  the listener (<code>null</code> not permitted). 
+   */
   public void addChangeListener(Plot3DChangeListener listener);
   
+  /**
+   * De-registers a listener so that it no longer receives notification of
+   * changes to the plot.
+   * 
+   * @param listener  the listener (<code>null</code> not permitted).
+   */
   public void removeChangeListener(Plot3DChangeListener listener);
   
 }
