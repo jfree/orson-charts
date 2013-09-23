@@ -23,9 +23,10 @@ import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.Tools2D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.graphics3d.swing.Panel3D;
+import com.orsoncharts.plot.CategoryPlot3D;
 
 /**
- * A panel designed to display a JFreeChart3D.  The panel will manage:
+ * A panel designed to display a Chart3D.  The panel will manage:
  * 
  * - the chart title;
  * - the chart viewing area;
@@ -36,7 +37,7 @@ import com.orsoncharts.graphics3d.swing.Panel3D;
 public class ChartPanel3D extends Panel3D implements Chart3DChangeListener {
 
   /** The chart being rendered. */
-  private JFreeChart3D chart;
+  private Chart3D chart;
 
   /** The chart box (a frame of reference for the chart). */
   private ChartBox3D chartBox;
@@ -46,7 +47,7 @@ public class ChartPanel3D extends Panel3D implements Chart3DChangeListener {
    *
    * @param chart  the chart.
    */
-  public ChartPanel3D(JFreeChart3D chart) {
+  public ChartPanel3D(Chart3D chart) {
     super(new World());
     this.chart = chart;
     this.chart.addChangeListener(this);
@@ -117,7 +118,7 @@ public class ChartPanel3D extends Panel3D implements Chart3DChangeListener {
     // if a CategoryPlot3D then there will be a ChartBox overlay
 
     // if an XYZPlot then there will be a ChartBox overlay
-    if (this.chart.getPlot() instanceof XYZPlot) {
+    if (this.chart.getPlot() instanceof XYZPlot || this.chart.getPlot() instanceof CategoryPlot3D) {
       World labelOverlay = new World();
       ChartBox3D cb = new ChartBox3D(w, h, depth, -w / 2, -h / 2, -depth / 2, new Color(0, 0, 255, 200));
       labelOverlay.add(cb.getObject3D());
@@ -163,11 +164,18 @@ public class ChartPanel3D extends Panel3D implements Chart3DChangeListener {
       boolean e = this.chartBox.faceE().isRendered();
       boolean f = this.chartBox.faceF().isRendered();
 
-      XYZPlot plot = (XYZPlot) this.chart.getPlot();
-      Axis3D xAxis = plot.getXAxis();
-      Axis3D yAxis = plot.getYAxis();
-      Axis3D zAxis = plot.getZAxis();
-
+      Axis3D xAxis = null, yAxis = null, zAxis = null;
+      if (this.chart.getPlot() instanceof XYZPlot) {
+          XYZPlot plot = (XYZPlot) this.chart.getPlot();
+          xAxis = plot.getXAxis();
+          yAxis = plot.getYAxis();
+          zAxis = plot.getZAxis();
+      } else if (this.chart.getPlot() instanceof CategoryPlot3D) {
+          CategoryPlot3D plot = (CategoryPlot3D) this.chart.getPlot();
+          xAxis = plot.getColumnAxis();
+          yAxis = plot.getValueAxis();
+          zAxis = plot.getRowAxis();
+      }
       double ab = (count(a, b) == 1 ? v0.distance(v1) : 0.0);
       double bc = (count(b, c) == 1 ? v3.distance(v2) : 0.0);
       double cd = (count(c, d) == 1 ? v4.distance(v7) : 0.0);
