@@ -4,7 +4,7 @@
 package com.orsoncharts.event;
 
 import java.util.EventObject;
-import com.orsoncharts.JFreeChart3D;
+import com.orsoncharts.Chart3D;
 
 /**
  * An event indicating some change in the attributes of a chart.  Typically 
@@ -12,14 +12,14 @@ import com.orsoncharts.JFreeChart3D;
  */
 public class Chart3DChangeEvent extends EventObject {
 
-  private JFreeChart3D chart;
+  private Chart3D chart;
   
-  public Chart3DChangeEvent(Object source, JFreeChart3D chart) {
+  public Chart3DChangeEvent(Object source, Chart3D chart) {
     super(source);
     this.chart = chart;
   }
   
-  public JFreeChart3D getChart() {
+  public Chart3D getChart() {
     return this.chart;
   }
 }
