@@ -8,7 +8,6 @@
  */
 package com.orsoncharts.renderer.category;
 
-import com.orsoncharts.renderer.category.AbstractCategoryRenderer3D;
 import java.awt.Color;
 
 import com.orsoncharts.axis.Axis3D;
@@ -43,6 +42,16 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D {
         return RendererType.BY_ITEM;
     }
 
+    /**
+     * Returns the range (for the value axis) that is required for this 
+     * renderer to show all the values in the specified data set.  This method
+     * is overridden to ensure that the range includes the base value (normally
+     * 0.0) set for the renderer.
+     * 
+     * @param data  the data (<code>null</code> not permitted).
+     * 
+     * @return The range. 
+     */
     @Override
     public Range findValueRange(Values3D data) {
         return DataUtilities.findValueRange(data, this.base);
@@ -97,11 +106,16 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D {
             obj.addVertex(x0, zero, z0 - delta);
 
             obj.addFace(new int[] {0, 1, 2, 3}, color);
-            //obj.addFace(new int[] {3, 2, 1, 0}, Color.GRAY);
             obj.addFace(new int[] {0, 3, 4, 7}, color);
             obj.addFace(new int[] {6, 5, 2, 1}, color);
             
-            obj.addFace(new int[] {5, 6, 7, 4}, Color.GRAY);
+            if (column == 0) {
+                obj.addFace(new int[] {0, 7, 6, 1}, color);
+            }
+            if (column == dataset.getColumnCount() - 2) {
+                obj.addFace(new int[] {5, 4, 3, 2}, color);
+            }
+            obj.addFace(new int[] {5, 6, 7, 4}, Color.GRAY);  // bottom side
             world.add(obj);
    
         } else {
