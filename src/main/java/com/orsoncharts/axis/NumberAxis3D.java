@@ -5,7 +5,6 @@ package com.orsoncharts.axis;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
@@ -24,7 +23,7 @@ public class NumberAxis3D extends AbstractAxis3D implements Axis3D {
 
   private double tickSize;
 
-  NumberFormat tickFormatter;
+  private NumberFormat tickFormatter;
 
   /**
    * Creates a new axis with the specified range.
