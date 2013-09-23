@@ -11,10 +11,16 @@ import com.orsoncharts.plot.XYZPlot;
  */
 public class AbstractXYZRenderer {
 
-  private XYZPlot plot;
+    private XYZPlot plot;
   
-  protected AbstractXYZRenderer() {  
-  }
+    private XYZPaintSource paintSource;
+  
+    /**
+     * Creates a new default instance.
+     */
+    protected AbstractXYZRenderer() {
+        this.paintSource = new DefaultXYZPaintSource();
+    }
   
   /**
    * Returns the plot that the renderer is assigned to, if any.
@@ -34,4 +40,7 @@ public class AbstractXYZRenderer {
     this.plot = plot;
   }
 
+  public XYZPaintSource getPaintSource() {
+      return this.paintSource;
+  }
 }
