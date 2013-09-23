@@ -8,61 +8,62 @@ package com.orsoncharts.axis;
  */
 public class Range {
 
-  private double min;
+    private double min;
 
-  private double max;
+    private double max;
 
-  public Range(double min, double max) {
-    this.min = min;
-    this.max = max;
-  }
+    public Range(double min, double max) {
+        this.min = min;
+        this.max = max;
+    }
 
-  public double getMin() {
-    return this.min;
-  }
+    public double getMin() {
+        return this.min;
+    }
 
-  public double getMax() {
-    return this.max;
-  }
+    public double getMax() {
+        return this.max;
+    }
 
-  /**
-   * Returns the length of the range.
-   *
-   * @return The length of the range.
-   */
-  public double getLength() {
-    return this.max - this.min;
-  }
+    /**
+     * Returns the length of the range.
+     *
+     * @return The length of the range.
+     */
+    public double getLength() {
+        return this.max - this.min;
+    }
 
-  public boolean contains(double value) {
-    return value >= this.min && value <= this.max;
-  }
+    public boolean contains(double value) {
+        return value >= this.min && value <= this.max;
+    }
   
-  public double percent(double value) {
-    return (value - this.min) / getLength();
-  }
+    public double percent(double value) {
+        return (value - this.min) / getLength();
+    }
   
-  /**
-   * Tests this instance for equality with an arbitrary object.
-   * 
-   * @param obj  the object (<code>null</code> permitted).
-   * 
-   * @return A boolean. 
-   */
-  public boolean equals(Object obj) {
-    if (obj == this) {
-      return true;
+    /**
+     * Tests this instance for equality with an arbitrary object.
+     * 
+     * @param obj  the object (<code>null</code> permitted).
+     * 
+     * @return A boolean. 
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof Range)) {
+            return false;
+        }
+        Range that = (Range) obj;
+        if (this.min != that.min) {
+            return false;
+        }
+        if (this.max != that.max) {
+            return false;
+        }
+        return true;
     }
-    if (!(obj instanceof Range)) {
-      return false;
-    }
-    Range that = (Range) obj;
-    if (this.min != that.min) {
-      return false;
-    }
-    if (this.max != that.max) {
-      return false;
-    }
-    return true;
-  }
 }
