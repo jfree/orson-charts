@@ -45,18 +45,17 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer {
     Axis3D xAxis = plot.getXAxis();
     Axis3D yAxis = plot.getYAxis();
     Axis3D zAxis = plot.getZAxis();
-    Dimension3D dim = plot.getDimensions();
    
     double x = dataset.getX(series, item);
     double z = dataset.getY(series, item);
     double y = dataset.getZ(series, item);
     Paint paint = getItemPaint(series, item);
 
-    double xx = xAxis.translateToWorld(x, dim.getWidth());
-    double yy = yAxis.translateToWorld(y, dim.getHeight());
-    double zz = zAxis.translateToWorld(z, dim.getDepth());
+    double xx = xAxis.translateToWorld(x, dimensions.getWidth());
+    double yy = yAxis.translateToWorld(y, dimensions.getHeight());
+    double zz = zAxis.translateToWorld(z, dimensions.getDepth());
 
-    double zero = yAxis.translateToWorld(0.0, dim.getHeight());
+    double zero = yAxis.translateToWorld(0.0, dimensions.getHeight());
     
     Object3D bar = Object3D.createBar(0.8, xx + xOffset, yy + yOffset, 
             zz + zOffset, zero + yOffset, (Color) paint);
