@@ -11,7 +11,7 @@ package com.orsoncharts.renderer;
 import java.awt.Color;
 import java.awt.Paint;
 import com.orsoncharts.axis.Axis3D;
-import com.orsoncharts.data.XYZDataset;
+import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.Object3D;

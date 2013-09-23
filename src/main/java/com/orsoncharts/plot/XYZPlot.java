@@ -4,7 +4,7 @@
 package com.orsoncharts.plot;
 
 import com.orsoncharts.axis.Axis3D;
-import com.orsoncharts.data.XYZDataset;
+import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.renderer.XYZRenderer;
 import com.orsoncharts.graphics3d.ArgChecks;
 import com.orsoncharts.graphics3d.Dimension3D;

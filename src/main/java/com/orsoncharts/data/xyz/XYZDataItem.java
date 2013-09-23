@@ -1,7 +1,7 @@
 /**
  * (C)opyright 2013, by Object Refinery Limited
  */
-package com.orsoncharts.data;
+package com.orsoncharts.data.xyz;
 
 /**
  * Represents a single (x, y, z) data item, which can be added to a

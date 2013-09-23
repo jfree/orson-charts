@@ -3,6 +3,8 @@
  */
 package com.orsoncharts.data;
 
+import com.orsoncharts.data.xyz.XYZDataset;
+
 /**
  * A default XYZDataset implementation.
  */

@@ -1,7 +1,9 @@
 /**
  * (C)opyright 2013, by Object Refinery Limited
  */
-package com.orsoncharts.data;
+package com.orsoncharts.data.xyz;
+
+import com.orsoncharts.data.Dataset3D;
 
 /**
  * Defines the methods used to access data in the form of multiple series

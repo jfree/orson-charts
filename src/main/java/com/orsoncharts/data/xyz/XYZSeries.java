@@ -1,8 +1,9 @@
 /**
  * (C)opyright 2013, by Object Refinery Limited
  */
-package com.orsoncharts.data;
+package com.orsoncharts.data.xyz;
 
+import com.orsoncharts.data.xyz.XYZDataItem;
 import java.util.ArrayList;
 import java.util.List;
 import com.orsoncharts.graphics3d.ArgChecks;

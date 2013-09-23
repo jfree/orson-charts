@@ -13,7 +13,7 @@ import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.axis.NumberAxis3D;
 import com.orsoncharts.axis.Range;
 import com.orsoncharts.data.DefaultXYZDataset;
-import com.orsoncharts.data.XYZDataset;
+import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.renderer.ScatterXYZRenderer;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 
