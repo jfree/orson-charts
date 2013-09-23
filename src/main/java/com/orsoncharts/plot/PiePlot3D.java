@@ -234,6 +234,7 @@ public class PiePlot3D extends AbstractPlot3D {
     return result;
   }
   
+  @Override
   public boolean equals(Object obj) {
     if (obj == this) {
       return true;
