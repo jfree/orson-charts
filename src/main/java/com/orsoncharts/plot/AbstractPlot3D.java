@@ -118,6 +118,6 @@ public abstract class AbstractPlot3D implements Plot3D, Dataset3DChangeListener 
 
   @Override
   public void datasetChanged(Dataset3DChangeEvent event) {
-    this.notifyListeners(new Plot3DChangeEvent(event, this));
+    notifyListeners(new Plot3DChangeEvent(event, this));
   }
 }
