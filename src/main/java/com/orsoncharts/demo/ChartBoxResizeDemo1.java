@@ -12,7 +12,7 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import com.orsoncharts.ChartPanel3D;
-import com.orsoncharts.JFreeChart3D;
+import com.orsoncharts.Chart3D;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.axis.NumberAxis3D;
 import com.orsoncharts.axis.Range;
@@ -27,7 +27,7 @@ import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
  */
 public class ChartBoxResizeDemo1 extends JFrame implements ChangeListener {
 
-  JFreeChart3D chart;
+  Chart3D chart;
 
   ChartPanel3D chartPanel3D;
   
@@ -61,7 +61,7 @@ public class ChartBoxResizeDemo1 extends JFrame implements ChangeListener {
     NumberAxis3D zAxis = new NumberAxis3D("Z", new Range(0.0, 10.0));
     XYZPlot plot = new XYZPlot(dataset, xAxis, yAxis, zAxis);
     plot.setRenderer(new ScatterXYZRenderer());
-    this.chart = new JFreeChart3D(plot);
+    this.chart = new Chart3D(plot);
     this.chartPanel3D = new ChartPanel3D(this.chart);
     content.add(new DisplayPanel3D(this.chartPanel3D, true));
     
@@ -85,7 +85,8 @@ public class ChartBoxResizeDemo1 extends JFrame implements ChangeListener {
    * @param args  command line arguments (ignored).
    */
   public static void main(String[] args) {
-    ChartBoxResizeDemo1 app = new ChartBoxResizeDemo1("JFreeChart3D : ChartBoxResizeDemo1.java");
+    ChartBoxResizeDemo1 app = new ChartBoxResizeDemo1(
+            "OrsonCharts : ChartBoxResizeDemo1.java");
     app.pack();
     app.setVisible(true);
   }

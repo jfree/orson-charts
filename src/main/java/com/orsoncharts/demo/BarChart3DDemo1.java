@@ -10,7 +10,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import com.orsoncharts.ChartPanel3D;
-import com.orsoncharts.JFreeChart3D;
+import com.orsoncharts.Chart3D;
 import com.orsoncharts.axis.CategoryAxis3D;
 import com.orsoncharts.axis.NumberAxis3D;
 import com.orsoncharts.axis.Range;
@@ -28,7 +28,7 @@ import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
  */
 public class BarChart3DDemo1 extends JFrame {
     
-  JFreeChart3D chart;
+  Chart3D chart;
 
   ChartPanel3D chartPanel3D;
 
@@ -52,20 +52,20 @@ public class BarChart3DDemo1 extends JFrame {
     content.setPreferredSize(new Dimension(600, 400));
     XYZDataset dataset = createDataset();
     CategoryAxis3D xAxis = new CategoryAxis3D("Quarter");
-    xAxis.setCategoryLabel("Q1", 0.5);
-    xAxis.setCategoryLabel("Q2", 1.5);
-    xAxis.setCategoryLabel("Q3", 2.5);
-    xAxis.setCategoryLabel("Q4", 3.5);
+    xAxis.setCategoryLabel("Q1", 1.0);
+    xAxis.setCategoryLabel("Q2", 2.0);
+//    xAxis.setCategoryLabel("Q3", 2.5);
+//    xAxis.setCategoryLabel("Q4", 3.5);
     NumberAxis3D yAxis = new NumberAxis3D("Value", new Range(0.0, 20.0));
     CategoryAxis3D zAxis = new CategoryAxis3D("Company");
     zAxis.setRange(0, 3);
-    zAxis.setCategoryLabel("Google", 0.5);
-    zAxis.setCategoryLabel("Yahoo", 1.5);
-    zAxis.setCategoryLabel("J.P.Morgan", 2.5);
+    zAxis.setCategoryLabel("Google", 1.0);
+    zAxis.setCategoryLabel("Yahoo", 2.0);
+ //   zAxis.setCategoryLabel("J.P.Morgan", 2.5);
     XYZPlot plot = new XYZPlot(dataset, xAxis, yAxis, zAxis);
     plot.setDimensions(new Dimension3D(10, 5, 6));
     plot.setRenderer(new BarXYZRenderer());
-    this.chartPanel3D = new ChartPanel3D(new JFreeChart3D(plot));
+    this.chartPanel3D = new ChartPanel3D(new Chart3D(plot));
     content.add(new DisplayPanel3D(this.chartPanel3D, true));
     return content;
   }
@@ -101,7 +101,8 @@ public class BarChart3DDemo1 extends JFrame {
    * @param args  command line arguments (ignored).
    */
   public static void main(String[] args) {
-    BarChart3DDemo1 app = new BarChart3DDemo1("JFreeChart3D: BarChart3DDemo1.java");
+    BarChart3DDemo1 app = new BarChart3DDemo1(
+            "OrsonCharts: BarChart3DDemo1.java");
     app.pack();
     app.setVisible(true);
   }

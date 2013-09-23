@@ -8,7 +8,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import com.orsoncharts.ChartPanel3D;
-import com.orsoncharts.JFreeChart3D;
+import com.orsoncharts.Chart3D;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.axis.NumberAxis3D;
 import com.orsoncharts.axis.Range;
@@ -22,7 +22,7 @@ import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
  */
 public class ScatterPlot3DDemo1 extends JFrame {
 
-  JFreeChart3D chart;
+  Chart3D chart;
 
   ChartPanel3D chartPanel3D;
 
@@ -50,7 +50,7 @@ public class ScatterPlot3DDemo1 extends JFrame {
     NumberAxis3D zAxis = new NumberAxis3D("Z", new Range(0.0, 10.0));
     XYZPlot plot = new XYZPlot(dataset, xAxis, yAxis, zAxis);
     plot.setRenderer(new ScatterXYZRenderer());
-    this.chartPanel3D = new ChartPanel3D(new JFreeChart3D(plot));
+    this.chartPanel3D = new ChartPanel3D(new Chart3D(plot));
     content.add(new DisplayPanel3D(this.chartPanel3D, true));
     return content;
   }
@@ -61,7 +61,8 @@ public class ScatterPlot3DDemo1 extends JFrame {
    * @param args  command line arguments (ignored).
    */
   public static void main(String[] args) {
-    ScatterPlot3DDemo1 app = new ScatterPlot3DDemo1("JFreeChart3D : ScatterPlot3DDemo1.java");
+    ScatterPlot3DDemo1 app = new ScatterPlot3DDemo1(
+            "OrsonCharts : ScatterPlot3DDemo1.java");
     app.pack();
     app.setVisible(true);
   }
