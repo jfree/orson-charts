@@ -1,10 +1,16 @@
 /**
- * A generic representation of a one dimensional list of data values.
+ * ===========
+ * OrsonCharts
+ * ===========
+ * 
+ * (C)opyright 2013 by Object Refinery Limited.
+ * 
  */
+
 package com.orsoncharts.data;
 
 /**
- *
+ * A generic representation of a one dimensional list of data values.
  */
 public interface Values {
     
