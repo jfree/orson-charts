@@ -6,7 +6,7 @@ package com.orsoncharts.event;
 import java.util.EventListener;
 
 /**
- * An interface for receiving notification of changes to a {@link JFreeChart3D}
+ * An interface for receiving notification of changes to a {@link Chart3D}
  * instance.
  */
 public interface Chart3DChangeListener extends EventListener {
