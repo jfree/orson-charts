@@ -11,5 +11,6 @@ import com.orsoncharts.plot.Plot3D;
  */
 public interface Plot3DChangeListener extends EventListener {
 
-  public void plotChanged(Plot3DChangeEvent event);
+    public void plotChanged(Plot3DChangeEvent event);
+
 }
