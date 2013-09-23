@@ -18,7 +18,14 @@ public class DefaultKeyedValues implements KeyedValues {
    * Creates a new (empty) list of keyed values.
    */
   public DefaultKeyedValues() {
-    this.data = new ArrayList<KeyedValue>();
+      this(new ArrayList<Comparable>());
+  }
+  
+  public DefaultKeyedValues(List<Comparable> keys) {
+      this.data = new ArrayList<KeyedValue>();
+      for (Comparable key : keys) {
+          this.data.add(new DefaultKeyedValue(key, null));
+      }
   }
   
   /**
@@ -107,6 +114,15 @@ public class DefaultKeyedValues implements KeyedValues {
   public Number getValue(int item) {
     KeyedValue kv = this.data.get(item);
     return kv.getValue();
+  }
+  
+  @Override
+  public double getDoubleValue(int item) {
+    Number n = getValue(item);
+    if (n != null) {
+        return n.doubleValue();
+    }
+    return Double.NaN;
   }
     
 }
