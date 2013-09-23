@@ -6,7 +6,7 @@
  * (C)opyright 2013 by Object Refinery Limited.
  * 
  */
-package com.orsoncharts.renderer;
+package com.orsoncharts.renderer.category;
 
 import com.orsoncharts.axis.Range;
 import com.orsoncharts.data.CategoryDataset3D;
@@ -14,6 +14,7 @@ import com.orsoncharts.data.Values3D;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.plot.CategoryPlot3D;
+import com.orsoncharts.renderer.RendererType;
 
 /**
  * Defines the methods that all renderers must support to work with a 

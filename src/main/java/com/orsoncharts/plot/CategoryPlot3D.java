@@ -10,7 +10,7 @@ import com.orsoncharts.event.Dataset3DChangeEvent;
 import com.orsoncharts.graphics3d.ArgChecks;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.World;
-import com.orsoncharts.renderer.CategoryRenderer3D;
+import com.orsoncharts.renderer.category.CategoryRenderer3D;
 import com.orsoncharts.renderer.RendererType;
 
 /**

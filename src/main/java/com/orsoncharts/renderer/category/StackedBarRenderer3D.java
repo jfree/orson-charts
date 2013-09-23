@@ -6,9 +6,10 @@
  * (C)opyright 2013 by Object Refinery Limited.
  * 
  */
-package com.orsoncharts.renderer;
+package com.orsoncharts.renderer.category;
 
-import java.awt.Color;
+import com.orsoncharts.renderer.category.CategoryRenderer3D;
+import com.orsoncharts.renderer.category.AbstractCategoryRenderer3D;
 import com.orsoncharts.axis.Axis3D;
 import com.orsoncharts.axis.Range;
 import com.orsoncharts.data.CategoryDataset3D;
@@ -18,52 +19,43 @@ import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.plot.CategoryPlot3D;
+import java.awt.Color;
 
 /**
- * A bar renderer in 3D
+ * A stacked bar renderer in 3D
  */
-public class BarRenderer3D extends AbstractCategoryRenderer3D 
-                implements CategoryRenderer3D {
+public class StackedBarRenderer3D extends AbstractCategoryRenderer3D 
+            implements CategoryRenderer3D {
 
     private double base;
     
-    private double barThickness;
+    private double barThickness = 0.8;
     
     /**
-     * Creates a default instance.
+     * Creates a default constructor.
      */
-    public BarRenderer3D() {
+    public StackedBarRenderer3D() {
         this.base = 0.0;
-        this.barThickness = 0.8;    
     }
     
-    /**
-     * Returns the bar thickness.  Normally bars will be created at unit 
-     * intervals, so a bar thickness of 1.0 will result in the bars touching
-     * each other.  For lower values, there will be gaps between the bars.
-     * The default value is <code>0.8</code>.
-     * 
-     * @return The bar thickness. 
-     */
-    public double getBarThickness() {
-        return this.barThickness;
-    }
-    
-    /**
-     * Sets the bar thickness and fires a renderer change event.
-     * 
-     * @param thickness  the new thickness.
-     */
-    public void setBarThickness(double thickness) {
-        this.barThickness = thickness;
-        // TODO : change event
-    }
-
     @Override
     public Range findValueRange(Values3D data) {
-        return DataUtilities.findValueRange(data, this.base);
+        return DataUtilities.findStackedValueRange(data);
     }
-
+    
+    /**
+     * Composes a single item from the dataset to the 3D world.
+     * 
+     * @param world
+     * @param dimensions
+     * @param dataset
+     * @param series
+     * @param row
+     * @param column
+     * @param xOffset
+     * @param yOffset
+     * @param zOffset 
+     */
     @Override
     public void composeItem(World world, Dimension3D dimensions, 
             CategoryDataset3D dataset, int series, int row, int column, 
@@ -73,6 +65,8 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
         if (Double.isNaN(value)) {
             return;
         }
+        double[] stack = DataUtilities.stackSubTotal(dataset, this.base, series,
+                row, column);
 
         CategoryPlot3D plot = getPlot();
         Axis3D rowAxis = plot.getRowAxis();
@@ -80,15 +74,18 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
         Axis3D valueAxis = plot.getValueAxis();
    
         double xx = columnAxis.translateToWorld(column + 1, dimensions.getWidth());
-        double yy = valueAxis.translateToWorld(value, dimensions.getHeight());
         double zz = rowAxis.translateToWorld(row + 1, dimensions.getDepth());
-
-        double zero = valueAxis.translateToWorld(this.base, 
-                dimensions.getHeight());
+        double lower = stack[1];
+        if (value < 0.0) {
+            lower = stack[0];
+        }
+        double upper = lower + value;
+        double yy = valueAxis.translateToWorld(upper, dimensions.getHeight());
+        double yylower = valueAxis.translateToWorld(lower, dimensions.getHeight());
     
         Color color = getPaintSource().getPaint(series, row, column);
-        Object3D bar = Object3D.createBar(this.barThickness, xx + xOffset, 
-                yy + yOffset, zz + zOffset, zero + yOffset, color);
+        Object3D bar = Object3D.createBar(this.barThickness, xx + xOffset, yy + yOffset, 
+                zz + zOffset, yylower + yOffset, color);
         world.add(bar);
     }
     

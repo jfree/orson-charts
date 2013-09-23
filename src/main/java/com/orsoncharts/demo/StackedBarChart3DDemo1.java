@@ -19,8 +19,8 @@ import com.orsoncharts.data.DefaultCategoryDataset3D;
 import com.orsoncharts.data.DefaultKeyedValues;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.plot.CategoryPlot3D;
-import com.orsoncharts.renderer.CategoryRenderer3D;
-import com.orsoncharts.renderer.StackedBarRenderer3D;
+import com.orsoncharts.renderer.category.CategoryRenderer3D;
+import com.orsoncharts.renderer.category.StackedBarRenderer3D;
 
 /**
  * A demo of a 3D stacked bar chart.
