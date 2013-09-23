@@ -10,7 +10,7 @@ import org.junit.Test;
  *
  * @author dgilbert
  */
-public class JFreeChart3DTests {
+public class Chart3DTests {
  
   @Test
   public void checkNothing() {

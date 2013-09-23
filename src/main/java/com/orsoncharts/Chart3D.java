@@ -14,7 +14,7 @@ import com.orsoncharts.graphics3d.ArgChecks;
 /**
  * A chart object for 3D charts.
  */
-public class JFreeChart3D implements Plot3DChangeListener {
+public class Chart3D implements Plot3DChangeListener {
 
   Plot3D plot;
 
@@ -33,7 +33,7 @@ public class JFreeChart3D implements Plot3DChangeListener {
    * 
    * @param plot  the plot (<code>null</code> not permitted).
    */
-  public JFreeChart3D(Plot3D plot) {
+  public Chart3D(Plot3D plot) {
     ArgChecks.nullNotPermitted(plot, "plot");
     this.plot = plot;
     this.notify = true;
@@ -64,7 +64,7 @@ public class JFreeChart3D implements Plot3DChangeListener {
   }
   
   /**
-   * Notifies all registered listeners that the plot has been modified.
+   * Notifies all registered listeners that the chart has been modified.
    *
    * @param event  information about the change event.
    */
@@ -111,7 +111,7 @@ public class JFreeChart3D implements Plot3DChangeListener {
   }
   
   /**
-   * Sends a {@link PlotChangeEvent} to all registered listeners.
+   * Sends a {@link Chart3DChangeEvent} to all registered listeners.
    */
   protected void fireChangeEvent() {
     notifyListeners(new Chart3DChangeEvent(this, this));
