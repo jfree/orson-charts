@@ -24,4 +24,15 @@ public interface Values {
    */
   public Number getValue(int item);
   
+  /**
+   * Returns the value for the specified item as a double primitive.  Where
+   * the {@link #getValue(int)} method returns <code>null</code>, this method
+   * returns <code>Double.NaN</code>.
+   * 
+   * @param item  the item index.
+   * 
+   * @return The value for the specified item. 
+   */
+  public double getDoubleValue(int item);
+
 }
