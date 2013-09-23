@@ -6,7 +6,7 @@ package com.orsoncharts.data;
 import com.orsoncharts.event.Dataset3DChangeListener;
 
 /**
- * The base interface for datasets in JFreeChart3D.  All datasets must support
+ * The base interface for datasets in OrsonCharts.  All datasets must support
  * the change event notification mechanism.
  */
 public interface Dataset3D {
