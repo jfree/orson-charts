@@ -160,7 +160,20 @@ public class Object3D {
     return cube;
   }
 
-  public static Object3D createBar(double size, double x, double y, double z, double zero, Color color) {
+  /**
+   * Creates a bar with the specified dimensions and color.
+   * 
+   * @param size  the width and depth of the bar.
+   * @param x  the x-coordinate for the center of the bar.
+   * @param y  the y-coordinate for the top of the bar.
+   * @param z  the z-coordinate for the center of the bar.
+   * @param zero  the y-coordinate for the bottom of the bar.
+   * @param color  the color for the bar.
+   * 
+   * @return A 3D object that can represent a bar in a bar chart. 
+   */
+  public static Object3D createBar(double size, double x, double y, double z, 
+          double zero, Color color) {
     Object3D bar = new Object3D();
     double delta = size / 2.0;
     bar.addVertex(new Point3D(x - delta, zero, z - delta));
