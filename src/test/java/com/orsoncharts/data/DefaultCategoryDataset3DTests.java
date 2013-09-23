@@ -3,7 +3,6 @@
  */
 package com.orsoncharts.data;
 
-import com.orsoncharts.data.DefaultCategoryDataset3D;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
@@ -16,9 +15,9 @@ public class DefaultCategoryDataset3DTests {
   @Test
   public void checkGeneral() {
     DefaultCategoryDataset3D dataset = new DefaultCategoryDataset3D();
-    assertEquals(0, dataset.getXCount());
-    assertEquals(0, dataset.getYCount());
-    assertEquals(0, dataset.getZCount());
+    assertEquals(0, dataset.getSeriesCount());
+    assertEquals(0, dataset.getRowCount());
+    assertEquals(0, dataset.getColumnCount());
     assertTrue(dataset.getSeriesKeys().isEmpty());
     assertTrue(dataset.getRowKeys().isEmpty());
     assertTrue(dataset.getColumnKeys().isEmpty());
