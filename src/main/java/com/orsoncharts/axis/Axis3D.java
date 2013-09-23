@@ -18,6 +18,8 @@ public interface Axis3D {
    */
   Range getRange();
   
+  public void setRange(Range range);
+  
   double translateToWorld(double value, double length);
 
   /**
