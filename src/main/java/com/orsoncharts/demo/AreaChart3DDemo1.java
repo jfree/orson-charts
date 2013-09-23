@@ -1,6 +1,12 @@
 /**
- * (C)opyright 2013, by Object Refinery Limited
+ * ===========
+ * OrsonCharts
+ * ===========
+ * 
+ * (C)opyright 2013 by Object Refinery Limited.
+ * 
  */
+
 package com.orsoncharts.demo;
 
 import java.awt.BorderLayout;
@@ -39,6 +45,7 @@ public class AreaChart3DDemo1 extends JFrame {
     public AreaChart3DDemo1(String title) {
         super(title);
         addWindowListener(new WindowAdapter() {
+            @Override
             public void windowClosing(WindowEvent e) {
                 System.exit(0);
             }
@@ -46,7 +53,7 @@ public class AreaChart3DDemo1 extends JFrame {
         getContentPane().add(createContent());
     }
 
-    JPanel createContent() {
+    final JPanel createContent() {
         JPanel content = new JPanel(new BorderLayout());
         content.setPreferredSize(new Dimension(600, 400));
         CategoryDataset3D dataset = createDataset();
