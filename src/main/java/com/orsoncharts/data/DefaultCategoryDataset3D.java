@@ -3,7 +3,6 @@
  */
 package com.orsoncharts.data;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,99 +11,98 @@ import java.util.List;
 public class DefaultCategoryDataset3D extends AbstractDataset3D  
     implements CategoryDataset3D {
   
-  private List<Comparable> seriesKeys;
-  
-  private List<Comparable> rowKeys;
-  
-  private List<Comparable> columnKeys;
-  
-  public DefaultCategoryDataset3D() {
-    this.seriesKeys = new ArrayList<Comparable>();  
-  }
+    private DefaultKeyedValues3D data;
+    
+    public DefaultCategoryDataset3D() {
+        this.data = new DefaultKeyedValues3D();  
+    }
 
-  @Override
-  public List<Comparable> getSeriesKeys() {
-    throw new UnsupportedOperationException("Not supported yet."); 
-  }
+    @Override
+    public Comparable getSeriesKey(int seriesIndex) {
+        return this.data.getSeriesKey(seriesIndex);
+    }
 
-  @Override
-  public List<Comparable> getRowKeys() {
-    throw new UnsupportedOperationException("Not supported yet."); 
-  }
+    @Override
+    public Comparable getRowKey(int rowIndex) {
+        return this.data.getRowKey(rowIndex);
+    }
 
-  @Override
-  public List<Comparable> getColumnKeys() {
-    throw new UnsupportedOperationException("Not supported yet."); 
-  }
+    @Override
+    public Comparable getColumnKey(int columnIndex) {
+        return this.data.getColumnKey(columnIndex);
+    }
 
-  @Override
-  public Number getValue(Comparable seriesKey, Comparable rowKey, Comparable columnKey) {
-    throw new UnsupportedOperationException("Not supported yet."); 
-  }
+    @Override
+    public int getSeriesIndex(Comparable serieskey) {
+        return this.data.getSeriesIndex(serieskey);
+    }
 
-  @Override
-  public Comparable getXKey(int xIndex) {
-    throw new UnsupportedOperationException("Not supported yet."); 
-  }
+    @Override
+    public int getRowIndex(Comparable rowkey) {
+        return this.data.getRowIndex(rowkey);
+    }
 
-  @Override
-  public Comparable getYKey(int yIndex) {
-    throw new UnsupportedOperationException("Not supported yet."); 
-  }
+    @Override
+    public int getColumnIndex(Comparable columnkey) {
+        return this.data.getColumnIndex(columnkey);
+    }
 
-  @Override
-  public Comparable getZKey(int zIndex) {
-    throw new UnsupportedOperationException("Not supported yet."); 
-  }
+    @Override
+    public List<Comparable> getSeriesKeys() {
+        return this.data.getSeriesKeys();
+    }
 
-  @Override
-  public int getXIndex(Comparable xkey) {
-    throw new UnsupportedOperationException("Not supported yet."); 
-  }
+    @Override
+    public List<Comparable> getRowKeys() {
+        return this.data.getRowKeys();
+    }
 
-  @Override
-  public int getYIndex(Comparable ykey) {
-    throw new UnsupportedOperationException("Not supported yet."); 
-  }
+    @Override
+    public List<Comparable> getColumnKeys() {
+        return this.data.getColumnKeys();
+    }
 
-  @Override
-  public int getZIndex(Comparable zkey) {
-    throw new UnsupportedOperationException("Not supported yet."); 
-  }
+    @Override
+    public int getSeriesCount() {
+        return this.data.getSeriesCount();
+    }
 
-  @Override
-  public List<Comparable> getXKeys() {
-    throw new UnsupportedOperationException("Not supported yet.");
-  }
+    @Override
+    public int getRowCount() {
+        return this.data.getRowCount();
+    }
 
-  @Override
-  public List<Comparable> getYKeys() {
-    throw new UnsupportedOperationException("Not supported yet."); 
-  }
+    @Override
+    public int getColumnCount() {
+        return this.data.getColumnCount();
+    }
+    
+    @Override
+    public Number getValue(Comparable seriesKey, Comparable rowKey, 
+            Comparable columnKey) {
+        return this.data.getValue(seriesKey, rowKey, columnKey);
+    }
 
-  @Override
-  public List<Comparable> getZKeys() {
-    throw new UnsupportedOperationException("Not supported yet."); 
-  }
+    @Override
+    public Number getValue(int seriesIndex, int rowIndex, int columnIndex) {
+        return this.data.getValue(seriesIndex, rowIndex, columnIndex);
+    }
+    
+    public void setValue(Number n, Comparable seriesKey, Comparable rowKey, 
+            Comparable columnKey) {
+        this.data.setValue(n, seriesKey, rowKey, columnKey);
+        fireDatasetChanged();
+    }
 
-  @Override
-  public int getXCount() {
-    throw new UnsupportedOperationException("Not supported yet.");
-  }
-
-  @Override
-  public int getYCount() {
-    throw new UnsupportedOperationException("Not supported yet."); 
-  }
-
-  @Override
-  public int getZCount() {
-    throw new UnsupportedOperationException("Not supported yet."); 
-  }
-
-  @Override
-  public Number getValue(int xIndex, int yIndex, int zIndex) {
-    throw new UnsupportedOperationException("Not supported yet."); 
-  }
-  
+    @Override
+    public double getDoubleValue(int seriesIndex, int rowIndex, 
+            int columnIndex) {
+        return this.data.getDoubleValue(seriesIndex, rowIndex, columnIndex);
+    }
+ 
+    public void addSeries(Comparable seriesKey, KeyedValues data) {
+        for (Comparable key : data.getKeys()) {
+            setValue(data.getValue(key), seriesKey, key, seriesKey);
+        }
+    }
 }
