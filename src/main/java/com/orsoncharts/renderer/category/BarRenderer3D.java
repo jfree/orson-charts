@@ -8,8 +8,6 @@
  */
 package com.orsoncharts.renderer.category;
 
-import com.orsoncharts.renderer.category.CategoryRenderer3D;
-import com.orsoncharts.renderer.category.AbstractCategoryRenderer3D;
 import java.awt.Color;
 import com.orsoncharts.axis.Axis3D;
 import com.orsoncharts.axis.Range;

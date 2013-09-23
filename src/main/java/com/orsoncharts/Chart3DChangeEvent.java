@@ -1,10 +1,15 @@
 /**
- * (C)opyright 2013, by Object Refinery Limited
+ * ===========
+ * OrsonCharts
+ * ===========
+ * 
+ * (C)opyright 2013 by Object Refinery Limited.
+ * 
  */
+
 package com.orsoncharts;
 
 import java.util.EventObject;
-import com.orsoncharts.Chart3D;
 
 /**
  * An event indicating some change in the attributes of a chart.  Typically 

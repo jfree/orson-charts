@@ -1,6 +1,12 @@
 /**
- * (C)opyright 2013, by Object Refinery Limited
+ * ===========
+ * OrsonCharts
+ * ===========
+ * 
+ * (C)opyright 2013 by Object Refinery Limited.
+ * 
  */
+
 package com.orsoncharts;
 
 import java.awt.Color;
@@ -8,15 +14,15 @@ import java.awt.Font;
 
 public class ChartTitle {
 
-  private String text;
+    private String text;
   
-  private Font font;
+    private Font font;
   
-  private Color foreground;
+    private Color foreground;
   
-  private Color background;
+    private Color background;
   
-  public ChartTitle(String text) {
-    this.text = text;
-  }
+    public ChartTitle(String text) {
+        this.text = text;
+    }
 }
