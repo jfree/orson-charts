@@ -6,7 +6,7 @@ package com.orsoncharts.event;
 import java.util.EventListener;
 
 /**
- * The interface through which dataset change events are passed in JFreeChart3D.
+ * The interface through which dataset change events are passed in OrsonCharts.
  */
 public interface Dataset3DChangeListener extends EventListener {
 
