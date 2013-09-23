@@ -32,4 +32,16 @@ public interface Values2D {
    */
   public Number getValue(int xIndex, int yIndex);
 
+  /**
+   * Returns the data item at the specified position as a double primitive.
+   * Where the {@link #getValue(int, int)} method returns <code>null</code>, 
+   * this method returns <code>Double.NaN</code>.
+   * 
+   * @param xIndex  the x-index.
+   * @param yIndex  the y-index.
+   * 
+   * @return The data value.
+   */
+  public double getDoubleValue(int xIndex, int yIndex);
+
 }
