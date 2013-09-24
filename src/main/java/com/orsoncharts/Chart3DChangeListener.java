@@ -1,5 +1,4 @@
-/**
- * ===========
+/* ===========
  * OrsonCharts
  * ===========
  * 
@@ -17,10 +16,10 @@ import java.util.EventListener;
  */
 public interface Chart3DChangeListener extends EventListener {
   
-  /**
-   * Called to inform that a chart change event has occurred.
-   * 
-   * @param event  the event. 
-   */
-  public void chartChanged(Chart3DChangeEvent event);
+    /**
+     * Called to inform that a chart change event has occurred.
+     * 
+     * @param event  the event. 
+     */
+    public void chartChanged(Chart3DChangeEvent event);
 }
