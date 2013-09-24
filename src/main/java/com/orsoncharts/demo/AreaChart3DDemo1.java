@@ -1,5 +1,4 @@
-/**
- * ===========
+/* ===========
  * OrsonCharts
  * ===========
  * 
@@ -68,9 +67,7 @@ public class AreaChart3DDemo1 extends JFrame {
         rowAxis.setRange(0, 3);
         rowAxis.setCategoryLabel("Google", 1.0);
         rowAxis.setCategoryLabel("Yahoo", 2.0);
-        //zAxis.setCategoryLabel("J.P.Morgan", 2.5);
         CategoryPlot3D plot = new CategoryPlot3D(dataset, rowAxis, columnAxis, yAxis);
-        //plot.setDimensions(new Dimension3D(10, 5, 6));
         CategoryRenderer3D renderer = new AreaRenderer3D();
         plot.setRenderer(renderer);
         renderer.setPlot(plot);
