@@ -16,7 +16,6 @@ import com.orsoncharts.axis.NumberAxis3D;
 import com.orsoncharts.axis.Range;
 import com.orsoncharts.data.CategoryDataset3D;
 import com.orsoncharts.data.DefaultCategoryDataset3D;
-import com.orsoncharts.data.DefaultKeyedValues;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.category.CategoryRenderer3D;
@@ -39,6 +38,7 @@ public class StackedBarChart3DDemo1 extends JFrame {
     public StackedBarChart3DDemo1(String title) {
         super(title);
         addWindowListener(new WindowAdapter() {
+            @Override
             public void windowClosing(WindowEvent e) {
                 System.exit(0);
             }
@@ -46,24 +46,22 @@ public class StackedBarChart3DDemo1 extends JFrame {
         getContentPane().add(createContent());
     }
 
-    JPanel createContent() {
+    final JPanel createContent() {
         JPanel content = new JPanel(new BorderLayout());
         content.setPreferredSize(new Dimension(600, 400));
         CategoryDataset3D dataset = createDataset();
-        CategoryAxis3D xAxis = new CategoryAxis3D("Quarter");
-        xAxis.setRange(0.0, 5.0);
-        xAxis.setCategoryLabel("Q1", 1.0);
-        xAxis.setCategoryLabel("Q2", 2.0);
-        xAxis.setCategoryLabel("Q3", 3.0);
-        xAxis.setCategoryLabel("Q4", 4.0);
+        CategoryAxis3D columnAxis = new CategoryAxis3D("Quarter");
+//        columnAxis.setRange(0.0, 5.0);
+//        columnAxis.setCategoryLabel("Q1", 1.0);
+//        columnAxis.setCategoryLabel("Q2", 2.0);
+//        columnAxis.setCategoryLabel("Q3", 3.0);
+//        columnAxis.setCategoryLabel("Q4", 4.0);
         NumberAxis3D yAxis = new NumberAxis3D("Value", new Range(0.0, 5.0));
-        CategoryAxis3D zAxis = new CategoryAxis3D("Company");
-        zAxis.setRange(0, 3);
-        zAxis.setCategoryLabel("Google", 1.0);
-        zAxis.setCategoryLabel("Yahoo", 2.0);
-        //zAxis.setCategoryLabel("J.P.Morgan", 2.5);
-        CategoryPlot3D plot = new CategoryPlot3D(dataset, xAxis, zAxis, yAxis);
-        //plot.setDimensions(new Dimension3D(10, 5, 6));
+        CategoryAxis3D rowAxis = new CategoryAxis3D("Company");
+        rowAxis.setRange(0, 3);
+        rowAxis.setCategoryLabel("Google", 1.0);
+        rowAxis.setCategoryLabel("Yahoo", 2.0);
+        CategoryPlot3D plot = new CategoryPlot3D(dataset, rowAxis, columnAxis, yAxis);
         CategoryRenderer3D renderer = new StackedBarRenderer3D();
         plot.setRenderer(renderer);
         renderer.setPlot(plot);
