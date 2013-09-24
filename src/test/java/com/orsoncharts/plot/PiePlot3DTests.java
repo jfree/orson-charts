@@ -11,8 +11,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import com.orsoncharts.data.DefaultPieDataset3D;
-import com.orsoncharts.event.Plot3DChangeEvent;
-import com.orsoncharts.event.Plot3DChangeListener;
 import org.junit.Test;
 
 /** 

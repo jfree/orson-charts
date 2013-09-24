@@ -8,8 +8,6 @@ import com.orsoncharts.axis.Range;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
-import com.orsoncharts.event.Axis3DChangeEvent;
-import com.orsoncharts.event.Axis3DChangeListener;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;

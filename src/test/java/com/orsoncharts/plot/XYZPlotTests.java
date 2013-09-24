@@ -8,8 +8,6 @@ import com.orsoncharts.axis.Axis3D;
 import com.orsoncharts.axis.NumberAxis3D;
 import com.orsoncharts.axis.Range;
 import com.orsoncharts.data.DefaultXYZDataset;
-import com.orsoncharts.event.Plot3DChangeEvent;
-import com.orsoncharts.event.Plot3DChangeListener;
 import com.orsoncharts.graphics3d.Dimension3D;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
