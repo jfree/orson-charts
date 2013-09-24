@@ -50,6 +50,5 @@ public class ControlPanel extends JPanel {
     
     add(leftPanel, BorderLayout.WEST);
     add(rightPanel, BorderLayout.EAST);
-
   }
 }
