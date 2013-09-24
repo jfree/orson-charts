@@ -74,27 +74,30 @@ public class ExportController implements ActionListener {
   private void exportToPNG(String fileName) throws IOException {
     int width = this.panel.getWidth();
     int height = this.panel.getHeight();
+    Rectangle imageBounds = new Rectangle(width, height);
     BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
     Graphics2D g2 = img.createGraphics();
-    this.panel.drawContent(g2);
+    this.panel.getDrawable().draw(g2, imageBounds);
     ImageIO.write(img, "png", new File(fileName));
   }
   
   private void exportToPDF(String fileName) {
     int width = this.panel.getWidth();
     int height = this.panel.getHeight();
+    Rectangle pageSize = new Rectangle(width, height);
     PDFDocument pdfDoc = new PDFDocument();
-    Page page = pdfDoc.createPage(new Rectangle(0, 0, width, height));
+    Page page = pdfDoc.createPage(pageSize);
     Graphics2D g2 = page.getGraphics2D();
-    this.panel.drawContent(g2);
+    this.panel.getDrawable().draw(g2, pageSize);
     pdfDoc.writeToFile(new File(fileName));
   }
 
   private void exportToSVG(String fileName) throws IOException {
     int width = this.panel.getWidth();
     int height = this.panel.getHeight();
+    Rectangle bounds = new Rectangle(width, height);
     SVGGraphics2D g2 = new SVGGraphics2D(width, height); 
-    this.panel.drawContent(g2);
+    this.panel.getDrawable().draw(g2, bounds);
     writeToSVGFile(new File(fileName), g2.getSVGElement());
   }
   
