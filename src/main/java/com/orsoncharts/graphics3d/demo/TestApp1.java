@@ -17,29 +17,14 @@ import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.swing.Panel3D;
 import com.orsoncharts.graphics3d.ViewPoint3D;
 import com.orsoncharts.graphics3d.World;
+import com.orsoncharts.graphics3d.DefaultDrawable3D;
+import com.orsoncharts.graphics3d.Drawable3D;
 
 /**
  * A test app.
  */
 public class TestApp1 extends JFrame implements ChangeListener {
     
-    /* (non-Javadoc)
-     * @see javax.swing.event.ChangeListener#stateChanged(javax.swing.event.ChangeEvent)
-     */
-    public void stateChanged(ChangeEvent e) {
-        int valTheta = this.sliderTheta.getValue();
-        int valRho = this.sliderRho.getValue();
-        int valPhi = this.sliderPhi.getValue();
-        ViewPoint3D vp = this.panel3D.getViewPoint();
-        float theta = valTheta * (float) (Math.PI / 100);
-        float rho = valRho * 1f;
-        float phi = valPhi * (float) (2 * Math.PI / 100);
-        vp.setTheta(theta);
-        vp.setRho(rho);
-        vp.setPhi(phi);
-        this.panel3D.setViewPoint(vp);
-    }
-
     Panel3D panel3D;
     
     JSlider sliderTheta;
@@ -56,6 +41,7 @@ public class TestApp1 extends JFrame implements ChangeListener {
     public TestApp1(String title) {
         super(title);
         addWindowListener(new WindowAdapter() {
+           @Override
            public void windowClosing(WindowEvent e) {
                System.exit(0);
            }
@@ -63,10 +49,10 @@ public class TestApp1 extends JFrame implements ChangeListener {
         getContentPane().add(createContent());
     }
 
-    JPanel createContent() {
+    final JPanel createContent() {
         JPanel content = new JPanel(new BorderLayout());
         content.setPreferredSize(new Dimension(600, 400));
-        
+
         World world = new World();
         //orld.setViewPoint(new ViewPoint3D(0.0f, 0.4f, 10.0f));
 //        world.addObject(Object3D.createCube(3, 0.0, 0.0, -20.0, Color.red));
@@ -102,8 +88,8 @@ public class TestApp1 extends JFrame implements ChangeListener {
         world.add(Object3D.createCube(1, 0.0, 4.0, 4.0, Color.green));
         world.add(Object3D.createCube(1, 4.0, 4.0, 4.0, Color.green));
         
-        this.panel3D = new Panel3D(world);
-        
+        Drawable3D drawable = new DefaultDrawable3D(world);
+        this.panel3D = new Panel3D(drawable);
         content.add(this.panel3D);
         
         JPanel controls = new JPanel(new GridLayout(1, 3));
@@ -124,6 +110,23 @@ public class TestApp1 extends JFrame implements ChangeListener {
         content.add(controls, BorderLayout.SOUTH);
         
         return content;
+    }
+
+    /* (non-Javadoc)
+     * @see javax.swing.event.ChangeListener#stateChanged(javax.swing.event.ChangeEvent)
+     */
+    public void stateChanged(ChangeEvent e) {
+        int valTheta = this.sliderTheta.getValue();
+        int valRho = this.sliderRho.getValue();
+        int valPhi = this.sliderPhi.getValue();
+        ViewPoint3D vp = this.panel3D.getViewPoint();
+        float theta = valTheta * (float) (Math.PI / 100);
+        float rho = valRho * 1f;
+        float phi = valPhi * (float) (2 * Math.PI / 100);
+        vp.setTheta(theta);
+        vp.setRho(rho);
+        vp.setPhi(phi);
+        this.panel3D.setViewPoint(vp);
     }
 
     /**

@@ -9,6 +9,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import com.orsoncharts.graphics3d.DefaultDrawable3D;
 import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.swing.Panel3D;
 import com.orsoncharts.graphics3d.World;
@@ -29,6 +30,7 @@ public class TestApp4 extends JFrame {
     public TestApp4(String title) {
         super(title);
         addWindowListener(new WindowAdapter() {
+           @Override
            public void windowClosing(WindowEvent e) {
                System.exit(0);
            }
@@ -36,7 +38,7 @@ public class TestApp4 extends JFrame {
         getContentPane().add(createContent());
     }
 
-    JPanel createContent() {
+    final JPanel createContent() {
         JPanel content = new JPanel(new BorderLayout());
         content.setPreferredSize(new Dimension(600, 400));
         
@@ -45,21 +47,21 @@ public class TestApp4 extends JFrame {
 //        world.addObject(Object3D.createOctahedron(1, 0.0, -4.0, -4.0, Color.red));
 //        world.addObject(Object3D.createOctahedron(1, 4.0, -4.0, -4.0, Color.red));
 //        world.addObject(Object3D.createOctahedron(1, -4.0, 0.0, -4.0, Color.red));
-        world.add(Object3D.createCube(1, 0.0, 0.0, -4.0, Color.red));
+        world.add(Object3D.createCube(1, 0.0, 0.0, -4.0, Color.RED));
 //        world.addObject(Object3D.createOctahedron(1, 4.0, 0.0, -4.0, Color.red));
 //        world.addObject(Object3D.createOctahedron(1, -4.0, 4.0, -4.0, Color.red));
 //        world.addObject(Object3D.createOctahedron(1, 0.0, 4.0, -4.0, Color.red));
 //        world.addObject(Object3D.createOctahedron(1, 4.0, 4.0, -4.0, Color.red));
 //
-        world.add(Object3D.createOctahedron(1, -4.0, -4.0, 0, Color.blue));
-        world.add(Object3D.createOctahedron(1, 0.0, -4.0, 0, Color.blue));
-        world.add(Object3D.createOctahedron(1, 4.0, -4.0, 0, Color.blue));
-        world.add(Object3D.createOctahedron(1, -4.0, 0.0, 0, Color.blue));
-        world.add(Object3D.createSphere(2.0, 16, 0.0, 0.0, 0.0, Color.LIGHT_GRAY, Color.yellow));
-        world.add(Object3D.createOctahedron(1, 4.0, 0.0, 0, Color.blue));
-       world.add(Object3D.createOctahedron(1, -4.0, 4.0, 0, Color.blue));
+        world.add(Object3D.createOctahedron(1, -4.0, -4.0, 0, Color.BLUE));
+        world.add(Object3D.createOctahedron(1, 0.0, -4.0, 0, Color.BLUE));
+        world.add(Object3D.createOctahedron(1, 4.0, -4.0, 0, Color.BLUE));
+        world.add(Object3D.createOctahedron(1, -4.0, 0.0, 0, Color.BLUE));
+        world.add(Object3D.createSphere(2.0, 16, 0.0, 0.0, 0.0, Color.LIGHT_GRAY, Color.YELLOW));
+        world.add(Object3D.createOctahedron(1, 4.0, 0.0, 0, Color.BLUE));
+       world.add(Object3D.createOctahedron(1, -4.0, 4.0, 0, Color.BLUE));
         //world.addObject(Object3D.createOctahedron(1, 0.0, 4.0, 0, Color.blue));
-        world.add(Object3D.createOctahedron(1, 4.0, 4.0, 0, Color.blue));
+        world.add(Object3D.createOctahedron(1, 4.0, 4.0, 0, Color.BLUE));
         
      //   world.addObject(Object3D.createSphere(3.0, 30, 2, 4, 5, Color.green));
 //
@@ -74,10 +76,8 @@ public class TestApp4 extends JFrame {
 //        world.addObject(Object3D.createOctahedron(1, 4.0, 4.0, 4.0, Color.green));
 //world.addObject(Object3D.createSheet(3, 1.0, 2.0, 3.0, Color.yellow));
         
-        this.panel3D = new Panel3D(world);
-        
+        this.panel3D = new Panel3D(new DefaultDrawable3D(world));        
         content.add(this.panel3D);
-        
         return content;
     }
 

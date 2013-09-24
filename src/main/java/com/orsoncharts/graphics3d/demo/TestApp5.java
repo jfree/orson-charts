@@ -9,6 +9,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import com.orsoncharts.graphics3d.DefaultDrawable3D;
 import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.swing.Panel3D;
 import com.orsoncharts.graphics3d.World;
@@ -28,6 +29,7 @@ public class TestApp5 extends JFrame {
     public TestApp5(String title) {
         super(title);
         addWindowListener(new WindowAdapter() {
+           @Override
            public void windowClosing(WindowEvent e) {
                System.exit(0);
            }
@@ -35,46 +37,17 @@ public class TestApp5 extends JFrame {
         getContentPane().add(createContent());
     }
 
-    JPanel createContent() {
+    final JPanel createContent() {
         JPanel content = new JPanel(new BorderLayout());
         content.setPreferredSize(new Dimension(600, 400));
         
         World world = new World();
-//        world.addObject(Object3D.createOctahedron(1, -4.0, -4.0, -4.0, Color.red));
-//        world.addObject(Object3D.createOctahedron(1, 0.0, -4.0, -4.0, Color.red));
-//        world.addObject(Object3D.createOctahedron(1, 4.0, -4.0, -4.0, Color.red));
-//        world.addObject(Object3D.createOctahedron(1, -4.0, 0.0, -4.0, Color.red));
-        world.add(Object3D.createPieSegment(8.0, 0.0, -1.25, 2.5, 0, Math.PI / 3, Math.PI / 120, Color.red));
-        world.add(Object3D.createPieSegment(8.0, 0.0, -1.25, 2.5, Math.PI / 3, Math.PI, Math.PI / 120, Color.green));
-        world.add(Object3D.createPieSegment(8.0, 0.0, -1.25, 2.5, Math.PI,  3 * Math.PI / 2, Math.PI / 120, Color.blue));
-        world.add(Object3D.createPieSegment(8.0, 3.0, -1.25, 2.5, 3 * Math.PI / 2, 2 * Math.PI, Math.PI / 120, Color.yellow));
-//        world.addObject(Object3D.createOctahedron(1, 4.0, 0.0, -4.0, Color.red));
-//        world.addObject(Object3D.createOctahedron(1, -4.0, 4.0, -4.0, Color.red));
-//        world.addObject(Object3D.createOctahedron(1, 0.0, 4.0, -4.0, Color.red));
-//        world.addObject(Object3D.createOctahedron(1, 4.0, 4.0, -4.0, Color.red));
-//
-//        world.addObject(Object3D.createOctahedron(1, -4.0, -4.0, 0, Color.blue));
-//        world.addObject(Object3D.createOctahedron(1, 0.0, -4.0, 0, Color.blue));
-//        world.addObject(Object3D.createOctahedron(1, 4.0, -4.0, 0, Color.blue));
-//        world.addObject(Object3D.createOctahedron(1, -4.0, 0.0, 0, Color.blue));
-//        world.addObject(Object3D.createSphere(2.0, 8, 0.0, 0.0, 0.0, Color.yellow));
-//        world.addObject(Object3D.createOctahedron(1, 4.0, 0.0, 0, Color.blue));
-//       world.addObject(Object3D.createOctahedron(1, -4.0, 4.0, 0, Color.blue));
-        //world.addObject(Object3D.createOctahedron(1, 0.0, 4.0, 0, Color.blue));
-//        world.addObject(Object3D.createOctahedron(1, 4.0, 4.0, 0, Color.blue));
-//
-//        world.addObject(Object3D.createOctahedron(1, -4.0, -4.0, 4.0, Color.green));
-//        world.addObject(Object3D.createOctahedron(1, 0.0, -4.0, 4.0, Color.green));
-//        world.addObject(Object3D.createOctahedron(1, 4.0, -4.0, 4.0, Color.green));
-//        world.addObject(Object3D.createOctahedron(1, -4.0, 0.0, 4.0, Color.green));
-//        world.addObject(Object3D.createCube(1, 0.0, 0.0, 4.0, Color.green));
-//        world.addObject(Object3D.createOctahedron(1, 4.0, 0.0, 4.0, Color.green));
-//        world.addObject(Object3D.createOctahedron(1, -4.0, 4.0, 4.0, Color.green));
-//        world.addObject(Object3D.createOctahedron(1, 0.0, 4.0, 4.0, Color.green));
-//        world.addObject(Object3D.createOctahedron(1, 4.0, 4.0, 4.0, Color.green));
+        world.add(Object3D.createPieSegment(8.0, 0.0, -1.25, 2.5, 0, Math.PI / 3, Math.PI / 120, Color.RED));
+        world.add(Object3D.createPieSegment(8.0, 0.0, -1.25, 2.5, Math.PI / 3, Math.PI, Math.PI / 120, Color.GREEN));
+        world.add(Object3D.createPieSegment(8.0, 0.0, -1.25, 2.5, Math.PI,  3 * Math.PI / 2, Math.PI / 120, Color.BLUE));
+        world.add(Object3D.createPieSegment(8.0, 3.0, -1.25, 2.5, 3 * Math.PI / 2, 2 * Math.PI, Math.PI / 120, Color.YELLOW));
 
-        
-        this.panel3D = new Panel3D(world);
+        this.panel3D = new Panel3D(new DefaultDrawable3D(world));
         
         content.add(this.panel3D);
         
