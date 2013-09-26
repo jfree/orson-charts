@@ -12,7 +12,7 @@ import java.awt.Color;
 
 import com.orsoncharts.axis.Axis3D;
 import com.orsoncharts.axis.CategoryAxis3D;
-import com.orsoncharts.data.CategoryDataset3D;
+import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.World;

@@ -16,7 +16,7 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.util.Objects;
 import javax.swing.event.EventListenerList;
-import com.orsoncharts.graphics3d.ArgChecks;
+import com.orsoncharts.ArgChecks;
 
 /**
  * A base class that can be used to create an {@link Axis3D} implementation.

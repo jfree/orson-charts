@@ -3,7 +3,7 @@
  */
 package com.orsoncharts.data;
 
-import com.orsoncharts.graphics3d.ArgChecks;
+import com.orsoncharts.ArgChecks;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -8,8 +8,8 @@
 
 package com.orsoncharts.axis;
 
-import com.orsoncharts.data.CategoryDataset3D;
-import com.orsoncharts.graphics3d.ArgChecks;
+import com.orsoncharts.Range;
+import com.orsoncharts.ArgChecks;
 import com.orsoncharts.plot.CategoryPlot3D;
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -79,16 +79,9 @@ public class DefaultCategoryAxis3D extends AbstractAxis3D
         this.categories = new ArrayList<Comparable>(categories);
         fireChangeEvent();
     }
-    
-//    // FIXME: scaffolding method
-//    public void setCategoryLabel(Comparable key, double value) {
-//        labels.put(key, Double.valueOf(value));
-//    }
   
     /**
-     * Returns the range for the axis.  By convention, the range is normally
-     * 0 to N + 1 (where N is the number of categories in the dataset).  This 
-     * way, the data items can be centered on 1, 2, ... N.
+     * Returns the range for the axis.
      * 
      * @return The range. 
      */
@@ -120,6 +113,15 @@ public class DefaultCategoryAxis3D extends AbstractAxis3D
         fireChangeEvent();
     }
 
+    @Override
+    public double getCategoryWidth() {
+        double length = this.range.getLength();
+        double start = this.range.getMin() + (this.lowerMargin * length);
+        double end = this.range.getMax() - (this.upperMargin * length);
+        double available = (end - start);
+        return available / this.categories.size();
+    }
+    
     /**
      * Returns the value for the specified category, or <code>Double.NaN</code>
      * if the category is not registered on the axis.
@@ -128,6 +130,7 @@ public class DefaultCategoryAxis3D extends AbstractAxis3D
      * 
      * @return 
      */
+    @Override
     public double getCategoryValue(Comparable category) {
         int index = this.categories.indexOf(category);
         if (index < 0) {

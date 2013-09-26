@@ -1,12 +1,17 @@
-/**
- * (C)opyright 2013, by Object Refinery Limited
+/* ===========
+ * OrsonCharts
+ * ===========
+ * 
+ * (C)opyright 2013 by Object Refinery Limited.
+ * 
  */
+
 package com.orsoncharts.data;
 
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertEquals;
 
-import com.orsoncharts.axis.Range;
+import com.orsoncharts.Range;
 
 import org.junit.Test;
 

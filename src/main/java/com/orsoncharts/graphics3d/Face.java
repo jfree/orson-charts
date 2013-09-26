@@ -3,6 +3,7 @@
  */
 package com.orsoncharts.graphics3d;
 
+import com.orsoncharts.ArgChecks;
 import java.awt.Color;
 
 /**
@@ -11,44 +12,44 @@ import java.awt.Color;
  */
 public class Face {
 
-  private int offset;
+    private int offset;
 
-  /** The indices of the vertices representing this face. */
-  private int[] vertices;
+    /** The indices of the vertices representing this face. */
+    private int[] vertices;
 
-  /** The color of the face. */
-  private Color color;
+    /** The color of the face. */
+    private Color color;
 
-  /**
-   * A flag to track whether or not the face was drawn in the most recent
-   * rendering.
-   */
-  private boolean rendered;
+    /**
+     * A flag to track whether or not the face was drawn in the most recent
+     * rendering.
+     */
+    private boolean rendered;
 
-  /**
-   * Creates a new face.
-   *
-   * @param vertices  the indices of the vertices.
-   * @param color  the face color (<code>null</code> not permitted).
-   */
-  public Face(int[] vertices, Color color) {
-    if (vertices.length < 3) {
-      throw new IllegalArgumentException("Faces must have at least 3 vertices.");
+    /**
+     * Creates a new face.
+     *
+     * @param vertices  the indices of the vertices.
+     * @param color  the face color (<code>null</code> not permitted).
+     */
+    public Face(int[] vertices, Color color) {
+        if (vertices.length < 3) {
+            throw new IllegalArgumentException("Faces must have at least 3 vertices.");
+        }
+        ArgChecks.nullNotPermitted(color, "color");
+        this.vertices = vertices;
+        this.offset = 0;
+        this.color = color;
     }
-    ArgChecks.nullNotPermitted(color, "color");
-    this.vertices = vertices;
-    this.offset = 0;
-    this.color = color;
-  }
 
-  /**
-   * Returns the offset to add to the vertex indices.
-   *
-   * @return The offset.
-   */
-  public int getOffset() {
-    return this.offset;
-  }
+    /**
+     * Returns the offset to add to the vertex indices.
+     *
+     * @return The offset.
+     */
+    public int getOffset() {
+        return this.offset;
+    }
 
   /**
    * Sets the offset to add to the vertex indices.
@@ -153,6 +154,7 @@ public class Face {
     this.rendered = rendered;
   }
 
+  @Override
   public String toString() {
     String result = "[";
     for (int i = 0; i < this.vertices.length; i++) {

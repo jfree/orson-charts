@@ -17,8 +17,8 @@ import javax.swing.JPanel;
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
-import com.orsoncharts.data.CategoryDataset3D;
-import com.orsoncharts.data.DefaultCategoryDataset3D;
+import com.orsoncharts.data.category.CategoryDataset3D;
+import com.orsoncharts.data.category.DefaultCategoryDataset3D;
 import com.orsoncharts.data.DefaultKeyedValues;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 
@@ -49,8 +49,8 @@ public class AreaChart3DDemo1 extends JFrame {
         JPanel content = new JPanel(new BorderLayout());
         content.setPreferredSize(new Dimension(600, 400));
         CategoryDataset3D dataset = createDataset();
-        Chart3D chart = Chart3DFactory.createAreaChart(dataset, "Company", 
-                "Quarter", "Value");
+        Chart3D chart = Chart3DFactory.createAreaChart("AreaChart3DDemo1", 
+                dataset, "Company", "Quarter", "Value");
         this.chartPanel3D = new ChartPanel3D(chart);
         content.add(new DisplayPanel3D(this.chartPanel3D, true));
         return content;
@@ -69,14 +69,14 @@ public class AreaChart3DDemo1 extends JFrame {
         s1.addValue("Q2", 7.0);
         s1.addValue("Q3", 3.0);
         s1.addValue("Q4", 4.0);
-        dataset.addSeries("S1", s1);
+        dataset.addSeriesAsRow("S1", s1);
 
         DefaultKeyedValues s2 = new DefaultKeyedValues();
         s2.addValue("Q1", 14.0);
         s2.addValue("Q2", 7.0);
         s2.addValue("Q3", 6.0);
         s2.addValue("Q4", 4.0);
-        dataset.addSeries("S2", s2);
+        dataset.addSeriesAsRow("S2", s2);
 
         return dataset;
     }

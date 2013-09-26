@@ -30,6 +30,14 @@ public interface CategoryAxis3D extends Axis3D {
     void configureAsColumnAxis(CategoryPlot3D plot);
 
     /**
+     * Returns the width of a single category in units corresponding to 
+     * the current axis range.
+     * 
+     * @return The width of a single category. 
+     */
+    double getCategoryWidth();
+    
+    /**
      * Returns the numerical value along the axis that corresponds to the
      * specified category.  If the category is unknown, this method will
      * return <code>Double.NaN</code>.

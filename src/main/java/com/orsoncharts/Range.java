@@ -1,26 +1,52 @@
-/**
- * (C)opyright 2013, by Object Refinery Limited
+/* ===========
+ * OrsonCharts
+ * ===========
+ * 
+ * (C)opyright 2013 by Object Refinery Limited.
+ * 
  */
-package com.orsoncharts.axis;
+
+package com.orsoncharts;
 
 /**
- * Represents a range of data values.
+ * Represents a range of data values (instances are immutable).
  */
 public class Range {
 
+    /** The lower bound of the range. */
     private double min;
 
+    /** The upper bound of the range. */
     private double max;
 
+    /**
+     * Creates a new range instance.
+     * 
+     * @param min  the lower bound of the range.
+     * @param max  the upper bound of the range.
+     */
     public Range(double min, double max) {
+        if (min > max) {
+            throw new IllegalArgumentException("Requires min <= max.");
+        }
         this.min = min;
         this.max = max;
     }
 
+    /**
+     * Returns the lower bound of the range.
+     * 
+     * @return The lower bound of the range.
+     */
     public double getMin() {
         return this.min;
     }
 
+    /**
+     * Returns the upper bound of the range.
+     * 
+     * @return The upper bound of the range. 
+     */
     public double getMax() {
         return this.max;
     }
@@ -34,6 +60,14 @@ public class Range {
         return this.max - this.min;
     }
 
+    /**
+     * Returns <code>true</code> if the range includes the specified value,
+     * and <code>false</code> otherwise.
+     * 
+     * @param value  the value.
+     * 
+     * @return A boolean. 
+     */
     public boolean contains(double value) {
         return value >= this.min && value <= this.max;
     }
@@ -72,6 +106,16 @@ public class Range {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 43 * hash + (int) (Double.doubleToLongBits(this.min) 
+                ^ (Double.doubleToLongBits(this.min) >>> 32));
+        hash = 43 * hash + (int) (Double.doubleToLongBits(this.max) 
+                ^ (Double.doubleToLongBits(this.max) >>> 32));
+        return hash;
     }
     
     @Override

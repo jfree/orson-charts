@@ -12,8 +12,8 @@ import java.awt.Color;
 
 import com.orsoncharts.axis.Axis3D;
 import com.orsoncharts.axis.CategoryAxis3D;
-import com.orsoncharts.axis.Range;
-import com.orsoncharts.data.CategoryDataset3D;
+import com.orsoncharts.Range;
+import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.DataUtilities;
 import com.orsoncharts.data.Values3D;
 import com.orsoncharts.graphics3d.Dimension3D;
@@ -24,18 +24,13 @@ import com.orsoncharts.plot.CategoryPlot3D;
 /**
  * A stacked bar renderer in 3D.
  */
-public class StackedBarRenderer3D extends AbstractCategoryRenderer3D 
-            implements CategoryRenderer3D {
+public class StackedBarRenderer3D extends BarRenderer3D {
 
-    private double base;
-    
-    private double barThickness = 0.8;
-    
     /**
      * Creates a default constructor.
      */
     public StackedBarRenderer3D() {
-        this.base = 0.0;
+        super();
     }
     
     @Override
@@ -65,7 +60,7 @@ public class StackedBarRenderer3D extends AbstractCategoryRenderer3D
         if (Double.isNaN(value)) {
             return;
         }
-        double[] stack = DataUtilities.stackSubTotal(dataset, this.base, series,
+        double[] stack = DataUtilities.stackSubTotal(dataset, getBase(), series,
                 row, column);
 
         CategoryPlot3D plot = getPlot();
@@ -77,7 +72,8 @@ public class StackedBarRenderer3D extends AbstractCategoryRenderer3D
         Comparable rowKey = dataset.getRowKey(row);
         double columnValue = columnAxis.getCategoryValue(columnKey);
         double rowValue = rowAxis.getCategoryValue(rowKey);
-        double xx = columnAxis.translateToWorld(columnValue, dimensions.getWidth());
+        double xx = columnAxis.translateToWorld(columnValue, 
+                dimensions.getWidth());
         double zz = rowAxis.translateToWorld(rowValue, dimensions.getDepth());
         double lower = stack[1];
         if (value < 0.0) {
@@ -85,11 +81,17 @@ public class StackedBarRenderer3D extends AbstractCategoryRenderer3D
         }
         double upper = lower + value;
         double yy = valueAxis.translateToWorld(upper, dimensions.getHeight());
-        double yylower = valueAxis.translateToWorld(lower, dimensions.getHeight());
+        double yylower = valueAxis.translateToWorld(lower, 
+                dimensions.getHeight());
+        double xw = getBarXWidth() * columnAxis.getCategoryWidth();
+        double zw = getBarZWidth() * rowAxis.getCategoryWidth();
+        double xxw = columnAxis.translateToWorld(xw, dimensions.getWidth());
+        double xzw = rowAxis.translateToWorld(zw, dimensions.getDepth());
     
         Color color = getPaintSource().getPaint(series, row, column);
-        Object3D bar = Object3D.createBar(this.barThickness, xx + xOffset, yy + yOffset, 
-                zz + zOffset, yylower + yOffset, color);
+        Object3D bar = Object3D.createBar(xxw, xzw, 
+                xx + xOffset, yy + yOffset, zz + zOffset, yylower + yOffset, 
+                color);
         world.add(bar);
     }
     

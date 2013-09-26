@@ -30,20 +30,6 @@ public interface Drawable3D {
      */
     public void setViewPoint(ViewPoint3D viewPoint);
 
-//    /**
-//     * Returns the world.  // TODO: do we need to expose this in the API?
-//     * 
-//     * @return The world. 
-//     */
-//    public World getWorld();
-//    
-//    /**
-//     * Sets the world.  // TODO: do we need to expose this in the API?
-//     * 
-//     * @param world  the world. 
-//     */
-//    public void setWorld(World world);
-//    
     /**
      * Draws the scene to the supplied <code>Graphics2D</code> target.
      * 

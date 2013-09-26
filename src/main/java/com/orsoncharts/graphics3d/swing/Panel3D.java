@@ -24,7 +24,7 @@ import java.util.logging.Logger;
 
 import javax.swing.JPanel;
 
-import com.orsoncharts.graphics3d.ArgChecks;
+import com.orsoncharts.ArgChecks;
 import com.orsoncharts.graphics3d.Drawable3D;
 import com.orsoncharts.graphics3d.ViewPoint3D;
 import java.awt.Rectangle;
@@ -71,26 +71,6 @@ public class Panel3D extends JPanel implements ActionListener, MouseListener,
     public Drawable3D getDrawable() {
         return this.drawable;
     }
-//    /**
-//     * Returns a reference to the world of 3D objects being displayed by this
-//     * panel.
-//     *
-//     * @return The world (never <code>null</code>).
-//     */
-//    public World getWorld() {
-//        return this.world;
-//    }
-//
-//    /**
-//     * Sets the world.
-//     *
-//     * @param world  the world (<code>null</code> not permitted).
-//     */
-//    public void setWorld(World world) {
-//        ArgChecks.nullNotPermitted(world, "world");
-//        this.world = world;
-//        repaint();
-//    }
 
     /**
      * Returns the current world viewpoint.

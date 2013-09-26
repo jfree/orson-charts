@@ -55,7 +55,8 @@ public class PieChart3DDemo2 extends JFrame implements ActionListener {
     final JPanel createContent() {
         JPanel content = new JPanel(new BorderLayout());
         content.setPreferredSize(new Dimension(720, 400));
-        this.chart = Chart3DFactory.createPieChart(createDataset());
+        this.chart = Chart3DFactory.createPieChart("PieChart3DDemo2", 
+                createDataset());
         PiePlot3D plot = (PiePlot3D) this.chart.getPlot();
         plot.setSectionColor("United States", new Color(0x1A9641));
         plot.setSectionColor("France", new Color(0xA6D96A));

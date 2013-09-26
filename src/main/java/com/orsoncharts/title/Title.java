@@ -1,6 +1,11 @@
-/**
- * (C)opyright 2013, by Object Refinery Limited
+/* ===========
+ * OrsonCharts
+ * ===========
+ * 
+ * (C)opyright 2013 by Object Refinery Limited.
+ * 
  */
+
 package com.orsoncharts.title;
 
 import java.awt.Color;
@@ -13,26 +18,26 @@ import java.awt.Insets;
  */
 public class Title {
 
-  private String text;
+    private String text;
   
-  private Font font;
+    private Font font;
   
-  private Color foreground;
+    private Color foreground;
+    
+    private Color background;
   
-  private Color background;
+    private Insets margin;
   
-  private Insets margin;
+    private ReferencePoint2D pinPt;
   
-  private ReferencePoint2D pinPt;
+    public Title(String text) {
+        this(text, new Font("SanSerif", Font.BOLD, 24));    
+    }
   
-  public Title(String text) {
-    this(text, new Font("SanSerif", Font.BOLD, 24));    
-  }
-  
-  public Title(String text, Font font) {
-    this.text = text;
-    this.font = font;
-  }
+    public Title(String text, Font font) {
+        this.text = text;
+        this.font = font;
+    }
   
 //  public Dimension2D getDimensions() {
 //    return new Dimension2D(1.0f, 2.0f);

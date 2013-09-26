@@ -1,10 +1,14 @@
-/**
- * (C)opyright 2013, by Object Refinery Limited
+/* ===========
+ * OrsonCharts
+ * ===========
+ * 
+ * (C)opyright 2013 by Object Refinery Limited.
+ * 
  */
+
 package com.orsoncharts.axis;
 
-import com.orsoncharts.axis.NumberAxis3D;
-import com.orsoncharts.axis.Range;
+import com.orsoncharts.Range;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
@@ -19,82 +23,82 @@ import org.junit.Test;
  */
 public class NumberAxis3DTests implements Axis3DChangeListener {
     
-  @Test
-  public void checkSetLabelFiresChangeEvent() {
-    NumberAxis3D axis1 = new NumberAxis3D("X", new Range(0, 10));
-    axis1.addChangeListener(this);
-    assertNull(this.lastEvent);
+    @Test
+    public void checkSetLabelFiresChangeEvent() {
+        NumberAxis3D axis1 = new NumberAxis3D("X", new Range(0, 10));
+        axis1.addChangeListener(this);
+        assertNull(this.lastEvent);
     
-    axis1.setLabel("XXX");
-    assertNotNull(this.lastEvent);
-    this.lastEvent = null;
-  }
+        axis1.setLabel("XXX");
+        assertNotNull(this.lastEvent);
+        this.lastEvent = null;
+    }
   
-  @Test
-  public void checkSetLabelFontFiresChangeEvent() {
-    NumberAxis3D axis1 = new NumberAxis3D("X", new Range(0, 10));
-    axis1.addChangeListener(this);
-    assertNull(this.lastEvent);
+    @Test
+    public void checkSetLabelFontFiresChangeEvent() {
+        NumberAxis3D axis1 = new NumberAxis3D("X", new Range(0, 10));
+        axis1.addChangeListener(this);
+        assertNull(this.lastEvent);
     
-    axis1.setLabelFont(new Font("Dialog", Font.BOLD, 7));
-    assertNotNull(this.lastEvent);
-    this.lastEvent = null;
-  }
+        axis1.setLabelFont(new Font("Dialog", Font.BOLD, 7));
+        assertNotNull(this.lastEvent);
+        this.lastEvent = null;
+    }
   
-  @Test
-  public void checkSetLineStrokeFiresChangeEvent() {
-    NumberAxis3D axis1 = new NumberAxis3D("X", new Range(0, 10));
-    axis1.addChangeListener(this);
-    assertNull(this.lastEvent);
+    @Test
+    public void checkSetLineStrokeFiresChangeEvent() {
+        NumberAxis3D axis1 = new NumberAxis3D("X", new Range(0, 10));
+        axis1.addChangeListener(this);
+        assertNull(this.lastEvent);
     
-    axis1.setLineStroke(new BasicStroke(1.0f));
-    assertNotNull(this.lastEvent);
-    this.lastEvent = null;
-  }
+        axis1.setLineStroke(new BasicStroke(1.0f));
+        assertNotNull(this.lastEvent);
+        this.lastEvent = null;
+    }
+   
+    @Test
+    public void checkSetLineColorFiresChangeEvent() {
+        NumberAxis3D axis1 = new NumberAxis3D("X", new Range(0, 10));
+        axis1.addChangeListener(this);
+        assertNull(this.lastEvent);
+    
+        axis1.setLineColor(Color.RED);
+        assertNotNull(this.lastEvent);
+        this.lastEvent = null;
+    }
   
-  @Test
-  public void checkSetLineColorFiresChangeEvent() {
-    NumberAxis3D axis1 = new NumberAxis3D("X", new Range(0, 10));
-    axis1.addChangeListener(this);
-    assertNull(this.lastEvent);
+    @Test
+    public void checkSetRangeFiresChangeEvent() {
+        NumberAxis3D axis1 = new NumberAxis3D("X", new Range(0, 10));
+        axis1.addChangeListener(this);
+        assertNull(this.lastEvent);
     
-    axis1.setLineColor(Color.RED);
-    assertNotNull(this.lastEvent);
-    this.lastEvent = null;
-  }
-  
-  @Test
-  public void checkSetRangeFiresChangeEvent() {
-    NumberAxis3D axis1 = new NumberAxis3D("X", new Range(0, 10));
-    axis1.addChangeListener(this);
-    assertNull(this.lastEvent);
-    
-    axis1.setRange(new Range(1, 2));
-    assertNotNull(this.lastEvent);
-    this.lastEvent = null;
-  }
+        axis1.setRange(new Range(1, 2));
+        assertNotNull(this.lastEvent);
+        this.lastEvent = null;
+    }
 
-  @Test
-  public void checkSetTickSizeFiresChangeEvent() {
-    NumberAxis3D axis1 = new NumberAxis3D("X", new Range(0, 10));
-    axis1.addChangeListener(this);
-    assertNull(this.lastEvent);
+    @Test
+    public void checkSetTickSizeFiresChangeEvent() {
+        NumberAxis3D axis1 = new NumberAxis3D("X", new Range(0, 10));
+        axis1.addChangeListener(this);
+        assertNull(this.lastEvent);
     
-    axis1.setTickSize(5.0);
-    assertNotNull(this.lastEvent);
-    this.lastEvent = null;
-  }  
+        axis1.setTickSize(5.0);
+        assertNotNull(this.lastEvent);
+        this.lastEvent = null;
+    }  
 
-  @Test
-  public void checkSetTickLabelFontFiresChangeEvent() {
-    NumberAxis3D axis1 = new NumberAxis3D("X", new Range(0, 10));
-    axis1.addChangeListener(this);
-    assertNull(this.lastEvent);
+    @Test
+    public void checkSetTickLabelFontFiresChangeEvent() {
+        NumberAxis3D axis1 = new NumberAxis3D("X", new Range(0, 10));
+        axis1.addChangeListener(this);
+        assertNull(this.lastEvent);
     
-    axis1.setTickLabelFont(new Font("Dialog", Font.PLAIN, 11));
-    assertNotNull(this.lastEvent);
-    this.lastEvent = null;
-  }  
+        axis1.setTickLabelFont(new Font("Dialog", Font.PLAIN, 11));
+        assertNotNull(this.lastEvent);
+        this.lastEvent = null;
+    }  
 
   @Test
   public void checkEquals() {

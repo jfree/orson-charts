@@ -1,6 +1,11 @@
-/**
- * (C)opyright 2013, by Object Refinery Limited
+/* ===========
+ * OrsonCharts
+ * ===========
+ * 
+ * (C)opyright 2013 by Object Refinery Limited.
+ * 
  */
+
 package com.orsoncharts.data;
 
 import java.util.EventObject;
@@ -10,14 +15,28 @@ import java.util.EventObject;
  */
 public class Dataset3DChangeEvent extends EventObject {
 
-  private Object dataset;
+    private Object dataset;
   
-  public Dataset3DChangeEvent(Object source, Object dataset) {
-    super(source);
-    this.dataset = dataset;
-  }
+    /**
+     * Creates a new dataset change event.  The source can be the same as the
+     * dataset, but this is not required.
+     * 
+     * @param source  the source.
+     * @param dataset  the dataset.
+     */
+    public Dataset3DChangeEvent(Object source, Object dataset) {
+        super(source);
+        this.dataset = dataset;
+    }
   
-  public Object getDataset() {
-    return this.dataset;
-  }
+    /**
+     * Returns the dataset that this event is associated with.  This will
+     * normally be an instance of {@link PieDataset3D}, 
+     * {@link CategoryDataset3D} or {@link XYZDataset}.
+     * 
+     * @return The dataset. 
+     */
+    public Object getDataset() {
+        return this.dataset;
+    }
 }

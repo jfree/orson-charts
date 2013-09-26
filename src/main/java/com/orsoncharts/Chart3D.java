@@ -23,7 +23,6 @@ import javax.swing.event.EventListenerList;
 import com.orsoncharts.axis.Axis3D;
 import com.orsoncharts.axis.TextAnchor;
 import com.orsoncharts.axis.TextUtils;
-import com.orsoncharts.graphics3d.ArgChecks;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.Drawable3D;
 import com.orsoncharts.graphics3d.Face;
@@ -39,16 +38,25 @@ import com.orsoncharts.plot.Plot3DChangeEvent;
 import com.orsoncharts.plot.Plot3DChangeListener;
 import com.orsoncharts.plot.Plot3D;
 import com.orsoncharts.plot.XYZPlot;
+import com.orsoncharts.table.SimpleTextElement;
+import com.orsoncharts.table.TableElement;
 import java.awt.BasicStroke;
+import java.awt.Font;
+import java.awt.geom.Rectangle2D;
 
 /**
  * A chart object for 3D charts.
  */
 public class Chart3D implements Drawable3D, Plot3DChangeListener {
 
+    /** The chart title. */
+    private TableElement title;
+    
     /** A world to contain the 3D objects rendered by this chart. */
     private World world;
 
+    private boolean worldNeedsRefreshing;
+    
     /** The view point. */
     private ViewPoint3D viewPoint;
 
@@ -74,11 +82,18 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener {
     /**
      * Creates a 3D chart for the specified plot.
      * 
+     * @param chartTitle  the chart title.
      * @param plot  the plot (<code>null</code> not permitted).
      */
-    public Chart3D(Plot3D plot) {
+    public Chart3D(String chartTitle, Plot3D plot) {
         ArgChecks.nullNotPermitted(plot, "plot");
+        if (chartTitle != null) {
+            SimpleTextElement ste = new SimpleTextElement(chartTitle);
+            ste.setFont(new Font("Tahoma", Font.BOLD, 18));
+            this.title = ste;
+        }
         this.world = new World();
+        this.worldNeedsRefreshing = true;
         this.viewPoint = new ViewPoint3D((float) (4.4 * Math.PI / 3), 
                 (float) (7 * Math.PI / 6), 30.0f);
         this.plot = plot;
@@ -138,6 +153,7 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener {
         }
 
         this.plot.composeToWorld(world, -w / 2, -h / 2, -d / 2);
+        this.worldNeedsRefreshing = false;
     }
     
     /**
@@ -147,8 +163,10 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener {
      */
     @Override
     public void draw(Graphics2D g2, Rectangle bounds) {
-        refreshWorld();  // TODO : we should only refresh the world when 
-        // something has changed.
+         
+        if (this.worldNeedsRefreshing) {
+            refreshWorld();  
+        }
         float strokeWidth = 0.0f;
         if (this.plot instanceof PiePlot3D) {
             strokeWidth = 1.5f;
@@ -160,7 +178,6 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener {
         AffineTransform saved = g2.getTransform();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
-    
         g2.translate(bounds.width / 2, bounds.height / 2);
 
         Dimension3D dim3D = this.plot.getDimensions();
@@ -332,8 +349,14 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener {
             if (count(c, e) == 1 && longest(ce, ae, af, cf)) {
                 zAxis.render(g2, v3, v4, v6, true);
             }
-        }
+        }    
+
         g2.setTransform(saved);
+        if (this.title != null) {
+            Rectangle2D titleArea = this.title.preferredSize(g2, bounds);
+            this.title.render(g2, titleArea);
+        }
+
     }
 
     private boolean longest(double x, double a, double b, double c) {
@@ -398,7 +421,7 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener {
 
     /**
      * Sets a flag that controls whether or not listeners receive
-     * {@link PlotChangeEvent} notifications.
+     * {@link Plot3DChangeEvent} notifications.
      *
      * @param notify  a boolean.
      *

@@ -1,6 +1,11 @@
-/**
- * (C)opyright 2013, by Object Refinery Limited
+/* ===========
+ * OrsonCharts
+ * ===========
+ * 
+ * (C)opyright 2013 by Object Refinery Limited.
+ * 
  */
+
 package com.orsoncharts.title;
 
 /**
@@ -9,22 +14,22 @@ package com.orsoncharts.title;
  */
 public enum ReferencePoint2D {
 
-  TOP_LEFT,
+    TOP_LEFT,
   
-  TOP_CENTER,
+    TOP_CENTER,
   
-  TOP_RIGHT,
+    TOP_RIGHT,
   
-  CENTER_LEFT,
+    CENTER_LEFT,
   
-  CENTER,
+    CENTER,
   
-  CENTER_RIGHT,
+    CENTER_RIGHT,
   
-  BOTTOM_LEFT, 
+    BOTTOM_LEFT, 
   
-  BOTTOM_CENTER,
+    BOTTOM_CENTER,
   
-  BOTTOM_RIGHT
+    BOTTOM_RIGHT
 
 }

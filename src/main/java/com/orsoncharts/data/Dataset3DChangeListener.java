@@ -1,9 +1,13 @@
-/**
- * (C)opyright 2013, by Object Refinery Limited
+/* ===========
+ * OrsonCharts
+ * ===========
+ * 
+ * (C)opyright 2013 by Object Refinery Limited.
+ * 
  */
+
 package com.orsoncharts.data;
 
-import com.orsoncharts.data.Dataset3DChangeEvent;
 import java.util.EventListener;
 
 /**
@@ -11,5 +15,11 @@ import java.util.EventListener;
  */
 public interface Dataset3DChangeListener extends EventListener {
 
-  public void datasetChanged(Dataset3DChangeEvent event);
+    /**
+     * Called to notify the listener that the source dataset has been
+     * changed.
+     * 
+     * @param event  the event details. 
+     */
+    public void datasetChanged(Dataset3DChangeEvent event);
 }

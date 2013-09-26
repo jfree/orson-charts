@@ -8,7 +8,7 @@
 
 package com.orsoncharts.renderer.xyz;
 
-import com.orsoncharts.axis.Range;
+import com.orsoncharts.Range;
 import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.graphics3d.Dimension3D;
@@ -39,16 +39,18 @@ public interface XYZRenderer extends Renderer3D {
     /**
      * Returns the range that should be set on the x-axis in order for this 
      * renderer to be able to display all the data in the supplied dataset.
+     * If the dataset contains no data, this method returns <code>null</code>.
      * 
      * @param dataset  the dataset (<code>null</code> not permitted).
      * 
-     * @return The range. 
+     * @return The range (possibly <code>null</code>). 
      */
     public Range findXRange(XYZDataset dataset);
     
     /**
      * Returns the range that should be set on the y-axis in order for this 
      * renderer to be able to display all the data in the supplied dataset.
+     * If the dataset contains no data, this method returns <code>null</code>.
      * 
      * @param dataset  the dataset (<code>null</code> not permitted).
      * 
@@ -59,6 +61,7 @@ public interface XYZRenderer extends Renderer3D {
     /**
      * Returns the range that should be set on the z-axis in order for this 
      * renderer to be able to display all the data in the supplied dataset.
+     * If the dataset contains no data, this method returns <code>null</code>.
      * 
      * @param dataset  the dataset (<code>null</code> not permitted).
      * 

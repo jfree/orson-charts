@@ -13,7 +13,6 @@ import java.awt.Paint;
 import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.Dot3D;
-import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.World;
 
 /**
@@ -35,7 +34,7 @@ public class FastScatterXYZRenderer extends AbstractXYZRenderer
         double z = dataset.getZ(series, item);
         Paint paint = getPaintSource().getPaint(series, item);
         Dot3D point = new Dot3D((float) (x + xOffset), (float) (y + yOffset), (float) (z + zOffset), (Color) paint);
-        Object3D cube = Object3D.createCube(0.1, x + xOffset, y + yOffset, z + zOffset, (Color) paint);
+        //Object3D cube = Object3D.createCube(0.1, x + xOffset, y + yOffset, z + zOffset, (Color) paint);
         world.add(point);
     }
 

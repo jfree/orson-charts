@@ -1,6 +1,11 @@
-/**
- * (C)opyright 2013, by Object Refinery Limited
+/* ===========
+ * OrsonCharts
+ * ===========
+ * 
+ * (C)opyright 2013 by Object Refinery Limited.
+ * 
  */
+
 package com.orsoncharts.plot;
 
 import static org.junit.Assert.assertEquals;
@@ -12,9 +17,9 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.orsoncharts.axis.NumberAxis3D;
-import com.orsoncharts.axis.Range;
+import com.orsoncharts.Range;
 import com.orsoncharts.axis.ValueAxis3D;
-import com.orsoncharts.data.DefaultXYZDataset;
+import com.orsoncharts.data.xyz.DefaultXYZDataset;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.renderer.xyz.ScatterXYZRenderer;
 import com.orsoncharts.renderer.xyz.XYZRenderer;

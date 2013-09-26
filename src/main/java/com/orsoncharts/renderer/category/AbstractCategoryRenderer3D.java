@@ -8,8 +8,8 @@
 
 package com.orsoncharts.renderer.category;
 
-import com.orsoncharts.axis.Range;
-import com.orsoncharts.data.CategoryDataset3D;
+import com.orsoncharts.Range;
+import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.DataUtilities;
 import com.orsoncharts.data.Values3D;
 import com.orsoncharts.graphics3d.Dimension3D;

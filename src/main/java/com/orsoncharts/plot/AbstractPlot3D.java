@@ -86,7 +86,7 @@ public abstract class AbstractPlot3D implements Plot3D, Dataset3DChangeListener 
 
     /**
      * Sets a flag that controls whether or not listeners receive
-     * {@link PlotChangeEvent} notifications.
+     * {@link Plot3DChangeEvent} notifications.
      *
      * @param notify  a boolean.
      *
@@ -144,7 +144,7 @@ public abstract class AbstractPlot3D implements Plot3D, Dataset3DChangeListener 
     }
 
     /**
-     * Sends a {@link PlotChangeEvent} to all registered listeners.
+     * Sends a {@link Plot3DChangeEvent} to all registered listeners.
      */
     protected void fireChangeEvent() {
         notifyListeners(new Plot3DChangeEvent(this, this));

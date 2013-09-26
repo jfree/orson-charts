@@ -8,8 +8,8 @@
 
 package com.orsoncharts.axis;
 
+import com.orsoncharts.ArgChecks;
 import java.util.EventObject;
-import org.jfree.graphics2d.Args;
 
 /**
  * An event associated with a change to an {@link Axis3D}.
@@ -36,7 +36,7 @@ public class Axis3DChangeEvent extends EventObject {
      */
     public Axis3DChangeEvent(Object source, Axis3D axis) {
         super(source);
-        Args.nullNotPermitted(axis, "axis");
+        ArgChecks.nullNotPermitted(axis, "axis");
         this.axis = axis;
     }
   

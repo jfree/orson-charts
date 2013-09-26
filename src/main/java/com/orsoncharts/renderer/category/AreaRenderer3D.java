@@ -12,8 +12,8 @@ import java.awt.Color;
 
 import com.orsoncharts.axis.Axis3D;
 import com.orsoncharts.axis.CategoryAxis3D;
-import com.orsoncharts.axis.Range;
-import com.orsoncharts.data.CategoryDataset3D;
+import com.orsoncharts.Range;
+import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.DataUtilities;
 import com.orsoncharts.data.Values3D;
 import com.orsoncharts.graphics3d.Dimension3D;

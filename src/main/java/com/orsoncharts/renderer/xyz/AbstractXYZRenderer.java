@@ -8,7 +8,7 @@
 
 package com.orsoncharts.renderer.xyz;
 
-import com.orsoncharts.axis.Range;
+import com.orsoncharts.Range;
 import com.orsoncharts.data.DataUtilities;
 import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.plot.XYZPlot;

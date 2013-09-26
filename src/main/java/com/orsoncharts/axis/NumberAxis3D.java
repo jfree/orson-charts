@@ -8,6 +8,7 @@
 
 package com.orsoncharts.axis;
 
+import com.orsoncharts.Range;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -16,7 +17,7 @@ import java.awt.geom.Point2D;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Objects;
-import com.orsoncharts.graphics3d.ArgChecks;
+import com.orsoncharts.ArgChecks;
 import com.orsoncharts.plot.XYZPlot;
 
 /**
@@ -27,12 +28,16 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D {
     /** The axis range. */
     private Range range;
 
+    /** 
+     * A flag that controls whether or not the axis range is automatically
+     * adjusted to display all of the data items in the dataset.
+     */
     private boolean autoAdjustRange;
     
     /** 
-     * The default range to apply when there is no data in the dataset.  
-     * A sensible default is going to depend on the context, so the user
-     * should change it as necessary.
+     * The default range to apply when there is no data in the dataset and the
+     * autoAdjustRange flag is true.  A sensible default is going to depend on
+     * the context, so the user should change it as necessary.
      */
     private Range defaultAutoRange;
     
@@ -79,6 +84,15 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D {
     public void setRange(Range range) {
         ArgChecks.nullNotPermitted(range, "range");
         this.range = range;
+        fireChangeEvent();
+    }
+    
+    public Range getDefaultAutoRange() {
+        return this.defaultAutoRange;
+    }
+    
+    public void setDefaultAutoRange(Range range) {
+        this.defaultAutoRange = range;
         fireChangeEvent();
     }
   

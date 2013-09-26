@@ -3,9 +3,7 @@
  */
 package com.orsoncharts.plot;
 
-import com.orsoncharts.plot.Plot3DChangeEvent;
 import java.util.EventListener;
-import com.orsoncharts.plot.Plot3D;
 
 /**
  * An interface used to receive change events from {@link Plot3D} instances.

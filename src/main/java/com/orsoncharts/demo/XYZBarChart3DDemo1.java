@@ -51,8 +51,8 @@ public class XYZBarChart3DDemo1 extends JFrame {
         JPanel content = new JPanel(new BorderLayout());
         content.setPreferredSize(new Dimension(600, 400));
         XYZDataset dataset = createDataset();
-        Chart3D chart = Chart3DFactory.createXYZBarChart(dataset, "X", "Value", 
-                "Z");
+        Chart3D chart = Chart3DFactory.createXYZBarChart("XYZBarChart3DDemo1", 
+                dataset, "X", "Value", "Z");
         this.chartPanel3D = new ChartPanel3D(chart);
         content.add(new DisplayPanel3D(this.chartPanel3D, true));
         return content;
@@ -61,15 +61,15 @@ public class XYZBarChart3DDemo1 extends JFrame {
     private XYZDataset createDataset() {
         XYZSeries series1 = new XYZSeries("Series 1");
         for (int x = 0; x < 4; x++) {
-            series1.add(new XYZDataItem(x + 0.5, 0.5, Math.random() * 20));            
+            series1.add(new XYZDataItem(x + 0.5, Math.random() * 20, 0.5));            
         }
         XYZSeries series2 = new XYZSeries("Series 2");
         for (int x = 0; x < 4; x++) {
-            series2.add(new XYZDataItem(x + 0.5, 1.5, Math.random() * 20));            
+            series2.add(new XYZDataItem(x + 0.5, Math.random() * 20, 1.5));            
         }     
         XYZSeries series3 = new XYZSeries("Series 3");
         for (int x = 0; x < 4; x++) {
-            series3.add(new XYZDataItem(x + 0.5, 2.5, Math.random() * 20));            
+            series3.add(new XYZDataItem(x + 0.5, Math.random() * 20, 2.5));            
         }
         XYZSeriesCollection dataset = new XYZSeriesCollection();
         dataset.add(series1);

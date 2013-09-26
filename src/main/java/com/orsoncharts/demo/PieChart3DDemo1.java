@@ -50,7 +50,8 @@ public class PieChart3DDemo1 extends JFrame {
     final JPanel createContent() {
         JPanel content = new JPanel(new BorderLayout());
         content.setPreferredSize(new Dimension(720, 400));
-        Chart3D chart = Chart3DFactory.createPieChart(createDataset());
+        Chart3D chart = Chart3DFactory.createPieChart("PieChart3DDemo1", 
+                createDataset());
         PiePlot3D plot = (PiePlot3D) chart.getPlot();
         plot.setSectionColor("United States", new Color(0x1A9641));
         plot.setSectionColor("France", new Color(0xA6D96A));

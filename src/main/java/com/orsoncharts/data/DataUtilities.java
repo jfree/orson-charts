@@ -1,11 +1,16 @@
-/**
- * (C)opyright 2013, by Object Refinery Limited
+/* ===========
+ * OrsonCharts
+ * ===========
+ * 
+ * (C)opyright 2013 by Object Refinery Limited.
+ * 
  */
+
 package com.orsoncharts.data;
 
-import com.orsoncharts.axis.Range;
+import com.orsoncharts.Range;
 import com.orsoncharts.data.xyz.XYZDataset;
-import com.orsoncharts.graphics3d.ArgChecks;
+import com.orsoncharts.ArgChecks;
 
 /**
  * Some data utility methods.
@@ -176,10 +181,27 @@ public class DataUtilities {
         }        
     }
     
+    /**
+     * Returns the range of y-values in the specified dataset.
+     *
+     * @param dataset  the dataset (<code>null</code> not permitted).
+     * 
+     * @return The range. 
+     */
     public static Range findYRange(XYZDataset dataset) {
         return findYRange(dataset, Double.NaN);
     }
     
+    /**
+     * Returns the range of y-values in the specified dataset plus the
+     * special value <code>inc</code> (ignored if it is 
+     * <code>Double.NaN</code>).
+     *
+     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param inc  an additional x-value to include.
+     * 
+     * @return The range. 
+     */
     public static Range findYRange(XYZDataset dataset, double inc) {
         ArgChecks.nullNotPermitted(dataset, "dataset");
         double min = Double.POSITIVE_INFINITY;
@@ -204,10 +226,27 @@ public class DataUtilities {
         }        
     }
     
+    /**
+     * Returns the range of z-values in the specified dataset.
+     *
+     * @param dataset  the dataset (<code>null</code> not permitted).
+     * 
+     * @return The range. 
+     */
     public static Range findZRange(XYZDataset dataset) {
         return findZRange(dataset, Double.NaN);
     }
     
+    /**
+     * Returns the range of z-values in the specified dataset plus the
+     * special value <code>inc</code> (ignored if it is 
+     * <code>Double.NaN</code>).
+     *
+     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param inc  an additional x-value to include.
+     * 
+     * @return The range. 
+     */
     public static Range findZRange(XYZDataset dataset, double inc) {
         ArgChecks.nullNotPermitted(dataset, "dataset");
         double min = Double.POSITIVE_INFINITY;

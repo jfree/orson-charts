@@ -18,7 +18,7 @@ import javax.swing.JPanel;
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
-import com.orsoncharts.data.DefaultXYZDataset;
+import com.orsoncharts.data.xyz.DefaultXYZDataset;
 import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 
@@ -49,7 +49,8 @@ public class ScatterPlot3DDemo1 extends JFrame {
         JPanel content = new JPanel(new BorderLayout());
         content.setPreferredSize(new Dimension(600, 400));
         XYZDataset dataset = new DefaultXYZDataset(3, 100);
-        Chart3D chart = Chart3DFactory.createScatterPlot(dataset, "X", "Y", "Z");
+        Chart3D chart = Chart3DFactory.createScatterPlot("ScatterPlot3DDemo1", 
+                dataset, "X", "Y", "Z");
         this.chartPanel3D = new ChartPanel3D(chart);
         content.add(new DisplayPanel3D(this.chartPanel3D, true));
         return content;

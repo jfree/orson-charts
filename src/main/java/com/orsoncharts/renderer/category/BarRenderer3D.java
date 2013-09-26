@@ -11,54 +11,104 @@ package com.orsoncharts.renderer.category;
 import java.awt.Color;
 import com.orsoncharts.axis.Axis3D;
 import com.orsoncharts.axis.CategoryAxis3D;
-import com.orsoncharts.axis.Range;
-import com.orsoncharts.data.CategoryDataset3D;
+import com.orsoncharts.Range;
+import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.DataUtilities;
 import com.orsoncharts.data.Values3D;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.plot.CategoryPlot3D;
-import com.orsoncharts.renderer.Renderer3DChangeListener;
 
 /**
- * A bar renderer in 3D
+ * A bar renderer for use with a {@link CategoryPlot3D}.
  */
 public class BarRenderer3D extends AbstractCategoryRenderer3D 
                 implements CategoryRenderer3D {
 
+    /** The base of the bars - defaults to 0.0. */
     private double base;
     
-    private double barThickness;
+    /** The bar width as a percentage of the column width. */
+    private double barXWidth;
+    
+    /** The bar width as a percentage of the row width. */
+    private double barZWidth;
     
     /**
-     * Creates a default instance.
+     * Creates a new renderer with default attribute values.
      */
     public BarRenderer3D() {
         this.base = 0.0;
-        this.barThickness = 0.8;    
+        this.barXWidth = 0.8;
+        this.barZWidth = 0.5;
     }
     
     /**
-     * Returns the bar thickness.  Normally bars will be created at unit 
-     * intervals, so a bar thickness of 1.0 will result in the bars touching
-     * each other.  For lower values, there will be gaps between the bars.
+     * Returns the base value for the bars.  The default value 
+     * is <code>0.0</code>.
+     * 
+     * @return The base value for the bars.
+     * 
+     * @see #setBase(double) 
+     */
+    public double getBase() {
+        return this.base;
+    }
+    
+    /**
+     * Sets the base value for the bars and fires a 
+     * {@link com.orsoncharts.renderer.Renderer3DChangeEvent}.
+     * 
+     * @param base  the new base value.
+     * 
+     * @see #getBase() 
+     */
+    public void setBase(double base) {
+        this.base = base;
+        fireChangeEvent();
+    }
+    
+    /**
+     * Returns the bar width as a percentage of the column width.
      * The default value is <code>0.8</code>.
      * 
-     * @return The bar thickness. 
+     * @return The bar width. 
      */
-    public double getBarThickness() {
-        return this.barThickness;
+    public double getBarXWidth() {
+        return this.barXWidth;
     }
     
     /**
-     * Sets the bar thickness and fires a renderer change event.
+     * Sets the the bar width as a percentage of the column width and
+     * fires a {@link com.orsoncharts.renderer.Renderer3DChangeEvent}.
      * 
-     * @param thickness  the new thickness.
+     * @param barXWidth  the new width.
      */
-    public void setBarThickness(double thickness) {
-        this.barThickness = thickness;
-        // TODO : change event
+    public void setBarXWidth(double barXWidth) {
+        this.barXWidth = barXWidth;
+        fireChangeEvent();
+    }
+
+    /**
+     * Returns the bar width as a percentage of the row width.
+     * The default value is <code>0.8</code>.
+     * 
+     * @return The bar width. 
+     */
+    public double getBarZWidth() {
+        return this.barZWidth;
+    }
+    
+    /**
+     * Sets the the bar width as a percentage of the row width and
+     * fires a {@link com.orsoncharts.renderer.Renderer3DChangeEvent}.
+     * 
+     * @param barZWidth  the new width.
+     */
+    public void setBarZWidth(double barZWidth) {
+        this.barZWidth = barZWidth;
+        fireChangeEvent();
     }
 
     @Override
@@ -86,15 +136,20 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
         double rowValue = rowAxis.getCategoryValue(rowKey);
         double columnValue = columnAxis.getCategoryValue(columnKey);
 
-        double xx = columnAxis.translateToWorld(columnValue, dimensions.getWidth());
+        double xx = columnAxis.translateToWorld(columnValue, 
+                dimensions.getWidth());
         double yy = valueAxis.translateToWorld(value, dimensions.getHeight());
         double zz = rowAxis.translateToWorld(rowValue, dimensions.getDepth());
 
+        double xw = this.barXWidth * columnAxis.getCategoryWidth();
+        double zw = this.barZWidth * rowAxis.getCategoryWidth();
+        double xxw = columnAxis.translateToWorld(xw, dimensions.getWidth());
+        double xzw = rowAxis.translateToWorld(zw, dimensions.getDepth());
         double zero = valueAxis.translateToWorld(this.base, 
                 dimensions.getHeight());
     
         Color color = getPaintSource().getPaint(series, row, column);
-        Object3D bar = Object3D.createBar(this.barThickness, xx + xOffset, 
+        Object3D bar = Object3D.createBar(xxw, xzw, xx + xOffset, 
                 yy + yOffset, zz + zOffset, zero + yOffset, color);
         world.add(bar);
     }

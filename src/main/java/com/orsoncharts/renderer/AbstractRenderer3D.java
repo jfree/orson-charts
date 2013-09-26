@@ -49,7 +49,7 @@ public abstract class AbstractRenderer3D implements Renderer3D {
 
     /**
      * Sets a flag that controls whether or not listeners receive
-     * {@link RendererChangeEvent} notifications.
+     * {@link Renderer3DChangeEvent} notifications.
      *
      * @param notify  a boolean.
      *
@@ -80,7 +80,7 @@ public abstract class AbstractRenderer3D implements Renderer3D {
      *
      * @param listener  the object to be unregistered.
      *
-     * @see #addChangeListener(PlotChangeListener)
+     * @see #addChangeListener(Renderer3DChangeListener) 
      */
     @Override
     public void removeChangeListener(Renderer3DChangeListener listener) {

@@ -1,6 +1,11 @@
-/**
- * (C)opyright 2013, by Object Refinery Limited
+/* ===========
+ * OrsonCharts
+ * ===========
+ * 
+ * (C)opyright 2013 by Object Refinery Limited.
+ * 
  */
+
 package com.orsoncharts;
 
 import org.junit.Assert;
@@ -8,12 +13,11 @@ import org.junit.Test;
 
 /**
  *
- * @author dgilbert
  */
 public class Chart3DTests {
  
-  @Test
-  public void checkNothing() {
-    Assert.assertTrue(false);
-  }
+    @Test
+    public void checkNothing() {
+        Assert.assertTrue(false);
+    }
 }

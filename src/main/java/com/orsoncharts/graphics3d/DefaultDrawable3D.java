@@ -1,9 +1,14 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/* =============
+ * OrsonCharts3D
+ * =============
+ * 
+ * (C)opyright 2013 by Object Refinery Limited.
+ * 
  */
+
 package com.orsoncharts.graphics3d;
 
+import com.orsoncharts.ArgChecks;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -25,39 +30,49 @@ public class DefaultDrawable3D implements Drawable3D {
     
     private World world;
     
-    public DefaultDrawable3D() {
-        this(new World());
-    }
-    
+    /**
+     * Creates a new instance to display the content of the specified
+     * <code>world</code>.
+     * 
+     * @param world  the world to view (<code>null</code> not permitted). 
+     */
     public DefaultDrawable3D(World world) {
+        ArgChecks.nullNotPermitted(world, "world");
         this.viewPoint = new ViewPoint3D((float) (3 * Math.PI / 2.0), 
                 (float) Math.PI / 6, 40.0f);
         this.world = world;    
     }
     
+    /**
+     * Returns the view point.
+     * 
+     * @return The view point (never <code>null</code>). 
+     */
     @Override
     public ViewPoint3D getViewPoint() {
         return this.viewPoint;
     }
 
+    /**
+     * Sets the view point.
+     * 
+     * @param viewPoint  the view point (<code>null</code> not permitted).
+     */
     @Override
     public void setViewPoint(ViewPoint3D viewPoint) {
+        ArgChecks.nullNotPermitted(viewPoint, "viewPoint");
         this.viewPoint = viewPoint;
     }
-
-//    @Override
-//    public World getWorld() {
-//        return this.world;
-//    }
-//
-//    @Override
-//    public void setWorld(World world) {
-//        this.world = world;
-//    }
     
+    /**
+     * Draws the current view to a Graphics2D instance.
+     * 
+     * @param g2  the graphics target (<code>null</code> not permitted).
+     * @param bounds  the bounds.
+     */
     @Override
     public void draw(Graphics2D g2, Rectangle bounds) {
-        
+        ArgChecks.nullNotPermitted(g2, "g2");
         g2.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_ROUND,
                 BasicStroke.JOIN_ROUND));
         g2.setPaint(Color.WHITE);
