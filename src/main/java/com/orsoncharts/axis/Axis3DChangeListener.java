@@ -1,20 +1,24 @@
-/**
- * (C)opyright 2013, by Object Refinery Limited
+/* ===========
+ * OrsonCharts
+ * ===========
+ * 
+ * (C)opyright 2013 by Object Refinery Limited.
+ * 
  */
+
 package com.orsoncharts.axis;
 
-import com.orsoncharts.axis.Axis3DChangeEvent;
 import java.util.EventListener;
 
 /**
- * A listener for...
+ * A listener for axis change events.
  */
 public interface Axis3DChangeListener extends EventListener {
     
   /**
    * Called to inform that an axis change event has occurred.
    * 
-   * @param event  the event. 
+   * @param event  the event (<code>null</code> not permitted). 
    */
   public void axisChanged(Axis3DChangeEvent event);
 }

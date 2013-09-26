@@ -1,6 +1,11 @@
-/**
- * (C)opyright 2013, by Object Refinery Limited
+/* ===========
+ * OrsonCharts
+ * ===========
+ * 
+ * (C)opyright 2013 by Object Refinery Limited.
+ * 
  */
+
 package com.orsoncharts.demo;
 
 import java.awt.BorderLayout;
@@ -11,7 +16,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
-import com.orsoncharts.axis.CategoryAxis3D;
+import com.orsoncharts.Chart3DFactory;
+import com.orsoncharts.axis.DefaultCategoryAxis3D;
 import com.orsoncharts.axis.NumberAxis3D;
 import com.orsoncharts.axis.Range;
 import com.orsoncharts.data.CategoryDataset3D;
@@ -50,23 +56,19 @@ public class StackedBarChart3DDemo1 extends JFrame {
         JPanel content = new JPanel(new BorderLayout());
         content.setPreferredSize(new Dimension(600, 400));
         CategoryDataset3D dataset = createDataset();
-        CategoryAxis3D columnAxis = new CategoryAxis3D("Quarter");
-//        columnAxis.setRange(0.0, 5.0);
-//        columnAxis.setCategoryLabel("Q1", 1.0);
-//        columnAxis.setCategoryLabel("Q2", 2.0);
-//        columnAxis.setCategoryLabel("Q3", 3.0);
-//        columnAxis.setCategoryLabel("Q4", 4.0);
-        NumberAxis3D yAxis = new NumberAxis3D("Value", new Range(0.0, 5.0));
-        CategoryAxis3D rowAxis = new CategoryAxis3D("Company");
-        rowAxis.setRange(0, 3);
-        rowAxis.setCategoryLabel("Google", 1.0);
-        rowAxis.setCategoryLabel("Yahoo", 2.0);
-        CategoryPlot3D plot = new CategoryPlot3D(dataset, rowAxis, columnAxis, yAxis);
-        CategoryRenderer3D renderer = new StackedBarRenderer3D();
-        plot.setRenderer(renderer);
-        renderer.setPlot(plot);
+        Chart3D chart = Chart3DFactory.createStackedBarChart(dataset, "Company",
+                "Quarter", "Value");
+//        DefaultCategoryAxis3D columnAxis = new DefaultCategoryAxis3D("Quarter");
+//        columnAxis.setCategories(dataset.getColumnKeys());
+//        NumberAxis3D yAxis = new NumberAxis3D("Value", new Range(0.0, 5.0));
+//        DefaultCategoryAxis3D rowAxis = new DefaultCategoryAxis3D("Company");
+//        rowAxis.setCategories(dataset.getRowKeys());
+//        CategoryPlot3D plot = new CategoryPlot3D(dataset, rowAxis, columnAxis, yAxis);
+//        CategoryRenderer3D renderer = new StackedBarRenderer3D();
+//        plot.setRenderer(renderer);
+//        renderer.setPlot(plot);
     
-        this.chartPanel3D = new ChartPanel3D(new Chart3D(plot));
+        this.chartPanel3D = new ChartPanel3D(chart);
         content.add(new DisplayPanel3D(this.chartPanel3D, true));
         return content;
     }
@@ -78,25 +80,10 @@ public class StackedBarChart3DDemo1 extends JFrame {
      */
     private CategoryDataset3D createDataset() {    
         DefaultCategoryDataset3D dataset = new DefaultCategoryDataset3D();
-        
         dataset.setValue(1.0, "S1", "R1", "C1");
         dataset.setValue(2.0, "S2", "R1", "C1");
-        dataset.setValue(3.0, "S1", "R2", "C1");
-        dataset.setValue(4.0, "S2", "R2", "C1");
-//        DefaultKeyedValues s1 = new DefaultKeyedValues();
-//        s1.addValue("Q1", 1.0);
-//        s1.addValue("Q2", 2.0);
-//        s1.addValue("Q3", 3.0);
-//        s1.addValue("Q4", 4.0);
-//        dataset.addSeries("S1", s1);
-//        
-//        DefaultKeyedValues s2 = new DefaultKeyedValues();
-//        s2.addValue("Q1", 4.0);
-//        s2.addValue("Q2", 3.0);
-//        s2.addValue("Q3", 2.0);
-//        s2.addValue("Q4", 1.0);
-//        dataset.addSeries("S2", s2);
-        
+        dataset.setValue(3.0, "S1", "R1", "C2");
+        dataset.setValue(4.0, "S2", "R1", "C2");
         return dataset;
     }
 

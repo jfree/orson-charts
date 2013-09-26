@@ -1,11 +1,11 @@
-/**
- * ===========
+/* ===========
  * OrsonCharts
  * ===========
  * 
  * (C)opyright 2013 by Object Refinery Limited.
  * 
  */
+
 package com.orsoncharts.renderer.category;
 
 import com.orsoncharts.axis.Range;
@@ -14,13 +14,14 @@ import com.orsoncharts.data.Values3D;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.plot.CategoryPlot3D;
+import com.orsoncharts.renderer.Renderer3D;
 import com.orsoncharts.renderer.RendererType;
 
 /**
  * Defines the methods that all renderers must support to work with a 
  * {@link CategoryPlot3D}.
  */
-public interface CategoryRenderer3D {
+public interface CategoryRenderer3D extends Renderer3D {
  
     /**
      * Returns the renderer type.
@@ -37,7 +38,8 @@ public interface CategoryRenderer3D {
     public CategoryPlot3D getPlot();
   
     /**
-     * Sets the plot that the renderer is assigned to.
+     * Sets the plot that the renderer is assigned to.  This method is public,
+     * but should not be called by user code.
      * 
      * @param plot  the plot (<code>null</code> permitted). 
      */

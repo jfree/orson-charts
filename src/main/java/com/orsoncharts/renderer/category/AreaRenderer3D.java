@@ -1,16 +1,17 @@
-/**
- * ===========
+/* ===========
  * OrsonCharts
  * ===========
  * 
  * (C)opyright 2013 by Object Refinery Limited.
  * 
  */
+
 package com.orsoncharts.renderer.category;
 
 import java.awt.Color;
 
 import com.orsoncharts.axis.Axis3D;
+import com.orsoncharts.axis.CategoryAxis3D;
 import com.orsoncharts.axis.Range;
 import com.orsoncharts.data.CategoryDataset3D;
 import com.orsoncharts.data.DataUtilities;
@@ -68,24 +69,30 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D {
         }
 
         CategoryPlot3D plot = getPlot();
-        Axis3D rowAxis = plot.getRowAxis();
-        Axis3D columnAxis = plot.getColumnAxis();
+        CategoryAxis3D rowAxis = plot.getRowAxis();
+        CategoryAxis3D columnAxis = plot.getColumnAxis();
+        Comparable rowKey = dataset.getRowKey(row);
+        Comparable columnKey = dataset.getColumnKey(column);
         Axis3D valueAxis = plot.getValueAxis();
 
         // for all but the last item, we add regular segments
         if (column < dataset.getColumnCount() - 1) {
             double delta = this.thickness / 2.0;
-            double x0 = columnAxis.translateToWorld(column + 1, 
+            double x0 = columnAxis.translateToWorld(
+                    columnAxis.getCategoryValue(columnKey), 
                     dimensions.getWidth()) + xOffset;
             double y0 = valueAxis.translateToWorld(value, 
                     dimensions.getHeight()) + yOffset;
-            double z0 = rowAxis.translateToWorld(row + 1, 
+            double z0 = rowAxis.translateToWorld(
+                    rowAxis.getCategoryValue(rowKey), 
                     dimensions.getDepth()) + zOffset;
 
             double zero = valueAxis.translateToWorld(this.base, 
                     dimensions.getHeight()) + yOffset;
     
-            double x1 = columnAxis.translateToWorld(column + 2, 
+            Comparable nextColumnKey = dataset.getColumnKey(column + 1);
+            double x1 = columnAxis.translateToWorld(
+                    columnAxis.getCategoryValue(nextColumnKey), 
                     dimensions.getWidth()) + xOffset;
             double value1 = dataset.getDoubleValue(series, row, column + 1);
             double y1 = valueAxis.translateToWorld(value1, 

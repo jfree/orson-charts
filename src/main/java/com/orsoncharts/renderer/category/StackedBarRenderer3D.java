@@ -1,5 +1,4 @@
-/**
- * ===========
+/* ===========
  * OrsonCharts
  * ===========
  * 
@@ -8,9 +7,10 @@
  */
 package com.orsoncharts.renderer.category;
 
-import com.orsoncharts.renderer.category.CategoryRenderer3D;
-import com.orsoncharts.renderer.category.AbstractCategoryRenderer3D;
+import java.awt.Color;
+
 import com.orsoncharts.axis.Axis3D;
+import com.orsoncharts.axis.CategoryAxis3D;
 import com.orsoncharts.axis.Range;
 import com.orsoncharts.data.CategoryDataset3D;
 import com.orsoncharts.data.DataUtilities;
@@ -19,10 +19,9 @@ import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.plot.CategoryPlot3D;
-import java.awt.Color;
 
 /**
- * A stacked bar renderer in 3D
+ * A stacked bar renderer in 3D.
  */
 public class StackedBarRenderer3D extends AbstractCategoryRenderer3D 
             implements CategoryRenderer3D {
@@ -69,12 +68,16 @@ public class StackedBarRenderer3D extends AbstractCategoryRenderer3D
                 row, column);
 
         CategoryPlot3D plot = getPlot();
-        Axis3D rowAxis = plot.getRowAxis();
-        Axis3D columnAxis = plot.getColumnAxis();
+        CategoryAxis3D rowAxis = plot.getRowAxis();
+        CategoryAxis3D columnAxis = plot.getColumnAxis();
         Axis3D valueAxis = plot.getValueAxis();
    
-        double xx = columnAxis.translateToWorld(column + 1, dimensions.getWidth());
-        double zz = rowAxis.translateToWorld(row + 1, dimensions.getDepth());
+        Comparable columnKey = dataset.getColumnKey(column);
+        Comparable rowKey = dataset.getRowKey(row);
+        double columnValue = columnAxis.getCategoryValue(columnKey);
+        double rowValue = rowAxis.getCategoryValue(rowKey);
+        double xx = columnAxis.translateToWorld(columnValue, dimensions.getWidth());
+        double zz = rowAxis.translateToWorld(rowValue, dimensions.getDepth());
         double lower = stack[1];
         if (value < 0.0) {
             lower = stack[0];

@@ -1,5 +1,4 @@
-/**
- * ===========
+/* ===========
  * OrsonCharts
  * ===========
  * 
@@ -17,7 +16,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
-import com.orsoncharts.axis.CategoryAxis3D;
+import com.orsoncharts.Chart3DFactory;
+import com.orsoncharts.axis.DefaultCategoryAxis3D;
 import com.orsoncharts.axis.NumberAxis3D;
 import com.orsoncharts.axis.Range;
 import com.orsoncharts.data.CategoryDataset3D;
@@ -32,8 +32,6 @@ import com.orsoncharts.renderer.category.CategoryRenderer3D;
  * A demo of a 3D bar chart.
  */
 public class BarChart3DDemo1 extends JFrame {
-    
-    Chart3D chart;
 
     ChartPanel3D chartPanel3D;
 
@@ -57,23 +55,9 @@ public class BarChart3DDemo1 extends JFrame {
         JPanel content = new JPanel(new BorderLayout());
         content.setPreferredSize(new Dimension(600, 400));
         CategoryDataset3D dataset = createDataset();
-        CategoryAxis3D rowAxis = new CategoryAxis3D("Company");
-        rowAxis.setCategoryLabel("Google", 1.0);
-        rowAxis.setCategoryLabel("Yahoo", 2.0);
-
-        CategoryAxis3D columnAxis = new CategoryAxis3D("Quarter");
-        columnAxis.setRange(0.0, 5.0);
-        columnAxis.setCategoryLabel("Q1", 1.0);
-        columnAxis.setCategoryLabel("Q2", 2.0);
-        columnAxis.setCategoryLabel("Q3", 3.0);
-        columnAxis.setCategoryLabel("Q4", 4.0);
-        NumberAxis3D yAxis = new NumberAxis3D("Value", new Range(0.0, 5.0));
-        CategoryPlot3D plot = new CategoryPlot3D(dataset, rowAxis, columnAxis, yAxis);
-        CategoryRenderer3D renderer = new BarRenderer3D();
-        plot.setRenderer(renderer);
-        renderer.setPlot(plot);
-    
-        this.chartPanel3D = new ChartPanel3D(new Chart3D(plot));
+        Chart3D chart = Chart3DFactory.createBarChart(dataset, "Company", 
+                "Quarter", "$m Profit");
+        this.chartPanel3D = new ChartPanel3D(chart);
         content.add(new DisplayPanel3D(this.chartPanel3D, true));
         return content;
     }

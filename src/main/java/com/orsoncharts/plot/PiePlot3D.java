@@ -1,6 +1,11 @@
-/**
- * (C)opyright 2013, by Object Refinery Limited
+/* ===========
+ * OrsonCharts
+ * ===========
+ * 
+ * (C)opyright 2013 by Object Refinery Limited.
+ * 
  */
+
 package com.orsoncharts.plot;
 
 import java.awt.Color;
@@ -53,10 +58,9 @@ public class PiePlot3D extends AbstractPlot3D {
     ArgChecks.nullNotPermitted(dataset, "dataset");
     this.dataset = dataset;
     this.dataset.addChangeListener(this);
-    this.radius = 8.0;    
-    this.depth = 1.0;
+    this.radius = 4.0;    
+    this.depth = 0.5;
     this.sectionColors = new HashMap<Comparable, Color>();
-   
   }
 
   /**

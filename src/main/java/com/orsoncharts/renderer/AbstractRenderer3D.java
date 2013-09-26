@@ -5,9 +5,11 @@
  * (C)opyright 2013 by Object Refinery Limited.
  * 
  */
+
 package com.orsoncharts.renderer;
 
 import javax.swing.event.EventListenerList;
+
 import com.orsoncharts.plot.Plot3DChangeListener;
 
 /**

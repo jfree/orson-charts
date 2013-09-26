@@ -1,64 +1,78 @@
-/**
- * (C)opyright 2013, by Object Refinery Limited
+/* ===========
+ * OrsonCharts
+ * ===========
+ * 
+ * (C)opyright 2013 by Object Refinery Limited.
+ * 
  */
+
 package com.orsoncharts.plot;
 
-import com.orsoncharts.axis.Axis3D;
+import com.orsoncharts.axis.Axis3DChangeEvent;
+import com.orsoncharts.axis.Axis3DChangeListener;
+import com.orsoncharts.axis.ValueAxis3D;
+import com.orsoncharts.data.Dataset3DChangeEvent;
+import com.orsoncharts.data.Dataset3DChangeListener;
 import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.renderer.XYZRenderer;
 import com.orsoncharts.graphics3d.ArgChecks;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.World;
+import com.orsoncharts.renderer.Renderer3DChangeEvent;
+import com.orsoncharts.renderer.Renderer3DChangeListener;
 
 /**
  * An XYZ plot.
  */
-public class XYZPlot extends AbstractPlot3D {
+public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
+        Axis3DChangeListener, Renderer3DChangeListener {
 
-  private XYZDataset dataset;
+    /** The dataset. */
+    private XYZDataset dataset;
 
-  /** 
-   * The plot dimensions defines the size of the plot in world coordinate
-   * space.  It should never be null.
-   */
-  private Dimension3D dimensions;
+    /** The renderer. */
+    private XYZRenderer renderer;
   
-  private Axis3D xAxis;
-  private Axis3D yAxis;
-  private Axis3D zAxis;
+    /** The x-axis. */
+    private ValueAxis3D xAxis;
 
-  private XYZRenderer renderer;
+    /** The y-axis. */
+    private ValueAxis3D yAxis;
+  
+    /** The z-axis. */
+    private ValueAxis3D zAxis;
 
   /**
    * Creates a new plot with the specified axes.
    * 
    * @param dataset  the dataset (<code>null</code> not permitted).
+   * @param renderer  the renderer (<code>null</code> not permitted).
    * @param xAxis  the x-axis (<code>null</code> not permitted).
    * @param yAxis  the y-axis (<code>null</code> not permitted).
    * @param zAxis  the z-axis (<code>null</code> not permitted).
    */
-  public XYZPlot(XYZDataset dataset, Axis3D xAxis, Axis3D yAxis, Axis3D zAxis) {
+  public XYZPlot(XYZDataset dataset, XYZRenderer renderer, ValueAxis3D xAxis, 
+          ValueAxis3D yAxis, ValueAxis3D zAxis) {
     ArgChecks.nullNotPermitted(dataset, "dataset");
+    ArgChecks.nullNotPermitted(renderer, "renderer");
     ArgChecks.nullNotPermitted(xAxis, "xAxis");
     ArgChecks.nullNotPermitted(yAxis, "yAxis");
     ArgChecks.nullNotPermitted(zAxis, "zAxis");
     this.dimensions = new Dimension3D(10, 10, 10);
     this.dataset = dataset;
     this.dataset.addChangeListener(this);
+    this.renderer = renderer;
+    this.renderer.setPlot(this);
+    this.renderer.addChangeListener(this);
     this.xAxis = xAxis;
+    this.xAxis.addChangeListener(this);
+    this.xAxis.configureAsXAxis(this);
     this.yAxis = yAxis;
+    this.yAxis.addChangeListener(this);
+    this.yAxis.configureAsYAxis(this);
     this.zAxis = zAxis;
-  }
-
-  /**
-   * Returns the dimensions for the plot in the 3D world in which it will 
-   * be composed.
-   * 
-   * @return The dimensions (never <code>null</code>). 
-   */
-  @Override
-  public Dimension3D getDimensions() {
-    return this.dimensions;
+    this.zAxis.addChangeListener(this);
+    this.zAxis.configureAsZAxis(this);
   }
   
   /**
@@ -96,28 +110,31 @@ public class XYZPlot extends AbstractPlot3D {
     fireChangeEvent();
   }
 
-  public Axis3D getXAxis() {
+  public ValueAxis3D getXAxis() {
     return this.xAxis;
   }
 
-  public void setXAxis(Axis3D xAxis) {
+  public void setXAxis(ValueAxis3D xAxis) {
     this.xAxis = xAxis;
+    fireChangeEvent();
   }
 
-  public Axis3D getYAxis() {
+  public ValueAxis3D getYAxis() {
     return this.yAxis;
   }
 
-  public void setYAxis(Axis3D yAxis) {
+  public void setYAxis(ValueAxis3D yAxis) {
     this.yAxis = yAxis;
+    fireChangeEvent();
   }
 
-  public Axis3D getZAxis() {
+  public ValueAxis3D getZAxis() {
     return this.zAxis;
   }
 
-  public void setZAxis(Axis3D zAxis) {
+  public void setZAxis(ValueAxis3D zAxis) {
     this.zAxis = zAxis;
+    fireChangeEvent();
   }
 
   /**
@@ -170,4 +187,23 @@ public class XYZPlot extends AbstractPlot3D {
     }
     return true;
   }
+
+    @Override
+    public void axisChanged(Axis3DChangeEvent event) {
+        fireChangeEvent();
+    }
+
+    @Override
+    public void rendererChanged(Renderer3DChangeEvent event) {
+        fireChangeEvent();
+    }
+
+    @Override
+    public void datasetChanged(Dataset3DChangeEvent event) {
+        this.xAxis.configureAsXAxis(this);
+        this.yAxis.configureAsYAxis(this);
+        this.zAxis.configureAsZAxis(this);
+        super.datasetChanged(event);
+    }
+    
 }

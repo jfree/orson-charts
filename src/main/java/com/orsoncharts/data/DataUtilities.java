@@ -4,6 +4,7 @@
 package com.orsoncharts.data;
 
 import com.orsoncharts.axis.Range;
+import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.graphics3d.ArgChecks;
 
 /**
@@ -29,7 +30,8 @@ public class DataUtilities {
      * <code>null</code> if there is no data.
      * 
      * @param data  the data (<code>null</code> not permitted).
-     * @param base  a value that must be included in the range (often 0).
+     * @param base  a value that must be included in the range (often 0).  This
+     *         argument is ignored if it is <code>Double.NaN</code>.
      * 
      * @return The range (possibly <code>null</code>). 
      */
@@ -60,10 +62,27 @@ public class DataUtilities {
         }
     }
     
+    /**
+     * Finds the range of values in the dataset considering that each series
+     * is stacked on top of the other.
+     * 
+     * @param data  the data (<code>null</code> not permitted).
+     * 
+     * @return The range.
+     */
     public static Range findStackedValueRange(Values3D data) {
         return findStackedValueRange(data, 0.0);
     }
     
+    /**
+     * Finds the range of values in the dataset considering that each series
+     * is stacked on top of the others, starting at the base value.
+     * 
+     * @param data  the data values (<code>null</code> not permitted).
+     * @param base  the base value.
+     * 
+     * @return The range.
+     */
     public static Range findStackedValueRange(Values3D data, double base) {
         ArgChecks.nullNotPermitted(data, "data");
         double min = base;
@@ -112,4 +131,105 @@ public class DataUtilities {
         return new double[] { neg, pos };
     }
     
+    /**
+     * Returns the range of x-values in the specified dataset.
+     *
+     * @param dataset  the dataset (<code>null</code> not permitted).
+     * 
+     * @return The range. 
+     */
+    public static Range findXRange(XYZDataset dataset) {
+        return findXRange(dataset, Double.NaN);    
+    }
+    
+    /**
+     * Returns the range of x-values in the specified dataset plus the
+     * special value <code>inc</code> (ignored if it is 
+     * <code>Double.NaN</code>).
+     *
+     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param inc  an additional x-value to include.
+     * 
+     * @return The range. 
+     */
+    public static Range findXRange(XYZDataset dataset, double inc) {
+        ArgChecks.nullNotPermitted(dataset, "dataset");
+        double min = Double.POSITIVE_INFINITY;
+        double max = Double.NEGATIVE_INFINITY;
+        for (int s = 0; s < dataset.getSeriesCount(); s++) {
+            for (int i = 0; i < dataset.getItemCount(s); i++) {
+                double x = dataset.getX(s, i);
+                if (!Double.isNaN(x)) {
+                    min = Math.min(x, min);
+                    max = Math.max(x, max);
+                }
+            }
+        }
+        if (!Double.isNaN(inc)) {
+            min = Math.min(inc, min);
+            max = Math.max(inc, max);
+        }
+        if (min <= max) {
+            return new Range(min, max);
+        } else {
+            return null;
+        }        
+    }
+    
+    public static Range findYRange(XYZDataset dataset) {
+        return findYRange(dataset, Double.NaN);
+    }
+    
+    public static Range findYRange(XYZDataset dataset, double inc) {
+        ArgChecks.nullNotPermitted(dataset, "dataset");
+        double min = Double.POSITIVE_INFINITY;
+        double max = Double.NEGATIVE_INFINITY;
+        for (int s = 0; s < dataset.getSeriesCount(); s++) {
+            for (int i = 0; i < dataset.getItemCount(s); i++) {
+                double y = dataset.getY(s, i);
+                if (!Double.isNaN(y)) {
+                    min = Math.min(y, min);
+                    max = Math.max(y, max);
+                }
+            }
+        }
+        if (!Double.isNaN(inc)) {
+            min = Math.min(inc, min);
+            max = Math.max(inc, max);
+        }
+        if (min <= max) {
+            return new Range(min, max);
+        } else {
+            return null;
+        }        
+    }
+    
+    public static Range findZRange(XYZDataset dataset) {
+        return findZRange(dataset, Double.NaN);
+    }
+    
+    public static Range findZRange(XYZDataset dataset, double inc) {
+        ArgChecks.nullNotPermitted(dataset, "dataset");
+        double min = Double.POSITIVE_INFINITY;
+        double max = Double.NEGATIVE_INFINITY;
+        for (int s = 0; s < dataset.getSeriesCount(); s++) {
+            for (int i = 0; i < dataset.getItemCount(s); i++) {
+                double z = dataset.getZ(s, i);
+                if (!Double.isNaN(z)) {
+                    min = Math.min(z, min);
+                    max = Math.max(z, max);
+                }
+            }
+        }
+        if (!Double.isNaN(inc)) {
+            min = Math.min(inc, min);
+            max = Math.max(inc, max);
+        }
+        if (min <= max) {
+            return new Range(min, max);
+        } else {
+            return null;
+        }        
+    }
+ 
 }

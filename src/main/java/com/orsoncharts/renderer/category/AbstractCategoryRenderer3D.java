@@ -1,11 +1,11 @@
-/**
- * ===========
+/* ===========
  * OrsonCharts
  * ===========
  * 
  * (C)opyright 2013 by Object Refinery Limited.
  * 
  */
+
 package com.orsoncharts.renderer.category;
 
 import com.orsoncharts.axis.Range;
@@ -15,6 +15,7 @@ import com.orsoncharts.data.Values3D;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.plot.CategoryPlot3D;
+import com.orsoncharts.renderer.AbstractRenderer3D;
 import com.orsoncharts.renderer.Category3DPaintSource;
 import com.orsoncharts.renderer.DefaultCategory3DPaintSource;
 import com.orsoncharts.renderer.RendererType;
@@ -23,7 +24,8 @@ import com.orsoncharts.renderer.RendererType;
  * A base class that can be used to implement renderers for a 
  * {@link CategoryPlot3D}.
  */
-public abstract class AbstractCategoryRenderer3D implements CategoryRenderer3D {
+public abstract class AbstractCategoryRenderer3D extends AbstractRenderer3D 
+        implements CategoryRenderer3D {
     
     private CategoryPlot3D plot;
    

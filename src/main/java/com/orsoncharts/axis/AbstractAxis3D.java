@@ -1,6 +1,11 @@
-/**
- * (C)opyright 2013, by Object Refinery Limited
+/* ===========
+ * OrsonCharts
+ * ===========
+ * 
+ * (C)opyright 2013 by Object Refinery Limited.
+ * 
  */
+
 package com.orsoncharts.axis;
 
 import java.awt.BasicStroke;
@@ -220,10 +225,12 @@ public abstract class AbstractAxis3D implements Axis3D {
         return Math.atan2(dy, dx);
     }
     
+    @Override
     public void addChangeListener(Axis3DChangeListener listener) {
         this.listenerList.add(Axis3DChangeListener.class, listener);   
     }
   
+    @Override
     public void removeChangeListener(Axis3DChangeListener listener) {
         this.listenerList.remove(Axis3DChangeListener.class, listener);  
     }
@@ -246,6 +253,6 @@ public abstract class AbstractAxis3D implements Axis3D {
      * Sends a {@link Axis3DChangeEvent} to all registered listeners.
      */
     protected void fireChangeEvent() {
-        notifyListeners(new Axis3DChangeEvent(this, this));
+        notifyListeners(new Axis3DChangeEvent(this));
     }
 }

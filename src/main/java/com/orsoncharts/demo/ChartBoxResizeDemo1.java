@@ -1,3 +1,11 @@
+/* ===========
+ * OrsonCharts
+ * ===========
+ * 
+ * (C)opyright 2013 by Object Refinery Limited.
+ * 
+ */
+
 package com.orsoncharts.demo;
 
 import java.awt.BorderLayout;
@@ -13,6 +21,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
+import com.orsoncharts.Chart3DFactory;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.axis.NumberAxis3D;
 import com.orsoncharts.axis.Range;
@@ -45,6 +54,7 @@ public class ChartBoxResizeDemo1 extends JFrame implements ChangeListener {
   public ChartBoxResizeDemo1(String title) {
     super(title);
     addWindowListener(new WindowAdapter() {
+      @Override
       public void windowClosing(WindowEvent e) {
         System.exit(0);
       }
@@ -52,16 +62,17 @@ public class ChartBoxResizeDemo1 extends JFrame implements ChangeListener {
     getContentPane().add(createContent());
   }
 
-  JPanel createContent() {
+  final JPanel createContent() {
     JPanel content = new JPanel(new BorderLayout());
     content.setPreferredSize(new Dimension(600, 400));
     XYZDataset dataset = new DefaultXYZDataset(3, 100);
-    NumberAxis3D xAxis = new NumberAxis3D("X", new Range(0.0, 10.0));
-    NumberAxis3D yAxis = new NumberAxis3D("Y", new Range(0.0, 10.0));
-    NumberAxis3D zAxis = new NumberAxis3D("Z", new Range(0.0, 10.0));
-    XYZPlot plot = new XYZPlot(dataset, xAxis, yAxis, zAxis);
-    plot.setRenderer(new ScatterXYZRenderer());
-    this.chart = new Chart3D(plot);
+    this.chart = Chart3DFactory.createScatterPlot(dataset, "X", "Y", "Z");
+//    NumberAxis3D xAxis = new NumberAxis3D("X", new Range(0.0, 10.0));
+//    NumberAxis3D yAxis = new NumberAxis3D("Y", new Range(0.0, 10.0));
+//    NumberAxis3D zAxis = new NumberAxis3D("Z", new Range(0.0, 10.0));
+//    XYZPlot plot = new XYZPlot(dataset, xAxis, yAxis, zAxis);
+//    plot.setRenderer(new ScatterXYZRenderer());
+//    this.chart = new Chart3D(plot);
     this.chartPanel3D = new ChartPanel3D(this.chart);
     content.add(new DisplayPanel3D(this.chartPanel3D, true));
     

@@ -1,24 +1,51 @@
-/**
- * (C)opyright 2013, by Object Refinery Limited
+/* ===========
+ * OrsonCharts
+ * ===========
+ * 
+ * (C)opyright 2013 by Object Refinery Limited.
+ * 
  */
+
 package com.orsoncharts.axis;
 
 import java.util.EventObject;
-import com.orsoncharts.axis.Axis3D;
+import org.jfree.graphics2d.Args;
 
 /**
- * A change event...
+ * An event associated with a change to an {@link Axis3D}.
  */
 public class Axis3DChangeEvent extends EventObject {
   
-  private Axis3D axis;
+    /** The axis associated with this event. */
+    private Axis3D axis;
   
-  public Axis3DChangeEvent(Object source, Axis3D axis) {
-    super(source);
-    this.axis = axis;
-  }
+    /**
+     * Creates a new event.
+     * 
+     * @param axis  the axis (<code>null</code> not permitted). 
+     */
+    public Axis3DChangeEvent(Axis3D axis) {
+        this(axis, axis);
+    }
+    
+    /**
+     * Creates a new event.
+     * 
+     * @param source  the event source.
+     * @param axis  the axis (<code>null</code> not permitted).
+     */
+    public Axis3DChangeEvent(Object source, Axis3D axis) {
+        super(source);
+        Args.nullNotPermitted(axis, "axis");
+        this.axis = axis;
+    }
   
-  public Axis3D getAxis() {
-    return this.axis;
-  }
+    /**
+     * Returns the axis associated with this event.
+     * 
+     * @return The axis (never <code>null</code>). 
+     */
+    public Axis3D getAxis() {
+        return this.axis;
+    }
 }

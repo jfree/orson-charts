@@ -38,6 +38,13 @@ public class Range {
         return value >= this.min && value <= this.max;
     }
   
+    /**
+     * Returns the value as a percentage along the range.
+     * 
+     * @param value  the value.
+     * 
+     * @return The percentage. 
+     */
     public double percent(double value) {
         return (value - this.min) / getLength();
     }
@@ -65,5 +72,10 @@ public class Range {
             return false;
         }
         return true;
+    }
+    
+    @Override
+    public String toString() {
+        return "Range[" + this.min + ", " + this.max + "]";
     }
 }

@@ -1,15 +1,16 @@
-/**
- * ===========
+/* ===========
  * OrsonCharts
  * ===========
  * 
  * (C)opyright 2013 by Object Refinery Limited.
  * 
  */
+
 package com.orsoncharts.renderer.category;
 
 import java.awt.Color;
 import com.orsoncharts.axis.Axis3D;
+import com.orsoncharts.axis.CategoryAxis3D;
 import com.orsoncharts.axis.Range;
 import com.orsoncharts.data.CategoryDataset3D;
 import com.orsoncharts.data.DataUtilities;
@@ -18,6 +19,7 @@ import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.plot.CategoryPlot3D;
+import com.orsoncharts.renderer.Renderer3DChangeListener;
 
 /**
  * A bar renderer in 3D
@@ -75,13 +77,18 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
         }
 
         CategoryPlot3D plot = getPlot();
-        Axis3D rowAxis = plot.getRowAxis();
-        Axis3D columnAxis = plot.getColumnAxis();
+        CategoryAxis3D rowAxis = plot.getRowAxis();
+        CategoryAxis3D columnAxis = plot.getColumnAxis();
         Axis3D valueAxis = plot.getValueAxis();
    
-        double xx = columnAxis.translateToWorld(column + 1, dimensions.getWidth());
+        Comparable rowKey = dataset.getRowKey(row);
+        Comparable columnKey = dataset.getColumnKey(column);
+        double rowValue = rowAxis.getCategoryValue(rowKey);
+        double columnValue = columnAxis.getCategoryValue(columnKey);
+
+        double xx = columnAxis.translateToWorld(columnValue, dimensions.getWidth());
         double yy = valueAxis.translateToWorld(value, dimensions.getHeight());
-        double zz = rowAxis.translateToWorld(row + 1, dimensions.getDepth());
+        double zz = rowAxis.translateToWorld(rowValue, dimensions.getDepth());
 
         double zero = valueAxis.translateToWorld(this.base, 
                 dimensions.getHeight());
@@ -91,5 +98,5 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
                 yy + yOffset, zz + zOffset, zero + yOffset, color);
         world.add(bar);
     }
-    
+
 }
