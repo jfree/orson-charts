@@ -5,7 +5,8 @@
  * (C)opyright 2013 by Object Refinery Limited.
  * 
  */
-package com.orsoncharts.renderer;
+
+package com.orsoncharts.renderer.xyz;
 
 import java.awt.Color;
 import java.awt.Paint;

@@ -14,7 +14,7 @@ import com.orsoncharts.axis.ValueAxis3D;
 import com.orsoncharts.data.Dataset3DChangeEvent;
 import com.orsoncharts.data.Dataset3DChangeListener;
 import com.orsoncharts.data.xyz.XYZDataset;
-import com.orsoncharts.renderer.XYZRenderer;
+import com.orsoncharts.renderer.xyz.XYZRenderer;
 import com.orsoncharts.graphics3d.ArgChecks;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.World;

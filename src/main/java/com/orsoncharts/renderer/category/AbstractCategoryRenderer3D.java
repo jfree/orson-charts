@@ -16,8 +16,6 @@ import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.AbstractRenderer3D;
-import com.orsoncharts.renderer.Category3DPaintSource;
-import com.orsoncharts.renderer.DefaultCategory3DPaintSource;
 import com.orsoncharts.renderer.RendererType;
 
 /**

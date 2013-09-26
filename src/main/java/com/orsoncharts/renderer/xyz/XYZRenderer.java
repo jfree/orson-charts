@@ -6,13 +6,14 @@
  * 
  */
 
-package com.orsoncharts.renderer;
+package com.orsoncharts.renderer.xyz;
 
 import com.orsoncharts.axis.Range;
 import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.World;
+import com.orsoncharts.renderer.Renderer3D;
 
 /**
  * A renderer that can display data from an {@link XYZDataset} on an

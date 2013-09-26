@@ -1,5 +1,4 @@
-/**
- * ===========
+/* ===========
  * OrsonCharts
  * ===========
  * 
@@ -10,8 +9,6 @@
 package com.orsoncharts.renderer;
 
 import java.util.EventObject;
-
-import com.orsoncharts.renderer.Renderer3D;
 
 /**
  * An event containing information about a change to a {@link Renderer3D}.

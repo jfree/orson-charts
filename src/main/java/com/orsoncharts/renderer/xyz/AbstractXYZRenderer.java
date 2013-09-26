@@ -6,12 +6,13 @@
  * 
  */
 
-package com.orsoncharts.renderer;
+package com.orsoncharts.renderer.xyz;
 
 import com.orsoncharts.axis.Range;
 import com.orsoncharts.data.DataUtilities;
 import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.plot.XYZPlot;
+import com.orsoncharts.renderer.AbstractRenderer3D;
 
 /**
  * An abstract base class that can be used to create new {@link XYZRenderer}
@@ -55,9 +56,11 @@ public class AbstractXYZRenderer extends AbstractRenderer3D {
     public Range findXRange(XYZDataset dataset) {
         return DataUtilities.findXRange(dataset);
     }
+    
     public Range findYRange(XYZDataset dataset) {
         return DataUtilities.findYRange(dataset);
     }
+    
     public Range findZRange(XYZDataset dataset) {
         return DataUtilities.findZRange(dataset);
     }

@@ -1,15 +1,17 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/* ===========
+ * OrsonCharts
+ * ===========
+ * 
+ * (C)opyright 2013 by Object Refinery Limited.
+ * 
  */
+
 package com.orsoncharts.renderer;
 
-import com.orsoncharts.renderer.Renderer3DChangeEvent;
 import java.util.EventListener;
 
 /**
- *
- * @author dgilbert
+ * A change listener.
  */
 public interface Renderer3DChangeListener extends EventListener {
 
