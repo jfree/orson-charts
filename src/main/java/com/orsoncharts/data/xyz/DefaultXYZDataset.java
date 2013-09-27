@@ -29,8 +29,8 @@ public class DefaultXYZDataset extends AbstractDataset3D implements XYZDataset {
         for (int s = 0; s < seriesCount; s++) {
             for (int i = 0; i < pointCount; i++) {
                 xValues[s][i] = Math.random() * 10.0;
-                yValues[s][i] = Math.random() * 10.0;
-                zValues[s][i] = Math.random() * 10.0;
+                yValues[s][i] = Math.random() * 20000.0;
+                zValues[s][i] = Math.random() * 0.005;
             }
         }
     }

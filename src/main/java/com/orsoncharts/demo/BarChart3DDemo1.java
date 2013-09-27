@@ -69,14 +69,14 @@ public class BarChart3DDemo1 extends JFrame {
         s1.addValue("Q2", -2.0);
         s1.addValue("Q3", 3.0);
         s1.addValue("Q4", 4.0);
-        dataset.addSeriesAsRow("S1", s1);
+        dataset.addSeriesAsRow("Apple (AAPL)", s1);
         
         DefaultKeyedValues s2 = new DefaultKeyedValues();
         s2.addValue("Q1", 4.0);
         s2.addValue("Q2", 3.0);
         s2.addValue("Q3", 2.0);
         s2.addValue("Q4", 1.0);
-        dataset.addSeriesAsRow("S2", s2);
+        dataset.addSeriesAsRow("Google (GOOG)", s2);
         
         return dataset;
     }

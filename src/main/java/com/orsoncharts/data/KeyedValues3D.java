@@ -9,7 +9,7 @@ import java.util.List;
  * A three dimensional cube of data values where each value is uniquely 
  * identified by three keys (the seriesKey, rowKey and columnKey).  
  */
-public interface KeyedValues3D extends Values3D {
+public interface KeyedValues3D<T> extends Values3D {
 
     /**
      * Returns a list of the series-keys for the dataset.  Modifying this
@@ -55,7 +55,7 @@ public interface KeyedValues3D extends Values3D {
      * 
      * @return The value (possibly <code>null</code>).
      */
-    public Number getValue(Comparable seriesKey, Comparable rowKey, 
+    public T getValue(Comparable seriesKey, Comparable rowKey, 
             Comparable columnKey);
     
 }

@@ -8,23 +8,31 @@
 
 package com.orsoncharts.axis;
 
-import com.orsoncharts.Range;
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Paint;
+import java.awt.Stroke;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
+import java.text.Format;
 import java.util.Objects;
+import com.orsoncharts.TextUtils;
+import com.orsoncharts.TextAnchor;
+import com.orsoncharts.Range;
 import com.orsoncharts.ArgChecks;
+import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.plot.XYZPlot;
 
 /**
- * An axis in 3D space.
+ * A numerical axis for use with 3D plots.
  */
 public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D {
 
+    /** A flag that determines whether or not the axis will be drawn. */
+    private boolean visible;
+    
     /** The axis range. */
     private Range range;
 
@@ -34,6 +42,26 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D {
      */
     private boolean autoAdjustRange;
     
+    /** The percentage margin to leave at the lower end of the axis. */
+    private double lowerMargin;
+    
+    /** The percentage margin to leave at the upper end of the axis. */
+    private double upperMargin;
+
+    /** 
+     * A flag indicating whether or not the auto-range calculation should
+     * include zero.  FIXME:  how does this interact with the renderer making
+     * a decision about whether or not to include zero?
+     */
+    private boolean autoRangeIncludesZero;
+    
+    /**
+     * A flag that controls how zero is handled when it falls within the
+     * margins.  If <code>true</code>, the margin is truncated at zero, if
+     * <code>false</code> the margin is not changed.
+     */
+    private boolean autoRangeStickyZero;
+    
     /** 
      * The default range to apply when there is no data in the dataset and the
      * autoAdjustRange flag is true.  A sensible default is going to depend on
@@ -41,31 +69,101 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D {
      */
     private Range defaultAutoRange;
     
+    /** 
+     * The tick selector (if not null, then auto-tick selection is in place). 
+     */
+    private TickSelector tickSelector;
+
+    /** 
+     * The tick size (never <code>null</code>).  If the tickSelector is not
+     * <code>null</code> then it is used to auto-select an appropriate tick
+     * size and format.
+     */
     private double tickSize;
 
-    private NumberFormat tickFormatter;
+    /** The tick formatter (never <code>null</code>). */
+    private Format tickLabelFormatter;
 
+    private double tickLabelFactor = 1.4;    
+
+    /** The tick label offset (number of Java2D units). */
+    private double tickLabelOffset;
+    
+    /** The length of tick marks (in Java2D units).  Can be set to 0.0. */
+    private double tickMarkLength;
+    
+    /** The tick mark stroke (never <code>null</code>). */
+    private Stroke tickMarkStroke;
+    
+    /** The tick mark paint (never <code>null</code>). */
+    private Paint tickMarkPaint;
+    
+    /**
+     * Creates a new axis with the specified label and default attributes.
+     * 
+     * @param label  the axis label (<code>null</code> permitted). 
+     */
     public NumberAxis3D(String label) {
         this(label, new Range(0.0, 1.0));
     }
     
     /**
-     * Creates a new axis with the specified range.
+     * Creates a new axis with the specified label and range.
      *
      * @param label  the axis label (<code>null</code> permitted).
      * @param range  the range (<code>null</code> not permitted).
      */
     public NumberAxis3D(String label, Range range) {
         super(label);
+        this.visible = true;
         this.range = range;
         this.autoAdjustRange = true;
+        this.lowerMargin = 0.05;
+        this.upperMargin = 0.05;
+        this.autoRangeIncludesZero = false;
+        this.autoRangeStickyZero = true;
         this.defaultAutoRange = new Range(0.0, 1.0);
-        this.tickFormatter = new DecimalFormat("0.00");
+        this.tickSelector = new NumberTickSelector();
+        this.tickLabelFactor = 1.4;
         this.tickSize = range.getLength() / 10.0;  // FIXME
+        this.tickLabelFormatter = new DecimalFormat("0.00");
+        this.tickLabelOffset = 5.0;
+        this.tickMarkLength = 3.0;
+        this.tickMarkStroke = new BasicStroke(0.5f);
+        this.tickMarkPaint = Color.GRAY;
     }
   
     /**
-     * Returns the axis range.
+     * Returns the flag that determines whether or not the axis is drawn 
+     * on the chart.
+     * 
+     * @return A boolean.
+     * 
+     * @see #setVisible(boolean) 
+     */
+    @Override
+    public boolean isVisible() {
+        return this.visible;
+    }
+    
+    /**
+     * Sets the flag that determines whether or not the axis is drawn on the
+     * chart and sends an {@link Axis3DChangeEvent} to all registerd listeners.
+     * 
+     * @param visible  the flag.
+     * 
+     * @see #isVisible() 
+     */
+    @Override
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+        fireChangeEvent();
+    }
+    
+    /**
+     * Returns the axis range.  You can set the axis range manually or you can
+     * rely on the autoAdjustRange feature to set the axis range to match
+     * the data being plotted.
      * 
      * @return the axis range (never <code>null</code>).
      */
@@ -75,8 +173,8 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D {
     }
   
     /**
-     * Sets the axis range (bounds) and sends a change event to all registered
-     * listeners.
+     * Sets the axis range (bounds) and sends an {@link Axis3DChangeEvent to 
+     * all registered listeners.
      * 
      * @param range  the new range (<code>null</code> not permitted).
      */
@@ -87,15 +185,131 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D {
         fireChangeEvent();
     }
     
+    /**
+     * Returns the flag that controls whether or not the axis range is 
+     * automatically updated in response to dataset changes.
+     * 
+     * @return A boolean. 
+     */
+    public boolean isAutoAdjustRange() {
+        return this.autoAdjustRange;
+    }
+    
+    public void setAutoAdjustRange(boolean autoAdjust) {
+        this.autoAdjustRange = autoAdjust;
+        fireChangeEvent();
+    }
+    
+    /**
+     * Returns the size of the lower margin that is added by the auto-range
+     * calculation, as a percentage of the data range.  This margin is used to 
+     * prevent data items from being plotted right at the edges of the chart.  
+     * The default value is <code>0.05</code> (five percent).
+     * 
+     * @return The lower margin.
+     */
+    public double getLowerMargin() {
+        return this.lowerMargin;
+    }
+    
+    /**
+     * Sets the size of the lower margin that will be added by the auto-range
+     * calculation and sends an {@link Axis3DChangeEvent} to all registered
+     * listeners.
+     * 
+     * @param margin  the margin as a percentage of the data range 
+     *     (0.05 = five percent).
+     * 
+     * @see #setUpperMargin(double) 
+     */
+    public void setLowerMargin(double margin) {
+        this.lowerMargin = margin;
+        fireChangeEvent();
+    }
+    
+    /**
+     * Returns the size of the upper margin that is added by the auto-range
+     * calculation, as a percentage of the data range.  This margin is used to 
+     * prevent data items from being plotted right at the edges of the chart.  
+     * The default value is <code>0.05</code> (five percent).
+     * 
+     * @return The upper margin.
+     */
+    public double getUpperMargin() {
+        return this.upperMargin;
+    }
+    
+    /**
+     * Sets the size of the upper margin that will be added by the auto-range
+     * calculation and sends an {@link Axis3DChangeEvent} to all registered
+     * listeners.
+     * 
+     * @param margin  the margin as a percentage of the data range 
+     *     (0.05 = five percent).
+     * 
+     * @see #setLowerMargin(double) 
+     */
+    public void setUpperMargin(double margin) {
+        this.upperMargin = margin;
+        fireChangeEvent();
+    }
+    
+    public boolean getAutoRangeIncludesZero() {
+        return this.autoRangeIncludesZero;
+    }
+    
+    public void setAutoRangeIncludeZero(boolean include) {
+        this.autoRangeIncludesZero = include;
+        fireChangeEvent();
+    }
+    
+    public boolean getAutoRangeStickyZero() {
+        return this.autoRangeStickyZero;
+    }
+    
+    public void setAutoRangeStickyZero(boolean sticky) {
+        this.autoRangeStickyZero = sticky;
+        fireChangeEvent();
+    }
+    
+    /**
+     * Returns the default range used when the <code>autoAdjustRange</code>
+     * flag is <code>true</code> but the dataset contains no values.  The
+     * default range is <code>(0.0 to 1.0)</code>, depending on the context
+     * you may want to change this.
+     * 
+     * @return The default range (never <code>null</code>).
+     * 
+     * @see #setDefaultAutoRange(com.orsoncharts.Range) 
+     */
     public Range getDefaultAutoRange() {
         return this.defaultAutoRange;
     }
     
+    /**
+     * Sets the default range used  when the <code>autoAdjustRange</code>
+     * flag is <code>true</code> but the dataset contains no values, and sends
+     * an {@link Axis3DChangeEvent} to all registered listeners.
+     * 
+     * @param range  the range (<code>null</code> not permitted).
+     *
+     * @see #getDefaultAutoRange() 
+     */
     public void setDefaultAutoRange(Range range) {
         this.defaultAutoRange = range;
         fireChangeEvent();
     }
   
+    public TickSelector getTickSelector() {
+        return this.tickSelector;    
+    }
+    
+    public void setTickSelector(TickSelector selector) {
+        ArgChecks.nullNotPermitted(selector, "selector");
+        this.tickSelector = selector;
+        fireChangeEvent();
+    }
+    
     /**
      * Returns the tick size.
      * 
@@ -114,13 +328,107 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D {
         this.tickSize = tickSize;
         fireChangeEvent();
     }
+    
+    public Format getTickLabelFormatter() {
+        return this.tickLabelFormatter;
+    }
+    
+    public void setTickLabelFormatter(Format formatter) {
+        ArgChecks.nullNotPermitted(formatter, "formatter");
+        this.tickLabelFormatter = formatter;
+        fireChangeEvent();
+    }
+    
+    public double getTickLabelFactor() {
+        return this.tickLabelFactor;
+    }
+    
+    public void setTickLabelFactor(double factor) {
+        this.tickLabelFactor = factor;
+        fireChangeEvent();
+    }
+    
+    public double getTickLabelOffset() {
+        return this.tickLabelOffset;
+    }
+    
+    public void setTickLabelOffset(double offset) {
+        this.tickLabelOffset = offset;
+    }
+    
+    public double getTickMarkLength() {
+        return this.tickMarkLength;
+    }
+    
+    public void setTickMarkLength(double length) {
+        this.tickMarkLength = length;
+        fireChangeEvent();
+    }
 
+    public Stroke getTickMarkStroke() {
+        return this.tickMarkStroke;
+    }
+    
+    public void setTickMarkStroke(Stroke stroke) {
+        ArgChecks.nullNotPermitted(stroke, "stroke");
+        this.tickMarkStroke = stroke;
+        fireChangeEvent();
+    }
+    
+    public Paint getTickMarkPaint() {
+        return this.tickMarkPaint;
+    }
+    
+    public void setTickMarkPaint(Paint paint) {
+        ArgChecks.nullNotPermitted(paint, "paint");
+        this.tickMarkPaint = paint;
+        fireChangeEvent();
+    }
+
+    /**
+     * Adjusts the range by adding the lower and upper margins and taking into
+     * account any other settings.
+     * 
+     * @param range  the range (<code>null</code> not permitted).
+     * @return 
+     */
+    private Range adjustedDataRange(Range range) {
+        ArgChecks.nullNotPermitted(range, "range");
+        double lm = range.getLength() * this.lowerMargin;
+        double um = range.getLength() * this.upperMargin;
+        double lowerBound = range.getMin() - lm;
+        double upperBound = range.getMax() + um;
+        // does zero fall in the margins
+        if (this.autoRangeStickyZero) {
+            if (0.0 <= range.getMin() && 0.0 > lowerBound) {
+                lowerBound = 0.0;
+            }
+            if (0.0 >= range.getMax() && 0.0 < upperBound) {
+                upperBound = 0.0;
+            }
+        }
+        return new Range(lowerBound, upperBound);
+    }
+    
+    @Override
+    public void configureAsValueAxis(CategoryPlot3D plot) {
+        if (this.autoAdjustRange) {
+            Range valueRange = plot.getRenderer().findValueRange(
+                    plot.getDataset());
+            if (valueRange != null) {
+                this.range = adjustedDataRange(valueRange);
+            } else {
+                this.range = this.defaultAutoRange;
+            }
+        }
+    }
+    
     @Override
     public void configureAsXAxis(XYZPlot plot) {
         if (this.autoAdjustRange) {
             Range xRange = plot.getRenderer().findXRange(plot.getDataset());
             if (xRange != null) {
-                this.range = xRange;
+                this.range = adjustedDataRange(xRange);
             } else {
                 this.range = this.defaultAutoRange;
             }
@@ -132,7 +440,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D {
         if (this.autoAdjustRange) {
             Range yRange = plot.getRenderer().findYRange(plot.getDataset());
             if (yRange != null) {
-                this.range = yRange;
+                this.range = adjustedDataRange(yRange);
             } else {
                 this.range = this.defaultAutoRange;
             }
@@ -144,7 +452,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D {
         if (this.autoAdjustRange) {
             Range zRange = plot.getRenderer().findZRange(plot.getDataset());
             if (zRange != null) {
-                this.range = zRange;
+                this.range = adjustedDataRange(zRange);
             } else {
                 this.range = this.defaultAutoRange;
             }
@@ -152,7 +460,16 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D {
     }
 
     /**
-     * Renders the axis using the supplied graphics device, with the
+     * Returns the first standard tick value in the range.
+     * 
+     * @return The first standard tick value. 
+     */
+    private double findFirstStandardTickValue() {
+        return this.tickSize * Math.ceil(this.range.getMin() / this.tickSize);
+    }
+    
+    /**
+     * Draws the axis using the supplied graphics device, with the
      * specified starting and ending points for the line.
      *
      * @param g2
@@ -162,47 +479,69 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D {
      * @param labels
      */
     @Override
-    public void render(Graphics2D g2, Point2D pt0, Point2D pt1, 
+    public void draw(Graphics2D g2, Point2D pt0, Point2D pt1, 
             Point2D opposingPt, boolean labels) {
+        
+        if (!isVisible()) {
+            return;
+        }
+        
+        // draw a line for the axis
         g2.setStroke(getLineStroke());
         g2.setPaint(getLineColor());
         Line2D axisLine = new Line2D.Float(pt0, pt1);  
         g2.draw(axisLine);
 
-        // now draw a small black line perpendicular to the axis - the aim is to
-        // point to the side where the text labels will be displayed
-        // we could do this by assuming that the diagonally opposite
-        // line segment in the cube is on the "inside" of the chart
-        g2.setFont(getTickLabelFont());
-        for (int i = 0; i <= 10; i++) {
-            Line2D perpLine = createPerpendicularLine(axisLine, 0.1 * i, 10.0, 
-                    opposingPt);
-            g2.setPaint(Color.BLACK);
-            g2.setStroke(new BasicStroke(1f));
-            g2.draw(perpLine);
-            double theta = calculateTheta(axisLine);
-            double thetaAdj = theta + Math.PI / 2.0;
-            if (thetaAdj < -Math.PI / 2.0) {
-                thetaAdj = thetaAdj + Math.PI;
+        // draw the tick marks and labels
+        double maxTickLabelWidth = 0.0;
+        double value = findFirstStandardTickValue();
+        while (value <= this.range.getMax()) {
+            Line2D perpLine = createPerpendicularLine(axisLine, 
+                    this.range.percent(value), this.tickMarkLength 
+                    + this.tickLabelOffset, opposingPt);
+            
+            if (this.tickMarkLength > 0.0) {
+                Line2D tickLine = createPerpendicularLine(axisLine, 
+                       this.range.percent(value), this.tickMarkLength, 
+                       opposingPt);
+                g2.setPaint(this.tickMarkPaint);
+                g2.setStroke(this.tickMarkStroke);
+                g2.draw(tickLine);
             }
-            if (thetaAdj > Math.PI / 2.0) {
-                thetaAdj = thetaAdj - Math.PI;
-            }
-            double v = range.getMin() + (0.1 * i * range.getLength());
+            
+            if (this.getTickLabelsVisible()) {
+                double theta = calculateTheta(axisLine);
+                double thetaAdj = theta + Math.PI / 2.0;
+                if (thetaAdj < -Math.PI / 2.0) {
+                    thetaAdj = thetaAdj + Math.PI;
+                }
+                if (thetaAdj > Math.PI / 2.0) {
+                    thetaAdj = thetaAdj - Math.PI;
+                }
 
-            double perpTheta = calculateTheta(perpLine);  
-            TextAnchor textAnchor = TextAnchor.CENTER_LEFT;
-            if (Math.abs(perpTheta) > Math.PI / 2.0) {
-                textAnchor = TextAnchor.CENTER_RIGHT;
-            } 
-            TextUtils.drawRotatedString(this.tickFormatter.format(v), g2, 
-                    (float) perpLine.getX2(), (float) perpLine.getY2(), textAnchor,
-                    thetaAdj, textAnchor);
+                double perpTheta = calculateTheta(perpLine);  
+                TextAnchor textAnchor = TextAnchor.CENTER_LEFT;
+                if (Math.abs(perpTheta) > Math.PI / 2.0) {
+                    textAnchor = TextAnchor.CENTER_RIGHT;
+                } 
+                g2.setFont(getTickLabelFont());
+                g2.setPaint(getTickLabelPaint());
+                String tickLabel = this.tickLabelFormatter.format(value);
+                maxTickLabelWidth = Math.max(maxTickLabelWidth, 
+                        g2.getFontMetrics().stringWidth(tickLabel));
+                TextUtils.drawRotatedString(tickLabel, g2, 
+                        (float) perpLine.getX2(), (float) perpLine.getY2(), 
+                        textAnchor, thetaAdj, textAnchor);
+            }
+            value = value + this.tickSize;
         }
 
         if (getLabel() != null) {
             g2.setFont(getLabelFont());
-            Line2D labelPosLine = createPerpendicularLine(axisLine, 0.5, 60.0, 
+            g2.setPaint(getLabelPaint());
+            Line2D labelPosLine = createPerpendicularLine(axisLine, 0.5, 
+                    this.tickMarkLength + this.tickLabelOffset 
+                    + maxTickLabelWidth + 10.0, 
                     opposingPt);
             double theta = calculateTheta(axisLine);
             if (theta < -Math.PI / 2.0) {
@@ -211,7 +550,8 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D {
             if (theta > Math.PI / 2.0) {
                 theta = theta - Math.PI;
             }
-            TextUtils.drawRotatedString(getLabel(), g2, (float) labelPosLine.getX2(), 
+            TextUtils.drawRotatedString(getLabel(), g2, 
+                    (float) labelPosLine.getX2(), 
                     (float) labelPosLine.getY2(), TextAnchor.CENTER, theta, 
                     TextAnchor.CENTER);
         }
@@ -238,6 +578,9 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D {
             return false;
         }
         NumberAxis3D that = (NumberAxis3D) obj;
+        if (this.visible != that.visible) {
+            return false;
+        }
         if (!this.range.equals(that.range)) {
             return false;
         }
@@ -253,8 +596,51 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D {
         hash = 59 * hash + Objects.hashCode(this.range);
         hash = 59 * hash + (int) (Double.doubleToLongBits(this.tickSize) 
                 ^ (Double.doubleToLongBits(this.tickSize) >>> 32));
-        hash = 59 * hash + Objects.hashCode(this.tickFormatter);
+        hash = 59 * hash + Objects.hashCode(this.tickLabelFormatter);
         return hash;
+    }
+
+    /**
+     * Selects a tick size that is appropriate for drawing the axis from
+     * <code>pt0</code> to <code>pt1</code>.
+     * 
+     * @param g2
+     * @param pt0
+     * @param pt1
+     * @param opposingPt 
+     */
+    @Override
+    public void selectTick(Graphics2D g2, Point2D pt0, Point2D pt1, 
+            Point2D opposingPt) {
+        
+        if (this.tickSelector == null) {
+            return;  // there is nothing we can do
+        }
+        
+        // based on the font height, we can determine roughly how many tick
+        // labels will fit in the length available
+        double length = pt0.distance(pt1);
+        g2.setFont(getTickLabelFont());
+        int height = g2.getFontMetrics(getTickLabelFont()).getHeight();
+        // the tickLabelFactor allows some control over how dense the labels
+        // will be
+        int maxTicks = (int) (length / (height * this.tickLabelFactor));
+        if (maxTicks > 2 && this.tickSelector != null) {
+            this.tickSelector.select(this.range.getLength() / 2.0);
+            // step through until we have too many ticks OR we run out of 
+            // tick sizes
+            int tickCount = (int) (this.range.getLength() 
+                    / this.tickSelector.getCurrentTickSize());
+            while (tickCount < maxTicks) {
+                this.tickSelector.previous();
+                tickCount = (int) (this.range.getLength() 
+                        / this.tickSelector.getCurrentTickSize());
+            }
+            this.tickSelector.next();
+            this.tickSize = this.tickSelector.getCurrentTickSize();
+            this.tickLabelFormatter 
+                    = this.tickSelector.getCurrentTickLabelFormat();
+        } 
     }
 
 }

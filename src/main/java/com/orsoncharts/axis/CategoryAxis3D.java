@@ -11,10 +11,25 @@ package com.orsoncharts.axis;
 import com.orsoncharts.plot.CategoryPlot3D;
 
 /**
- * A category axis.
+ * An axis that displays categories and is used with a {@link CategoryPlot3D}.
  */
 public interface CategoryAxis3D extends Axis3D {
 
+    /**
+     * Returns a flag indicating whether or not the axis should be drawn.  
+     * 
+     * @return A boolean. 
+     */
+    boolean isVisible();
+    
+    /**
+     * Sets the flag that controls whether or not the axis is drawn on the 
+     * chart and sends an {@link Axis3DChangeEvent} to all registered listeners.
+     * 
+     * @param visible  the new flag value.
+     */
+    void setVisible(boolean visible);
+    
     /**
      * Configure the axis as a row axis for the specified plot.
      * 

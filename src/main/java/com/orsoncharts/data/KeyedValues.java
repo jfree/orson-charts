@@ -9,13 +9,13 @@ import java.util.List;
 /**
  * A list of values that are associated with unique keys.
  */
-public interface KeyedValues extends Values { 
+public interface KeyedValues<T> extends Values<T> { 
 
-  public Comparable getKey(int index);
+    public Comparable getKey(int index);
   
-  public int getIndex(Comparable key);
+    public int getIndex(Comparable key);
   
-  public List<Comparable> getKeys();
+    public List<Comparable> getKeys();
 
-  public Number getValue(Comparable key);
+    public T getValue(Comparable key);
 }

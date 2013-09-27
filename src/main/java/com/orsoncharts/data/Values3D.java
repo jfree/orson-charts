@@ -17,7 +17,7 @@ package com.orsoncharts.data;
  * 
  * @see KeyedValues3D
  */
-public interface Values3D {
+public interface Values3D<T> {
 
     /**
      * Returns the number of items in the x-dimension.
@@ -49,7 +49,7 @@ public interface Values3D {
      * 
      * @return The data value (possibly <code>null</code>).
      */
-    public Number getValue(int seriesIndex, int rowIndex, int columnIndex);
+    public T getValue(int seriesIndex, int rowIndex, int columnIndex);
    
     /**
      * Returns the data item at the specified position as a double primitive.

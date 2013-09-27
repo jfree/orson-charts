@@ -1,7 +1,12 @@
-/**
- * (C)opyright 2013, by Object Refinery Limited
+/* ===========
+ * OrsonCharts
+ * ===========
+ * 
+ * (C)opyright 2013 by Object Refinery Limited.
+ * 
  */
-package com.orsoncharts.axis;
+
+package com.orsoncharts;
 
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -13,11 +18,14 @@ import java.awt.geom.Rectangle2D;
 import java.text.AttributedString;
 
 /**
- *
- * @author dgilbert
+ * Utility methods for working with text.
  */
 public class TextUtils {
 
+    private TextUtils() {
+        // no need to instantiate this
+    }
+    
     /**
      * Draws a string such that the specified anchor point is aligned to the
      * given (x, y) location.
@@ -239,14 +247,15 @@ public class TextUtils {
      * @return The text bounds (<code>null</code> if the <code>text</code>
      *         argument is <code>null</code>).
      */
-    public static Rectangle2D getTextBounds(final String text,
-            final Graphics2D g2, final FontMetrics fm) {
+    public static Rectangle2D getTextBounds(String text, Graphics2D g2,
+            FontMetrics fm) {
 
-        final Rectangle2D bounds;
-        final double width = fm.stringWidth(text);
-        final double height = fm.getHeight();
+        Rectangle2D bounds;
+        double width = fm.stringWidth(text);
+        double height = fm.getHeight();
         return new Rectangle2D.Double(0.0, -fm.getAscent(), width, height);
     }
+    
     /**
      * Draws a string that is aligned by one anchor point and rotated about
      * another anchor point.
@@ -260,16 +269,14 @@ public class TextUtils {
      * @param rotationX  the x-coordinate for the rotation anchor point.
      * @param rotationY  the y-coordinate for the rotation anchor point.
      */
-    public static void drawRotatedString(final String text,
-            final Graphics2D g2, final float x, final float y,
-            final TextAnchor textAnchor, final double angle,
-            final float rotationX, final float rotationY) {
+    public static void drawRotatedString(String text, Graphics2D g2, float x,
+            float y, TextAnchor textAnchor, double angle,
+            float rotationX, float rotationY) {
 
         if (text == null || text.equals("")) {
             return;
         }
-        final float[] textAdj = deriveTextBoundsAnchorOffsets(g2, text,
-                textAnchor);
+        float[] textAdj = deriveTextBoundsAnchorOffsets(g2, text, textAnchor);
         drawRotatedString(text, g2, x + textAdj[0], y + textAdj[1], angle,
                 rotationX, rotationY);
     }
@@ -313,18 +320,18 @@ public class TextUtils {
      *
      * @return  The offsets.
      */
-    private static float[] deriveRotationAnchorOffsets(final Graphics2D g2,
-            final String text, final TextAnchor anchor) {
+    private static float[] deriveRotationAnchorOffsets(Graphics2D g2,
+            String text, TextAnchor anchor) {
 
-        final float[] result = new float[2];
-        final FontRenderContext frc = g2.getFontRenderContext();
-        final LineMetrics metrics = g2.getFont().getLineMetrics(text, frc);
-        final FontMetrics fm = g2.getFontMetrics();
-        final Rectangle2D bounds = TextUtils.getTextBounds(text, g2, fm);
-        final float ascent = metrics.getAscent();
-        final float halfAscent = ascent / 2.0f;
-        final float descent = metrics.getDescent();
-        final float leading = metrics.getLeading();
+        float[] result = new float[2];
+        FontRenderContext frc = g2.getFontRenderContext();
+        LineMetrics metrics = g2.getFont().getLineMetrics(text, frc);
+        FontMetrics fm = g2.getFontMetrics();
+        Rectangle2D bounds = TextUtils.getTextBounds(text, g2, fm);
+        float ascent = metrics.getAscent();
+        float halfAscent = ascent / 2.0f;
+        float descent = metrics.getDescent();
+        float leading = metrics.getLeading();
         float xAdj = 0.0f;
         float yAdj = 0.0f;
 
@@ -409,8 +416,8 @@ public class TextUtils {
      * @param x  the x-coordinate.
      * @param y  the y-coordinate.
      */
-    public static void drawRotatedString(final String text, final Graphics2D g2,
-            final double angle, final float x, final float y) {
+    public static void drawRotatedString(String text, Graphics2D g2,
+            double angle, float x, float y) {
         drawRotatedString(text, g2, x, y, angle, x, y);
     }
 
@@ -428,18 +435,18 @@ public class TextUtils {
      * @param rotateX  the point about which the text is rotated.
      * @param rotateY  the point about which the text is rotated.
      */
-    public static void drawRotatedString(final String text, final Graphics2D g2,
-            final float textX, final float textY, final double angle,
-            final float rotateX, final float rotateY) {
+    public static void drawRotatedString(String text, Graphics2D g2,
+            float textX, float textY, double angle,
+            float rotateX, float rotateY) {
 
         if ((text == null) || (text.equals(""))) {
             return;
         }
 
-        final AffineTransform saved = g2.getTransform();
+        AffineTransform saved = g2.getTransform();
 
         // apply the rotation...
-        final AffineTransform rotate = AffineTransform.getRotateInstance(
+        AffineTransform rotate = AffineTransform.getRotateInstance(
                 angle, rotateX, rotateY);
         g2.transform(rotate);
 

@@ -1,6 +1,11 @@
-/**
- * (C)opyright 2013, by Object Refinery Limited
+/* ===========
+ * OrsonCharts
+ * ===========
+ * 
+ * (C)opyright 2013 by Object Refinery Limited.
+ * 
  */
+
 package com.orsoncharts.data;
 
 import com.orsoncharts.ArgChecks;
@@ -10,13 +15,13 @@ import java.util.List;
 /**
  * A two dimensional grid of numerical data.
  */
-public class DefaultKeyedValues2D implements KeyedValues2D {
+public class DefaultKeyedValues2D<T> implements KeyedValues2D {
 
     List<Comparable> xKeys;
     
     List<Comparable> yKeys;
     
-    List<DefaultKeyedValues> data;  // one entry per xKey
+    List<DefaultKeyedValues<T>> data;  // one entry per xKey
   
     /**
      * Creates a new (empty) instance.
@@ -38,9 +43,9 @@ public class DefaultKeyedValues2D implements KeyedValues2D {
         ArgChecks.nullNotPermitted(yKeys, "yKeys");
         this.xKeys = new ArrayList<Comparable>(xKeys);
         this.yKeys = new ArrayList<Comparable>(yKeys);
-        this.data = new ArrayList<DefaultKeyedValues>();    
+        this.data = new ArrayList<DefaultKeyedValues<T>>();    
         for (Comparable c : xKeys) {
-            this.data.add(new DefaultKeyedValues(yKeys));
+            this.data.add(new DefaultKeyedValues<T>(yKeys));
         }
     }
 
@@ -124,41 +129,41 @@ public class DefaultKeyedValues2D implements KeyedValues2D {
     }
 
     @Override
-    public Number getValue(Comparable xKey, Comparable yKey) {
+    public T getValue(Comparable xKey, Comparable yKey) {
         int xIndex = getXIndex(xKey);
         int yIndex = getYIndex(yKey);
         return getValue(xIndex, yIndex);
     }
 
     @Override
-    public Number getValue(int xIndex, int yIndex) {
+    public T getValue(int xIndex, int yIndex) {
         return this.data.get(xIndex).getValue(yIndex);
     }
 
     @Override
     public double getDoubleValue(int xIndex, int yIndex) {
-        Number n = getValue(xIndex, yIndex);
-        if (n != null) {
-            return n.doubleValue();
+        T n = getValue(xIndex, yIndex);
+        if (n != null && n instanceof Number) {
+            return ((Number) n).doubleValue();
         }
         return Double.NaN;
     } 
     
-    public void setValue(Number n, Comparable xKey, Comparable yKey) {
+    public void setValue(T n, Comparable xKey, Comparable yKey) {
         // cases
         
         // 1.  No data - just add one new entry
         if (this.data.isEmpty()) {
             this.xKeys.add(xKey);
             this.yKeys.add(yKey);
-            DefaultKeyedValues dkvs = new DefaultKeyedValues();
+            DefaultKeyedValues dkvs = new DefaultKeyedValues<T>();
             dkvs.addValue(yKey, n);
             this.data.add(dkvs);
         } else {
             int xIndex = getXIndex(xKey);
             int yIndex = getYIndex(yKey);
             if (xIndex >= 0) {
-                DefaultKeyedValues dkvs = this.data.get(xIndex);
+                DefaultKeyedValues<T> dkvs = this.data.get(xIndex);
                 if (yIndex >= 0) {
                     // 2.  Both keys exist - just update the value
                     dkvs.addValue(yKey, n);
@@ -174,7 +179,7 @@ public class DefaultKeyedValues2D implements KeyedValues2D {
                 if (yIndex >= 0) {
                     // 4.  xKey does not exist, but yKey does
                     this.xKeys.add(xKey);
-                    DefaultKeyedValues d = new DefaultKeyedValues(this.yKeys);
+                    DefaultKeyedValues d = new DefaultKeyedValues<T>(this.yKeys);
                     d.addValue(yKey, n);
                     this.data.add(d);
                 } else {
@@ -182,10 +187,10 @@ public class DefaultKeyedValues2D implements KeyedValues2D {
                     // need to create the new series, plus the new entry in every series
                     this.xKeys.add(xKey);
                     this.yKeys.add(yKey);
-                    for (DefaultKeyedValues kv : this.data) {
+                    for (DefaultKeyedValues<T> kv : this.data) {
                         kv.addValue(yKey, null);
                     }
-                    DefaultKeyedValues d = new DefaultKeyedValues(this.yKeys);
+                    DefaultKeyedValues<T> d = new DefaultKeyedValues<T>(this.yKeys);
                     d.addValue(yKey, n);
                     this.data.add(d);
                 }

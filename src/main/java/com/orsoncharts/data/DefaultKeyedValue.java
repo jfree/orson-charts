@@ -13,11 +13,11 @@ import com.orsoncharts.ArgChecks;
 /**
  * A data item where a key is associated with a numerical value.
  */
-public class DefaultKeyedValue implements KeyedValue {
+public class DefaultKeyedValue<T> implements KeyedValue {
 
     private Comparable key;
 
-    private Number value;
+    private T value;
 
     /**
      * Creates a new instance.
@@ -25,7 +25,7 @@ public class DefaultKeyedValue implements KeyedValue {
      * @param key  the key (<code>null</code> not permitted).
      * @param value  the value.
      */
-    public DefaultKeyedValue(Comparable key, Number value) {
+    public DefaultKeyedValue(Comparable key, T value) {
         ArgChecks.nullNotPermitted(key, "key");
         this.key = key;
         this.value = value;
@@ -47,14 +47,14 @@ public class DefaultKeyedValue implements KeyedValue {
      * @return The value (possibly <code>null</code>). 
      */
     @Override
-    public Number getValue() {
+    public T getValue() {
         return this.value;
     }
   
     /**
      * Sets the value.
      */
-    public void setValue(Number value) {
+    public void setValue(T value) {
         this.value = value;
     }
   

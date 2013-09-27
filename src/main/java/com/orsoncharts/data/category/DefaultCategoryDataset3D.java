@@ -18,7 +18,7 @@ public class DefaultCategoryDataset3D extends AbstractDataset3D
     /**
      * Storage for the data.
      */
-    private DefaultKeyedValues3D data;
+    private DefaultKeyedValues3D<Number> data;
     
     /**
      * Creates a new (empty) dataset.
@@ -136,7 +136,7 @@ public class DefaultCategoryDataset3D extends AbstractDataset3D
      * @param seriesKey
      * @param data  the data (<code>null</code> not permitted).
      */
-    public void addSeriesAsRow(Comparable seriesKey, KeyedValues data) {
+    public void addSeriesAsRow(Comparable seriesKey, KeyedValues<Number> data) {
         ArgChecks.nullNotPermitted(data, "data");
         for (Comparable key : data.getKeys()) {
             setValue(data.getValue(key), seriesKey, seriesKey, key);

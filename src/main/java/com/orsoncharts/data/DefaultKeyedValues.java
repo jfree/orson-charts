@@ -16,9 +16,9 @@ import java.util.List;
  * A list of <code>(key, value)</code> pairs.  This is the basic structure of 
  * the data required for a pie chart.
  */
-public class DefaultKeyedValues implements KeyedValues {
+public class DefaultKeyedValues<T> implements KeyedValues<T> {
 
-    private List<KeyedValue> data;
+    private List<KeyedValue<T>> data;
   
     /**
      * Creates a new (empty) list of keyed values.
@@ -37,7 +37,7 @@ public class DefaultKeyedValues implements KeyedValues {
      */
     public DefaultKeyedValues(List<Comparable> keys) {
         ArgChecks.nullNotPermitted(keys, "keys");
-        this.data = new ArrayList<KeyedValue>();
+        this.data = new ArrayList<KeyedValue<T>>();
         for (Comparable key : keys) {
             this.data.add(new DefaultKeyedValue(key, null));
         }
@@ -49,17 +49,6 @@ public class DefaultKeyedValues implements KeyedValues {
     public void clear() {
         this.data.clear();
     }
-
-    /**
-     * Adds a <code>(key, value)</code> pair.  If an item already exists 
-     * with the same <code>key</code>, the value of that item is updated.
-     * 
-     * @param key  the key (<code>null</code> not permitted).
-     * @param value  the value.
-     */
-    public void addValue(Comparable key, double value) {
-        addValue(key, Double.valueOf(value));
-    }
  
     /**
      * Adds a value or, if there is an existing value with the same key, updates 
@@ -68,15 +57,15 @@ public class DefaultKeyedValues implements KeyedValues {
      * @param key  the key (<code>null</code> not permitted)
      * @param value  the value.
      */
-    public void addValue(Comparable key, Number value) {
+    public void addValue(Comparable key, T value) {
         ArgChecks.nullNotPermitted(key, "key");
-        DefaultKeyedValue dkv;
+        DefaultKeyedValue<T> dkv;
         int index = getIndex(key);
         if (index >= 0) {
-            dkv = (DefaultKeyedValue) this.data.get(index);
+            dkv = (DefaultKeyedValue<T>) this.data.get(index);
             dkv.setValue(value);
         } else {
-            this.data.add(new DefaultKeyedValue(key, value));
+            this.data.add(new DefaultKeyedValue<T>(key, value));
         }
     }
   
@@ -156,7 +145,7 @@ public class DefaultKeyedValues implements KeyedValues {
      * @return 
      */
     @Override
-    public Number getValue(Comparable key) {
+    public T getValue(Comparable key) {
         // arg checking is performed by getIndex()
         return getValue(getIndex(key));
     }
@@ -179,8 +168,8 @@ public class DefaultKeyedValues implements KeyedValues {
      * @return The value (possibly <code>null</code>). 
      */
     @Override
-    public Number getValue(int item) {
-        KeyedValue kv = this.data.get(item);
+    public T getValue(int item) {
+        KeyedValue<T> kv = this.data.get(item);
         return kv.getValue();
     }
   
@@ -193,9 +182,9 @@ public class DefaultKeyedValues implements KeyedValues {
      */
     @Override
     public double getDoubleValue(int item) {  
-        Number n = getValue(item);
-        if (n != null) {
-            return n.doubleValue();
+        T n = getValue(item);
+        if (n != null && n instanceof Number) {
+            return ((Number) n).doubleValue();
         }
         return Double.NaN;
     }

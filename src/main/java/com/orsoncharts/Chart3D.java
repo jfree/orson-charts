@@ -11,6 +11,8 @@ package com.orsoncharts;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.BasicStroke;
+import java.awt.Font;
 import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
@@ -21,8 +23,7 @@ import java.util.List;
 import javax.swing.event.EventListenerList;
 
 import com.orsoncharts.axis.Axis3D;
-import com.orsoncharts.axis.TextAnchor;
-import com.orsoncharts.axis.TextUtils;
+import com.orsoncharts.axis.ValueAxis3D;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.Drawable3D;
 import com.orsoncharts.graphics3d.Face;
@@ -38,14 +39,17 @@ import com.orsoncharts.plot.Plot3DChangeEvent;
 import com.orsoncharts.plot.Plot3DChangeListener;
 import com.orsoncharts.plot.Plot3D;
 import com.orsoncharts.plot.XYZPlot;
-import com.orsoncharts.table.SimpleTextElement;
+import com.orsoncharts.table.GridElement;
+import com.orsoncharts.table.ShapeElement;
+import com.orsoncharts.table.TextElement;
 import com.orsoncharts.table.TableElement;
-import java.awt.BasicStroke;
-import java.awt.Font;
+import java.awt.geom.Dimension2D;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 
 /**
- * A chart object for 3D charts.
+ * A chart object for 3D charts.  All rendering is done via the Java2D API,
+ * so this object is able to draw to any implementation of the Graphics2D API.
  */
 public class Chart3D implements Drawable3D, Plot3DChangeListener {
 
@@ -88,8 +92,16 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener {
     public Chart3D(String chartTitle, Plot3D plot) {
         ArgChecks.nullNotPermitted(plot, "plot");
         if (chartTitle != null) {
-            SimpleTextElement ste = new SimpleTextElement(chartTitle);
+            TextElement ste = new TextElement(chartTitle);
             ste.setFont(new Font("Tahoma", Font.BOLD, 18));
+            this.title = ste;
+            ShapeElement se = new ShapeElement(new Ellipse2D.Double(0, 0, 30, 20), Color.RED);
+            this.title = se;
+            GridElement ge = new GridElement();
+            ge.setElement(se, "R1", "C1");
+            ge.setElement(ste, "R1", "C2");
+            ge.setElement(se, "R2", "C2");
+            ge.setElement(ste, "R2", "C1");
             this.title = ste;
         }
         this.world = new World();
@@ -167,7 +179,7 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener {
         if (this.worldNeedsRefreshing) {
             refreshWorld();  
         }
-        float strokeWidth = 0.0f;
+        float strokeWidth = 1.2f; // FIXME : try a renderer.getPreferredStroke() method
         if (this.plot instanceof PiePlot3D) {
             strokeWidth = 1.5f;
         }
@@ -188,7 +200,8 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener {
 
         Point2D[] pts = this.world.calculateProjectedPoints(this.viewPoint,
                     1000f);
-        List<Face> facesInPaintOrder = new ArrayList<Face>(this.world.getFaces());
+        List<Face> facesInPaintOrder = new ArrayList<Face>(
+                this.world.getFaces());
 
         // sort faces by z-order
         Collections.sort(facesInPaintOrder, new ZOrderComparator(eyePts));
@@ -227,7 +240,8 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener {
             }
         }
    
-        // if a PiePlot3D then there will be an overlay to track the pie label positions
+        // if a PiePlot3D then there will be an overlay to track the pie label 
+        // positions
         if (this.plot instanceof PiePlot3D) {
             PiePlot3D p = (PiePlot3D) this.plot;
             World labelOverlay = new World();
@@ -298,67 +312,118 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener {
                 yAxis = catplot.getValueAxis();
                 zAxis = catplot.getRowAxis();
             }
-            double ab = (count(a, b) == 1 ? v0.distance(v1) : 0.0);
-            double bc = (count(b, c) == 1 ? v3.distance(v2) : 0.0);
-            double cd = (count(c, d) == 1 ? v4.distance(v7) : 0.0);
-            double da = (count(d, a) == 1 ? v5.distance(v6) : 0.0);
-            double be = (count(b, e) == 1 ? v0.distance(v3) : 0.0);
-            double bf = (count(b, f) == 1 ? v1.distance(v2) : 0.0);
-            double df = (count(d, f) == 1 ? v6.distance(v7) : 0.0);
-            double de = (count(d, e) == 1 ? v5.distance(v4) : 0.0);
-            double ae = (count(a, e) == 1 ? v0.distance(v5) : 0.0);
-            double af = (count(a, f) == 1 ? v1.distance(v6) : 0.0);
-            double cf = (count(c, f) == 1 ? v2.distance(v7) : 0.0);
-            double ce = (count(c, e) == 1 ? v3.distance(v4) : 0.0);
+            
+            if (xAxis != null && yAxis != null && zAxis != null) {
+                double ab = (count(a, b) == 1 ? v0.distance(v1) : 0.0);
+                double bc = (count(b, c) == 1 ? v3.distance(v2) : 0.0);
+                double cd = (count(c, d) == 1 ? v4.distance(v7) : 0.0);
+                double da = (count(d, a) == 1 ? v5.distance(v6) : 0.0);
+                double be = (count(b, e) == 1 ? v0.distance(v3) : 0.0);
+                double bf = (count(b, f) == 1 ? v1.distance(v2) : 0.0);
+                double df = (count(d, f) == 1 ? v6.distance(v7) : 0.0);
+                double de = (count(d, e) == 1 ? v5.distance(v4) : 0.0);
+                double ae = (count(a, e) == 1 ? v0.distance(v5) : 0.0);
+                double af = (count(a, f) == 1 ? v1.distance(v6) : 0.0);
+                double cf = (count(c, f) == 1 ? v2.distance(v7) : 0.0);
+                double ce = (count(c, e) == 1 ? v3.distance(v4) : 0.0);
 
-            if (count(a, b) == 1 && longest(ab, bc, cd, da)) {
-                xAxis.render(g2, v0, v1, v7, true);
-            }
-            if (count(b, c) == 1 && longest(bc, ab, cd, da)) {
-                xAxis.render(g2, v3, v2, v6, true);
-            }
-            if (count(c, d) == 1 && longest(cd, ab, bc, da)) {
-                xAxis.render(g2, v4, v7, v1, true);
-            }
-            if (count(d, a) == 1 && longest(da, ab, bc, cd)) {
-                xAxis.render(g2, v5, v6, v3, true);
-            }
+                if (count(a, b) == 1 && longest(ab, bc, cd, da)) {
+                    if (xAxis instanceof ValueAxis3D) {
+                        ((ValueAxis3D) xAxis).selectTick(g2, v0, v1, v7);
+                    }
+                    xAxis.draw(g2, v0, v1, v7, true);
+                }
+                if (count(b, c) == 1 && longest(bc, ab, cd, da)) {
+                    if (xAxis instanceof ValueAxis3D) {
+                        ((ValueAxis3D) xAxis).selectTick(g2, v3, v2, v6);
+                    }
+                    xAxis.draw(g2, v3, v2, v6, true);
+                }
+                if (count(c, d) == 1 && longest(cd, ab, bc, da)) {
+                    if (xAxis instanceof ValueAxis3D) {
+                        ((ValueAxis3D) xAxis).selectTick(g2, v4, v7, v1);
+                    }
+                    xAxis.draw(g2, v4, v7, v1, true);
+                }
+                if (count(d, a) == 1 && longest(da, ab, bc, cd)) {
+                    if (xAxis instanceof ValueAxis3D) {
+                        ((ValueAxis3D) xAxis).selectTick(g2, v5, v6, v3);
+                    }
+                    xAxis.draw(g2, v5, v6, v3, true);
+                }
 
-            if (count(b, e) == 1 && longest(be, bf, df, de)) {
-                yAxis.render(g2, v0, v3, v7, true);
-            }
-            if (count(b, f) == 1 && longest(bf, be, df, de)) {
-                yAxis.render(g2, v1, v2, v4, true);
-            }
-            if (count(d, f) == 1 && longest(df, be, bf, de)) {
-                yAxis.render(g2, v6, v7, v0, true);
-            }
-            if (count(d, e) == 1 && longest(de, be, bf, df)) {
-                yAxis.render(g2, v5, v4, v1, true);
-            }
+                if (count(b, e) == 1 && longest(be, bf, df, de)) {
+                    if (yAxis instanceof ValueAxis3D) {
+                        ((ValueAxis3D) yAxis).selectTick(g2, v0, v3, v7);
+                    }
+                    yAxis.draw(g2, v0, v3, v7, true);
+                }
+                if (count(b, f) == 1 && longest(bf, be, df, de)) {
+                    if (yAxis instanceof ValueAxis3D) {
+                        ((ValueAxis3D) yAxis).selectTick(g2, v1, v2, v4);
+                    }
+                    yAxis.draw(g2, v1, v2, v4, true);
+                }
+                if (count(d, f) == 1 && longest(df, be, bf, de)) {
+                    if (yAxis instanceof ValueAxis3D) {
+                        ((ValueAxis3D) yAxis).selectTick(g2, v6, v7, v0);
+                    }
+                    yAxis.draw(g2, v6, v7, v0, true);
+                }
+                if (count(d, e) == 1 && longest(de, be, bf, df)) {
+                    if (yAxis instanceof ValueAxis3D) {
+                        ((ValueAxis3D) yAxis).selectTick(g2, v5, v4, v1);
+                    }
+                    yAxis.draw(g2, v5, v4, v1, true);
+                }
 
-            if (count(a, e) == 1 && longest(ae, af, cf, ce)) {
-                zAxis.render(g2, v0, v5, v2, true);
-            }
-            if (count(a, f) == 1 && longest(af, ae, cf, ce)) {
-                zAxis.render(g2, v1, v6, v3, true);
-            }
-            if (count(c, f) == 1 && longest(cf, ae, af, ce)) {
-                zAxis.render(g2, v2, v7, v5, true);
-            }
-            if (count(c, e) == 1 && longest(ce, ae, af, cf)) {
-                zAxis.render(g2, v3, v4, v6, true);
+                if (count(a, e) == 1 && longest(ae, af, cf, ce)) {
+                    if (zAxis instanceof ValueAxis3D) {
+                        ((ValueAxis3D) zAxis).selectTick(g2, v0, v5, v2);
+                    }
+                    zAxis.draw(g2, v0, v5, v2, true);
+                }
+                if (count(a, f) == 1 && longest(af, ae, cf, ce)) {
+                    if (zAxis instanceof ValueAxis3D) {
+                        ((ValueAxis3D) zAxis).selectTick(g2, v1, v6, v3);
+                    }
+                    zAxis.draw(g2, v1, v6, v3, true);
+                }
+                if (count(c, f) == 1 && longest(cf, ae, af, ce)) {
+                    if (zAxis instanceof ValueAxis3D) {
+                        ((ValueAxis3D) zAxis).selectTick(g2, v2, v7, v5);
+                    }
+                    zAxis.draw(g2, v2, v7, v5, true);
+                }
+                if (count(c, e) == 1 && longest(ce, ae, af, cf)) {
+                    if (zAxis instanceof ValueAxis3D) {
+                        ((ValueAxis3D) zAxis).selectTick(g2, v3, v4, v6);
+                    }
+                    zAxis.draw(g2, v3, v4, v6, true);
+                }
             }
         }    
 
         g2.setTransform(saved);
         if (this.title != null) {
-            Rectangle2D titleArea = this.title.preferredSize(g2, bounds);
-            this.title.render(g2, titleArea);
+            Dimension2D titleSize = this.title.preferredSize(g2, bounds);
+            this.title.draw(g2, new Rectangle2D.Double(0, 0, 
+                    titleSize.getWidth(), titleSize.getHeight()));
         }
 
     }
 
+    /**
+     * Returns <code>true</code> if x is the longest of the four lengths,
+     * and <code>false</code> otherwise.
+     * 
+     * @param x  the x-length.
+     * @param a  length 1.
+     * @param b  length 2.
+     * @param c  length 3.
+     * 
+     * @return A boolean. 
+     */
     private boolean longest(double x, double a, double b, double c) {
         return x >= a && x >= b && x >= c;
     }
@@ -380,10 +445,21 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener {
         notifyListeners(new Chart3DChangeEvent(event, this));
     }
 
+    /**
+     * Registers a listener to receive notification of changes to the chart.
+     * 
+     * @param listener  the listener. 
+     */
     public void addChangeListener(Chart3DChangeListener listener) {
         this.listenerList.add(Chart3DChangeListener.class, listener);   
     }
   
+    /**
+     * Deregisters a listener so that it no longer receives notification of
+     * changes to the chart.
+     * 
+     * @param listener  the listener. 
+     */
     public void removeChangeListener(Chart3DChangeListener listener) {
         this.listenerList.remove(Chart3DChangeListener.class, listener);  
     }

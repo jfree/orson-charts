@@ -3,21 +3,23 @@
  */
 package com.orsoncharts.data;
 
+import java.util.List;
 import com.orsoncharts.ArgChecks;
+import com.orsoncharts.plot.PiePlot3D;
 
 /**
- * A pie dataset.
+ * A dataset that can be used with a {@link PiePlot3D}.
  */
 public class DefaultPieDataset3D extends AbstractDataset3D 
         implements PieDataset3D {
 
-    private DefaultKeyedValues data;
+    private DefaultKeyedValues<Number> data;
 
     /**
      * Creates a new (empty) dataset.
      */
     public DefaultPieDataset3D() {
-        this.data = new DefaultKeyedValues();
+        this.data = new DefaultKeyedValues<Number>();
     }
 
     /**
@@ -36,8 +38,18 @@ public class DefaultPieDataset3D extends AbstractDataset3D
     }
 
     @Override
+    public int getIndex(Comparable key) {
+        return this.data.getIndex(key);
+    }
+
+    @Override
     public Number getValue(int item) {
         return this.data.getValue(item);
+    }
+
+    @Override
+    public Number getValue(Comparable key) {
+        return this.data.getValue(key);
     }
 
     /**
@@ -52,6 +64,16 @@ public class DefaultPieDataset3D extends AbstractDataset3D
         // TODO : need to validate that the keys are unique
         this.data.addValue(key, value);
         fireDatasetChanged();
+    }
+
+    @Override
+    public List<Comparable> getKeys() {
+        return this.data.getKeys();
+    }
+
+    @Override
+    public double getDoubleValue(int item) {
+        return this.data.getDoubleValue(item);
     }
 
 }

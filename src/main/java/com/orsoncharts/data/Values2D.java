@@ -12,7 +12,7 @@ package com.orsoncharts.data;
 /**
  * A generic representation of a two dimensional grid of data values.
  */
-public interface Values2D {
+public interface Values2D<T> {
     
     /**
      * Returns the number of items in the x-dimension.
@@ -36,7 +36,7 @@ public interface Values2D {
      * 
      * @return The data value (possibly <code>null</code>).
      */
-    public Number getValue(int xIndex, int yIndex);
+    public T getValue(int xIndex, int yIndex);
 
     /**
      * Returns the data item at the specified position as a double primitive.

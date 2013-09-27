@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
+import com.orsoncharts.axis.DefaultCategoryAxis3D;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.category.DefaultCategoryDataset3D;
 import com.orsoncharts.graphics3d.Dimension3D;
@@ -55,6 +56,7 @@ public class StackedBarChart3DDemo1 extends JFrame {
                 dataset, null, null, "Value");
         CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
         plot.setDimensions(new Dimension3D(14, 5, 2));
+        plot.getRowAxis().setVisible(false);
         StackedBarRenderer3D renderer 
                 = (StackedBarRenderer3D) plot.getRenderer();
         renderer.setBarZWidth(0.3);

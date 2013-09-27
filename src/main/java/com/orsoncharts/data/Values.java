@@ -12,7 +12,7 @@ package com.orsoncharts.data;
 /**
  * A generic representation of a one dimensional list of data values.
  */
-public interface Values {
+public interface Values<T> {
     
   /**
    * Returns the number of items in the dataset.
@@ -28,7 +28,7 @@ public interface Values {
    *
    * @return The value for the specified item (possibly <code>null</code>).
    */
-  public Number getValue(int item);
+  public T getValue(int item);
   
   /**
    * Returns the value for the specified item as a double primitive.  Where

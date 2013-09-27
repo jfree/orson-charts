@@ -27,7 +27,7 @@ import com.orsoncharts.graphics3d.World;
 public class PiePlot3D extends AbstractPlot3D {
 
     /** The dataset. */
-    private PieDataset3D dataset;
+    private PieDataset3D<Number> dataset;
 
     /** The radius of the pie chart. */
     private double radius; 
@@ -54,7 +54,7 @@ public class PiePlot3D extends AbstractPlot3D {
      * 
      * @param dataset  the dataset (<code>null</code> not permitted). 
      */
-    public PiePlot3D(PieDataset3D dataset) {
+    public PiePlot3D(PieDataset3D<Number> dataset) {
         ArgChecks.nullNotPermitted(dataset, "dataset");
         this.dataset = dataset;
         this.dataset.addChangeListener(this);
@@ -68,7 +68,7 @@ public class PiePlot3D extends AbstractPlot3D {
      * 
      * @return The dataset (never <code>null</code>). 
      */
-    public PieDataset3D getDataset() {
+    public PieDataset3D<Number> getDataset() {
         return this.dataset;
     }
 
@@ -78,7 +78,7 @@ public class PiePlot3D extends AbstractPlot3D {
      * 
      * @param dataset  the dataset (<code>null</code> not permitted). 
      */
-    public void setDataset(PieDataset3D dataset) {
+    public void setDataset(PieDataset3D<Number> dataset) {
         ArgChecks.nullNotPermitted(dataset, "dataset");
         this.dataset.removeChangeListener(this);
         this.dataset = dataset;
@@ -229,7 +229,7 @@ public class PiePlot3D extends AbstractPlot3D {
         return result;
     }
 
-    private double calcTotal(PieDataset3D dataset) {
+    private double calcTotal(PieDataset3D<Number> dataset) {
         double result = 0.0;
         for (int i = 0; i < dataset.getItemCount(); i++) {
             Number n = dataset.getValue(i);

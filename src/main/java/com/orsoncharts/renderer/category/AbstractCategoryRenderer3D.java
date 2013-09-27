@@ -8,6 +8,7 @@
 
 package com.orsoncharts.renderer.category;
 
+import com.orsoncharts.ArgChecks;
 import com.orsoncharts.Range;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.DataUtilities;
@@ -56,8 +57,19 @@ public abstract class AbstractCategoryRenderer3D extends AbstractRenderer3D
         this.plot = plot;
     }
 
+    /**
+     * Returns the paint source for the renderer.
+     * 
+     * @return The paint source (never <code>null</code>). 
+     */
     public Category3DPaintSource getPaintSource() {
         return this.paintSource;
+    }
+    
+    public void setPaintSource(Category3DPaintSource paintSource) {
+        ArgChecks.nullNotPermitted(paintSource, "paintSource");
+        this.paintSource = paintSource;
+        fireChangeEvent();
     }
     
     /**

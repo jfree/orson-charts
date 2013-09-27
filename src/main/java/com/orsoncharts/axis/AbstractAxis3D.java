@@ -17,6 +17,7 @@ import java.awt.geom.Point2D;
 import java.util.Objects;
 import javax.swing.event.EventListenerList;
 import com.orsoncharts.ArgChecks;
+import java.awt.Paint;
 
 /**
  * A base class that can be used to create an {@link Axis3D} implementation.
@@ -28,6 +29,9 @@ public abstract class AbstractAxis3D implements Axis3D {
   
     /** The label font (never <code>null</code>). */
     private Font labelFont;
+    
+    /** The color used to draw the axis label (never <code>null</code>). */
+    private Paint labelPaint;
  
     /** The stroke used to draw the axis line. */
     private Stroke lineStroke;
@@ -35,8 +39,12 @@ public abstract class AbstractAxis3D implements Axis3D {
     /** The color used to draw the axis line. */
     private Color lineColor;
   
+    private boolean tickLabelsVisible;
+    
     /** The font used to display tick labels (never <code>null</code>) */
     private Font tickLabelFont;
+    
+    private Paint tickLabelPaint;
 
     /** Storage for registered change listeners. */
     private transient EventListenerList listenerList;
@@ -49,9 +57,12 @@ public abstract class AbstractAxis3D implements Axis3D {
     public AbstractAxis3D(String label) {
         this.label = label;
         this.labelFont = new Font("SansSerif", Font.BOLD, 12);
+        this.labelPaint = Color.BLACK;
         this.lineStroke = new BasicStroke(1.0f);
         this.lineColor = Color.GRAY;
+        this.tickLabelsVisible = true;
         this.tickLabelFont = new Font("SansSerif", Font.PLAIN, 12);
+        this.tickLabelPaint = Color.BLACK;
         this.listenerList = new EventListenerList();
     }
 
@@ -95,6 +106,16 @@ public abstract class AbstractAxis3D implements Axis3D {
         fireChangeEvent();
     }
 
+    public Paint getLabelPaint() {
+        return this.labelPaint;
+    }
+    
+    public void setLabelPaint(Paint paint) {
+        ArgChecks.nullNotPermitted(paint, "paint");
+        this.labelPaint = paint;
+        fireChangeEvent();
+    }
+    
     /**
      * Returns the stroke used to draw the axis line.
      * 
@@ -137,6 +158,15 @@ public abstract class AbstractAxis3D implements Axis3D {
         fireChangeEvent();
     }
 
+    public boolean getTickLabelsVisible() {
+        return this.tickLabelsVisible;
+    }
+    
+    public void setTickLabelsVisible(boolean visible) {
+        this.tickLabelsVisible = visible;
+        fireChangeEvent();
+    }
+    
     /**
      * Returns the font used to display the tick labels.
      * 
@@ -155,6 +185,27 @@ public abstract class AbstractAxis3D implements Axis3D {
     public void setTickLabelFont(Font font) {
         ArgChecks.nullNotPermitted(font, "font");
         this.tickLabelFont = font;
+        fireChangeEvent();
+    }
+    
+    /**
+     * Returns the foreground color for the tick labels.
+     * 
+     * @return The foreground color (never <code>null</code>). 
+     */
+    public Paint getTickLabelPaint() {
+        return this.tickLabelPaint;
+    }
+    
+    /**
+     * Sets the foreground color for the tick labels and sends an 
+     * {@link Axis3DChangeEvent} to all registered listeners.
+     * 
+     * @param paint  the paint (<code>null</code> not permitted).
+     */
+    public void setTickLabelPaint(Paint paint) {
+        ArgChecks.nullNotPermitted(paint, "paint");
+        this.tickLabelPaint = paint;
         fireChangeEvent();
     }
 

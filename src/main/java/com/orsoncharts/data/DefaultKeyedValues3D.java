@@ -1,6 +1,11 @@
-/**
- * (C)opyright 2013, by Object Refinery Limited
+/* ===========
+ * OrsonCharts
+ * ===========
+ * 
+ * (C)opyright 2013 by Object Refinery Limited.
+ * 
  */
+
 package com.orsoncharts.data;
 
 import java.util.ArrayList;
@@ -11,19 +16,22 @@ import java.util.List;
  * A three dimensional table of numerical values, implementing the 
  * {@link KeyedValues3D} interface.
  */
-public class DefaultKeyedValues3D implements KeyedValues3D {
+public class DefaultKeyedValues3D<V> implements KeyedValues3D {
 
+    /** The series keys. */
     private List<Comparable> seriesKeys;
   
+    /** The row keys. */
     private List<Comparable> rowKeys;
   
+    /** The column keys. */
     private List<Comparable> columnKeys;
 
     /**
      * The data, one entry per series.  Each series *must* contain the same
      * row and column keys.
      */
-    private List<DefaultKeyedValues2D> data; // one entry per series
+    private List<DefaultKeyedValues2D<V>> data; // one entry per series
   
     /**
      * Creates a new (empty) table.
@@ -32,19 +40,40 @@ public class DefaultKeyedValues3D implements KeyedValues3D {
         this.seriesKeys = new ArrayList<Comparable>();
         this.rowKeys = new ArrayList<Comparable>();
         this.columnKeys = new ArrayList<Comparable>();
-        this.data = new ArrayList<DefaultKeyedValues2D>();
+        this.data = new ArrayList<DefaultKeyedValues2D<V>>();
     }
   
+    /**
+     * Returns the series key with the specified index.
+     * 
+     * @param seriesIndex  the series index.
+     * 
+     * @return The series key. 
+     */
     @Override
     public Comparable getSeriesKey(int seriesIndex) {
         return this.seriesKeys.get(seriesIndex);
     }
 
+    /**
+     * Returns the row key with the specified index.
+     * 
+     * @param rowIndex  the row index.
+     * 
+     * @return The row key. 
+     */
     @Override
     public Comparable getRowKey(int rowIndex) {
         return this.rowKeys.get(rowIndex);
     }
 
+    /**
+     * Returns the column key with the specified index.
+     * 
+     * @param columnIndex  the column index.
+     * 
+     * @return The column key. 
+     */
     @Override
     public Comparable getColumnKey(int columnIndex) {
         return this.columnKeys.get(columnIndex);
@@ -96,12 +125,12 @@ public class DefaultKeyedValues3D implements KeyedValues3D {
     }
 
     @Override
-    public Number getValue(int seriesIndex, int rowIndex, int columnIndex) {
+    public V getValue(int seriesIndex, int rowIndex, int columnIndex) {
         return this.data.get(seriesIndex).getValue(rowIndex, columnIndex);
     }
     
     @Override
-    public Number getValue(Comparable seriesKey, Comparable rowKey, 
+    public V getValue(Comparable seriesKey, Comparable rowKey, 
             Comparable columnKey) {
         return getValue(getSeriesIndex(seriesKey), getRowIndex(rowKey), 
                 getColumnIndex(columnKey));
@@ -109,14 +138,14 @@ public class DefaultKeyedValues3D implements KeyedValues3D {
 
     @Override
     public double getDoubleValue(int seriesIndex, int rowIndex, int columnIndex) {
-        Number n = getValue(seriesIndex, rowIndex, columnIndex);
-        if (n != null) {
-            return n.doubleValue();
+        V n = getValue(seriesIndex, rowIndex, columnIndex);
+        if (n != null && n instanceof Number) {
+            return ((Number) n).doubleValue();
         }
         return Double.NaN;
     }
     
-    public void setValue(Number n, Comparable seriesKey, Comparable rowKey, 
+    public void setValue(V n, Comparable seriesKey, Comparable rowKey, 
             Comparable columnKey) {
         // cases:
         // 1 - the dataset is empty, so we just need to add a new layer with the

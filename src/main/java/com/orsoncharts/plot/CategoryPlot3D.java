@@ -12,10 +12,10 @@ import com.orsoncharts.axis.Axis3D;
 import com.orsoncharts.axis.Axis3DChangeEvent;
 import com.orsoncharts.axis.Axis3DChangeListener;
 import com.orsoncharts.axis.CategoryAxis3D;
-import com.orsoncharts.Range;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.Dataset3DChangeEvent;
 import com.orsoncharts.ArgChecks;
+import com.orsoncharts.axis.ValueAxis3D;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.renderer.Renderer3DChangeEvent;
@@ -42,7 +42,7 @@ public class CategoryPlot3D extends AbstractPlot3D
     private CategoryAxis3D columnAxis;
     
     /** The value axis. */
-    private Axis3D valueAxis;
+    private ValueAxis3D valueAxis;
 
     /**
      * Creates a new plot.
@@ -55,7 +55,7 @@ public class CategoryPlot3D extends AbstractPlot3D
      */
     public CategoryPlot3D(CategoryDataset3D dataset, 
             CategoryRenderer3D renderer, CategoryAxis3D rowAxis, 
-            CategoryAxis3D columnAxis, Axis3D valueAxis) {
+            CategoryAxis3D columnAxis, ValueAxis3D valueAxis) {
         ArgChecks.nullNotPermitted(dataset, "dataset");
         ArgChecks.nullNotPermitted(renderer, "renderer");
         ArgChecks.nullNotPermitted(rowAxis, "rowAxis");
@@ -73,22 +73,39 @@ public class CategoryPlot3D extends AbstractPlot3D
         this.columnAxis.addChangeListener(this);
         this.valueAxis = valueAxis;
         this.valueAxis.addChangeListener(this);
-        updateRowAxis();
-        updateColumnAxis();
-        updateValueAxis();
+        this.rowAxis.configureAsRowAxis(this);
+        this.columnAxis.configureAsColumnAxis(this);
+        this.valueAxis.configureAsValueAxis(this);
     }
     
     /**
+     * Sets the dimensions (in 3D space) for the plot, resets the 
+     * <code>autoAdjustDimensions</code> flag to <code>false</code>, and sends
+     * a {@link Plot3DChangeEvent} to all registered listeners.
+     * 
+     * @param dimensions  the dimensions (<code>null</code> not permitted).
+     * 
+     * @see Plot3D#getDimensions() 
+     */
+    public void setDimensions(Dimension3D dimensions) {
+        ArgChecks.nullNotPermitted(dimensions, "dimensions");
+        this.dimensions = dimensions;
+        this.autoAdjustDimensions = false;
+        fireChangeEvent();
+    }
+
+    /**
      * Returns the dataset.
      * 
-     * @return The dataset. 
+     * @return The dataset (never <code>null</code>). 
      */
     public CategoryDataset3D getDataset() {
         return this.dataset;
     }
     
     /**
-     * Sets the dataset and fires a plot change event.
+     * Sets the dataset and sends a {@link Plot3DChangeEvent} to all registered
+     * listeners.
      * 
      * @param dataset  the dataset (<code>null</code> not permitted). 
      */
@@ -116,9 +133,11 @@ public class CategoryPlot3D extends AbstractPlot3D
      */
     public void setRenderer(CategoryRenderer3D renderer) {
         ArgChecks.nullNotPermitted(renderer, "renderer");
+        this.renderer.removeChangeListener(this);
         this.renderer = renderer;
+        this.renderer.addChangeListener(this);
         // a new renderer might mean the axis range needs changing...
-        updateValueAxis();
+        this.valueAxis.configureAsValueAxis(this);
         fireChangeEvent();
     }
     
@@ -131,17 +150,45 @@ public class CategoryPlot3D extends AbstractPlot3D
         return this.rowAxis;
     }
     
-    public void setRowAxis(Axis3D axis) {
-        
+    /**
+     * Sets the row axis and sends a {@link Plot3DChangeEvent} to all 
+     * registered listeners.  The row axis is equivalent to the z-axis.
+     * 
+     * @param axis  the row axis (<code>null</code> not permitted).
+     */
+    public void setRowAxis(CategoryAxis3D axis) {
+        ArgChecks.nullNotPermitted(axis, "axis");
+        this.rowAxis.removeChangeListener(this);
+        this.rowAxis = axis;
+        this.rowAxis.addChangeListener(this);
+        fireChangeEvent();
     }
     
     /**
      * Returns the column axis.
      * 
-     * @return The column axis. 
+     * @return The column axis (never <code>null</code>).
      */
     public CategoryAxis3D getColumnAxis() {
         return this.columnAxis;
+    }
+    
+    /**
+     * Sets the column axis and sends a {@link Plot3DChangeEvent} to all 
+     * registered listeners.
+     * 
+     * @param axis  the new axis (<code>null</code> not permitted).
+     * 
+     * @see #setRowAxis(com.orsoncharts.axis.CategoryAxis3D) 
+     * @see #setValueAxis(com.orsoncharts.axis.CategoryAxis3D) 
+     * 
+     */
+    public void setColumnAxis(CategoryAxis3D axis) {
+        ArgChecks.nullNotPermitted(axis, "axis");
+        this.columnAxis.removeChangeListener(this);
+        this.columnAxis = axis;
+        this.columnAxis.addChangeListener(this);
+        fireChangeEvent();
     }
     
     /**
@@ -154,18 +201,19 @@ public class CategoryPlot3D extends AbstractPlot3D
     }
     
     /**
-     * Sets the dimensions for the plot and sets the 
-     * <code>autoAdjustDimensions</code> flag to <code>false</code>.
+     * Sets the value axis and sends a {@link Plot3DChangeEvent} to all 
+     * registered listeners.
      * 
-     * @param dimensions  the dimensions (<code>null</code> not permitted).
+     * @param axis  the axis (<code>null</code> not permitted). 
      */
-    public void setDimensions(Dimension3D dimensions) {
-        ArgChecks.nullNotPermitted(dimensions, "dimensions");
-        this.dimensions = dimensions;
-        this.autoAdjustDimensions = false;
+    public void setValueAxis(ValueAxis3D axis) {
+        ArgChecks.nullNotPermitted(axis, "axis");
+        this.valueAxis.removeChangeListener(this);
+        this.valueAxis = axis;
+        this.valueAxis.addChangeListener(this);
         fireChangeEvent();
     }
-
+    
     @Override
     public void composeToWorld(World world, double xOffset, double yOffset, 
             double zOffset) {
@@ -198,7 +246,9 @@ public class CategoryPlot3D extends AbstractPlot3D
         if (this.autoAdjustDimensions) {
             this.dimensions = calculateDimensions();
         }
-        updateValueAxis();
+        this.columnAxis.configureAsColumnAxis(this);
+        this.rowAxis.configureAsRowAxis(this);
+        this.valueAxis.configureAsValueAxis(this);
         super.datasetChanged(event);  // propogates a plot change event
     }
     
@@ -214,35 +264,6 @@ public class CategoryPlot3D extends AbstractPlot3D
         return new Dimension3D(width, height, depth);
     }
    
-    /**
-     * Updates the row axis.
-     */
-    private void updateRowAxis() {
-        this.rowAxis.configureAsRowAxis(this);
-    }
-
-    /**
-     * Updates the column axis.
-     */
-    private void updateColumnAxis() {
-        this.columnAxis.configureAsColumnAxis(this);
-    }
-
-    /**
-     * Updates the value axis (for example, when a dataset change event is 
-     * received, we may need to refresh the axis range).
-     */
-    private void updateValueAxis() {
-        Range valueRange = null;
-        if (this.renderer != null) {
-            valueRange = this.renderer.findValueRange(getDataset());
-        }
-        if (valueRange == null) {
-            valueRange = new Range(0, 1);
-        }  
-        this.valueAxis.setRange(valueRange);
-    }
-
     /**
      * Receives notification that one of the axes has been changed.
      * 

@@ -8,7 +8,6 @@
 
 package com.orsoncharts;
 
-import com.orsoncharts.axis.Axis3D;
 import com.orsoncharts.axis.CategoryAxis3D;
 import com.orsoncharts.axis.DefaultCategoryAxis3D;
 import com.orsoncharts.axis.NumberAxis3D;
@@ -69,7 +68,7 @@ public class Chart3DFactory {
             String columnAxisLabel, String valueAxisLabel) {
         CategoryAxis3D rowAxis = new DefaultCategoryAxis3D(rowAxisLabel);
         CategoryAxis3D columnAxis = new DefaultCategoryAxis3D(columnAxisLabel);
-        Axis3D valueAxis = new NumberAxis3D(valueAxisLabel, 
+        ValueAxis3D valueAxis = new NumberAxis3D(valueAxisLabel, 
                 new Range(0.0, 1.0));
         CategoryRenderer3D renderer = new BarRenderer3D();
         CategoryPlot3D plot = new CategoryPlot3D(dataset, renderer, 
@@ -93,7 +92,7 @@ public class Chart3DFactory {
             String columnAxisLabel, String valueAxisLabel) {
         CategoryAxis3D rowAxis = new DefaultCategoryAxis3D(rowAxisLabel);
         CategoryAxis3D columnAxis = new DefaultCategoryAxis3D(columnAxisLabel);
-        Axis3D valueAxis = new NumberAxis3D(valueAxisLabel, 
+        ValueAxis3D valueAxis = new NumberAxis3D(valueAxisLabel, 
                 new Range(0.0, 1.0));
         CategoryRenderer3D renderer = new StackedBarRenderer3D();
         CategoryPlot3D plot = new CategoryPlot3D(dataset, renderer, rowAxis, 
@@ -115,9 +114,13 @@ public class Chart3DFactory {
     public static Chart3D createAreaChart(String title, 
             CategoryDataset3D dataset, String rowAxisLabel, 
             String columnAxisLabel, String valueAxisLabel) {
+        
         CategoryAxis3D rowAxis = new DefaultCategoryAxis3D(rowAxisLabel);
-        CategoryAxis3D columnAxis = new DefaultCategoryAxis3D(columnAxisLabel);
-        Axis3D valueAxis = new NumberAxis3D(valueAxisLabel, 
+        DefaultCategoryAxis3D columnAxis 
+                = new DefaultCategoryAxis3D(columnAxisLabel);
+        columnAxis.setFirstCategoryHalfWidth(true);
+        columnAxis.setLastCategoryHalfWidth(true);
+        ValueAxis3D valueAxis = new NumberAxis3D(valueAxisLabel, 
                 new Range(0.0, 1.0));
         CategoryRenderer3D renderer = new AreaRenderer3D();
         CategoryPlot3D plot = new CategoryPlot3D(dataset, renderer, rowAxis, 
@@ -140,8 +143,11 @@ public class Chart3DFactory {
             CategoryDataset3D dataset, String rowAxisLabel, 
             String columnAxisLabel, String valueAxisLabel) {
         CategoryAxis3D rowAxis = new DefaultCategoryAxis3D(rowAxisLabel);
-        CategoryAxis3D columnAxis = new DefaultCategoryAxis3D(columnAxisLabel);
-        Axis3D valueAxis = new NumberAxis3D(valueAxisLabel, 
+        DefaultCategoryAxis3D columnAxis 
+                = new DefaultCategoryAxis3D(columnAxisLabel);
+        columnAxis.setFirstCategoryHalfWidth(true);
+        columnAxis.setLastCategoryHalfWidth(true);
+        ValueAxis3D valueAxis = new NumberAxis3D(valueAxisLabel, 
                 new Range(0.0, 1.0));
         CategoryRenderer3D renderer = new LineRenderer3D();
         CategoryPlot3D plot = new CategoryPlot3D(dataset, renderer, rowAxis, 

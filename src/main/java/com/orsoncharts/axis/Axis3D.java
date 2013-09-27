@@ -8,9 +8,9 @@
 
 package com.orsoncharts.axis;
 
-import com.orsoncharts.Range;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
+import com.orsoncharts.Range;
 
 /**
  * An interface that must be supported by axes for 3D plots.
@@ -18,14 +18,15 @@ import java.awt.geom.Point2D;
 public interface Axis3D {
 
     /**
-     * Returns the current axis range.
+     * Returns the axis range.
      * 
-     * @return The current axis range (never <code>null</code>). 
+     * @return The axis range (never <code>null</code>). 
      */
     Range getRange();
 
     /**
-     * Sets the axis range.
+     * Sets the axis range and sends an {@link Axis3DChangeEvent} to all
+     * registered listeners.
      * 
      * @param range  the range (<code>null</code> not permitted). 
      */
@@ -45,7 +46,7 @@ public interface Axis3D {
     double translateToWorld(double value, double length);
 
     /**
-     * Renders the axis along an arbitrary line (between <code>startPt</code> 
+     * Draws the axis along an arbitrary line (between <code>startPt</code> 
      * and <code>endPt</code>).  The opposing point is used as a reference
      * point to know on which side of the axis to draw the labels.
      * 
@@ -55,11 +56,23 @@ public interface Axis3D {
      * @param opposingPt  an opposing point (<code>null</code> not permitted).
      * @param labels  draw labels?
      */
-    void render(Graphics2D g2, Point2D startPt, Point2D endPt, Point2D opposingPt, 
+    void draw(Graphics2D g2, Point2D startPt, Point2D endPt, Point2D opposingPt, 
             boolean labels);
 
+    /**
+     * Registers a listener so that it receives notification of changes to the
+     * axis.
+     * 
+     * @param listener  the listener (<code>null</code> not permitted).
+     */
     void addChangeListener(Axis3DChangeListener listener);
     
+    /**
+     * Deregisters a listener so that it no longer receives notification of
+     * changes to the axis.
+     * 
+     * @param listener  the listener (<code>null</code> not permitted). 
+     */
     void removeChangeListener(Axis3DChangeListener listener);
 
 }

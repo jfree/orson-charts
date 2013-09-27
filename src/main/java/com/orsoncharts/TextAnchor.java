@@ -1,8 +1,12 @@
-/**
- * (C)opyright 2013, by Object Refinery Limited
+/* ===========
+ * OrsonCharts
+ * ===========
+ * 
+ * (C)opyright 2013 by Object Refinery Limited.
+ * 
  */
 
-package com.orsoncharts.axis;
+package com.orsoncharts;
 
 /**
  * Used to indicate the position of an anchor point for a text string.  This is
