@@ -1,6 +1,11 @@
-/**
- * (C)opyright 2013, by Object Refinery Limited
+/* ===========
+ * OrsonCharts
+ * ===========
+ * 
+ * (C)opyright 2013 by Object Refinery Limited.
+ * 
  */
+
 package com.orsoncharts.data;
 
 import java.util.List;
@@ -39,11 +44,15 @@ public interface KeyedValues3D<T> extends Values3D {
     public List<Comparable> getColumnKeys();
     
     public Comparable getSeriesKey(int seriesIndex);
+
     public Comparable getRowKey(int rowIndex);
+
     public Comparable getColumnKey(int columnIndex);
 
     public int getSeriesIndex(Comparable serieskey);
+
     public int getRowIndex(Comparable rowkey);
+
     public int getColumnIndex(Comparable columnkey);
 
     /**
