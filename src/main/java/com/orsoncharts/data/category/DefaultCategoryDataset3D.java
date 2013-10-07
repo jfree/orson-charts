@@ -6,7 +6,7 @@ package com.orsoncharts.data.category;
 import com.orsoncharts.data.AbstractDataset3D;
 import com.orsoncharts.data.DefaultKeyedValues3D;
 import com.orsoncharts.data.KeyedValues;
-import com.orsoncharts.ArgChecks;
+import com.orsoncharts.util.ArgChecks;
 import java.util.List;
 
 /**

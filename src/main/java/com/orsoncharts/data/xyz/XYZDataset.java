@@ -9,6 +9,7 @@
 package com.orsoncharts.data.xyz;
 
 import com.orsoncharts.data.Dataset3D;
+import java.util.List;
 
 /**
  * Defines the methods used to access data in the form of multiple series
@@ -23,6 +24,17 @@ public interface XYZDataset extends Dataset3D {
      */
     public int getSeriesCount();
 
+    /**
+     * Returns a list of the series-keys for the dataset.  Modifying this
+     * list will have no impact on the underlying dataset.
+     * 
+     * @return A list of the series-keys (possibly empty, but never 
+     *     <code>null</code>). 
+     */
+    public List<Comparable> getSeriesKeys();
+    
+    public int getSeriesIndex(Comparable key);
+    
     /**
      * Returns the number of items in a given series.
      * 

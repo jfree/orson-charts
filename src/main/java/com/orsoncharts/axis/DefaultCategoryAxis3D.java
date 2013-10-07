@@ -18,10 +18,10 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.orsoncharts.TextUtils;
-import com.orsoncharts.TextAnchor;
+import com.orsoncharts.util.TextUtils;
+import com.orsoncharts.util.TextAnchor;
 import com.orsoncharts.Range;
-import com.orsoncharts.ArgChecks;
+import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.plot.CategoryPlot3D;
 
 /**

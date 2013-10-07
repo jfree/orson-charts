@@ -5,7 +5,7 @@ package com.orsoncharts.data.xyz;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.orsoncharts.ArgChecks;
+import com.orsoncharts.util.ArgChecks;
 
 /**
  * A series of (x, y, z) data items.
@@ -27,6 +27,10 @@ public class XYZSeries {
         this.items = new ArrayList<XYZDataItem>();
     }
 
+    public Comparable getKey() {
+        return this.key;
+    }
+    
     /**
      * Returns the number of items in the series.
      * 

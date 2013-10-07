@@ -8,7 +8,7 @@
 
 package com.orsoncharts.data;
 
-import com.orsoncharts.ArgChecks;
+import com.orsoncharts.util.ArgChecks;
 
 /**
  * A data item where a key is associated with a numerical value.

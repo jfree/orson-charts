@@ -6,7 +6,7 @@
  * 
  */
 
-package com.orsoncharts;
+package com.orsoncharts.util;
 
 /**
  * Used to indicate the position of an anchor point for a text string.  This is

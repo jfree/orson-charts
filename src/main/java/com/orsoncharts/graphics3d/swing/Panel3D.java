@@ -21,13 +21,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.awt.Rectangle;
 
 import javax.swing.JPanel;
 
-import com.orsoncharts.ArgChecks;
+import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.graphics3d.Drawable3D;
 import com.orsoncharts.graphics3d.ViewPoint3D;
-import java.awt.Rectangle;
 
 /**
  * A panel that displays a set of 3D objects from some viewing point.

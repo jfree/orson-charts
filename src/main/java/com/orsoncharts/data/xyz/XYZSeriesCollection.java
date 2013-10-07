@@ -6,7 +6,7 @@ package com.orsoncharts.data.xyz;
 import com.orsoncharts.data.AbstractDataset3D;
 import java.util.ArrayList;
 import java.util.List;
-import com.orsoncharts.ArgChecks;
+import com.orsoncharts.util.ArgChecks;
 
 /**
  * A collection of XYZSeries objects.
@@ -22,6 +22,15 @@ public class XYZSeriesCollection extends AbstractDataset3D implements XYZDataset
     @Override
     public int getSeriesCount() {
         return this.series.size();
+    }
+
+    @Override
+    public List<Comparable> getSeriesKeys() {
+        List<Comparable> result = new ArrayList();
+        for (XYZSeries s : this.series) {
+            result.add(s.getKey());
+        }
+        return result;
     }
 
     public void add(XYZSeries series) {
@@ -53,4 +62,10 @@ public class XYZSeriesCollection extends AbstractDataset3D implements XYZDataset
         XYZSeries s = this.series.get(seriesIndex);
         return s.getZValue(itemIndex);
     }
+
+    @Override
+    public int getSeriesIndex(Comparable key) {
+        return getSeriesKeys().indexOf(key);
+    }
+
 }

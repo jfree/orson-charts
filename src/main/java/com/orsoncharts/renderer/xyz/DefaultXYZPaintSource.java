@@ -16,15 +16,20 @@ import java.awt.Paint;
  */
 public class DefaultXYZPaintSource implements XYZPaintSource {
 
-    private Paint[] paint;
+    private Color[] paint;
     
     public DefaultXYZPaintSource() {
-        this.paint = new Paint[] { Color.RED, Color.BLUE, Color.YELLOW, 
+        this.paint = new Color[] { Color.RED, Color.BLUE, Color.YELLOW, 
             Color.GRAY, Color.GREEN};    
     }
     
     @Override
-    public Paint getPaint(int series, int item) {
+    public Color getPaint(int series, int item) {
+        return this.paint[series % this.paint.length];
+    }
+
+    @Override
+    public Color getLegendPaint(int series) {
         return this.paint[series % this.paint.length];
     }
     

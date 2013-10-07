@@ -24,7 +24,7 @@ public class DefaultKeyedValues2DTest {
     public void testSetValue() {
         
         // empty data
-        DefaultKeyedValues2D data = new DefaultKeyedValues2D();
+        DefaultKeyedValues2D<Number> data = new DefaultKeyedValues2D<Number>();
         data.setValue(1.0, "X1", "Y1");
         assertEquals(1.0, data.getValue("X1", "Y1").doubleValue(), EPSILON);
         assertEquals(1, data.getXCount());

@@ -8,7 +8,7 @@
 
 package com.orsoncharts.data;
 
-import com.orsoncharts.ArgChecks;
+import com.orsoncharts.util.ArgChecks;
 import java.util.ArrayList;
 import java.util.List;
 

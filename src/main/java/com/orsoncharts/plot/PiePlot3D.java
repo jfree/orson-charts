@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.orsoncharts.data.PieDataset3D;
-import com.orsoncharts.ArgChecks;
+import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.Dot3D;
 import com.orsoncharts.graphics3d.Object3D;

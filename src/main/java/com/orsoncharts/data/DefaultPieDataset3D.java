@@ -4,7 +4,7 @@
 package com.orsoncharts.data;
 
 import java.util.List;
-import com.orsoncharts.ArgChecks;
+import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.plot.PiePlot3D;
 
 /**

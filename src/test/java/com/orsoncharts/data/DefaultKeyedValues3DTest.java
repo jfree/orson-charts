@@ -22,7 +22,7 @@ public class DefaultKeyedValues3DTest {
     
     @Test
     public void testSetValue() {
-        DefaultKeyedValues3D data = new DefaultKeyedValues3D();
+        DefaultKeyedValues3D<Number> data = new DefaultKeyedValues3D<Number>();
         
         // adding to an empty dataset...
         data.setValue(1.0, "S1", "R1", "C1");

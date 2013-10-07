@@ -9,6 +9,8 @@
 package com.orsoncharts.data.xyz;
 
 import com.orsoncharts.data.AbstractDataset3D;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A default {@link XYZDataset} implementation.  This is used for some 
@@ -58,6 +60,20 @@ public class DefaultXYZDataset extends AbstractDataset3D implements XYZDataset {
     @Override
     public double getZ(int series, int item) {
         return zValues[series][item];
+    }
+
+    @Override
+    public List<Comparable> getSeriesKeys() {
+        List<Comparable> result = new ArrayList<Comparable>();
+        for (int s = 0; s < getSeriesCount(); s++) {
+            result.add("S" + s);
+        }
+        return result;
+    }
+
+    @Override
+    public int getSeriesIndex(Comparable key) {
+        return getSeriesKeys().indexOf(key);
     }
 
 }

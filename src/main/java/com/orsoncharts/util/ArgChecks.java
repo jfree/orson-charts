@@ -6,7 +6,7 @@
  * 
  */
 
-package com.orsoncharts;
+package com.orsoncharts.util;
 
 /**
  * Utility methods for argument checking.

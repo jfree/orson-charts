@@ -45,6 +45,8 @@ public interface CategoryRenderer3D extends Renderer3D {
      */
     public void setPlot(CategoryPlot3D plot);
   
+    public Category3DPaintSource getPaintSource();
+    
     /**
      * Returns the range that should be used on the value axis to display all 
      * the specified data using this renderer.  Normally this will return the

@@ -8,7 +8,7 @@
 
 package com.orsoncharts.axis;
 
-import com.orsoncharts.ArgChecks;
+import com.orsoncharts.util.ArgChecks;
 import java.util.EventObject;
 
 /**

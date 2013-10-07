@@ -17,6 +17,8 @@ import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
+import java.awt.geom.Dimension2D;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -39,13 +41,14 @@ import com.orsoncharts.plot.Plot3DChangeEvent;
 import com.orsoncharts.plot.Plot3DChangeListener;
 import com.orsoncharts.plot.Plot3D;
 import com.orsoncharts.plot.XYZPlot;
-import com.orsoncharts.table.GridElement;
-import com.orsoncharts.table.ShapeElement;
 import com.orsoncharts.table.TextElement;
 import com.orsoncharts.table.TableElement;
-import java.awt.geom.Dimension2D;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Rectangle2D;
+import com.orsoncharts.util.Anchor2D;
+import com.orsoncharts.util.Offset2D;
+import com.orsoncharts.util.ReferencePoint2D;
+import com.orsoncharts.util.TextUtils;
+import com.orsoncharts.util.TextAnchor;
+import com.orsoncharts.util.ArgChecks;
 
 /**
  * A chart object for 3D charts.  All rendering is done via the Java2D API,
@@ -56,6 +59,15 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener {
     /** The chart title. */
     private TableElement title;
     
+    private Anchor2D titleAnchor;
+    
+    /** A builder for the chart legend (can be <code>null</code>). */
+    private LegendBuilder legendBuilder;
+    
+    /** The anchor point for the legend. */
+    private Anchor2D legendAnchor;
+    
+   // private Offset2D legend
     /** A world to contain the 3D objects rendered by this chart. */
     private World world;
 
@@ -95,21 +107,17 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener {
             TextElement ste = new TextElement(chartTitle);
             ste.setFont(new Font("Tahoma", Font.BOLD, 18));
             this.title = ste;
-            ShapeElement se = new ShapeElement(new Ellipse2D.Double(0, 0, 30, 20), Color.RED);
-            this.title = se;
-            GridElement ge = new GridElement();
-            ge.setElement(se, "R1", "C1");
-            ge.setElement(ste, "R1", "C2");
-            ge.setElement(se, "R2", "C2");
-            ge.setElement(ste, "R2", "C1");
-            this.title = ste;
         }
+        this.titleAnchor = new Anchor2D();
         this.world = new World();
         this.worldNeedsRefreshing = true;
         this.viewPoint = new ViewPoint3D((float) (4.4 * Math.PI / 3), 
                 (float) (7 * Math.PI / 6), 30.0f);
         this.plot = plot;
         this.notify = true;
+        this.legendBuilder = new StandardLegendBuilder();
+        this.legendAnchor = new Anchor2D(ReferencePoint2D.BOTTOM_CENTER, 
+                new Offset2D(4.0, 4.0));
         this.listenerList = new EventListenerList();
         this.plot.addChangeListener(this);
     }
@@ -143,6 +151,26 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener {
      */
     public Plot3D getPlot() {
         return this.plot;
+    }
+    
+    /**
+     * Returns the legend builder.
+     * 
+     * @return The legend builder (possibly <code>null</code>). 
+     */
+    public LegendBuilder getLegendBuilder() {
+        return this.legendBuilder;
+    }
+    
+    /**
+     * Sets the legend builder and sends a {@link Chart3DChangeEvent} to all
+     * registered listeners.
+     * 
+     * @param legend  the legend (<code>null</code> permitted).
+     */
+    public void setLegendBuilder(LegendBuilder legendBuilder) {
+        this.legendBuilder = legendBuilder;
+        fireChangeEvent();
     }
 
     /**
@@ -410,7 +438,34 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener {
             this.title.draw(g2, new Rectangle2D.Double(0, 0, 
                     titleSize.getWidth(), titleSize.getHeight()));
         }
+        
+        if (this.legendBuilder != null) {
+            TableElement legend = this.legendBuilder.createLegend(this.plot);
+            Dimension2D legendSize = legend.preferredSize(g2, bounds);
+            Rectangle2D legendArea = calculateDrawArea(legendSize, 
+                    this.legendAnchor, bounds);
+            legend.draw(g2, legendArea);
+        }
 
+    }
+    
+    private Rectangle2D calculateDrawArea(Dimension2D dim, Anchor2D anchor, 
+            Rectangle2D bounds) {
+        ArgChecks.nullNotPermitted(anchor, "anchor");
+        double x, y;
+        double w = Math.min(dim.getWidth(), bounds.getWidth());
+        double h = Math.min(dim.getHeight(), bounds.getHeight());
+        if (anchor.getRefPt().equals(ReferencePoint2D.CENTER)) {
+            x = bounds.getCenterX() - w / 2.0;
+            y = bounds.getCenterY() - h / 2.0;
+        } else if (anchor.getRefPt().equals(ReferencePoint2D.BOTTOM_CENTER)) {
+            x = bounds.getCenterX() - w / 2.0;
+            y = bounds.getMaxY() - anchor.getOffset().getDY() - dim.getHeight();
+        } else {
+            x = 0.0;
+            y = 0.0;
+        }
+        return new Rectangle2D.Double(x, y, w, h);
     }
 
     /**

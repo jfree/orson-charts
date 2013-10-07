@@ -8,7 +8,6 @@
 
 package com.orsoncharts.table;
 
-import com.orsoncharts.ArgChecks;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Insets;
@@ -16,12 +15,15 @@ import java.awt.Paint;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Rectangle2D;
 import java.util.Map;
+import com.orsoncharts.util.ArgChecks;
 
 /**
- *
- * @author dgilbert
+ * A base class that can be used to implement a {@link TableElement}.
  */
 public abstract class AbstractTableElement {
+    
+    /** The insets. */
+    private Insets insets;
     
     /** The foreground paint. */
     private Paint foregroundPaint;
@@ -29,13 +31,10 @@ public abstract class AbstractTableElement {
     /** The background paint (this can be <code>null</code>). */
     private Paint backgroundPaint;
     
-    /** The insets. */
-    private Insets insets;
-    
     public AbstractTableElement() {
-        this.foregroundPaint = Color.BLACK;
-        this.backgroundPaint = null;
         this.insets = new Insets(2, 2, 2, 2);
+        this.foregroundPaint = Color.BLACK;
+        this.backgroundPaint = Color.WHITE;
     }
 
     /**

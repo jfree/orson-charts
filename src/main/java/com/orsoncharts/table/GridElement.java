@@ -12,8 +12,10 @@ import java.awt.Graphics2D;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Rectangle2D;
 import java.util.Map;
-import com.orsoncharts.data.DefaultKeyedValues2D;
 import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.List;
+import com.orsoncharts.data.DefaultKeyedValues2D;
 
 /**
  * A table element that contains a grid of elements.  
@@ -69,6 +71,26 @@ public class GridElement extends AbstractTableElement implements TableElement {
     }
 
     @Override
+    public List<Rectangle2D> layoutElements(Graphics2D g2, Rectangle2D bounds, 
+            Map<String, Object> constraints) {
+        double[][] cellDimensions = findCellDimensions(g2, bounds);
+        double[] widths = cellDimensions[0];
+        double[] heights = cellDimensions[1];
+        List<Rectangle2D> result = new ArrayList<Rectangle2D>(
+                this.elements.getXCount() * this.elements.getYCount());
+        double y = bounds.getY() + getInsets().top;
+        for (int r = 0; r < elements.getXCount(); r++) {
+            double x = bounds.getX() + getInsets().left;
+            for (int c = 0; c < this.elements.getYCount(); c++) {
+                result.add(new Rectangle2D.Double(x, y, widths[c], heights[r]));
+                x += widths[c];
+            }
+            y = y + heights[r];
+        }
+        return result;
+    }
+
+    @Override
     public void draw(Graphics2D g2, Rectangle2D bounds) {
         double[][] cellDimensions = findCellDimensions(g2, bounds);
         double[] widths = cellDimensions[0];
@@ -81,7 +103,8 @@ public class GridElement extends AbstractTableElement implements TableElement {
                 if (element == null) {
                     continue;
                 }
-                element.draw(g2, new Rectangle2D.Double(x, y, widths[c], widths[r]));
+                element.draw(g2, new Rectangle2D.Double(x, y, widths[c], 
+                        heights[r]));
                 x += widths[c];
             }
             y = y + heights[r];

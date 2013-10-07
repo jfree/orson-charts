@@ -8,6 +8,7 @@
 
 package com.orsoncharts;
 
+import com.orsoncharts.util.ArgChecks;
 import java.util.EventObject;
 
 /**

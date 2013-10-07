@@ -14,6 +14,7 @@ import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.renderer.Renderer3D;
+import com.orsoncharts.renderer.category.Category3DPaintSource;
 
 /**
  * A renderer that can display data from an {@link XYZDataset} on an
@@ -35,6 +36,8 @@ public interface XYZRenderer extends Renderer3D {
      * @param plot  the plot (<code>null</code> permitted). 
      */
     public void setPlot(XYZPlot plot);
+
+    public XYZPaintSource getPaintSource();
 
     /**
      * Returns the range that should be set on the x-axis in order for this 

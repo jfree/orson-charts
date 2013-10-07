@@ -8,7 +8,7 @@
 
 package com.orsoncharts.renderer.category;
 
-import com.orsoncharts.ArgChecks;
+import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.Range;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.DataUtilities;

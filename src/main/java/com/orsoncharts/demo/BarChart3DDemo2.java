@@ -23,9 +23,10 @@ import com.orsoncharts.data.DefaultKeyedValues;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 
 /**
- * A demo of a 3D area chart.
+ * A demo of a 3D bar chart.  Here we add a lot of series so we can test the
+ * wrapping of the legend.
  */
-public class AreaChart3DDemo1 extends JFrame {
+public class BarChart3DDemo2 extends JFrame {
 
     ChartPanel3D chartPanel3D;
 
@@ -34,7 +35,7 @@ public class AreaChart3DDemo1 extends JFrame {
      *
      * @param title  the frame title.
      */
-    public AreaChart3DDemo1(String title) {
+    public BarChart3DDemo2(String title) {
         super(title);
         addWindowListener(new WindowAdapter() {
             @Override
@@ -49,8 +50,8 @@ public class AreaChart3DDemo1 extends JFrame {
         JPanel content = new JPanel(new BorderLayout());
         content.setPreferredSize(new Dimension(600, 400));
         CategoryDataset3D dataset = createDataset();
-        Chart3D chart = Chart3DFactory.createAreaChart("AreaChart3DDemo1", 
-                dataset, "Company", "Quarter", "Value");
+        Chart3D chart = Chart3DFactory.createBarChart("BarChart3DDemo2", 
+                dataset, null, "Quarter", "$billion Revenues");
         this.chartPanel3D = new ChartPanel3D(chart);
         content.add(new DisplayPanel3D(this.chartPanel3D, true));
         return content;
@@ -63,21 +64,48 @@ public class AreaChart3DDemo1 extends JFrame {
      */
     private CategoryDataset3D createDataset() {    
         DefaultCategoryDataset3D dataset = new DefaultCategoryDataset3D();
-
+                
         DefaultKeyedValues s1 = new DefaultKeyedValues();
-        s1.addValue("Q1", 1.0);
-        s1.addValue("Q2", 7.0);
-        s1.addValue("Q3", 3.0);
-        s1.addValue("Q4", 4.0);
-        dataset.addSeriesAsRow("S1", s1);
-
+        s1.addValue("Q1/2011", 8.58);
+        s1.addValue("Q2/2011", 9.03);
+        s1.addValue("Q3/2011", 9.72);
+        s1.addValue("Q4/2011", 10.58);
+        dataset.addSeriesAsRow("Google", s1);
+        
         DefaultKeyedValues s2 = new DefaultKeyedValues();
-        s2.addValue("Q1", 14.0);
-        s2.addValue("Q2", 7.0);
-        s2.addValue("Q3", 6.0);
-        s2.addValue("Q4", 4.0);
-        dataset.addSeriesAsRow("S2", s2);
+        s2.addValue("Q1/2011", 16.43);
+        s2.addValue("Q2/2011", 17.37);
+        s2.addValue("Q3/2011", 17.37);
+        s2.addValue("Q4/2011", 20.89);
+        dataset.addSeriesAsRow("Microsoft", s2);
+        
+        DefaultKeyedValues s3 = new DefaultKeyedValues();
+        s3.addValue("Q1/2011", 24.67);
+        s3.addValue("Q2/2011", 28.57);
+        s3.addValue("Q3/2011", 28.27);
+        s3.addValue("Q4/2011", 46.33);
+        dataset.addSeriesAsRow("Apple", s3);
 
+        DefaultKeyedValues s4 = new DefaultKeyedValues();
+        s3.addValue("Q1/2011", 24.67);
+        s3.addValue("Q2/2011", 28.57);
+        s3.addValue("Q3/2011", 28.27);
+        s3.addValue("Q4/2011", 46.33);
+        dataset.addSeriesAsRow("Apple2", s3);
+
+        DefaultKeyedValues s5 = new DefaultKeyedValues();
+        s3.addValue("Q1/2011", 24.67);
+        s3.addValue("Q2/2011", 28.57);
+        s3.addValue("Q3/2011", 28.27);
+        s3.addValue("Q4/2011", 46.33);
+        dataset.addSeriesAsRow("Apple3", s3);
+
+        DefaultKeyedValues s6 = new DefaultKeyedValues();
+        s3.addValue("Q1/2011", 24.67);
+        s3.addValue("Q2/2011", 28.57);
+        s3.addValue("Q3/2011", 28.27);
+        s3.addValue("Q4/2011", 46.33);
+        dataset.addSeriesAsRow("Apple4", s3);
         return dataset;
     }
 
@@ -87,10 +115,10 @@ public class AreaChart3DDemo1 extends JFrame {
      * @param args  command line arguments (ignored).
      */
     public static void main(String[] args) {
-        AreaChart3DDemo1 app = new AreaChart3DDemo1(
-                "OrsonCharts: AreaChart3DDemo1.java");
+        BarChart3DDemo2 app = new BarChart3DDemo2(
+                "OrsonCharts: BarChart3DDemo2.java");
         app.pack();
         app.setVisible(true);
     }
-
 }
+

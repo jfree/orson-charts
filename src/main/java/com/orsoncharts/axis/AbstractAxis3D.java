@@ -16,7 +16,7 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.util.Objects;
 import javax.swing.event.EventListenerList;
-import com.orsoncharts.ArgChecks;
+import com.orsoncharts.util.ArgChecks;
 import java.awt.Paint;
 
 /**

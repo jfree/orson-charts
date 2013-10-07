@@ -10,7 +10,7 @@ package com.orsoncharts.data;
 
 import com.orsoncharts.Range;
 import com.orsoncharts.data.xyz.XYZDataset;
-import com.orsoncharts.ArgChecks;
+import com.orsoncharts.util.ArgChecks;
 
 /**
  * Some data utility methods.

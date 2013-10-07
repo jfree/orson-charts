@@ -33,5 +33,10 @@ public class DefaultCategory3DPaintSource implements Category3DPaintSource {
     public Color getPaint(int series, int row, int column) {
         return this.paint[series % this.paint.length];
     }
+
+    @Override
+    public Color getLegendPaint(int series) {
+        return this.paint[series % this.paint.length];
+    }
     
 }

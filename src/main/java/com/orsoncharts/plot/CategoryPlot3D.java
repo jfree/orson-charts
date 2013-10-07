@@ -14,7 +14,7 @@ import com.orsoncharts.axis.Axis3DChangeListener;
 import com.orsoncharts.axis.CategoryAxis3D;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.Dataset3DChangeEvent;
-import com.orsoncharts.ArgChecks;
+import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.axis.ValueAxis3D;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.World;

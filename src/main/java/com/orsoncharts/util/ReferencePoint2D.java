@@ -6,7 +6,7 @@
  * 
  */
 
-package com.orsoncharts.title;
+package com.orsoncharts.util;
 
 /**
  * Reference points within a rectangle.  These reference points are used to 

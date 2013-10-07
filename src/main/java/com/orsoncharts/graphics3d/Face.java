@@ -3,7 +3,7 @@
  */
 package com.orsoncharts.graphics3d;
 
-import com.orsoncharts.ArgChecks;
+import com.orsoncharts.util.ArgChecks;
 import java.awt.Color;
 
 /**

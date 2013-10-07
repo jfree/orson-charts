@@ -31,5 +31,7 @@ public interface Category3DPaintSource {
      */
     public Color getPaint(int series, int row, int column);
   
+    public Color getLegendPaint(int series);
+    
 }
 

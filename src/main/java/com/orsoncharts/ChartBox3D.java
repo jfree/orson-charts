@@ -15,7 +15,8 @@ import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.Point3D;
 
 /**
- * A utility class to create and track a chart box.
+ * A chart box is the container within which the chart elements are drawn.
+ * The six faces of the box created so that they are visible on
  */
 public class ChartBox3D {
 
