@@ -21,7 +21,7 @@ import com.orsoncharts.Range;
 /**
  * Checks for the {@link NumberAxis3D} class.
  */
-public class NumberAxis3DTests implements Axis3DChangeListener {
+public class NumberAxis3DTest implements Axis3DChangeListener {
     
     @Test
     public void checkSetVisibleFiresChangeEvent() {

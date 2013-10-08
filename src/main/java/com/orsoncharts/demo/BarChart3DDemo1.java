@@ -21,6 +21,8 @@ import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.category.DefaultCategoryDataset3D;
 import com.orsoncharts.data.DefaultKeyedValues;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
+import com.orsoncharts.legend.LegendAnchor;
+import com.orsoncharts.util.Anchor2D;
 
 /**
  * A demo of a 3D bar chart.
@@ -53,6 +55,7 @@ public class BarChart3DDemo1 extends JFrame {
         CategoryDataset3D dataset = createDataset();
         Chart3D chart = Chart3DFactory.createBarChart("BarChart3DDemo1", 
                 dataset, null, "Quarter", "$billion Revenues");
+        chart.setLegendAnchor(LegendAnchor.TOP_RIGHT);
         this.chartPanel3D = new ChartPanel3D(chart);
         content.add(new DisplayPanel3D(this.chartPanel3D, true));
         return content;

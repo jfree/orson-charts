@@ -16,7 +16,7 @@ import org.junit.Test;
 /**
  * Some tests for the {@link Range} class.
  */
-public class RangeTests {
+public class RangeTest {
 
     @Test
     public void testEquals() {

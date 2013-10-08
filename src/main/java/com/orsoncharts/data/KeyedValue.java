@@ -9,14 +9,16 @@
 package com.orsoncharts.data;
 
 /**
- * A (key, value) pair.
+ * A <code>(key, value)</code> pair that is used as a building block for some
+ * data structures for the charts.
  */
 public interface KeyedValue<T> {
   
     /**
-     * Returns the key.
+     * Returns the key (by design, this key is required to be 
+     * non-<code>null</code>).
      * 
-     * @return The key. 
+     * @return The key (never <code>null</code>). 
      */
     public Comparable getKey();
   

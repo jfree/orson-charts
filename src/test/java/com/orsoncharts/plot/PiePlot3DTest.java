@@ -20,7 +20,7 @@ import com.orsoncharts.data.DefaultPieDataset3D;
 /** 
  * Some tests for the {@link PiePlot3D} class.
  */
-public class PiePlot3DTests implements Plot3DChangeListener {
+public class PiePlot3DTest implements Plot3DChangeListener {
 
     @Test
     public void checkSetRadiusFiresChangeEvent() {

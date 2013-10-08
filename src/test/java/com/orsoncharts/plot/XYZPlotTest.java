@@ -27,7 +27,7 @@ import com.orsoncharts.renderer.xyz.XYZRenderer;
 /**
  * Checks for the {@link XYZPlot} class.
  */
-public class XYZPlotTests implements Plot3DChangeListener {
+public class XYZPlotTest implements Plot3DChangeListener {
     
     @Test
     public void checkSetDatasetFiresChangeEvent() {

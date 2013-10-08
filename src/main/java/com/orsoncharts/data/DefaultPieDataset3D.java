@@ -10,7 +10,7 @@ import com.orsoncharts.plot.PiePlot3D;
 /**
  * A dataset that can be used with a {@link PiePlot3D}.
  */
-public class DefaultPieDataset3D extends AbstractDataset3D 
+public final class DefaultPieDataset3D extends AbstractDataset3D 
         implements PieDataset3D {
 
     private DefaultKeyedValues<Number> data;

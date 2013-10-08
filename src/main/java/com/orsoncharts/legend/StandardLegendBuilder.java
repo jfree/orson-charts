@@ -6,7 +6,7 @@
  * 
  */
 
-package com.orsoncharts;
+package com.orsoncharts.legend;
 
 import java.awt.Color;
 import java.awt.Paint;
@@ -32,6 +32,13 @@ import com.orsoncharts.table.TextElement;
  */
 public class StandardLegendBuilder implements LegendBuilder {
 
+    /**
+     * Default constructor.
+     */
+    public StandardLegendBuilder() {
+        
+    }
+    
     @Override
     public TableElement createLegend(Plot3D plot) {
         if (plot instanceof PiePlot3D) {
@@ -43,15 +50,6 @@ public class StandardLegendBuilder implements LegendBuilder {
         } else {
             return null;
         }
-    }
-    
-    private TableElement createLegendItem(String text, Paint color) {
-        ShapeElement se = new ShapeElement(new Rectangle2D.Double(-6, -4, 12, 8), color);
-        TextElement te = new TextElement(text);
-        GridElement ge = new GridElement();
-        ge.setElement(se, "R1", "C1");
-        ge.setElement(te, "R1", "C2");
-        return ge;
     }
     
     private TableElement createPieLegend(PiePlot3D plot) {
@@ -90,4 +88,14 @@ public class StandardLegendBuilder implements LegendBuilder {
         }
         return legend;    
     }
+
+    private TableElement createLegendItem(String text, Paint color) {
+        ShapeElement se = new ShapeElement(new Rectangle2D.Double(-6, -4, 12, 8), color);
+        TextElement te = new TextElement(text);
+        GridElement ge = new GridElement();
+        ge.setElement(se, "R1", "C1");
+        ge.setElement(te, "R1", "C2");
+        return ge;
+    }
+
 }

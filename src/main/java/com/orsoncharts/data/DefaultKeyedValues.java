@@ -9,6 +9,7 @@
 package com.orsoncharts.data;
 
 import com.orsoncharts.util.ArgChecks;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +17,10 @@ import java.util.List;
  * A list of <code>(key, value)</code> pairs.  This is the basic structure of 
  * the data required for a pie chart.
  */
-public class DefaultKeyedValues<T> implements KeyedValues<T> {
+public final class DefaultKeyedValues<T> implements KeyedValues<T>, 
+        Serializable {
 
+    /** Storage for the data items. */
     private List<KeyedValue<T>> data;
   
     /**
@@ -189,4 +192,25 @@ public class DefaultKeyedValues<T> implements KeyedValues<T> {
         return Double.NaN;
     }
     
+    /**
+     * Tests this instance for equality with an arbitrary object.
+     * 
+     * @param obj  the object to test against (<code>null</code> permitted).
+     * 
+     * @return A boolean. 
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof DefaultKeyedValues)) {
+            return false;
+        }
+        DefaultKeyedValues that = (DefaultKeyedValues) obj;
+        if (!this.data.equals(that.data)) {
+            return false;
+        }
+        return true;
+    }
 }

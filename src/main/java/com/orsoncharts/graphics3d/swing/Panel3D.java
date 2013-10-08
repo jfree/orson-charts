@@ -28,6 +28,7 @@ import javax.swing.JPanel;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.graphics3d.Drawable3D;
 import com.orsoncharts.graphics3d.ViewPoint3D;
+import java.awt.geom.AffineTransform;
 
 /**
  * A panel that displays a set of 3D objects from some viewing point.
@@ -41,8 +42,8 @@ public class Panel3D extends JPanel implements ActionListener, MouseListener,
     private Drawable3D drawable;
 
     /** 
-     * The (screen) point of the last mouse click (will be null initially).  
-     * Used to calculate the mouse drag distance and direction.
+     * The (screen) point of the last mouse click (will be <code>null</code> 
+     * initially).  Used to calculate the mouse drag distance and direction.
      */
     private Point lastClickPoint;
 
@@ -58,20 +59,31 @@ public class Panel3D extends JPanel implements ActionListener, MouseListener,
         super(new BorderLayout());
         ArgChecks.nullNotPermitted(drawable, "drawable");
         this.drawable = drawable;
-//        this.drawable.setViewPoint(new ViewPoint3D((float) (3 * Math.PI / 2.0), 
-//                (float) Math.PI / 2, 40.0f));
-//        this.viewPoint = new ViewPoint3D((float) (3 * Math.PI / 2.0), 
-//                (float) Math.PI / 6, 40.0f);
         this.lastViewPoint = this.drawable.getViewPoint();
         addMouseListener(this);
         addMouseMotionListener(this);
         addMouseWheelListener(this);
     }
 
+    /**
+     * Returns the <code>Drawable3D</code> object that is displayed in this
+     * panel.
+     * 
+     * @return The <code>Drawable3D</code> object.
+     */
     public Drawable3D getDrawable() {
         return this.drawable;
     }
 
+    /**
+     * Returns the last click point (possibly <code>null</code>).
+     * 
+     * @return The last click point (possibly <code>null</code>).
+     */
+    protected Point getLastClickPoint() {
+        return this.lastClickPoint;
+    }
+    
     /**
      * Returns the current world viewpoint.
      *
@@ -103,9 +115,11 @@ public class Panel3D extends JPanel implements ActionListener, MouseListener,
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
+        AffineTransform saved = g2.getTransform();
         Dimension size = getSize();
         Rectangle drawArea = new Rectangle(size.width, size.height);
         this.drawable.draw(g2, drawArea);
+        g2.setTransform(saved);
     }
   
     /* (non-Javadoc)

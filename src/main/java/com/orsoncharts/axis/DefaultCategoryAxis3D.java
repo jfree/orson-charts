@@ -23,6 +23,7 @@ import com.orsoncharts.util.TextAnchor;
 import com.orsoncharts.Range;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.plot.CategoryPlot3D;
+import com.orsoncharts.renderer.category.AreaRenderer3D;
 
 /**
  * An axis that displays categories.
@@ -30,11 +31,15 @@ import com.orsoncharts.plot.CategoryPlot3D;
 public class DefaultCategoryAxis3D extends AbstractAxis3D 
         implements CategoryAxis3D {
 
+    /** Should the axis be displayed on the chart? */
     private boolean visible;
     
+    /** The categories. */
     private List<Comparable> categories;
   
-    /** The axis range. */
+    /** 
+     * The axis range (never <code>null</code>). 
+     */
     private Range range;
 
     /** The percentage margin to leave at the lower end of the axis. */
@@ -84,7 +89,7 @@ public class DefaultCategoryAxis3D extends AbstractAxis3D
         super(label);
         this.visible = true;
         this.categories = new ArrayList<Comparable>();
-        this.range = new Range(0, 1);
+        this.range = new Range(0.0, 1.0);
         this.lowerMargin = 0.05;
         this.upperMargin = 0.05;
         this.firstCategoryHalfWidth = false;
@@ -141,6 +146,8 @@ public class DefaultCategoryAxis3D extends AbstractAxis3D
      * @param upperBound  the upper bound.
      */
     public void setRange(double lowerBound, double upperBound) {
+        // TODO : consider whether it makes sense to enable the range to be
+        // modified
         setRange(new Range(lowerBound, upperBound));
     }
 
@@ -158,6 +165,62 @@ public class DefaultCategoryAxis3D extends AbstractAxis3D
         fireChangeEvent();
     }
     
+    /**
+     * Returns <code>true</code> if the first category on the axis should
+     * occupy half the normal width, and <code>false</code> otherwise.
+     * 
+     * @return A boolean.
+     * 
+     * @see #setFirstCategoryHalfWidth(boolean) 
+     */
+    public boolean isFirstCategoryHalfWidth() {
+        return this.firstCategoryHalfWidth;
+    }
+    
+    /**
+     * Sets the flag that controls whether the first category on the axis 
+     * occupies a full or half width, and sends an {@link Axis3DChangeEvent}
+     * to all registered listeners.  There are some renderers where the 
+     * charts look better when half-widths are used (for example,
+     * {@link AreaRenderer3D}).
+     * 
+     * @param half  half width?
+     * 
+     * @see #setLastCategoryHalfWidth(boolean) 
+     */
+    public void setFirstCategoryHalfWidth(boolean half) {
+        this.firstCategoryHalfWidth = half;
+        fireChangeEvent();
+    }
+    
+    /**
+     * Returns <code>true</code> if the last category on the axis should
+     * occupy half the normal width, and <code>false</code> otherwise.
+     * 
+     * @return A boolean.
+     * 
+     * @see #setLastCategoryHalfWidth(boolean) 
+     */
+    public boolean isLastCategoryHalfWidth() {
+        return this.lastCategoryHalfWidth;
+    }
+    
+    /**
+     * Sets the flag that controls whether the last category on the axis 
+     * occupies a full or half width, and sends an {@link Axis3DChangeEvent}
+     * to all registered listeners.  There are some renderers where the 
+     * charts look better when half-widths are used (for example,
+     * {@link AreaRenderer3D}).
+     * 
+     * @param half  half width?
+     * 
+     * @see #setFirstCategoryHalfWidth(boolean) 
+     */
+    public void setLastCategoryHalfWidth(boolean half) {
+        this.lastCategoryHalfWidth = half;
+        fireChangeEvent();
+    }
+
     /**
      * Returns the tick mark length (in Java2D units).  The default value
      * is <code>3.0</code>.
@@ -180,25 +243,7 @@ public class DefaultCategoryAxis3D extends AbstractAxis3D
         this.tickMarkLength = length;
         fireChangeEvent();
     }
-  
-    public boolean isFirstCategoryHalfWidth() {
-        return this.firstCategoryHalfWidth;
-    }
-    
-    public void setFirstCategoryHalfWidth(boolean half) {
-        this.firstCategoryHalfWidth = half;
-        fireChangeEvent();
-    }
-    
-    public boolean isLastCategoryHalfWidth() {
-        return this.lastCategoryHalfWidth;
-    }
-    
-    public void setLastCategoryHalfWidth(boolean half) {
-        this.lastCategoryHalfWidth = half;
-        fireChangeEvent();
-    }
-    
+
     /**
      * Returns the width of a single category in the units of the axis
      * range.
@@ -372,4 +417,31 @@ public class DefaultCategoryAxis3D extends AbstractAxis3D
         }
     }
 
+    /**
+     * Tests this instance for equality with an arbitrary object.
+     * 
+     * @param obj  the object to test against (<code>null</code> not permitted).
+     * 
+     * @return A boolean.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof DefaultCategoryAxis3D)) {
+            return false;
+        }
+        DefaultCategoryAxis3D that = (DefaultCategoryAxis3D) obj;
+        if (this.visible != that.visible) {
+            return false;
+        }
+        if (this.firstCategoryHalfWidth != that.firstCategoryHalfWidth) {
+            return false;
+        }
+        if (this.lastCategoryHalfWidth != that.lastCategoryHalfWidth) {
+            return false;
+        }
+        return super.equals(obj);
+    }
 }

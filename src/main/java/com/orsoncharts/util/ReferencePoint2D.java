@@ -10,7 +10,9 @@ package com.orsoncharts.util;
 
 /**
  * Reference points within a rectangle.  These reference points are used to 
- * place titles and other labels.
+ * place titles, legends and other labels.
+ * 
+ * @see Anchor2D
  */
 public enum ReferencePoint2D {
 

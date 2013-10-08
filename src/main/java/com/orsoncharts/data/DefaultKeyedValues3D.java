@@ -8,6 +8,7 @@
 
 package com.orsoncharts.data;
 
+import com.orsoncharts.util.ArgChecks;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.List;
  * A three dimensional table of numerical values, implementing the 
  * {@link KeyedValues3D} interface.
  */
-public class DefaultKeyedValues3D<V> implements KeyedValues3D {
+public final class DefaultKeyedValues3D<V> implements KeyedValues3D {
 
     /** The series keys. */
     private List<Comparable> seriesKeys;
@@ -79,18 +80,45 @@ public class DefaultKeyedValues3D<V> implements KeyedValues3D {
         return this.columnKeys.get(columnIndex);
     }
 
+    /**
+     * Returns the index for the specified series key, or <code>-1</code> if 
+     * the key is not present in this data structure.
+     * 
+     * @param seriesKey  the series key (<code>null</code> not permitted).
+     * 
+     * @return The series index or <code>-1</code>. 
+     */
     @Override
     public int getSeriesIndex(Comparable seriesKey) {
+        ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
         return this.seriesKeys.indexOf(seriesKey);
     }
 
+    /**
+     * Returns the index for the specified row key, or <code>-1</code> if 
+     * the key is not present in this data structure.
+     * 
+     * @param rowKey  the row key (<code>null</code> not permitted).
+     * 
+     * @return The row index or <code>-1</code>. 
+     */
     @Override
     public int getRowIndex(Comparable rowKey) {
+        ArgChecks.nullNotPermitted(rowKey, "rowKey");
         return this.rowKeys.indexOf(rowKey);
     }
 
+    /**
+     * Returns the index for the specified column key, or <code>-1</code> if 
+     * the key is not present in this data structure.
+     * 
+     * @param columnKey  the column key (<code>null</code> not permitted).
+     * 
+     * @return The column index or <code>-1</code>. 
+     */
     @Override
     public int getColumnIndex(Comparable columnKey) {
+        ArgChecks.nullNotPermitted(columnKey, "columnKey");
         return this.columnKeys.indexOf(columnKey);
     }
 

@@ -49,29 +49,36 @@ import com.orsoncharts.util.ReferencePoint2D;
 import com.orsoncharts.util.TextUtils;
 import com.orsoncharts.util.TextAnchor;
 import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.legend.LegendBuilder;
+import com.orsoncharts.legend.StandardLegendBuilder;
 
 /**
  * A chart object for 3D charts.  All rendering is done via the Java2D API,
  * so this object is able to draw to any implementation of the Graphics2D API.
+ * The {@link ChartFactory} class provides some factory methods to construct
+ * common types of charts.
  */
 public class Chart3D implements Drawable3D, Plot3DChangeListener {
 
     /** The chart title. */
     private TableElement title;
     
+    /** The anchor point for the title (never <code>null</code>). */
     private Anchor2D titleAnchor;
     
     /** A builder for the chart legend (can be <code>null</code>). */
     private LegendBuilder legendBuilder;
     
-    /** The anchor point for the legend. */
+    /** The anchor point for the legend (never <code>null</code>). */
     private Anchor2D legendAnchor;
     
-   // private Offset2D legend
     /** A world to contain the 3D objects rendered by this chart. */
     private World world;
 
     private boolean worldNeedsRefreshing;
+    
+    /** The world offset in 2D space. */
+    private Offset2D worldOffset;
     
     /** The view point. */
     private ViewPoint3D viewPoint;
@@ -108,9 +115,10 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener {
             ste.setFont(new Font("Tahoma", Font.BOLD, 18));
             this.title = ste;
         }
-        this.titleAnchor = new Anchor2D();
+        this.titleAnchor = TitleAnchor.TOP_CENTER;
         this.world = new World();
         this.worldNeedsRefreshing = true;
+        this.worldOffset = new Offset2D();
         this.viewPoint = new ViewPoint3D((float) (4.4 * Math.PI / 3), 
                 (float) (7 * Math.PI / 6), 30.0f);
         this.plot = plot;
@@ -122,6 +130,43 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener {
         this.plot.addChangeListener(this);
     }
 
+    /**
+     * Returns the title anchor.  This controls the position of the title
+     * in the chart area.
+     * 
+     * @return The title anchor (never <code>null</code>).
+     * 
+     * @see #setTitleAnchor(com.orsoncharts.util.Anchor2D) 
+     */
+    public Anchor2D getTitleAnchor() {
+        return this.titleAnchor;
+    }
+    
+    /**
+     * Sets the title anchor and sends a {@link Chart3DChangeEvent} to all
+     * registered listeners.  There is a {@link TitleAnchor} class providing
+     * some useful default anchors.
+     * 
+     * @param anchor  the anchor (<code>null</code> not permitted).
+     * 
+     * @see #getTitleAnchor() 
+     */
+    public void setTitleAnchor(Anchor2D anchor) {
+        ArgChecks.nullNotPermitted(anchor, "anchor");
+        this.titleAnchor = anchor;
+        fireChangeEvent();
+    }
+
+    public Offset2D getWorldOffset() {
+        return this.worldOffset;    
+    }
+    
+    public void setWorldOffset(Offset2D offset) {
+        ArgChecks.nullNotPermitted(offset, "offset");
+        this.worldOffset = offset;
+        fireChangeEvent();
+    }
+    
     /**
      * Returns the view point.
      * 
@@ -172,6 +217,32 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener {
         this.legendBuilder = legendBuilder;
         fireChangeEvent();
     }
+    
+    /**
+     * Returns the legend anchor.
+     * 
+     * @return The legend anchor (never <code>null</code>).
+     * 
+     * @see #setLegendAnchor(com.orsoncharts.util.Anchor2D) 
+     */
+    public Anchor2D getLegendAnchor() {
+        return this.legendAnchor;
+    }
+    
+    /**
+     * Sets the legend anchor and sends a {@link Chart3DChangeEvent} to all
+     * registered listeners.  There is a {@link LegendAnchor} class providing
+     * some useful default anchors.
+     * 
+     * @param anchor  the anchor (<code>null</code> not permitted).
+     * 
+     * @see #getLegendAnchor() 
+     */
+    public void setLegendAnchor(Anchor2D anchor) {
+        ArgChecks.nullNotPermitted(anchor, "anchor");
+        this.legendAnchor = anchor;
+        fireChangeEvent();
+    }
 
     /**
      * Refreshes the world of 3D objects.  Usually this is called when a 
@@ -218,7 +289,7 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener {
         AffineTransform saved = g2.getTransform();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.translate(bounds.width / 2, bounds.height / 2);
+        g2.translate(bounds.width / 2 + this.worldOffset.getDX(), bounds.height / 2 + this.worldOffset.getDY());
 
         Dimension3D dim3D = this.plot.getDimensions();
         double w = dim3D.getWidth();
@@ -435,8 +506,9 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener {
         g2.setTransform(saved);
         if (this.title != null) {
             Dimension2D titleSize = this.title.preferredSize(g2, bounds);
-            this.title.draw(g2, new Rectangle2D.Double(0, 0, 
-                    titleSize.getWidth(), titleSize.getHeight()));
+            Rectangle2D titleArea = calculateDrawArea(titleSize, 
+                    this.titleAnchor, bounds);
+            this.title.draw(g2, titleArea);
         }
         
         if (this.legendBuilder != null) {
@@ -449,17 +521,42 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener {
 
     }
     
+    /**
+     * A utility method that calculates a drawing area based on a bounding area
+     * and an anchor.
+     * 
+     * @param dim  the dimensions for the drawing area (<code>null</code> not 
+     *     permitted).
+     * @param anchor  the anchor (<code>null</code> not permitted).
+     * @param bounds  the bounds (<code>null</code> not permitted).
+     * 
+     * @return A drawing area. 
+     */
     private Rectangle2D calculateDrawArea(Dimension2D dim, Anchor2D anchor, 
             Rectangle2D bounds) {
+        ArgChecks.nullNotPermitted(dim, "dim");
         ArgChecks.nullNotPermitted(anchor, "anchor");
+        ArgChecks.nullNotPermitted(bounds, "bounds");
         double x, y;
         double w = Math.min(dim.getWidth(), bounds.getWidth());
         double h = Math.min(dim.getHeight(), bounds.getHeight());
         if (anchor.getRefPt().equals(ReferencePoint2D.CENTER)) {
             x = bounds.getCenterX() - w / 2.0;
             y = bounds.getCenterY() - h / 2.0;
+        } else if (anchor.getRefPt().equals(ReferencePoint2D.TOP_CENTER)) {
+            x = bounds.getCenterX() - w / 2.0;
+            y = bounds.getY() + anchor.getOffset().getDY();
+        } else if (anchor.getRefPt().equals(ReferencePoint2D.TOP_RIGHT)) {
+            x = bounds.getMaxX() - anchor.getOffset().getDX() - dim.getWidth();
+            y = bounds.getY() + anchor.getOffset().getDY();
         } else if (anchor.getRefPt().equals(ReferencePoint2D.BOTTOM_CENTER)) {
             x = bounds.getCenterX() - w / 2.0;
+            y = bounds.getMaxY() - anchor.getOffset().getDY() - dim.getHeight();
+        } else if (anchor.getRefPt().equals(ReferencePoint2D.BOTTOM_RIGHT)) {
+            x = bounds.getMaxX() - anchor.getOffset().getDX() - dim.getWidth();
+            y = bounds.getMaxY() - anchor.getOffset().getDY() - dim.getHeight();
+        } else if (anchor.getRefPt().equals(ReferencePoint2D.BOTTOM_LEFT)) {
+            x = bounds.getX() + anchor.getOffset().getDX();
             y = bounds.getMaxY() - anchor.getOffset().getDY() - dim.getHeight();
         } else {
             x = 0.0;

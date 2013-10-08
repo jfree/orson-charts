@@ -28,7 +28,8 @@ public class GridElement extends AbstractTableElement implements TableElement {
         this.elements = new DefaultKeyedValues2D<TableElement>();  
     }
     
-    public void setElement(TableElement element, Comparable rowKey, Comparable columnKey) {
+    public void setElement(TableElement element, Comparable rowKey, 
+            Comparable columnKey) {
         this.elements.setValue(element, rowKey, columnKey);
     }
     

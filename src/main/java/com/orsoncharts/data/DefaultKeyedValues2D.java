@@ -8,19 +8,22 @@
 
 package com.orsoncharts.data;
 
-import com.orsoncharts.util.ArgChecks;
 import java.util.ArrayList;
 import java.util.List;
+import com.orsoncharts.util.ArgChecks;
 
 /**
  * A two dimensional grid of numerical data.
  */
-public class DefaultKeyedValues2D<T> implements KeyedValues2D {
+public final class DefaultKeyedValues2D<T> implements KeyedValues2D {
 
+    /** The x-keys. */
     List<Comparable> xKeys;
     
+    /** The y-keys. */
     List<Comparable> yKeys;
     
+    /** The data values. */
     List<DefaultKeyedValues<T>> data;  // one entry per xKey
   
     /**
@@ -95,6 +98,7 @@ public class DefaultKeyedValues2D<T> implements KeyedValues2D {
      */
     @Override
     public int getYIndex(Comparable ykey) {
+        ArgChecks.nullNotPermitted(ykey, "ykey");
         return this.yKeys.indexOf(ykey);
     }
 
@@ -105,7 +109,7 @@ public class DefaultKeyedValues2D<T> implements KeyedValues2D {
      */
     @Override
     public List<Comparable> getXKeys() {
-        return new ArrayList(this.xKeys);
+        return new ArrayList<Comparable>(this.xKeys);
     }
 
     /**
@@ -118,6 +122,11 @@ public class DefaultKeyedValues2D<T> implements KeyedValues2D {
         return new ArrayList<Comparable>(this.yKeys);
     }
 
+    /**
+     * Returns the number of xKeys in the table.
+     * 
+     * @return 
+     */
     @Override
     public int getXCount() {
         return this.xKeys.size();
@@ -128,8 +137,16 @@ public class DefaultKeyedValues2D<T> implements KeyedValues2D {
         return this.yKeys.size();
     }
 
+    /**
+     * Returns a value from one cell in the table.
+     * 
+     * @param xKey  the x-key (<code>null</code> not permitted).
+     * @param yKey  the y-key (<code>null</code> not permitted).
+     * @return 
+     */
     @Override
     public T getValue(Comparable xKey, Comparable yKey) {
+        // arg checking is handled in getXIndex() and getYIndex()
         int xIndex = getXIndex(xKey);
         int yIndex = getYIndex(yKey);
         return getValue(xIndex, yIndex);
@@ -148,12 +165,19 @@ public class DefaultKeyedValues2D<T> implements KeyedValues2D {
         }
         return Double.NaN;
     } 
-    
+
+    /**
+     * Sets a value for one cell in the table.
+     * 
+     * @param n  the value (<code>null</code> permitted).
+     * @param xKey  the x-key (<code>null</code> not permitted).
+     * @param yKey  the y-key (<code>null</code> not permitted).
+     */
     public void setValue(T n, Comparable xKey, Comparable yKey) {
-        // cases
+        ArgChecks.nullNotPermitted(xKey, "xKey");
+        ArgChecks.nullNotPermitted(yKey, "yKey");
         
-        // 1.  No data - just add one new entry
-        if (this.data.isEmpty()) {
+        if (this.data.isEmpty()) {  // 1. no data - just add one new entry
             this.xKeys.add(xKey);
             this.yKeys.add(yKey);
             DefaultKeyedValues dkvs = new DefaultKeyedValues<T>();
@@ -168,7 +192,8 @@ public class DefaultKeyedValues2D<T> implements KeyedValues2D {
                     // 2.  Both keys exist - just update the value
                     dkvs.addValue(yKey, n);
                 } else {
-                    // 3.  xKey exists, but yKey does not (add the yKey to each series)
+                    // 3.  xKey exists, but yKey does not (add the yKey to 
+                    //     each series)
                     this.yKeys.add(yKey);
                     for (DefaultKeyedValues kv : this.data) {
                         kv.addValue(yKey, null);
@@ -179,22 +204,45 @@ public class DefaultKeyedValues2D<T> implements KeyedValues2D {
                 if (yIndex >= 0) {
                     // 4.  xKey does not exist, but yKey does
                     this.xKeys.add(xKey);
-                    DefaultKeyedValues d = new DefaultKeyedValues<T>(this.yKeys);
+                    DefaultKeyedValues d = new DefaultKeyedValues<T>(
+                            this.yKeys);
                     d.addValue(yKey, n);
                     this.data.add(d);
                 } else {
-                    // 5.  neither key exists
-                    // need to create the new series, plus the new entry in every series
+                    // 5.  neither key exists, need to create the new series, 
+                    //     plus the new entry in every series
                     this.xKeys.add(xKey);
                     this.yKeys.add(yKey);
                     for (DefaultKeyedValues<T> kv : this.data) {
                         kv.addValue(yKey, null);
                     }
-                    DefaultKeyedValues<T> d = new DefaultKeyedValues<T>(this.yKeys);
+                    DefaultKeyedValues<T> d = new DefaultKeyedValues<T>(
+                            this.yKeys);
                     d.addValue(yKey, n);
                     this.data.add(d);
                 }
             }
         }
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof DefaultKeyedValues2D)) {
+            return false;
+        }
+        DefaultKeyedValues2D that = (DefaultKeyedValues2D) obj;
+        if (!this.xKeys.equals(that.xKeys)) {
+            return false;
+        }
+        if (!this.yKeys.equals(that.yKeys)) {
+            return false;
+        }
+        if (!this.data.equals(that.data)) {
+            return false;
+        }
+        return true;
     }
 }

@@ -6,7 +6,7 @@
  * 
  */
 
-package com.orsoncharts;
+package com.orsoncharts.legend;
 
 import com.orsoncharts.plot.Plot3D;
 import com.orsoncharts.table.TableElement;
@@ -24,4 +24,5 @@ public interface LegendBuilder {
      * @return A legend.
      */
     TableElement createLegend(Plot3D plot);
+
 }

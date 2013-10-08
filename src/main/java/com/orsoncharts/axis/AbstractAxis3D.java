@@ -11,20 +11,20 @@ package com.orsoncharts.axis;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Paint;
 import java.awt.Stroke;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.util.Objects;
 import javax.swing.event.EventListenerList;
 import com.orsoncharts.util.ArgChecks;
-import java.awt.Paint;
 
 /**
  * A base class that can be used to create an {@link Axis3D} implementation.
  */
 public abstract class AbstractAxis3D implements Axis3D {
     
-    /** The axis label (if null, no label is displayed). */
+    /** The axis label (if <code>null</code>, no label is displayed). */
     private String label;
   
     /** The label font (never <code>null</code>). */
@@ -44,6 +44,7 @@ public abstract class AbstractAxis3D implements Axis3D {
     /** The font used to display tick labels (never <code>null</code>) */
     private Font tickLabelFont;
     
+    /** The tick label paint. */
     private Paint tickLabelPaint;
 
     /** Storage for registered change listeners. */
