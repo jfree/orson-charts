@@ -18,7 +18,8 @@ import com.orsoncharts.graphics3d.World;
 /**
  * A base class that can be used to create {@link Plot3D} classes.
  */
-public abstract class AbstractPlot3D implements Plot3D, Dataset3DChangeListener {
+public abstract class AbstractPlot3D implements Plot3D, 
+        Dataset3DChangeListener {
   
     /** 
      * The plot dimensions in 3D space.  By default, this is auto-adjusted
@@ -72,6 +73,10 @@ public abstract class AbstractPlot3D implements Plot3D, Dataset3DChangeListener 
         return this.autoAdjustDimensions;    
     }
     
+    @Override
+    public abstract void composeToWorld(World world, double xOffset, 
+            double yOffset, double zOffset);
+
     /**
      * Returns a flag that controls whether or not change events are sent to
      * registered listeners.
@@ -150,10 +155,12 @@ public abstract class AbstractPlot3D implements Plot3D, Dataset3DChangeListener 
         notifyListeners(new Plot3DChangeEvent(this, this));
     }
 
-    @Override
-    public abstract void composeToWorld(World world, double xOffset, 
-            double yOffset, double zOffset);
-
+    /**
+     * Receives notification of a dataset change, and passes this event on
+     * wrapped in a {@link Plot3DChangeEvent}.
+     * 
+     * @param event  the dataset change event. 
+     */
     @Override
     public void datasetChanged(Dataset3DChangeEvent event) {
         notifyListeners(new Plot3DChangeEvent(event, this));

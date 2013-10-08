@@ -19,10 +19,12 @@ import javax.swing.JPanel;
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
+import com.orsoncharts.TitleAnchor;
 import com.orsoncharts.data.DefaultPieDataset3D;
 import com.orsoncharts.data.PieDataset3D;
 import com.orsoncharts.plot.PiePlot3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
+import com.orsoncharts.legend.LegendAnchor;
 
 /**
  * A test app.
@@ -52,6 +54,8 @@ public class PieChart3DDemo1 extends JFrame {
         content.setPreferredSize(new Dimension(720, 400));
         Chart3D chart = Chart3DFactory.createPieChart("PieChart3DDemo1", 
                 createDataset());
+        chart.setTitleAnchor(TitleAnchor.TOP_LEFT);
+        chart.setLegendAnchor(LegendAnchor.BOTTOM_RIGHT);
         PiePlot3D plot = (PiePlot3D) chart.getPlot();
         plot.setSectionColor("United States", new Color(0x1A9641));
         plot.setSectionColor("France", new Color(0xA6D96A));

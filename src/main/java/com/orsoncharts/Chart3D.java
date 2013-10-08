@@ -22,6 +22,7 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.awt.Paint;
 import javax.swing.event.EventListenerList;
 
 import com.orsoncharts.axis.Axis3D;
@@ -35,6 +36,7 @@ import com.orsoncharts.graphics3d.Tools2D;
 import com.orsoncharts.graphics3d.ViewPoint3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.graphics3d.ZOrderComparator;
+import com.orsoncharts.legend.LegendAnchor;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.plot.PiePlot3D;
 import com.orsoncharts.plot.Plot3DChangeEvent;
@@ -51,6 +53,7 @@ import com.orsoncharts.util.TextAnchor;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.legend.LegendBuilder;
 import com.orsoncharts.legend.StandardLegendBuilder;
+import com.orsoncharts.util.ObjectUtils;
 
 /**
  * A chart object for 3D charts.  All rendering is done via the Java2D API,
@@ -60,7 +63,10 @@ import com.orsoncharts.legend.StandardLegendBuilder;
  */
 public class Chart3D implements Drawable3D, Plot3DChangeListener {
 
-    /** The chart title. */
+    /** The background paint for the chart area (can be <code>null</code>). */
+    private Paint backgroundPaint;
+    
+    /** The chart title (can be <code>null</code>). */
     private TableElement title;
     
     /** The anchor point for the title (never <code>null</code>). */
@@ -83,6 +89,9 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener {
     /** The view point. */
     private ViewPoint3D viewPoint;
 
+    /** The chart box color (never <code>null</code>). */
+    private Color chartBoxColor;
+    
     /** 
      * The chart box (a frame of reference for the chart - not used in pie 
      * charts). 
@@ -110,6 +119,7 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener {
      */
     public Chart3D(String chartTitle, Plot3D plot) {
         ArgChecks.nullNotPermitted(plot, "plot");
+        this.backgroundPaint = Color.WHITE;
         if (chartTitle != null) {
             TextElement ste = new TextElement(chartTitle);
             ste.setFont(new Font("Tahoma", Font.BOLD, 18));
@@ -123,11 +133,74 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener {
                 (float) (7 * Math.PI / 6), 30.0f);
         this.plot = plot;
         this.notify = true;
+        this.chartBoxColor = Color.WHITE;
         this.legendBuilder = new StandardLegendBuilder();
         this.legendAnchor = new Anchor2D(ReferencePoint2D.BOTTOM_CENTER, 
                 new Offset2D(4.0, 4.0));
         this.listenerList = new EventListenerList();
         this.plot.addChangeListener(this);
+    }
+
+    /**
+     * Returns the paint used to fill the chart background area before the 
+     * chart is rendered.
+     * 
+     * @return The background paint (possibly <code>null</code>). 
+     */
+    public Paint getBackgroundPaint() {
+        return this.backgroundPaint;
+    }
+    
+    /**
+     * Sets the background paint for the chart area and sends a 
+     * {@link Chart3DChangeEvent} to all registered listeners.
+     * 
+     * @param paint  the new paint (<code>null</code> permitted). 
+     */
+    public void setBackgroundPaint(Paint paint) {
+        this.backgroundPaint = paint;
+        fireChangeEvent();
+    }
+    
+    /**
+     * Returns the chart title.
+     * 
+     * @return The chart title. 
+     */
+    public TableElement getTitle() {
+        return this.title;
+    }
+    
+    /**
+     * Sets the chart title and sends a {@link Chart3DChangeEvent} to all 
+     * registered listeners.
+     * 
+     * @param title  the title (<code>null</code> permitted). 
+     */
+    public void setTitle(String title) {
+        if (title == null) {
+            setTitle((TableElement) null);
+        } else {
+            setTitle(title, new Font("Dialog", Font.BOLD, 16));
+        }
+    }
+    
+    public void setTitle(String title, Font font) {
+        ArgChecks.nullNotPermitted(font, "font");
+        TextElement te = new TextElement(title);
+        te.setFont(font);
+        setTitle(te);
+    }
+    
+    /**
+     * Sets the chart title and sends a {@link Chart3DChangeEvent} to all 
+     * registered listeners.
+     * 
+     * @param title  the title (<code>null</code> permitted).
+     */
+    public void setTitle(TableElement title) {
+        this.title = title;
+        fireChangeEvent();
     }
 
     /**
@@ -199,6 +272,27 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener {
     }
     
     /**
+     * Returns the chart box color.
+     * 
+     * @return The chart box color (never <code>null</code>). 
+     */
+    public Color getChartBoxColor() {
+        return this.chartBoxColor;
+    }
+    
+    /**
+     * Sets the chart box color and sends a {@link Chart3DChangeEvent} to all 
+     * registered listeners.
+     * 
+     * @param color  the color (<code>null</code> not permitted). 
+     */
+    public void setChartBoxColor(Color color) {
+        ArgChecks.nullNotPermitted(color, "color");
+        this.chartBoxColor = color;
+        fireChangeEvent();
+    }
+    
+    /**
      * Returns the legend builder.
      * 
      * @return The legend builder (possibly <code>null</code>). 
@@ -257,12 +351,6 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener {
         double w = dim.getWidth();
         double h = dim.getHeight();
         double d = dim.getDepth();
-        if (!(this.plot instanceof PiePlot3D)) {
-            this.chartBox = new ChartBox3D(w, h, d, -w / 2, -h / 2, -d / 2, 
-                    Color.WHITE);
-            world.add(chartBox.getObject3D());    
-        }
-
         this.plot.composeToWorld(world, -w / 2, -h / 2, -d / 2);
         this.worldNeedsRefreshing = false;
     }
@@ -274,29 +362,47 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener {
      */
     @Override
     public void draw(Graphics2D g2, Rectangle bounds) {
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
          
-        if (this.worldNeedsRefreshing) {
+        //if (this.worldNeedsRefreshing) {
             refreshWorld();  
-        }
+        //}
         float strokeWidth = 1.2f; // FIXME : try a renderer.getPreferredStroke() method
         if (this.plot instanceof PiePlot3D) {
             strokeWidth = 1.5f;
         }
         g2.setStroke(new BasicStroke(strokeWidth, BasicStroke.CAP_ROUND,
                 BasicStroke.JOIN_ROUND));
-        g2.setPaint(Color.WHITE);
-        g2.fill(bounds);
+        if (this.backgroundPaint != null) {
+            g2.setPaint(this.backgroundPaint);
+            g2.fill(bounds);
+        }
         AffineTransform saved = g2.getTransform();
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.translate(bounds.width / 2 + this.worldOffset.getDX(), bounds.height / 2 + this.worldOffset.getDY());
+        g2.translate(bounds.width / 2 + this.worldOffset.getDX(), 
+                bounds.height / 2 + this.worldOffset.getDY());
 
         Dimension3D dim3D = this.plot.getDimensions();
         double w = dim3D.getWidth();
         double h = dim3D.getHeight();
         double depth = dim3D.getDepth();
+        if (!(this.plot instanceof PiePlot3D)) {
+            
+            this.chartBox = new ChartBox3D(w, h, depth, -w / 2, -h / 2, 
+                    -depth / 2, this.chartBoxColor);
+            // project the points
+            // decide where the axes will be showing
+            // choose the tick size
+            // draw the axes
+            
+            // create a world for the gridlines
+            // project and render the world
+            
+            
+            this.world.add(this.chartBox.getObject3D());
+        }
+        
         Point3D[] eyePts = this.world.calculateEyeCoordinates(this.viewPoint);
-
         Point2D[] pts = this.world.calculateProjectedPoints(this.viewPoint,
                     1000f);
         List<Face> facesInPaintOrder = new ArrayList<Face>(
@@ -334,6 +440,19 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener {
                     g2.draw(p);
                 }
                 f.setRendered(true);
+//                if (f instanceof CBFace) {
+//                    CBFace cbf = (CBFace) f;
+//                    List<int[]> gridLines = cbf.getGridLines();
+//                    for (int i = 0; i < gridLines.size(); i++) {
+//                        int[] vv = gridLines.get(i);
+//                        Line2D line = new Line2D.Double(pts[vv[0] + cbf.getOffset()], pts[vv[1] + cbf.getOffset()]);
+//                        g2.setPaint(Color.WHITE);
+//                        g2.setStroke(cbf.gridLineStroke);
+//                        g2.draw(line);
+//                    }
+//                }
+//                // TODO:  if it is a CBFace and there are gridlines then
+//                // here is the place to draw them
             } else {
                 f.setRendered(false);
             }
@@ -342,165 +461,13 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener {
         // if a PiePlot3D then there will be an overlay to track the pie label 
         // positions
         if (this.plot instanceof PiePlot3D) {
-            PiePlot3D p = (PiePlot3D) this.plot;
-            World labelOverlay = new World();
-            List<Object3D> objs = p.getLabelFaces(-w / 2, -h / 2, -depth / 2);
-            for (Object3D obj : objs) {
-                labelOverlay.add(obj);
-            }
-            Point2D[] ppts = labelOverlay.calculateProjectedPoints(
-                    this.viewPoint, 1000f);
-            for (int i = 0; i < p.getDataset().getItemCount() * 2; i++) {
-                Face f = labelOverlay.getFaces().get(i);
-                if (Tools2D.area2(ppts[f.getVertexIndex(0)], 
-                        ppts[f.getVertexIndex(1)], 
-                        ppts[f.getVertexIndex(2)]) > 0) {
-                    Comparable key = p.getDataset().getKey(i / 2);
-                    g2.setColor(Color.BLACK);
-                    g2.setFont(p.getDefaultSectionFont());
-                    Point2D pt = Tools2D.centrePoint(ppts[f.getVertexIndex(0)], 
-                            ppts[f.getVertexIndex(1)], ppts[f.getVertexIndex(2)],
-                            ppts[f.getVertexIndex(3)]);
-                    TextUtils.drawAlignedString(key.toString(), g2, 
-                            (float) pt.getX(), (float) pt.getY(), 
-                            TextAnchor.CENTER);
-                }
-            }
+            drawPieLabels(g2, w, h, depth);
         }
 
-    
-        // if a CategoryPlot3D then there will be a ChartBox overlay
-
-        // if an XYZPlot then there will be a ChartBox overlay
+        // if a CategoryPlot3D or XYZPlot then there will be a ChartBox overlay
         if (this.plot instanceof XYZPlot 
                 || this.plot instanceof CategoryPlot3D) {
-            World labelOverlay = new World();
-            ChartBox3D cb = new ChartBox3D(w, h, depth, -w / 2, -h / 2, 
-                    -depth / 2, new Color(0, 0, 255, 200));
-            labelOverlay.add(cb.getObject3D());
-            Point2D[] axisPts2D = labelOverlay.calculateProjectedPoints(
-                    this.viewPoint, 1000f);
-
-            // vertices
-            Point2D v0 = axisPts2D[0];
-            Point2D v1 = axisPts2D[1];
-            Point2D v2 = axisPts2D[2];
-            Point2D v3 = axisPts2D[3];
-            Point2D v4 = axisPts2D[4];
-            Point2D v5 = axisPts2D[5];
-            Point2D v6 = axisPts2D[6];
-            Point2D v7 = axisPts2D[7];
-
-            // faces
-            boolean a = this.chartBox.faceA().isRendered();
-            boolean b = this.chartBox.faceB().isRendered();
-            boolean c = this.chartBox.faceC().isRendered();
-            boolean d = this.chartBox.faceD().isRendered();
-            boolean e = this.chartBox.faceE().isRendered();
-            boolean f = this.chartBox.faceF().isRendered();
-
-            Axis3D xAxis = null, yAxis = null, zAxis = null;
-            if (this.plot instanceof XYZPlot) {
-                XYZPlot xyzplot = (XYZPlot) this.plot;
-                xAxis = xyzplot.getXAxis();
-                yAxis = xyzplot.getYAxis();
-                zAxis = xyzplot.getZAxis();
-            } else if (this.plot instanceof CategoryPlot3D) {
-                CategoryPlot3D catplot = (CategoryPlot3D) this.plot;
-                xAxis = catplot.getColumnAxis();
-                yAxis = catplot.getValueAxis();
-                zAxis = catplot.getRowAxis();
-            }
-            
-            if (xAxis != null && yAxis != null && zAxis != null) {
-                double ab = (count(a, b) == 1 ? v0.distance(v1) : 0.0);
-                double bc = (count(b, c) == 1 ? v3.distance(v2) : 0.0);
-                double cd = (count(c, d) == 1 ? v4.distance(v7) : 0.0);
-                double da = (count(d, a) == 1 ? v5.distance(v6) : 0.0);
-                double be = (count(b, e) == 1 ? v0.distance(v3) : 0.0);
-                double bf = (count(b, f) == 1 ? v1.distance(v2) : 0.0);
-                double df = (count(d, f) == 1 ? v6.distance(v7) : 0.0);
-                double de = (count(d, e) == 1 ? v5.distance(v4) : 0.0);
-                double ae = (count(a, e) == 1 ? v0.distance(v5) : 0.0);
-                double af = (count(a, f) == 1 ? v1.distance(v6) : 0.0);
-                double cf = (count(c, f) == 1 ? v2.distance(v7) : 0.0);
-                double ce = (count(c, e) == 1 ? v3.distance(v4) : 0.0);
-
-                if (count(a, b) == 1 && longest(ab, bc, cd, da)) {
-                    if (xAxis instanceof ValueAxis3D) {
-                        ((ValueAxis3D) xAxis).selectTick(g2, v0, v1, v7);
-                    }
-                    xAxis.draw(g2, v0, v1, v7, true);
-                }
-                if (count(b, c) == 1 && longest(bc, ab, cd, da)) {
-                    if (xAxis instanceof ValueAxis3D) {
-                        ((ValueAxis3D) xAxis).selectTick(g2, v3, v2, v6);
-                    }
-                    xAxis.draw(g2, v3, v2, v6, true);
-                }
-                if (count(c, d) == 1 && longest(cd, ab, bc, da)) {
-                    if (xAxis instanceof ValueAxis3D) {
-                        ((ValueAxis3D) xAxis).selectTick(g2, v4, v7, v1);
-                    }
-                    xAxis.draw(g2, v4, v7, v1, true);
-                }
-                if (count(d, a) == 1 && longest(da, ab, bc, cd)) {
-                    if (xAxis instanceof ValueAxis3D) {
-                        ((ValueAxis3D) xAxis).selectTick(g2, v5, v6, v3);
-                    }
-                    xAxis.draw(g2, v5, v6, v3, true);
-                }
-
-                if (count(b, e) == 1 && longest(be, bf, df, de)) {
-                    if (yAxis instanceof ValueAxis3D) {
-                        ((ValueAxis3D) yAxis).selectTick(g2, v0, v3, v7);
-                    }
-                    yAxis.draw(g2, v0, v3, v7, true);
-                }
-                if (count(b, f) == 1 && longest(bf, be, df, de)) {
-                    if (yAxis instanceof ValueAxis3D) {
-                        ((ValueAxis3D) yAxis).selectTick(g2, v1, v2, v4);
-                    }
-                    yAxis.draw(g2, v1, v2, v4, true);
-                }
-                if (count(d, f) == 1 && longest(df, be, bf, de)) {
-                    if (yAxis instanceof ValueAxis3D) {
-                        ((ValueAxis3D) yAxis).selectTick(g2, v6, v7, v0);
-                    }
-                    yAxis.draw(g2, v6, v7, v0, true);
-                }
-                if (count(d, e) == 1 && longest(de, be, bf, df)) {
-                    if (yAxis instanceof ValueAxis3D) {
-                        ((ValueAxis3D) yAxis).selectTick(g2, v5, v4, v1);
-                    }
-                    yAxis.draw(g2, v5, v4, v1, true);
-                }
-
-                if (count(a, e) == 1 && longest(ae, af, cf, ce)) {
-                    if (zAxis instanceof ValueAxis3D) {
-                        ((ValueAxis3D) zAxis).selectTick(g2, v0, v5, v2);
-                    }
-                    zAxis.draw(g2, v0, v5, v2, true);
-                }
-                if (count(a, f) == 1 && longest(af, ae, cf, ce)) {
-                    if (zAxis instanceof ValueAxis3D) {
-                        ((ValueAxis3D) zAxis).selectTick(g2, v1, v6, v3);
-                    }
-                    zAxis.draw(g2, v1, v6, v3, true);
-                }
-                if (count(c, f) == 1 && longest(cf, ae, af, ce)) {
-                    if (zAxis instanceof ValueAxis3D) {
-                        ((ValueAxis3D) zAxis).selectTick(g2, v2, v7, v5);
-                    }
-                    zAxis.draw(g2, v2, v7, v5, true);
-                }
-                if (count(c, e) == 1 && longest(ce, ae, af, cf)) {
-                    if (zAxis instanceof ValueAxis3D) {
-                        ((ValueAxis3D) zAxis).selectTick(g2, v3, v4, v6);
-                    }
-                    zAxis.draw(g2, v3, v4, v6, true);
-                }
-            }
+            drawAxes(g2, w, h, depth);
         }    
 
         g2.setTransform(saved);
@@ -519,6 +486,165 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener {
             legend.draw(g2, legendArea);
         }
 
+    }
+    
+    private void drawPieLabels(Graphics2D g2, double w, double h, 
+            double depth) {
+        PiePlot3D p = (PiePlot3D) this.plot;
+        World labelOverlay = new World();
+        List<Object3D> objs = p.getLabelFaces(-w / 2, -h / 2, -depth / 2);
+        for (Object3D obj : objs) {
+            labelOverlay.add(obj);
+        }
+        Point2D[] ppts = labelOverlay.calculateProjectedPoints(
+                this.viewPoint, 1000f);
+        for (int i = 0; i < p.getDataset().getItemCount() * 2; i++) {
+            Face f = labelOverlay.getFaces().get(i);
+            if (Tools2D.area2(ppts[f.getVertexIndex(0)], 
+                    ppts[f.getVertexIndex(1)], 
+                    ppts[f.getVertexIndex(2)]) > 0) {
+                Comparable key = p.getDataset().getKey(i / 2);
+                g2.setColor(Color.BLACK);
+                g2.setFont(p.getDefaultSectionFont());
+                Point2D pt = Tools2D.centrePoint(ppts[f.getVertexIndex(0)], 
+                        ppts[f.getVertexIndex(1)], ppts[f.getVertexIndex(2)],
+                        ppts[f.getVertexIndex(3)]);
+                TextUtils.drawAlignedString(key.toString(), g2, 
+                        (float) pt.getX(), (float) pt.getY(), 
+                        TextAnchor.CENTER);
+            }
+        }
+    }
+    
+    private void drawAxes(Graphics2D g2, double w, double h, double depth) {
+        World axisOverlay = new World();
+        ChartBox3D cb = new ChartBox3D(w, h, depth, -w / 2, -h / 2, 
+                -depth / 2, this.chartBoxColor);
+        axisOverlay.add(cb.getObject3D());
+        Point2D[] axisPts2D = axisOverlay.calculateProjectedPoints(
+                this.viewPoint, 1000f);
+
+        // vertices
+        Point2D v0 = axisPts2D[0];
+        Point2D v1 = axisPts2D[1];
+        Point2D v2 = axisPts2D[2];
+        Point2D v3 = axisPts2D[3];
+        Point2D v4 = axisPts2D[4];
+        Point2D v5 = axisPts2D[5];
+        Point2D v6 = axisPts2D[6];
+        Point2D v7 = axisPts2D[7];
+
+        // faces
+        boolean a = this.chartBox.faceA().isRendered();
+        boolean b = this.chartBox.faceB().isRendered();
+        boolean c = this.chartBox.faceC().isRendered();
+        boolean d = this.chartBox.faceD().isRendered();
+        boolean e = this.chartBox.faceE().isRendered();
+        boolean f = this.chartBox.faceF().isRendered();
+
+        Axis3D xAxis = null, yAxis = null, zAxis = null;
+        if (this.plot instanceof XYZPlot) {
+            XYZPlot xyzplot = (XYZPlot) this.plot;
+            xAxis = xyzplot.getXAxis();
+            yAxis = xyzplot.getYAxis();
+            zAxis = xyzplot.getZAxis();
+        } else if (this.plot instanceof CategoryPlot3D) {
+            CategoryPlot3D catplot = (CategoryPlot3D) this.plot;
+            xAxis = catplot.getColumnAxis();
+            yAxis = catplot.getValueAxis();
+            zAxis = catplot.getRowAxis();
+        }
+            
+        if (xAxis != null && yAxis != null && zAxis != null) {
+            double ab = (count(a, b) == 1 ? v0.distance(v1) : 0.0);
+            double bc = (count(b, c) == 1 ? v3.distance(v2) : 0.0);
+            double cd = (count(c, d) == 1 ? v4.distance(v7) : 0.0);
+            double da = (count(d, a) == 1 ? v5.distance(v6) : 0.0);
+            double be = (count(b, e) == 1 ? v0.distance(v3) : 0.0);
+            double bf = (count(b, f) == 1 ? v1.distance(v2) : 0.0);
+            double df = (count(d, f) == 1 ? v6.distance(v7) : 0.0);
+            double de = (count(d, e) == 1 ? v5.distance(v4) : 0.0);
+            double ae = (count(a, e) == 1 ? v0.distance(v5) : 0.0);
+            double af = (count(a, f) == 1 ? v1.distance(v6) : 0.0);
+            double cf = (count(c, f) == 1 ? v2.distance(v7) : 0.0);
+            double ce = (count(c, e) == 1 ? v3.distance(v4) : 0.0);
+
+            if (count(a, b) == 1 && longest(ab, bc, cd, da)) {
+                if (xAxis instanceof ValueAxis3D) {
+                    ((ValueAxis3D) xAxis).selectTick(g2, v0, v1, v7);
+                }
+                xAxis.draw(g2, v0, v1, v7, true);
+            }
+            if (count(b, c) == 1 && longest(bc, ab, cd, da)) {
+                if (xAxis instanceof ValueAxis3D) {
+                    ((ValueAxis3D) xAxis).selectTick(g2, v3, v2, v6);
+                }
+                xAxis.draw(g2, v3, v2, v6, true);
+            }
+            if (count(c, d) == 1 && longest(cd, ab, bc, da)) {
+                if (xAxis instanceof ValueAxis3D) {
+                    ((ValueAxis3D) xAxis).selectTick(g2, v4, v7, v1);
+                }
+                xAxis.draw(g2, v4, v7, v1, true);
+            }
+            if (count(d, a) == 1 && longest(da, ab, bc, cd)) {
+                if (xAxis instanceof ValueAxis3D) {
+                    ((ValueAxis3D) xAxis).selectTick(g2, v5, v6, v3);
+                }
+                xAxis.draw(g2, v5, v6, v3, true);
+            }
+
+            if (count(b, e) == 1 && longest(be, bf, df, de)) {
+                if (yAxis instanceof ValueAxis3D) {
+                    ((ValueAxis3D) yAxis).selectTick(g2, v0, v3, v7);
+                }
+                yAxis.draw(g2, v0, v3, v7, true);
+            }
+            if (count(b, f) == 1 && longest(bf, be, df, de)) {
+                if (yAxis instanceof ValueAxis3D) {
+                    ((ValueAxis3D) yAxis).selectTick(g2, v1, v2, v4);
+                }
+                yAxis.draw(g2, v1, v2, v4, true);
+            }
+            if (count(d, f) == 1 && longest(df, be, bf, de)) {
+                if (yAxis instanceof ValueAxis3D) {
+                    ((ValueAxis3D) yAxis).selectTick(g2, v6, v7, v0);
+                }
+                yAxis.draw(g2, v6, v7, v0, true);
+            }
+            if (count(d, e) == 1 && longest(de, be, bf, df)) {
+                if (yAxis instanceof ValueAxis3D) {
+                    ((ValueAxis3D) yAxis).selectTick(g2, v5, v4, v1);
+                }
+                yAxis.draw(g2, v5, v4, v1, true);
+            }
+
+            if (count(a, e) == 1 && longest(ae, af, cf, ce)) {
+                if (zAxis instanceof ValueAxis3D) {
+                    ((ValueAxis3D) zAxis).selectTick(g2, v0, v5, v2);
+                }
+                zAxis.draw(g2, v0, v5, v2, true);
+            }
+            if (count(a, f) == 1 && longest(af, ae, cf, ce)) {
+                if (zAxis instanceof ValueAxis3D) {
+                    ((ValueAxis3D) zAxis).selectTick(g2, v1, v6, v3);
+                }
+                zAxis.draw(g2, v1, v6, v3, true);
+            }
+            if (count(c, f) == 1 && longest(cf, ae, af, ce)) {
+                if (zAxis instanceof ValueAxis3D) {
+                    ((ValueAxis3D) zAxis).selectTick(g2, v2, v7, v5);
+                }
+                zAxis.draw(g2, v2, v7, v5, true);
+            }
+            if (count(c, e) == 1 && longest(ce, ae, af, cf)) {
+                if (zAxis instanceof ValueAxis3D) {
+                    ((ValueAxis3D) zAxis).selectTick(g2, v3, v4, v6);
+                }
+                zAxis.draw(g2, v3, v4, v6, true);
+            }
+        }
+        
     }
     
     /**
@@ -598,6 +724,38 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener {
             result++;
         }
         return result;
+    }
+    
+    /**
+     * Tests this chart for equality with an arbitrary object.
+     * 
+     * @param obj  the object (<code>null</code> not permitted).
+     * 
+     * @return A boolean. 
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof Chart3D)) {
+            return false;
+        }
+        Chart3D that = (Chart3D) obj;
+        if (!ObjectUtils.equalsPaint(this.backgroundPaint, 
+                that.backgroundPaint)) {
+            return false;
+        }
+        if (!ObjectUtils.equals(this.title, that.title)) {
+            return false;
+        }
+        if (!this.titleAnchor.equals(that.titleAnchor)) {
+            return false;
+        }
+        if (!ObjectUtils.equalsPaint(this.chartBoxColor, that.chartBoxColor)) {
+            return false;
+        }
+        return true;
     }
 
     @Override

@@ -17,13 +17,13 @@ import javax.swing.JPanel;
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
-import com.orsoncharts.axis.DefaultCategoryAxis3D;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.category.DefaultCategoryDataset3D;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.category.StackedBarRenderer3D;
+import java.awt.Color;
 
 /**
  * A demo of a 3D stacked bar chart.
@@ -52,8 +52,8 @@ public class StackedBarChart3DDemo1 extends JFrame {
         JPanel content = new JPanel(new BorderLayout());
         content.setPreferredSize(new Dimension(600, 400));
         CategoryDataset3D dataset = createDataset();
-        Chart3D chart = Chart3DFactory.createStackedBarChart("Water Usage Chart", 
-                dataset, null, null, "Value");
+        Chart3D chart = Chart3DFactory.createStackedBarChart(
+                "Water Usage Chart", dataset, null, null, "Value");
         CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
         plot.setDimensions(new Dimension3D(14, 5, 2));
         plot.getRowAxis().setVisible(false);

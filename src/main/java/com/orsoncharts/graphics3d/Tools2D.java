@@ -106,9 +106,12 @@ public class Tools2D {
         return result;
     }
     
-    public static Point2D centrePoint(Point2D pt0, Point2D pt1, Point2D pt2, Point2D pt3) {
-      float x = (float) ((pt0.getX() + pt1.getX() + pt2.getX() + pt3.getX()) / 4.0);
-      float y = (float) ((pt0.getY() + pt1.getY() + pt2.getY() + pt3.getY()) / 4.0);
-      return new Point2D.Float(x, y);
+    public static Point2D centrePoint(Point2D pt0, Point2D pt1, Point2D pt2, 
+            Point2D pt3) {
+        float x = (float) ((pt0.getX() + pt1.getX() + pt2.getX() + pt3.getX()) 
+                / 4.0);
+        float y = (float) ((pt0.getY() + pt1.getY() + pt2.getY() + pt3.getY()) 
+                / 4.0);
+        return new Point2D.Float(x, y);
     }
 }

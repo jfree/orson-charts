@@ -1,10 +1,15 @@
-/**
- * (C)opyright 2013, by Object Refinery Limited
+/* ===========
+ * OrsonCharts
+ * ===========
+ * 
+ * (C)opyright 2013 by Object Refinery Limited.
+ * 
  */
+
 package com.orsoncharts.graphics3d;
 
-import com.orsoncharts.util.ArgChecks;
 import java.awt.Color;
+import com.orsoncharts.util.ArgChecks;
 
 /**
  * Represents a face in one {@link Object3D}, defined in terms of vertex
@@ -12,6 +17,7 @@ import java.awt.Color;
  */
 public class Face {
 
+    /** The offset into the global list of vertices. */
     private int offset;
 
     /** The indices of the vertices representing this face. */
@@ -145,8 +151,8 @@ public class Face {
     }
 
     /**
-     * Sets a flag indicating whether or not this face was rendered.  This method
-     * is called by the Panel3D class while rendering.
+     * Sets a flag indicating whether or not this face was rendered.  This 
+     * method is called by the {@link Chart3D} class while rendering.
      * 
      * @param rendered  the flag.
      */

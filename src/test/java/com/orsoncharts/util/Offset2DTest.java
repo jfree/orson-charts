@@ -38,6 +38,7 @@ public class Offset2DTest {
         assertTrue(off1.equals(off2));
     }
     
+    @Test
     public void testSerialization() {
         Offset2D off1 = new Offset2D(1.0, 2.0);
         Offset2D off2 = (Offset2D) TestUtils.serialized(off1);

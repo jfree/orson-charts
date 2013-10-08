@@ -148,4 +148,25 @@ public class TextElement extends AbstractTableElement
                 (float) (textBounds.getY() + insets.top), TextAnchor.TOP_LEFT);
     }
     
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof TextElement)) {
+            return false;
+        }
+        TextElement that = (TextElement) obj;
+        if (!this.text.equals(that.text)) {
+            return false;
+        }
+        if (!this.font.equals(that.font)) {
+            return false;
+        }
+        if (this.alignment != that.alignment) {
+            return false;
+        }
+        return super.equals(obj);
+    }
+    
 }

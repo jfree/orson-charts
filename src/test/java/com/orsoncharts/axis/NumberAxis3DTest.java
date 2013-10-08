@@ -156,7 +156,6 @@ public class NumberAxis3DTest implements Axis3DChangeListener {
         assertNotEquals(axis1, axis2);
         axis2.setVisible(false);
         assertEquals(axis1, axis2);
-        
     }
   
     private Axis3DChangeEvent lastEvent;

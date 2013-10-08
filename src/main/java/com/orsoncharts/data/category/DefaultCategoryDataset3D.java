@@ -198,6 +198,6 @@ public final class DefaultCategoryDataset3D extends AbstractDataset3D
         if (!this.data.equals(that.data)) {
             return false;
         }
-        return super.equals(obj);
+        return true;
     }
 }

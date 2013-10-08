@@ -82,6 +82,11 @@ public class Range {
     public double percent(double value) {
         return (value - this.min) / getLength();
     }
+    
+    public double gridPoint(int index, int count) {
+        double fraction = (double) index / (count - 1.0);
+        return this.min + fraction * (this.max - this.min);
+    }
   
     /**
      * Tests this instance for equality with an arbitrary object.

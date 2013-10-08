@@ -12,7 +12,8 @@ import java.text.DecimalFormat;
 import java.text.Format;
 
 /**
- *
+ * A {@link TickSelector} implementation that selects tick units in multiples 
+ * of 1, 2 and 5.
  */
 public class NumberTickSelector implements TickSelector {
 

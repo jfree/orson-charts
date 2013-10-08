@@ -54,6 +54,7 @@ public class Triangle {
      * 
      * @return A string.
      */
+    @Override
     public String toString() {
         return "Triangle[" + this.vertices[0] + "," + this.vertices[1] 
                 + "," + this.vertices[2] + "]";

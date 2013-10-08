@@ -8,6 +8,8 @@
 
 package com.orsoncharts.data;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
@@ -108,5 +110,12 @@ public class DefaultKeyedValues3DTest {
         assertEquals(5, data.getRowCount());
         assertEquals(5, data.getColumnCount());
         assertNull(data.getValue("S1", "R5", "C5"));
+    }
+    
+    public void testEquals() {
+        DefaultKeyedValues3D<Number> d1 = new DefaultKeyedValues3D<Number>();
+        DefaultKeyedValues3D<Number> d2 = new DefaultKeyedValues3D<Number>();
+        assertTrue(d1.equals(d2));
+        assertFalse(d1.equals(null));
     }
 }

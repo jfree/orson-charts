@@ -212,5 +212,29 @@ public final class DefaultKeyedValues3D<V> implements KeyedValues3D {
             this.data.add(d);
         }
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof DefaultKeyedValues3D)) {
+            return false;
+        }
+        DefaultKeyedValues3D that = (DefaultKeyedValues3D) obj;
+        if (!this.seriesKeys.equals(that.seriesKeys)) {
+            return false;
+        }
+        if (!this.rowKeys.equals(that.rowKeys)) {
+            return false;
+        }
+        if (!this.columnKeys.equals(that.columnKeys)) {
+            return false;
+        }
+        if (!this.data.equals(that.data)) {
+            return false;
+        }
+        return true;
+    }
 
 }

@@ -66,6 +66,9 @@ public class DefaultKeyedValues2DTest {
         assertTrue(d1.equals(d2));
         assertFalse(d1.equals(null));
         
-        d1.setValue(EPSILON, EPSILON, EPSILON);
+        d1.setValue(1.0, "X1", "Y1");
+        assertFalse(d1.equals(d2));
+        d2.setValue(1.0, "X1", "Y1");
+        assertTrue(d1.equals(d2));
     }
 }

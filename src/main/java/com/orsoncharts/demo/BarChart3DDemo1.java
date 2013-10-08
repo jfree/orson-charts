@@ -54,7 +54,7 @@ public class BarChart3DDemo1 extends JFrame {
         CategoryDataset3D dataset = createDataset();
         Chart3D chart = Chart3DFactory.createBarChart("BarChart3DDemo1", 
                 dataset, null, "Quarter", "$billion Revenues");
-        chart.setLegendAnchor(LegendAnchor.CENTER_LEFT);
+        chart.setLegendAnchor(LegendAnchor.BOTTOM_RIGHT);
         this.chartPanel3D = new ChartPanel3D(chart);
         content.add(new DisplayPanel3D(this.chartPanel3D, true));
         return content;

@@ -8,7 +8,6 @@
 
 package com.orsoncharts.graphics3d;
 
-import com.orsoncharts.util.ArgChecks;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -20,6 +19,7 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import com.orsoncharts.util.ArgChecks;
 
 /**
  * Provides a default implementation of the {@link Drawable3D} interface.
