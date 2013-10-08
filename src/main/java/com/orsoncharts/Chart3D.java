@@ -543,8 +543,17 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener {
         if (anchor.getRefPt().equals(ReferencePoint2D.CENTER)) {
             x = bounds.getCenterX() - w / 2.0;
             y = bounds.getCenterY() - h / 2.0;
+        } else if (anchor.getRefPt().equals(ReferencePoint2D.CENTER_LEFT)) {
+            x = bounds.getX() + anchor.getOffset().getDX();
+            y = bounds.getCenterY() - h / 2.0;
+        } else if (anchor.getRefPt().equals(ReferencePoint2D.CENTER_RIGHT)) {
+            x = bounds.getMaxX() - anchor.getOffset().getDX() - dim.getWidth();
+            y = bounds.getCenterY() - h / 2.0;
         } else if (anchor.getRefPt().equals(ReferencePoint2D.TOP_CENTER)) {
             x = bounds.getCenterX() - w / 2.0;
+            y = bounds.getY() + anchor.getOffset().getDY();
+        } else if (anchor.getRefPt().equals(ReferencePoint2D.TOP_LEFT)) {
+            x = bounds.getX() + anchor.getOffset().getDX();
             y = bounds.getY() + anchor.getOffset().getDY();
         } else if (anchor.getRefPt().equals(ReferencePoint2D.TOP_RIGHT)) {
             x = bounds.getMaxX() - anchor.getOffset().getDX() - dim.getWidth();

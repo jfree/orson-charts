@@ -31,6 +31,14 @@ public interface Category3DPaintSource {
      */
     public Color getPaint(int series, int row, int column);
   
+    /**
+     * Returns the color to be used in the legend to represent the specified
+     * series.
+     * 
+     * @param series  the series index.
+     * 
+     * @return The color. 
+     */
     public Color getLegendPaint(int series);
     
 }

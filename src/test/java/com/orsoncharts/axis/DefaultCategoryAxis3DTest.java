@@ -11,6 +11,7 @@ package com.orsoncharts.axis;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.GradientPaint;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 
@@ -58,6 +59,35 @@ public class DefaultCategoryAxis3DTest {
         axis2.setLineStroke(new BasicStroke(0.5f));
         assertTrue(axis1.equals(axis2));
         
+        // line color
+        axis1.setLineColor(Color.BLUE);
+        assertFalse(axis1.equals(axis2));
+        axis2.setLineColor(Color.BLUE);
+        assertTrue(axis1.equals(axis2));
+        
+        // tickLabelsVisible
+        axis1.setTickLabelsVisible(false);
+        assertFalse(axis1.equals(axis2));
+        axis2.setTickLabelsVisible(false);
+        assertTrue(axis1.equals(axis2));
+        
+        // tick label font
+        axis1.setTickLabelFont(new Font("Dialog", Font.PLAIN, 5));
+        assertFalse(axis1.equals(axis2));
+        axis2.setTickLabelFont(new Font("Dialog", Font.PLAIN, 5));
+        assertTrue(axis1.equals(axis2));
+        
+        // tick label paint
+        GradientPaint gp1 = new GradientPaint(1f, 2f, Color.RED, 3f, 4f, 
+                Color.CYAN);
+        GradientPaint gp2 = new GradientPaint(1f, 2f, Color.RED, 3f, 4f, 
+                Color.CYAN);
+        axis1.setTickLabelPaint(gp1);
+        assertFalse(axis1.equals(axis2));
+        axis2.setTickLabelPaint(gp2);
+        assertTrue(axis1.equals(axis2));
+
+        // axis visible
         axis1.setVisible(false);
         assertFalse(axis1.equals(axis2));
         axis2.setVisible(false);

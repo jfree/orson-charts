@@ -115,7 +115,7 @@ public class DefaultCategoryAxis3D extends AbstractAxis3D
     
     /**
      * Sets the flag that determines whether or not the axis is drawn on the
-     * chart and sends an {@link Axis3DChangeEvent} to all registerd listeners.
+     * chart and sends an {@link Axis3DChangeEvent} to all registered listeners.
      * 
      * @param visible  the flag.
      * 
@@ -442,6 +442,7 @@ public class DefaultCategoryAxis3D extends AbstractAxis3D
         if (this.lastCategoryHalfWidth != that.lastCategoryHalfWidth) {
             return false;
         }
+        //if (ObjectUtils.equalsPaint(this., tickMarkPaint))
         return super.equals(obj);
     }
 }

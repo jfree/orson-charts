@@ -18,6 +18,7 @@ import java.awt.geom.Point2D;
 import java.util.Objects;
 import javax.swing.event.EventListenerList;
 import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.util.ObjectUtils;
 
 /**
  * A base class that can be used to create an {@link Axis3D} implementation.
@@ -39,12 +40,13 @@ public abstract class AbstractAxis3D implements Axis3D {
     /** The color used to draw the axis line. */
     private Color lineColor;
   
+    /** Draw the tick labels? */
     private boolean tickLabelsVisible;
     
     /** The font used to display tick labels (never <code>null</code>) */
     private Font tickLabelFont;
     
-    /** The tick label paint. */
+    /** The tick label paint (never <code>null</code>). */
     private Paint tickLabelPaint;
 
     /** Storage for registered change listeners. */
@@ -107,10 +109,22 @@ public abstract class AbstractAxis3D implements Axis3D {
         fireChangeEvent();
     }
 
+    /**
+     * Returns the paint used for the label.  The default value is 
+     * <code>Color.BLACK</code>.
+     * 
+     * @return The label paint (never <code>null</code>). 
+     */
     public Paint getLabelPaint() {
         return this.labelPaint;
     }
     
+    /**
+     * Sets the paint used to draw the axis label and sends a 
+     * {@link Axis3DChangeEvent} to all registered listeners.
+     * 
+     * @param paint  the paint (<code>null</code> not permitted). 
+     */
     public void setLabelPaint(Paint paint) {
         ArgChecks.nullNotPermitted(paint, "paint");
         this.labelPaint = paint;
@@ -159,10 +173,21 @@ public abstract class AbstractAxis3D implements Axis3D {
         fireChangeEvent();
     }
 
+    /**
+     * Returns the flag that controls whether or not the tick labels are
+     * drawn.  The default value is <code>true</code>.
+     * @return 
+     */
     public boolean getTickLabelsVisible() {
         return this.tickLabelsVisible;
     }
     
+    /**
+     * Sets the flag that controls whether or not the tick labels are drawn,
+     * and sends an {@link Axis3DChangeEvent} to all registered listeners.
+     * 
+     * @param visible  visible?
+     */
     public void setTickLabelsVisible(boolean visible) {
         this.tickLabelsVisible = visible;
         fireChangeEvent();
@@ -190,7 +215,8 @@ public abstract class AbstractAxis3D implements Axis3D {
     }
     
     /**
-     * Returns the foreground color for the tick labels.
+     * Returns the foreground color for the tick labels.  The default value
+     * is <code>Color.BLACK</code>.
      * 
      * @return The foreground color (never <code>null</code>). 
      */
@@ -232,13 +258,23 @@ public abstract class AbstractAxis3D implements Axis3D {
         if (!this.labelFont.equals(that.labelFont)) {
             return false;
         }
+        if (!ObjectUtils.equalsPaint(this.labelPaint, that.labelPaint)) {
+            return false;
+        }
         if (!this.lineStroke.equals(that.lineStroke)) {
             return false;
         }
         if (!this.lineColor.equals(that.lineColor)) {
             return false;
         }
+        if (this.tickLabelsVisible != that.tickLabelsVisible) {
+            return false;
+        }
         if (!this.tickLabelFont.equals(that.tickLabelFont)) {
+            return false;
+        }
+        if (!ObjectUtils.equalsPaint(this.tickLabelPaint, 
+                that.tickLabelPaint)) {
             return false;
         }
         return true;

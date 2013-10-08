@@ -17,6 +17,7 @@ import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.AbstractRenderer3D;
+import com.orsoncharts.renderer.Renderer3DChangeEvent;
 import com.orsoncharts.renderer.RendererType;
 
 /**
@@ -62,10 +63,17 @@ public abstract class AbstractCategoryRenderer3D extends AbstractRenderer3D
      * 
      * @return The paint source (never <code>null</code>). 
      */
+    @Override
     public Category3DPaintSource getPaintSource() {
         return this.paintSource;
     }
     
+    /**
+     * Sets the paint source for the renderer and sends a 
+     * {@link Renderer3DChangeEvent} to all registered listeners.
+     * 
+     * @param paintSource  the paint source (<code>null</code> not permitted). 
+     */
     public void setPaintSource(Category3DPaintSource paintSource) {
         ArgChecks.nullNotPermitted(paintSource, "paintSource");
         this.paintSource = paintSource;
@@ -101,6 +109,19 @@ public abstract class AbstractCategoryRenderer3D extends AbstractRenderer3D
                 "The composeSeries() method is not implemented.");
     }
     
-    
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        } 
+        if (!(obj instanceof AbstractCategoryRenderer3D)) {
+            return false;
+        }
+        AbstractCategoryRenderer3D that = (AbstractCategoryRenderer3D) obj;
+        if (!this.paintSource.equals(that.paintSource)) {
+            return false;
+        }
+        return true;  // we don't call the super-class because it doesn't 
+            // contain any fields that we check for equality
+    }
     
 }

@@ -27,15 +27,18 @@ import com.orsoncharts.renderer.RendererType;
  */
 public class AreaRenderer3D extends AbstractCategoryRenderer3D {
     
+    /** The base for the areas (defaults to 0.0). */
     private double base;
     
-    private double thickness = 0.6;
+    /** The thickness (depth in 3D) of the area. */
+    private double thickness;
     
     /**
      * Default constructor.
      */
     public AreaRenderer3D() {
-        this.base = 0.0;    
+        this.base = 0.0;
+        this.thickness = 0.6;
     }
 
     @Override
@@ -131,4 +134,21 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D {
         
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof AreaRenderer3D)) {
+            return false;
+        }
+        AreaRenderer3D that = (AreaRenderer3D) obj;
+        if (this.base != that.base) {
+            return false;
+        }
+        if (this.thickness != that.thickness) {
+            return false;
+        }
+        return super.equals(obj);
+    }
 }
