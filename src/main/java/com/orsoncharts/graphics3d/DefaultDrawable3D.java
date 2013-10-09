@@ -119,10 +119,11 @@ public class DefaultDrawable3D implements Drawable3D {
                     g2.fill(p);
                     g2.draw(p);
                 }
-                f.setRendered(true);
-            } else {
-                f.setRendered(false);
-            }
+                //f.setRendered(true);
+            } 
+//            else {
+//                f.setRendered(false);
+//            }
         }
         g2.setTransform(saved);      
     }

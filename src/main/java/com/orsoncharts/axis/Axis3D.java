@@ -11,6 +11,7 @@ package com.orsoncharts.axis;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import com.orsoncharts.Range;
+import java.util.List;
 
 /**
  * An interface that must be supported by axes for 3D plots.
@@ -57,7 +58,7 @@ public interface Axis3D {
      * @param labels  draw labels?
      */
     void draw(Graphics2D g2, Point2D startPt, Point2D endPt, Point2D opposingPt, 
-            boolean labels);
+            boolean labels, List<TickData> tickData);
 
     /**
      * Registers a listener so that it receives notification of changes to the

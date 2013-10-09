@@ -280,6 +280,7 @@ public class DefaultCategoryAxis3D extends AbstractAxis3D
      */
     @Override
     public void configureAsColumnAxis(CategoryPlot3D plot) {
+        ArgChecks.nullNotPermitted(plot, "plot");
         this.categories = plot.getDataset().getColumnKeys();
     }
 
@@ -343,7 +344,7 @@ public class DefaultCategoryAxis3D extends AbstractAxis3D
      */
     @Override
     public void draw(Graphics2D g2, Point2D pt0, Point2D pt1, 
-            Point2D opposingPt, boolean labels) {
+            Point2D opposingPt, boolean labels, List<TickData> tickData) {
         
         if (!isVisible()) {
             return;
@@ -444,5 +445,15 @@ public class DefaultCategoryAxis3D extends AbstractAxis3D
         }
         //if (ObjectUtils.equalsPaint(this., tickMarkPaint))
         return super.equals(obj);
+    }
+
+    @Override
+    public List<TickData> generateTickData() {
+        List<TickData> result = new ArrayList(this.categories.size());
+        for (Comparable key : this.categories) {
+            double pos = this.range.percent(getCategoryValue(key));
+            result.add(new TickData(pos, key));
+        }
+        return result;
     }
 }

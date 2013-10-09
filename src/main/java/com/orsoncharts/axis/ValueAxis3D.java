@@ -12,6 +12,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.plot.XYZPlot;
+import java.util.List;
 
 /**
  * An axis that displays a range of continuous values.  These can be used
@@ -72,8 +73,12 @@ public interface ValueAxis3D extends Axis3D {
      * @param pt1  the ending point.
      * @param opposingPt  a point on the opposite side of the axis from the 
      *     labels.
+     * 
+     * @return The tick size.
      */
-    void selectTick(Graphics2D g2, Point2D pt0, Point2D pt1, 
+    double selectTick(Graphics2D g2, Point2D pt0, Point2D pt1, 
             Point2D opposingPt);
+    
+    List<TickData> generateTickData(double tickUnit);
 
 }

@@ -10,6 +10,7 @@ package com.orsoncharts.graphics3d;
 
 import java.awt.Color;
 import com.orsoncharts.util.ArgChecks;
+import java.awt.geom.Point2D;
 
 /**
  * Represents a face in one {@link Object3D}, defined in terms of vertex
@@ -142,23 +143,28 @@ public class Face {
         return total / this.vertices.length;
     }
 
-    /**
-     * A flag that indicates whether or not the face is rendered.
-     * @return 
-     */
-    public boolean isRendered() {
-        return this.rendered;
+    public boolean isFrontFacing(Point2D[] projPts) {
+        return Tools2D.area2(projPts[getVertexIndex(0)], 
+                projPts[getVertexIndex(1)], projPts[getVertexIndex(2)]) > 0;  
     }
-
-    /**
-     * Sets a flag indicating whether or not this face was rendered.  This 
-     * method is called by the {@link Chart3D} class while rendering.
-     * 
-     * @param rendered  the flag.
-     */
-    public void setRendered(boolean rendered) {
-        this.rendered = rendered;
-    }
+    
+//    /**
+//     * A flag that indicates whether or not the face is rendered.
+//     * @return 
+//     */
+//    public boolean isRendered() {
+//        return this.rendered;
+//    }
+//
+//    /**
+//     * Sets a flag indicating whether or not this face was rendered.  This 
+//     * method is called by the {@link Chart3D} class while rendering.
+//     * 
+//     * @param rendered  the flag.
+//     */
+//    public void setRendered(boolean rendered) {
+//        this.rendered = rendered;
+//    }
 
     @Override
     public String toString() {

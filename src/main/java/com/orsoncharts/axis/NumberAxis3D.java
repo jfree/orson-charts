@@ -24,6 +24,8 @@ import com.orsoncharts.Range;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.plot.XYZPlot;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A numerical axis for use with 3D plots.
@@ -70,7 +72,8 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D {
     private Range defaultAutoRange;
     
     /** 
-     * The tick selector (if not null, then auto-tick selection is in place). 
+     * The tick selector (if not <code>null</code>, then auto-tick selection 
+     * is used). 
      */
     private TickSelector tickSelector;
 
@@ -459,14 +462,14 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D {
         }
     }
 
-    /**
-     * Returns the first standard tick value in the range.
-     * 
-     * @return The first standard tick value. 
-     */
-    private double findFirstStandardTickValue() {
-        return this.tickSize * Math.ceil(this.range.getMin() / this.tickSize);
-    }
+//    /**
+//     * Returns the first standard tick value in the range.
+//     * 
+//     * @return The first standard tick value. 
+//     */
+//    private double findFirstStandardTickValue(double tickUnit) {
+//        return tickUnit * Math.ceil(this.range.getMin() / tickUnit);
+//    }
     
     /**
      * Draws the axis using the supplied graphics device, with the
@@ -480,7 +483,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D {
      */
     @Override
     public void draw(Graphics2D g2, Point2D pt0, Point2D pt1, 
-            Point2D opposingPt, boolean labels) {
+            Point2D opposingPt, boolean labels, List<TickData> tickData) {
         
         if (!isVisible()) {
             return;
@@ -494,7 +497,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D {
 
         // draw the tick marks and labels
         double maxTickLabelWidth = 0.0;
-        double value = findFirstStandardTickValue();
+        double value = this.range.firstStandardTickValue(this.tickSize);
         while (value <= this.range.getMax()) {
             Line2D perpLine = createPerpendicularLine(axisLine, 
                     this.range.percent(value), this.tickMarkLength 
@@ -509,7 +512,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D {
                 g2.draw(tickLine);
             }
             
-            if (this.getTickLabelsVisible()) {
+            if (getTickLabelsVisible()) {
                 double theta = calculateTheta(axisLine);
                 double thetaAdj = theta + Math.PI / 2.0;
                 if (thetaAdj < -Math.PI / 2.0) {
@@ -536,6 +539,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D {
             value = value + this.tickSize;
         }
 
+        // draw the axis label (if any)...
         if (getLabel() != null) {
             g2.setFont(getLabelFont());
             g2.setPaint(getLabelPaint());
@@ -610,11 +614,11 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D {
      * @param opposingPt 
      */
     @Override
-    public void selectTick(Graphics2D g2, Point2D pt0, Point2D pt1, 
+    public double selectTick(Graphics2D g2, Point2D pt0, Point2D pt1, 
             Point2D opposingPt) {
         
         if (this.tickSelector == null) {
-            return;  // there is nothing we can do
+            return this.getRange().getLength() / 2; // this should not happen :)
         }
         
         // based on the font height, we can determine roughly how many tick
@@ -640,7 +644,19 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D {
             this.tickSize = this.tickSelector.getCurrentTickSize();
             this.tickLabelFormatter 
                     = this.tickSelector.getCurrentTickLabelFormat();
-        } 
+        }
+        return this.tickSize;
+    }
+
+    @Override
+    public List<TickData> generateTickData(double tickUnit) {
+        List<TickData> result = new ArrayList<TickData>();
+        double x = this.range.firstStandardTickValue(tickUnit);
+        while (x < this.range.getMax()) {
+            result.add(new TickData(this.range.percent(x), x));
+            x += tickUnit;
+        }
+        return result;
     }
 
 }

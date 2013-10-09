@@ -8,14 +8,17 @@
 
 package com.orsoncharts;
 
+import com.orsoncharts.axis.CategoryAxis3D;
+import com.orsoncharts.axis.TickData;
+import com.orsoncharts.axis.ValueAxis3D;
 import java.awt.Color;
 
 import com.orsoncharts.graphics3d.Face;
 import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.Point3D;
-import java.awt.BasicStroke;
-import java.awt.Paint;
-import java.awt.Stroke;
+import com.orsoncharts.plot.CategoryPlot3D;
+import com.orsoncharts.plot.Plot3D;
+import com.orsoncharts.plot.XYZPlot;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,12 +26,28 @@ import java.util.List;
  * A chart box is the container within which the chart elements are drawn.
  * The six faces of the box created so that they are visible only when they 
  * do not obscure the content of the chart (generally the back three faces 
- * will be visible and the front three faces will not be visible).
+ * will be visible and the front three faces will not be visible).  There is
+ * also support provided for specifying gridlines on the visible faces.
  */
 public class ChartBox3D {
 
     private double xLength, yLength, zLength;
     private double xOffset, yOffset, zOffset;
+    
+    /** 
+     * Tick info for the x-axis (or column axis). 
+     */
+    private List<TickData> xTicks;
+    
+    /** 
+     * Tick info for the y-axis (or value axis). 
+     */
+    private List<TickData> yTicks;
+    
+    /** 
+     * Tick info for the z-axis (or row axis). 
+     */
+    private List<TickData> zTicks;
 
     private Color color;
 
@@ -38,19 +57,7 @@ public class ChartBox3D {
     private CBFace faceD;
     private CBFace faceE;
     private CBFace faceF;
-
-    private Range xGridRange;
-    private int xGridCount;
-    private Paint xGridPaint;
-    private Stroke xGridStroke;
-    private Range yGridRange;
-    private int yGridCount;
-    private Paint yGridPaint;
-    private Stroke yGridStroke;
-    private Range zGridRange;
-    private int zGridCount;
-    private Paint zGridPaint;
-    private Stroke zGridStroke;
+    
 
     /**
      * Creates a new chart box with the specified attributes.  When drawn, only
@@ -75,24 +82,16 @@ public class ChartBox3D {
         this.yOffset = yOffset;
         this.zOffset = zOffset;
         this.color = color;
-        
-        this.xGridRange = new Range(xOffset, xOffset + xLength);
-        this.xGridCount = 5;
-        this.xGridPaint = Color.WHITE;
-        this.xGridStroke = new BasicStroke(0.2f, BasicStroke.CAP_ROUND, 
-                BasicStroke.JOIN_ROUND, 1f, new float[] { 3f, 3f }, 0f);
-
-        this.yGridRange = new Range(yOffset, yOffset + yLength);
-        this.yGridCount = 5;
-        this.yGridPaint = Color.WHITE;
-        this.yGridStroke = new BasicStroke(0.2f, BasicStroke.CAP_ROUND, 
-                BasicStroke.JOIN_ROUND, 1f, new float[] { 3f, 3f }, 0f);
-
-        this.zGridRange = new Range(zOffset, zOffset + zLength);
-        this.zGridCount = 5;
-        this.zGridPaint = Color.WHITE;
-        this.zGridStroke = new BasicStroke(0.2f, BasicStroke.CAP_ROUND, 
-                BasicStroke.JOIN_ROUND, 1f, new float[] { 3f, 3f }, 0f);
+        this.xTicks = new ArrayList<TickData>();
+        this.yTicks = new ArrayList<TickData>();
+        this.zTicks = new ArrayList<TickData>();
+    }
+    
+    public void configureTicks(List<TickData> xTicks, List<TickData> yTicks, 
+            List<TickData> zTicks) {
+        this.xTicks = xTicks;
+        this.yTicks = yTicks;
+        this.zTicks = zTicks;
     }
 
     /**
@@ -109,7 +108,7 @@ public class ChartBox3D {
      * 
      * @return Face A. 
      */
-    public Face faceA() {
+    public CBFace faceA() {
         return this.faceA;
     }
   
@@ -118,7 +117,7 @@ public class ChartBox3D {
      * 
      * @return Face B. 
      */
-    public Face faceB() {
+    public CBFace faceB() {
         return this.faceB;
     }
   
@@ -127,7 +126,7 @@ public class ChartBox3D {
      * 
      * @return Face C. 
      */
-    public Face faceC() {
+    public CBFace faceC() {
         return this.faceC;
     }
   
@@ -136,7 +135,7 @@ public class ChartBox3D {
      * 
      * @return Face D. 
      */
-    public Face faceD() {
+    public CBFace faceD() {
         return this.faceD;
     }
 
@@ -145,7 +144,7 @@ public class ChartBox3D {
      * 
      * @return Face E. 
      */
-    public Face faceE() {
+    public CBFace faceE() {
         return this.faceE;
     }
   
@@ -154,7 +153,7 @@ public class ChartBox3D {
      * 
      * @return Face F.
      */
-    public Face faceF() {
+    public CBFace faceF() {
         return this.faceF;
     }
 
@@ -195,62 +194,129 @@ public class ChartBox3D {
 
         // add vertices for the x-grid lines (ABCD)
         int base = 8;
-        for (int i = 0; i < this.xGridCount; i++) {
-            double xx = this.xGridRange.gridPoint(i, this.xGridCount);
+        for (TickData t : this.xTicks) {
+            double xx = this.xOffset + this.xLength * t.getPos();
             box.addVertex(xx, yOffset, zOffset);
             box.addVertex(xx, yOffset, zOffset + zLength);
             box.addVertex(xx, yOffset + yLength,  zOffset + zLength);
-            box.addVertex(xx, yOffset + yLength, zLength);
+            box.addVertex(xx, yOffset + yLength, zOffset);
+            TickData td0 = new TickData(t.getPos(), t.getDataValue(), base);
+            TickData td1 = new TickData(t.getPos(), t.getDataValue(), base + 1);
+            TickData td2 = new TickData(t.getPos(), t.getDataValue(), base + 2);
+            TickData td3 = new TickData(t.getPos(), t.getDataValue(), base + 3);
+            this.faceA.addXTicks(td0, td1);
+            this.faceB.addXTicks(td0, td3);
+            this.faceC.addXTicks(td3, td2);
+            this.faceD.addXTicks(td2, td1);
+            base += 4;
         }
+        
         // add vertices for the y-grid lines (BDEF)
-        base += this.xGridCount * 4;
-        for (int i = 0; i < this.yGridCount; i++) {
-            double yy = this.yGridRange.gridPoint(i, this.yGridCount);
+        for (TickData t : this.yTicks) {
+            double yy = this.yOffset + this.yLength * t.getPos();
             box.addVertex(xOffset, yy, zOffset);
             box.addVertex(xOffset + xLength, yy, zOffset);
             box.addVertex(xOffset + xLength, yy, zOffset + zLength);
             box.addVertex(xOffset, yy, zOffset + zLength);
-            this.faceB.addGridLine(base + 4 * i, base + 4 * i + 1);
+            TickData td0 = new TickData(t.getPos(), t.getDataValue(), base);
+            TickData td1 = new TickData(t.getPos(), t.getDataValue(), base + 1);
+            TickData td2 = new TickData(t.getPos(), t.getDataValue(), base + 2);
+            TickData td3 = new TickData(t.getPos(), t.getDataValue(), base + 3);
+            this.faceB.addYTicks(td0, td1);
+            this.faceD.addYTicks(td2, td3);
+            this.faceE.addYTicks(td0, td3);
+            this.faceF.addYTicks(td1, td2);
+            base += 4;
         }
-        // add vertices for the z-grid lines (ACEF)
-        for (int i = 0; i < this.zGridCount; i++) {
-            double zz = this.zGridRange.gridPoint(i, this.zGridCount);
+
+        for (TickData t : this.zTicks) {
+            double zz = this.zOffset + this.zLength * t.getPos();
             box.addVertex(xOffset, yOffset, zz);
             box.addVertex(xOffset + xLength, yOffset, zz);
             box.addVertex(xOffset + xLength, yOffset + yLength, zz);
-            box.addVertex(xLength, yOffset + yLength, zz);
+            box.addVertex(xOffset, yOffset + yLength, zz);
+            TickData td0 = new TickData(t.getPos(), t.getDataValue(), base);
+            TickData td1 = new TickData(t.getPos(), t.getDataValue(), base + 1);
+            TickData td2 = new TickData(t.getPos(), t.getDataValue(), base + 2);
+            TickData td3 = new TickData(t.getPos(), t.getDataValue(), base + 3);
+            this.faceA.addZTicks(td0, td1);
+            this.faceC.addZTicks(td3, td2);
+            this.faceE.addZTicks(td0, td3);
+            this.faceF.addZTicks(td1, td2);
+            base += 4;
         }
         
         return box;
     }
 
     /**
-     * A special subclass of Face that is used by the ChartBox so that when
-     * faces are sorted by z-order, the chart box sides are always drawn 
-     * first (furthest in the background).
+     * A special subclass of {@link Face} that is used by the {@link ChartBox} 
+     * so that when faces are sorted by z-order, the chart box sides are always 
+     * drawn first (furthest in the background).  Also, these faces track 
+     * tick marks, values and anchor points.
      */
-    static class CBFace extends Face {
-      
-        List<int[]> gridLines;
+    public static final class CBFace extends Face {
+
+        // indices of the vertices that are anchor points for the tick labels
+        private List<TickData> xTicksA;
         
-        Paint gridLinePaint = Color.WHITE;
+        private List<TickData> xTicksB;
         
-        Stroke gridLineStroke = new BasicStroke(0.2f, BasicStroke.CAP_ROUND, 
-                BasicStroke.JOIN_ROUND, 1f, new float[] { 3f, 3f }, 0f);;
+        private List<TickData> yTicksA;
+        
+        private List<TickData> yTicksB;
+        
+        private List<TickData> zTicksA;
+        
+        private List<TickData> zTicksB;
         
         public CBFace(int[] vertices, Color color) {
             super(vertices, color);
-            this.gridLines = new ArrayList<int[]>();
+            this.xTicksA = new ArrayList<TickData>();
+            this.xTicksB = new ArrayList<TickData>();
+            this.yTicksA = new ArrayList<TickData>();
+            this.yTicksB = new ArrayList<TickData>();
+            this.zTicksA = new ArrayList<TickData>();
+            this.zTicksB = new ArrayList<TickData>();
         }
         
-        public void addGridLine(int start, int end) {
-            this.gridLines.add(new int[] {start, end});
+        public void clearXTicks() {
+            this.xTicksA.clear();
+            this.xTicksB.clear();
         }
         
-        public List<int[]> getGridLines() {
-            return this.gridLines;
+        public List<TickData> getXTicksA() {
+            return this.xTicksA;
         }
-
+        public void addXTicks(TickData a, TickData b) {
+            this.xTicksA.add(a);
+            this.xTicksB.add(b);
+        }
+        public List<TickData> getXTicksB() {
+            return this.xTicksB;
+        }
+        
+        public void addYTicks(TickData a, TickData b) {
+            this.yTicksA.add(a);
+            this.yTicksB.add(b);
+        }
+        public List<TickData> getYTicksA() {
+            return this.yTicksA;
+        }
+        public List<TickData> getYTicksB() {
+            return this.yTicksB;
+        }
+        public List<TickData> getZTicksA() {
+            return this.zTicksA;
+        }
+        public List<TickData> getZTicksB() {
+            return this.zTicksB;
+        }
+        public void addZTicks(TickData a, TickData b) {
+            this.zTicksA.add(a);
+            this.zTicksB.add(b);
+        }
+        
         @Override
         public float calculateAverageZValue(Point3D[] points) {
             return -123456f;

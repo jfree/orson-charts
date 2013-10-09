@@ -9,6 +9,7 @@
 package com.orsoncharts.axis;
 
 import com.orsoncharts.plot.CategoryPlot3D;
+import java.util.List;
 
 /**
  * An axis that displays categories and is used with a {@link CategoryPlot3D}.
@@ -63,4 +64,6 @@ public interface CategoryAxis3D extends Axis3D {
      */
     double getCategoryValue(Comparable category);
     
+    List<TickData> generateTickData();
+
 }

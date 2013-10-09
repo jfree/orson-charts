@@ -26,11 +26,14 @@ import com.orsoncharts.table.GridElement;
 import com.orsoncharts.table.ShapeElement;
 import com.orsoncharts.table.TableElement;
 import com.orsoncharts.table.TextElement;
+import com.orsoncharts.util.ArgChecks;
+import java.io.Serializable;
 
 /**
  * The default legend builder.
  */
-public class StandardLegendBuilder implements LegendBuilder {
+public final class StandardLegendBuilder implements LegendBuilder, 
+        Serializable {
 
     /**
      * Default constructor.
@@ -39,8 +42,18 @@ public class StandardLegendBuilder implements LegendBuilder {
         
     }
     
+    /**
+     * Creates and returns a legend (instance of {@link TableElement}) that
+     * provides a visual key for the data series in the specified plot.  The
+     * plot can be any of the built-in plot types: {@link PiePlot3D}, 
+     * {@link CategoryPlot3D} or {@link XYZPlot}.
+     * 
+     * @param plot  the plot (<code>null</code> not permitted).
+     * @return 
+     */
     @Override
     public TableElement createLegend(Plot3D plot) {
+        ArgChecks.nullNotPermitted(plot, "plot");
         if (plot instanceof PiePlot3D) {
             return createPieLegend((PiePlot3D) plot);
         } else if (plot instanceof CategoryPlot3D) {
@@ -96,6 +109,24 @@ public class StandardLegendBuilder implements LegendBuilder {
         ge.setElement(se, "R1", "C1");
         ge.setElement(te, "R1", "C2");
         return ge;
+    }
+    
+    /**
+     * Tests this legend builder for equality with an arbitrary object.
+     * 
+     * @param obj  the object (<code>null</code> permitted).
+     * 
+     * @return A boolean. 
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof StandardLegendBuilder)) {
+            return false;
+        }
+        return true;
     }
 
 }

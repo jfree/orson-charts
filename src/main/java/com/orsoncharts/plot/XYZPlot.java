@@ -20,11 +20,15 @@ import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.renderer.Renderer3DChangeEvent;
 import com.orsoncharts.renderer.Renderer3DChangeListener;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Paint;
+import java.awt.Stroke;
 
 /**
  * An XYZ plot.
  */
-public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
+public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener, 
         Axis3DChangeListener, Renderer3DChangeListener {
 
     /** The dataset. */
@@ -41,6 +45,12 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
   
     /** The z-axis. */
     private ValueAxis3D zAxis;
+    
+    private boolean yAxisGridlinesVisible;
+    
+    private Paint yAxisGridlinePaint;
+    
+    private Stroke yAxisGridlineStroke;
 
     /**
      * Creates a new plot with the specified axes.
@@ -73,6 +83,12 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
         this.zAxis = zAxis;
         this.zAxis.addChangeListener(this);
         this.zAxis.configureAsZAxis(this);
+        this.yAxisGridlinesVisible = true;
+        this.yAxisGridlinePaint = Color.WHITE;
+        this.yAxisGridlineStroke = new BasicStroke(0.2f, 
+                BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 1f, 
+                new float[] { 3f, 3f }, 0f);
+
     }
   
     /**
@@ -136,6 +152,18 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
         this.zAxis = zAxis;
         fireChangeEvent();
     }
+    
+    public boolean isYAxisGridlinesVisible() {
+        return this.yAxisGridlinesVisible;
+    }
+    
+    public Paint getYAxisGridlinePaint() {
+        return this.yAxisGridlinePaint;
+    }
+    
+    public Stroke getYAxisGridlineStroke() {
+        return this.yAxisGridlineStroke;
+    }
 
     /**
      * Returns the renderer for the plot.
@@ -185,7 +213,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
         if (!this.dimensions.equals(that.dimensions)) {
             return false;
         }
-        return true;
+        return super.equals(obj);
     }
 
     @Override
@@ -204,6 +232,42 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
         this.yAxis.configureAsYAxis(this);
         this.zAxis.configureAsZAxis(this);
         super.datasetChanged(event);
+    }
+
+    public boolean getGridlinesVisibleForX() {
+        return true;
+    }
+
+    public boolean getGridlinesVisibleForY() {
+        return true;
+    }
+
+    public boolean getGridlinesVisibleForZ() {
+        return true;
+    }
+
+    public Paint getGridlinePaintX() {
+        return Color.WHITE;
+    }
+
+    public Paint getGridlinePaintY() {
+        return Color.WHITE;
+    }
+
+    public Paint getGridlinePaintZ() {
+        return Color.WHITE;
+    }
+
+    public Stroke getGridlineStrokeX() {
+        return new BasicStroke(1.0f);
+    }
+
+    public Stroke getGridlineStrokeY() {
+        return new BasicStroke(1.0f);
+    }
+
+    public Stroke getGridlineStrokeZ() {
+        return new BasicStroke(1.0f);
     }
     
 }

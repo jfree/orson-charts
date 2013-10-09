@@ -8,7 +8,10 @@
 
 package com.orsoncharts.plot;
 
-import com.orsoncharts.axis.Axis3D;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Paint;
+import java.awt.Stroke;
 import com.orsoncharts.axis.Axis3DChangeEvent;
 import com.orsoncharts.axis.Axis3DChangeListener;
 import com.orsoncharts.axis.CategoryAxis3D;
@@ -29,6 +32,10 @@ import com.orsoncharts.renderer.RendererType;
 public class CategoryPlot3D extends AbstractPlot3D 
         implements Axis3DChangeListener, Renderer3DChangeListener {
 
+    private static Stroke DEFAULT_GRIDLINE_STROKE = new BasicStroke(0.2f, 
+            BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 1f, 
+            new float[] { 3f, 3f }, 0f);
+
     /** The dataset. */
     private CategoryDataset3D dataset;
     
@@ -44,6 +51,24 @@ public class CategoryPlot3D extends AbstractPlot3D
     /** The value axis. */
     private ValueAxis3D valueAxis;
 
+    private boolean gridlinesVisibleForValues;
+    
+    private boolean gridlinesVisibleForRows;
+    
+    private boolean gridlinesVisibleForColumns;
+    
+    private Paint gridlinePaintForRows;
+    
+    private Stroke gridlineStrokeForRows;
+
+    private Paint gridlinePaintForColumns;
+    
+    private Stroke gridlineStrokeForColumns;
+
+    private Paint gridlinePaintForValues;
+
+    private Stroke gridlineStrokeForValues;
+    
     /**
      * Creates a new plot.
      * 
@@ -76,6 +101,15 @@ public class CategoryPlot3D extends AbstractPlot3D
         this.rowAxis.configureAsRowAxis(this);
         this.columnAxis.configureAsColumnAxis(this);
         this.valueAxis.configureAsValueAxis(this);
+        this.gridlinesVisibleForValues = true;
+        this.gridlinesVisibleForColumns = false;
+        this.gridlinesVisibleForRows = false;
+        this.gridlinePaintForRows = Color.WHITE;
+        this.gridlinePaintForColumns = Color.WHITE;
+        this.gridlinePaintForValues = Color.WHITE;
+        this.gridlineStrokeForRows = DEFAULT_GRIDLINE_STROKE;
+        this.gridlineStrokeForColumns = DEFAULT_GRIDLINE_STROKE;
+        this.gridlineStrokeForValues = DEFAULT_GRIDLINE_STROKE;
     }
     
     /**
@@ -196,7 +230,7 @@ public class CategoryPlot3D extends AbstractPlot3D
      * 
      * @return The value axis. 
      */
-    public Axis3D getValueAxis() {
+    public ValueAxis3D getValueAxis() {
         return this.valueAxis;
     }
     
@@ -286,6 +320,48 @@ public class CategoryPlot3D extends AbstractPlot3D
         // for now we just fire a plot change event which will flow up the
         // chain and eventually trigger a chart repaint
         fireChangeEvent();
+    }
+
+    public boolean getGridlinesVisibleForRows() {
+        return this.gridlinesVisibleForRows;
+    }
+
+    public boolean getGridlinesVisibleForColumns() {
+        return this.gridlinesVisibleForColumns;
+    }
+
+    public boolean getGridlinesVisibleForValues() {
+        return this.gridlinesVisibleForValues;
+    }
+
+    public Paint getGridlinePaintForColumns() {
+        return this.gridlinePaintForColumns;
+    }
+
+    public Paint getGridlinePaintForValues() {
+        return this.gridlinePaintForValues;
+    }
+    
+    public void setGridlinePaintForValues(Paint paint) {
+        ArgChecks.nullNotPermitted(paint, "paint");
+        this.gridlinePaintForValues = paint;
+    }
+
+    public Paint getGridlinePaintForRows() {
+        return this.gridlinePaintForRows;
+    }
+
+
+    public Stroke getGridlineStrokeForColumns() {
+        return new BasicStroke(1.0f, 0, 0, 1f, new float[] { 3f, 3f}, 0f);
+    }
+
+    public Stroke getGridlineStrokeForValues() {
+        return new BasicStroke(1.0f, 0, 0, 1f, new float[] { 3f, 3f}, 0f);
+    }
+
+    public Stroke getGridlineStrokeForRows() {
+        return new BasicStroke(1.0f);
     }
 
 }

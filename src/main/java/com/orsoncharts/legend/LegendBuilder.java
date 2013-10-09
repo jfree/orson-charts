@@ -12,7 +12,9 @@ import com.orsoncharts.plot.Plot3D;
 import com.orsoncharts.table.TableElement;
 
 /**
- * LegendBuilder.
+ * A legend builder is responsible for creating a legend for a chart.
+ * 
+ * @see com.orsoncharts.Chart3D#setLegendBuilder(com.orsoncharts.legend.LegendBuilder) 
  */
 public interface LegendBuilder {
 

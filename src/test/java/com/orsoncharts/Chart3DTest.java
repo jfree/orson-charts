@@ -46,11 +46,16 @@ public class Chart3DTest {
         c2.setTitle((String) null);
         assertTrue(c1.equals(c2));
         
-        
         // title anchor
         c1.setTitleAnchor(TitleAnchor.BOTTOM_LEFT);
         assertFalse(c1.equals(c2));
         c2.setTitleAnchor(TitleAnchor.BOTTOM_LEFT);
+        assertTrue(c1.equals(c2));
+        
+        // legend builder
+        c1.setLegendBuilder(null);
+        assertFalse(c1.equals(c2));
+        c2.setLegendBuilder(null);
         assertTrue(c1.equals(c2));
         
         c1.setChartBoxColor(Color.CYAN);

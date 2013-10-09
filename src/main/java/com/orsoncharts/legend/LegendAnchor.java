@@ -15,7 +15,7 @@ import com.orsoncharts.util.Anchor2D;
  * Predefined legend anchor points, provided for convenience.  The anchor
  * points are simply instances of the {@link Anchor2D} class.
  */
-public class LegendAnchor {
+public final class LegendAnchor {
     
     /**
      * An anchor point at the top-left of the chart area. 
