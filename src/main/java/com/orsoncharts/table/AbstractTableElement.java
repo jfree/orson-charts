@@ -2,7 +2,7 @@
  * OrsonCharts
  * ===========
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -38,7 +38,7 @@ public abstract class AbstractTableElement {
     public AbstractTableElement() {
         this.insets = new Insets(2, 2, 2, 2);
         this.foregroundPaint = Color.BLACK;
-        this.backgroundPaint = Color.WHITE;
+        this.backgroundPaint = new Color(255, 255, 255, 127);
     }
 
     /**
@@ -100,7 +100,7 @@ public abstract class AbstractTableElement {
     }
     
     /**
-     * Returns the preferred size of the element.
+     * Returns the preferred size of the element (including insets).
      * 
      * @param g2  the graphics target.
      * @param bounds  the bounds.
@@ -112,7 +112,7 @@ public abstract class AbstractTableElement {
     }
 
     /**
-     * Returns the preferred size.
+     * Returns the preferred size of the element (including insets).
      * 
      * @param g2  the graphics target.
      * @param bounds  the bounds.

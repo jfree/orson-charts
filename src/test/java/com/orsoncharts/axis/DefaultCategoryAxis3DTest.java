@@ -24,8 +24,8 @@ public class DefaultCategoryAxis3DTest {
     
     @Test
     public void testEquals() {
-        DefaultCategoryAxis3D axis1 = new DefaultCategoryAxis3D("Label");   
-        DefaultCategoryAxis3D axis2 = new DefaultCategoryAxis3D("Label"); 
+        StandardCategoryAxis3D axis1 = new StandardCategoryAxis3D("Label");   
+        StandardCategoryAxis3D axis2 = new StandardCategoryAxis3D("Label"); 
         assertTrue(axis1.equals(axis2));
         assertFalse(axis1.equals(null));
         

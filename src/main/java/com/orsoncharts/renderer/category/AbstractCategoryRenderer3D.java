@@ -27,15 +27,20 @@ import com.orsoncharts.renderer.RendererType;
 public abstract class AbstractCategoryRenderer3D extends AbstractRenderer3D 
         implements CategoryRenderer3D {
     
+    /** A reference to the plot that the renderer is currently assigned to. */
     private CategoryPlot3D plot;
    
+    /** 
+     * The paint source is used to determine the color for each item drawn
+     * by the renderer (never <code>null</code>).
+     */
     private Category3DPaintSource paintSource;
     
     /**
      * Default constructor.
      */
     public AbstractCategoryRenderer3D() {
-        this.paintSource = new DefaultCategory3DPaintSource();
+        this.paintSource = new StandardCategory3DPaintSource();
     }
     
     /**
@@ -48,11 +53,23 @@ public abstract class AbstractCategoryRenderer3D extends AbstractRenderer3D
         return RendererType.BY_ITEM;
     }
     
+    /**
+     * Returns the plot that the renderer is currently assigned to, if any.
+     * 
+     * @return The plot or <code>null</code>.
+     */
     @Override
     public CategoryPlot3D getPlot() {
         return this.plot;
     }
     
+    /**
+     * Sets the plot that the renderer is assigned to.  You do not need to 
+     * call this method yourself, the plot takes care of it when you call
+     * the <code>setRenderer()</code> method on the plot.
+     * 
+     * @param plot  the plot (<code>null</code> permitted).
+     */
     @Override
     public void setPlot(CategoryPlot3D plot) {
         this.plot = plot;
@@ -109,6 +126,14 @@ public abstract class AbstractCategoryRenderer3D extends AbstractRenderer3D
                 "The composeSeries() method is not implemented.");
     }
     
+    /**
+     * Tests this renderer for equality with an arbitrary object.
+     * 
+     * @param obj  the object (<code>null</code> permitted).
+     * 
+     * @return A boolean. 
+     */
+    @Override
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;

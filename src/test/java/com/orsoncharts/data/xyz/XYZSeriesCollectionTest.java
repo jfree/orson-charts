@@ -13,7 +13,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 /**
- * Tests for the {@link XYZDataItem} class.
+ * Tests for the {@link XYZSeriesCollection} class.
  */
 public class XYZSeriesCollectionTest {
     

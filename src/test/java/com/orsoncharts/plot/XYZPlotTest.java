@@ -19,10 +19,14 @@ import org.junit.Test;
 import com.orsoncharts.axis.NumberAxis3D;
 import com.orsoncharts.Range;
 import com.orsoncharts.axis.ValueAxis3D;
-import com.orsoncharts.data.xyz.DefaultXYZDataset;
+import com.orsoncharts.data.xyz.StandardXYZDataset;
+import com.orsoncharts.data.xyz.XYZDataset;
+import com.orsoncharts.data.xyz.XYZSeriesCollection;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.renderer.xyz.ScatterXYZRenderer;
 import com.orsoncharts.renderer.xyz.XYZRenderer;
+import java.awt.BasicStroke;
+import java.awt.Color;
 
 /**
  * Checks for the {@link XYZPlot} class.
@@ -42,11 +46,11 @@ public class XYZPlotTest implements Plot3DChangeListener {
   
     @Test
     public void checkSetDatasetRemovesPreviousListener() {
-        DefaultXYZDataset dataset1 = createNewDataset();
+        XYZDataset dataset1 = createNewDataset();
         XYZPlot plot = createXYZPlot();
         plot.setDataset(dataset1);
         assertTrue(dataset1.hasListener(plot));
-        DefaultXYZDataset dataset2 = createNewDataset();
+        XYZDataset dataset2 = createNewDataset();
         plot.setDataset(dataset2);
         assertFalse(dataset1.hasListener(plot));
         assertTrue(dataset2.hasListener(plot));
@@ -54,14 +58,60 @@ public class XYZPlotTest implements Plot3DChangeListener {
   
     @Test
     public void checkEquals() {
-        XYZPlot plot1 = createXYZPlot();
-        XYZPlot plot2 = createXYZPlot();
-        assertEquals(plot1, plot2);
+        XYZPlot p1 = createXYZPlot();
+        XYZPlot p2 = createXYZPlot();
+        assertEquals(p1, p2);
     
-        plot1.setDimensions(new Dimension3D(1, 2, 3));
-        assertNotEquals(plot1, plot2);
-        plot2.setDimensions(new Dimension3D(1, 2, 3));
-        assertEquals(plot1, plot2);
+        p1.setDimensions(new Dimension3D(1, 2, 3));
+        assertNotEquals(p1, p2);
+        p2.setDimensions(new Dimension3D(1, 2, 3));
+        assertEquals(p1, p2);
+        
+        p1.setGridlinesVisibleX(false);
+        assertFalse(p1.equals(p2));
+        p2.setGridlinesVisibleX(false);
+        assertTrue(p1.equals(p2));
+        
+        p1.setGridlinePaintX(Color.YELLOW);
+        assertFalse(p1.equals(p2));
+        p2.setGridlinePaintX(Color.YELLOW);
+        assertTrue(p1.equals(p2));
+        
+        p1.setGridlineStrokeX(new BasicStroke(0.3f));
+        assertFalse(p1.equals(p2));
+        p2.setGridlineStrokeX(new BasicStroke(0.3f));
+        assertTrue(p1.equals(p2));
+        
+        p1.setGridlinesVisibleY(false);
+        assertFalse(p1.equals(p2));
+        p2.setGridlinesVisibleY(false);
+        assertTrue(p1.equals(p2));
+
+        p1.setGridlinePaintY(Color.GREEN);
+        assertFalse(p1.equals(p2));
+        p2.setGridlinePaintY(Color.GREEN);
+        assertTrue(p1.equals(p2));
+        
+        p1.setGridlineStrokeY(new BasicStroke(0.36f));
+        assertFalse(p1.equals(p2));
+        p2.setGridlineStrokeY(new BasicStroke(0.36f));
+        assertTrue(p1.equals(p2));
+
+        p1.setGridlinesVisibleZ(false);
+        assertFalse(p1.equals(p2));
+        p2.setGridlinesVisibleZ(false);
+        assertTrue(p1.equals(p2));
+
+        p1.setGridlinePaintZ(Color.BLUE);
+        assertFalse(p1.equals(p2));
+        p2.setGridlinePaintZ(Color.BLUE);
+        assertTrue(p1.equals(p2));
+        
+        p1.setGridlineStrokeZ(new BasicStroke(0.6f));
+        assertFalse(p1.equals(p2));
+        p2.setGridlineStrokeZ(new BasicStroke(0.6f));
+        assertTrue(p1.equals(p2));
+
     }
 
     /**
@@ -69,8 +119,8 @@ public class XYZPlotTest implements Plot3DChangeListener {
      * 
      * @return A new dataset.
      */
-    private DefaultXYZDataset createNewDataset() {
-        DefaultXYZDataset dataset = new DefaultXYZDataset(3, 10);
+    private XYZDataset createNewDataset() {
+        XYZSeriesCollection dataset = new XYZSeriesCollection();
         return dataset;
     }
   

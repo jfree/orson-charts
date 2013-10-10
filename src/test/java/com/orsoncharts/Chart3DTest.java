@@ -13,7 +13,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.orsoncharts.data.DefaultPieDataset3D;
+import com.orsoncharts.data.StandardPieDataset3D;
 import com.orsoncharts.data.PieDataset3D;
 import java.awt.Color;
 
@@ -66,7 +66,7 @@ public class Chart3DTest {
     }
     
     private PieDataset3D createDataset() {
-        DefaultPieDataset3D dataset = new DefaultPieDataset3D();
+        StandardPieDataset3D dataset = new StandardPieDataset3D();
         dataset.add("United States", new Double(30.0));
         dataset.add("France", new Double(20.0));
         return dataset; 

@@ -306,6 +306,19 @@ public abstract class AbstractAxis3D implements Axis3D {
                 pt1.getY() - ccw * size * pdy);
         return new Line2D.Double(pt1, pt2);
     }
+    
+    protected Line2D createPerpendicularLine(Line2D line, Point2D pt1, double size, 
+            Point2D opposingPoint) {
+        double dx = line.getX2() - line.getX1();
+        double dy = line.getY2() - line.getY1();
+        double length = Math.sqrt(dx * dx + dy * dy);
+        double pdx = dy / length;
+        double pdy = -dx / length;
+        int ccw = line.relativeCCW(opposingPoint);
+        Point2D pt2 = new Point2D.Double(pt1.getX() - ccw * size * pdx, 
+                pt1.getY() - ccw * size * pdy);
+        return new Line2D.Double(pt1, pt2);
+    }
   
     protected double calculateTheta(Line2D line) {
         double dx = line.getX2() - line.getX1();

@@ -9,6 +9,11 @@ public class ZOrderComparator implements Comparator {
 
     Point3D[] pts;
     
+    /**
+     * Creates a new comparator.
+     * 
+     * @param pts  the points. 
+     */
     public ZOrderComparator(Point3D[] pts) {
         this.pts = pts;
     }
@@ -16,6 +21,7 @@ public class ZOrderComparator implements Comparator {
     /* (non-Javadoc)
      * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
      */
+    @Override
     public int compare(Object obj1, Object obj2) {
         Face f1 = (Face) obj1;
         Face f2 = (Face) obj2;

@@ -2,16 +2,15 @@
  * OrsonCharts
  * ===========
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
 package com.orsoncharts.data;
 
-import com.orsoncharts.util.ArgChecks;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import com.orsoncharts.util.ArgChecks;
 
 /**
  * A three dimensional table of numerical values, implementing the 
@@ -122,19 +121,40 @@ public final class DefaultKeyedValues3D<V> implements KeyedValues3D {
         return this.columnKeys.indexOf(columnKey);
     }
 
+    /**
+     * Returns a list of the series keys for the data.  Modifying this
+     * list will have no impact on the underlying data.
+     * 
+     * @return A list of the series keys (possibly empty, but never 
+     *     <code>null</code>). 
+     */
     @Override
     public List<Comparable> getSeriesKeys() {
-        return Collections.unmodifiableList(this.seriesKeys);
+        return new ArrayList<Comparable>(this.seriesKeys);
     }
 
+    /**
+     * Returns a list of the row keys for the data.  Modifying this
+     * list will have no impact on the underlying data.
+     * 
+     * @return A list of the row keys (possibly empty, but never 
+     *     <code>null</code>). 
+     */
     @Override
     public List<Comparable> getRowKeys() {
-        return Collections.unmodifiableList(this.rowKeys);
+        return new ArrayList<Comparable>(this.rowKeys);
     }
 
+    /**
+     * Returns a list of the column keys for the data.  Modifying this
+     * list will have no impact on the underlying data.
+     * 
+     * @return A list of the column keys (possibly empty, but never 
+     *     <code>null</code>). 
+     */
     @Override
     public List<Comparable> getColumnKeys() {
-        return Collections.unmodifiableList(this.columnKeys);
+        return new ArrayList<Comparable>(this.columnKeys);
     }
 
     @Override

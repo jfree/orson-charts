@@ -2,7 +2,7 @@
  * OrsonCharts
  * ===========
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -14,7 +14,6 @@ import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.renderer.Renderer3D;
-import com.orsoncharts.renderer.category.Category3DPaintSource;
 
 /**
  * A renderer that can display data from an {@link XYZDataset} on an
@@ -37,6 +36,11 @@ public interface XYZRenderer extends Renderer3D {
      */
     public void setPlot(XYZPlot plot);
 
+    /** 
+     * Returns the paint source for the renderer.
+     * 
+     * @return The paint source (never <code>null</code>). 
+     */
     public XYZPaintSource getPaintSource();
 
     /**
@@ -76,13 +80,14 @@ public interface XYZRenderer extends Renderer3D {
      * Constructs and places one item from the specified dataset into the given 
      * world.
      * 
-     * @param world
-     * @param dataset
-     * @param series
-     * @param item
-     * @param xOffset
-     * @param yOffset
-     * @param zOffset 
+     * @param dataset the dataset.
+     * @param series  the series index.
+     * @param item  the item index.
+     * @param world  the world.
+     * @param dimensions  the dimensions.
+     * @param xOffset  the x-offset.
+     * @param yOffset  the y-offset.
+     * @param zOffset  the z-offset.
      */
     public void composeItem(XYZDataset dataset, int series, int item, 
             World world, Dimension3D dimensions, 

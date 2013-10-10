@@ -2,7 +2,7 @@
  * OrsonCharts
  * ===========
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -15,12 +15,12 @@ import org.junit.Test;
 /**
  * Tests for the {@link DefaultXYZPaintSource} class.
  */
-public class DefaultXYZPaintSourceTest {
+public class StandardXYZPaintSourceTest {
     
     @Test
     public void testEquals() {
-        DefaultXYZPaintSource s1 = new DefaultXYZPaintSource();
-        DefaultXYZPaintSource s2 = new DefaultXYZPaintSource();
+        StandardXYZPaintSource s1 = new StandardXYZPaintSource();
+        StandardXYZPaintSource s2 = new StandardXYZPaintSource();
         assertTrue(s1.equals(s2));
         assertFalse(s1.equals(null));
     }

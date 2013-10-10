@@ -21,10 +21,15 @@ import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.axis.ValueAxis3D;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.World;
+import com.orsoncharts.legend.LegendItemInfo;
+import com.orsoncharts.legend.StandardLegendItemInfo;
 import com.orsoncharts.renderer.Renderer3DChangeEvent;
 import com.orsoncharts.renderer.Renderer3DChangeListener;
 import com.orsoncharts.renderer.category.CategoryRenderer3D;
 import com.orsoncharts.renderer.RendererType;
+import com.orsoncharts.util.ObjectUtils;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A category plot in 3D.
@@ -32,14 +37,14 @@ import com.orsoncharts.renderer.RendererType;
 public class CategoryPlot3D extends AbstractPlot3D 
         implements Axis3DChangeListener, Renderer3DChangeListener {
 
-    private static Stroke DEFAULT_GRIDLINE_STROKE = new BasicStroke(0.2f, 
+    private static Stroke DEFAULT_GRIDLINE_STROKE = new BasicStroke(0.5f, 
             BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 1f, 
             new float[] { 3f, 3f }, 0f);
 
     /** The dataset. */
     private CategoryDataset3D dataset;
     
-    /** The renderer. */
+    /** The renderer (never <code>null</code>). */
     private CategoryRenderer3D renderer;
 
     /** The row axis. */
@@ -51,22 +56,31 @@ public class CategoryPlot3D extends AbstractPlot3D
     /** The value axis. */
     private ValueAxis3D valueAxis;
 
-    private boolean gridlinesVisibleForValues;
-    
+    /** Are gridlines shown for the row (z) axis? */
     private boolean gridlinesVisibleForRows;
     
-    private boolean gridlinesVisibleForColumns;
-    
+    /** The paint for the row axis gridlines (never <code>null</code>). */
     private Paint gridlinePaintForRows;
     
+    /** The stroke for the row axis gridlines (never <code>null</code>). */
     private Stroke gridlineStrokeForRows;
 
+    /** Are gridlines shown for the column (x) axis? */
+    private boolean gridlinesVisibleForColumns;
+    
+    /** The paint for the column axis gridlines (never <code>null</code>). */
     private Paint gridlinePaintForColumns;
     
+    /** The stroke for the column axis gridlines (never <code>null</code>). */
     private Stroke gridlineStrokeForColumns;
 
+    /** Are gridlines shown for the value axis? */
+    private boolean gridlinesVisibleForValues;
+    
+    /** The paint for the value axis gridlines (never <code>null</code>). */
     private Paint gridlinePaintForValues;
 
+    /** The stroke for the value axis gridlines (never <code>null</code>). */
     private Stroke gridlineStrokeForValues;
     
     /**
@@ -248,6 +262,190 @@ public class CategoryPlot3D extends AbstractPlot3D
         fireChangeEvent();
     }
     
+    /**
+     * Returns <code>true</code> if gridlines are shown for the row axis
+     * and <code>false</code> otherwise.  The default value is 
+     * <code>false</code>
+     * 
+     * @return A boolean. 
+     */
+    public boolean getGridlinesVisibleForRows() {
+        return this.gridlinesVisibleForRows;
+    }
+
+    /**
+     * Sets the flag that controls whether or not gridlines are shown for the
+     * row axis and sends a {@link Plot3DChangeEvent} to all registered 
+     * listeners.
+     * 
+     * @param visible  the new flag value.
+     */
+    public void setGridlinesVisibleForRows(boolean visible) {
+        this.gridlinesVisibleForRows = visible;
+        fireChangeEvent();
+    }
+
+    public Paint getGridlinePaintForRows() {
+        return this.gridlinePaintForRows;
+    }
+
+    /**
+     * Sets the paint used for the row axis gridlines and sends a 
+     * {@link Plot3DChangeEvent} to all registered listeners.
+     * 
+     * @param paint  the paint (<code>null</code> not permitted). 
+     */
+    public void setGridlinePaintForRows(Paint paint) {
+        ArgChecks.nullNotPermitted(paint, "paint");
+        this.gridlinePaintForRows = paint;
+    }
+
+    /**
+     * Returns the stroke for the gridlines associated with the row axis.
+     * The default value is <code>BasicStroke(0.5f, BasicStroke.CAP_ROUND, 
+     * BasicStroke.JOIN_ROUND, 1f, new float[] { 3f, 3f }, 0f)</code>.
+     * 
+     * @return The stroke (never <code>null</code>).
+     */
+    public Stroke getGridlineStrokeForRows() {
+        return this.gridlineStrokeForRows;
+    }
+
+    public void setGridlineStrokeForRows(Stroke stroke) {
+        ArgChecks.nullNotPermitted(stroke, "stroke");
+        this.gridlineStrokeForRows = stroke;
+    }
+
+    /**
+     * Returns <code>true</code> if gridlines are shown for the column axis
+     * and <code>false</code> otherwise.  The default value is 
+     * <code>false</code>
+     * 
+     * @return A boolean. 
+     */
+    public boolean getGridlinesVisibleForColumns() {
+        return this.gridlinesVisibleForColumns;
+    }
+
+    /**
+     * Sets the flag that controls whether or not gridlines are shown for the
+     * column axis and sends a {@link Plot3DChangeEvent} to all registered 
+     * listeners.
+     * 
+     * @param visible  the new flag value.
+     */
+    public void setGridlinesVisibleForColumns(boolean visible) {
+        this.gridlinesVisibleForColumns = visible;
+        fireChangeEvent();
+    }
+    
+    /**
+     * Returns <code>true</code> if gridlines are shown for the value axis
+     * and <code>false</code> otherwise.  The default value is <code>TRUE</code>
+     * 
+     * @return A boolean. 
+     */
+    public boolean getGridlinesVisibleForValues() {
+        return this.gridlinesVisibleForValues;
+    }
+    
+    /**
+     * Sets the flag that controls whether or not gridlines are shown for the
+     * value axis and sends a {@link Plot3DChangeEvent} to all registered 
+     * listeners.
+     * 
+     * @param visible  the new flag value.
+     */
+    public void setGridlinesVisibleForValues(boolean visible) {
+        this.gridlinesVisibleForValues = visible;
+        fireChangeEvent();
+    }
+
+    /**
+     * Returns the paint for the gridlines associated with the value axis. 
+     * The default value is <code>Color:WHITE</code>.
+     * 
+     * @return The paint for value axis gridlines (never <code>null</code>). 
+     */
+    public Paint getGridlinePaintForValues() {
+        return this.gridlinePaintForValues;
+    }
+    
+    /**
+     * Sets the paint used for the value axis gridlines and sends a 
+     * {@link Plot3DChangeEvent} to all registered listeners.
+     * 
+     * @param paint  the paint (<code>null</code> not permitted). 
+     */
+    public void setGridlinePaintForValues(Paint paint) {
+        ArgChecks.nullNotPermitted(paint, "paint");
+        this.gridlinePaintForValues = paint;
+    }
+
+    /**
+     * Returns the stroke for the gridlines associated with the value axis.
+     * The default value is <code>BasicStroke(0.5f, BasicStroke.CAP_ROUND, 
+     * BasicStroke.JOIN_ROUND, 1f, new float[] { 3f, 3f }, 0f)</code>.
+     * 
+     * @return The stroke (never <code>null</code>).
+     */
+    public Stroke getGridlineStrokeForValues() {
+        return this.gridlineStrokeForValues;
+    }
+    
+    public void setGridlineStrokeForValues(Stroke stroke) {
+        ArgChecks.nullNotPermitted(stroke, "stroke");
+        this.gridlineStrokeForValues = stroke;
+    }
+    
+    public Paint getGridlinePaintForColumns() {
+        return this.gridlinePaintForColumns;
+    }
+    
+    public void setGridlinePaintForColumns(Paint paint) {
+        ArgChecks.nullNotPermitted(paint, "paint");
+        this.gridlinePaintForColumns = paint;
+        fireChangeEvent();
+    }
+
+    /**
+     * Returns the stroke for the gridlines associated with the column axis.
+     * The default value is <code>BasicStroke(0.5f, BasicStroke.CAP_ROUND, 
+     * BasicStroke.JOIN_ROUND, 1f, new float[] { 3f, 3f }, 0f)</code>.
+     * 
+     * @return The stroke (never <code>null</code>).
+     */
+    public Stroke getGridlineStrokeForColumns() {
+        return this.gridlineStrokeForColumns;
+    }
+    
+    public void setGridlineStrokeForColumns(Stroke stroke) {
+        ArgChecks.nullNotPermitted(stroke, "stroke");
+        this.gridlineStrokeForColumns = stroke;
+        fireChangeEvent();
+    }
+
+    /**
+     * Returns a list containing legend item info, typically one item for
+     * each series in the chart.  This is intended for use in the construction
+     * of a chart legend.
+     * 
+     * @return A list containing legend item info.
+     */
+    @Override
+    public List<LegendItemInfo> getLegendInfo() {
+        List<LegendItemInfo> result = new ArrayList<LegendItemInfo>();
+        List<Comparable> keys = this.dataset.getSeriesKeys();
+        for (Comparable key : keys) {
+            int series = this.dataset.getSeriesIndex(key);
+            Paint paint = this.renderer.getPaintSource().getLegendPaint(series);
+            LegendItemInfo info = new StandardLegendItemInfo(key, 
+                    key.toString(), paint);
+            result.add(info);
+        }
+        return result;
+    }
+
     @Override
     public void composeToWorld(World world, double xOffset, double yOffset, 
             double zOffset) {
@@ -266,6 +464,52 @@ public class CategoryPlot3D extends AbstractPlot3D
             }
             
         }
+    }
+    
+    /**
+     * Tests this plot for equality with an arbitrary object.
+     * 
+     * @param obj  the object (<code>null</code> permitted).
+     * 
+     * @return A boolean. 
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }    
+        if (!(obj instanceof CategoryPlot3D)) {
+            return false;
+        }
+        CategoryPlot3D that = (CategoryPlot3D) obj;
+        if (this.gridlinesVisibleForRows != that.gridlinesVisibleForRows) {
+            return false;
+        }
+        if (!this.gridlineStrokeForRows.equals(that.gridlineStrokeForRows)) {
+            return false;
+        }
+        if (!ObjectUtils.equalsPaint(this.gridlinePaintForRows, that.gridlinePaintForRows)) {
+            return false;
+        }
+        if (this.gridlinesVisibleForColumns != that.gridlinesVisibleForColumns) {
+            return false;
+        }
+        if (!this.gridlineStrokeForColumns.equals(that.gridlineStrokeForColumns)) {
+            return false;
+        }
+        if (!ObjectUtils.equalsPaint(this.gridlinePaintForColumns, that.gridlinePaintForColumns)) {
+            return false;
+        }
+        if (this.gridlinesVisibleForValues != that.gridlinesVisibleForValues) {
+            return false;
+        }
+        if (!this.gridlineStrokeForValues.equals(that.gridlineStrokeForValues)) {
+            return false;
+        }
+         if (!ObjectUtils.equalsPaint(this.gridlinePaintForValues, that.gridlinePaintForValues)) {
+            return false;
+        }
+       return super.equals(obj);
     }
     
     /**
@@ -320,48 +564,6 @@ public class CategoryPlot3D extends AbstractPlot3D
         // for now we just fire a plot change event which will flow up the
         // chain and eventually trigger a chart repaint
         fireChangeEvent();
-    }
-
-    public boolean getGridlinesVisibleForRows() {
-        return this.gridlinesVisibleForRows;
-    }
-
-    public boolean getGridlinesVisibleForColumns() {
-        return this.gridlinesVisibleForColumns;
-    }
-
-    public boolean getGridlinesVisibleForValues() {
-        return this.gridlinesVisibleForValues;
-    }
-
-    public Paint getGridlinePaintForColumns() {
-        return this.gridlinePaintForColumns;
-    }
-
-    public Paint getGridlinePaintForValues() {
-        return this.gridlinePaintForValues;
-    }
-    
-    public void setGridlinePaintForValues(Paint paint) {
-        ArgChecks.nullNotPermitted(paint, "paint");
-        this.gridlinePaintForValues = paint;
-    }
-
-    public Paint getGridlinePaintForRows() {
-        return this.gridlinePaintForRows;
-    }
-
-
-    public Stroke getGridlineStrokeForColumns() {
-        return new BasicStroke(1.0f, 0, 0, 1f, new float[] { 3f, 3f}, 0f);
-    }
-
-    public Stroke getGridlineStrokeForValues() {
-        return new BasicStroke(1.0f, 0, 0, 1f, new float[] { 3f, 3f}, 0f);
-    }
-
-    public Stroke getGridlineStrokeForRows() {
-        return new BasicStroke(1.0f);
     }
 
 }

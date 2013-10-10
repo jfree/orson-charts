@@ -18,9 +18,11 @@ import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
 import com.orsoncharts.data.category.CategoryDataset3D;
-import com.orsoncharts.data.category.DefaultCategoryDataset3D;
+import com.orsoncharts.data.category.StandardCategoryDataset3D;
 import com.orsoncharts.data.DefaultKeyedValues;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
+import java.awt.Color;
+import java.awt.Font;
 
 /**
  * A demo of a 3D area chart.
@@ -51,6 +53,8 @@ public class AreaChart3DDemo1 extends JFrame {
         CategoryDataset3D dataset = createDataset();
         Chart3D chart = Chart3DFactory.createAreaChart("AreaChart3DDemo1", 
                 dataset, "Company", "Quarter", "Value");
+        chart.setTitle("AreaChart3DDemo1", new Font("Dialog", Font.BOLD, 20),
+                Color.DARK_GRAY);
         this.chartPanel3D = new ChartPanel3D(chart);
         content.add(new DisplayPanel3D(this.chartPanel3D, true));
         return content;
@@ -62,7 +66,7 @@ public class AreaChart3DDemo1 extends JFrame {
      * @return A sample dataset. 
      */
     private CategoryDataset3D createDataset() {    
-        DefaultCategoryDataset3D dataset = new DefaultCategoryDataset3D();
+        StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
 
         DefaultKeyedValues s1 = new DefaultKeyedValues();
         s1.addValue("Q1", 1.0);

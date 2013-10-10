@@ -2,14 +2,14 @@
  * OrsonCharts
  * ===========
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
 package com.orsoncharts.table;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Insets;
 import java.awt.Paint;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
@@ -22,18 +22,14 @@ import java.util.Map;
 /**
  * A table element that displays a shape.
  */
-public class ShapeElement implements TableElement {
+public class ShapeElement extends AbstractTableElement 
+        implements TableElement {
 
     /** 
      * The shape (by convention, the shape should be centered on the point
      * (0, 0)). 
      */
     private Shape shape;
-    
-    /** The fill paint. */
-    private Paint fillPaint;
-    
-    private Paint backgroundPaint;
     
     /**
      * Creates a new shape element.
@@ -44,8 +40,8 @@ public class ShapeElement implements TableElement {
     public ShapeElement(Shape shape, Paint fillPaint) {
         super();
         this.shape = shape;
-        this.fillPaint = fillPaint;
-        this.backgroundPaint = Color.WHITE;
+        setForegroundPaint(fillPaint);
+        //setBackgroundPaint(new Color(0, 0, 0, 0)); // transparent
     }
     
     @Override
@@ -56,9 +52,11 @@ public class ShapeElement implements TableElement {
     @Override
     public Dimension2D preferredSize(Graphics2D g2, Rectangle2D bounds, 
             Map<String, Object> constraints) {
+        Insets insets = getInsets();
         Rectangle2D shapeBounds = shape.getBounds2D();
-        return new ElementDimension(Math.min(shapeBounds.getWidth(), 
-                bounds.getWidth()), Math.min(shapeBounds.getHeight(), 
+        return new ElementDimension(Math.min(shapeBounds.getWidth() 
+                + insets.left + insets.right, bounds.getWidth()), 
+                Math.min(shapeBounds.getHeight() + insets.top + insets.bottom, 
                 shapeBounds.getHeight()));
     }
 
@@ -66,9 +64,12 @@ public class ShapeElement implements TableElement {
     public List<Rectangle2D> layoutElements(Graphics2D g2, Rectangle2D bounds, 
             Map<String, Object> constraints) {
         List<Rectangle2D> result = new ArrayList<Rectangle2D>();
+        Insets insets = getInsets();
         Rectangle2D shapeBounds = this.shape.getBounds2D();
-        double w = Math.min(shapeBounds.getWidth(), bounds.getWidth());
-        double h = Math.min(shapeBounds.getHeight(), bounds.getHeight());
+        double w = Math.min(shapeBounds.getWidth() + insets.left + insets.right,
+                bounds.getWidth());
+        double h = Math.min(shapeBounds.getHeight() + insets.top 
+                + insets.bottom, bounds.getHeight());
         Rectangle2D pos = new Rectangle2D.Double(bounds.getCenterX() - w / 2.0,
                 bounds.getCenterY() - h / 2.0, w, h);
         result.add(pos);
@@ -78,10 +79,10 @@ public class ShapeElement implements TableElement {
     @Override
     public void draw(Graphics2D g2, Rectangle2D bounds) {
         AffineTransform saved = g2.getTransform();
-        g2.setPaint(this.backgroundPaint);
+        g2.setPaint(getBackgroundPaint());
         g2.fill(bounds);
         g2.translate(bounds.getCenterX(), bounds.getCenterY());
-        g2.setPaint(this.fillPaint);
+        g2.setPaint(getForegroundPaint());
         g2.fill(shape);
         g2.setTransform(saved);
     }

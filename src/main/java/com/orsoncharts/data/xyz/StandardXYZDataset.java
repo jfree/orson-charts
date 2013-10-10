@@ -2,7 +2,7 @@
  * OrsonCharts
  * ===========
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -18,13 +18,13 @@ import java.util.List;
  * 
  * TODO:  generalise this class or remove it.
  */
-public class DefaultXYZDataset extends AbstractDataset3D implements XYZDataset {
+public class StandardXYZDataset extends AbstractDataset3D implements XYZDataset {
 
     private double[][] xValues;
     private double[][] yValues;
     private double[][] zValues;
 
-    public DefaultXYZDataset(int seriesCount, int pointCount) {
+    public StandardXYZDataset(int seriesCount, int pointCount) {
         this.xValues = new double[seriesCount][pointCount];
         this.yValues = new double[seriesCount][pointCount];
         this.zValues = new double[seriesCount][pointCount];

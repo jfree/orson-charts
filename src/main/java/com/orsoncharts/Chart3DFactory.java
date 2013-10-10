@@ -9,7 +9,7 @@
 package com.orsoncharts;
 
 import com.orsoncharts.axis.CategoryAxis3D;
-import com.orsoncharts.axis.DefaultCategoryAxis3D;
+import com.orsoncharts.axis.StandardCategoryAxis3D;
 import com.orsoncharts.axis.NumberAxis3D;
 import com.orsoncharts.axis.ValueAxis3D;
 import com.orsoncharts.data.category.CategoryDataset3D;
@@ -66,8 +66,8 @@ public class Chart3DFactory {
     public static Chart3D createBarChart(String title, 
             CategoryDataset3D dataset, String rowAxisLabel, 
             String columnAxisLabel, String valueAxisLabel) {
-        CategoryAxis3D rowAxis = new DefaultCategoryAxis3D(rowAxisLabel);
-        CategoryAxis3D columnAxis = new DefaultCategoryAxis3D(columnAxisLabel);
+        CategoryAxis3D rowAxis = new StandardCategoryAxis3D(rowAxisLabel);
+        CategoryAxis3D columnAxis = new StandardCategoryAxis3D(columnAxisLabel);
         ValueAxis3D valueAxis = new NumberAxis3D(valueAxisLabel, 
                 new Range(0.0, 1.0));
         CategoryRenderer3D renderer = new BarRenderer3D();
@@ -90,8 +90,8 @@ public class Chart3DFactory {
     public static Chart3D createStackedBarChart(String title, 
             CategoryDataset3D dataset, String rowAxisLabel, 
             String columnAxisLabel, String valueAxisLabel) {
-        CategoryAxis3D rowAxis = new DefaultCategoryAxis3D(rowAxisLabel);
-        CategoryAxis3D columnAxis = new DefaultCategoryAxis3D(columnAxisLabel);
+        CategoryAxis3D rowAxis = new StandardCategoryAxis3D(rowAxisLabel);
+        CategoryAxis3D columnAxis = new StandardCategoryAxis3D(columnAxisLabel);
         ValueAxis3D valueAxis = new NumberAxis3D(valueAxisLabel, 
                 new Range(0.0, 1.0));
         CategoryRenderer3D renderer = new StackedBarRenderer3D();
@@ -115,9 +115,9 @@ public class Chart3DFactory {
             CategoryDataset3D dataset, String rowAxisLabel, 
             String columnAxisLabel, String valueAxisLabel) {
         
-        CategoryAxis3D rowAxis = new DefaultCategoryAxis3D(rowAxisLabel);
-        DefaultCategoryAxis3D columnAxis 
-                = new DefaultCategoryAxis3D(columnAxisLabel);
+        CategoryAxis3D rowAxis = new StandardCategoryAxis3D(rowAxisLabel);
+        StandardCategoryAxis3D columnAxis 
+                = new StandardCategoryAxis3D(columnAxisLabel);
         columnAxis.setFirstCategoryHalfWidth(true);
         columnAxis.setLastCategoryHalfWidth(true);
         ValueAxis3D valueAxis = new NumberAxis3D(valueAxisLabel, 
@@ -142,9 +142,9 @@ public class Chart3DFactory {
     public static Chart3D createLineChart(String title, 
             CategoryDataset3D dataset, String rowAxisLabel, 
             String columnAxisLabel, String valueAxisLabel) {
-        CategoryAxis3D rowAxis = new DefaultCategoryAxis3D(rowAxisLabel);
-        DefaultCategoryAxis3D columnAxis 
-                = new DefaultCategoryAxis3D(columnAxisLabel);
+        CategoryAxis3D rowAxis = new StandardCategoryAxis3D(rowAxisLabel);
+        StandardCategoryAxis3D columnAxis 
+                = new StandardCategoryAxis3D(columnAxisLabel);
         columnAxis.setFirstCategoryHalfWidth(true);
         columnAxis.setLastCategoryHalfWidth(true);
         ValueAxis3D valueAxis = new NumberAxis3D(valueAxisLabel, 

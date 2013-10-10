@@ -2,13 +2,11 @@
  * OrsonCharts
  * ===========
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 package com.orsoncharts;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import com.orsoncharts.graphics3d.Drawable3D;
@@ -25,8 +23,7 @@ import com.orsoncharts.util.Offset2D;
  * The panel registers with the chart to receive change notifications, and when
  * these are received the chart is automatically repainted.
  */
-public class ChartPanel3D extends Panel3D implements Chart3DChangeListener,
-        KeyListener {
+public class ChartPanel3D extends Panel3D implements Chart3DChangeListener {
 
     /**
      * The chart being rendered.
@@ -47,7 +44,6 @@ public class ChartPanel3D extends Panel3D implements Chart3DChangeListener,
         super((Drawable3D) chart);
         this.chart = chart;
         this.chart.addChangeListener(this);
-        addKeyListener(this);
     }
 
     /**
@@ -72,36 +68,6 @@ public class ChartPanel3D extends Panel3D implements Chart3DChangeListener,
         repaint();
     }
 
-    @Override
-    public void keyTyped(KeyEvent e) {
-        // we don't care
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        if (e.isAltDown()) {
-            Offset2D offset = this.chart.getWorldOffset();
-            if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-                this.chart.setWorldOffset(new Offset2D(offset.getDX() - 1,
-                        offset.getDY()));
-            } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-                this.chart.setWorldOffset(new Offset2D(offset.getDX() + 1,
-                        offset.getDY()));
-            } else if (e.getKeyCode() == KeyEvent.VK_UP) {
-                this.chart.setWorldOffset(new Offset2D(offset.getDX(),
-                        offset.getDY() - 1));
-            } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-                this.chart.setWorldOffset(new Offset2D(offset.getDX(),
-                        offset.getDY() + 1));
-            }
-        }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        // we don't care
-    }
-
     /**
      * Records the offset at the time of the mouse press, so that later
      * drag events can update the offset in a relative manner.
@@ -110,7 +76,7 @@ public class ChartPanel3D extends Panel3D implements Chart3DChangeListener,
      */
     @Override
     public void mousePressed(MouseEvent e) {
-        this.offsetAtMousePressed = this.chart.getWorldOffset();
+        this.offsetAtMousePressed = this.chart.getTranslate2D();
         super.mousePressed(e);
     }
 
@@ -131,7 +97,7 @@ public class ChartPanel3D extends Panel3D implements Chart3DChangeListener,
             Point lastPt = getLastClickPoint();
             double dx = offset.getDX() + (currPt.x - lastPt.x);
             double dy = offset.getDY() + (currPt.y - lastPt.y);
-            this.chart.setWorldOffset(new Offset2D(dx, dy));
+            this.chart.setTranslate2D(new Offset2D(dx, dy));
         } else {
             super.mouseDragged(e);
         }

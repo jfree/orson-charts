@@ -23,6 +23,12 @@ public class LineRenderer3DTest {
         LineRenderer3D r2 = new LineRenderer3D();
         assertTrue(r1.equals(r2));
         assertFalse(r1.equals(null));
+        
+        r1.setLineWidth(1.1);
+        assertFalse(r1.equals(r2));
+        r2.setLineWidth(1.1);
+        assertTrue(r1.equals(r2));
+        
     }
 
 }

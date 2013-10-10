@@ -2,7 +2,7 @@
  * OrsonCharts
  * ===========
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -21,12 +21,22 @@ public class NumberTickSelector implements TickSelector {
     
     private int factor = 1;
     
+    private boolean percentage;
+    
     /**
      * Creates a new instance.
      */
     public NumberTickSelector() {
+        this(false);
+    }
+    
+    /**
+     * Creates a new instance.
+     */
+    public NumberTickSelector(boolean percentage) {
         this.power = 0;
         this.factor = 1;
+        this.percentage = percentage;
     }
     
     @Override
@@ -81,25 +91,31 @@ public class NumberTickSelector implements TickSelector {
     private DecimalFormat dfNeg2 = new DecimalFormat("0.00");
     private DecimalFormat dfNeg1 = new DecimalFormat("0.0");
     private DecimalFormat df0 = new DecimalFormat("#,##0");
+    private DecimalFormat dfNeg4P = new DecimalFormat("0.00%");
+    private DecimalFormat dfNeg3P = new DecimalFormat("0.0%");
+    private DecimalFormat dfNeg2P = new DecimalFormat("0%");
+    private DecimalFormat dfNeg1P = new DecimalFormat("0%");
+    private DecimalFormat df0P = new DecimalFormat("#,##0%");
 
     @Override
     public Format getCurrentTickLabelFormat() {
         if (power == -4) {
-            return dfNeg4;
+            return this.percentage ? dfNeg4P : dfNeg4;
         }
         if (power == -3) {
-            return dfNeg3;
+            return this.percentage ? dfNeg3P : dfNeg3;
         }
         if (power == -2) {
-            return dfNeg2;
+            return this.percentage ? dfNeg2P : dfNeg2;
         }
         if (power == -1) {
-            return dfNeg1;
+            return this.percentage ? dfNeg1P : dfNeg1;
         }
         if (power >= 0 && power <= 6) {
-            return df0;
+            return this.percentage ? df0P : df0;
         }
-        return new DecimalFormat("0.0000E0");
+        return this.percentage ? new DecimalFormat("0.0000E0%") 
+                : new DecimalFormat("0.0000E0");
     }
     
 }

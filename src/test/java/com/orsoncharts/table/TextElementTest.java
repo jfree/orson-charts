@@ -2,12 +2,13 @@
  * OrsonCharts
  * ===========
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
 package com.orsoncharts.table;
 
+import com.orsoncharts.TestUtils;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Insets;
@@ -55,4 +56,13 @@ public class TextElementTest {
         t2.setHorizontalAligment(HAlign.RIGHT);
         assertTrue(t1.equals(t2));
     }
+    
+    @Test
+    public void testSerialization() {
+        TextElement t1 = new TextElement("A");
+        TextElement t2 = (TextElement) TestUtils.serialized(t1);
+        assertTrue(t1.equals(t2));
+    }
+    
+
 }

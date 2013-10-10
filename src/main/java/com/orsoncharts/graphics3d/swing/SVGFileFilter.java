@@ -1,20 +1,24 @@
-/**
- * (C)opyright 2013, by Object Refinery Limited
+/* ===========
+ * OrsonCharts
+ * ===========
+ * 
+ * (C)opyright 2013, by Object Refinery Limited.
+ * 
  */
+
 package com.orsoncharts.graphics3d.swing;
 
 import java.io.File;
 import javax.swing.filechooser.FileFilter;
 
 /**
- *
- * @author dgilbert
+ * SVG file filter.
  */
 public class SVGFileFilter extends FileFilter {
   
-  public SVGFileFilter() {
+    public SVGFileFilter() {
       
-  }
+    }
 
     @Override
     public boolean accept(File f) {

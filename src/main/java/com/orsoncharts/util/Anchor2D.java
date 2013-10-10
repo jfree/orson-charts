@@ -2,7 +2,7 @@
  * OrsonCharts3D
  * =============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -18,7 +18,7 @@ public final class Anchor2D {
      * The reference point relative to some bounding rectangle (normally the 
      * bounds of the chart, never <code>null</code>). 
      */
-    private ReferencePoint2D refPt;
+    private RefPt2D refPt;
     
     /**
      * The offsets to apply (never <code>null</code>).
@@ -29,7 +29,7 @@ public final class Anchor2D {
      * Creates a default instance.
      */
     public Anchor2D() {
-        this(ReferencePoint2D.TOP_LEFT);
+        this(RefPt2D.TOP_LEFT);
     }
     
     /**
@@ -38,7 +38,7 @@ public final class Anchor2D {
      * 
      * @param refPt  the reference point (<code>null</code> not permitted).
      */
-    public Anchor2D(ReferencePoint2D refPt) {
+    public Anchor2D(RefPt2D refPt) {
         this(refPt, new Offset2D(4.0, 4.0));    
     }
     
@@ -48,7 +48,7 @@ public final class Anchor2D {
      * @param refPt  the reference point (<code>null</code> not permitted).
      * @param offset  the offset (<code>null</code> not permitted).
      */
-    public Anchor2D(ReferencePoint2D refPt, Offset2D offset) {
+    public Anchor2D(RefPt2D refPt, Offset2D offset) {
         ArgChecks.nullNotPermitted(refPt, "refPt");
         ArgChecks.nullNotPermitted(offset, "offset");
         this.refPt = refPt;
@@ -60,7 +60,7 @@ public final class Anchor2D {
      * 
      * @return The reference point (never <code>null</code>). 
      */
-    public ReferencePoint2D getRefPt() {
+    public RefPt2D getRefPt() {
         return this.refPt;
     }
     
@@ -73,6 +73,13 @@ public final class Anchor2D {
         return this.offset;
     }
     
+    /**
+     * Tests this instance for equality with an arbitrary object.
+     * 
+     * @param obj  the object (<code>null</code> not permitted).
+     * 
+     * @return A boolean. 
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {

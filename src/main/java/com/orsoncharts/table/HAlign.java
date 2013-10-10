@@ -1,12 +1,24 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/* ===========
+ * OrsonCharts
+ * ===========
+ * 
+ * (C)opyright 2013, by Object Refinery Limited.
+ * 
  */
+
 package com.orsoncharts.table;
 
 /**
  * Horizontal alignment options.
  */
 public enum HAlign {
-    LEFT, CENTER, RIGHT;
+    
+    /** Left alignment. */
+    LEFT, 
+    
+    /** Center alignment. */
+    CENTER, 
+    
+    /** Right alignment. */
+    RIGHT;
 }

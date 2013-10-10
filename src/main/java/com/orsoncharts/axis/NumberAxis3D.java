@@ -18,14 +18,14 @@ import java.awt.geom.Point2D;
 import java.text.DecimalFormat;
 import java.text.Format;
 import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 import com.orsoncharts.util.TextUtils;
 import com.orsoncharts.util.TextAnchor;
 import com.orsoncharts.Range;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.plot.XYZPlot;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A numerical axis for use with 3D plots.
@@ -332,10 +332,21 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D {
         fireChangeEvent();
     }
     
+    /**
+     * Returns the tick label formatter.
+     * 
+     * @return The tick label formatter (never <code>null</code>). 
+     */
     public Format getTickLabelFormatter() {
         return this.tickLabelFormatter;
     }
     
+    /**
+     * Sets the formatter for the tick labels and sends an 
+     * {@link Axis3DChangeEvent} to all registered listeners.
+     * 
+     * @param formatter  the formatter (<code>null</code> not permitted).
+     */
     public void setTickLabelFormatter(Format formatter) {
         ArgChecks.nullNotPermitted(formatter, "formatter");
         this.tickLabelFormatter = formatter;
@@ -461,15 +472,6 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D {
             }
         }
     }
-
-//    /**
-//     * Returns the first standard tick value in the range.
-//     * 
-//     * @return The first standard tick value. 
-//     */
-//    private double findFirstStandardTickValue(double tickUnit) {
-//        return tickUnit * Math.ceil(this.range.getMin() / tickUnit);
-//    }
     
     /**
      * Draws the axis using the supplied graphics device, with the
@@ -479,7 +481,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D {
      * @param pt0
      * @param pt1
      * @param opposingPt
-     * @param labels
+     * @param tickData
      */
     @Override
     public void draw(Graphics2D g2, Point2D pt0, Point2D pt1, 
@@ -494,18 +496,17 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D {
         g2.setPaint(getLineColor());
         Line2D axisLine = new Line2D.Float(pt0, pt1);  
         g2.draw(axisLine);
-
+        
         // draw the tick marks and labels
         double maxTickLabelWidth = 0.0;
-        double value = this.range.firstStandardTickValue(this.tickSize);
-        while (value <= this.range.getMax()) {
+        for (TickData t : tickData) {
             Line2D perpLine = createPerpendicularLine(axisLine, 
-                    this.range.percent(value), this.tickMarkLength 
+                    t.getAnchorPt(), this.tickMarkLength 
                     + this.tickLabelOffset, opposingPt);
             
             if (this.tickMarkLength > 0.0) {
                 Line2D tickLine = createPerpendicularLine(axisLine, 
-                       this.range.percent(value), this.tickMarkLength, 
+                       t.getAnchorPt(), this.tickMarkLength, 
                        opposingPt);
                 g2.setPaint(this.tickMarkPaint);
                 g2.setStroke(this.tickMarkStroke);
@@ -529,14 +530,14 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D {
                 } 
                 g2.setFont(getTickLabelFont());
                 g2.setPaint(getTickLabelPaint());
-                String tickLabel = this.tickLabelFormatter.format(value);
+                String tickLabel = this.tickLabelFormatter.format(
+                        t.getDataValue());
                 maxTickLabelWidth = Math.max(maxTickLabelWidth, 
                         g2.getFontMetrics().stringWidth(tickLabel));
                 TextUtils.drawRotatedString(tickLabel, g2, 
                         (float) perpLine.getX2(), (float) perpLine.getY2(), 
                         textAnchor, thetaAdj, textAnchor);
             }
-            value = value + this.tickSize;
         }
 
         // draw the axis label (if any)...
@@ -618,7 +619,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D {
             Point2D opposingPt) {
         
         if (this.tickSelector == null) {
-            return this.getRange().getLength() / 2; // this should not happen :)
+            return Double.NaN; // this should not happen :)
         }
         
         // based on the font height, we can determine roughly how many tick
@@ -629,6 +630,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D {
         // the tickLabelFactor allows some control over how dense the labels
         // will be
         int maxTicks = (int) (length / (height * this.tickLabelFactor));
+        System.out.println(this.getLabel() + ", " +height + ", " + length + ", " + maxTicks);
         if (maxTicks > 2 && this.tickSelector != null) {
             this.tickSelector.select(this.range.getLength() / 2.0);
             // step through until we have too many ticks OR we run out of 
@@ -644,6 +646,8 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D {
             this.tickSize = this.tickSelector.getCurrentTickSize();
             this.tickLabelFormatter 
                     = this.tickSelector.getCurrentTickLabelFormat();
+        } else {
+            this.tickSize = Double.NaN;
         }
         return this.tickSize;
     }
@@ -651,10 +655,15 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D {
     @Override
     public List<TickData> generateTickData(double tickUnit) {
         List<TickData> result = new ArrayList<TickData>();
-        double x = this.range.firstStandardTickValue(tickUnit);
-        while (x < this.range.getMax()) {
-            result.add(new TickData(this.range.percent(x), x));
-            x += tickUnit;
+        if (Double.isNaN(tickUnit)) {
+            result.add(new TickData(0, getRange().getMin()));
+            result.add(new TickData(1, getRange().getMax()));
+        } else {
+            double x = this.range.firstStandardTickValue(tickUnit);
+            while (x < this.range.getMax()) {
+                result.add(new TickData(this.range.percent(x), x));
+                x += tickUnit;
+            }
         }
         return result;
     }

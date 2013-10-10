@@ -2,7 +2,7 @@
  * OrsonCharts
  * ===========
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -13,6 +13,7 @@ import java.awt.Graphics2D;
 import java.awt.Insets;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Rectangle2D;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +25,7 @@ import com.orsonpdf.util.TextUtils;
  * A table element consisting of some text that will be drawn on one line.
  */
 public class TextElement extends AbstractTableElement 
-        implements TableElement {
+        implements TableElement, Serializable {
 
     /** The text (never <code>null</code>). */
     private String text;
@@ -125,10 +126,10 @@ public class TextElement extends AbstractTableElement
         }
         double y = bounds.getY();
         double w = Math.min(width, bounds.getWidth());
-        double h = Math.min(textBounds.getHeight(), bounds.getHeight());
+        double h = Math.min(textBounds.getHeight() + insets.top + insets.bottom,
+                bounds.getHeight());
         List<Rectangle2D> result = new ArrayList<Rectangle2D>(1);        
-        Rectangle2D pos = new Rectangle2D.Double(x, y, w, h);
-        result.add(pos);
+        result.add(new Rectangle2D.Double(x, y, w, h));
         return result;
     }
 
@@ -148,6 +149,13 @@ public class TextElement extends AbstractTableElement
                 (float) (textBounds.getY() + insets.top), TextAnchor.TOP_LEFT);
     }
     
+    /**
+     * Tests this element for equality with an arbitrary object.
+     * 
+     * @param obj  the object (<code>null</code> permitted).
+     * 
+     * @return A boolean. 
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {

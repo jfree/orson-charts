@@ -128,9 +128,10 @@ public final class DefaultKeyedValues<T> implements KeyedValues<T>,
     }
 
     /**
-     * Returns a list of all the keys.
+     * Returns a list of all the keys.  Note that the list will be a copy, so
+     * modifying it will not impact this data structure.
      * 
-     * @return A list of all the keys. 
+     * @return A list of keys (possibly empty, but never <code>null</code>).
      */
     @Override
     public List<Comparable> getKeys() {

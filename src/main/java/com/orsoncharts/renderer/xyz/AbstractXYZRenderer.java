@@ -30,7 +30,7 @@ public class AbstractXYZRenderer extends AbstractRenderer3D {
      * Creates a new default instance.
      */
     protected AbstractXYZRenderer() {
-        this.paintSource = new DefaultXYZPaintSource();
+        this.paintSource = new StandardXYZPaintSource();
     }
   
     /**

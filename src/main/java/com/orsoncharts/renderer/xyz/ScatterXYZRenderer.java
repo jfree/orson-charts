@@ -2,7 +2,7 @@
  * OrsonCharts
  * ===========
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -16,6 +16,7 @@ import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.World;
+import com.orsoncharts.renderer.Renderer3DChangeEvent;
 
 /**
  * A renderer for 3D scatter plots.
@@ -23,6 +24,7 @@ import com.orsoncharts.graphics3d.World;
 public class ScatterXYZRenderer extends AbstractXYZRenderer 
         implements XYZRenderer {
 
+    /** The size of the cubes to render for each data point. */
     private double size;
     
     /**
@@ -35,7 +37,7 @@ public class ScatterXYZRenderer extends AbstractXYZRenderer
 
     /**
      * Returns the size of the cubes used to display each data item.  The 
-     * default value is 0.05.
+     * default value is <code>0.05</code>.
      * 
      * @return The size.
      */
@@ -44,14 +46,28 @@ public class ScatterXYZRenderer extends AbstractXYZRenderer
     }
     
     /**
-     * Sets the size of the cubes used to represent each data item.
+     * Sets the size of the cubes used to represent each data item and sends
+     * a {@link Renderer3DChangeEvent} to all registered listeners.
      * 
      * @param size  the size.
      */
     public void setSize(double size) {
-        this.size = size; 
+        this.size = size;
+        fireChangeEvent();
     }
     
+    /**
+     * Constructs and places one item from the specified dataset into the given 
+     * world.
+     * 
+     * @param dataset the dataset.
+     * @param series  the series index.
+     * @param item  the item index.
+     * @param world  the world.
+     * @param xOffset  the x-offset.
+     * @param yOffset  the y-offset.
+     * @param zOffset  the z-offset.
+     */
     @Override
     public void composeItem(XYZDataset dataset, int series, int item, 
         World world, Dimension3D dimensions, double xOffset, double yOffset, 
@@ -81,4 +97,25 @@ public class ScatterXYZRenderer extends AbstractXYZRenderer
         world.add(cube);
     }
 
+    /**
+     * Tests this renderer for equality with an arbitrary object.
+     * 
+     * @param obj  the object to test (<code>null</code> permitted).
+     * 
+     * @return A boolean. 
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof ScatterXYZRenderer)) {
+            return false;
+        }
+        ScatterXYZRenderer that = (ScatterXYZRenderer) obj;
+        if (this.size != that.size) {
+            return false;
+        }
+        return super.equals(obj);
+    }
 }

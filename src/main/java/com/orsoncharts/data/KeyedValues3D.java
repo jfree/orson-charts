@@ -17,28 +17,28 @@ import java.util.List;
 public interface KeyedValues3D<T> extends Values3D {
 
     /**
-     * Returns a list of the series-keys for the dataset.  Modifying this
+     * Returns a list of the series keys for the dataset.  Modifying this
      * list will have no impact on the underlying dataset.
      * 
-     * @return A list of the series-keys (possibly empty, but never 
+     * @return A list of the series keys (possibly empty, but never 
      *     <code>null</code>). 
      */
     public List<Comparable> getSeriesKeys();
 
     /**
-     * Returns a list of the row-keys for the dataset.  Modifying this
+     * Returns a list of the row keys for the dataset.  Modifying this
      * list will have no impact on the underlying dataset.
      * 
-     * @return A list of the row-keys (possibly empty, but never 
+     * @return A list of the row keys (possibly empty, but never 
      *     <code>null</code>). 
      */
     public List<Comparable> getRowKeys();
     
     /**
-     * Returns a list of the column-keys for the dataset.  Modifying this
+     * Returns a list of the column keys for the dataset.  Modifying this
      * list will have no impact on the underlying dataset.
      * 
-     * @return A list of the column-keys (possibly empty, but never 
+     * @return A list of the column keys (possibly empty, but never 
      *     <code>null</code>). 
      */
     public List<Comparable> getColumnKeys();
@@ -51,8 +51,24 @@ public interface KeyedValues3D<T> extends Values3D {
 
     public int getSeriesIndex(Comparable serieskey);
 
+    /**
+     * Returns the index of the specified row key, or <code>-1</code> if there
+     * is no matching key.
+     * 
+     * @param rowkey  the row key (<code>null</code> not permitted).
+     * 
+     * @return The row index or <code>-1</code>. 
+     */
     public int getRowIndex(Comparable rowkey);
 
+    /**
+     * Returns the index of the specified column key, or <code>-1</code> if 
+     * there is no matching key.
+     * 
+     * @param columnkey  the column key (<code>null</code> not permitted).
+     * 
+     * @return The column index or <code>-1</code>. 
+     */
     public int getColumnIndex(Comparable columnkey);
 
     /**

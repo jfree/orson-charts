@@ -20,7 +20,7 @@ import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
 import com.orsoncharts.TitleAnchor;
-import com.orsoncharts.data.DefaultPieDataset3D;
+import com.orsoncharts.data.StandardPieDataset3D;
 import com.orsoncharts.data.PieDataset3D;
 import com.orsoncharts.plot.PiePlot3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
@@ -67,7 +67,7 @@ public class PieChart3DDemo1 extends JFrame {
     }
 
     PieDataset3D createDataset() {
-        DefaultPieDataset3D dataset = new DefaultPieDataset3D();
+        StandardPieDataset3D dataset = new StandardPieDataset3D();
         dataset.add("United States", new Double(30.0));
         dataset.add("France", new Double(20.0));
         dataset.add("New Zealand", new Double(12.0));

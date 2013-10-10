@@ -8,15 +8,18 @@ package com.orsoncharts.graphics3d;
  */
 public class Dimension3D {
   
+    /** The width. */
     private double width;
   
+    /** The height. */
     private double height;
   
+    /** The depth. */
     private double depth;
   
     /**
-     * Creates a new Dimension3D instance.  Instances of this class are 
-     * immutable.
+     * Creates a new <code>Dimension3D</code> instance.  Instances of this 
+     * class are immutable.
      * 
      * @param width  the width.
      * @param height  the height.

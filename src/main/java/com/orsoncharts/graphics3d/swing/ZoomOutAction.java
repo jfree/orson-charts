@@ -1,6 +1,11 @@
-/**
- * (C)opyright 2013, by Object Refinery Limited
+/* ===========
+ * OrsonCharts
+ * ===========
+ * 
+ * (C)opyright 2013, by Object Refinery Limited.
+ * 
  */
+
 package com.orsoncharts.graphics3d.swing;
 
 import java.awt.event.ActionEvent;
@@ -11,7 +16,7 @@ import com.orsoncharts.graphics3d.ViewPoint3D;
 /**
  * Zoom out.
  */
-public class ZoomOutAction extends AbstractAction implements Action {
+public class ZoomOutAction extends AbstractAction {
 
     private Panel3D panel;
   

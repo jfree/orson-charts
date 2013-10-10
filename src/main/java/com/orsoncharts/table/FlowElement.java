@@ -2,7 +2,7 @@
  * OrsonCharts
  * ===========
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -16,14 +16,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import com.orsoncharts.util.ArgChecks;
+import java.awt.Insets;
 
 /**
  * A table element that displays a list of sub-elements in a flow layout.
  */
 public class FlowElement extends AbstractTableElement implements TableElement {
 
+    /** The sub-elements in this flow. */
     private List<TableElement> elements;
     
+    /** The horizontal alignment. */
     private HAlign horizontalAlignment;
 
     /** 
@@ -42,6 +45,34 @@ public class FlowElement extends AbstractTableElement implements TableElement {
     }
     
     /**
+     * Returns the horizontal gap between elements, specified in Java2D units.
+     * 
+     * @return The horizontal gap. 
+     */
+    public int getHGap() {
+        return this.hgap;
+    }
+    
+    /**
+     * Sets the horizontal gap between elements.
+     * 
+     * @param gap  the gap (in Java2D units). 
+     */
+    public void setHGap(int gap) {
+        this.hgap = gap;
+    }
+    
+    /**
+     * Returns a (new) list containing the elements in this flow layout.
+     * 
+     * @return A list containing the elements (possibly empty, but never 
+     *     <code>null</code>). 
+     */
+    public List<TableElement> getElements() {
+        return new ArrayList<TableElement>(this.elements);
+    }
+    
+    /**
      * Adds a sub-element to the list.
      * 
      * @param element  the element (<code>null</code> not permitted).
@@ -51,26 +82,37 @@ public class FlowElement extends AbstractTableElement implements TableElement {
         this.elements.add(element);
     }
     
+    /**
+     * Returns the preferred size of the element (including insets).
+     * 
+     * @param g2  the graphics target.
+     * @param bounds  the bounds.
+     * @param constraints  the constraints (ignored for now).
+     * 
+     * @return The preferred size. 
+     */
     @Override
     public Dimension2D preferredSize(Graphics2D g2, Rectangle2D bounds, 
             Map<String, Object> constraints) {
         double maxWidth = bounds.getWidth();
-        double width = 0.0;
-        double height = 0.0;
-        double w = 0.0;
+        Insets insets = getInsets();
+        double width = insets.left + insets.right;
+        double height = insets.top + insets.bottom;
+        double w = insets.left + insets.right;
         double h = 0.0;
+        // FIXME:  this is not going to work when the flow wraps...
         for (TableElement e : this.elements) {
             Dimension2D dim = e.preferredSize(g2, bounds, constraints);
             if (w + dim.getWidth() <= maxWidth) {
                 w += dim.getWidth();
-                h = Math.max(dim.getHeight(), h);
+                h = Math.max(dim.getHeight() + insets.top + insets.bottom, h);
                 width = Math.max(width, w);
                 height = Math.max(height, h);
             } else {
                 width = Math.max(width, w);
                 height = Math.max(height, h);
-                w = dim.getWidth();
-                h = dim.getHeight();
+                w = insets.left + insets.right + dim.getWidth();
+                h = insets.top + insets.bottom + dim.getHeight();
             }
         }
         return new Dimension((int) width, (int) height);
@@ -122,10 +164,13 @@ public class FlowElement extends AbstractTableElement implements TableElement {
         int i = 0;
         while (i < this.elements.size()) {
             ElementLine line = lineOfElements(i, g2, bounds);
-            for (int elementIndex = 0; elementIndex < line.getElements().size(); elementIndex++) {
-                // x will depend on horizontal alignment, the gap and the element index
+            for (int elementIndex = 0; elementIndex < line.getElements().size();
+                    elementIndex++) {
+                // x will depend on horizontal alignment, the gap and the 
+                // element index
                 // y is already known
-                double dx = calculateXOffset(elementIndex, line.getWidths(), this.hgap);
+                double dx = calculateXOffset(elementIndex, line.getWidths(), 
+                        this.hgap);
                 Rectangle2D rect = new Rectangle2D.Double(x + dx, y, 
                         line.getWidths().get(elementIndex), line.getHeight());
                 result.add(rect);
@@ -158,15 +203,39 @@ public class FlowElement extends AbstractTableElement implements TableElement {
         }
     }
     
+    /** 
+     * A line of elements in the {@link FlowElement}.
+     */
     private static class ElementLine {
+        
+        /** The line width. */
         private double width;
+        
+        /** The line height. */
         private double height;
+        
+        /** The elements in the line. */
         private List<TableElement> elements;
+        
+        /** The widths of the elements in the line. */
         private List<Double> widths;
+        
+        /**
+         * Creates a new (empty) line.
+         */
         public ElementLine() {
             this(new ArrayList<TableElement>(), new ArrayList<Double>(), 0.0, 
                     0.0);
         }
+        
+        /**
+         * Creates a new line with...
+         * 
+         * @param elements
+         * @param elementWidths
+         * @param width
+         * @param height 
+         */
         public ElementLine(List<TableElement> elements, 
                 List<Double> elementWidths, double width, double height) {
             this.elements = elements;
@@ -174,15 +243,39 @@ public class FlowElement extends AbstractTableElement implements TableElement {
             this.width = width;
             this.height = height;
         }
+        
+        /**
+         * Returns the elements in the line.
+         * 
+         * @return The elements. 
+         */
         public List<TableElement> getElements() {
             return this.elements;
         }
+        
+        /**
+         * Returns the widths of the elements in the line.
+         * 
+         * @return The widths.
+         */
         public List<Double> getWidths() {
             return this.widths;
         }
+        
+        /**
+         * Returns the width of the line.
+         * 
+         * @return The width. 
+         */
         public double getWidth() {
             return this.width;
         }
+        
+        /**
+         * Returns the height of the line.
+         * 
+         * @return The height.
+         */
         public double getHeight() {
             return this.height;
         }

@@ -2,13 +2,12 @@
  * OrsonCharts
  * ===========
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
 package com.orsoncharts.util;
 
-import com.orsoncharts.util.TextAnchor;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
@@ -39,12 +38,11 @@ public class TextUtils {
      *
      * @return The text bounds (adjusted for the text position).
      */
-    public static Rectangle2D drawAlignedString(final String text,
-            final Graphics2D g2, final float x, final float y,
-            final TextAnchor anchor) {
+    public static Rectangle2D drawAlignedString(String text,
+            Graphics2D g2, float x, float y, TextAnchor anchor) {
 
-        final Rectangle2D textBounds = new Rectangle2D.Double();
-        final float[] adjust = deriveTextBoundsAnchorOffsets(g2, text, anchor,
+        Rectangle2D textBounds = new Rectangle2D.Double();
+        float[] adjust = deriveTextBoundsAnchorOffsets(g2, text, anchor,
                 textBounds);
         // adjust text bounds to match string position
         textBounds.setRect(x + adjust[0], y + adjust[1] + adjust[2],
@@ -66,19 +64,19 @@ public class TextUtils {
      *
      * @return  The offsets.
      */
-    private static float[] deriveTextBoundsAnchorOffsets(final Graphics2D g2,
-            final String text, final TextAnchor anchor) {
+    private static float[] deriveTextBoundsAnchorOffsets(Graphics2D g2,
+            String text, TextAnchor anchor) {
 
-        final float[] result = new float[2];
-        final FontRenderContext frc = g2.getFontRenderContext();
-        final Font f = g2.getFont();
-        final FontMetrics fm = g2.getFontMetrics(f);
-        final Rectangle2D bounds = getTextBounds(text, g2, fm);
-        final LineMetrics metrics = f.getLineMetrics(text, frc);
-        final float ascent = metrics.getAscent();
-        final float halfAscent = ascent / 2.0f;
-        final float descent = metrics.getDescent();
-        final float leading = metrics.getLeading();
+        float[] result = new float[2];
+        FontRenderContext frc = g2.getFontRenderContext();
+        Font f = g2.getFont();
+        FontMetrics fm = g2.getFontMetrics(f);
+        Rectangle2D bounds = getTextBounds(text, g2, fm);
+        LineMetrics metrics = f.getLineMetrics(text, frc);
+        float ascent = metrics.getAscent();
+        float halfAscent = ascent / 2.0f;
+        float descent = metrics.getDescent();
+        float leading = metrics.getLeading();
         float xAdj = 0.0f;
         float yAdj = 0.0f;
 
@@ -158,21 +156,20 @@ public class TextUtils {
      *
      * @return  The offsets.
      */
-    private static float[] deriveTextBoundsAnchorOffsets(final Graphics2D g2,
-            final String text, final TextAnchor anchor,
-            final Rectangle2D textBounds) {
+    private static float[] deriveTextBoundsAnchorOffsets(Graphics2D g2,
+            String text, TextAnchor anchor, Rectangle2D textBounds) {
 
-        final float[] result = new float[3];
-        final FontRenderContext frc = g2.getFontRenderContext();
-        final Font f = g2.getFont();
-        final FontMetrics fm = g2.getFontMetrics(f);
-        final Rectangle2D bounds = getTextBounds(text, g2, fm);
-        final LineMetrics metrics = f.getLineMetrics(text, frc);
-        final float ascent = metrics.getAscent();
+        float[] result = new float[3];
+        FontRenderContext frc = g2.getFontRenderContext();
+        Font f = g2.getFont();
+        FontMetrics fm = g2.getFontMetrics(f);
+        Rectangle2D bounds = getTextBounds(text, g2, fm);
+        LineMetrics metrics = f.getLineMetrics(text, frc);
+        float ascent = metrics.getAscent();
         result[2] = -ascent;
-        final float halfAscent = ascent / 2.0f;
-        final float descent = metrics.getDescent();
-        final float leading = metrics.getLeading();
+        float halfAscent = ascent / 2.0f;
+        float descent = metrics.getDescent();
+        float leading = metrics.getLeading();
         float xAdj = 0.0f;
         float yAdj = 0.0f;
 
@@ -294,16 +291,15 @@ public class TextUtils {
      * @param angle  the rotation angle (in radians).
      * @param rotationAnchor  the rotation anchor.
      */
-    public static void drawRotatedString(final String text, final Graphics2D g2,
-            final float x, final float y, final TextAnchor textAnchor,
-            final double angle, final TextAnchor rotationAnchor) {
+    public static void drawRotatedString(String text, Graphics2D g2,
+            float x, float y, TextAnchor textAnchor,
+            double angle, TextAnchor rotationAnchor) {
 
         if (text == null || text.equals("")) {
             return;
         }
-        final float[] textAdj = deriveTextBoundsAnchorOffsets(g2, text,
-                textAnchor);
-        final float[] rotateAdj = deriveRotationAnchorOffsets(g2, text,
+        float[] textAdj = deriveTextBoundsAnchorOffsets(g2, text, textAnchor);
+        float[] rotateAdj = deriveRotationAnchorOffsets(g2, text,
                 rotationAnchor);
         drawRotatedString(text, g2, x + textAdj[0], y + textAdj[1],
                 angle, x + textAdj[0] + rotateAdj[0],
@@ -405,7 +401,7 @@ public class TextUtils {
 
     }
     
-        /**
+    /**
      * A utility method for drawing rotated text.
      * <P>
      * A common rotation is -Math.PI/2 which draws text 'vertically' (with the

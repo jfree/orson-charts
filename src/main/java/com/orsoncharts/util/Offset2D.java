@@ -11,8 +11,8 @@ package com.orsoncharts.util;
 import java.io.Serializable;
 
 /**
- * An offset (dx, dy) in two dimensional space.  Instances of this class are
- * immutable.
+ * An offset <code>(dx, dy)</code> in two dimensional space.  Instances of 
+ * this class are immutable.
  */
 public final class Offset2D implements Serializable {
     
@@ -21,7 +21,7 @@ public final class Offset2D implements Serializable {
     private double dy;
     
     /**
-     * Default constructor.
+     * Default constructor (<code>(0, 0)</code>).
      */
     public Offset2D() {
         this(0.0, 0.0);
@@ -56,6 +56,13 @@ public final class Offset2D implements Serializable {
         return this.dy;
     }
     
+    /**
+     * Tests this instance for equality with an arbitrary object.
+     * 
+     * @param obj  the object (<code>null</code> permitted).
+     * 
+     * @return A boolean. 
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {

@@ -20,6 +20,8 @@ import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.Dot3D;
 import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.World;
+import com.orsoncharts.legend.LegendItemInfo;
+import com.orsoncharts.legend.StandardLegendItemInfo;
 
 /**
  * A pie plot in 3D.
@@ -191,6 +193,24 @@ public class PiePlot3D extends AbstractPlot3D {
         }
     }
   
+    /**
+     * Returns a list containing legend item info, typically one item for
+     * each series in the chart.  This is intended for use in the construction
+     * of a chart legend.
+     * 
+     * @return A list containing legend item info.
+     */
+    @Override
+    public List<LegendItemInfo> getLegendInfo() {
+        List<LegendItemInfo> result = new ArrayList<LegendItemInfo>();
+        for (Comparable key : this.dataset.getKeys()) {
+            LegendItemInfo info = new StandardLegendItemInfo(key, 
+                    key.toString(), getSectionColor(key));
+            result.add(info);
+        }
+        return result;
+    }
+    
     @Override
     public void composeToWorld(World world, double xOffset, double yOffset, 
             double zOffset) {

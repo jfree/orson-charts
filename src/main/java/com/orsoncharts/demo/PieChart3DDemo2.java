@@ -22,7 +22,7 @@ import javax.swing.JPanel;
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
-import com.orsoncharts.data.DefaultPieDataset3D;
+import com.orsoncharts.data.StandardPieDataset3D;
 import com.orsoncharts.data.PieDataset3D;
 import com.orsoncharts.plot.PiePlot3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
@@ -71,11 +71,11 @@ public class PieChart3DDemo2 extends JFrame implements ActionListener {
     }
 
     PieDataset3D createDataset() {
-        DefaultPieDataset3D dataset = new DefaultPieDataset3D();
-        dataset.add("United States", new Double(Math.random() * 30));
-        dataset.add("France", new Double(Math.random() * 20));
-        dataset.add("New Zealand", new Double(Math.random() * 12));
-        dataset.add("United Kingdom", new Double(Math.random() * 43));
+        StandardPieDataset3D dataset = new StandardPieDataset3D();
+        dataset.add("United States", Math.random() * 30);
+        dataset.add("France", Math.random() * 20);
+        dataset.add("New Zealand", Math.random() * 12);
+        dataset.add("United Kingdom", Math.random() * 43);
         return dataset; 
     }
   

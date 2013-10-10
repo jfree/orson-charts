@@ -15,7 +15,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
-import com.orsoncharts.data.DefaultPieDataset3D;
+import com.orsoncharts.data.StandardPieDataset3D;
 
 /** 
  * Some tests for the {@link PiePlot3D} class.
@@ -57,10 +57,10 @@ public class PiePlot3DTest implements Plot3DChangeListener {
   
     @Test
     public void checkSetDatasetRemovesPreviousListener() {
-        DefaultPieDataset3D dataset1 = createNewDataset();
+        StandardPieDataset3D dataset1 = createNewDataset();
         PiePlot3D plot = new PiePlot3D(dataset1);
         assertTrue(dataset1.hasListener(plot));
-        DefaultPieDataset3D dataset2 = createNewDataset();
+        StandardPieDataset3D dataset2 = createNewDataset();
         plot.setDataset(dataset2);
         assertFalse(dataset1.hasListener(plot));
         assertTrue(dataset2.hasListener(plot));
@@ -72,7 +72,7 @@ public class PiePlot3DTest implements Plot3DChangeListener {
      */
     @Test
     public void checkEquals() {
-        DefaultPieDataset3D dataset1 = createNewDataset();
+        StandardPieDataset3D dataset1 = createNewDataset();
         PiePlot3D plot1 = new PiePlot3D(dataset1);
         PiePlot3D plot2 = new PiePlot3D(dataset1);
         assertEquals(plot1, plot2);
@@ -89,8 +89,8 @@ public class PiePlot3DTest implements Plot3DChangeListener {
      * 
      * @return A new dataset. 
      */
-    private DefaultPieDataset3D createNewDataset() {
-        DefaultPieDataset3D dataset = new DefaultPieDataset3D();
+    private StandardPieDataset3D createNewDataset() {
+        StandardPieDataset3D dataset = new StandardPieDataset3D();
         dataset.add("A", 123.4);
         return dataset;
     }

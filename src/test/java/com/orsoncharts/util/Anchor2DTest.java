@@ -2,7 +2,7 @@
  * OrsonCharts
  * ===========
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -23,21 +23,21 @@ public class Anchor2DTest {
      */
     @Test
     public void testEquals() {
-        Anchor2D a1 = new Anchor2D(ReferencePoint2D.BOTTOM_CENTER, 
+        Anchor2D a1 = new Anchor2D(RefPt2D.BOTTOM_CENTER, 
                 new Offset2D(1.0, 2.0));
-        Anchor2D a2 = new Anchor2D(ReferencePoint2D.BOTTOM_CENTER, 
+        Anchor2D a2 = new Anchor2D(RefPt2D.BOTTOM_CENTER, 
                 new Offset2D(1.0, 2.0));
         assertTrue(a1.equals(a2));
         assertFalse(a1.equals(null));
         
-        a1 = new Anchor2D(ReferencePoint2D.CENTER, new Offset2D(1.0, 2.0));
+        a1 = new Anchor2D(RefPt2D.CENTER, new Offset2D(1.0, 2.0));
         assertFalse(a1.equals(a2));
-        a2 = new Anchor2D(ReferencePoint2D.CENTER, new Offset2D(1.0, 2.0));
+        a2 = new Anchor2D(RefPt2D.CENTER, new Offset2D(1.0, 2.0));
         assertTrue(a1.equals(a2));
         
-        a1 = new Anchor2D(ReferencePoint2D.CENTER, new Offset2D(3.0, 2.0));
+        a1 = new Anchor2D(RefPt2D.CENTER, new Offset2D(3.0, 2.0));
         assertFalse(a1.equals(a2));
-        a2 = new Anchor2D(ReferencePoint2D.CENTER, new Offset2D(3.0, 2.0));
+        a2 = new Anchor2D(RefPt2D.CENTER, new Offset2D(3.0, 2.0));
         assertTrue(a1.equals(a2));
     }
 }

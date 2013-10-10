@@ -8,19 +8,14 @@
 
 package com.orsoncharts;
 
-import com.orsoncharts.axis.CategoryAxis3D;
-import com.orsoncharts.axis.TickData;
-import com.orsoncharts.axis.ValueAxis3D;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.Color;
 
 import com.orsoncharts.graphics3d.Face;
 import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.Point3D;
-import com.orsoncharts.plot.CategoryPlot3D;
-import com.orsoncharts.plot.Plot3D;
-import com.orsoncharts.plot.XYZPlot;
-import java.util.ArrayList;
-import java.util.List;
+import com.orsoncharts.axis.TickData;
 
 /**
  * A chart box is the container within which the chart elements are drawn.
@@ -200,10 +195,10 @@ public class ChartBox3D {
             box.addVertex(xx, yOffset, zOffset + zLength);
             box.addVertex(xx, yOffset + yLength,  zOffset + zLength);
             box.addVertex(xx, yOffset + yLength, zOffset);
-            TickData td0 = new TickData(t.getPos(), t.getDataValue(), base);
-            TickData td1 = new TickData(t.getPos(), t.getDataValue(), base + 1);
-            TickData td2 = new TickData(t.getPos(), t.getDataValue(), base + 2);
-            TickData td3 = new TickData(t.getPos(), t.getDataValue(), base + 3);
+            TickData td0 = new TickData(t, base);
+            TickData td1 = new TickData(t, base + 1);
+            TickData td2 = new TickData(t, base + 2);
+            TickData td3 = new TickData(t, base + 3);
             this.faceA.addXTicks(td0, td1);
             this.faceB.addXTicks(td0, td3);
             this.faceC.addXTicks(td3, td2);
@@ -218,10 +213,10 @@ public class ChartBox3D {
             box.addVertex(xOffset + xLength, yy, zOffset);
             box.addVertex(xOffset + xLength, yy, zOffset + zLength);
             box.addVertex(xOffset, yy, zOffset + zLength);
-            TickData td0 = new TickData(t.getPos(), t.getDataValue(), base);
-            TickData td1 = new TickData(t.getPos(), t.getDataValue(), base + 1);
-            TickData td2 = new TickData(t.getPos(), t.getDataValue(), base + 2);
-            TickData td3 = new TickData(t.getPos(), t.getDataValue(), base + 3);
+            TickData td0 = new TickData(t, base);
+            TickData td1 = new TickData(t, base + 1);
+            TickData td2 = new TickData(t, base + 2);
+            TickData td3 = new TickData(t, base + 3);
             this.faceB.addYTicks(td0, td1);
             this.faceD.addYTicks(td2, td3);
             this.faceE.addYTicks(td0, td3);
@@ -235,10 +230,10 @@ public class ChartBox3D {
             box.addVertex(xOffset + xLength, yOffset, zz);
             box.addVertex(xOffset + xLength, yOffset + yLength, zz);
             box.addVertex(xOffset, yOffset + yLength, zz);
-            TickData td0 = new TickData(t.getPos(), t.getDataValue(), base);
-            TickData td1 = new TickData(t.getPos(), t.getDataValue(), base + 1);
-            TickData td2 = new TickData(t.getPos(), t.getDataValue(), base + 2);
-            TickData td3 = new TickData(t.getPos(), t.getDataValue(), base + 3);
+            TickData td0 = new TickData(t, base);
+            TickData td1 = new TickData(t, base + 1);
+            TickData td2 = new TickData(t, base + 2);
+            TickData td3 = new TickData(t, base + 3);
             this.faceA.addZTicks(td0, td1);
             this.faceC.addZTicks(td3, td2);
             this.faceE.addZTicks(td0, td3);

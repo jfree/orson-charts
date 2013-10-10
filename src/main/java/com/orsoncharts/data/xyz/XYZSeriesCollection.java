@@ -2,7 +2,7 @@
  * OrsonCharts
  * ===========
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -19,6 +19,7 @@ import com.orsoncharts.data.AbstractDataset3D;
 public class XYZSeriesCollection extends AbstractDataset3D 
         implements XYZDataset {
 
+    /** Storage for the data series. */
     private List<XYZSeries> series;
 
     /**
@@ -138,5 +139,26 @@ public class XYZSeriesCollection extends AbstractDataset3D
         return s.getZValue(itemIndex);
     }
 
+    /**
+     * Tests this dataset for equality with an arbitrary object.
+     * 
+     * @param obj  the object (<code>null</code> not permitted).
+     * 
+     * @return A boolean. 
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof XYZSeriesCollection)) {
+            return false;
+        }
+        XYZSeriesCollection that = (XYZSeriesCollection) obj;
+        if (!this.series.equals(that.series)) {
+            return false;
+        }
+        return true;
+    }
 
 }

@@ -18,12 +18,11 @@ import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
 import com.orsoncharts.data.category.CategoryDataset3D;
-import com.orsoncharts.data.category.DefaultCategoryDataset3D;
+import com.orsoncharts.data.category.StandardCategoryDataset3D;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.category.StackedBarRenderer3D;
-import java.awt.Color;
 
 /**
  * A demo of a 3D stacked bar chart.
@@ -67,7 +66,7 @@ public class StackedBarChart3DDemo1 extends JFrame {
   
     private CategoryDataset3D createDataset() {
         
-        DefaultCategoryDataset3D dataset = new DefaultCategoryDataset3D();
+        StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
 
         dataset.addValue(197, "Agricultural", "R1", "Brazil");
         dataset.addValue(64, "Domestic", "R1", "Brazil");

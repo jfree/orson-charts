@@ -2,21 +2,24 @@
  * OrsonCharts
  * ===========
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
 package com.orsoncharts.plot;
 
+import java.util.List;
 import javax.swing.event.EventListenerList;
 
 import com.orsoncharts.data.Dataset3DChangeEvent;
 import com.orsoncharts.data.Dataset3DChangeListener;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.World;
+import com.orsoncharts.legend.LegendItemInfo;
 
 /**
- * A base class that can be used to create {@link Plot3D} classes.
+ * A base class that can be used to create classes that implement 
+ * {@link Plot3D}.
  */
 public abstract class AbstractPlot3D implements Plot3D, 
         Dataset3DChangeListener {
@@ -27,6 +30,10 @@ public abstract class AbstractPlot3D implements Plot3D,
      */
     protected Dimension3D dimensions;
   
+    /**
+     * A flag that controls whether or not the plot dimensions (in the 3D
+     * model) are adjusted automatically.
+     */
     protected boolean autoAdjustDimensions;
     
     /** Storage for registered change listeners. */
@@ -34,8 +41,8 @@ public abstract class AbstractPlot3D implements Plot3D,
 
     /**
      * A flag that controls whether or not the plot will notify listeners
-     * of changes (defaults to true, but sometimes it is useful to disable
-     * this).
+     * of changes (defaults to <code>true</code>, but sometimes it is useful 
+     * to disable this).
      */
     private boolean notify;
 
@@ -64,8 +71,8 @@ public abstract class AbstractPlot3D implements Plot3D,
     /**
      * Returns the flag that controls whether or not the plot dimensions are
      * auto-adjusted when the dataset changes.  Certain subclasses will allow
-     * this flag to be changed (CategoryPlot3D and XYZPlot) while others will
-     * always auto-adjust the dimensions (PiePlot3D).
+     * this flag to be changed ({@link CategoryPlot3D} and {@link XYZPlot}) 
+     * while others will always auto-adjust the dimensions ({@link PiePlot3D}).
      * 
      * @return A boolean. 
      */
@@ -74,9 +81,27 @@ public abstract class AbstractPlot3D implements Plot3D,
     }
     
     @Override
+    public abstract List<LegendItemInfo> getLegendInfo();
+    
+    @Override
     public abstract void composeToWorld(World world, double xOffset, 
             double yOffset, double zOffset);
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof AbstractPlot3D)) {
+            return false;
+        }
+        AbstractPlot3D that = (AbstractPlot3D) obj;
+        if (!this.dimensions.equals(that.dimensions)) {
+            return false;
+        }
+        return true;
+    }
+ 
     /**
      * Returns a flag that controls whether or not change events are sent to
      * registered listeners.

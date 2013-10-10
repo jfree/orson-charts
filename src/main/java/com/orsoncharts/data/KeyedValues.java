@@ -48,7 +48,7 @@ public interface KeyedValues<T> extends Values<T> {
      * 
      * @param key  the key (<code>null</code> not permitted).
      * 
-     * @return The value. 
+     * @return The value (possibly <code>null</code>). 
      */
     public T getValue(Comparable key);
 

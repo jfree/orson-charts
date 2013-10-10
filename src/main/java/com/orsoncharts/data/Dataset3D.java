@@ -8,6 +8,8 @@
 
 package com.orsoncharts.data;
 
+import java.util.EventListener;
+
 /**
  * The base interface for datasets in OrsonCharts.  All datasets must support
  * the change event notification mechanism.  The idea is that when a dataset
@@ -34,4 +36,5 @@ public interface Dataset3D {
      */
     void removeChangeListener(Dataset3DChangeListener listener);  
 
+    boolean hasListener(EventListener listener);
 }

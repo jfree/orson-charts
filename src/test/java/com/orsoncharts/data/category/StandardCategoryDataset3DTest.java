@@ -2,7 +2,7 @@
  * OrsonCharts
  * ===========
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -17,11 +17,11 @@ import org.junit.Test;
 /**
  * Tests for the {@link DefaultCategoryDataset3D} class.
  */
-public class DefaultCategoryDataset3DTest {
+public class StandardCategoryDataset3DTest {
     
     @Test
     public void checkGeneral() {
-        DefaultCategoryDataset3D dataset = new DefaultCategoryDataset3D();
+        StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
         assertEquals(0, dataset.getSeriesCount());
         assertEquals(0, dataset.getRowCount());
         assertEquals(0, dataset.getColumnCount());
@@ -32,8 +32,8 @@ public class DefaultCategoryDataset3DTest {
     
     @Test
     public void testEquals() {
-        DefaultCategoryDataset3D d1 = new DefaultCategoryDataset3D();
-        DefaultCategoryDataset3D d2 = new DefaultCategoryDataset3D();
+        StandardCategoryDataset3D d1 = new StandardCategoryDataset3D();
+        StandardCategoryDataset3D d2 = new StandardCategoryDataset3D();
         assertTrue(d1.equals(d2));
         assertFalse(d1.equals(null));
         

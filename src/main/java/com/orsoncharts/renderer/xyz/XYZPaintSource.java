@@ -11,7 +11,7 @@ package com.orsoncharts.renderer.xyz;
 import java.awt.Color;
 
 /**
- * A paint source.
+ * A source of <code>Color</code> values for an {@link XYZRenderer}.
  */
 public interface XYZPaintSource {
 
@@ -25,6 +25,13 @@ public interface XYZPaintSource {
      */
     public Color getPaint(int series, int item);
     
+    /**
+     * Returns the color that represents the specified series.
+     * 
+     * @param series  the series index.
+     * 
+     * @return The color (never <code>null</code>).
+     */
     public Color getLegendPaint(int series);
 
 }

@@ -1,8 +1,8 @@
-/* =============
- * OrsonCharts3D
- * =============
+/* ===========
+ * OrsonCharts
+ * ===========
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -65,6 +65,6 @@ public class ObjectUtils {
                 && gp1.getTransparency() == gp1.getTransparency(); 
         }
         return p1.equals(p2);
-
     }
+
 }

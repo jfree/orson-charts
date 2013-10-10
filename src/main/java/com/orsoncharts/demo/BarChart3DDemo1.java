@@ -18,7 +18,7 @@ import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
 import com.orsoncharts.data.category.CategoryDataset3D;
-import com.orsoncharts.data.category.DefaultCategoryDataset3D;
+import com.orsoncharts.data.category.StandardCategoryDataset3D;
 import com.orsoncharts.data.DefaultKeyedValues;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.legend.LegendAnchor;
@@ -70,7 +70,7 @@ public class BarChart3DDemo1 extends JFrame {
      * @return A sample dataset. 
      */
     private CategoryDataset3D createDataset() {    
-        DefaultCategoryDataset3D dataset = new DefaultCategoryDataset3D();
+        StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
                 
         DefaultKeyedValues s1 = new DefaultKeyedValues();
         s1.addValue("Q1/2011", 8.58);

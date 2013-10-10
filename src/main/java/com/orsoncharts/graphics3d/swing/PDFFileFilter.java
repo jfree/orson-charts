@@ -1,6 +1,11 @@
-/**
- * (C)opyright 2013, by Object Refinery Limited
+/* ===========
+ * OrsonCharts
+ * ===========
+ * 
+ * (C)opyright 2013, by Object Refinery Limited.
+ * 
  */
+
 package com.orsoncharts.graphics3d.swing;
 
 import java.io.File;
@@ -11,9 +16,9 @@ import javax.swing.filechooser.FileFilter;
  */
 public class PDFFileFilter extends FileFilter {
   
-  public PDFFileFilter() {
+    public PDFFileFilter() {
       
-  }
+    }
 
     @Override
     public boolean accept(File f) {

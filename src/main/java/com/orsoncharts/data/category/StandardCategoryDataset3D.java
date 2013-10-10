@@ -2,7 +2,7 @@
  * OrsonCharts
  * ===========
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -18,7 +18,7 @@ import com.orsoncharts.util.ArgChecks;
  * A default implementation of the {@link CategoryDataset3D} interface.
  * This dataset is typically used to create bar charts and stacked bar charts.
  */
-public final class DefaultCategoryDataset3D extends AbstractDataset3D  
+public final class StandardCategoryDataset3D extends AbstractDataset3D  
         implements CategoryDataset3D {
   
     /**
@@ -29,7 +29,7 @@ public final class DefaultCategoryDataset3D extends AbstractDataset3D
     /**
      * Creates a new (empty) dataset.
      */
-    public DefaultCategoryDataset3D() {
+    public StandardCategoryDataset3D() {
         this.data = new DefaultKeyedValues3D();  
     }
 
@@ -112,26 +112,65 @@ public final class DefaultCategoryDataset3D extends AbstractDataset3D
         return this.data.getSeriesIndex(serieskey);
     }
 
+    /**
+     * Returns the index of the specified row key, or <code>-1</code> if there
+     * is no matching key.
+     * 
+     * @param rowkey  the row key (<code>null</code> not permitted).
+     * 
+     * @return The row index or <code>-1</code>. 
+     */
     @Override
     public int getRowIndex(Comparable rowkey) {
+        // arg checking is covered
         return this.data.getRowIndex(rowkey);
     }
 
+    /**
+     * Returns the index of the specified column key, or <code>-1</code> if 
+     * there is no matching key.
+     * 
+     * @param columnkey  the column key (<code>null</code> not permitted).
+     * 
+     * @return The column index or <code>-1</code>. 
+     */
     @Override
     public int getColumnIndex(Comparable columnkey) {
+        // arg checking is covered
         return this.data.getColumnIndex(columnkey);
     }
 
+    /**
+     * Returns a list of the series keys for the dataset.  Modifying this
+     * list will have no impact on the underlying dataset.
+     * 
+     * @return A list of the series keys (possibly empty, but never 
+     *     <code>null</code>). 
+     */
     @Override
     public List<Comparable> getSeriesKeys() {
         return this.data.getSeriesKeys();
     }
 
+    /**
+     * Returns a list of the row keys for the dataset.  Modifying this
+     * list will have no impact on the underlying dataset.
+     * 
+     * @return A list of the row keys (possibly empty, but never 
+     *     <code>null</code>). 
+     */
     @Override
     public List<Comparable> getRowKeys() {
         return this.data.getRowKeys();
     }
 
+    /**
+     * Returns a list of the column keys for the dataset.  Modifying this
+     * list will have no impact on the underlying dataset.
+     * 
+     * @return A list of the column keys (possibly empty, but never 
+     *     <code>null</code>). 
+     */
     @Override
     public List<Comparable> getColumnKeys() {
         return this.data.getColumnKeys();
@@ -191,10 +230,10 @@ public final class DefaultCategoryDataset3D extends AbstractDataset3D
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof DefaultCategoryDataset3D)) {
+        if (!(obj instanceof StandardCategoryDataset3D)) {
             return false;
         }
-        DefaultCategoryDataset3D that = (DefaultCategoryDataset3D) obj;
+        StandardCategoryDataset3D that = (StandardCategoryDataset3D) obj;
         if (!this.data.equals(that.data)) {
             return false;
         }

@@ -2,7 +2,7 @@
  * OrsonCharts
  * ===========
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -28,7 +28,7 @@ import com.orsoncharts.renderer.category.AreaRenderer3D;
 /**
  * An axis that displays categories.
  */
-public class DefaultCategoryAxis3D extends AbstractAxis3D 
+public class StandardCategoryAxis3D extends AbstractAxis3D 
         implements CategoryAxis3D {
 
     /** Should the axis be displayed on the chart? */
@@ -85,7 +85,7 @@ public class DefaultCategoryAxis3D extends AbstractAxis3D
      * 
      * @param label  the axis label (<code>null</code> permitted). 
      */
-    public DefaultCategoryAxis3D(String label) {
+    public StandardCategoryAxis3D(String label) {
         super(label);
         this.visible = true;
         this.categories = new ArrayList<Comparable>();
@@ -355,16 +355,14 @@ public class DefaultCategoryAxis3D extends AbstractAxis3D
         g2.setPaint(getLineColor());
         Line2D axisLine = new Line2D.Float(pt0, pt1);
         g2.draw(axisLine);
-
+ 
         // draw the tick marks
         double maxTickLabelWidth = 0.0;
-        for (Comparable key : this.categories) {
-            double d = getCategoryValue(key);
-            double p = getRange().percent(d);
-            Line2D perpLine = createPerpendicularLine(axisLine, p, 
+        for (TickData t : tickData) {
+            Line2D perpLine = createPerpendicularLine(axisLine, t.getAnchorPt(), 
                     this.tickMarkLength + this.tickLabelOffset, opposingPt);
             if (this.tickMarkLength > 0.0) {
-                Line2D tickLine = createPerpendicularLine(axisLine, p, 
+                Line2D tickLine = createPerpendicularLine(axisLine, t.getAnchorPt(), 
                         this.tickMarkLength, opposingPt);
                 g2.setPaint(this.tickMarkPaint);
                 g2.setStroke(this.tickMarkStroke);
@@ -388,16 +386,16 @@ public class DefaultCategoryAxis3D extends AbstractAxis3D
                 }
                 g2.setFont(getTickLabelFont());
                 g2.setPaint(getTickLabelPaint());
-                String tickLabel = key.toString();
+                String tickLabel = t.getKey().toString();
                 maxTickLabelWidth = Math.max(maxTickLabelWidth, 
                         g2.getFontMetrics().stringWidth(tickLabel));
-   
                 TextUtils.drawRotatedString(tickLabel, g2, 
                         (float) perpLine.getX2(), (float) perpLine.getY2(), 
                         textAnchor, thetaAdj, textAnchor);
             }
-        }
+        }        
 
+        // draw the axis label if there is one
         if (getLabel() != null) {
             g2.setFont(getLabelFont());
             g2.setPaint(getLabelPaint());
@@ -430,10 +428,10 @@ public class DefaultCategoryAxis3D extends AbstractAxis3D
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof DefaultCategoryAxis3D)) {
+        if (!(obj instanceof StandardCategoryAxis3D)) {
             return false;
         }
-        DefaultCategoryAxis3D that = (DefaultCategoryAxis3D) obj;
+        StandardCategoryAxis3D that = (StandardCategoryAxis3D) obj;
         if (this.visible != that.visible) {
             return false;
         }

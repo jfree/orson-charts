@@ -2,7 +2,7 @@
  * OrsonCharts
  * ===========
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -57,7 +57,7 @@ public interface TableElement {
     
     /**
      * Performs a layout of this table element, returning a list of bounding
-     * rectangles for the element and it's subelements.
+     * rectangles for the element and its subelements.
      * 
      * @param g2  the graphics target.
      * @param bounds  the bounds.

@@ -22,8 +22,8 @@ public abstract class AbstractRenderer3D implements Renderer3D {
 
     /**
      * A flag that controls whether or not the renderer will notify listeners
-     * of changes (defaults to true, but sometimes it is useful to disable
-     * this).
+     * of changes (defaults to <code>true</code>, but sometimes it is useful 
+     * to disable this).
      */
     private boolean notify;
 
