@@ -123,15 +123,20 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D {
     }
 
     /**
-     * Returns the number of xKeys in the table.
+     * Returns the number of x-keys in the table.
      * 
-     * @return 
+     * @return The number of x-keys in the table.
      */
     @Override
     public int getXCount() {
         return this.xKeys.size();
     }
-
+    
+    /**
+     * Returns the number of y-keys in the data structure.
+     * 
+     * @return The number of y-keys.
+     */
     @Override
     public int getYCount() {
         return this.yKeys.size();
@@ -142,7 +147,8 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D {
      * 
      * @param xKey  the x-key (<code>null</code> not permitted).
      * @param yKey  the y-key (<code>null</code> not permitted).
-     * @return 
+     * 
+     * @return The value (possibly <code>null</code>).
      */
     @Override
     public T getValue(Comparable xKey, Comparable yKey) {
@@ -152,11 +158,29 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D {
         return getValue(xIndex, yIndex);
     }
 
+    /**
+     * Returns the value from one cell in the table.
+     * 
+     * @param xIndex  the x-index.
+     * @param yIndex  the y-index.
+     * 
+     * @return The value (possibly <code>null</code>). 
+     */
     @Override
     public T getValue(int xIndex, int yIndex) {
         return this.data.get(xIndex).getValue(yIndex);
     }
 
+    /**
+     * Returns the data item at the specified position as a double primitive.
+     * Where the {@link #getValue(int, int)} method returns <code>null</code>, 
+     * this method returns <code>Double.NaN</code>.
+     * 
+     * @param xIndex  the x-index.
+     * @param yIndex  the y-index.
+     * 
+     * @return The data value.
+     */
     @Override
     public double getDoubleValue(int xIndex, int yIndex) {
         T n = getValue(xIndex, yIndex);

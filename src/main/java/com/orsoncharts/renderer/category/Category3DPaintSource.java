@@ -2,7 +2,7 @@
  * OrsonCharts
  * ===========
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -13,7 +13,7 @@ import java.awt.Color;
 /**
  * A paint source.  This is the interface through which the renderer will 
  * obtain colors for each data item in the chart.  A default implementation
- * ({@link DefaultCategoryDataset3D}) is provided and you can customise the
+ * ({@link StandardCategory3DPaintSource}) is provided and you can customise the
  * rendering colors by providing an alternate implementation.
  */
 public interface Category3DPaintSource {

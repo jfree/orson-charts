@@ -2,7 +2,7 @@
  * OrsonCharts
  * ===========
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -114,12 +114,12 @@ public class DataUtilities {
      * value for bars in a stacked bar chart.
      * 
      * @param data  the data (<code>null</code> not permitted).
-     * @param base
+     * @param base  
      * @param series
      * @param row
      * @param column
      * 
-     * @return 
+     * @return The positive and negative subtotals.
      */
     public static double[] stackSubTotal(Values3D data, double base, int series, 
             int row, int column) {

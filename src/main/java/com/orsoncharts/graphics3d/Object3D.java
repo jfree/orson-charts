@@ -30,7 +30,8 @@ public class Object3D {
      * @param yOffset
      * @param zOffset
      * @param color
-     * @return 
+     * 
+     * @return  The sheet.
      */
     public static Object3D createYSheet(double dim, double xOffset, 
             double yOffset, double zOffset, Color color, boolean invert) {
@@ -56,7 +57,8 @@ public class Object3D {
      * @param yOffset
      * @param zOffset
      * @param color
-     * @return 
+     * 
+     * @return The sheet. 
      */
     public static Object3D createZSheet(double dim, double xOffset, 
             double yOffset, double zOffset, Color color) {
@@ -70,54 +72,55 @@ public class Object3D {
         return sheet;
     }
 
-    /**
-     * A box where the sides are invisible when they are in the foreground.  This
-     * is a typical "background" in 3D charts, so we call it a chart box.
-     *
-     * @param x
-     * @param y
-     * @param z
-     * @param xOffset
-     * @param yOffset
-     * @param zOffset
-     * @param color
-     * @return
-     */  
-    public static Object3D createChartBox(int x, int y, int z, double xOffset, 
-            double yOffset, double zOffset, Color color) {
-        Object3D sheet = new Object3D();
-        Point3D v0 = new Point3D(xOffset, yOffset, zOffset);
-        Point3D v1 = new Point3D(x + xOffset, yOffset, zOffset);
-        Point3D v2 = new Point3D(x + xOffset, y + yOffset, zOffset);
-        Point3D v3 = new Point3D(xOffset, y + yOffset, zOffset);
-        Point3D v4 = new Point3D(xOffset, y + yOffset, z + zOffset);
-        Point3D v5 = new Point3D(xOffset, yOffset, z + zOffset);
-        Point3D v6 = new Point3D(x + xOffset, yOffset, z + zOffset);
-        Point3D v7 = new Point3D(x + xOffset, y + yOffset, z + zOffset);
-
-        sheet.addVertex(v0);   // 0, 0, 0
-        sheet.addVertex(v1);   // 1, 0, 0
-        sheet.addVertex(v2);   // 1, 1, 0
-        sheet.addVertex(v3);   // 0, 1, 0
-
-        sheet.addVertex(v4);   // 0, 1, 1
-        sheet.addVertex(v5);   // 0, 0, 1
-        sheet.addVertex(v6);   // 1, 0, 1
-        sheet.addVertex(v7);   // 1, 1, 1
-        Face fA = new Face(new int[] {0, 5, 6, 1}, color);
-        Face fB = new Face(new int[] {0, 1, 2, 3}, color);
-        Face fC = new Face(new int[] {7, 4, 3, 2}, color);
-        Face fD = new Face(new int[] {5, 4, 7, 6}, color);
-        Face fE = new Face(new int[] {0, 3, 4, 5}, color);
-        Face fF = new Face(new int[] {6, 7, 2, 1}, color);
-        sheet.addFace(fA);
-        sheet.addFace(fB);
-        sheet.addFace(fC);
-        sheet.addFace(fD);
-        sheet.addFace(fE);
-        sheet.addFace(fF);
-        return sheet;
-    }
+//    /**
+//     * A box where the sides are invisible when they are in the foreground.  
+//     * This is a typical "background" in 3D charts, so we call it a chart box.
+//     *
+//     * @param x
+//     * @param y
+//     * @param z
+//     * @param xOffset
+//     * @param yOffset
+//     * @param zOffset
+//     * @param color
+//     * 
+//     * @return The chart box.
+//     */  
+//    public static Object3D createChartBox(int x, int y, int z, double xOffset, 
+//            double yOffset, double zOffset, Color color) {
+//        Object3D sheet = new Object3D();
+//        Point3D v0 = new Point3D(xOffset, yOffset, zOffset);
+//        Point3D v1 = new Point3D(x + xOffset, yOffset, zOffset);
+//        Point3D v2 = new Point3D(x + xOffset, y + yOffset, zOffset);
+//        Point3D v3 = new Point3D(xOffset, y + yOffset, zOffset);
+//        Point3D v4 = new Point3D(xOffset, y + yOffset, z + zOffset);
+//        Point3D v5 = new Point3D(xOffset, yOffset, z + zOffset);
+//        Point3D v6 = new Point3D(x + xOffset, yOffset, z + zOffset);
+//        Point3D v7 = new Point3D(x + xOffset, y + yOffset, z + zOffset);
+//
+//        sheet.addVertex(v0);   // 0, 0, 0
+//        sheet.addVertex(v1);   // 1, 0, 0
+//        sheet.addVertex(v2);   // 1, 1, 0
+//        sheet.addVertex(v3);   // 0, 1, 0
+//
+//        sheet.addVertex(v4);   // 0, 1, 1
+//        sheet.addVertex(v5);   // 0, 0, 1
+//        sheet.addVertex(v6);   // 1, 0, 1
+//        sheet.addVertex(v7);   // 1, 1, 1
+//        Face fA = new Face(new int[] {0, 5, 6, 1}, color);
+//        Face fB = new Face(new int[] {0, 1, 2, 3}, color);
+//        Face fC = new Face(new int[] {7, 4, 3, 2}, color);
+//        Face fD = new Face(new int[] {5, 4, 7, 6}, color);
+//        Face fE = new Face(new int[] {0, 3, 4, 5}, color);
+//        Face fF = new Face(new int[] {6, 7, 2, 1}, color);
+//        sheet.addFace(fA);
+//        sheet.addFace(fB);
+//        sheet.addFace(fC);
+//        sheet.addFace(fD);
+//        sheet.addFace(fE);
+//        sheet.addFace(fF);
+//        return sheet;
+//    }
 
     /**  
      * Creates a cube.

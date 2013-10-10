@@ -21,9 +21,9 @@ public interface TickSelector {
      * 
      * @param reference  the reference value.
      * 
-     * @return 
+     * @return The standard tick unit.
      */
-    public void select(double reference);
+    public double select(double reference);
     
     /**
      * Move the cursor to the next tick size.
@@ -48,7 +48,7 @@ public interface TickSelector {
      * Returns the tick formatter associated with the tick size that the 
      * cursor is currently referencing.
      * 
-     * @return 
+     * @return The formatter.
      */
     public Format getCurrentTickLabelFormat();
     

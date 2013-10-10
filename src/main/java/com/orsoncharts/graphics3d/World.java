@@ -2,7 +2,7 @@
  * OrsonCharts
  * ===========
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -123,7 +123,7 @@ public class World {
      * @param vp  the view point (<code>null</code> not permitted).
      * @param d
      * 
-     * @return 
+     * @return The projected points.
      */
     public Point2D[] calculateProjectedPoints(ViewPoint3D vp, float d) {
         Point2D[] result = new Point2D[getVertexCount()];

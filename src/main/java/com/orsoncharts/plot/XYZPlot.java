@@ -12,6 +12,8 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Paint;
 import java.awt.Stroke;
+import java.util.ArrayList;
+import java.util.List;
 import com.orsoncharts.axis.Axis3DChangeEvent;
 import com.orsoncharts.axis.Axis3DChangeListener;
 import com.orsoncharts.axis.ValueAxis3D;
@@ -27,8 +29,6 @@ import com.orsoncharts.legend.StandardLegendItemInfo;
 import com.orsoncharts.renderer.Renderer3DChangeEvent;
 import com.orsoncharts.renderer.Renderer3DChangeListener;
 import com.orsoncharts.util.ObjectUtils;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * An XYZ plot.
@@ -232,7 +232,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
     }
 
     /**
-     * Sets the renderer for the plot and sends a {@link PlotChangeEvent}
+     * Sets the renderer for the plot and sends a {@link Plot3DChangeEvent}
      * to all registered listeners.
      * 
      * @param renderer  the renderer (<code>null</code> not permitted). 

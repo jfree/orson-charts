@@ -69,7 +69,7 @@ public class AbstractDataset3D implements Dataset3D {
      *
      * @param listener  the object to register.
      *
-     * @see #removeChangeListener(DatasetChangeListener)
+     * @see #removeChangeListener(Dataset3DChangeListener)
      */
     @Override
     public void addChangeListener(Dataset3DChangeListener listener) {
@@ -82,7 +82,7 @@ public class AbstractDataset3D implements Dataset3D {
      *
      * @param listener  the object to deregister.
      *
-     * @see #addChangeListener(DatasetChangeListener)
+     * @see #addChangeListener(Dataset3DChangeListener)
      */
     @Override
     public void removeChangeListener(Dataset3DChangeListener listener) {
@@ -109,7 +109,7 @@ public class AbstractDataset3D implements Dataset3D {
     /**
      * Notifies all registered listeners that the dataset has changed.
      *
-     * @see #addChangeListener(DatasetChangeListener)
+     * @see #addChangeListener(Dataset3DChangeListener)
      */
     protected void fireDatasetChanged() {
         notifyListeners(new Dataset3DChangeEvent(this, this));
@@ -123,8 +123,8 @@ public class AbstractDataset3D implements Dataset3D {
      * @param event  contains information about the event that triggered the
      *               notification.
      *
-     * @see #addChangeListener(DatasetChangeListener)
-     * @see #removeChangeListener(DatasetChangeListener)
+     * @see #addChangeListener(Dataset3DChangeListener)
+     * @see #removeChangeListener(Dataset3DChangeListener)
      */
     protected void notifyListeners(Dataset3DChangeEvent event) {
         // if the 'notify' flag has been switched to false, we don't notify

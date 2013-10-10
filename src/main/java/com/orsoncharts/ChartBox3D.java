@@ -245,7 +245,7 @@ public class ChartBox3D {
     }
 
     /**
-     * A special subclass of {@link Face} that is used by the {@link ChartBox} 
+     * A special subclass of {@link Face} that is used by the {@link ChartBox3D} 
      * so that when faces are sorted by z-order, the chart box sides are always 
      * drawn first (furthest in the background).  Also, these faces track 
      * tick marks, values and anchor points.

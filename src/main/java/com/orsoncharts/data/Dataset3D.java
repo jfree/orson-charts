@@ -2,7 +2,7 @@
  * OrsonCharts
  * ===========
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -16,7 +16,7 @@ import java.util.EventListener;
  * is changed, an event is passed to the plot.  The plot can react to this
  * event, then pass on the change event to the chart.  The chart in turn will
  * pass on the event and this can result in the chart being repainted (for
- * example, if the chart is displayed in a {@link ChartPanel3D}.
+ * example, if the chart is displayed in a {@link com.orsoncharts.ChartPanel3D}.
  */
 public interface Dataset3D {
 

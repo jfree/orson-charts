@@ -51,8 +51,10 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer {
     }
     
     /**
-     * Sets the base value for the bars and sends a {@link Render
-     * @param base 
+     * Sets the base value for the bars and sends a 
+     * {@link Renderer3DChangeEvent} to all registered listeners.
+     * 
+     * @param base  the base. 
      */
     public void setBase(double base) {
         this.base = base;

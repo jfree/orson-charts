@@ -41,7 +41,7 @@ public final class StandardPieDataset3D extends AbstractDataset3D
     /**
      * Returns the key for the specified item in the list.
      * 
-     * @param index  the item index.
+     * @param item  the item index.
      * 
      * @return The key. 
      */

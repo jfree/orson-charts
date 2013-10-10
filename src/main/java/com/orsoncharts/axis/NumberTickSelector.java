@@ -40,9 +40,10 @@ public class NumberTickSelector implements TickSelector {
     }
     
     @Override
-    public void select(double reference) {
+    public double select(double reference) {
         this.power = (int) Math.ceil(Math.log10(reference));
         this.factor = 1;
+        return getCurrentTickSize();
     }
 
     @Override

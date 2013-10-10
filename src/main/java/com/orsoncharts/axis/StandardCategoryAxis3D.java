@@ -290,7 +290,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      * 
      * @param category  the category (<code>null</code> not permitted).
      * 
-     * @return 
+     * @return The value.
      */
     @Override
     public double getCategoryValue(Comparable category) {

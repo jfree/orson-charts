@@ -228,7 +228,7 @@ public class CategoryPlot3D extends AbstractPlot3D
      * @param axis  the new axis (<code>null</code> not permitted).
      * 
      * @see #setRowAxis(com.orsoncharts.axis.CategoryAxis3D) 
-     * @see #setValueAxis(com.orsoncharts.axis.CategoryAxis3D) 
+     * @see #setValueAxis(com.orsoncharts.axis.ValueAxis3D) 
      * 
      */
     public void setColumnAxis(CategoryAxis3D axis) {

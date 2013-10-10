@@ -2,7 +2,7 @@
  * OrsonCharts
  * ===========
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -176,7 +176,8 @@ public abstract class AbstractAxis3D implements Axis3D {
     /**
      * Returns the flag that controls whether or not the tick labels are
      * drawn.  The default value is <code>true</code>.
-     * @return 
+     * 
+     * @return A boolean.
      */
     public boolean getTickLabelsVisible() {
         return this.tickLabelsVisible;

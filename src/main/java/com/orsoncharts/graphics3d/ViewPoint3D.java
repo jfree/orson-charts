@@ -2,7 +2,7 @@
  * OrsonCharts
  * ===========
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -43,8 +43,9 @@ public class ViewPoint3D {
     }
 
    /**
-     * Returns theta, the angle of rot
-     * @return 
+     * Returns theta, the angle of rotation.
+     * 
+     * @return Theta. 
      */
     public float getTheta() {
         return this.theta;

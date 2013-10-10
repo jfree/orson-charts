@@ -59,7 +59,7 @@ import com.orsoncharts.legend.StandardLegendBuilder;
 import com.orsoncharts.util.ObjectUtils;
 
 /**
- * A chart object for 3D charts.  The {@link ChartFactory} class provides 
+ * A chart object for 3D charts.  The {@link Chart3DFactory} class provides 
  * some factory methods to construct common types of charts.
  * <br><br>
  * All rendering is done via the Java2D API, so this object is able to draw to 
@@ -346,7 +346,7 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener {
      * registered listeners.  When the legend builder is <code>null</code>, no
      * legend will be displayed on the chart.
      * 
-     * @param legend  the legend (<code>null</code> permitted).
+     * @param legendBuilder  the legend builder (<code>null</code> permitted).
      * 
      * @see #setLegendAnchor(com.orsoncharts.util.Anchor2D) 
      */
@@ -854,12 +854,14 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener {
     }
     
     /**
+     * Determines appropriate tick units for the axes in the chart.
      * 
-     * @param g2
-     * @param w
-     * @param h
-     * @param depth
-     * @return 
+     * @param g2  the graphics target.
+     * @param w  the width.
+     * @param h  the height.
+     * @param depth  the depth.
+     * 
+     * @return The tick sizes. 
      */
     private double[] findAxisTickUnits(Graphics2D g2, double w, double h, 
             double depth) {

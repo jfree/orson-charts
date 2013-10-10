@@ -179,7 +179,7 @@ public class Chart3DFactory {
     /**
      * Creates a bar chart based on <code>(x, y, z)</code> values.  You should
      * only use this for special cases, it is usually easier to create 3D
-     * bar charts using the {@link #createBarChart(com.orsoncharts.data.CategoryDataset3D, java.lang.String, java.lang.String, java.lang.String)}
+     * bar charts using the {@link #createBarChart(java.lang.String, com.orsoncharts.data.category.CategoryDataset3D, java.lang.String, java.lang.String, java.lang.String) }
      * method.
      * 
      * @param title  the chart title.

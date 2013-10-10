@@ -119,11 +119,13 @@ public class FlowElement extends AbstractTableElement implements TableElement {
     }
 
     /**
-     *
-     * @param firstElement
-     * @param g2
-     * @param bounds
-     * @return 
+     * Extracts a line of elements.
+     * 
+     * @param firstElement  the index of the first element.
+     * @param g2  the graphics target.
+     * @param bounds  the bounds.
+     * 
+     * @return A line of elements. 
      */
     private ElementLine lineOfElements(int firstElement, Graphics2D g2, 
             Rectangle2D bounds) {

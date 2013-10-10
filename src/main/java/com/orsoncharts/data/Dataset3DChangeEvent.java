@@ -2,7 +2,7 @@
  * OrsonCharts
  * ===========
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -32,7 +32,8 @@ public class Dataset3DChangeEvent extends EventObject {
     /**
      * Returns the dataset that this event is associated with.  This will
      * normally be an instance of {@link PieDataset3D}, 
-     * {@link CategoryDataset3D} or {@link XYZDataset}.
+     * {@link com.orsoncharts.data.category.CategoryDataset3D} or 
+     * {@link com.orsoncharts.data.xyz.XYZDataset}.
      * 
      * @return The dataset. 
      */

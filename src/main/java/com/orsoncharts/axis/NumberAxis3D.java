@@ -2,7 +2,7 @@
  * OrsonCharts
  * ===========
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -176,7 +176,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D {
     }
   
     /**
-     * Sets the axis range (bounds) and sends an {@link Axis3DChangeEvent to 
+     * Sets the axis range (bounds) and sends an {@link Axis3DChangeEvent} to 
      * all registered listeners.
      * 
      * @param range  the new range (<code>null</code> not permitted).
@@ -404,7 +404,8 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D {
      * account any other settings.
      * 
      * @param range  the range (<code>null</code> not permitted).
-     * @return 
+     * 
+     * @return The adjusted range. 
      */
     private Range adjustedDataRange(Range range) {
         ArgChecks.nullNotPermitted(range, "range");

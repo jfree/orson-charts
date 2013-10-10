@@ -2,7 +2,7 @@
  * OrsonCharts
  * ===========
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -52,8 +52,8 @@ public interface Values3D<T> {
    
     /**
      * Returns the data item at the specified position as a double primitive.
-     * Where the {@link #getValue(int, int)} method returns <code>null</code>, 
-     * this method returns <code>Double.NaN</code>.
+     * Where the {@link #getValue(int, int, int) } method returns 
+     * <code>null</code>, this method returns <code>Double.NaN</code>.
      * 
      * @param seriesIndex  the series index.
      * @param rowIndex  the row index.

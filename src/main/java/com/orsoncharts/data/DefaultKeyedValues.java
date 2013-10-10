@@ -146,7 +146,8 @@ public final class DefaultKeyedValues<T> implements KeyedValues<T>,
      * Returns the value with the specified key.
      * 
      * @param key  the key (<code>null</code> not permitted).
-     * @return 
+     * 
+     * @return The value (possibly <code>null</code>). 
      */
     @Override
     public T getValue(Comparable key) {

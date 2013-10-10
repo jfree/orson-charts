@@ -135,7 +135,7 @@ public abstract class AbstractPlot3D implements Plot3D,
      *
      * @param listener  the object to be registered.
      *
-     * @see #removeChangeListener(PlotChangeListener)
+     * @see #removeChangeListener(Plot3DChangeListener)
      */
     @Override
     public void addChangeListener(Plot3DChangeListener listener) {
@@ -147,7 +147,7 @@ public abstract class AbstractPlot3D implements Plot3D,
      *
      * @param listener  the object to be unregistered.
      *
-     * @see #addChangeListener(PlotChangeListener)
+     * @see #addChangeListener(Plot3DChangeListener)
      */
     @Override
     public void removeChangeListener(Plot3DChangeListener listener) {
