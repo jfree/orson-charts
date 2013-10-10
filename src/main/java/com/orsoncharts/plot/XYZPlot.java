@@ -31,7 +31,8 @@ import com.orsoncharts.renderer.Renderer3DChangeListener;
 import com.orsoncharts.util.ObjectUtils;
 
 /**
- * An XYZ plot.
+ * A 3D plot with three numerical axes that displays data from an
+ * {@link XYZDataset}.
  */
 public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener, 
         Axis3DChangeListener, Renderer3DChangeListener {

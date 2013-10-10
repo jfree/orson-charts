@@ -15,7 +15,7 @@ import com.orsoncharts.data.KeyedValues;
 import com.orsoncharts.util.ArgChecks;
 
 /**
- * A default implementation of the {@link CategoryDataset3D} interface.
+ * A standard implementation of the {@link CategoryDataset3D} interface.
  * This dataset is typically used to create bar charts and stacked bar charts.
  */
 public final class StandardCategoryDataset3D extends AbstractDataset3D  

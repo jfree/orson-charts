@@ -14,7 +14,7 @@ import com.orsoncharts.graphics3d.swing.Panel3D;
 import com.orsoncharts.util.Offset2D;
 
 /**
- * A panel designed to display a Chart3D. The panel will manage:
+ * A panel designed to display a {@link Chart3D}. The panel will manage:
  *
  * - the chart viewing area; - mouse interaction (drag to rotate, mouse-wheel to
  * zoom in and out); - viewing controls (zoom in/out/best-fit, buttons for

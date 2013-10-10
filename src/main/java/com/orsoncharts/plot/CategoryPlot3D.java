@@ -2,7 +2,7 @@
  * OrsonCharts
  * ===========
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -12,6 +12,8 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Paint;
 import java.awt.Stroke;
+import java.util.ArrayList;
+import java.util.List;
 import com.orsoncharts.axis.Axis3DChangeEvent;
 import com.orsoncharts.axis.Axis3DChangeListener;
 import com.orsoncharts.axis.CategoryAxis3D;
@@ -28,11 +30,10 @@ import com.orsoncharts.renderer.Renderer3DChangeListener;
 import com.orsoncharts.renderer.category.CategoryRenderer3D;
 import com.orsoncharts.renderer.RendererType;
 import com.orsoncharts.util.ObjectUtils;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
- * A category plot in 3D.
+ * A 3D plot with two category axes (x and z) and a numerical y-axis that can
+ * display data from a {@link CategoryDataset3D}.
  */
 public class CategoryPlot3D extends AbstractPlot3D 
         implements Axis3DChangeListener, Renderer3DChangeListener {

@@ -1,10 +1,17 @@
-/**
- * (C)opyright 2013, by Object Refinery Limited
+/* ===========
+ * OrsonCharts
+ * ===========
+ * 
+ * (C)opyright 2013, by Object Refinery Limited.
+ * 
  */
 package com.orsoncharts.graphics3d;
 
 import java.util.Comparator;
 
+/**
+ * A comparator that orders {@link Face} instances by Z-order.
+ */
 public class ZOrderComparator implements Comparator {
 
     Point3D[] pts;
