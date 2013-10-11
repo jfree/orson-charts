@@ -1,8 +1,8 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -29,8 +29,6 @@ import com.orsoncharts.renderer.category.StackedBarRenderer3D;
  */
 public class StackedBarChart3DDemo1 extends JFrame {
 
-    ChartPanel3D chartPanel3D;
-
     /**
      * Creates a new test app.
      *
@@ -44,10 +42,10 @@ public class StackedBarChart3DDemo1 extends JFrame {
                 System.exit(0);
             }
         });
-        getContentPane().add(createContent());
+        getContentPane().add(createDemoPanel());
     }
 
-    final JPanel createContent() {
+    public static final JPanel createDemoPanel() {
         JPanel content = new JPanel(new BorderLayout());
         content.setPreferredSize(new Dimension(600, 400));
         CategoryDataset3D dataset = createDataset();
@@ -59,12 +57,11 @@ public class StackedBarChart3DDemo1 extends JFrame {
         StackedBarRenderer3D renderer 
                 = (StackedBarRenderer3D) plot.getRenderer();
         renderer.setBarZWidth(0.3);
-        this.chartPanel3D = new ChartPanel3D(chart);
-        content.add(new DisplayPanel3D(this.chartPanel3D, true));
+        content.add(new DisplayPanel3D(new ChartPanel3D(chart), true));
         return content;
     }
   
-    private CategoryDataset3D createDataset() {
+    private static CategoryDataset3D createDataset() {
         
         StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
 

@@ -1,8 +1,8 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -25,13 +25,13 @@ import com.orsoncharts.data.PieDataset3D;
 import com.orsoncharts.plot.PiePlot3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.legend.LegendAnchor;
+import com.orsoncharts.plot.Pie3DPaintSource;
+import com.orsoncharts.plot.StandardPie3DPaintSource;
 
 /**
  * A test app.
  */
 public class PieChart3DDemo1 extends JFrame {
-
-    ChartPanel3D chartPanel3D;
 
     /**
      * Creates a new test app.
@@ -46,10 +46,10 @@ public class PieChart3DDemo1 extends JFrame {
                 System.exit(0);
             }
         });
-        getContentPane().add(createContent());
+        getContentPane().add(createDemoPanel());
     }
 
-    final JPanel createContent() {
+    public static final JPanel createDemoPanel() {
         JPanel content = new JPanel(new BorderLayout());
         content.setPreferredSize(new Dimension(720, 400));
         Chart3D chart = Chart3DFactory.createPieChart("PieChart3DDemo1", 
@@ -57,16 +57,15 @@ public class PieChart3DDemo1 extends JFrame {
         chart.setTitleAnchor(TitleAnchor.TOP_LEFT);
         chart.setLegendAnchor(LegendAnchor.BOTTOM_RIGHT);
         PiePlot3D plot = (PiePlot3D) chart.getPlot();
-        plot.setSectionColor("United States", new Color(0x1A9641));
-        plot.setSectionColor("France", new Color(0xA6D96A));
-        plot.setSectionColor("New Zealand", new Color(0xFDAE61));
-        plot.setSectionColor("United Kingdom", new Color(0xFFFFBF));
-        this.chartPanel3D = new ChartPanel3D(chart);
-        content.add(new DisplayPanel3D(this.chartPanel3D, true));
+        Pie3DPaintSource paintSource = new StandardPie3DPaintSource(
+                new Color[] {new Color(0x1A9641), new Color(0xA6D96A), 
+                    new Color(0xFDAE61), new Color(0xFFFFBF)});
+      
+        content.add(new DisplayPanel3D(new ChartPanel3D(chart), true));
         return content;
     }
 
-    PieDataset3D createDataset() {
+    static PieDataset3D createDataset() {
         StandardPieDataset3D dataset = new StandardPieDataset3D();
         dataset.add("United States", new Double(30.0));
         dataset.add("France", new Double(20.0));

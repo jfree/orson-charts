@@ -28,7 +28,6 @@ import com.orsoncharts.legend.StandardLegendItemInfo;
 import com.orsoncharts.renderer.Renderer3DChangeEvent;
 import com.orsoncharts.renderer.Renderer3DChangeListener;
 import com.orsoncharts.renderer.category.CategoryRenderer3D;
-import com.orsoncharts.renderer.RendererType;
 import com.orsoncharts.util.ObjectUtils;
 
 /**
@@ -448,22 +447,16 @@ public class CategoryPlot3D extends AbstractPlot3D
     }
 
     @Override
-    public void composeToWorld(World world, double xOffset, double yOffset, 
+    public void compose(World world, double xOffset, double yOffset, 
             double zOffset) {
         for (int series = 0; series < this.dataset.getSeriesCount(); series++) {
-            if (this.renderer.getRendererType().equals(RendererType.BY_SERIES)) {
-                
-            } else {
-                for (int row = 0; row < this.dataset.getRowCount(); row++) {
-                    for (int column = 0; column < this.dataset.getColumnCount(); 
-                            column++) {
-                        this.renderer.composeItem(world, getDimensions(), 
-                                this.dataset, series, row, column, 
-                                xOffset, yOffset, zOffset);
-                    }
+            for (int row = 0; row < this.dataset.getRowCount(); row++) {
+                for (int column = 0; column < this.dataset.getColumnCount(); 
+                        column++) {
+                    this.renderer.composeItem(this.dataset, series, row, column,
+                            world, getDimensions(), xOffset, yOffset, zOffset);
                 }
             }
-            
         }
     }
     

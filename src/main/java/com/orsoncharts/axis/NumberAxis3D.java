@@ -631,7 +631,6 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D {
         // the tickLabelFactor allows some control over how dense the labels
         // will be
         int maxTicks = (int) (length / (height * this.tickLabelFactor));
-        System.out.println(this.getLabel() + ", " +height + ", " + length + ", " + maxTicks);
         if (maxTicks > 2 && this.tickSelector != null) {
             this.tickSelector.select(this.range.getLength() / 2.0);
             // step through until we have too many ticks OR we run out of 

@@ -1,6 +1,6 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
  * (C)opyright 2013, by Object Refinery Limited.
  * 
@@ -8,6 +8,7 @@
 
 package com.orsoncharts.graphics3d;
 
+import java.awt.Dimension;
 import java.awt.geom.Point2D;
 
 /**
@@ -27,7 +28,7 @@ public class ViewPoint3D {
 
     /** Transformation matrix elements. */
     private float v11, v12, v13, v21, v22, v23, v32, v33, v43;
-
+    
     /**
      * Creates a new viewing point.
      *
@@ -43,34 +44,61 @@ public class ViewPoint3D {
     }
 
    /**
-     * Returns theta, the angle of rotation.
+     * Returns the angle of rotation from the x-axis about the z-axis, 
+     * in radians.
      * 
-     * @return Theta. 
+     * @return Theta (in radians). 
      */
     public float getTheta() {
         return this.theta;
     }
 
+    /**
+     * Sets theta, the angle of rotation from the x-axis about the z-axis.
+     * 
+     * @param theta  the angle in radians. 
+     */
     public void setTheta(float theta) {
         this.theta = theta;
         updateMatrixElements();
     }
 
-    public float getRho() {
-        return this.rho;
-    }
-
-    public void setRho(float rho) {
-        this.rho = rho;
-        updateMatrixElements();
-    }
-
+    /**
+     * Returns the angle of the viewing point down from the z-axis.
+     * 
+     * @return The angle of the viewing point down from the z-axis.
+     *     (in radians).
+     */
     public float getPhi() {
         return this.phi;
     }
 
+    /**
+     * Sets the angle of the viewing point up or down from the XZ plane.
+     * 
+     * @param phi  the angle (in radians). 
+     */
     public void setPhi(float phi) {
         this.phi = phi;
+        updateMatrixElements();
+    }
+
+    /**
+     * Returns the distance of the viewing point from the origin.
+     * 
+     * @return The distance of the viewing point from the origin. 
+     */
+    public float getRho() {
+        return this.rho;
+    }
+
+    /**
+     * Sets the distance of the viewing point from the origin.
+     * 
+     * @param rho  the new distance. 
+     */
+    public void setRho(float rho) {
+        this.rho = rho;
         updateMatrixElements();
     }
 
@@ -104,6 +132,21 @@ public class ViewPoint3D {
         return new Point2D.Float(-d * x / z, -d * y / z);
     }
 
+    /**
+     * Calculate the distance that would render a box of the given dimensions 
+     * within a screen area of the specified size.
+     * 
+     * @param dim2D
+     * @param dim3D
+     * @return 
+     */
+    public float optimalDistance(Dimension dim2D, Dimension3D dim3D) {
+        return 10f;    
+    }
+    
+    /**
+     * Updates the matrix elements.
+     */
     private void updateMatrixElements() {
         float cosTheta = (float) Math.cos(this.theta);
         float sinTheta = (float) Math.sin(this.theta);
@@ -120,6 +163,13 @@ public class ViewPoint3D {
         this.v43 = -this.rho;
     }
 
+    /**
+     * Returns a string representation of this instance, primarily for 
+     * debugging purposes.
+     * 
+     * @return A string. 
+     */
+    @Override
     public String toString() {
         return "[theta=" + this.theta + ", phi=" + this.phi + ", rho=" 
                 + this.rho + "]";

@@ -1,6 +1,11 @@
-/**
- * (C)opyright 2013, by Object Refinery Limited
+/* ============
+ * Orson Charts
+ * ============
+ * 
+ * (C)opyright 2013, by Object Refinery Limited.
+ * 
  */
+
 package com.orsoncharts.graphics3d;
 
 /**
@@ -106,4 +111,14 @@ public class Dimension3D {
         return hash;
     }
 
+    /**
+     * Returns a string representation of this instance, primarily for 
+     * debugging purposes.
+     * 
+     * @return A string. 
+     */
+    @Override
+    public String toString() {
+        return "[" + this.width + ", " + this.height + ", " + this.depth + "]";
+    }
 }

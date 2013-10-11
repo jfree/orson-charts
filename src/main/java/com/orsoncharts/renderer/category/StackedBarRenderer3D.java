@@ -2,7 +2,7 @@
  * OrsonCharts
  * ===========
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -14,7 +14,7 @@ import com.orsoncharts.axis.Axis3D;
 import com.orsoncharts.axis.CategoryAxis3D;
 import com.orsoncharts.Range;
 import com.orsoncharts.data.category.CategoryDataset3D;
-import com.orsoncharts.data.DataUtilities;
+import com.orsoncharts.data.DataUtils;
 import com.orsoncharts.data.Values3D;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.Object3D;
@@ -22,7 +22,10 @@ import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.plot.CategoryPlot3D;
 
 /**
- * A stacked bar renderer in 3D.
+ * A renderer that can be used with the {@link CategoryPlot3D} class to create
+ * 3D stacked bar charts from data in a {@link CategoryDataset3D}.  The 
+ * <code>createStackedBarChart()</code> method in the {@link Chart3DFactory} 
+ * class will construct a chart that uses this renderer.
  */
 public class StackedBarRenderer3D extends BarRenderer3D {
 
@@ -35,32 +38,34 @@ public class StackedBarRenderer3D extends BarRenderer3D {
     
     @Override
     public Range findValueRange(Values3D data) {
-        return DataUtilities.findStackedValueRange(data);
+        return DataUtils.findStackedValueRange(data);
     }
     
     /**
-     * Composes a single item from the dataset to the 3D world.
+     * Constructs and places one item from the specified dataset into the given 
+     * world.  This method will be called by the {@link CategoryPlot3D} class
+     * while iterating over the items in the dataset.
      * 
-     * @param world
-     * @param dimensions
-     * @param dataset
-     * @param series
-     * @param row
-     * @param column
-     * @param xOffset
-     * @param yOffset
-     * @param zOffset 
+     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param series  the series index.
+     * @param row  the row index.
+     * @param column  the column index.
+     * @param world  the world (<code>null</code> not permitted).
+     * @param dimensions  the plot dimensions (<code>null</code> not permitted).
+     * @param xOffset  the x-offset.
+     * @param yOffset  the y-offset.
+     * @param zOffset  the z-offset.
      */
     @Override
-    public void composeItem(World world, Dimension3D dimensions, 
-            CategoryDataset3D dataset, int series, int row, int column, 
+    public void composeItem(CategoryDataset3D dataset, int series, int row, 
+            int column, World world, Dimension3D dimensions,  
             double xOffset, double yOffset, double zOffset) {
         
         double value = dataset.getDoubleValue(series, row, column);
         if (Double.isNaN(value)) {
             return;
         }
-        double[] stack = DataUtilities.stackSubTotal(dataset, getBase(), series,
+        double[] stack = DataUtils.stackSubTotal(dataset, getBase(), series,
                 row, column);
 
         CategoryPlot3D plot = getPlot();
@@ -93,6 +98,17 @@ public class StackedBarRenderer3D extends BarRenderer3D {
                 xx + xOffset, yy + yOffset, zz + zOffset, yylower + yOffset, 
                 color);
         world.add(bar);
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof StackedBarRenderer3D)) {
+            return false;
+        }
+        return super.equals(obj);
     }
     
 }

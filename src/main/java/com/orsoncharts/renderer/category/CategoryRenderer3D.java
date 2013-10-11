@@ -15,20 +15,12 @@ import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.Renderer3D;
-import com.orsoncharts.renderer.RendererType;
 
 /**
  * Defines the methods that all renderers must support to work with a 
  * {@link CategoryPlot3D}.
  */
 public interface CategoryRenderer3D extends Renderer3D {
- 
-    /**
-     * Returns the renderer type.
-     * 
-     * @return The renderer type (never <code>null</code>). 
-     */
-    public RendererType getRendererType();
     
     /**
      * Returns the plot that this renderer is assigned to.
@@ -38,13 +30,20 @@ public interface CategoryRenderer3D extends Renderer3D {
     public CategoryPlot3D getPlot();
   
     /**
-     * Sets the plot that the renderer is assigned to.  This method is public,
-     * but should not be called by user code.
+     * Sets the plot that the renderer is assigned to.  Although this method
+     * is part of the public API, client code should not need to call it.
      * 
      * @param plot  the plot (<code>null</code> permitted). 
      */
     public void setPlot(CategoryPlot3D plot);
   
+    /**
+     * Returns the paint source for the renderer, which is an object that
+     * is responsible for providing the colors used by the renderer to draw
+     * data (and legend) items.
+     * 
+     * @return The paint source (never <code>null</code>). 
+     */
     public Category3DPaintSource getPaintSource();
     
     /**
@@ -58,27 +57,24 @@ public interface CategoryRenderer3D extends Renderer3D {
      * @return The data range. 
      */
     public Range findValueRange(Values3D data);
-  
-    public void composeSeries(World world, Dimension3D dimensions,
-            CategoryDataset3D dataset, int series, double xOffset, 
-            double yOffset, double zOffset);
     
     /**
      * Constructs and places one item from the specified dataset into the given 
-     * world.
+     * world.  This method will be called by the {@link CategoryPlot3D} class
+     * while iterating over the items in the dataset.
      * 
-     * @param world
-     * @param dimensions
-     * @param dataset
-     * @param series
-     * @param row
-     * @param column
-     * @param xOffset
-     * @param yOffset
-     * @param zOffset 
+     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param series  the series index.
+     * @param row  the row index.
+     * @param column  the column index.
+     * @param world  the world (<code>null</code> not permitted).
+     * @param dimensions  the plot dimensions (<code>null</code> not permitted).
+     * @param xOffset  the x-offset.
+     * @param yOffset  the y-offset.
+     * @param zOffset  the z-offset.
      */
-    public void composeItem(World world, Dimension3D dimensions, 
-            CategoryDataset3D dataset, int series, int row, int column,
+    public void composeItem(CategoryDataset3D dataset, int series, int row, 
+            int column, World world, Dimension3D dimensions, 
             double xOffset, double yOffset, double zOffset);
  
 }

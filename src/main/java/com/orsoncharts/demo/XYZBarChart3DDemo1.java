@@ -1,6 +1,6 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
  * (C)opyright 2013, by Object Refinery Limited.
  * 
@@ -29,8 +29,6 @@ import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
  */
 public class XYZBarChart3DDemo1 extends JFrame {
 
-    ChartPanel3D chartPanel3D;
-
     /**
      * Creates a new test app.
      *
@@ -44,21 +42,20 @@ public class XYZBarChart3DDemo1 extends JFrame {
                 System.exit(0);
             }
         });
-        getContentPane().add(createContent());
+        getContentPane().add(createDemoPanel());
     }
 
-    final JPanel createContent() {
+    public static final JPanel createDemoPanel() {
         JPanel content = new JPanel(new BorderLayout());
         content.setPreferredSize(new Dimension(600, 400));
         XYZDataset dataset = createDataset();
         Chart3D chart = Chart3DFactory.createXYZBarChart("XYZBarChart3DDemo1", 
                 dataset, "X", "Value", "Z");
-        this.chartPanel3D = new ChartPanel3D(chart);
-        content.add(new DisplayPanel3D(this.chartPanel3D, true));
+        content.add(new DisplayPanel3D(new ChartPanel3D(chart), true));
         return content;
     }
   
-    private XYZDataset createDataset() {
+    private static XYZDataset createDataset() {
         XYZSeries series1 = new XYZSeries("Series 1");
         for (int x = 0; x < 4; x++) {
             series1.add(new XYZDataItem(x + 0.5, Math.random() * 20, 0.5));            

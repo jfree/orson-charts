@@ -12,7 +12,7 @@ import java.awt.Color;
 import java.awt.Paint;
 import com.orsoncharts.axis.Axis3D;
 import com.orsoncharts.Range;
-import com.orsoncharts.data.DataUtilities;
+import com.orsoncharts.data.DataUtils;
 import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.graphics3d.Dimension3D;
@@ -114,7 +114,7 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer {
     @Override
     public Range findXRange(XYZDataset dataset) {
         // delegate argument check...
-        Range xRange = DataUtilities.findXRange(dataset);
+        Range xRange = DataUtils.findXRange(dataset);
         if (xRange == null) {
             return null;
         }
@@ -124,12 +124,12 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer {
 
     @Override
     public Range findYRange(XYZDataset dataset) {
-        return DataUtilities.findYRange(dataset, this.base);
+        return DataUtils.findYRange(dataset, this.base);
     }
     
     @Override
     public Range findZRange(XYZDataset dataset) {
-        Range zRange = DataUtilities.findZRange(dataset);
+        Range zRange = DataUtils.findZRange(dataset);
         if (zRange == null) {
             return null;
         }

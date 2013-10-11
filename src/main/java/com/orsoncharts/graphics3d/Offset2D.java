@@ -6,7 +6,7 @@
  * 
  */
 
-package com.orsoncharts.util;
+package com.orsoncharts.graphics3d;
 
 import java.io.Serializable;
 
@@ -15,6 +15,9 @@ import java.io.Serializable;
  * this class are immutable.
  */
 public final class Offset2D implements Serializable {
+    
+    /** Zero offset. */
+    public static final Offset2D ZERO_OFFSET = new Offset2D(0, 0);
     
     private double dx;
     
@@ -79,5 +82,13 @@ public final class Offset2D implements Serializable {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 59 * hash + (int) (Double.doubleToLongBits(this.dx) ^ (Double.doubleToLongBits(this.dx) >>> 32));
+        hash = 59 * hash + (int) (Double.doubleToLongBits(this.dy) ^ (Double.doubleToLongBits(this.dy) >>> 32));
+        return hash;
     }
 }

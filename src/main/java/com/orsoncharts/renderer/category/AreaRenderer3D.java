@@ -1,8 +1,8 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -14,36 +14,109 @@ import com.orsoncharts.axis.Axis3D;
 import com.orsoncharts.axis.CategoryAxis3D;
 import com.orsoncharts.Range;
 import com.orsoncharts.data.category.CategoryDataset3D;
-import com.orsoncharts.data.DataUtilities;
+import com.orsoncharts.data.DataUtils;
 import com.orsoncharts.data.Values3D;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.plot.CategoryPlot3D;
-import com.orsoncharts.renderer.RendererType;
+import com.orsoncharts.renderer.Renderer3DChangeEvent;
+import java.io.Serializable;
+import org.jfree.graphics2d.ObjectUtils;
 
 /**
  * An area renderer for 3D charts.
  */
-public class AreaRenderer3D extends AbstractCategoryRenderer3D {
+public class AreaRenderer3D extends AbstractCategoryRenderer3D 
+        implements Serializable {
     
     /** The base for the areas (defaults to 0.0). */
     private double base;
     
-    /** The thickness (depth in 3D) of the area. */
-    private double thickness;
+    /** 
+     * The color used to paint the underside of the area object (if 
+     * <code>null</code>, the regular series color is used).
+     */
+    private Color baseColor;
+    
+    /** The width (depth in 3D) of the area. */
+    private double width;
     
     /**
      * Default constructor.
      */
     public AreaRenderer3D() {
         this.base = 0.0;
-        this.thickness = 0.6;
+        this.baseColor = null;
+        this.width = 0.6;
     }
 
-    @Override
-    public RendererType getRendererType() {
-        return RendererType.BY_ITEM;
+    /**
+     * Returns the base value for the area.  The default value is 
+     * <code>0.0</code>.
+     * 
+     * @return The base value. 
+     */
+    public double getBase() {
+        return this.base;
+    }
+    
+    /**
+     * Sets the base value and sends a {@link RendererChangeEvent} to all
+     * registered listeners.
+     * 
+     * @param base  the base value. 
+     */
+    public void setBase(double base) {
+        this.base = base;
+        fireChangeEvent();
+    }
+    
+    /**
+     * Returns the color used to paint the underside of the area polygons.
+     * The default value is <code>null</code> (which means the undersides are
+     * painted using the regular series color).
+     * 
+     * @return The color (possibly <code>null</code>). 
+     * 
+     * @see #setBaseColor(java.awt.Color) 
+     */
+    public Color getBaseColor() {
+        return this.baseColor;
+    }
+    
+    /**
+     * Sets the color for the underside of the area polygons and sends a
+     * {@link Renderer3DChangeEvent} to all registered listeners.  If you set
+     * this to <code>null</code> the base will be painted with the regular
+     * series color.
+     * 
+     * @param color  the color (<code>null</code> permitted). 
+     */
+    public void setBaseColor(Color color) {
+        this.baseColor = color;
+        fireChangeEvent();
+    }
+    
+    /**
+     * Returns the width (depth in 3D) for the area (in world units).  The 
+     * default value is <code>0.6</code>.
+     * 
+     * @return The width.
+     */
+    public double getWidth() {
+        return this.width;
+    }
+    
+    /**
+     * Sets the width (depth in 3D) and sends a {@link RendererChangeEvent} to 
+     * all registered listeners.
+     * 
+     * @param width  the width. 
+     */
+    public void setWidth(double width) {
+        this.width = width;
+        fireChangeEvent();
     }
 
     /**
@@ -58,12 +131,27 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D {
      */
     @Override
     public Range findValueRange(Values3D data) {
-        return DataUtilities.findValueRange(data, this.base);
+        return DataUtils.findValueRange(data, this.base);
     }
 
+    /**
+     * Constructs and places one item from the specified dataset into the given 
+     * world.  This method will be called by the {@link CategoryPlot3D} class
+     * while iterating over the items in the dataset.
+     * 
+     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param series  the series index.
+     * @param row  the row index.
+     * @param column  the column index.
+     * @param world  the world (<code>null</code> not permitted).
+     * @param dimensions  the plot dimensions (<code>null</code> not permitted).
+     * @param xOffset  the x-offset.
+     * @param yOffset  the y-offset.
+     * @param zOffset  the z-offset.
+     */
     @Override
-    public void composeItem(World world, Dimension3D dimensions, 
-            CategoryDataset3D dataset, int series, int row, int column, 
+    public void composeItem(CategoryDataset3D dataset, int series, int row, 
+            int column, World world, Dimension3D dimensions, 
             double xOffset, double yOffset, double zOffset) {
         
         double value = dataset.getDoubleValue(series, row, column);
@@ -80,7 +168,7 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D {
 
         // for all but the last item, we add regular segments
         if (column < dataset.getColumnCount() - 1) {
-            double delta = this.thickness / 2.0;
+            double delta = this.width / 2.0;
             double x0 = columnAxis.translateToWorld(
                     columnAxis.getCategoryValue(columnKey), 
                     dimensions.getWidth()) + xOffset;
@@ -125,7 +213,8 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D {
             if (column == dataset.getColumnCount() - 2) {
                 obj.addFace(new int[] {5, 4, 3, 2}, color);
             }
-            obj.addFace(new int[] {5, 6, 7, 4}, Color.GRAY);  // bottom side
+            Color bcol = this.baseColor != null ? this.baseColor : color;
+            obj.addFace(new int[] {5, 6, 7, 4}, bcol);  // bottom side
             world.add(obj);
    
         } else {
@@ -146,7 +235,10 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D {
         if (this.base != that.base) {
             return false;
         }
-        if (this.thickness != that.thickness) {
+        if (!ObjectUtils.equals(this.baseColor, that.baseColor)) {
+            return false;
+        }
+        if (this.width != that.width) {
             return false;
         }
         return super.equals(obj);

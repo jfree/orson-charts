@@ -1,6 +1,6 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
  * (C)opyright 2013, by Object Refinery Limited.
  * 
@@ -8,14 +8,11 @@
 
 package com.orsoncharts.plot;
 
-import java.util.List;
 import javax.swing.event.EventListenerList;
 
 import com.orsoncharts.data.Dataset3DChangeEvent;
 import com.orsoncharts.data.Dataset3DChangeListener;
 import com.orsoncharts.graphics3d.Dimension3D;
-import com.orsoncharts.graphics3d.World;
-import com.orsoncharts.legend.LegendItemInfo;
 
 /**
  * A base class that can be used to create classes that implement 
@@ -79,14 +76,14 @@ public abstract class AbstractPlot3D implements Plot3D,
     public boolean isAutoAdjustDimensions() {
         return this.autoAdjustDimensions;    
     }
-    
-    @Override
-    public abstract List<LegendItemInfo> getLegendInfo();
-    
-    @Override
-    public abstract void composeToWorld(World world, double xOffset, 
-            double yOffset, double zOffset);
 
+    /**
+     * Tests this plot for equality with an arbitrary object.
+     * 
+     * @param obj  the object (<code>null</code> permitted).
+     * 
+     * @return A boolean. 
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {

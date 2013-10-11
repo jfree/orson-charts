@@ -10,6 +10,8 @@ package com.orsoncharts.demo;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
@@ -21,15 +23,15 @@ import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.category.StandardCategoryDataset3D;
 import com.orsoncharts.data.DefaultKeyedValues;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
-import java.awt.Color;
-import java.awt.Font;
+import com.orsoncharts.plot.CategoryPlot3D;
+import com.orsoncharts.renderer.category.AreaRenderer3D;
 
 /**
  * A demo of a 3D area chart.
  */
 public class AreaChart3DDemo1 extends JFrame {
 
-    ChartPanel3D chartPanel3D;
+    //ChartPanel3D chartPanel3D;
 
     /**
      * Creates a new test app.
@@ -44,10 +46,10 @@ public class AreaChart3DDemo1 extends JFrame {
                 System.exit(0);
             }
         });
-        getContentPane().add(createContent());
+        getContentPane().add(createDemoPanel());
     }
 
-    final JPanel createContent() {
+    public static JPanel createDemoPanel() {
         JPanel content = new JPanel(new BorderLayout());
         content.setPreferredSize(new Dimension(600, 400));
         CategoryDataset3D dataset = createDataset();
@@ -55,8 +57,11 @@ public class AreaChart3DDemo1 extends JFrame {
                 dataset, "Company", "Quarter", "Value");
         chart.setTitle("AreaChart3DDemo1", new Font("Dialog", Font.BOLD, 20),
                 Color.DARK_GRAY);
-        this.chartPanel3D = new ChartPanel3D(chart);
-        content.add(new DisplayPanel3D(this.chartPanel3D, true));
+        CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
+        AreaRenderer3D renderer = (AreaRenderer3D) plot.getRenderer();
+        renderer.setBaseColor(Color.GRAY);
+        ChartPanel3D chartPanel3D = new ChartPanel3D(chart);
+        content.add(new DisplayPanel3D(chartPanel3D, true));
         return content;
     }
   
@@ -65,7 +70,7 @@ public class AreaChart3DDemo1 extends JFrame {
      * 
      * @return A sample dataset. 
      */
-    private CategoryDataset3D createDataset() {    
+    private static CategoryDataset3D createDataset() {    
         StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
 
         DefaultKeyedValues s1 = new DefaultKeyedValues();

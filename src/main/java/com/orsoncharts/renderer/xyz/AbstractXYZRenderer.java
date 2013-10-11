@@ -9,7 +9,7 @@
 package com.orsoncharts.renderer.xyz;
 
 import com.orsoncharts.Range;
-import com.orsoncharts.data.DataUtilities;
+import com.orsoncharts.data.DataUtils;
 import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.renderer.AbstractRenderer3D;
@@ -82,7 +82,7 @@ public class AbstractXYZRenderer extends AbstractRenderer3D {
      * @return The x-range. 
      */
     public Range findXRange(XYZDataset dataset) {
-        return DataUtilities.findXRange(dataset);
+        return DataUtils.findXRange(dataset);
     }
     
     /**
@@ -94,7 +94,7 @@ public class AbstractXYZRenderer extends AbstractRenderer3D {
      * @return The y-range. 
      */
     public Range findYRange(XYZDataset dataset) {
-        return DataUtilities.findYRange(dataset);
+        return DataUtils.findYRange(dataset);
     }
     
     /**
@@ -106,7 +106,7 @@ public class AbstractXYZRenderer extends AbstractRenderer3D {
      * @return The z-range. 
      */
     public Range findZRange(XYZDataset dataset) {
-        return DataUtilities.findZRange(dataset);
+        return DataUtils.findZRange(dataset);
     }
     
     @Override

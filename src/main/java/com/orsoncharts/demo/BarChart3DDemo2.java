@@ -28,8 +28,6 @@ import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
  */
 public class BarChart3DDemo2 extends JFrame {
 
-    ChartPanel3D chartPanel3D;
-
     /**
      * Creates a new test app.
      *
@@ -43,17 +41,16 @@ public class BarChart3DDemo2 extends JFrame {
                 System.exit(0);
             }
         });
-        getContentPane().add(createContent());
+        getContentPane().add(createDemoPanel());
     }
 
-    final JPanel createContent() {
+    public static final JPanel createDemoPanel() {
         JPanel content = new JPanel(new BorderLayout());
         content.setPreferredSize(new Dimension(600, 400));
         CategoryDataset3D dataset = createDataset();
         Chart3D chart = Chart3DFactory.createBarChart("BarChart3DDemo2", 
                 dataset, null, "Quarter", "$billion Revenues");
-        this.chartPanel3D = new ChartPanel3D(chart);
-        content.add(new DisplayPanel3D(this.chartPanel3D, true));
+        content.add(new DisplayPanel3D(new ChartPanel3D(chart), true));
         return content;
     }
   
@@ -62,7 +59,7 @@ public class BarChart3DDemo2 extends JFrame {
      * 
      * @return A sample dataset. 
      */
-    private CategoryDataset3D createDataset() {    
+    private static CategoryDataset3D createDataset() {    
         StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
                 
         DefaultKeyedValues s1 = new DefaultKeyedValues();

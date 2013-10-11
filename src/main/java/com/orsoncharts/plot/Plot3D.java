@@ -1,12 +1,17 @@
-/**
- * (C)opyright 2013, by Object Refinery Limited
+/* ============
+ * Orson Charts
+ * ============
+ * 
+ * (C)opyright 2013, by Object Refinery Limited.
+ * 
  */
+
 package com.orsoncharts.plot;
 
+import java.util.List;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.legend.LegendItemInfo;
-import java.util.List;
 
 /**
  * A plot for a 3D chart.  Built-in implementations include {@link PiePlot3D},
@@ -32,8 +37,7 @@ public interface Plot3D {
      * @param yOffset  the y-offset.
      * @param zOffset  the z-offset.
      */
-    void composeToWorld(World world, double xOffset, double yOffset, 
-            double zOffset);
+    void compose(World world, double xOffset, double yOffset, double zOffset);
 
     /**
      * Returns a list containing legend item info, typically one item for

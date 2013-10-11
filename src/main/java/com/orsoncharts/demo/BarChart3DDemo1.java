@@ -32,8 +32,6 @@ import java.awt.Color;
  */
 public class BarChart3DDemo1 extends JFrame {
 
-    ChartPanel3D chartPanel3D;
-
     /**
      * Creates a new test app.
      *
@@ -47,10 +45,10 @@ public class BarChart3DDemo1 extends JFrame {
                 System.exit(0);
             }
         });
-        getContentPane().add(createContent());
+        getContentPane().add(createDemoPanel());
     }
 
-    final JPanel createContent() {
+    public static final JPanel createDemoPanel() {
         JPanel content = new JPanel(new BorderLayout());
         content.setPreferredSize(new Dimension(600, 400));
         CategoryDataset3D dataset = createDataset();
@@ -59,8 +57,8 @@ public class BarChart3DDemo1 extends JFrame {
         chart.setLegendAnchor(LegendAnchor.BOTTOM_RIGHT);
         CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
         plot.setGridlinePaintForValues(Color.BLACK);
-        this.chartPanel3D = new ChartPanel3D(chart);
-        content.add(new DisplayPanel3D(this.chartPanel3D, true));
+        ChartPanel3D chartPanel3D = new ChartPanel3D(chart);
+        content.add(new DisplayPanel3D(chartPanel3D, true));
         return content;
     }
   
@@ -69,7 +67,7 @@ public class BarChart3DDemo1 extends JFrame {
      * 
      * @return A sample dataset. 
      */
-    private CategoryDataset3D createDataset() {    
+    private static CategoryDataset3D createDataset() {    
         StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
                 
         DefaultKeyedValues s1 = new DefaultKeyedValues();

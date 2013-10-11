@@ -1,6 +1,11 @@
-/**
- * (C)opyright 2013, by Object Refinery Limited
+/* ============
+ * Orson Charts
+ * ============
+ * 
+ * (C)opyright 2013, by Object Refinery Limited.
+ * 
  */
+
 package com.orsoncharts.graphics3d.swing;
 
 import java.awt.BorderLayout;
@@ -10,6 +15,7 @@ import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.geom.AffineTransform;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -27,11 +33,11 @@ import javax.swing.JPanel;
 
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.graphics3d.Drawable3D;
+import com.orsoncharts.graphics3d.Offset2D;
 import com.orsoncharts.graphics3d.ViewPoint3D;
-import java.awt.geom.AffineTransform;
 
 /**
- * A panel that displays a set of 3D objects from some viewing point.
+ * A panel that displays a set of 3D objects from a particular viewing point.
  */
 public class Panel3D extends JPanel implements ActionListener, MouseListener, 
         MouseMotionListener, MouseWheelListener {
@@ -48,6 +54,12 @@ public class Panel3D extends JPanel implements ActionListener, MouseListener,
     private Point lastClickPoint;
 
     private ViewPoint3D lastViewPoint;
+    
+    /**
+     * Temporary state to track the 2D offset during an ALT-mouse-drag
+     * operation.
+     */
+    private Offset2D offsetAtMousePressed;
 
     /**
      * Creates a new panel with the specified {@link Drawable3D} to
@@ -116,6 +128,7 @@ public class Panel3D extends JPanel implements ActionListener, MouseListener,
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         AffineTransform saved = g2.getTransform();
+        //g2.rotate(getViewPoint().getRotate());
         Dimension size = getSize();
         Rectangle drawArea = new Rectangle(size.width, size.height);
         this.drawable.draw(g2, drawArea);
@@ -153,6 +166,7 @@ public class Panel3D extends JPanel implements ActionListener, MouseListener,
     public void mousePressed(MouseEvent e) {
         this.lastClickPoint = e.getPoint();
         this.lastViewPoint = this.drawable.getViewPoint();
+        this.offsetAtMousePressed = this.drawable.getTranslate2D();
     }
 
     /* (non-Javadoc)
@@ -167,14 +181,25 @@ public class Panel3D extends JPanel implements ActionListener, MouseListener,
      */
     @Override
     public void mouseDragged(MouseEvent e) {
-        Point currPt = e.getPoint();
-        int dx = currPt.x - this.lastClickPoint.x;
-        int dy = currPt.y - this.lastClickPoint.y;
+        if (e.isAltDown()) {
+            Point currPt = e.getPoint();
+            Offset2D offset = this.offsetAtMousePressed;
+            Point lastPt = getLastClickPoint();
+            double dx = offset.getDX() + (currPt.x - lastPt.x);
+            double dy = offset.getDY() + (currPt.y - lastPt.y);
+            this.drawable.setTranslate2D(new Offset2D(dx, dy));
+        } else {
+            Point currPt = e.getPoint();
+            int dx = currPt.x - this.lastClickPoint.x;
+            int dy = currPt.y - this.lastClickPoint.y;
 
-        float valTheta = this.lastViewPoint.getTheta() + (float) (dx * Math.PI / 100);
-        float valRho = this.lastViewPoint.getRho();
-        float valPhi = this.lastViewPoint.getPhi() + (float) (dy * Math.PI / 100);
-        setViewPoint(new ViewPoint3D(valTheta, valPhi, valRho));
+            float valTheta = this.lastViewPoint.getTheta() 
+                    + (float) (dx * Math.PI / 100);
+            float valRho = this.lastViewPoint.getRho();
+            float valPhi = this.lastViewPoint.getPhi() 
+                    + (float) (dy * Math.PI / 100);
+            setViewPoint(new ViewPoint3D(valTheta, valPhi, valRho));
+        }
     }
 
     /* (non-Javadoc)

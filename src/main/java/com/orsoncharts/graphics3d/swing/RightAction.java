@@ -30,7 +30,10 @@ public class RightAction extends AbstractAction {
         float valRho = (float) (viewPt.getRho() - (Math.PI / 30.0));
         float valTheta = viewPt.getTheta();
         float valPhi = viewPt.getPhi();
-        panel.setViewPoint(new ViewPoint3D(valTheta, valPhi, valRho));
+  //              float rotate = viewPt.getRotate();
+  //      viewPt.setRotate(rotate - (float) (Math.PI / 36));
+//panel.setViewPoint(viewPt);
+        //panel.setViewPoint(new ViewPoint3D(valTheta, valPhi, valRho));
     }
     
 }

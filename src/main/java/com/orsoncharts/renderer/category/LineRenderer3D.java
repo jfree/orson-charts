@@ -9,6 +9,7 @@
 package com.orsoncharts.renderer.category;
 
 import java.awt.Color;
+import java.io.Serializable;
 
 import com.orsoncharts.axis.Axis3D;
 import com.orsoncharts.axis.CategoryAxis3D;
@@ -20,11 +21,15 @@ import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.Renderer3DChangeEvent;
 
 /**
- * A line renderer for 3D (category) charts.
+ * A renderer that can be used with the {@link CategoryPlot3D} class to create
+ * 3D lines charts from data in a {@link CategoryDataset3D}.  The 
+ * <code>createLineChart()</code> method in the {@link Chart3DFactory} class 
+ * will construct a chart that uses this renderer.
  * 
  * TODO: handling null values, and values that are isolated
  */
-public class LineRenderer3D extends AbstractCategoryRenderer3D {
+public class LineRenderer3D extends AbstractCategoryRenderer3D 
+        implements Serializable {
     
     /** The line width. */
     private double lineWidth;
@@ -80,9 +85,24 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D {
         fireChangeEvent();
     }
 
+    /**
+     * Constructs and places one item from the specified dataset into the given 
+     * world.  This method will be called by the {@link CategoryPlot3D} class
+     * while iterating over the items in the dataset.
+     * 
+     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param series  the series index.
+     * @param row  the row index.
+     * @param column  the column index.
+     * @param world  the world (<code>null</code> not permitted).
+     * @param dimensions  the plot dimensions (<code>null</code> not permitted).
+     * @param xOffset  the x-offset.
+     * @param yOffset  the y-offset.
+     * @param zOffset  the z-offset.
+     */
     @Override
-    public void composeItem(World world, Dimension3D dimensions, 
-            CategoryDataset3D dataset, int series, int row, int column, 
+    public void composeItem(CategoryDataset3D dataset, int series, int row, 
+            int column, World world, Dimension3D dimensions, 
             double xOffset, double yOffset, double zOffset) {
         
         double value = dataset.getDoubleValue(series, row, column);

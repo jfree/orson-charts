@@ -41,6 +41,19 @@ public enum RefPt2D {
     BOTTOM_CENTER,
   
     /** The bottom-right corner of a rectangle. */
-    BOTTOM_RIGHT
-
+    BOTTOM_RIGHT;
+    
+    public boolean isLeft() {
+        return (this == TOP_LEFT || this == CENTER_LEFT || this == BOTTOM_LEFT);
+    }
+    
+    public boolean isRight() {
+        return (this == TOP_RIGHT || this == CENTER_RIGHT 
+                || this == BOTTOM_RIGHT);        
+    }
+    
+    public boolean isCenter() {
+        return (this == TOP_CENTER || this == CENTER 
+                || this == BOTTOM_CENTER);                
+    }
 }

@@ -1,8 +1,8 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -13,9 +13,11 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import java.awt.Color;
 import com.orsoncharts.data.StandardPieDataset3D;
 import com.orsoncharts.data.PieDataset3D;
-import java.awt.Color;
+import com.orsoncharts.data.xyz.XYZDataItem;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Tests for the {@link Chart3D} class.
@@ -58,11 +60,18 @@ public class Chart3DTest {
         c2.setLegendBuilder(null);
         assertTrue(c1.equals(c2));
         
+        // chart box color
         c1.setChartBoxColor(Color.CYAN);
         assertFalse(c1.equals(c2));
         c2.setChartBoxColor(Color.CYAN);
         assertTrue(c1.equals(c2));
-        
+    }
+    
+    @Test
+    public void testSerialization() {
+        Chart3D c1 = Chart3DFactory.createPieChart("title", createDataset());
+        Chart3D c2 = (Chart3D) TestUtils.serialized(c1);
+        assertEquals(c1, c2);
     }
     
     private PieDataset3D createDataset() {

@@ -461,7 +461,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
     }
 
     @Override
-    public void composeToWorld(World world, double xOffset, double yOffset, 
+    public void compose(World world, double xOffset, double yOffset, 
             double zOffset) {
         // for each data point in the dataset
         // figure out if the composed shape intersects with the visible subset

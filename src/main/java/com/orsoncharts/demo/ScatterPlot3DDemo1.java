@@ -1,8 +1,8 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -18,21 +18,18 @@ import javax.swing.JPanel;
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
-import com.orsoncharts.Range;
-import com.orsoncharts.data.xyz.StandardXYZDataset;
 import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.data.xyz.XYZSeries;
 import com.orsoncharts.data.xyz.XYZSeriesCollection;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.plot.XYZPlot;
+import com.orsoncharts.renderer.xyz.ScatterXYZRenderer;
 
 /**
- * A test app.
+ * A demonstration of a scatter plot in 3D.
  */
 public class ScatterPlot3DDemo1 extends JFrame {
-
-    ChartPanel3D chartPanel3D;
 
     /**
      * Creates a new test app.
@@ -47,23 +44,24 @@ public class ScatterPlot3DDemo1 extends JFrame {
                 System.exit(0);
             }
         });
-        getContentPane().add(createContent());
+        getContentPane().add(createDemoPanel());
     }
 
-    final JPanel createContent() {
+    public static final JPanel createDemoPanel() {
         JPanel content = new JPanel(new BorderLayout());
         content.setPreferredSize(new Dimension(600, 400));
         XYZDataset dataset = createDataset();
         Chart3D chart = Chart3DFactory.createScatterPlot("ScatterPlot3DDemo1", 
                 dataset, "X", "Y", "Z");
         XYZPlot plot = (XYZPlot) chart.getPlot();
-        plot.setDimensions(new Dimension3D(5.0, 2.0, 2.0));
-        this.chartPanel3D = new ChartPanel3D(chart);
-        content.add(new DisplayPanel3D(this.chartPanel3D, true));
+        plot.setDimensions(new Dimension3D(10.0, 4.0, 4.0));
+        ScatterXYZRenderer renderer = (ScatterXYZRenderer) plot.getRenderer();
+        renderer.setSize(0.06);
+        content.add(new DisplayPanel3D(new ChartPanel3D(chart), true));
         return content;
     }
 
-    private XYZDataset createDataset() {
+    private static XYZDataset createDataset() {
         XYZSeries s1 = createRandomSeries("S1", 10);
         XYZSeries s2 = createRandomSeries("S2", 50);
         XYZSeries s3 = createRandomSeries("S3", 150);
@@ -74,7 +72,7 @@ public class ScatterPlot3DDemo1 extends JFrame {
         return dataset;
     }
     
-    private XYZSeries createRandomSeries(String name, int count) {
+    private static XYZSeries createRandomSeries(String name, int count) {
         XYZSeries s = new XYZSeries(name);
         for (int i = 0; i < count; i++) {
             s.add(Math.random() * 100, Math.random() / 100, Math.random() * 100);

@@ -1,8 +1,8 @@
-/* =============
- * OrsonCharts3D
- * =============
+/* ============
+ * Orson Charts
+ * ============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -23,11 +23,15 @@ import com.orsoncharts.util.ArgChecks;
 
 /**
  * Provides a default implementation of the {@link Drawable3D} interface.
+ * This is not used directly in Orson Charts, since the {@link Chart3D} class
+ * implements the {@link Drawable3D} interface.  
  */
 public class DefaultDrawable3D implements Drawable3D {
 
+    /** The viewing point. */
     private ViewPoint3D viewPoint;
     
+    /** The 3D world being drawn. */
     private World world;
     
     /**
@@ -63,9 +67,20 @@ public class DefaultDrawable3D implements Drawable3D {
         ArgChecks.nullNotPermitted(viewPoint, "viewPoint");
         this.viewPoint = viewPoint;
     }
+
+    @Override
+    public Offset2D getTranslate2D() {
+        // TODO
+        return new Offset2D();
+    }
+
+    @Override
+    public void setTranslate2D(Offset2D offset) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     /**
-     * Draws the current view to a Graphics2D instance.
+     * Draws the current view to a <code>Graphics2D</code> instance.
      * 
      * @param g2  the graphics target (<code>null</code> not permitted).
      * @param bounds  the bounds.
@@ -86,7 +101,8 @@ public class DefaultDrawable3D implements Drawable3D {
 
         Point2D[] pts = this.world.calculateProjectedPoints(this.viewPoint,
                     1000f);
-        List<Face> facesInPaintOrder = new ArrayList<Face>(this.world.getFaces());
+        List<Face> facesInPaintOrder = new ArrayList<Face>(
+                this.world.getFaces());
 
         // sort faces by z-order
         Collections.sort(facesInPaintOrder, new ZOrderComparator(eyePts));
@@ -119,11 +135,7 @@ public class DefaultDrawable3D implements Drawable3D {
                     g2.fill(p);
                     g2.draw(p);
                 }
-                //f.setRendered(true);
             } 
-//            else {
-//                f.setRendered(false);
-//            }
         }
         g2.setTransform(saved);      
     }

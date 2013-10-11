@@ -2,12 +2,13 @@
  * OrsonCharts
  * ===========
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
 package com.orsoncharts.renderer.category;
 
+import com.orsoncharts.TestUtils;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
@@ -28,7 +29,18 @@ public class LineRenderer3DTest {
         assertFalse(r1.equals(r2));
         r2.setLineWidth(1.1);
         assertTrue(r1.equals(r2));
-        
+
+        r1.setLineHeight(2.2);
+        assertFalse(r1.equals(r2));
+        r2.setLineHeight(2.2);
+        assertTrue(r1.equals(r2));
+    }
+    
+    @Test
+    public void testSerialization() {
+        LineRenderer3D r1 = new LineRenderer3D();
+        LineRenderer3D r2 = (LineRenderer3D) TestUtils.serialized(r1);
+        assertTrue(r1.equals(r2));
     }
 
 }

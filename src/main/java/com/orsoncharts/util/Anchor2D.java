@@ -8,11 +8,14 @@
 
 package com.orsoncharts.util;
 
+import com.orsoncharts.graphics3d.Offset2D;
+import java.io.Serializable;
+
 /**
  * Represents an anchor point for a chart title and/or legend.  Instances
  * of this class are immutable.
  */
-public final class Anchor2D {
+public final class Anchor2D implements Serializable {
     
     /** 
      * The reference point relative to some bounding rectangle (normally the 

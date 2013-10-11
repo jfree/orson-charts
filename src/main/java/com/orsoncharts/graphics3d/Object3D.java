@@ -1,6 +1,11 @@
-/**
- * (C)opyright 2013, by Object Refinery Limited
+/* ============
+ * Orson Charts
+ * ============
+ * 
+ * (C)opyright 2013, by Object Refinery Limited.
+ * 
  */
+
 package com.orsoncharts.graphics3d;
 
 import com.orsoncharts.util.ArgChecks;
@@ -370,9 +375,7 @@ public class Object3D {
                     if (i != n * 2) {
                         Face f = new Face(new int[] {(layer - 1) * n * 2 + i - 1, (layer - 1) * n * 2 + i, layer * n * 2 + i, layer * n * 2 + i - 1}, extColor);
                         sphere.addFace(f);
-                        //System.out.println(f);
                         f = new Face(new int[] {layer * n * 2 + i - 1, layer * n * 2 + i, (layer - 1) * n * 2 + i, (layer - 1) * n * 2 + i - 1}, intColor);
-                        //System.out.println(">" + f);
                         sphere.addFace(f);
                     }
                     else {

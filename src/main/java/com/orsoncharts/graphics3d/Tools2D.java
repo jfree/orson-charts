@@ -1,6 +1,11 @@
-/**
- * (C)opyright 2013, by Object Refinery Limited
+/* ============
+ * Orson Charts
+ * ============
+ * 
+ * (C)opyright 2013, by Object Refinery Limited.
+ * 
  */
+
 package com.orsoncharts.graphics3d;
 
 import java.awt.geom.Point2D;
@@ -50,61 +55,61 @@ public class Tools2D {
                 && Tools2D.area2(c, a, p) >= 0;
     }
     
-    static Triangle2D[] triangulate(Point2D[] polygon) {
-        return triangulate(polygon, null);
-    }
-    
-    static Triangle2D[] triangulate(Point2D[] polygon, Triangle2D[] result) {
-        if (result == null) {
-            result = new Triangle2D[polygon.length - 2];
-        }
-        else {
-            if (result.length != polygon.length - 2) {
-                throw new IllegalArgumentException(
-                        "The result array must have length " 
-                        + (polygon.length - 2));
-            }
-        }
-        int vertexCount = polygon.length;
-        int j = vertexCount - 1;
-        int iA = 0; 
-        int iB = 0;
-        int iC = 0;
-        int[] next = new int[vertexCount];
-        for (int i = 0; i < vertexCount; i++) {
-            next[j] = i;
-            j = i;
-        }
-        for (int k = 0; k < vertexCount - 2; k++) {
-            Point2D a, b, c;
-            boolean triangleFound = false;
-            int count = 0;
-            while (!triangleFound && ++count < vertexCount) {
-                iB = next[iA];
-                iC = next[iB];
-                a = polygon[iA];
-                b = polygon[iB];
-                c = polygon[iC];
-                if (Tools2D.area2(a, b, c) >= 0) {
-                    j = next[iC];
-                    while (j != iA && (!insideTriangle(a, b, c, polygon[j]))) {
-                        j = next[j];
-                    }
-                    if (j == iA) {
-                        // triangle ABC contains no other vertex
-                        result[k] = new Triangle2D(a, b, c);
-                        next[iA] = iC;
-                        triangleFound = true;
-                    }
-                }
-                iA = next[iA];
-            }
-            if (count == vertexCount) {
-                throw new RuntimeException("Polygon error.");
-            }
-        }
-        return result;
-    }
+//    static Triangle2D[] triangulate(Point2D[] polygon) {
+//        return triangulate(polygon, null);
+//    }
+//    
+//    static Triangle2D[] triangulate(Point2D[] polygon, Triangle2D[] result) {
+//        if (result == null) {
+//            result = new Triangle2D[polygon.length - 2];
+//        }
+//        else {
+//            if (result.length != polygon.length - 2) {
+//                throw new IllegalArgumentException(
+//                        "The result array must have length " 
+//                        + (polygon.length - 2));
+//            }
+//        }
+//        int vertexCount = polygon.length;
+//        int j = vertexCount - 1;
+//        int iA = 0; 
+//        int iB = 0;
+//        int iC = 0;
+//        int[] next = new int[vertexCount];
+//        for (int i = 0; i < vertexCount; i++) {
+//            next[j] = i;
+//            j = i;
+//        }
+//        for (int k = 0; k < vertexCount - 2; k++) {
+//            Point2D a, b, c;
+//            boolean triangleFound = false;
+//            int count = 0;
+//            while (!triangleFound && ++count < vertexCount) {
+//                iB = next[iA];
+//                iC = next[iB];
+//                a = polygon[iA];
+//                b = polygon[iB];
+//                c = polygon[iC];
+//                if (Tools2D.area2(a, b, c) >= 0) {
+//                    j = next[iC];
+//                    while (j != iA && (!insideTriangle(a, b, c, polygon[j]))) {
+//                        j = next[j];
+//                    }
+//                    if (j == iA) {
+//                        // triangle ABC contains no other vertex
+//                        result[k] = new Triangle2D(a, b, c);
+//                        next[iA] = iC;
+//                        triangleFound = true;
+//                    }
+//                }
+//                iA = next[iA];
+//            }
+//            if (count == vertexCount) {
+//                throw new RuntimeException("Polygon error.");
+//            }
+//        }
+//        return result;
+//    }
     
     public static Point2D centrePoint(Point2D pt0, Point2D pt1, Point2D pt2, 
             Point2D pt3) {

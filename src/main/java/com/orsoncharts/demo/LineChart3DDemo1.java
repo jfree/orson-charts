@@ -32,8 +32,6 @@ import com.orsoncharts.plot.CategoryPlot3D;
  */
 public class LineChart3DDemo1 extends JFrame {
 
-    ChartPanel3D chartPanel3D;
-
     /**
      * Creates a new test app.
      *
@@ -47,10 +45,10 @@ public class LineChart3DDemo1 extends JFrame {
                 System.exit(0);
             }
         });
-        getContentPane().add(createContent());
+        getContentPane().add(createDemoPanel());
     }
 
-    final JPanel createContent() {
+    public static final JPanel createDemoPanel() {
         JPanel content = new JPanel(new BorderLayout());
         content.setPreferredSize(new Dimension(600, 400));
         CategoryDataset3D dataset = createDataset();
@@ -61,8 +59,7 @@ public class LineChart3DDemo1 extends JFrame {
         plot.getRowAxis().setVisible(false);
         NumberAxis3D valueAxis = (NumberAxis3D) plot.getValueAxis();
         valueAxis.setTickSelector(new NumberTickSelector(true));
-        this.chartPanel3D = new ChartPanel3D(chart);
-        content.add(new DisplayPanel3D(this.chartPanel3D, true));
+        content.add(new DisplayPanel3D(new ChartPanel3D(chart), true));
         return content;
     }
   

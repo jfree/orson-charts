@@ -11,14 +11,13 @@ package com.orsoncharts.renderer.category;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.Range;
 import com.orsoncharts.data.category.CategoryDataset3D;
-import com.orsoncharts.data.DataUtilities;
+import com.orsoncharts.data.DataUtils;
 import com.orsoncharts.data.Values3D;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.AbstractRenderer3D;
 import com.orsoncharts.renderer.Renderer3DChangeEvent;
-import com.orsoncharts.renderer.RendererType;
 
 /**
  * A base class that can be used to implement renderers for a 
@@ -41,16 +40,6 @@ public abstract class AbstractCategoryRenderer3D extends AbstractRenderer3D
      */
     public AbstractCategoryRenderer3D() {
         this.paintSource = new StandardCategory3DPaintSource();
-    }
-    
-    /**
-     * Returns the renderer type.
-     * 
-     * @return The renderer type (never <code>null</code>). 
-     */
-    @Override
-    public RendererType getRendererType() {
-        return RendererType.BY_ITEM;
     }
     
     /**
@@ -107,23 +96,7 @@ public abstract class AbstractCategoryRenderer3D extends AbstractRenderer3D
      */
     @Override
     public Range findValueRange(Values3D data) {
-        return DataUtilities.findValueRange(data);
-    }
-    
-    @Override
-    public void composeSeries(World world, Dimension3D dimensions,
-            CategoryDataset3D dataset, int series, 
-            double xOffset, double yOffset, double zOffset) {
-        throw new IllegalStateException(
-                "The composeSeries() method is not implemented.");
-    }
-
-    @Override
-    public void composeItem(World world, Dimension3D dimensions, 
-            CategoryDataset3D dataset, int series, int row, int column, 
-            double xOffset, double yOffset, double zOffset) {
-        throw new IllegalStateException(
-                "The composeSeries() method is not implemented.");
+        return DataUtils.findValueRange(data);
     }
     
     /**

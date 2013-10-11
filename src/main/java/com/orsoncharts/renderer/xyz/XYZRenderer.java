@@ -36,8 +36,10 @@ public interface XYZRenderer extends Renderer3D {
      */
     public void setPlot(XYZPlot plot);
 
-    /** 
-     * Returns the paint source for the renderer.
+    /**
+     * Returns the paint source for the renderer, which is an object that
+     * is responsible for providing the colors used by the renderer to draw
+     * data (and legend) items.
      * 
      * @return The paint source (never <code>null</code>). 
      */
@@ -80,11 +82,11 @@ public interface XYZRenderer extends Renderer3D {
      * Constructs and places one item from the specified dataset into the given 
      * world.
      * 
-     * @param dataset the dataset.
+     * @param dataset the dataset (<code>null</code> not permitted).
      * @param series  the series index.
      * @param item  the item index.
-     * @param world  the world.
-     * @param dimensions  the dimensions.
+     * @param world  the world (<code>null</code> not permitted).
+     * @param dimensions  the dimensions (<code>null</code> not permitted).
      * @param xOffset  the x-offset.
      * @param yOffset  the y-offset.
      * @param zOffset  the z-offset.

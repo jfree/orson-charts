@@ -9,11 +9,12 @@
 package com.orsoncharts.renderer.category;
 
 import java.awt.Color;
+import java.io.Serializable;
 import com.orsoncharts.axis.Axis3D;
 import com.orsoncharts.axis.CategoryAxis3D;
 import com.orsoncharts.Range;
 import com.orsoncharts.data.category.CategoryDataset3D;
-import com.orsoncharts.data.DataUtilities;
+import com.orsoncharts.data.DataUtils;
 import com.orsoncharts.data.Values3D;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.Object3D;
@@ -22,9 +23,15 @@ import com.orsoncharts.plot.CategoryPlot3D;
 
 /**
  * A bar renderer for use with a {@link CategoryPlot3D}.
+ * 
+ * <div>
+ * <object id="ABC" data="doc-files/BarRenderer3D.svg"  type="image/svg+xml" 
+ * width="700" height="400"> 
+ * </object>
+ * </div>
  */
 public class BarRenderer3D extends AbstractCategoryRenderer3D 
-                implements CategoryRenderer3D {
+                implements Serializable {
 
     /** The base of the bars - defaults to 0.0. */
     private double base;
@@ -111,14 +118,38 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
         fireChangeEvent();
     }
 
+    /**
+     * Returns the range of values that will be required on the value axis
+     * to see all the data from the dataset.  We override the method to 
+     * include in the range the base value for the bars.
+     * 
+     * @param data  the data (<code>null</code> not permitted).
+     * 
+     * @return The range (possibly <code>null</code>) 
+     */
     @Override
     public Range findValueRange(Values3D data) {
-        return DataUtilities.findValueRange(data, this.base);
+        return DataUtils.findValueRange(data, this.base);
     }
 
+    /**
+     * Constructs and places one item from the specified dataset into the given 
+     * world.  This method will be called by the {@link CategoryPlot3D} class
+     * while iterating over the items in the dataset.
+     * 
+     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param series  the series index.
+     * @param row  the row index.
+     * @param column  the column index.
+     * @param world  the world (<code>null</code> not permitted).
+     * @param dimensions  the plot dimensions (<code>null</code> not permitted).
+     * @param xOffset  the x-offset.
+     * @param yOffset  the y-offset.
+     * @param zOffset  the z-offset.
+     */
     @Override
-    public void composeItem(World world, Dimension3D dimensions, 
-            CategoryDataset3D dataset, int series, int row, int column, 
+    public void composeItem(CategoryDataset3D dataset, int series, int row, 
+            int column, World world, Dimension3D dimensions, 
             double xOffset, double yOffset, double zOffset) {
         
         double value = dataset.getDoubleValue(series, row, column);

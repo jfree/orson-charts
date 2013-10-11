@@ -10,6 +10,8 @@ package com.orsoncharts.legend;
 
 import java.awt.Paint;
 import java.awt.geom.Rectangle2D;
+import java.awt.Font;
+import java.awt.Shape;
 import java.util.List;
 import java.io.Serializable;
 import com.orsoncharts.plot.CategoryPlot3D;
@@ -18,23 +20,179 @@ import com.orsoncharts.plot.Plot3D;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.table.FlowElement;
 import com.orsoncharts.table.GridElement;
+import com.orsoncharts.table.HAlign;
 import com.orsoncharts.table.ShapeElement;
 import com.orsoncharts.table.TableElement;
 import com.orsoncharts.table.TextElement;
 import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.util.ObjectUtils;
 
 /**
- * The default legend builder, which creates a simple horizontal legend
- * with a flow layout.
+ * The standard legend builder, which creates a simple horizontal legend
+ * with a flow layout and optional header and footer text.
  */
 public final class StandardLegendBuilder implements LegendBuilder, 
         Serializable {
 
+    /** The default header font. */
+    public static final Font DEFAULT_HEADER_FONT = new Font("Dialog", Font.BOLD,
+            14);
+    
+    /** The default footer font. */
+    public static final Font DEFAULT_FOOTER_FONT = new Font("Dialog", 
+            Font.PLAIN, 10);
+    
+    /** An optional header/title for the legend (can be <code>null</code>). */
+    private String header;
+    
+    /** The header font (never <code>null</code>). */
+    private Font headerFont;
+    
+    /** The header alignment (never <code>null</code>). */
+    private HAlign headerAlignment;
+    
+    /** An optional footer for the legend (can be <code>null</code>). */
+    private String footer;
+    
+    /** The footer font (never <code>null</code>). */    
+    private Font footerFont;
+    
+    /** The footer alignment (never <code>null</code>). */
+    private HAlign footerAlignment;
+    
     /**
-     * Default constructor.
+     * Creates a builder for a simple legend with no header and no footer.
      */
     public StandardLegendBuilder() {
-        // nothing to do
+        this(null, null);
+    }
+    
+    /**
+     * Creates a builder for a simple legend with the specified header and/or
+     * footer.
+     * 
+     * @param header  the legend header (<code>null</code> permitted).
+     * @param footer  the legend footer (<code>null</code> permitted).
+     */
+    public StandardLegendBuilder(String header, String footer) {
+        this.header = null;
+        this.headerFont = DEFAULT_HEADER_FONT;
+        this.headerAlignment = HAlign.LEFT;
+        this.footer = null;
+        this.footerFont = DEFAULT_FOOTER_FONT;
+        this.footerAlignment = HAlign.RIGHT;
+    }
+    
+    /**
+     * Returns the header text.
+     * 
+     * @return The header text (possibly <code>null</code>).
+     */
+    public String getHeader() {
+        return this.header;
+    }
+    
+    /**
+     * Sets the header text.
+     * 
+     * @param header  the header (<code>null</code> permitted). 
+     */
+    public void setHeader(String header) {
+        this.header = header;
+    }
+    
+    /**
+     * Returns the header font.
+     * 
+     * @return The header font (never <code>null</code>). 
+     */
+    public Font getHeaderFont() {
+        return this.headerFont;
+    }
+    
+    /**
+     * Sets the header font.
+     * 
+     * @param font  the header font (<code>null</code> not permitted). 
+     */
+    public void setHeaderFont(Font font) {
+        ArgChecks.nullNotPermitted(font, "font");
+        this.headerFont = font;
+    }
+    
+    /**
+     * Returns the header alignment.
+     * 
+     * @return The header alignment (never </code>null</code>).
+     */
+    public HAlign getHeaderAlignment() {
+        return this.headerAlignment;
+    }
+    
+    /**
+     * Sets the header alignment.
+     * 
+     * @param align  the header alignment (<code>null</code> not permitted). 
+     */
+    public void setHeaderAlignment(HAlign align) {
+        ArgChecks.nullNotPermitted(align, "align");
+        this.headerAlignment = align;
+    }
+    
+    /**
+     * Returns the footer text.
+     * 
+     * @return The footer text (possibly <code>null</code>).
+     */
+    public String getFooter() {
+        return this.footer;
+    }
+    
+    /**
+     * Sets the footer text.
+     * 
+     * @param footer  the footer (<code>null</code> permitted). 
+     */
+    public void setFooter(String footer) {
+        this.footer = footer;
+    }
+    
+    /**
+     * Returns the footer font.
+     * 
+     * @return The footer font (never <code>null</code>). 
+     */
+    public Font getFooterFont() {
+        return this.footerFont;
+    }
+    
+    /**
+     * Sets the footer font.
+     * 
+     * @param font  the footer font (<code>null</code> not permitted). 
+     */
+    public void setFooterFont(Font font) {
+        ArgChecks.nullNotPermitted(font, "font");
+        this.footerFont = font;
+    }
+    
+    /**
+     * Returns the footer alignment.
+     * 
+     * @return The footer alignment (never </code>null</code>).
+     */
+    public HAlign getFooterAlignment() {
+        return this.footerAlignment;
+    }
+    
+    /**
+     * Sets the footer alignment.
+     * 
+     * @param align  the footer alignment (<code>null</code> not permitted). 
+     */
+    public void setFooterAlignment(HAlign align) {
+        ArgChecks.nullNotPermitted(align, "align");
+        this.footerAlignment = align;
     }
     
     /**
@@ -49,55 +207,54 @@ public final class StandardLegendBuilder implements LegendBuilder,
      */
     @Override
     public TableElement createLegend(Plot3D plot) {
-        ArgChecks.nullNotPermitted(plot, "plot");
-        FlowElement legend = new FlowElement();
-        List<LegendItemInfo> items = plot.getLegendInfo();
-        for (LegendItemInfo item : items) {
-            legend.addElement(createLegendItem(item.getLabel(), 
-                    item.getPaint()));
+        TableElement legend = createSimpleLegend(plot.getLegendInfo());
+        if (this.header != null || this.footer != null) {
+            GridElement compositeLegend = new GridElement();
+            if (header != null) {
+                TextElement he = new TextElement(this.header, this.headerFont);
+                he.setHorizontalAligment(this.headerAlignment);
+                compositeLegend.setElement(he, "R0", "C1");                
+            }
+            compositeLegend.setElement(legend, "R1", "C1");
+            if (this.footer != null) {
+                TextElement fe = new TextElement(this.footer, this.footerFont);
+                fe.setHorizontalAligment(this.footerAlignment);
+                compositeLegend.setElement(fe, "R2", "C1");
+            }
+            return compositeLegend;
+        } else {
+            return legend;
         }
-        return legend;    
     }
     
-//    private TableElement createLegendX(Plot3D plot) {
-//        FlowElement legend = new FlowElement();
-//        List<LegendItemInfo> items = plot.getLegendInfo();
-//        for (LegendItemInfo item : items) {
-//            legend.addElement(createLegendItem(item.getLabel(), 
-//                    item.getPaint()));
-//        }
-//        return legend;    
-//    }
+    /**
+     * Creates a simple legend based on a horizontal flow layout of the 
+     * individual legend items.
+     * 
+     * @param plot  the plot (<code>null</code> not permitted).
+     * 
+     * @return The simple legend. 
+     */
+    private TableElement createSimpleLegend(List<LegendItemInfo> items) {
+        ArgChecks.nullNotPermitted(items, "items");
+        FlowElement legend = new FlowElement();
+        for (LegendItemInfo item : items) {
+            Shape shape = item.getShape();
+            if (shape == null) {
+                shape = DEFAULT_LEGEND_SHAPE;
+            }
+            legend.addElement(createLegendItem(item.getLabel(), shape,
+                    item.getPaint()));
+        }
+        return legend;
+    }
     
-//    private TableElement createCategoryLegend(CategoryPlot3D plot) {
-//        FlowElement legend = new FlowElement();
-//        CategoryDataset3D dataset = plot.getDataset();
-//        List<Comparable> keys = dataset.getSeriesKeys();
-//        for (Comparable key : keys) {
-//            CategoryRenderer3D renderer = plot.getRenderer();
-//            int series = plot.getDataset().getSeriesIndex(key);
-//            Color c = renderer.getPaintSource().getLegendPaint(series);
-//            legend.addElement(createLegendItem(key.toString(), c));
-//        }
-//        return legend;    
-//    }
-    
-//    private TableElement createXYZLegend(XYZPlot plot) {
-//        FlowElement legend = new FlowElement();
-//        XYZDataset dataset = plot.getDataset();
-//        List<Comparable> keys = dataset.getSeriesKeys();
-//        for (Comparable key : keys) {
-//            XYZRenderer renderer = plot.getRenderer();
-//            int series = plot.getDataset().getSeriesIndex(key);
-//            Color c = renderer.getPaintSource().getLegendPaint(series);
-//            legend.addElement(createLegendItem(key.toString(), c));
-//        }
-//        return legend;    
-//    }
+    private static final Shape DEFAULT_LEGEND_SHAPE 
+            = new Rectangle2D.Double(-6, -4, 12, 8);
 
-    private TableElement createLegendItem(String text, Paint color) {
-        ShapeElement se = new ShapeElement(
-                new Rectangle2D.Double(-6, -4, 12, 8), color);
+    private TableElement createLegendItem(String text, Shape shape, 
+            Paint color) {
+        ShapeElement se = new ShapeElement(shape, color);
         TextElement te = new TextElement(text);
         GridElement ge = new GridElement();
         ge.setElement(se, "R1", "C1");
@@ -118,6 +275,25 @@ public final class StandardLegendBuilder implements LegendBuilder,
             return true;
         }
         if (!(obj instanceof StandardLegendBuilder)) {
+            return false;
+        }
+        StandardLegendBuilder that = (StandardLegendBuilder) obj;
+        if (!ObjectUtils.equals(this.header, that.header)) {
+            return false;
+        }
+        if (this.headerAlignment != that.headerAlignment) {
+            return false;
+        }
+        if (!this.headerFont.equals(that.headerFont)) {
+            return false;
+        }        
+        if (!ObjectUtils.equals(this.footer, that.footer)) {
+            return false;
+        }
+        if (this.footerAlignment != that.footerAlignment) {
+            return false;
+        }
+        if (!this.footerFont.equals(that.footerFont)) {
             return false;
         }
         return true;

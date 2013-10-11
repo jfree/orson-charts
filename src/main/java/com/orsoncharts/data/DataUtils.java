@@ -13,10 +13,34 @@ import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.util.ArgChecks;
 
 /**
- * Some data utility methods.
+ * Some utility methods for working with the various datasets and data
+ * structures available in Orson Charts.
  */
-public class DataUtilities {
+public class DataUtils {
     
+    private DataUtils() {
+        // no need to create instances
+    }
+ 
+    /**
+     * Returns the total of the values in the list.  Any <code>null</code>
+     * values are ignored.
+     * 
+     * @param values  the values (<code>null</code> not permitted).
+     * 
+     * @return The total of the values in the list. 
+     */
+    public static double calcTotal(Values<Number> values) {
+        double result = 0.0;
+        for (int i = 0; i < values.getItemCount(); i++) {
+            Number n = values.getValue(i);
+            if (n != null) {
+                result = result + n.doubleValue();
+            }
+        }
+        return result;
+    }
+
     /**
      * Returns the range of values in the specified data structure (a three
      * dimensional cube).  If there is no data, this method returns

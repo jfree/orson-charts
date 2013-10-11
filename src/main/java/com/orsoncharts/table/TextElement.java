@@ -1,6 +1,6 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
  * (C)opyright 2013, by Object Refinery Limited.
  * 
@@ -42,10 +42,21 @@ public class TextElement extends AbstractTableElement
      * @param text  the text (<code>null</code> not permitted).
      */
     public TextElement(String text) {
+        this(text, new Font("Dialog", Font.PLAIN, 12));
+    }
+    
+    /**
+     * Creates a new instance.
+     * 
+     * @param text  the text (<code>null</code> not permitted).
+     * @param font  the font (<code>null</code> not permitted).
+     */
+    public TextElement(String text, Font font) {
         super();
         ArgChecks.nullNotPermitted(text, "text");
+        ArgChecks.nullNotPermitted(font, "font");
         this.text = text;
-        this.font = new Font("Dialog", Font.PLAIN, 12);
+        this.font = font;
         this.alignment = HAlign.LEFT;
     }
     
@@ -89,6 +100,15 @@ public class TextElement extends AbstractTableElement
         this.alignment = align;
     }
 
+    /**
+     * Returns the preferred size of the element (including insets).
+     * 
+     * @param g2  the graphics target.
+     * @param bounds  the bounds.
+     * @param constraints  the constraints (ignored for now).
+     * 
+     * @return The preferred size. 
+     */
     @Override
     public Dimension2D preferredSize(Graphics2D g2, Rectangle2D bounds, 
             Map<String, Object> constraints) {
@@ -103,6 +123,16 @@ public class TextElement extends AbstractTableElement
         return new ElementDimension(w, h);
     }
 
+    /**
+     * Performs a layout of this table element, returning a list of bounding
+     * rectangles for the element and its subelements.
+     * 
+     * @param g2  the graphics target.
+     * @param bounds  the bounds.
+     * @param constraints  the constraints (if any).
+     * 
+     * @return A list of bounding rectangles. 
+     */
     @Override
     public List<Rectangle2D> layoutElements(Graphics2D g2, Rectangle2D bounds, 
             Map<String, Object> constraints) {
@@ -117,6 +147,7 @@ public class TextElement extends AbstractTableElement
                 x = bounds.getX();
                 break;
             case CENTER:
+                x = bounds.getCenterX() - width / 2.0 - insets.left;
                 break;
             case RIGHT:
                 x = bounds.getMaxX() - width;
@@ -133,6 +164,12 @@ public class TextElement extends AbstractTableElement
         return result;
     }
 
+    /**
+     * Draws the element within the specified bounds.
+     * 
+     * @param g2  the graphics target.
+     * @param bounds  the bounds.
+     */
     @Override
     public void draw(Graphics2D g2, Rectangle2D bounds) {
         List<Rectangle2D> layout = layoutElements(g2, bounds, null);

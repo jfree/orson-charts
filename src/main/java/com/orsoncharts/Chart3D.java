@@ -1,6 +1,6 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
  * (C)opyright 2013, by Object Refinery Limited.
  * 
@@ -49,7 +49,7 @@ import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.table.TextElement;
 import com.orsoncharts.table.TableElement;
 import com.orsoncharts.util.Anchor2D;
-import com.orsoncharts.util.Offset2D;
+import com.orsoncharts.graphics3d.Offset2D;
 import com.orsoncharts.util.RefPt2D;
 import com.orsoncharts.util.TextUtils;
 import com.orsoncharts.util.TextAnchor;
@@ -57,6 +57,8 @@ import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.legend.LegendBuilder;
 import com.orsoncharts.legend.StandardLegendBuilder;
 import com.orsoncharts.util.ObjectUtils;
+import java.awt.BasicStroke;
+import java.io.Serializable;
 
 /**
  * A chart object for 3D charts.  The {@link Chart3DFactory} class provides 
@@ -65,8 +67,16 @@ import com.orsoncharts.util.ObjectUtils;
  * All rendering is done via the Java2D API, so this object is able to draw to 
  * any implementation of the Graphics2D API (including JFreeSVG for SVG output,
  * and OrsonPDF for PDF output).
+ * <br><br>
+ * Charts can have simple titles or composite titles (anything that can be
+ * constructed as a {@link TableElement} instance.  The {@link TitleUtils}
+ * class contains methods to create a common title/subtitle composite title. 
+ * This is illustrated in some of the demo applications.
+ * 
+ * @see {@link ChartFactory}, {@link ChartPanel3D}.
  */
-public class Chart3D implements Drawable3D, Plot3DChangeListener {
+
+public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
 
     private static final Paint DEFAULT_TITLE_PAINT = Color.BLACK;
     
@@ -132,8 +142,9 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener {
         this.legendAnchor = LegendAnchor.BOTTOM_RIGHT;
         this.plot = plot;
         this.plot.addChangeListener(this);
+        Dimension3D dim = this.plot.getDimensions();
         this.viewPoint = new ViewPoint3D((float) (4.4 * Math.PI / 3), 
-                (float) (7 * Math.PI / 6), 30.0f);
+                (float) (7 * Math.PI / 6),  2f * (float) dim.getDepth() + 2f * (float) Math.max(dim.getWidth(), dim.getHeight()));
         this.chartBoxColor = Color.WHITE;
         this.translate2D = new Offset2D();
         this.notify = true;
@@ -382,14 +393,12 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener {
     }
 
     /**
-     * Refreshes the world of 3D objects.  Usually this is called when a 
-     * plot change event is received.
+     * Creates a world containing the chart and the supplied chart box.
+     * 
+     * @param chartBox  the chart box (<code>null</code> permitted).
      */
     private World createWorld(ChartBox3D chartBox) {
-        World world = new World();  
-        // TODO: when we re-render the chart, should we
-        // create a new world, or recycle the existing one?
-    
+        World world = new World();      
         Dimension3D dim = this.plot.getDimensions();
         double w = dim.getWidth();
         double h = dim.getHeight();
@@ -397,7 +406,7 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener {
         if (chartBox != null) {
             world.add(chartBox.getObject3D());
         }
-        this.plot.composeToWorld(world, -w / 2, -h / 2, -d / 2);
+        this.plot.compose(world, -w / 2, -h / 2, -d / 2);
         return world;
     }
     
@@ -411,11 +420,14 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener {
         
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
-        ChartBox3D chartBox = null;
+        g2.setStroke(new BasicStroke(1.1f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1f));
         Dimension3D dim3D = this.plot.getDimensions();
+        System.out.println("Dimension = " + dim3D.toString());
+        System.out.println(this.viewPoint.getRho());
         double w = dim3D.getWidth();
         double h = dim3D.getHeight();
         double depth = dim3D.getDepth();
+        ChartBox3D chartBox = null;
         if (this.plot instanceof XYZPlot 
                 || this.plot instanceof CategoryPlot3D) {
             chartBox = new ChartBox3D(w, h, depth, -w / 2, -h / 2, -depth / 2, 
@@ -434,7 +446,8 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener {
         AffineTransform saved = g2.getTransform();
         g2.translate(bounds.width / 2.0 + this.translate2D.getDX(), 
                 bounds.height / 2.0 + this.translate2D.getDY());
-        
+       // g2.rotate(getViewPoint().getRotate());
+
         Point3D[] eyePts = world.calculateEyeCoordinates(this.viewPoint);
         Point2D[] pts = world.calculateProjectedPoints(this.viewPoint, 1000f);
         List<Face> facesInPaintOrder = new ArrayList<Face>(world.getFaces());
@@ -1124,6 +1137,9 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener {
             return false;
         }
         if (!ObjectUtils.equalsPaint(this.chartBoxColor, that.chartBoxColor)) {
+            return false;
+        }
+        if (!ObjectUtils.equals(this.legendBuilder, that.legendBuilder)) {
             return false;
         }
         return true;

@@ -1,8 +1,8 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -73,14 +73,21 @@ public class PiePlot3DTest implements Plot3DChangeListener {
     @Test
     public void checkEquals() {
         StandardPieDataset3D dataset1 = createNewDataset();
-        PiePlot3D plot1 = new PiePlot3D(dataset1);
-        PiePlot3D plot2 = new PiePlot3D(dataset1);
-        assertEquals(plot1, plot2);
+        PiePlot3D p1 = new PiePlot3D(dataset1);
+        PiePlot3D p2 = new PiePlot3D(dataset1);
+        assertEquals(p1, p2);
     
-        plot1.setRadius(12.3);
-        assertNotEquals(plot1, plot2);
-        plot2.setRadius(12.3);
-        assertEquals(plot1, plot2);
+        // radius
+        p1.setRadius(12.3);
+        assertFalse(p1.equals(p2));
+        p2.setRadius(12.3);
+        assertTrue(p1.equals(p2));
+        
+        // depth
+        p1.setDepth(3.21);
+        assertFalse(p1.equals(p2));
+        p2.setDepth(3.21);
+        assertTrue(p1.equals(p2));
     }
   
     /**

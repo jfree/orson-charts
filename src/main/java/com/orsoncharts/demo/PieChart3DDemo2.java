@@ -1,6 +1,6 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
  * (C)opyright 2013 by Object Refinery Limited.
  * 
@@ -9,7 +9,6 @@
 package com.orsoncharts.demo;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,10 +21,13 @@ import javax.swing.JPanel;
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
+import com.orsoncharts.TitleAnchor;
+import com.orsoncharts.TitleUtils;
 import com.orsoncharts.data.StandardPieDataset3D;
 import com.orsoncharts.data.PieDataset3D;
 import com.orsoncharts.plot.PiePlot3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
+import com.orsoncharts.legend.StandardLegendBuilder;
 
 /**
  * A test app.
@@ -52,16 +54,19 @@ public class PieChart3DDemo2 extends JFrame implements ActionListener {
         getContentPane().add(createContent());
     }
 
+    
     final JPanel createContent() {
         JPanel content = new JPanel(new BorderLayout());
         content.setPreferredSize(new Dimension(720, 400));
         this.chart = Chart3DFactory.createPieChart("PieChart3DDemo2", 
                 createDataset());
-        PiePlot3D plot = (PiePlot3D) this.chart.getPlot();
-        plot.setSectionColor("United States", new Color(0x1A9641));
-        plot.setSectionColor("France", new Color(0xA6D96A));
-        plot.setSectionColor("New Zealand", new Color(0xFDAE61));
-        plot.setSectionColor("United Kingdom", new Color(0xFFFFBF));
+        this.chart.setTitle(TitleUtils.createTitle("PieChart3DDemo2", 
+                "For more info see: http://www.object-refinery.com", 
+                TitleAnchor.TOP_LEFT));
+        this.chart.setTitleAnchor(TitleAnchor.TOP_LEFT);
+        StandardLegendBuilder slb = new StandardLegendBuilder();
+        slb.setFooter("Orson Charts (C)opyright 2013, by Object Refinery Limited");
+        this.chart.setLegendBuilder(slb);
         this.chartPanel3D = new ChartPanel3D(this.chart);
         content.add(new DisplayPanel3D(this.chartPanel3D, true));
         JButton button = new JButton("Change the Data");

@@ -1,17 +1,18 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
 package com.orsoncharts.plot;
 
+import com.orsoncharts.Chart3D;
+import com.orsoncharts.data.DataUtils;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.orsoncharts.data.PieDataset3D;
@@ -24,7 +25,11 @@ import com.orsoncharts.legend.LegendItemInfo;
 import com.orsoncharts.legend.StandardLegendItemInfo;
 
 /**
- * A pie plot in 3D.
+ * A pie plot in 3D.  The plot registers as a change listener on its dataset
+ * and whenever a dataset change notification is received, the plot will 
+ * pass on a {@link Plot3DChangeEvent} (this is normally received by the
+ * {@link Chart3D} instance that owns the plot).  This event chain is used
+ * to ensure that charts are repainted whenever they are modified.
  */
 public class PiePlot3D extends AbstractPlot3D {
 
@@ -37,9 +42,8 @@ public class PiePlot3D extends AbstractPlot3D {
     /** The depth of the pie chart. */
     private double depth;
   
-    private Map<Comparable, Color> sectionColors;
-  
-    private Color defaultSectionColor = Color.RED;
+    /** The paint source. */
+    private Pie3DPaintSource paintSource;
 
     private Map<Comparable, Font> sectionFonts;
   
@@ -62,7 +66,10 @@ public class PiePlot3D extends AbstractPlot3D {
         this.dataset.addChangeListener(this);
         this.radius = 4.0;    
         this.depth = 0.5;
-        this.sectionColors = new HashMap<Comparable, Color>();
+        this.paintSource = new StandardPie3DPaintSource(
+                new Color[] {new Color(0x1A9641), new Color(0xA6D96A), 
+                    new Color(0xFDAE61), new Color(0xFFFFBF)});
+
     }
 
     /**
@@ -129,36 +136,38 @@ public class PiePlot3D extends AbstractPlot3D {
     }
   
     private Color lookupSectionColor(Comparable key) {
-        Color c = this.sectionColors.get(key);
-        if (c != null) {
-            return c;
-        } else {
-            return this.defaultSectionColor;
-        }
+        int index = this.dataset.getIndex(key);
+        return this.paintSource.getPaint(index);
+//        Color c = this.sectionColors.get(key);
+//        if (c != null) {
+//            return c;
+//        } else {
+//            return this.defaultSectionColor;
+//        }
     }
     
-    /**
-     * Returns the section color for the specified key.
-     * 
-     * @param key  the key.
-     * 
-     * @return The section color (possibly <code>null</code>). 
-     */
-    public Color getSectionColor(Comparable key) {
-        return this.sectionColors.get(key);
-    }
-  
-    /**
-     * Sets the section color for a given key.
-     * 
-     * @param key
-     * @param color  the color (<code>null</code> permitted).
-     */
-    public void setSectionColor(Comparable key, Color color) {
-        this.sectionColors.put(key, color);
-        fireChangeEvent();
-    }
-  
+//    /**
+//     * Returns the section color for the specified key.
+//     * 
+//     * @param key  the key.
+//     * 
+//     * @return The section color (possibly <code>null</code>). 
+//     */
+//    public Color getSectionColor(Comparable key) {
+//        return this.sectionColors.get(key);
+//    }
+//  
+//    /**
+//     * Sets the section color for a given key.
+//     * 
+//     * @param key
+//     * @param color  the color (<code>null</code> permitted).
+//     */
+//    public void setSectionColor(Comparable key, Color color) {
+//        this.sectionColors.put(key, color);
+//        fireChangeEvent();
+//    }
+//  
     /**
      * Returns the dimensions for the plot.  For the pie chart, it is more 
      * natural to specify the dimensions in terms of a radius and a depth, so
@@ -171,8 +180,27 @@ public class PiePlot3D extends AbstractPlot3D {
         return new Dimension3D(this.radius * 2, this.depth, this.radius * 2);
     }
   
+    /**
+     * Returns the default section font.  This font will be used for 
+     * section labels when the getSectionFont(Comparable) method returns
+     * <code>null</code>.
+     * 
+     * @return The default section font (never <code>null</code>). 
+     */
     public Font getDefaultSectionFont() {
         return this.defaultSectionFont;
+    }
+    
+    /**
+     * Sets the default section font and sends a {@link Plot3DChangeEvent}
+     * to all registered listeners.
+     * 
+     * @param font 
+     */
+    public void setDefaultSectionFont(Font font) {
+        ArgChecks.nullNotPermitted(font, "font");
+        this.defaultSectionFont = font;
+        fireChangeEvent();
     }
   
     public Font getSectionFont(Comparable key) {
@@ -204,17 +232,29 @@ public class PiePlot3D extends AbstractPlot3D {
     public List<LegendItemInfo> getLegendInfo() {
         List<LegendItemInfo> result = new ArrayList<LegendItemInfo>();
         for (Comparable key : this.dataset.getKeys()) {
+            int index = this.dataset.getIndex(key);
             LegendItemInfo info = new StandardLegendItemInfo(key, 
-                    key.toString(), getSectionColor(key));
+                    key.toString(), this.paintSource.getLegendPaint(index));
             result.add(info);
         }
         return result;
     }
     
+    /**
+     * Adds 3D objects representing the current data for the plot to the 
+     * specified world.  After the world has been populated (or constructed) in
+     * this way, it is ready for rendering.  This method is called by the
+     * {@link Chart3D} class, you won't normally call it directly.
+     * 
+     * @param world  the world (<code>null</code> not permitted).
+     * @param xOffset  the x-offset.
+     * @param yOffset  the y-offset.
+     * @param zOffset  the z-offset.
+     */
     @Override
-    public void composeToWorld(World world, double xOffset, double yOffset, 
+    public void compose(World world, double xOffset, double yOffset, 
             double zOffset) {
-        double total = calcTotal(this.dataset);
+        double total = DataUtils.calcTotal(this.dataset);
         double r = 0.0;
         int count = this.dataset.getItemCount();
         for (int i = 0; i < count; i++) {
@@ -229,8 +269,9 @@ public class PiePlot3D extends AbstractPlot3D {
         }
     }
   
-    public List<Object3D> getLabelFaces(double xOffset, double yOffset, double zOffset) {
-        double total = calcTotal(this.dataset);
+    public List<Object3D> getLabelFaces(double xOffset, double yOffset, 
+            double zOffset) {
+        double total = DataUtils.calcTotal(this.dataset);
         List<Object3D> result = new ArrayList<Object3D>();
         // this adds the centre points
         result.add(new Dot3D(0.0f, 0.0f, 0.0f, Color.RED));
@@ -241,25 +282,21 @@ public class PiePlot3D extends AbstractPlot3D {
             Number n = this.dataset.getValue(i);
             if (n != null) {
                 double angle = Math.PI * 2 * (n.doubleValue() / total);
-                result.addAll(Object3D.createPieLabelMarkers(this.radius * 1.2, 0.0, yOffset - 0.5, 
-                        this.depth + 0.5, r, r + angle));
+                result.addAll(Object3D.createPieLabelMarkers(this.radius * 1.2,
+                        0.0, yOffset - 0.5, this.depth + 0.5, r, r + angle));
                 r = r + angle;
             }
         }
         return result;
     }
-
-    private double calcTotal(PieDataset3D<Number> dataset) {
-        double result = 0.0;
-        for (int i = 0; i < dataset.getItemCount(); i++) {
-            Number n = dataset.getValue(i);
-            if (n != null) {
-                result = result + n.doubleValue();
-            }
-        }
-        return result;
-    }
   
+    /**
+     * Tests this plot for equality with an arbitrary object.
+     * 
+     * @param obj  the object (<code>null</code> not permitted).
+     * 
+     * @return A boolean. 
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
@@ -272,7 +309,10 @@ public class PiePlot3D extends AbstractPlot3D {
         if (this.radius != that.radius) {
             return false;
         }
-        return true;
+        if (this.depth != that.depth) {
+            return false;
+        }
+        return super.equals(obj);
     }
 
 }
