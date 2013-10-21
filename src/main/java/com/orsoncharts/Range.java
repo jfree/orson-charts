@@ -71,7 +71,32 @@ public class Range {
     public boolean contains(double value) {
         return value >= this.min && value <= this.max;
     }
-  
+
+    /**
+     * Returns either (a) the supplied value, if it falls within the range, or
+     * (b) the range minimum or maximum value, whichever is closest to value.
+     * 
+     * @param value  the value.
+     * 
+     * @return The pegged value. 
+     */
+    public double peggedValue(double value) {
+        return Math.max(this.min, Math.min(this.max, value));
+    }
+
+    public boolean containsInterval(double lowerBound, double upperBound) {
+        if (lowerBound > upperBound) {
+            throw new IllegalArgumentException("Requires lowerBound <= upperBound.");
+        }
+        if (upperBound < this.min) {
+            return false;
+        }
+        if (lowerBound > this.max) {
+            return false;
+        }
+        return true;
+    }
+    
     /**
      * Returns the value as a percentage along the range.
      * 

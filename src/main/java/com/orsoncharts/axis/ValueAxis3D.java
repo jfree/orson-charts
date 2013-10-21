@@ -1,8 +1,8 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -10,9 +10,9 @@ package com.orsoncharts.axis;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
+import java.util.List;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.plot.XYZPlot;
-import java.util.List;
 
 /**
  * An axis that displays a range of continuous values.  These can be used

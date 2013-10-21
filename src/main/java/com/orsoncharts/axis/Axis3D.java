@@ -1,17 +1,17 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
 package com.orsoncharts.axis;
 
+import java.util.List;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import com.orsoncharts.Range;
-import java.util.List;
 
 /**
  * An interface that must be supported by axes for 3D plots.
@@ -34,10 +34,19 @@ public interface Axis3D {
     public void setRange(Range range);
   
     /**
+     * Sets the axis range and sends an {@link Axis3DChangeEvent} to all
+     * registered listeners.
+     * 
+     * @param min  the lower bound for the axis.
+     * @param max  the upper bound for the axis.
+     */
+    public void setRange(double min, double max);
+    
+    /**
      * Translates a data value to a world coordinate.  Since we draw the charts
-     * in a box that has one corner at (0, 0, 0), we only need to know the
-     * length of the side of the box along which we are translating in order
-     * to do the calculation.
+     * in a box that has one corner at <code>(0, 0, 0)</code>, we only need to 
+     * know the length of the side of the box along which we are translating in 
+     * order to do the calculation.
      * 
      * @param value  the data value.
      * @param length  the box side length.

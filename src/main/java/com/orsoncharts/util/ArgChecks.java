@@ -1,6 +1,6 @@
-/* =============
- * OrsonCharts3D
- * =============
+/* ============
+ * Orson Charts
+ * ============
  * 
  * (C)opyright 2013, by Object Refinery Limited.
  * 
@@ -15,15 +15,43 @@ public class ArgChecks {
 
     /**
      * Checks if the specified argument is <code>null</code> and, if it is,
-     * throws an IllegalArgumentException.
+     * throws an <code>IllegalArgumentException</code>.
      *
      * @param arg  the argument to check (<code>null</code> permitted).
-     * @param name  the argument name (<code>null</code> not permitted).
+     * @param name  the parameter name (<code>null</code> not permitted).
      */
     public static void nullNotPermitted(Object arg, String name) {
         if (arg == null) {
             throw new IllegalArgumentException("Null '" + name + "' argument.");
         }
+    }
+    
+    /**
+     * Checks if the specified argument is negative and, if it is, throws an
+     * <code>IllegalArgumentException</code>.
+     * 
+     * @param value  the value.
+     * @param name  the parameter name (<code>null</code> not permitted).
+     */
+    public static void negativeNotPermitted(double value, String name) {
+        if (value < 0.0) {
+            throw new IllegalArgumentException("Param '" + name 
+                    + "' cannot be negative");
+        }
+    }
+
+    /**
+     * Checks if the specified argument is positive and, if it is NOT, throws an
+     * <code>IllegalArgumentException</code>.
+     * 
+     * @param value  the value.
+     * @param name  the parameter name (<code>null</code> not permitted).
+     */
+    public static void positiveRequired(double value, String name) {
+        if (value <= 0.0) {
+            throw new IllegalArgumentException("Param '" + name 
+                    + "' must be positive.");
+        } 
     }
 
     /**

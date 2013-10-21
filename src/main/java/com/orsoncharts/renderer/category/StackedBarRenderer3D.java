@@ -96,7 +96,7 @@ public class StackedBarRenderer3D extends BarRenderer3D {
         Color color = getPaintSource().getPaint(series, row, column);
         Object3D bar = Object3D.createBar(xxw, xzw, 
                 xx + xOffset, yy + yOffset, zz + zOffset, yylower + yOffset, 
-                color);
+                color, null, null, false);
         world.add(bar);
     }
     

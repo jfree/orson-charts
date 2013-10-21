@@ -21,6 +21,10 @@ import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.category.StandardCategoryDataset3D;
 import com.orsoncharts.data.DefaultKeyedValues;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
+import com.orsoncharts.plot.CategoryPlot3D;
+import com.orsoncharts.renderer.category.BarRenderer3D;
+import com.orsoncharts.renderer.category.StandardCategory3DPaintSource;
+import java.awt.Color;
 
 /**
  * A demo of a 3D bar chart.  Here we add a lot of series so we can test the
@@ -50,6 +54,12 @@ public class BarChart3DDemo2 extends JFrame {
         CategoryDataset3D dataset = createDataset();
         Chart3D chart = Chart3DFactory.createBarChart("BarChart3DDemo2", 
                 dataset, null, "Quarter", "$billion Revenues");
+        CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
+        plot.getValueAxis().setRange(16.0, 18.0);
+        BarRenderer3D renderer = (BarRenderer3D) plot.getRenderer();
+        //renderer.setBase(20.0);
+        //renderer.setBasePaintSource(new StandardCategory3DPaintSource(new Color[] {Color.YELLOW}));
+        //renderer.setTopPaintSource(new StandardCategory3DPaintSource(new Color[] {Color.BLACK}));
         content.add(new DisplayPanel3D(new ChartPanel3D(chart), true));
         return content;
     }

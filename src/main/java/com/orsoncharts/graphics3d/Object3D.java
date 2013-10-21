@@ -77,56 +77,6 @@ public class Object3D {
         return sheet;
     }
 
-//    /**
-//     * A box where the sides are invisible when they are in the foreground.  
-//     * This is a typical "background" in 3D charts, so we call it a chart box.
-//     *
-//     * @param x
-//     * @param y
-//     * @param z
-//     * @param xOffset
-//     * @param yOffset
-//     * @param zOffset
-//     * @param color
-//     * 
-//     * @return The chart box.
-//     */  
-//    public static Object3D createChartBox(int x, int y, int z, double xOffset, 
-//            double yOffset, double zOffset, Color color) {
-//        Object3D sheet = new Object3D();
-//        Point3D v0 = new Point3D(xOffset, yOffset, zOffset);
-//        Point3D v1 = new Point3D(x + xOffset, yOffset, zOffset);
-//        Point3D v2 = new Point3D(x + xOffset, y + yOffset, zOffset);
-//        Point3D v3 = new Point3D(xOffset, y + yOffset, zOffset);
-//        Point3D v4 = new Point3D(xOffset, y + yOffset, z + zOffset);
-//        Point3D v5 = new Point3D(xOffset, yOffset, z + zOffset);
-//        Point3D v6 = new Point3D(x + xOffset, yOffset, z + zOffset);
-//        Point3D v7 = new Point3D(x + xOffset, y + yOffset, z + zOffset);
-//
-//        sheet.addVertex(v0);   // 0, 0, 0
-//        sheet.addVertex(v1);   // 1, 0, 0
-//        sheet.addVertex(v2);   // 1, 1, 0
-//        sheet.addVertex(v3);   // 0, 1, 0
-//
-//        sheet.addVertex(v4);   // 0, 1, 1
-//        sheet.addVertex(v5);   // 0, 0, 1
-//        sheet.addVertex(v6);   // 1, 0, 1
-//        sheet.addVertex(v7);   // 1, 1, 1
-//        Face fA = new Face(new int[] {0, 5, 6, 1}, color);
-//        Face fB = new Face(new int[] {0, 1, 2, 3}, color);
-//        Face fC = new Face(new int[] {7, 4, 3, 2}, color);
-//        Face fD = new Face(new int[] {5, 4, 7, 6}, color);
-//        Face fE = new Face(new int[] {0, 3, 4, 5}, color);
-//        Face fF = new Face(new int[] {6, 7, 2, 1}, color);
-//        sheet.addFace(fA);
-//        sheet.addFace(fB);
-//        sheet.addFace(fC);
-//        sheet.addFace(fD);
-//        sheet.addFace(fE);
-//        sheet.addFace(fF);
-//        return sheet;
-//    }
-
     /**  
      * Creates a cube.
      *
@@ -140,33 +90,71 @@ public class Object3D {
      */
     public static Object3D createCube(double size, double xOffset, 
             double yOffset, double zOffset, Color color) {
-        Object3D cube = new Object3D();
-        cube.addVertex(new Point3D(size + xOffset, -size + yOffset, -size
-                + zOffset));
-        cube.addVertex(new Point3D(size + xOffset, size + yOffset, -size
-                + zOffset));
-        cube.addVertex(new Point3D(-size + xOffset, size + yOffset, -size
-                + zOffset));
-        cube.addVertex(new Point3D(-size + xOffset, -size + yOffset, -size
-                + zOffset));
-        cube.addVertex(new Point3D(size + xOffset, -size + yOffset, size
-                + zOffset));
-        cube.addVertex(new Point3D(size + xOffset, size + yOffset, size
-                + zOffset));
-        cube.addVertex(new Point3D(-size + xOffset, size + yOffset, size
-                + zOffset));
-        cube.addVertex(new Point3D(-size + xOffset, -size + yOffset, size
-                + zOffset));
-        cube.addFace(new Face(new int[] {0, 1, 5, 4}, color));
-        cube.addFace(new Face(new int[] {1, 2, 6, 5}, color));
-        cube.addFace(new Face(new int[] {2, 3, 7, 6}, color));
-        cube.addFace(new Face(new int[] {0, 4, 7, 3}, color));
-        cube.addFace(new Face(new int[] {4, 5, 6, 7}, color));
-        cube.addFace(new Face(new int[] {3, 2, 1, 0}, color));
-        cube.addFace(new Face(new int[] {3, 7, 4, 0}, color));
-        cube.addFace(new Face(new int[] {7, 6, 5, 4}, color));
-        cube.addFace(new Face(new int[] {0, 1, 2, 3}, color));
-        return cube;
+        return createBox(xOffset, size, yOffset, size, zOffset, size, color);
+    }
+//        Object3D cube = new Object3D();
+//        cube.addVertex(new Point3D(size + xOffset, -size + yOffset, -size
+//                + zOffset));
+//        cube.addVertex(new Point3D(size + xOffset, size + yOffset, -size
+//                + zOffset));
+//        cube.addVertex(new Point3D(-size + xOffset, size + yOffset, -size
+//                + zOffset));
+//        cube.addVertex(new Point3D(-size + xOffset, -size + yOffset, -size
+//                + zOffset));
+//        cube.addVertex(new Point3D(size + xOffset, -size + yOffset, size
+//                + zOffset));
+//        cube.addVertex(new Point3D(size + xOffset, size + yOffset, size
+//                + zOffset));
+//        cube.addVertex(new Point3D(-size + xOffset, size + yOffset, size
+//                + zOffset));
+//        cube.addVertex(new Point3D(-size + xOffset, -size + yOffset, size
+//                + zOffset));
+//        cube.addFace(new Face(new int[] {0, 1, 5, 4}, color));
+//        cube.addFace(new Face(new int[] {1, 2, 6, 5}, color));
+//        cube.addFace(new Face(new int[] {2, 3, 7, 6}, color));
+//        cube.addFace(new Face(new int[] {0, 4, 7, 3}, color));
+//        cube.addFace(new Face(new int[] {4, 5, 6, 7}, color));
+//        cube.addFace(new Face(new int[] {3, 2, 1, 0}, color));
+////        cube.addFace(new Face(new int[] {3, 7, 4, 0}, color));
+////        cube.addFace(new Face(new int[] {7, 6, 5, 4}, color));
+////        cube.addFace(new Face(new int[] {0, 1, 2, 3}, color));
+//        return cube;
+//    }
+
+    /**  
+     * Creates a box.
+     *
+     * @param xdim  the dimension.
+     * @param xOffset  the x-offset.
+     * 
+     * @param yOffset  the y-offset.
+     * @param zOffset  the z-offset.
+     * @param color  the color.
+     *
+     * @return The object.
+     */
+    public static Object3D createBox(double x, double xdim, 
+            double y, double ydim, double z, double zdim, 
+            Color color) {
+        Object3D box = new Object3D();
+        double xdelta = xdim / 2.0;
+        double ydelta = ydim / 2.0;
+        double zdelta = zdim / 2.0;
+        box.addVertex(new Point3D(x - xdelta, y - ydelta, z - zdelta));
+        box.addVertex(new Point3D(x + xdelta, y - ydelta, z - zdelta));
+        box.addVertex(new Point3D(x + xdelta, y - ydelta, z + zdelta));
+        box.addVertex(new Point3D(x - xdelta, y - ydelta, z + zdelta));
+        box.addVertex(new Point3D(x - xdelta, y + ydelta, z - zdelta));
+        box.addVertex(new Point3D(x + xdelta, y + ydelta, z - zdelta));
+        box.addVertex(new Point3D(x + xdelta, y + ydelta, z + zdelta));
+        box.addVertex(new Point3D(x - xdelta, y + ydelta, z + zdelta));
+        box.addFace(new Face(new int[] {4, 5, 1, 0}, color));
+        box.addFace(new Face(new int[] {5, 6, 2, 1}, color));
+        box.addFace(new Face(new int[] {6, 7, 3, 2}, color));
+        box.addFace(new Face(new int[] {3, 7, 4, 0}, color));
+        box.addFace(new Face(new int[] {7, 6, 5, 4}, color));
+        box.addFace(new Face(new int[] {0, 1, 2, 3}, color));
+        return box;
     }
 
     /**
@@ -178,13 +166,33 @@ public class Object3D {
      * @param y  the y-coordinate for the top of the bar.
      * @param z  the z-coordinate for the center of the bar.
      * @param zero  the y-coordinate for the bottom of the bar.
-     * @param color  the color for the bar.
+     * @param barColor  the color for the bar (<code>null</code> not permitted).
+     * @param baseColor  the color for the base of the bar (if 
+     *     <code>null</code>, the <code>color</code> is used instead).
+     * @param topColor  the color for the top of the bar (if 
+     *     <code>null</code>, the <code>color</code> is used instead).
+     * @param inverted  a flag that determines whether the baseColor and 
+     *     topColor should be swapped in their usage.
      * 
      * @return A 3D object that can represent a bar in a bar chart. 
      */
     public static Object3D createBar(double xWidth, double zWidth, double x, 
-            double y, double z, double zero, Color color) {
-        ArgChecks.nullNotPermitted(color, "color");
+            double y, double z, double zero, Color barColor, Color baseColor,
+            Color topColor, boolean inverted) {
+        ArgChecks.nullNotPermitted(barColor, "barColor");
+        Color c0 = baseColor;
+        Color c1 = topColor;
+        if (inverted) {
+            Color cc = c1;
+            c1 = c0;
+            c0 = cc;
+        }
+        if (c0 == null) {
+            c0 = barColor;
+        }
+        if (c1 == null) {
+            c1 = barColor;
+        }
         Object3D bar = new Object3D();
         double xdelta = xWidth / 2.0;
         double zdelta = zWidth / 2.0;
@@ -197,18 +205,18 @@ public class Object3D {
         bar.addVertex(new Point3D(x + xdelta, y, z + zdelta));
         bar.addVertex(new Point3D(x - xdelta, y, z + zdelta));
 
-        bar.addFace(new Face(new int[] {0, 1, 5, 4}, color));
-        bar.addFace(new Face(new int[] {4, 5, 1, 0}, color));
-        bar.addFace(new Face(new int[] {1, 2, 6, 5}, color));
-        bar.addFace(new Face(new int[] {5, 6, 2, 1}, color));
-        bar.addFace(new Face(new int[] {2, 3, 7, 6}, color));
-        bar.addFace(new Face(new int[] {6, 7, 3, 2}, color));
-        bar.addFace(new Face(new int[] {0, 4, 7, 3}, color));
-        bar.addFace(new Face(new int[] {3, 7, 4, 0}, color));
-        bar.addFace(new Face(new int[] {4, 5, 6, 7}, color));
-        bar.addFace(new Face(new int[] {3, 2, 1, 0}, color));
-        bar.addFace(new Face(new int[] {7, 6, 5, 4}, color));
-        bar.addFace(new Face(new int[] {0, 1, 2, 3}, color));
+        bar.addFace(new Face(new int[] {0, 1, 5, 4}, barColor));
+        bar.addFace(new Face(new int[] {4, 5, 1, 0}, barColor));
+        bar.addFace(new Face(new int[] {1, 2, 6, 5}, barColor));
+        bar.addFace(new Face(new int[] {5, 6, 2, 1}, barColor));
+        bar.addFace(new Face(new int[] {2, 3, 7, 6}, barColor));
+        bar.addFace(new Face(new int[] {6, 7, 3, 2}, barColor));
+        bar.addFace(new Face(new int[] {0, 4, 7, 3}, barColor));
+        bar.addFace(new Face(new int[] {3, 7, 4, 0}, barColor));
+        bar.addFace(new Face(new int[] {4, 5, 6, 7}, barColor));
+        bar.addFace(new Face(new int[] {3, 2, 1, 0}, barColor));
+        bar.addFace(new Face(new int[] {7, 6, 5, 4}, c1));
+        bar.addFace(new Face(new int[] {0, 1, 2, 3}, c0));
         return bar;      
     }
 

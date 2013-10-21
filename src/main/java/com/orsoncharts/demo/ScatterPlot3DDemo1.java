@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
+import com.orsoncharts.axis.ValueAxis3D;
 import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.data.xyz.XYZSeries;
 import com.orsoncharts.data.xyz.XYZSeriesCollection;
@@ -56,7 +57,9 @@ public class ScatterPlot3DDemo1 extends JFrame {
         XYZPlot plot = (XYZPlot) chart.getPlot();
         plot.setDimensions(new Dimension3D(10.0, 4.0, 4.0));
         ScatterXYZRenderer renderer = (ScatterXYZRenderer) plot.getRenderer();
-        renderer.setSize(0.06);
+        renderer.setSize(0.20);
+        ValueAxis3D xAxis = plot.getXAxis();
+        xAxis.setRange(20, 80);
         content.add(new DisplayPanel3D(new ChartPanel3D(chart), true));
         return content;
     }

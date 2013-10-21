@@ -162,7 +162,7 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer {
         double x = dataset.getX(series, item);
         double y = dataset.getY(series, item);
         double z = dataset.getZ(series, item);
-        Paint paint = getPaintSource().getPaint(series, item);
+        Color color = getPaintSource().getPaint(series, item);
 
         double wx = xAxis.translateToWorld(x, dimensions.getWidth());
         double wy = yAxis.translateToWorld(y, dimensions.getHeight());
@@ -174,7 +174,7 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer {
         double zero = yAxis.translateToWorld(this.base, dimensions.getHeight());
     
         Object3D bar = Object3D.createBar(wxw, wzw, wx + xOffset, wy + yOffset, 
-                wz + zOffset, zero + yOffset, (Color) paint);
+                wz + zOffset, zero + yOffset, color, null, null, false);
         world.add(bar);
     }
 

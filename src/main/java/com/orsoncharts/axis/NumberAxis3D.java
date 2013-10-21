@@ -1,6 +1,6 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
  * (C)opyright 2013, by Object Refinery Limited.
  * 
@@ -179,13 +179,30 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D {
      * Sets the axis range (bounds) and sends an {@link Axis3DChangeEvent} to 
      * all registered listeners.
      * 
-     * @param range  the new range (<code>null</code> not permitted).
+     * @param range  the new range (must have positive length and 
+     *     <code>null</code> is not permitted).
      */
     @Override
     public void setRange(Range range) {
         ArgChecks.nullNotPermitted(range, "range");
+        if (range.getLength() <= 0.0) {
+            throw new IllegalArgumentException(
+                    "Requires a range with length > 0");
+        }
         this.range = range;
         fireChangeEvent();
+    }
+    
+    /**
+     * Sets the axis range and sends an {@link Axis3DChangeEvent} to all 
+     * registered listeners.
+     * 
+     * @param min  the lower bound for the range (requires min &lt; max).
+     * @param max  the upper bound for the range (requires max &gt; min).
+     */
+    @Override
+    public void setRange(double min, double max) {
+        setRange(new Range(min, max));
     }
     
     /**
@@ -660,7 +677,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D {
             result.add(new TickData(1, getRange().getMax()));
         } else {
             double x = this.range.firstStandardTickValue(tickUnit);
-            while (x < this.range.getMax()) {
+            while (x <= this.range.getMax()) {
                 result.add(new TickData(this.range.percent(x), x));
                 x += tickUnit;
             }

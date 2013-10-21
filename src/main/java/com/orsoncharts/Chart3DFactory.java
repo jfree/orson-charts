@@ -129,7 +129,8 @@ public class Chart3DFactory {
     }
     
     /**
-     * Creates a line chart in 3D.
+     * Creates a line chart in 3D for the supplied dataset.  This chart
+     * uses a {@link CategoryPlot3D} with a {@link LineRenderer3D}.
      * 
      * @param title  the chart title.
      * @param dataset  the dataset (<code>null</code> not permitted).

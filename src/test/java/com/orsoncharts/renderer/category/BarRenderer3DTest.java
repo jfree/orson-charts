@@ -24,6 +24,22 @@ public class BarRenderer3DTest {
         BarRenderer3D r2 = new BarRenderer3D();
         assertTrue(r1.equals(r2));
         assertFalse(r1.equals(null));
+
+        r1.setBase(-1.0);
+        assertFalse(r1.equals(r2));
+        r2.setBase(-1.0);
+        assertTrue(r1.equals(r2));
+
+        r1.setBarXWidth(1.1);
+        assertFalse(r1.equals(r2));
+        r2.setBarXWidth(1.1);
+        assertTrue(r1.equals(r2));
+
+        r1.setBarZWidth(2.2);
+        assertFalse(r1.equals(r2));
+        r2.setBarZWidth(2.2);
+        assertTrue(r1.equals(r2));
+
     }
     
     @Test

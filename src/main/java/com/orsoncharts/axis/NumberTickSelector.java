@@ -21,6 +21,10 @@ public class NumberTickSelector implements TickSelector {
     
     private int factor = 1;
     
+    /** 
+     * A flag to track if the units are percentage values, in which case the
+     * formatter should display less decimal places.
+     */
     private boolean percentage;
     
     /**
@@ -31,7 +35,11 @@ public class NumberTickSelector implements TickSelector {
     }
     
     /**
-     * Creates a new instance.
+     * Creates a new instance, with the option to display the tick values as
+     * percentages.  The axis follows the normal convention that values in the
+     * range 0.0 to 1.0 a represented as 0% to 100%.
+     * 
+     * @param boolean percentage  format the tick values as percentages. 
      */
     public NumberTickSelector(boolean percentage) {
         this.power = 0;
@@ -39,6 +47,14 @@ public class NumberTickSelector implements TickSelector {
         this.percentage = percentage;
     }
     
+    /**
+     * Selects a standard tick size that is near to the specified reference
+     * value.
+     * 
+     * @param reference  the reference value.
+     * 
+     * @return The selected tick size. 
+     */
     @Override
     public double select(double reference) {
         this.power = (int) Math.ceil(Math.log10(reference));
@@ -46,6 +62,10 @@ public class NumberTickSelector implements TickSelector {
         return getCurrentTickSize();
     }
 
+    /**
+     * 
+     * @return 
+     */
     @Override
     public boolean next() {
         if (factor == 1) {

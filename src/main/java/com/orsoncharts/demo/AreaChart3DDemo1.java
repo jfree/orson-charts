@@ -25,6 +25,7 @@ import com.orsoncharts.data.DefaultKeyedValues;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.category.AreaRenderer3D;
+import javax.swing.ImageIcon;
 
 /**
  * A demo of a 3D area chart.
@@ -57,6 +58,8 @@ public class AreaChart3DDemo1 extends JFrame {
                 dataset, "Company", "Quarter", "Value");
         chart.setTitle("AreaChart3DDemo1", new Font("Dialog", Font.BOLD, 20),
                 Color.DARK_GRAY);
+//        ImageIcon icon = new ImageIcon("/Users/dgilbert/Desktop/me.png"); TODO
+//        chart.setBackgroundImage(icon.getImage()); TODO
         CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
         AreaRenderer3D renderer = (AreaRenderer3D) plot.getRenderer();
         renderer.setBaseColor(Color.GRAY);

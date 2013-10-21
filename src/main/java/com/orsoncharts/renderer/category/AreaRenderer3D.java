@@ -12,6 +12,7 @@ import java.awt.Color;
 
 import com.orsoncharts.axis.Axis3D;
 import com.orsoncharts.axis.CategoryAxis3D;
+import com.orsoncharts.Chart3DFactory;
 import com.orsoncharts.Range;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.DataUtils;
@@ -26,6 +27,10 @@ import org.jfree.graphics2d.ObjectUtils;
 
 /**
  * An area renderer for 3D charts.
+ * <br><br>
+ * TIP: to create a chart using this renderer, you can use the
+ * {@link Chart3DFactory#createAreaChart(String, CategoryDataset3D, String, String, String)} 
+ * method.
  */
 public class AreaRenderer3D extends AbstractCategoryRenderer3D 
         implements Serializable {

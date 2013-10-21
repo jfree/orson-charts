@@ -1,6 +1,6 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
  * (C)opyright 2013, by Object Refinery Limited.
  * 
@@ -8,6 +8,8 @@
 
 package com.orsoncharts.renderer.category;
 
+import com.orsoncharts.Chart3D;
+import com.orsoncharts.Chart3DFactory;
 import java.awt.Color;
 import java.io.Serializable;
 
@@ -25,20 +27,21 @@ import com.orsoncharts.renderer.Renderer3DChangeEvent;
  * 3D lines charts from data in a {@link CategoryDataset3D}.  The 
  * <code>createLineChart()</code> method in the {@link Chart3DFactory} class 
  * will construct a chart that uses this renderer.
- * 
- * TODO: handling null values, and values that are isolated
+ * <br><br>
+ * Some attributes in the renderer are specified in "world units" - see the
+ * {@link Chart3D} class description for more information about world units.
  */
 public class LineRenderer3D extends AbstractCategoryRenderer3D 
         implements Serializable {
-    
-    /** The line width. */
+
+    /** The line width (in world units). */
     private double lineWidth;
     
-    /** The line height. */
+    /** The line height (in world units). */
     private double lineHeight;
     
     /**
-     * Default constructor.
+     * Creates a new instance with default attribute values.
      */
     public LineRenderer3D() {
         this.lineWidth = 0.4;
@@ -46,19 +49,20 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
     }
     
     /**
-     * Returns the line width.  The default value is <code>0.4</code>.
+     * Returns the line width in world units.  The default value is 
+     * <code>0.4</code>.
      * 
-     * @return The line width. 
+     * @return The line width in world units. 
      */
     public double getLineWidth() {
         return this.lineWidth;
     }
     
     /**
-     * Sets the line width and sends a {@link Renderer3DChangeEvent} to all
-     * registered listeners.
+     * Sets the line width (in world units) and sends a 
+     * {@link Renderer3DChangeEvent} to all registered listeners.
      * 
-     * @param width  the width. 
+     * @param width  the width (in world units). 
      */
     public void setLineWidth(double width) {
         this.lineWidth = width;
@@ -66,19 +70,20 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
     }
 
     /**
-     * Returns the line height.  The default value is <code>0.2</code>.
+     * Returns the line height in world units.  The default value is 
+     * <code>0.2</code>.
      * 
-     * @return The line height. 
+     * @return The line height in world units. 
      */
     public double getLineHeight() {
         return this.lineHeight;
     }
     
     /**
-     * Sets the line height and sends a {@link Renderer3DChangeEvent} to all
-     * registered listeners.
+     * Sets the line height (in world units) and sends a 
+     * {@link Renderer3DChangeEvent} to all registered listeners.
      * 
-     * @param height  the height. 
+     * @param height  the height (in world units). 
      */
     public void setLineHeight(double height) {
         this.lineHeight = height;

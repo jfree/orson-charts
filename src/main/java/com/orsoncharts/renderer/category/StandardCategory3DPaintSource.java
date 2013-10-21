@@ -34,6 +34,15 @@ public final class StandardCategory3DPaintSource
     }
     
     /**
+     * Creates a new instance that always returns the same color.
+     * 
+     * @param color  the color (<code>null</code> not permitted).
+     */
+    public StandardCategory3DPaintSource(Color color) {
+        this(new Color[] { color} );
+    }
+    
+    /**
      * Creates a new instance with the supplied sequence of colors.  The
      * supplied array must have at least one entry, and all entries must be
      * non-<code>null</code>.

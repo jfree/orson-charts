@@ -1,8 +1,8 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -26,14 +26,18 @@ public interface TickSelector {
     public double select(double reference);
     
     /**
-     * Move the cursor to the next tick size.
+     * Move the cursor to the next (larger) tick size, if there is one.  
+     * Returns <code>true</code> in the case that the cursor is moved, and 
+     * <code>false</code> where there are a finite number of tick sizes and the
+     * current tick size is the largest available.
      */
     public boolean next();
     
     /**
-     * Move the cursor to the previous tick size.
-     * 
-     * @return A boolean. 
+     * Move the cursor to the previous (smaller) tick size, if there is one.  
+     * Returns <code>true</code> in the case that the cursor is moved, and 
+     * <code>false</code> where there are a finite number of tick sizes and the
+     * current tick size is the smallest available.
      */
     public boolean previous();
     

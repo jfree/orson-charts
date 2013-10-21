@@ -1,8 +1,8 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -59,6 +59,7 @@ public class LineChart3DDemo1 extends JFrame {
         plot.getRowAxis().setVisible(false);
         NumberAxis3D valueAxis = (NumberAxis3D) plot.getValueAxis();
         valueAxis.setTickSelector(new NumberTickSelector(true));
+        valueAxis.setRange(0.20, 0.30);
         content.add(new DisplayPanel3D(new ChartPanel3D(chart), true));
         return content;
     }

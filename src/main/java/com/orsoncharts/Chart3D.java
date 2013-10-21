@@ -23,6 +23,8 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.awt.BasicStroke;
+import java.io.Serializable;
 import java.awt.Paint;
 import javax.swing.event.EventListenerList;
 
@@ -57,8 +59,7 @@ import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.legend.LegendBuilder;
 import com.orsoncharts.legend.StandardLegendBuilder;
 import com.orsoncharts.util.ObjectUtils;
-import java.awt.BasicStroke;
-import java.io.Serializable;
+import java.awt.Image;
 
 /**
  * A chart object for 3D charts.  The {@link Chart3DFactory} class provides 
@@ -68,12 +69,25 @@ import java.io.Serializable;
  * any implementation of the Graphics2D API (including JFreeSVG for SVG output,
  * and OrsonPDF for PDF output).
  * <br><br>
+ * In the step prior to rendering, a chart is composed in a 3D model that is
+ * referred to as the "world".  The dimensions of this 3D model are measured
+ * in "world units" and the overall size is controlled by the plot.  You will 
+ * see some attributes in the API that are specified in "world units", and these
+ * can be used to modify how objects are composed within the 3D world model.  
+ * Once the objects (for example, bars in a bar chart) within the world have 
+ * been composed, they are projected onto a 2D plane and rendered to the 
+ * <code>Graphics2D</code> target (such as the screen, image, SVG file or 
+ * PDF file).  
+ * <br><br>
  * Charts can have simple titles or composite titles (anything that can be
  * constructed as a {@link TableElement} instance.  The {@link TitleUtils}
  * class contains methods to create a common title/subtitle composite title. 
- * This is illustrated in some of the demo applications.
+ * This is illustrated in some of the demo applications.  The chart title
+ * and legend (and also the axis labels) are not part of the 3D world model,
+ * they are overlaid on the output after the 3D components have been
+ * rendered.
  * 
- * @see {@link ChartFactory}, {@link ChartPanel3D}.
+ * @see {@link ChartFactory3D}, {@link ChartPanel3D}.
  */
 
 public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
@@ -82,6 +96,9 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
     
     /** The background paint for the chart area (can be <code>null</code>). */
     private Paint backgroundPaint;
+    
+    /** A background image for the chart, if any. */
+    private Image backgroundImage;
     
     /** The chart title (can be <code>null</code>). */
     private TableElement title;
@@ -169,6 +186,26 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
      */
     public void setBackgroundPaint(Paint paint) {
         this.backgroundPaint = paint;
+        fireChangeEvent();
+    }
+    
+    /**
+     * Returns the background image, or <code>null</code>.
+     * 
+     * @return The background image (possibly <code>null</code>). 
+     */
+    public Image getBackgroundImage() {
+        return this.backgroundImage;
+    }
+    
+    /**
+     * Sets the background image and sends a {@link Chart3DChangeEvent} to all
+     * registered listeners.
+     * 
+     * @param image  the image (<code>null</code> permitted). 
+     */
+    public void setBackgroundImage(Image image) {
+        this.backgroundImage = image;
         fireChangeEvent();
     }
     
@@ -422,8 +459,8 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
                 RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setStroke(new BasicStroke(1.1f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1f));
         Dimension3D dim3D = this.plot.getDimensions();
-        System.out.println("Dimension = " + dim3D.toString());
-        System.out.println(this.viewPoint.getRho());
+//        System.out.println("Dimension = " + dim3D.toString()); TODO
+//        System.out.println(this.viewPoint.getRho()); TODO
         double w = dim3D.getWidth();
         double h = dim3D.getHeight();
         double depth = dim3D.getDepth();
@@ -442,6 +479,10 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
         if (this.backgroundPaint != null) {
             g2.setPaint(this.backgroundPaint);
             g2.fill(bounds);
+        }
+        if (this.backgroundImage != null) {
+            g2.drawImage(this.backgroundImage, bounds.x, bounds.y, bounds.width,
+                    bounds.height, null);
         }
         AffineTransform saved = g2.getTransform();
         g2.translate(bounds.width / 2.0 + this.translate2D.getDX(), 

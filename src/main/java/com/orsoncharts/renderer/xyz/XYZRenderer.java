@@ -1,6 +1,6 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
  * (C)opyright 2013, by Object Refinery Limited.
  * 
@@ -80,7 +80,9 @@ public interface XYZRenderer extends Renderer3D {
 
     /**
      * Constructs and places one item from the specified dataset into the given 
-     * world.
+     * world.  The {@link XYZPlot} class will iterate over its dataset and
+     * and call this method for each item (in other words, you don't need to 
+     * call this method directly).
      * 
      * @param dataset the dataset (<code>null</code> not permitted).
      * @param series  the series index.
