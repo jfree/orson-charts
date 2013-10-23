@@ -45,7 +45,7 @@ public class StackedBarChart3DDemo1 extends JFrame {
         getContentPane().add(createDemoPanel());
     }
 
-    public static final JPanel createDemoPanel() {
+    public static JPanel createDemoPanel() {
         JPanel content = new JPanel(new BorderLayout());
         content.setPreferredSize(new Dimension(600, 400));
         CategoryDataset3D dataset = createDataset();
@@ -54,6 +54,7 @@ public class StackedBarChart3DDemo1 extends JFrame {
         CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
         plot.setDimensions(new Dimension3D(14, 5, 2));
         plot.getRowAxis().setVisible(false);
+        //plot.getValueAxis().setRange(100, 2000);
         StackedBarRenderer3D renderer 
                 = (StackedBarRenderer3D) plot.getRenderer();
         renderer.setBarZWidth(0.3);

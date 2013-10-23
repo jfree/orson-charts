@@ -1,6 +1,6 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
  * (C)opyright 2013, by Object Refinery Limited.
  * 
@@ -9,7 +9,6 @@
 package com.orsoncharts.renderer.xyz;
 
 import java.awt.Color;
-import java.awt.Paint;
 import com.orsoncharts.axis.Axis3D;
 import com.orsoncharts.Range;
 import com.orsoncharts.data.DataUtils;
@@ -25,10 +24,13 @@ import com.orsoncharts.renderer.Renderer3DChangeEvent;
  */
 public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer {
  
+    /** The base value (normally 0.0, but can be modified). */
     private double base;
     
+    /** The width of the bars along the x-axis. */
     private double barXWidth;
     
+    /** The width of the bars along the z-axis. */
     private double barZWidth;
     
     /**
@@ -122,11 +124,29 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer {
         return new Range(xRange.getMin() - delta, xRange.getMax() + delta);
     }
 
+    /**
+     * Returns the range to use for the y-axis to ensure that all data values
+     * are visible on the chart.  This method is overridden to ensure that the
+     * base value is included.
+     * 
+     * @param dataset  the dataset (<code>null</code> not permitted).
+     * 
+     * @return The range (<code>null</code> when there is no data). 
+     */
     @Override
     public Range findYRange(XYZDataset dataset) {
         return DataUtils.findYRange(dataset, this.base);
     }
     
+    /**
+     * Returns the range to use for the z-axis to ensure that all data values
+     * are visible on the chart.  This method is overridden to account for the
+     * bar widths.
+     * 
+     * @param dataset  the dataset (<code>null</code> not permitted).
+     * 
+     * @return The range (<code>null</code> when there is no data). 
+     */
     @Override
     public Range findZRange(XYZDataset dataset) {
         Range zRange = DataUtils.findZRange(dataset);
@@ -158,26 +178,62 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer {
         Axis3D xAxis = plot.getXAxis();
         Axis3D yAxis = plot.getYAxis();
         Axis3D zAxis = plot.getZAxis();
-   
         double x = dataset.getX(series, item);
         double y = dataset.getY(series, item);
         double z = dataset.getZ(series, item);
-        Color color = getPaintSource().getPaint(series, item);
+        double xdelta = this.barXWidth / 2.0;
+        double zdelta = this.barZWidth / 2.0;
 
-        double wx = xAxis.translateToWorld(x, dimensions.getWidth());
-        double wy = yAxis.translateToWorld(y, dimensions.getHeight());
-        double wz = zAxis.translateToWorld(z, dimensions.getDepth());
-        double wxw = xAxis.translateToWorld(this.barXWidth, 
-                dimensions.getWidth());
-        double wzw = zAxis.translateToWorld(this.barZWidth, 
-                dimensions.getDepth());
-        double zero = yAxis.translateToWorld(this.base, dimensions.getHeight());
+        double x0 = xAxis.getRange().peggedValue(x - xdelta);
+        double x1 = xAxis.getRange().peggedValue(x + xdelta);
+        double z0 = zAxis.getRange().peggedValue(z - zdelta);
+        double z1 = zAxis.getRange().peggedValue(z + zdelta);
+        if ((x1 <= x0) || (z1 <= z0)) {
+            return;
+        }
+        double ylow = Math.min(this.base, y);
+        double yhigh = Math.max(this.base, y);
+        Range range = yAxis.getRange();
+        if (!range.containsInterval(ylow, yhigh)) {
+            return;
+        }
+        double ybase = range.peggedValue(ylow);
+        double ytop = range.peggedValue(yhigh);
+        boolean inverted = ybase > ytop;
+        
+        double wx0 = xAxis.translateToWorld(x0, dimensions.getWidth());
+        double wx1 = xAxis.translateToWorld(x1, dimensions.getWidth());
+        double wy0 = yAxis.translateToWorld(this.base, dimensions.getHeight());
+        double wy1 = yAxis.translateToWorld(y, dimensions.getHeight());
+        double wz0 = zAxis.translateToWorld(z0, dimensions.getDepth());
+        double wz1 = zAxis.translateToWorld(z1, dimensions.getDepth());
     
-        Object3D bar = Object3D.createBar(wxw, wzw, wx + xOffset, wy + yOffset, 
-                wz + zOffset, zero + yOffset, color, null, null, false);
+        Color color = getPaintSource().getPaint(series, item);
+        Color baseColor = null;
+        if (this.basePaintSource != null && !range.contains(this.base)) {
+            baseColor = this.basePaintSource.getPaint(series, item);
+        }
+        if (baseColor == null) {
+            baseColor = color;
+        }
+
+        Color topColor = null;
+        if (this.topPaintSource != null && !range.contains(ytop)) {
+            topColor = this.topPaintSource.getPaint(series, item);
+        }
+        if (topColor == null) {
+            topColor = color;
+        }
+
+        Object3D bar = Object3D.createBar(wx1 - wx0, wz1 - wz0, 
+                ((wx0 + wx1) / 2.0) + xOffset, wy1 + yOffset, 
+                ((wz0 + wz1) / 2.0) + zOffset, wy0 + yOffset, color, 
+                baseColor, topColor, inverted);
         world.add(bar);
     }
 
+    private XYZPaintSource basePaintSource = null;
+    private XYZPaintSource topPaintSource = null;
     /**
      * Tests this renderer for equality with an arbitrary object.
      * 

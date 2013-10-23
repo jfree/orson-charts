@@ -1,6 +1,6 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
  * (C)opyright 2013, by Object Refinery Limited.
  * 
@@ -30,7 +30,7 @@ public class DataUtils {
      * 
      * @return The total of the values in the list. 
      */
-    public static double calcTotal(Values<Number> values) {
+    public static double total(Values<Number> values) {
         double result = 0.0;
         for (int i = 0; i < values.getItemCount(); i++) {
             Number n = values.getValue(i);
@@ -56,7 +56,9 @@ public class DataUtils {
 
     /**
      * Returns the range of values in the specified data cube, or 
-     * <code>null</code> if there is no data.
+     * <code>null</code> if there is no data.  The range will be expanded, if 
+     * required, to include the <code>base</code> value (unless it
+     * is <code>Double.NaN</code> in which case it is ignored).
      * 
      * @param data  the data (<code>null</code> not permitted).
      * @param base  a value that must be included in the range (often 0).  This
@@ -133,17 +135,23 @@ public class DataUtils {
     }
     
     /**
-     * Returns the positive and negative subtotals of all the series 
-     * preceding the specified series.  These values can be used as the base
-     * value for bars in a stacked bar chart.
+     * Returns the positive and negative subtotals of the values for all the 
+     * series preceding the specified series.  
+     * <br><br>
+     * One application for this method is to compute the base values for 
+     * individual bars in a stacked bar chart.
      * 
      * @param data  the data (<code>null</code> not permitted).
-     * @param base  
-     * @param series
-     * @param row
-     * @param column
+     * @param base  the initial base value (normally <code>0.0</code>, but the 
+     *     values can be stacked from a different starting point).
+     * @param series  the index of the current series (series with lower indices
+     *     are included in the sub-totals).
+     * @param row  the row index of the required item.
+     * @param column  the column index of the required item.
      * 
-     * @return The positive and negative subtotals.
+     * @return The subtotals, where <code>result[0]</code> is the subtotal of
+     *     the negative data items, and <code>result[1]</code> is the subtotal
+     *     of the positive data items.
      */
     public static double[] stackSubTotal(Values3D data, double base, int series, 
             int row, int column) {

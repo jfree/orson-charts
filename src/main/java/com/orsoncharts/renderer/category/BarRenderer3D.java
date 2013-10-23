@@ -8,7 +8,6 @@
 
 package com.orsoncharts.renderer.category;
 
-import com.orsoncharts.Chart3DFactory;
 import java.awt.Color;
 import java.io.Serializable;
 import com.orsoncharts.axis.CategoryAxis3D;
@@ -22,6 +21,7 @@ import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.Renderer3DChangeEvent;
+import com.orsoncharts.Chart3DFactory;
 
 /**
  * A bar renderer for use with a {@link CategoryPlot3D}.
@@ -241,11 +241,38 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
             double xOffset, double yOffset, double zOffset) {
         
         double value = dataset.getDoubleValue(series, row, column);
-        double vlow = Math.min(this.base, value);
-        double vhigh = Math.max(this.base, value);
         if (Double.isNaN(value)) {
             return;
         }
+        // delegate to a separate method that is reused by the 
+        // StackedBarRenderer3D subclass...
+        composeItem(value, this.base, dataset, series, row, column, world, 
+                dimensions, xOffset, yOffset, zOffset);
+    }
+    
+    /**
+     * Performs the actual work of composing a bar to represent one item in the
+     * dataset.  This method is reused by the {@link StackedBarRenderer3D}
+     * subclass.
+     * 
+     * @param value  the data value (top of the bar).
+     * @param barBase  the base value for the bar.
+     * @param dataset  the dataset.
+     * @param series  the series index.
+     * @param row  the row index.
+     * @param column  the column index.
+     * @param world  the world.
+     * @param dimensions  the plot dimensions.
+     * @param xOffset  the x-offset.
+     * @param yOffset  the y-offset.
+     * @param zOffset  the z-offset.
+     */
+    protected void composeItem(double value, double barBase, 
+            CategoryDataset3D dataset, int series, int row, int column,
+            World world, Dimension3D dimensions, double xOffset, 
+            double yOffset, double zOffset) { 
+        double vlow = Math.min(barBase, value);
+        double vhigh = Math.max(barBase, value);
 
         CategoryPlot3D plot = getPlot();
         CategoryAxis3D rowAxis = plot.getRowAxis();
@@ -258,36 +285,42 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
         
         double vbase = range.peggedValue(vlow);
         double vtop = range.peggedValue(vhigh);
-        boolean inverted = this.base > value;
+        boolean inverted = barBase > value;
         
         Comparable rowKey = dataset.getRowKey(row);
         Comparable columnKey = dataset.getColumnKey(column);
         double rowValue = rowAxis.getCategoryValue(rowKey);
         double columnValue = columnAxis.getCategoryValue(columnKey);
 
-        double xx = columnAxis.translateToWorld(columnValue, 
-                dimensions.getWidth());
-        double yy = valueAxis.translateToWorld(vtop, dimensions.getHeight());
-        double zz = rowAxis.translateToWorld(rowValue, dimensions.getDepth());
+        double width = dimensions.getWidth();
+        double height = dimensions.getHeight();
+        double depth = dimensions.getDepth();
+        double xx = columnAxis.translateToWorld(columnValue, width);
+        double yy = valueAxis.translateToWorld(vtop, height);
+        double zz = rowAxis.translateToWorld(rowValue, depth);
 
         double xw = this.barXWidth * columnAxis.getCategoryWidth();
         double zw = this.barZWidth * rowAxis.getCategoryWidth();
-        double xxw = columnAxis.translateToWorld(xw, dimensions.getWidth());
-        double xzw = rowAxis.translateToWorld(zw, dimensions.getDepth());
-        double basew = valueAxis.translateToWorld(vbase, dimensions.getHeight());
+        double xxw = columnAxis.translateToWorld(xw, width);
+        double xzw = rowAxis.translateToWorld(zw, depth);
+        double basew = valueAxis.translateToWorld(vbase, height);
     
         Color color = getPaintSource().getPaint(series, row, column);
-        Color c0 = null;
+        Color baseColor = null;
         if (this.basePaintSource != null && !range.contains(this.base)) {
-            c0 = this.basePaintSource.getPaint(series, row, column);
+            baseColor = this.basePaintSource.getPaint(series, row, column);
         }
-        Color baseColor = c0 != null ? c0 : color;
+        if (baseColor == null) {
+            baseColor = color;
+        }
 
-        Color c1 = null;
+        Color topColor = null;
         if (this.topPaintSource != null && !range.contains(value)) {
-            c1 = this.topPaintSource.getPaint(series, row, column);
+            topColor = this.topPaintSource.getPaint(series, row, column);
         }
-        Color topColor = c1 != null ? c1 : color;
+        if (topColor == null) {
+            topColor = color;
+        }
         Object3D bar = Object3D.createBar(xxw, xzw, xx + xOffset, 
                 yy + yOffset, zz + zOffset, basew + yOffset, color, baseColor, 
                 topColor, inverted);

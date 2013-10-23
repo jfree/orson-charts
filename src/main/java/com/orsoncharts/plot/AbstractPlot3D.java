@@ -13,10 +13,23 @@ import javax.swing.event.EventListenerList;
 import com.orsoncharts.data.Dataset3DChangeEvent;
 import com.orsoncharts.data.Dataset3DChangeListener;
 import com.orsoncharts.graphics3d.Dimension3D;
+import com.orsoncharts.Chart3D;
 
 /**
  * A base class that can be used to create classes that implement 
- * {@link Plot3D}.
+ * {@link Plot3D}.  
+ * <br><br>
+ * A mechanism is provided for registering change listeners 
+ * on the plot.  Whenever some attribute of the plot changes, all the 
+ * registered listeners are notified.  The {@link Chart3D} instance that owns
+ * the plot will be automatically registered as a listener so that it receives
+ * notification whenever the plot (or some other object managed by the plot)
+ * changes.
+ * <br><br>
+ * Typically a plot registers itself as a change listener on its dataset
+ * and whenever a dataset change notification is received, the plot will 
+ * pass on a {@link Plot3DChangeEvent} to all *its* listeners.  If the plot 
+ * has axes, then the same approach is used to listen for changes to the axes.
  */
 public abstract class AbstractPlot3D implements Plot3D, 
         Dataset3DChangeListener {
@@ -54,7 +67,9 @@ public abstract class AbstractPlot3D implements Plot3D,
     }
   
     /**
-     * Returns the dimensions of the plot.
+     * Returns the dimensions of the box in 3D space into which the plot will 
+     * be composed.  The dimension can change according to the shape of the 
+     * data.
      * 
      * @return The dimensions of the plot (never <code>null</code>).
      * 

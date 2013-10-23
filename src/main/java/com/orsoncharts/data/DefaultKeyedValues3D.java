@@ -193,8 +193,21 @@ public final class DefaultKeyedValues3D<V> implements KeyedValues3D {
         return Double.NaN;
     }
     
+    /**
+     * Sets the value for an item in a series, overwriting any existing value.
+     * 
+     * @param v  the value (<code>null</code> permitted).
+     * @param seriesKey  the series key (<code>null</code> not permitted).
+     * @param rowKey  the row key (<code>null</code> not permitted).
+     * @param columnKey  the column key (<code>null</code> not permitted).
+     */
     public void setValue(V n, Comparable seriesKey, Comparable rowKey, 
             Comparable columnKey) {
+        
+        ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
+        ArgChecks.nullNotPermitted(rowKey, "rowKey");
+        ArgChecks.nullNotPermitted(columnKey, "columnKey");
+        
         // cases:
         // 1 - the dataset is empty, so we just need to add a new layer with the
         //     given keys;

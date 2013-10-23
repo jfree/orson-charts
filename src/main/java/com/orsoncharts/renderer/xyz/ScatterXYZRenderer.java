@@ -92,11 +92,6 @@ public class ScatterXYZRenderer extends AbstractXYZRenderer
         Axis3D xAxis = plot.getXAxis();
         Axis3D yAxis = plot.getYAxis();
         Axis3D zAxis = plot.getZAxis();
-        // FIXME : in fact we need to look at the shape intersections here
-        if (!xAxis.getRange().contains(x) || !yAxis.getRange().contains(y) 
-              || !zAxis.getRange().contains(z)) {
-            return;
-        }
     
         double delta = this.size / 2.0;
         Dimension3D dim = plot.getDimensions();
@@ -109,7 +104,9 @@ public class ScatterXYZRenderer extends AbstractXYZRenderer
         double zz = zAxis.translateToWorld(z, dim.getDepth());
         double zmin = Math.max(0.0, zz - delta);
         double zmax = Math.min(dim.getDepth(), zz + delta);
-    
+        if ((xmin >= xmax) || (ymin >= ymax) || (zmin >= zmax)) {
+            return;
+        }
         Color paint = getPaintSource().getPaint(series, item);
         Object3D cube = Object3D.createBox((xmax + xmin) / 2.0 + xOffset, xmax - xmin,
                 (ymax + ymin) / 2.0 + yOffset, ymax - ymin,

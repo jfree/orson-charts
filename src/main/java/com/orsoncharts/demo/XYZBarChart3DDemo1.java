@@ -23,6 +23,7 @@ import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.data.xyz.XYZSeries;
 import com.orsoncharts.data.xyz.XYZSeriesCollection;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
+import com.orsoncharts.plot.XYZPlot;
 
 /**
  * A demo of a 3D bar chart.
@@ -45,12 +46,16 @@ public class XYZBarChart3DDemo1 extends JFrame {
         getContentPane().add(createDemoPanel());
     }
 
-    public static final JPanel createDemoPanel() {
+    public static JPanel createDemoPanel() {
         JPanel content = new JPanel(new BorderLayout());
         content.setPreferredSize(new Dimension(600, 400));
         XYZDataset dataset = createDataset();
         Chart3D chart = Chart3DFactory.createXYZBarChart("XYZBarChart3DDemo1", 
                 dataset, "X", "Value", "Z");
+        XYZPlot plot = (XYZPlot) chart.getPlot();
+    //    plot.getXAxis().setRange(1.4, 2.6);
+        plot.getYAxis().setRange(6.0, 16.0);
+    //    plot.getZAxis().setRange(1.0, 2.0);
         content.add(new DisplayPanel3D(new ChartPanel3D(chart), true));
         return content;
     }

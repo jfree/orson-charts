@@ -8,8 +8,6 @@
 
 package com.orsoncharts.plot;
 
-import com.orsoncharts.Chart3D;
-import com.orsoncharts.data.DataUtils;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
@@ -23,13 +21,14 @@ import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.legend.LegendItemInfo;
 import com.orsoncharts.legend.StandardLegendItemInfo;
+import com.orsoncharts.Chart3D;
+import com.orsoncharts.Chart3DFactory;
+import com.orsoncharts.data.DataUtils;
 
 /**
- * A pie plot in 3D.  The plot registers as a change listener on its dataset
- * and whenever a dataset change notification is received, the plot will 
- * pass on a {@link Plot3DChangeEvent} (this is normally received by the
- * {@link Chart3D} instance that owns the plot).  This event chain is used
- * to ensure that charts are repainted whenever they are modified.
+ * A pie plot in 3D.  To create a pie chart, you can use the 
+ * <code>createPieChart()</code> method in the {@link Chart3DFactory} class.
+ * <br><br>
  */
 public class PiePlot3D extends AbstractPlot3D {
 
@@ -254,7 +253,7 @@ public class PiePlot3D extends AbstractPlot3D {
     @Override
     public void compose(World world, double xOffset, double yOffset, 
             double zOffset) {
-        double total = DataUtils.calcTotal(this.dataset);
+        double total = DataUtils.total(this.dataset);
         double r = 0.0;
         int count = this.dataset.getItemCount();
         for (int i = 0; i < count; i++) {
@@ -269,9 +268,17 @@ public class PiePlot3D extends AbstractPlot3D {
         }
     }
   
+    /**
+     * Returns...
+     * 
+     * @param xOffset
+     * @param yOffset
+     * @param zOffset
+     * @return 
+     */
     public List<Object3D> getLabelFaces(double xOffset, double yOffset, 
             double zOffset) {
-        double total = DataUtils.calcTotal(this.dataset);
+        double total = DataUtils.total(this.dataset);
         List<Object3D> result = new ArrayList<Object3D>();
         // this adds the centre points
         result.add(new Dot3D(0.0f, 0.0f, 0.0f, Color.RED));
