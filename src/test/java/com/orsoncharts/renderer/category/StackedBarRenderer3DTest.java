@@ -18,17 +18,30 @@ import com.orsoncharts.TestUtils;
  */
 public class StackedBarRenderer3DTest {
 
+    /**
+     * Some checks for the equals() method.
+     */
     @Test
     public void testEquals() {
         StackedBarRenderer3D r1 = new StackedBarRenderer3D();
         StackedBarRenderer3D r2 = new StackedBarRenderer3D();
         assertTrue(r1.equals(r2));
         assertFalse(r1.equals(null));
+
+        // notify
+        r1.setNotify(false);
+        assertFalse(r1.equals(r2));
+        r2.setNotify(false);
+        assertTrue(r1.equals(r2));
         
         // ensure that we distinguish from the base class
         assertFalse(r1.equals(new BarRenderer3D()));
+
     }
     
+    /**
+     * Some checks for serialization.
+     */
     @Test
     public void testSerialization() {
         StackedBarRenderer3D r1 = new StackedBarRenderer3D();

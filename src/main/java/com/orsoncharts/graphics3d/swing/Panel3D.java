@@ -23,6 +23,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.awt.geom.Dimension2D;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.Level;
@@ -35,6 +36,12 @@ import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.graphics3d.Drawable3D;
 import com.orsoncharts.graphics3d.Offset2D;
 import com.orsoncharts.graphics3d.ViewPoint3D;
+import com.orsoncharts.graphics3d.Dimension3D;
+import java.awt.geom.Rectangle2D;
+import java.io.File;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  * A panel that displays a set of 3D objects from a particular viewing point.
@@ -46,6 +53,17 @@ public class Panel3D extends JPanel implements ActionListener, MouseListener,
      * The object that is displayed in the panel.
      */
     private Drawable3D drawable;
+    
+    /** 
+     * The minimum viewing distance (zooming in will not go closer than this).
+     */
+    private float minViewingDistance;
+
+    /** 
+     * The margin to leave around the edges of the chart when zooming to fit. 
+     * This is expressed as a percentage (0.25 = 25 percent).
+     */
+    private double margin;
 
     /** 
      * The (screen) point of the last mouse click (will be <code>null</code> 
@@ -60,7 +78,7 @@ public class Panel3D extends JPanel implements ActionListener, MouseListener,
      * operation.
      */
     private Offset2D offsetAtMousePressed;
-
+    
     /**
      * Creates a new panel with the specified {@link Drawable3D} to
      * display.
@@ -71,6 +89,9 @@ public class Panel3D extends JPanel implements ActionListener, MouseListener,
         super(new BorderLayout());
         ArgChecks.nullNotPermitted(drawable, "drawable");
         this.drawable = drawable;
+        this.margin = 0.25;
+        this.minViewingDistance 
+                = (float) (drawable.getDimensions().getDiagonalLength());
         this.lastViewPoint = this.drawable.getViewPoint();
         addMouseListener(this);
         addMouseMotionListener(this);
@@ -87,6 +108,36 @@ public class Panel3D extends JPanel implements ActionListener, MouseListener,
         return this.drawable;
     }
 
+    /** 
+     * Returns the margin, expressed as a percentage, that controls the amount
+     * of space to leave around the edges of the 3D content when the 
+     * <code>zoomToFit()</code> method is called.  The default value is 
+     * <code>0.25</code> (25 percent).
+     * 
+     * @return The margin. 
+     */
+    public double getMargin() {
+        return this.margin;
+    }
+    
+    /**
+     * Sets the margin that controls the amount of space to leave around the
+     * edges of the 3D content when the <code>zoomToFit()</code> method is 
+     * called.
+     *
+     * @param margin  the margin (as a percentage, where 0.25 = 25 percent).
+     */
+    public void setMargin(double margin) {
+        this.margin = margin;
+    }
+    
+    /**
+     * Returns the minimum viewing distance.
+     */
+    public float getMinViewingDistance() {
+        return this.minViewingDistance;
+    }
+    
     /**
      * Returns the last click point (possibly <code>null</code>).
      * 
@@ -135,12 +186,40 @@ public class Panel3D extends JPanel implements ActionListener, MouseListener,
         g2.setTransform(saved);
     }
   
+    /**
+     * Adjusts the viewing distance so that the chart fits the current panel
+     * size.  A margin is left (see {@link #getMargin()} around the edges to 
+     * leave room for labels etc.
+     */
+    public void zoomToFit() {
+        zoomToFit(getSize());
+    }
+    
+    /**
+     * Adjusts the viewing distance so that the chart fits the specified
+     * size.  A margin is left (see {@link #getMargin()} around the edges to 
+     * leave room for labels etc.
+     * 
+     * @param size  the target size (<code>null</code> not permitted).
+     */    
+    public void zoomToFit(Dimension2D size) {
+        int w = (int) (size.getWidth() * (1.0 - this.margin));
+        int h = (int) (size.getHeight() * (1.0 - this.margin));
+        Dimension2D target = new Dimension(w, h);
+        Dimension3D d3d = this.drawable.getDimensions();
+        float distance = this.drawable.getViewPoint().optimalDistance(target, 
+                d3d);
+        this.drawable.getViewPoint().setRho(distance);
+        repaint();        
+    }
+
     /* (non-Javadoc)
      * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
      */
     @Override
     public void mouseClicked(MouseEvent e) {
         // nothing to do
+        System.out.println("Mouse clicked: " + e);
     }
 
     /* (non-Javadoc)
@@ -210,10 +289,17 @@ public class Panel3D extends JPanel implements ActionListener, MouseListener,
         // nothing to do
     }
 
+    /**
+     * Receives notification of a mouse wheel movement and responds by moving
+     * the viewpoint in or out (zooming).
+     * 
+     * @param mwe  the mouse wheel event. 
+     */
     @Override
     public void mouseWheelMoved(MouseWheelEvent mwe) {
         float units = mwe.getUnitsToScroll();
-        float valRho = Math.max(10.0f, this.drawable.getViewPoint().getRho() + units);
+        float valRho = Math.max(this.minViewingDistance, 
+                this.drawable.getViewPoint().getRho() + units);
         float valTheta = this.drawable.getViewPoint().getTheta();
         float valPhi = this.drawable.getViewPoint().getPhi();
         setViewPoint(new ViewPoint3D(valTheta, valPhi, valRho));
@@ -240,4 +326,129 @@ public class Panel3D extends JPanel implements ActionListener, MouseListener,
         return FONT_AWESOME.deriveFont(Font.PLAIN, size);
     }
 
+    /**
+     * Returns <code>true</code> if OrsonPDF is on the classpath, and 
+     * <code>false</code> otherwise.  The OrsonPDF library can be found at
+     * http://www.object-refinery.com/pdf/
+     * 
+     * @return A boolean.
+     */
+    boolean isOrsonPDFAvailable() {
+        Class pdfDocumentClass = null;
+        try {
+            pdfDocumentClass = Class.forName("com.orsonpdf.PDFDocument");
+        } catch (ClassNotFoundException e) {
+            // pdfDocument class will be null so the function will return false
+        }
+        return (pdfDocumentClass != null);
+    }
+    
+    /**
+     * Writes the current content to the specified file in PDF format.  This 
+     * will only work when the OrsonPDF library is found on the classpath.
+     * Reflection is used to ensure there is no compile-time dependency on
+     * OrsonPDF (which is non-free software).
+     * 
+     * @param file  the output file (<code>null</code> not permitted).
+     * @param w  the chart width.
+     * @param h  the chart height.
+     */
+    void writeAsPDF(File file, int w, int h) {
+        if (!isOrsonPDFAvailable()) {
+            throw new IllegalStateException(
+                    "OrsonPDF is not present on the classpath.");
+        }
+        ArgChecks.nullNotPermitted(file, "file");
+        try {
+            Class pdfDocClass = Class.forName("com.orsonpdf.PDFDocument");
+            Object pdfDoc = pdfDocClass.newInstance();
+            Method m = pdfDocClass.getMethod("createPage", Rectangle2D.class);
+            Rectangle2D rect = new Rectangle(w, h);
+            Object page = m.invoke(pdfDoc, rect);
+            Method m2 = page.getClass().getMethod("getGraphics2D");
+            Graphics2D g2 = (Graphics2D) m2.invoke(page);
+            Rectangle2D drawArea = new Rectangle2D.Double(0, 0, w, h);
+            this.drawable.draw(g2, drawArea);
+            Method m3 = pdfDocClass.getMethod("writeToFile", File.class);
+            m3.invoke(pdfDoc, file);
+        } catch (ClassNotFoundException ex) {
+            throw new RuntimeException(ex);
+        } catch (InstantiationException ex) {
+            throw new RuntimeException(ex);
+        } catch (IllegalAccessException ex) {
+            throw new RuntimeException(ex);
+        } catch (NoSuchMethodException ex) {
+            throw new RuntimeException(ex);
+        } catch (SecurityException ex) {
+            throw new RuntimeException(ex);
+        } catch (IllegalArgumentException ex) {
+            throw new RuntimeException(ex);
+        } catch (InvocationTargetException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+    
+    /**
+     * Returns <code>true</code> if JFreeSVG is on the classpath, and 
+     * <code>false</code> otherwise.  The JFreeSVG library can be found at
+     * http://www.jfree.org/jfreesvg/
+     * 
+     * @return A boolean.
+     */
+    boolean isJFreeSVGAvailable() {
+        Class svgClass = null;
+        try {
+            svgClass = Class.forName("org.jfree.graphics2d.svg.SVGGraphics2D");
+        } catch (ClassNotFoundException e) {
+            // svgClass will be null so the function will return false
+        }
+        return (svgClass != null);
+    }
+    
+    /**
+     * Writes the current content to the specified file in SVG format.  This 
+     * will only work when the JFreeSVG library is found on the classpath.
+     * Reflection is used to ensure there is no compile-time dependency on
+     * JFreeSVG.
+     * 
+     * @param file  the output file (<code>null</code> not permitted).
+     * @param w  the chart width.
+     * @param h  the chart height.
+     */
+    void writeAsSVG(File file, int w, int h) {
+        if (!isJFreeSVGAvailable()) {
+            throw new IllegalStateException(
+                    "JFreeSVG is not present on the classpath.");
+        }
+        ArgChecks.nullNotPermitted(file, "file");
+        try {
+            Class svg2Class = Class.forName(
+                    "org.jfree.graphics2d.svg.SVGGraphics2D");
+            Constructor c1 = svg2Class.getConstructor(int.class, int.class);
+            Graphics2D svg2 = (Graphics2D) c1.newInstance(w, h);
+            Rectangle2D drawArea = new Rectangle2D.Double(0, 0, w, h);
+            this.drawable.draw(svg2, drawArea);
+            Class svgUtilsClass = Class.forName(
+                    "org.jfree.graphics2d.svg.SVGUtils");
+            Method m1 = svg2Class.getMethod("getSVGElement", (Class[]) null);
+            String element = (String) m1.invoke(svg2, (Object[]) null);
+            Method m2 = svgUtilsClass.getMethod("writeToSVG", File.class, String.class);
+            m2.invoke(svgUtilsClass, file, element);
+        } catch (ClassNotFoundException ex) {
+            throw new RuntimeException(ex);
+        } catch (InstantiationException ex) {
+            throw new RuntimeException(ex);
+        } catch (IllegalAccessException ex) {
+            throw new RuntimeException(ex);
+        } catch (NoSuchMethodException ex) {
+            throw new RuntimeException(ex);
+        } catch (SecurityException ex) {
+            throw new RuntimeException(ex);
+        } catch (IllegalArgumentException ex) {
+            throw new RuntimeException(ex);
+        } catch (InvocationTargetException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+  
 }

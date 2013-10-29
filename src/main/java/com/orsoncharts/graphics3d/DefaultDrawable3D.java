@@ -8,10 +8,10 @@
 
 package com.orsoncharts.graphics3d;
 
+import com.orsoncharts.Chart3D;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import com.orsoncharts.util.ArgChecks;
+import java.awt.geom.Rectangle2D;
 
 /**
  * Provides a default implementation of the {@link Drawable3D} interface.
@@ -45,6 +46,16 @@ public class DefaultDrawable3D implements Drawable3D {
         this.viewPoint = new ViewPoint3D((float) (3 * Math.PI / 2.0), 
                 (float) Math.PI / 6, 40.0f);
         this.world = world;    
+    }
+    
+    /**
+     * Returns the dimensions of the 3D object.
+     * 
+     * @return The dimensions. 
+     */
+    @Override
+    public Dimension3D getDimensions() {
+        return new Dimension3D(1.0, 1.0, 1.0);  // FIXME
     }
     
     /**
@@ -86,14 +97,14 @@ public class DefaultDrawable3D implements Drawable3D {
      * @param bounds  the bounds.
      */
     @Override
-    public void draw(Graphics2D g2, Rectangle bounds) {
+    public void draw(Graphics2D g2, Rectangle2D bounds) {
         ArgChecks.nullNotPermitted(g2, "g2");
         g2.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_ROUND,
                 BasicStroke.JOIN_ROUND));
         g2.setPaint(Color.WHITE);
         g2.fill(bounds);
         AffineTransform saved = g2.getTransform();
-        g2.translate(bounds.width / 2, bounds.height / 2);
+        g2.translate(bounds.getWidth() / 2, bounds.getHeight() / 2);
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
@@ -125,7 +136,7 @@ public class DefaultDrawable3D implements Drawable3D {
             double inprod = plane[0] * this.world.getSunX() + plane[1]
                     * this.world.getSunY() + plane[2] * this.world.getSunZ();
             double shade = (inprod + 1) / 2.0;
-            if (Tools2D.area2(pts[f.getVertexIndex(0)],
+            if (Utils2D.area2(pts[f.getVertexIndex(0)],
                     pts[f.getVertexIndex(1)], pts[f.getVertexIndex(2)]) > 0) {
                 Color c = f.getColor();
                 if (c != null) {

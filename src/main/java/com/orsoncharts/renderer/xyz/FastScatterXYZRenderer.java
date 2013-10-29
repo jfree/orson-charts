@@ -1,6 +1,6 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
  * (C)opyright 2013, by Object Refinery Limited.
  * 
@@ -10,6 +10,7 @@ package com.orsoncharts.renderer.xyz;
 
 import java.awt.Color;
 import java.awt.Paint;
+import java.io.Serializable;
 import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.Dot3D;
@@ -17,9 +18,13 @@ import com.orsoncharts.graphics3d.World;
 
 /**
  * A renderer for 3D scatter plots.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class.
  */
 public class FastScatterXYZRenderer extends AbstractXYZRenderer 
-        implements XYZRenderer {
+        implements XYZRenderer, Serializable {
 
     /**
      * Creates a new instance.

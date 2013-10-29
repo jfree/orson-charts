@@ -9,15 +9,14 @@
 package com.orsoncharts.demo;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JButton;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
@@ -36,7 +35,7 @@ public class PieChart3DDemo2 extends JFrame implements ActionListener {
 
     Chart3D chart;
     
-    ChartPanel3D chartPanel3D;
+    //ChartPanel3D chartPanel3D;
 
     /**
      * Creates a new test app.
@@ -57,7 +56,7 @@ public class PieChart3DDemo2 extends JFrame implements ActionListener {
     
     final JPanel createContent() {
         JPanel content = new JPanel(new BorderLayout());
-        content.setPreferredSize(new Dimension(720, 400));
+        content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         this.chart = Chart3DFactory.createPieChart("PieChart3DDemo2", 
                 createDataset());
         this.chart.setTitle(TitleUtils.createTitle("PieChart3DDemo2", 
@@ -67,14 +66,23 @@ public class PieChart3DDemo2 extends JFrame implements ActionListener {
         StandardLegendBuilder slb = new StandardLegendBuilder();
         slb.setFooter("Orson Charts (C)opyright 2013, by Object Refinery Limited");
         this.chart.setLegendBuilder(slb);
-        this.chartPanel3D = new ChartPanel3D(this.chart);
-        content.add(new DisplayPanel3D(this.chartPanel3D, true));
+        ChartPanel3D chartPanel = new ChartPanel3D(this.chart);
+        chartPanel.setMargin(0.15);
+        chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
+        content.add(new DisplayPanel3D(chartPanel));
         JButton button = new JButton("Change the Data");
         button.addActionListener(this);
         content.add(button, BorderLayout.SOUTH);
         return content;
     }
 
+    /**
+     * Creates a sample dataset (hard-coded for the purpose of keeping the
+     * demo self-contained - in practice you would normally read your data
+     * from a file, database or other source).
+     * 
+     * @return A sample dataset.
+     */
     PieDataset3D createDataset() {
         StandardPieDataset3D dataset = new StandardPieDataset3D();
         dataset.add("United States", Math.random() * 30);

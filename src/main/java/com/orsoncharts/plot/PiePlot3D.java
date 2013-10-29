@@ -21,16 +21,18 @@ import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.legend.LegendItemInfo;
 import com.orsoncharts.legend.StandardLegendItemInfo;
-import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
 import com.orsoncharts.data.DataUtils;
+import java.io.Serializable;
 
 /**
  * A pie plot in 3D.  To create a pie chart, you can use the 
  * <code>createPieChart()</code> method in the {@link Chart3DFactory} class.
  * <br><br>
- */
-public class PiePlot3D extends AbstractPlot3D {
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. */
+public class PiePlot3D extends AbstractPlot3D implements Serializable {
 
     /** The dataset. */
     private PieDataset3D<Number> dataset;
@@ -68,7 +70,6 @@ public class PiePlot3D extends AbstractPlot3D {
         this.paintSource = new StandardPie3DPaintSource(
                 new Color[] {new Color(0x1A9641), new Color(0xA6D96A), 
                     new Color(0xFDAE61), new Color(0xFFFFBF)});
-
     }
 
     /**
@@ -133,16 +134,31 @@ public class PiePlot3D extends AbstractPlot3D {
         this.depth = depth;
         fireChangeEvent();
     }
+    
+    /**
+     * Returns the paint source.
+     * 
+     * @return The paint source (never <code>null</code>).
+     */
+    public Pie3DPaintSource getPaintSource() {
+        return this.paintSource;
+    }
+    
+    /**
+     * Sets the paint source and sends a {@link Plot3DChangeEvent} to all 
+     * registered listeners.
+     * 
+     * @param paintSource  the paint source. 
+     */
+    public void setPaintSource(Pie3DPaintSource paintSource) {
+        ArgChecks.nullNotPermitted(paintSource, "paintSource");
+        this.paintSource = paintSource;
+        fireChangeEvent();
+    }
   
     private Color lookupSectionColor(Comparable key) {
         int index = this.dataset.getIndex(key);
         return this.paintSource.getPaint(index);
-//        Color c = this.sectionColors.get(key);
-//        if (c != null) {
-//            return c;
-//        } else {
-//            return this.defaultSectionColor;
-//        }
     }
     
 //    /**

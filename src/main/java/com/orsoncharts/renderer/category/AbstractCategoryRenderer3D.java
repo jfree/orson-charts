@@ -10,11 +10,8 @@ package com.orsoncharts.renderer.category;
 
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.Range;
-import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.DataUtils;
 import com.orsoncharts.data.Values3D;
-import com.orsoncharts.graphics3d.Dimension3D;
-import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.AbstractRenderer3D;
 import com.orsoncharts.renderer.Renderer3DChangeEvent;
@@ -118,8 +115,7 @@ public abstract class AbstractCategoryRenderer3D extends AbstractRenderer3D
         if (!this.paintSource.equals(that.paintSource)) {
             return false;
         }
-        return true;  // we don't call the super-class because it doesn't 
-            // contain any fields that we check for equality
+        return super.equals(obj);
     }
     
 }

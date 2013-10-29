@@ -66,7 +66,7 @@ public class ChartBoxResizeDemo1 extends JFrame implements ChangeListener {
         this.chart = Chart3DFactory.createScatterPlot("ChartBoxResizeDemo1", 
                 dataset, "X", "Y", "Z");
         this.chartPanel3D = new ChartPanel3D(this.chart);
-        content.add(new DisplayPanel3D(this.chartPanel3D, true));
+        content.add(new DisplayPanel3D(this.chartPanel3D));
      
         JPanel sliderPanel = new JPanel(new FlowLayout());
         this.sliderX = new JSlider(10, 30);

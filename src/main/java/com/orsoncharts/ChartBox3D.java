@@ -1,8 +1,8 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -21,8 +21,9 @@ import com.orsoncharts.axis.TickData;
  * A chart box is the container within which the chart elements are drawn.
  * The six faces of the box created so that they are visible only when they 
  * do not obscure the content of the chart (generally the back three faces 
- * will be visible and the front three faces will not be visible).  There is
- * also support provided for specifying gridlines on the visible faces.
+ * will be visible and the front three faces will not be visible, although from
+ * some angles four faces will be visible at one time).  There is also support 
+ * provided for specifying gridlines on the visible faces.
  */
 public class ChartBox3D {
 
@@ -52,7 +53,6 @@ public class ChartBox3D {
     private CBFace faceD;
     private CBFace faceE;
     private CBFace faceF;
-    
 
     /**
      * Creates a new chart box with the specified attributes.  When drawn, only

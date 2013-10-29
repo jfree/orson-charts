@@ -1,8 +1,8 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -30,6 +30,10 @@ import com.orsoncharts.util.ObjectUtils;
 /**
  * The standard legend builder, which creates a simple horizontal legend
  * with a flow layout and optional header and footer text.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class.
  */
 public final class StandardLegendBuilder implements LegendBuilder, 
         Serializable {
@@ -41,6 +45,10 @@ public final class StandardLegendBuilder implements LegendBuilder,
     /** The default footer font. */
     public static final Font DEFAULT_FOOTER_FONT = new Font("Dialog", 
             Font.PLAIN, 10);
+    
+    /** The default font for legend items. */
+    public static final Font DEFAULT_ITEM_FONT = new Font("Dialog", Font.PLAIN,
+            12);
     
     /** An optional header/title for the legend (can be <code>null</code>). */
     private String header;
@@ -59,6 +67,9 @@ public final class StandardLegendBuilder implements LegendBuilder,
     
     /** The footer alignment (never <code>null</code>). */
     private HAlign footerAlignment;
+    
+    /** The font used for legend items. */
+    private Font itemFont;
     
     /**
      * Creates a builder for a simple legend with no header and no footer.
@@ -81,6 +92,7 @@ public final class StandardLegendBuilder implements LegendBuilder,
         this.footer = null;
         this.footerFont = DEFAULT_FOOTER_FONT;
         this.footerAlignment = HAlign.RIGHT;
+        this.itemFont = DEFAULT_ITEM_FONT;
     }
     
     /**
@@ -196,6 +208,28 @@ public final class StandardLegendBuilder implements LegendBuilder,
     }
     
     /**
+     * Returns the font used for each item within the legend (the default value
+     * is {@link #DEFAULT_ITEM_FONT}).
+     * 
+     * @return The item font (never <code>null</code>).
+     */
+    @Override
+    public Font getItemFont() {
+        return this.itemFont;
+    }
+    
+    /**
+     * Sets the font used for each item within the legend.
+     * 
+     * @param font  the font (<code>null</code> not permitted). 
+     */
+    @Override
+    public void setItemFont(Font font) {
+        ArgChecks.nullNotPermitted(font, "font");
+        this.itemFont = font;
+    }
+    
+    /**
      * Creates and returns a legend (instance of {@link TableElement}) that
      * provides a visual key for the data series in the specified plot.  The
      * plot can be any of the built-in plot types: {@link PiePlot3D}, 
@@ -243,8 +277,8 @@ public final class StandardLegendBuilder implements LegendBuilder,
             if (shape == null) {
                 shape = DEFAULT_LEGEND_SHAPE;
             }
-            legend.addElement(createLegendItem(item.getLabel(), shape,
-                    item.getPaint()));
+            legend.addElement(createLegendItem(item.getLabel(), this.itemFont,
+                    shape, item.getPaint()));
         }
         return legend;
     }
@@ -252,10 +286,20 @@ public final class StandardLegendBuilder implements LegendBuilder,
     private static final Shape DEFAULT_LEGEND_SHAPE 
             = new Rectangle2D.Double(-6, -4, 12, 8);
 
-    private TableElement createLegendItem(String text, Shape shape, 
+    /**
+     * Creates a single item in the legend (normally this represents one
+     * data series from the dataset).
+     * 
+     * @param text  the legend item text (<code>null</code> not permitted).
+     * @param font  the font (<code>null</code> not permitted).
+     * @param shape  the shape
+     * @param color
+     * @return 
+     */
+    private TableElement createLegendItem(String text, Font font, Shape shape, 
             Paint color) {
         ShapeElement se = new ShapeElement(shape, color);
-        TextElement te = new TextElement(text);
+        TextElement te = new TextElement(text, font);
         GridElement ge = new GridElement();
         ge.setElement(se, "R1", "C1");
         ge.setElement(te, "R1", "C2");
@@ -294,6 +338,9 @@ public final class StandardLegendBuilder implements LegendBuilder,
             return false;
         }
         if (!this.footerFont.equals(that.footerFont)) {
+            return false;
+        }
+        if (!this.itemFont.equals(that.itemFont)) {
             return false;
         }
         return true;

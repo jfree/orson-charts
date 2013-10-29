@@ -1,15 +1,15 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
 package com.orsoncharts.axis;
 
-import com.orsoncharts.plot.CategoryPlot3D;
 import java.util.List;
+import com.orsoncharts.plot.CategoryPlot3D;
 
 /**
  * An axis that displays categories and is used with a {@link CategoryPlot3D}.

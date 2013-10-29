@@ -22,9 +22,11 @@ import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.Renderer3DChangeEvent;
 import com.orsoncharts.Chart3DFactory;
+import org.jfree.graphics2d.ObjectUtils;
 
 /**
- * A bar renderer for use with a {@link CategoryPlot3D}.
+ * A renderer for creating 3D bar charts from a {@link CategoryDataset3D} (for 
+ * use with a {@link CategoryPlot3D}).
  * 
  * <div>
  * <object id="ABC" data="doc-files/BarRenderer3D.svg"  type="image/svg+xml" 
@@ -35,6 +37,10 @@ import com.orsoncharts.Chart3DFactory;
  * TIP: to create a chart using this renderer, you can use the
  * {@link Chart3DFactory#createBarChart(String, CategoryDataset3D, String, String, String)} 
  * method.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class.
  */
 public class BarRenderer3D extends AbstractCategoryRenderer3D 
                 implements Serializable {
@@ -270,7 +276,8 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
     protected void composeItem(double value, double barBase, 
             CategoryDataset3D dataset, int series, int row, int column,
             World world, Dimension3D dimensions, double xOffset, 
-            double yOffset, double zOffset) { 
+            double yOffset, double zOffset) {
+
         double vlow = Math.min(barBase, value);
         double vhigh = Math.max(barBase, value);
 
@@ -279,7 +286,7 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
         CategoryAxis3D columnAxis = plot.getColumnAxis();
         ValueAxis3D valueAxis = plot.getValueAxis();
         Range range = valueAxis.getRange();
-        if (!range.containsInterval(vlow, vhigh)) {
+        if (!range.intersects(vlow, vhigh)) {
             return; // the bar is not visible for the given axis range
         }
         
@@ -350,6 +357,12 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
             return false;
         }
         if (this.barZWidth != that.barZWidth) {
+            return false;
+        }
+        if (!ObjectUtils.equals(this.basePaintSource, that.basePaintSource)) {
+            return false;
+        }
+        if (!ObjectUtils.equals(this.topPaintSource, that.topPaintSource)) {
             return false;
         }
         return super.equals(obj);

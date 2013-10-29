@@ -109,6 +109,11 @@ public class AbstractXYZRenderer extends AbstractRenderer3D {
         return DataUtils.findZRange(dataset);
     }
     
+    /**
+     * Tests this renderer for equality with an arbitrary object.
+     * 
+     * @param obj  the object (<code>null</code> permitted).
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
@@ -117,7 +122,10 @@ public class AbstractXYZRenderer extends AbstractRenderer3D {
         if (!(obj instanceof AbstractXYZRenderer)) {
             return false;
         }
-        
+        AbstractXYZRenderer that = (AbstractXYZRenderer) obj;
+        if (!this.paintSource.equals(that.paintSource)) {
+            return false;
+        }
         return true;
     }
 

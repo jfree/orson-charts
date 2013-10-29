@@ -1,6 +1,6 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
  * (C)opyright 2013, by Object Refinery Limited.
  * 
@@ -15,7 +15,6 @@ import java.awt.font.FontRenderContext;
 import java.awt.font.LineMetrics;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
-import java.text.AttributedString;
 
 /**
  * Utility methods for working with text.
@@ -80,59 +79,27 @@ public class TextUtils {
         float xAdj = 0.0f;
         float yAdj = 0.0f;
 
-        if (anchor == TextAnchor.TOP_CENTER
-                || anchor == TextAnchor.CENTER
-                || anchor == TextAnchor.BOTTOM_CENTER
-                || anchor == TextAnchor.BASELINE_CENTER
-                || anchor == TextAnchor.HALF_ASCENT_CENTER) {
-
+        if (anchor.isHorizontalCenter()) {
             xAdj = (float) -bounds.getWidth() / 2.0f;
-
         }
-        else if (anchor == TextAnchor.TOP_RIGHT
-                || anchor == TextAnchor.CENTER_RIGHT
-                || anchor == TextAnchor.BOTTOM_RIGHT
-                || anchor == TextAnchor.BASELINE_RIGHT
-                || anchor == TextAnchor.HALF_ASCENT_RIGHT) {
-
+        else if (anchor.isRight()) {
             xAdj = (float) -bounds.getWidth();
-
         }
 
-        if (anchor == TextAnchor.TOP_LEFT
-                || anchor == TextAnchor.TOP_CENTER
-                || anchor == TextAnchor.TOP_RIGHT) {
-
+        if (anchor.isTop()) {
             yAdj = -descent - leading + (float) bounds.getHeight();
-
         }
-        else if (anchor == TextAnchor.HALF_ASCENT_LEFT
-                || anchor == TextAnchor.HALF_ASCENT_CENTER
-                || anchor == TextAnchor.HALF_ASCENT_RIGHT) {
-
+        else if (anchor.isHalfAscent()) {
             yAdj = halfAscent;
-
         }
-        else if (anchor == TextAnchor.CENTER_LEFT
-                || anchor == TextAnchor.CENTER
-                || anchor == TextAnchor.CENTER_RIGHT) {
-
+        else if (anchor.isHalfHeight()) {
             yAdj = -descent - leading + (float) (bounds.getHeight() / 2.0);
-
         }
-        else if (anchor == TextAnchor.BASELINE_LEFT
-                || anchor == TextAnchor.BASELINE_CENTER
-                || anchor == TextAnchor.BASELINE_RIGHT) {
-
+        else if (anchor.isBaseline()) {
             yAdj = 0.0f;
-
         }
-        else if (anchor == TextAnchor.BOTTOM_LEFT
-                || anchor == TextAnchor.BOTTOM_CENTER
-                || anchor == TextAnchor.BOTTOM_RIGHT) {
-
+        else if (anchor.isBottom()) {
             yAdj = -metrics.getDescent() - metrics.getLeading();
-
         }
         result[0] = xAdj;
         result[1] = yAdj;
@@ -173,59 +140,27 @@ public class TextUtils {
         float xAdj = 0.0f;
         float yAdj = 0.0f;
 
-        if (anchor == TextAnchor.TOP_CENTER
-                || anchor == TextAnchor.CENTER
-                || anchor == TextAnchor.BOTTOM_CENTER
-                || anchor == TextAnchor.BASELINE_CENTER
-                || anchor == TextAnchor.HALF_ASCENT_CENTER) {
-
+        if (anchor.isHorizontalCenter()) {
             xAdj = (float) -bounds.getWidth() / 2.0f;
-
         }
-        else if (anchor == TextAnchor.TOP_RIGHT
-                || anchor == TextAnchor.CENTER_RIGHT
-                || anchor == TextAnchor.BOTTOM_RIGHT
-                || anchor == TextAnchor.BASELINE_RIGHT
-                || anchor == TextAnchor.HALF_ASCENT_RIGHT) {
-
+        else if (anchor.isRight()) {
             xAdj = (float) -bounds.getWidth();
-
         }
 
-        if (anchor == TextAnchor.TOP_LEFT
-                || anchor == TextAnchor.TOP_CENTER
-                || anchor == TextAnchor.TOP_RIGHT) {
-
+        if (anchor.isTop()) {
             yAdj = -descent - leading + (float) bounds.getHeight();
-
         }
-        else if (anchor == TextAnchor.HALF_ASCENT_LEFT
-                || anchor == TextAnchor.HALF_ASCENT_CENTER
-                || anchor == TextAnchor.HALF_ASCENT_RIGHT) {
-
+        else if (anchor.isHalfAscent()) {
             yAdj = halfAscent;
-
         }
-        else if (anchor == TextAnchor.CENTER_LEFT
-                || anchor == TextAnchor.CENTER
-                || anchor == TextAnchor.CENTER_RIGHT) {
-
+        else if (anchor.isHorizontalCenter()) {
             yAdj = -descent - leading + (float) (bounds.getHeight() / 2.0);
-
         }
-        else if (anchor == TextAnchor.BASELINE_LEFT
-                || anchor == TextAnchor.BASELINE_CENTER
-                || anchor == TextAnchor.BASELINE_RIGHT) {
-
+        else if (anchor.isBaseline()) {
             yAdj = 0.0f;
-
         }
-        else if (anchor == TextAnchor.BOTTOM_LEFT
-                || anchor == TextAnchor.BOTTOM_CENTER
-                || anchor == TextAnchor.BOTTOM_RIGHT) {
-
+        else if (anchor.isBottom()) {
             yAdj = -metrics.getDescent() - metrics.getLeading();
-
         }
         if (textBounds != null) {
             textBounds.setRect(bounds);
@@ -332,68 +267,30 @@ public class TextUtils {
         float xAdj = 0.0f;
         float yAdj = 0.0f;
 
-        if (anchor == TextAnchor.TOP_LEFT
-                || anchor == TextAnchor.CENTER_LEFT
-                || anchor == TextAnchor.BOTTOM_LEFT
-                || anchor == TextAnchor.BASELINE_LEFT
-                || anchor == TextAnchor.HALF_ASCENT_LEFT) {
-
+        if (anchor.isLeft()) {
             xAdj = 0.0f;
-
         }
-        else if (anchor == TextAnchor.TOP_CENTER
-                || anchor == TextAnchor.CENTER
-                || anchor == TextAnchor.BOTTOM_CENTER
-                || anchor == TextAnchor.BASELINE_CENTER
-                || anchor == TextAnchor.HALF_ASCENT_CENTER) {
-
+        else if (anchor.isHorizontalCenter()) {
             xAdj = (float) bounds.getWidth() / 2.0f;
-
         }
-        else if (anchor == TextAnchor.TOP_RIGHT
-                || anchor == TextAnchor.CENTER_RIGHT
-                || anchor == TextAnchor.BOTTOM_RIGHT
-                || anchor == TextAnchor.BASELINE_RIGHT
-                || anchor == TextAnchor.HALF_ASCENT_RIGHT) {
-
+        else if (anchor.isRight()) {
             xAdj = (float) bounds.getWidth();
-
         }
 
-        if (anchor == TextAnchor.TOP_LEFT
-                || anchor == TextAnchor.TOP_CENTER
-                || anchor == TextAnchor.TOP_RIGHT) {
-
+        if (anchor.isTop()) {
             yAdj = descent + leading - (float) bounds.getHeight();
-
         }
-        else if (anchor == TextAnchor.CENTER_LEFT
-                || anchor == TextAnchor.CENTER
-                || anchor == TextAnchor.CENTER_RIGHT) {
-
+        else if (anchor.isHalfHeight()) {
             yAdj = descent + leading - (float) (bounds.getHeight() / 2.0);
-
         }
-        else if (anchor == TextAnchor.HALF_ASCENT_LEFT
-                || anchor == TextAnchor.HALF_ASCENT_CENTER
-                || anchor == TextAnchor.HALF_ASCENT_RIGHT) {
-
+        else if (anchor.isHalfAscent()) {
             yAdj = -halfAscent;
-
         }
-        else if (anchor == TextAnchor.BASELINE_LEFT
-                || anchor == TextAnchor.BASELINE_CENTER
-                || anchor == TextAnchor.BASELINE_RIGHT) {
-
+        else if (anchor.isBaseline()) {
             yAdj = 0.0f;
-
         }
-        else if (anchor == TextAnchor.BOTTOM_LEFT
-                || anchor == TextAnchor.BOTTOM_CENTER
-                || anchor == TextAnchor.BOTTOM_RIGHT) {
-
+        else if (anchor.isBottom()) {
             yAdj = metrics.getDescent() + metrics.getLeading();
-
         }
         result[0] = xAdj;
         result[1] = yAdj;
@@ -441,15 +338,10 @@ public class TextUtils {
         }
 
         AffineTransform saved = g2.getTransform();
-
-        // apply the rotation...
         AffineTransform rotate = AffineTransform.getRotateInstance(
                 angle, rotateX, rotateY);
         g2.transform(rotate);
-
-        AttributedString as = new AttributedString(text, 
-                g2.getFont().getAttributes());
-        g2.drawString(as.getIterator(), textX, textY);
+        g2.drawString(text, textX, textY);
         g2.setTransform(saved);
 
     }

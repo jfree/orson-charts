@@ -48,9 +48,16 @@ public class LineChart3DDemo1 extends JFrame {
         getContentPane().add(createDemoPanel());
     }
 
-    public static final JPanel createDemoPanel() {
+    /**
+     * Returns a panel containing the content for the demo.  This method is
+     * used across all the individual demo applications to allow aggregation 
+     * into a single "umbrella" demo (OrsonChartsDemo).
+     * 
+     * @return A panel containing the content for the demo.
+     */
+    public static JPanel createDemoPanel() {
         JPanel content = new JPanel(new BorderLayout());
-        content.setPreferredSize(new Dimension(600, 400));
+        content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         CategoryDataset3D dataset = createDataset();
         Chart3D chart = Chart3DFactory.createLineChart("LineChart3DDemo1", 
                 dataset, null, null, "Market Share (%)");
@@ -60,14 +67,18 @@ public class LineChart3DDemo1 extends JFrame {
         NumberAxis3D valueAxis = (NumberAxis3D) plot.getValueAxis();
         valueAxis.setTickSelector(new NumberTickSelector(true));
         valueAxis.setRange(0.20, 0.30);
-        content.add(new DisplayPanel3D(new ChartPanel3D(chart), true));
+        ChartPanel3D chartPanel = new ChartPanel3D(chart);
+        chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
+        content.add(new DisplayPanel3D(chartPanel));
         return content;
     }
   
     /**
-     * Creates a dataset.
-     *
-     * @return the dataset.
+     * Creates a sample dataset (hard-coded for the purpose of keeping the
+     * demo self-contained - in practice you would normally read your data
+     * from a file, database or other source).
+     * 
+     * @return A sample dataset.
      */
     private static CategoryDataset3D createDataset() {
         StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();

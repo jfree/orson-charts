@@ -1,25 +1,26 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
 package com.orsoncharts.data;
 
-
+import java.io.Serializable;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.ObjectUtils;
-import java.io.Serializable;
 
 /**
  * A data item where a key is associated with a numerical value.
  */
 public final class DefaultKeyedValue<T> implements KeyedValue, Serializable {
 
+    /** The key. */
     private Comparable key;
 
+    /** The value. */
     private T value;
 
     /**

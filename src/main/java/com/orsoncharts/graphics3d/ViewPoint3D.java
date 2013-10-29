@@ -8,7 +8,9 @@
 
 package com.orsoncharts.graphics3d;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 
 /**
@@ -32,9 +34,11 @@ public class ViewPoint3D {
     /**
      * Creates a new viewing point.
      *
-     * @param theta
-     * @param phi
-     * @param rho
+     * @param theta  the rotation of the viewing point from the x-axis around
+     *     the z-axis (in radians)
+     * @param phi  the rotation of the viewing point up and down (from the
+     *     XZ plane, in radians)
+     * @param rho  the distance of the viewing point from the origin.
      */
     public ViewPoint3D(float theta, float phi, float rho) {
         this.theta = theta;
@@ -136,12 +140,71 @@ public class ViewPoint3D {
      * Calculate the distance that would render a box of the given dimensions 
      * within a screen area of the specified size.
      * 
-     * @param dim2D
-     * @param dim3D
-     * @return 
+     * @param target  the target dimension (<code>null/<code> not permitted).
+     * @param dim3D  the dimensions of the 3D content (<code>null</code> not 
+     *     permitted).
+     * 
+     * @return The optimal viewing distance. 
      */
-    public float optimalDistance(Dimension dim2D, Dimension3D dim3D) {
-        return 10f;    
+    public float optimalDistance(Dimension2D target, Dimension3D dim3D) {
+        
+        ViewPoint3D vp = new ViewPoint3D(this.theta, this.phi, this.rho);
+        float near = (float) dim3D.getDiagonalLength();
+        float far = (float) near * 40;
+        
+        World w = new World();
+        double ww = dim3D.getWidth();
+        double hh = dim3D.getHeight();
+        double dd = dim3D.getDepth();
+        w.add(Object3D.createBox(-ww / 2.0, ww, -hh / 2.0, hh, -dd / 2.0, dd, 
+                Color.RED));
+                
+        while (true) {
+            vp.setRho(near);
+            Point2D[] nearpts = w.calculateProjectedPoints(vp, 1000f);
+            Dimension neardim = Utils2D.findDimension(nearpts);
+            double nearcover = coverage(neardim, target);
+            vp.setRho(far);
+            Point2D[] farpts = w.calculateProjectedPoints(vp, 1000f);
+            Dimension fardim = Utils2D.findDimension(farpts);
+            double farcover = coverage(fardim, target);
+            if (nearcover <= 1.0) {
+                return near;
+            }
+            if (farcover >= 1.0) {
+                return far;
+            }
+            // bisect near and far until we get close enough to the specified 
+            // dimension
+            float mid = (near + far) / 2.0f;
+            vp.setRho(mid);
+            Point2D[] midpts = w.calculateProjectedPoints(vp, 1000f);
+            Dimension middim = Utils2D.findDimension(midpts);
+            double midcover = coverage(middim, target);
+            if (midcover >= 1.0) {
+                near = mid;
+            } else {
+                far = mid;
+            }
+        }  
+    }
+    
+    private double coverage(Dimension2D d, Dimension2D target) {
+        double wpercent = d.getWidth() / target.getWidth();
+        double hpercent = d.getHeight() / target.getHeight();
+        if (wpercent <= 1.0 && hpercent <= 1.0) {
+            return Math.max(wpercent, hpercent);
+        } else {
+            if (wpercent >= 1.0) {
+                if (hpercent >= 1.0) {
+                    return Math.min(wpercent, hpercent);
+                } else {
+                    return wpercent;
+                }
+            } else {
+                return hpercent;  // don't think it will matter
+            }
+        }
     }
     
     /**

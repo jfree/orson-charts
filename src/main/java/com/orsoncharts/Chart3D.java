@@ -12,8 +12,8 @@ import java.awt.Stroke;
 import java.awt.geom.Line2D;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
@@ -37,7 +37,7 @@ import com.orsoncharts.graphics3d.Drawable3D;
 import com.orsoncharts.graphics3d.Face;
 import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.Point3D;
-import com.orsoncharts.graphics3d.Tools2D;
+import com.orsoncharts.graphics3d.Utils2D;
 import com.orsoncharts.graphics3d.ViewPoint3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.graphics3d.ZOrderComparator;
@@ -59,7 +59,6 @@ import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.legend.LegendBuilder;
 import com.orsoncharts.legend.StandardLegendBuilder;
 import com.orsoncharts.util.ObjectUtils;
-import java.awt.Image;
 
 /**
  * A chart object for 3D charts.  The {@link Chart3DFactory} class provides 
@@ -86,6 +85,10 @@ import java.awt.Image;
  * and legend (and also the axis labels) are not part of the 3D world model,
  * they are overlaid on the output after the 3D components have been
  * rendered.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class.
  * 
  * @see {@link ChartFactory3D}, {@link ChartPanel3D}.
  */
@@ -160,8 +163,11 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
         this.plot = plot;
         this.plot.addChangeListener(this);
         Dimension3D dim = this.plot.getDimensions();
+        float distance = (float) dim.getDiagonalLength() * 3.0f;
+        //float distance = 2f * (float) dim.getDepth() + 2f * (float) Math.max(dim.getWidth(), dim.getHeight());
         this.viewPoint = new ViewPoint3D((float) (4.4 * Math.PI / 3), 
-                (float) (7 * Math.PI / 6),  2f * (float) dim.getDepth() + 2f * (float) Math.max(dim.getWidth(), dim.getHeight()));
+                (float) (7 * Math.PI / 6), distance);
+        System.out.println("distance : " + distance);
         this.chartBoxColor = Color.WHITE;
         this.translate2D = new Offset2D();
         this.notify = true;
@@ -329,6 +335,16 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
     }
     
     /**
+     * Returns the dimensions of the 3D object.
+     * 
+     * @return The dimensions. 
+     */
+    @Override
+    public Dimension3D getDimensions() {
+        return this.plot.getDimensions();
+    }
+    
+    /**
      * Returns the view point.
      * 
      * @return The view point (never <code>null</code>). 
@@ -453,14 +469,13 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
      * @param g2  the output target. 
      */
     @Override
-    public void draw(Graphics2D g2, Rectangle bounds) {
+    public void draw(Graphics2D g2, Rectangle2D bounds) {
         
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.setStroke(new BasicStroke(1.1f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1f));
+        g2.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_ROUND, 
+                BasicStroke.JOIN_ROUND, 1f));
         Dimension3D dim3D = this.plot.getDimensions();
-//        System.out.println("Dimension = " + dim3D.toString()); TODO
-//        System.out.println(this.viewPoint.getRho()); TODO
         double w = dim3D.getWidth();
         double h = dim3D.getHeight();
         double depth = dim3D.getDepth();
@@ -481,12 +496,13 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
             g2.fill(bounds);
         }
         if (this.backgroundImage != null) {
-            g2.drawImage(this.backgroundImage, bounds.x, bounds.y, bounds.width,
-                    bounds.height, null);
+            g2.drawImage(this.backgroundImage, (int) bounds.getX(), 
+                    (int) bounds.getY(), (int) bounds.getWidth(),
+                    (int) bounds.getHeight(), null);
         }
         AffineTransform saved = g2.getTransform();
-        g2.translate(bounds.width / 2.0 + this.translate2D.getDX(), 
-                bounds.height / 2.0 + this.translate2D.getDY());
+        g2.translate(bounds.getWidth() / 2.0 + this.translate2D.getDX(), 
+                bounds.getHeight() / 2.0 + this.translate2D.getDY());
        // g2.rotate(getViewPoint().getRotate());
 
         Point3D[] eyePts = world.calculateEyeCoordinates(this.viewPoint);
@@ -514,7 +530,7 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
             double inprod = plane[0] * world.getSunX() + plane[1]
                     * world.getSunY() + plane[2] * world.getSunZ();
             double shade = (inprod + 1) / 2.0;
-            if (Tools2D.area2(pts[f.getVertexIndex(0)],
+            if (Utils2D.area2(pts[f.getVertexIndex(0)],
                     pts[f.getVertexIndex(1)], pts[f.getVertexIndex(2)]) > 0) {
                 Color c = f.getColor();
                 if (c != null) {
@@ -891,13 +907,13 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
                 this.viewPoint, 1000f);
         for (int i = 0; i < p.getDataset().getItemCount() * 2; i++) {
             Face f = labelOverlay.getFaces().get(i);
-            if (Tools2D.area2(ppts[f.getVertexIndex(0)], 
+            if (Utils2D.area2(ppts[f.getVertexIndex(0)], 
                     ppts[f.getVertexIndex(1)], 
                     ppts[f.getVertexIndex(2)]) > 0) {
                 Comparable key = p.getDataset().getKey(i / 2);
                 g2.setColor(Color.BLACK);
                 g2.setFont(p.getDefaultSectionFont());
-                Point2D pt = Tools2D.centrePoint(ppts[f.getVertexIndex(0)], 
+                Point2D pt = Utils2D.centerPoint(ppts[f.getVertexIndex(0)], 
                         ppts[f.getVertexIndex(1)], ppts[f.getVertexIndex(2)],
                         ppts[f.getVertexIndex(3)]);
                 TextUtils.drawAlignedString(key.toString(), g2, 

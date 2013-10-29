@@ -1,15 +1,14 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
 package com.orsoncharts.demo;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
@@ -21,10 +20,6 @@ import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.category.StandardCategoryDataset3D;
 import com.orsoncharts.data.DefaultKeyedValues;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
-import com.orsoncharts.plot.CategoryPlot3D;
-import com.orsoncharts.renderer.category.BarRenderer3D;
-import com.orsoncharts.renderer.category.StandardCategory3DPaintSource;
-import java.awt.Color;
 
 /**
  * A demo of a 3D bar chart.  Here we add a lot of series so we can test the
@@ -48,26 +43,31 @@ public class BarChart3DDemo2 extends JFrame {
         getContentPane().add(createDemoPanel());
     }
 
-    public static final JPanel createDemoPanel() {
+    /**
+     * Returns a panel containing the content for the demo.  This method is
+     * used across all the individual demo applications to allow aggregation 
+     * into a single "umbrella" demo (OrsonChartsDemo).
+     * 
+     * @return A panel containing the content for the demo.
+     */
+    public static JPanel createDemoPanel() {
         JPanel content = new JPanel(new BorderLayout());
-        content.setPreferredSize(new Dimension(600, 400));
+        content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         CategoryDataset3D dataset = createDataset();
         Chart3D chart = Chart3DFactory.createBarChart("BarChart3DDemo2", 
                 dataset, null, "Quarter", "$billion Revenues");
-        CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
-        plot.getValueAxis().setRange(16.0, 18.0);
-        BarRenderer3D renderer = (BarRenderer3D) plot.getRenderer();
-        //renderer.setBase(20.0);
-        //renderer.setBasePaintSource(new StandardCategory3DPaintSource(new Color[] {Color.YELLOW}));
-        //renderer.setTopPaintSource(new StandardCategory3DPaintSource(new Color[] {Color.BLACK}));
-        content.add(new DisplayPanel3D(new ChartPanel3D(chart), true));
+        ChartPanel3D chartPanel = new ChartPanel3D(chart);
+        content.add(new DisplayPanel3D(chartPanel));
+        chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         return content;
     }
   
     /**
-     * Creates a sample dataset.
+     * Creates a sample dataset (hard-coded for the purpose of keeping the
+     * demo self-contained - in practice you would normally read your data
+     * from a file, database or other source).
      * 
-     * @return A sample dataset. 
+     * @return A sample dataset.
      */
     private static CategoryDataset3D createDataset() {    
         StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
@@ -93,26 +93,6 @@ public class BarChart3DDemo2 extends JFrame {
         s3.addValue("Q4/2011", 46.33);
         dataset.addSeriesAsRow("Apple", s3);
 
-        DefaultKeyedValues s4 = new DefaultKeyedValues();
-        s3.addValue("Q1/2011", 24.67);
-        s3.addValue("Q2/2011", 28.57);
-        s3.addValue("Q3/2011", 28.27);
-        s3.addValue("Q4/2011", 46.33);
-        dataset.addSeriesAsRow("Apple2", s3);
-
-        DefaultKeyedValues s5 = new DefaultKeyedValues();
-        s3.addValue("Q1/2011", 24.67);
-        s3.addValue("Q2/2011", 28.57);
-        s3.addValue("Q3/2011", 28.27);
-        s3.addValue("Q4/2011", 46.33);
-        dataset.addSeriesAsRow("Apple3", s3);
-
-        DefaultKeyedValues s6 = new DefaultKeyedValues();
-        s3.addValue("Q1/2011", 24.67);
-        s3.addValue("Q2/2011", 28.57);
-        s3.addValue("Q3/2011", 28.27);
-        s3.addValue("Q4/2011", 46.33);
-        dataset.addSeriesAsRow("Apple4", s3);
         return dataset;
     }
 

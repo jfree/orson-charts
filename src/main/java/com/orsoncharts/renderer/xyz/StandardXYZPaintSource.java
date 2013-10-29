@@ -1,20 +1,26 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
 package com.orsoncharts.renderer.xyz;
 
 import java.awt.Color;
+import java.io.Serializable;
+import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.ObjectUtils;
 
 /**
  * A standard implementation of the {@link XYZPaintSource} interface.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class.
  */
-public class StandardXYZPaintSource implements XYZPaintSource {
+public class StandardXYZPaintSource implements XYZPaintSource, Serializable {
 
     /** The sequence of color objects to use for each series. */
     private Color[] paint;
@@ -28,6 +34,17 @@ public class StandardXYZPaintSource implements XYZPaintSource {
     }
     
     /**
+     * Creates a new instance that returns a single color for all series and
+     * items.
+     * 
+     * @param color  the color (<code>null</code> not permitted).
+     */
+    public StandardXYZPaintSource(Color color) {
+        ArgChecks.nullNotPermitted(color, "color");
+        this.paint = new Color[] { color };
+    }
+    
+    /**
      * Creates a new instance with the supplied sequence of colors.  The
      * supplied array must have at least one entry, and all entries must be
      * non-<code>null</code>.
@@ -35,6 +52,7 @@ public class StandardXYZPaintSource implements XYZPaintSource {
      * @param colors  the colors (<code>null</code> not permitted). 
      */
     public StandardXYZPaintSource(Color[] colors) {
+        ArgChecks.nullNotPermitted(colors, "colors");
         this.paint = colors;
     }
     

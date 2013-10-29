@@ -1,17 +1,17 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
 package com.orsoncharts.data;
 
-import com.orsoncharts.util.ArgChecks;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import com.orsoncharts.util.ArgChecks;
 
 /**
  * A list of <code>(key, value)</code> pairs.  This is the basic structure of 

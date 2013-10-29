@@ -9,6 +9,7 @@
 package com.orsoncharts.demo;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -24,19 +25,20 @@ import com.orsoncharts.data.xyz.XYZSeriesCollection;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.plot.XYZPlot;
+import com.orsoncharts.renderer.xyz.FastScatterXYZRenderer;
 import com.orsoncharts.renderer.xyz.ScatterXYZRenderer;
 
 /**
  * A demonstration of a scatter plot in 3D.
  */
-public class ScatterPlot3DDemo1 extends JFrame {
+public class FastScatterPlot3DDemo1 extends JFrame {
 
     /**
      * Creates a new test app.
      *
      * @param title  the frame title.
      */
-    public ScatterPlot3DDemo1(String title) {
+    public FastScatterPlot3DDemo1(String title) {
         super(title);
         addWindowListener(new WindowAdapter() {
             @Override
@@ -56,19 +58,18 @@ public class ScatterPlot3DDemo1 extends JFrame {
      */
     public static JPanel createDemoPanel() {
         JPanel content = new JPanel(new BorderLayout());
-        content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
+        content.setPreferredSize(new Dimension(600, 400));
         XYZDataset dataset = createDataset();
-        Chart3D chart = Chart3DFactory.createScatterPlot("ScatterPlot3DDemo1", 
+        Chart3D chart = Chart3DFactory.createScatterPlot("FastScatterPlot3DDemo1", 
                 dataset, "X", "Y", "Z");
         XYZPlot plot = (XYZPlot) chart.getPlot();
+        plot.setRenderer(new FastScatterXYZRenderer());
         plot.setDimensions(new Dimension3D(10.0, 4.0, 4.0));
-        ScatterXYZRenderer renderer = (ScatterXYZRenderer) plot.getRenderer();
-        renderer.setSize(0.20);
+        //ScatterXYZRenderer renderer = (ScatterXYZRenderer) plot.getRenderer();
+        //renderer.setSize(0.20);
         ValueAxis3D xAxis = plot.getXAxis();
         xAxis.setRange(20, 80);
-        ChartPanel3D chartPanel = new ChartPanel3D(chart);
-        chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
-        content.add(new DisplayPanel3D(chartPanel));
+        content.add(new DisplayPanel3D(new ChartPanel3D(chart)));
         return content;
     }
 
@@ -103,8 +104,8 @@ public class ScatterPlot3DDemo1 extends JFrame {
      * @param args  command line arguments (ignored).
      */
     public static void main(String[] args) {
-        ScatterPlot3DDemo1 app = new ScatterPlot3DDemo1(
-                "OrsonCharts : ScatterPlot3DDemo1.java");
+        FastScatterPlot3DDemo1 app = new FastScatterPlot3DDemo1(
+                "OrsonCharts : FastScatterPlot3DDemo1.java");
         app.pack();
         app.setVisible(true);
     }

@@ -84,10 +84,19 @@ public class Range {
         return Math.max(this.min, Math.min(this.max, value));
     }
 
-    public boolean containsInterval(double lowerBound, double upperBound) {
-        if (lowerBound > upperBound) {
-            throw new IllegalArgumentException("Requires lowerBound <= upperBound.");
-        }
+    /**
+     * Returns <code>true</code> if the range intersects the interval defined 
+     * by the two bounds (the order of the bounds is not important), and
+     * <code>false</code> otherwise.
+     * 
+     * @param bound1  the first boundary value.
+     * @param bound2  the second boundary value.
+     * 
+     * @return A boolean. 
+     */
+    public boolean intersects(double bound1, double bound2) {
+        double lowerBound = Math.min(bound1, bound2);
+        double upperBound = Math.max(bound1, bound2);
         if (upperBound < this.min) {
             return false;
         }

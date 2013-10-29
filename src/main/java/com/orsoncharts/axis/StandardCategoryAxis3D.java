@@ -145,6 +145,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      * @param lowerBound  the lower bound.
      * @param upperBound  the upper bound.
      */
+    @Override
     public void setRange(double lowerBound, double upperBound) {
         // TODO : consider whether it makes sense to enable the range to be
         // modified

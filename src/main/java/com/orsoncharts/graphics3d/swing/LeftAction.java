@@ -1,6 +1,6 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
  * (C)opyright 2013, by Object Refinery Limited.
  * 
@@ -10,6 +10,7 @@ package com.orsoncharts.graphics3d.swing;
 
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
+import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.graphics3d.ViewPoint3D;
 
 /**
@@ -26,7 +27,7 @@ public class LeftAction extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        ViewPoint3D viewPt = this.panel.getViewPoint();
+        ViewPoint3D viewPt = this.panel.getDrawable().getViewPoint();
         float valRho = (float) (viewPt.getRho() - (Math.PI / 30.0));
         float valTheta = viewPt.getTheta();
         float valPhi = viewPt.getPhi();

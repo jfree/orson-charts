@@ -34,8 +34,8 @@ public class ShapeElement extends AbstractTableElement
     /**
      * Creates a new shape element.
      * 
-     * @param shape  the shape.
-     * @param fillPaint  the fill paint.
+     * @param shape  the shape (<code>null</code> not permitted).
+     * @param fillPaint  the fill paint (<code>null</code> not permitted).
      */
     public ShapeElement(Shape shape, Paint fillPaint) {
         super();

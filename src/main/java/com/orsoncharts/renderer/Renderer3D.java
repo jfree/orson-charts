@@ -1,15 +1,32 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
 package com.orsoncharts.renderer;
 
+import com.orsoncharts.Chart3D;
+import com.orsoncharts.plot.CategoryPlot3D;
+import com.orsoncharts.plot.XYZPlot;
+
 /**
- * A base interface for renderers.
+ * A renderer is an object responsible for constructing objects in a 3D model
+ * that correspond to data items in a dataset.  The renderer's methods will be 
+ * called by the plot ({@link CategoryPlot3D} or {@link XYZPlot}) that it is 
+ * assigned to.  
+ * <p>
+ * All renderers support a change listener mechanism so that registered 
+ * listeners can be notified whenever any attribute of the renderer is modified.
+ * Typically the plot that the renderer is assigned to will listen for 
+ * change events, and pass these events along to the {@link Chart3D} object.
+ * <p>
+ * Renderers should implement the <code>java.io.Serializable</code> interface,
+ * so that charts can be serialized and deserialized, but this is not a forced
+ * requirement (if you never use serialization, it won't matter if you 
+ * implement a renderer that does not support it).
  */
 public interface Renderer3D {
     

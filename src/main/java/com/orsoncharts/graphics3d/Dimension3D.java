@@ -64,6 +64,16 @@ public class Dimension3D {
     }
 
     /**
+     * Returns the length of a diagonal from one corner of the box to another.
+     * 
+     * @return The length.
+     */
+    public double getDiagonalLength() {
+        return Math.sqrt(this.depth * this.depth + this.height * this.height
+                + this.width * this.width);
+    }
+    
+    /**
      * Tests this instance for equality with an arbitrary object.
      * 
      * @param obj  the object to test against (<code>null</code> permitted).

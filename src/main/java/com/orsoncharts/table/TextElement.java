@@ -23,6 +23,10 @@ import com.orsonpdf.util.TextUtils;
 
 /**
  * A table element consisting of some text that will be drawn on one line.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class.
  */
 public class TextElement extends AbstractTableElement 
         implements TableElement, Serializable {

@@ -42,18 +42,18 @@ public class RangeTest {
     }
     
     @Test
-    public void testContainsInterval() {
+    public void testIntersects() {
         Range r = new Range(0, 10);
-        assertFalse(r.containsInterval(-0.5, -0.1));
-        assertTrue(r.containsInterval(-0.5, 0.0));
-        assertTrue(r.containsInterval(0.0, 5.0));
-        assertTrue(r.containsInterval(0.0, 10.0));
-        assertTrue(r.containsInterval(0.0, 11.0));
-        assertTrue(r.containsInterval(5.0, 9.0));
-        assertTrue(r.containsInterval(5.0, 10.0));
-        assertTrue(r.containsInterval(5.0, 11.0));
-        assertTrue(r.containsInterval(10.0, 11.0));
-        assertFalse(r.containsInterval(10.5, 11.0));        
+        assertFalse(r.intersects(-0.5, -0.1));
+        assertTrue(r.intersects(-0.5, 0.0));
+        assertTrue(r.intersects(0.0, 5.0));
+        assertTrue(r.intersects(0.0, 10.0));
+        assertTrue(r.intersects(0.0, 11.0));
+        assertTrue(r.intersects(5.0, 9.0));
+        assertTrue(r.intersects(5.0, 10.0));
+        assertTrue(r.intersects(5.0, 11.0));
+        assertTrue(r.intersects(10.0, 11.0));
+        assertFalse(r.intersects(10.5, 11.0));        
     }
     
     private static final double EPSILON = 0.0000001;

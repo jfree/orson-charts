@@ -9,7 +9,6 @@
 package com.orsoncharts.demo;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
@@ -24,6 +23,7 @@ import com.orsoncharts.data.xyz.XYZSeries;
 import com.orsoncharts.data.xyz.XYZSeriesCollection;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.plot.XYZPlot;
+import com.orsoncharts.renderer.xyz.BarXYZRenderer;
 
 /**
  * A demo of a 3D bar chart.
@@ -46,20 +46,38 @@ public class XYZBarChart3DDemo1 extends JFrame {
         getContentPane().add(createDemoPanel());
     }
 
+    /**
+     * Returns a panel containing the content for the demo.  This method is
+     * used across all the individual demo applications to allow aggregation 
+     * into a single "umbrella" demo (OrsonChartsDemo).
+     * 
+     * @return A panel containing the content for the demo.
+     */
     public static JPanel createDemoPanel() {
         JPanel content = new JPanel(new BorderLayout());
-        content.setPreferredSize(new Dimension(600, 400));
+        content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         XYZDataset dataset = createDataset();
         Chart3D chart = Chart3DFactory.createXYZBarChart("XYZBarChart3DDemo1", 
                 dataset, "X", "Value", "Z");
         XYZPlot plot = (XYZPlot) chart.getPlot();
     //    plot.getXAxis().setRange(1.4, 2.6);
-        plot.getYAxis().setRange(6.0, 16.0);
+  //      plot.getYAxis().setRange(6.0, 13.0);
     //    plot.getZAxis().setRange(1.0, 2.0);
-        content.add(new DisplayPanel3D(new ChartPanel3D(chart), true));
+        BarXYZRenderer renderer = (BarXYZRenderer) plot.getRenderer();
+      //  renderer.setBase(10.0);
+        ChartPanel3D chartPanel = new ChartPanel3D(chart);
+        chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
+        content.add(new DisplayPanel3D(chartPanel));
         return content;
     }
   
+    /**
+     * Creates a sample dataset (hard-coded for the purpose of keeping the
+     * demo self-contained - in practice you would normally read your data
+     * from a file, database or other source).
+     * 
+     * @return A sample dataset.
+     */
     private static XYZDataset createDataset() {
         XYZSeries series1 = new XYZSeries("Series 1");
         for (int x = 0; x < 4; x++) {
@@ -71,7 +89,7 @@ public class XYZBarChart3DDemo1 extends JFrame {
         }     
         XYZSeries series3 = new XYZSeries("Series 3");
         for (int x = 0; x < 4; x++) {
-            series3.add(new XYZDataItem(x + 0.5, Math.random() * 20, 2.5));            
+            series3.add(new XYZDataItem(x + 0.5, Math.random() * 20 - 10, 2.5));            
         }
         XYZSeriesCollection dataset = new XYZSeriesCollection();
         dataset.add(series1);

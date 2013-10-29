@@ -1,6 +1,6 @@
-/* =============
- * OrsonCharts3D
- * =============
+/* ============
+ * Orson Charts
+ * ============
  * 
  * (C)opyright 2013, by Object Refinery Limited.
  * 
@@ -8,12 +8,16 @@
 
 package com.orsoncharts.util;
 
-import com.orsoncharts.graphics3d.Offset2D;
 import java.io.Serializable;
+import com.orsoncharts.graphics3d.Offset2D;
 
 /**
  * Represents an anchor point for a chart title and/or legend.  Instances
  * of this class are immutable.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class.
  */
 public final class Anchor2D implements Serializable {
     

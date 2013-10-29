@@ -92,46 +92,20 @@ public class Object3D {
             double yOffset, double zOffset, Color color) {
         return createBox(xOffset, size, yOffset, size, zOffset, size, color);
     }
-//        Object3D cube = new Object3D();
-//        cube.addVertex(new Point3D(size + xOffset, -size + yOffset, -size
-//                + zOffset));
-//        cube.addVertex(new Point3D(size + xOffset, size + yOffset, -size
-//                + zOffset));
-//        cube.addVertex(new Point3D(-size + xOffset, size + yOffset, -size
-//                + zOffset));
-//        cube.addVertex(new Point3D(-size + xOffset, -size + yOffset, -size
-//                + zOffset));
-//        cube.addVertex(new Point3D(size + xOffset, -size + yOffset, size
-//                + zOffset));
-//        cube.addVertex(new Point3D(size + xOffset, size + yOffset, size
-//                + zOffset));
-//        cube.addVertex(new Point3D(-size + xOffset, size + yOffset, size
-//                + zOffset));
-//        cube.addVertex(new Point3D(-size + xOffset, -size + yOffset, size
-//                + zOffset));
-//        cube.addFace(new Face(new int[] {0, 1, 5, 4}, color));
-//        cube.addFace(new Face(new int[] {1, 2, 6, 5}, color));
-//        cube.addFace(new Face(new int[] {2, 3, 7, 6}, color));
-//        cube.addFace(new Face(new int[] {0, 4, 7, 3}, color));
-//        cube.addFace(new Face(new int[] {4, 5, 6, 7}, color));
-//        cube.addFace(new Face(new int[] {3, 2, 1, 0}, color));
-////        cube.addFace(new Face(new int[] {3, 7, 4, 0}, color));
-////        cube.addFace(new Face(new int[] {7, 6, 5, 4}, color));
-////        cube.addFace(new Face(new int[] {0, 1, 2, 3}, color));
-//        return cube;
-//    }
 
     /**  
-     * Creates a box.
+     * Creates a box with six faces (for example, to be used for bars in a bar 
+     * chart).
      *
-     * @param xdim  the dimension.
-     * @param xOffset  the x-offset.
-     * 
-     * @param yOffset  the y-offset.
-     * @param zOffset  the z-offset.
+     * @param x  the x-coordinate.
+     * @param xdim  the length of the box in the x-dimension.
+     * @param y  the y-coordinate.
+     * @param ydim  the length of the box in the y-dimension.
+     * @param z  the z-coordinate.
+     * @param zdim  the length of the box in the y-dimension.
      * @param color  the color.
      *
-     * @return The object.
+     * @return The box.
      */
     public static Object3D createBox(double x, double xdim, 
             double y, double ydim, double z, double zdim, 
@@ -416,7 +390,7 @@ public class Object3D {
     }
 
     /**
-     * Adds a new vertex for the object.
+     * Adds a new object vertex with the specified coordinate.
      * 
      * @param x  the x-coordinate.
      * @param y  the y-coordinate.
@@ -427,7 +401,7 @@ public class Object3D {
     }
     
     /**
-     * Adds a new vertex for the object.
+     * Adds a new object vertex.
      *
      * @param vertex  the vertex (<code>null</code> not permitted).
      */
@@ -445,7 +419,15 @@ public class Object3D {
         return this.faces.size();
     }
 
+    /**
+     * Adds a face for the given vertices (specified by index value) and 
+     * color.
+     * 
+     * @param vertices  the vertices (all should lie in a plane).
+     * @param color  the color (<code>null</code> not permitted).
+     */
     public void addFace(int[] vertices, Color color) {
+        // defer the arg checks...
         addFace(new Face(vertices, color));
     }
     

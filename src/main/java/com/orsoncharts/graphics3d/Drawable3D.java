@@ -9,8 +9,8 @@
 package com.orsoncharts.graphics3d;
 
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import com.orsoncharts.Chart3D;
+import java.awt.geom.Rectangle2D;
 
 /**
  * An object in 3D that can be viewed from an arbitrary viewpoint and rendered
@@ -20,18 +20,25 @@ import com.orsoncharts.Chart3D;
 public interface Drawable3D {
 
     /**
+     * Returns the dimensions of the 3D object.
+     * 
+     * @return The dimensions. 
+     */
+    Dimension3D getDimensions();
+    
+    /**
      * Returns the view point.
      * 
      * @return The view point (never <code>null</code>).
      */
-    public ViewPoint3D getViewPoint();
+    ViewPoint3D getViewPoint();
     
     /**
      * Sets the view point.
      * 
      * @param viewPoint  the view point (<code>null</code> not permitted).
      */
-    public void setViewPoint(ViewPoint3D viewPoint);
+    void setViewPoint(ViewPoint3D viewPoint);
     
     /**
      * Returns the 2D offset for the drawable.
@@ -53,6 +60,6 @@ public interface Drawable3D {
      * @param g2  the graphics target (<code>null</code> not permitted).
      * @param bounds  the bounds (<code>null</code> not permitted).
      */
-    public void draw(Graphics2D g2, Rectangle bounds);
+    public void draw(Graphics2D g2, Rectangle2D bounds);
     
 }

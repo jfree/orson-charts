@@ -1,8 +1,8 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -12,6 +12,10 @@ import java.awt.Color;
 
 /**
  * A source of <code>Color</code> values for an {@link XYZRenderer}.
+ * <p>
+ * Classes that implement this interface should also implement 
+ * <code>java.io.Serializable</code>, otherwise it will not be possible to 
+ * serialize and deserialize charts that use the non-serializable instance.
  */
 public interface XYZPaintSource {
 

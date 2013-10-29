@@ -7,22 +7,26 @@
  */
 package com.orsoncharts;
 
-import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.swing.Panel3D;
-import java.awt.Dimension;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 
 /**
  * A panel designed to display a {@link Chart3D}.  The panel registers with the
  * chart to receive change notifications, and when these are received the chart
  * is automatically repainted.
  */
-public class ChartPanel3D extends Panel3D implements Chart3DChangeListener {
+public class ChartPanel3D extends Panel3D implements Chart3DChangeListener, 
+        ComponentListener {
 
     /**
      * The chart being rendered.
      */
     private Chart3D chart;
-
+    
+    /** Auto-fit the chart on resize? */
+    private boolean autoFitOnPanelResize;
+    
     /**
      * Creates a new chart panel to display the specified chart.
      *
@@ -32,6 +36,8 @@ public class ChartPanel3D extends Panel3D implements Chart3DChangeListener {
         super(chart);
         this.chart = chart;
         this.chart.addChangeListener(this);
+        this.addComponentListener(this);
+        this.autoFitOnPanelResize = false;
     }
 
     /**
@@ -45,10 +51,26 @@ public class ChartPanel3D extends Panel3D implements Chart3DChangeListener {
         repaint();
     }
 
-    public void zoomToFit(double margin) {
-        Dimension d2d = getSize();
-        Dimension3D d3d = this.chart.getPlot().getDimensions();
-        // ask the viewpoint to suggest the correct viewing distance
-        
+    @Override
+    public void componentResized(ComponentEvent e) {
+        if (this.autoFitOnPanelResize) {
+            zoomToFit();
+        }
     }
+
+    @Override
+    public void componentMoved(ComponentEvent e) {
+        // do nothing
+    }
+
+    @Override
+    public void componentShown(ComponentEvent e) {
+        // do nothing
+    }
+
+    @Override
+    public void componentHidden(ComponentEvent e) {
+        // do nothing
+    }
+
 }

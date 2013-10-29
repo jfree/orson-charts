@@ -10,6 +10,9 @@ package com.orsoncharts.demo;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.lang.reflect.InvocationTargetException;
@@ -35,12 +38,26 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
+import com.orsoncharts.ChartPanel3D;
+import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
+import javax.swing.JTextPane;
 
 /**
- * A demo application for Orson Charts.
+ * A demo application for Orson Charts.  This aggregates all the individual
+ * demos which can also be run independently.
  */
-public class OrsonChartsDemo extends JFrame implements TreeSelectionListener {
+public class OrsonChartsDemo extends JFrame implements ActionListener, 
+        TreeSelectionListener {
     
+    /** Default size for the content panel in the demo applications. */
+    public static final Dimension DEFAULT_CONTENT_SIZE 
+            = new Dimension(600, 400);
+    
+    /**
+     * Creates a new demo instance with the specified frame title.
+     * 
+     * @param title  the title.
+     */
     public OrsonChartsDemo(String title) {
         super(title);
         addWindowListener(new WindowAdapter() {
@@ -53,15 +70,29 @@ public class OrsonChartsDemo extends JFrame implements TreeSelectionListener {
         add(createContent());
     }
     
+    /**
+     * Creates the menu bar.
+     * 
+     * @return The menu bar. 
+     */
     private JMenuBar createMenuBar() {
         JMenuBar menuBar = new JMenuBar();
         menuBar.add(createFileMenu("File"));
         return menuBar;
     }
     
-    public JMenu createFileMenu(String title) {
+    /**
+     * Creates the file menu.
+     * 
+     * @param title  the menu title.
+     * 
+     * @return The menu. 
+     */
+    private JMenu createFileMenu(String title) {
         JMenu fileMenu = new JMenu(title);
         JMenuItem exitItem = new JMenuItem("Exit");
+        exitItem.setActionCommand("EXIT");
+        exitItem.addActionListener(this);
         fileMenu.add(exitItem);
         return fileMenu;
     }
@@ -72,11 +103,21 @@ public class OrsonChartsDemo extends JFrame implements TreeSelectionListener {
         splitter.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
         JTree tree = new JTree(createTreeModel());
         tree.addTreeSelectionListener(this);
-        splitter.add(new JScrollPane(tree));
+        JScrollPane scroller = new JScrollPane(tree);
+        scroller.setPreferredSize(new Dimension(250, 580));
+        splitter.add(scroller);
         splitter.add(createChartPanel());
         tabs.add("Demos", splitter);
-        tabs.add("Other Info", new JButton("How to purchase."));
+        tabs.add("Other Info", createOtherInfoPanel());
         return tabs;
+    }
+    
+    private JPanel createOtherInfoPanel() {
+        JPanel result = new JPanel(new BorderLayout());
+        JTextPane textPane = new JTextPane();
+        textPane.setText("This is where the other info goes");
+        result.add(textPane);
+        return result;
     }
     
     public JPanel chartContainer = new JPanel(new BorderLayout());
@@ -149,22 +190,6 @@ public class OrsonChartsDemo extends JFrame implements TreeSelectionListener {
         return n;        
     }
 
-    
-//    private ListModel createDemoChartList() {
-//        DefaultListModel dlm = new DefaultListModel();
-//        dlm.addElement("AreaChart3DDemo1");
-//        dlm.addElement("BarChart3DDemo1");
-//        dlm.addElement("BarChart3DDemo2");
-//        dlm.addElement("LineChart3DDemo1");
-//        return dlm;
-//    }
-    
-    public static void main(String[] args) {
-        OrsonChartsDemo app = new OrsonChartsDemo("Orson Charts Demo 1.0");
-        app.pack();
-        app.setVisible(true);
-    }
-
     @Override
     public void valueChanged(TreeSelectionEvent e) {
         TreePath path = e.getPath();
@@ -185,7 +210,25 @@ public class OrsonChartsDemo extends JFrame implements TreeSelectionListener {
         }
 
     }
-     
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if ("EXIT".equals(e.getActionCommand())) {
+            System.exit(0);
+        }    
+    }
+
+    /**
+     * Starting point for the demo application.
+     * 
+     * @param args  ignored.
+     */
+    public static void main(String[] args) {
+        OrsonChartsDemo app = new OrsonChartsDemo("Orson Charts Demo 1.0");
+        app.pack();
+        app.setVisible(true);
+    }
+   
     static class DisplayDemo implements Runnable {
 
         private OrsonChartsDemo app;
@@ -216,15 +259,11 @@ public class OrsonChartsDemo extends JFrame implements TreeSelectionListener {
                 this.app.chartContainer.removeAll();
                 this.app.chartContainer.add(panel);
                 this.app.chartContainer.validate();
-//                String className = c.getName();
-//                String fileName = className;
-//                int i = className.lastIndexOf('.');
-//                if (i > 0) {
-//                    fileName = className.substring(i + 1);
-//                }
-//                fileName = fileName + ".html";
-//                this.app.displayDescription(fileName);
-
+                if (panel instanceof DisplayPanel3D) {
+                    DisplayPanel3D displayPanel = (DisplayPanel3D) panel;
+                    ChartPanel3D chartPanel = (ChartPanel3D) displayPanel.getContent();
+                    chartPanel.zoomToFit();
+                }
             }
             catch (ClassNotFoundException e1) {
                 e1.printStackTrace();

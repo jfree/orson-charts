@@ -1,8 +1,8 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -17,8 +17,10 @@ import java.io.Serializable;
 public final class ElementDimension extends Dimension2D 
         implements Serializable {
 
+    /** The width (in Java2D units). */
     private double width;
     
+    /** The height (in Java2D units). */
     private double height;
   
     /**

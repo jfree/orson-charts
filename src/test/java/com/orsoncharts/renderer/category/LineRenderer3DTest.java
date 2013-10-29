@@ -34,6 +34,12 @@ public class LineRenderer3DTest {
         assertFalse(r1.equals(r2));
         r2.setLineHeight(2.2);
         assertTrue(r1.equals(r2));
+
+        // notify
+        r1.setNotify(false);
+        assertFalse(r1.equals(r2));
+        r2.setNotify(false);
+        assertTrue(r1.equals(r2));
     }
     
     @Test

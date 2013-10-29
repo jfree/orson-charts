@@ -8,19 +8,24 @@
 
 package com.orsoncharts.legend;
 
-import com.orsoncharts.TestUtils;
-import com.orsoncharts.table.HAlign;
-import java.awt.Font;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.awt.Font;
+
 import org.junit.Test;
+
+import com.orsoncharts.TestUtils;
+import com.orsoncharts.table.HAlign;
 
 /**
  * Tests for the {@link StandardLegendBuilder} class.
  */
 public class StandardLegendBuilderTest {
     
+    /**
+     * Some checks for the equals() method.
+     */
     @Test
     public void testEquals() {
         StandardLegendBuilder lb1 = new StandardLegendBuilder();
@@ -57,8 +62,16 @@ public class StandardLegendBuilderTest {
         assertFalse(lb1.equals(lb2));
         lb2.setFooterAlignment(HAlign.CENTER);
         assertTrue(lb1.equals(lb2));
+        
+        lb1.setItemFont(new Font("Dialog", Font.PLAIN, 4));
+        assertFalse(lb1.equals(lb2));
+        lb2.setItemFont(new Font("Dialog", Font.PLAIN, 4));
+        assertTrue(lb1.equals(lb2));
     }
     
+    /**
+     * Checks for serialization support.
+     */
     @Test
     public void testSerialization() {
         StandardLegendBuilder lb1 = new StandardLegendBuilder();

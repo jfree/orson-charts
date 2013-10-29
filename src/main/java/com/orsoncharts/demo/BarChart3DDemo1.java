@@ -1,15 +1,15 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
 package com.orsoncharts.demo;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
+import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
@@ -23,7 +23,6 @@ import com.orsoncharts.data.DefaultKeyedValues;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.legend.LegendAnchor;
 import com.orsoncharts.plot.CategoryPlot3D;
-import java.awt.Color;
 
 /**
  * A demo of a 3D bar chart.
@@ -31,7 +30,7 @@ import java.awt.Color;
  * http://www.theverge.com/2013/7/23/4549094/apple-microsoft-google-profit-revenue-margins-q2-2013-chart
  */
 public class BarChart3DDemo1 extends JFrame {
-
+    
     /**
      * Creates a new test app.
      *
@@ -48,24 +47,34 @@ public class BarChart3DDemo1 extends JFrame {
         getContentPane().add(createDemoPanel());
     }
 
-    public static final JPanel createDemoPanel() {
+    /**
+     * Returns a panel containing the content for the demo.  This method is
+     * used across all the individual demo applications to allow aggregation 
+     * into a single "umbrella" demo (OrsonChartsDemo).
+     * 
+     * @return A panel containing the content for the demo.
+     */
+    public static JPanel createDemoPanel() {
         JPanel content = new JPanel(new BorderLayout());
-        content.setPreferredSize(new Dimension(600, 400));
+        content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         CategoryDataset3D dataset = createDataset();
         Chart3D chart = Chart3DFactory.createBarChart("BarChart3DDemo1", 
                 dataset, null, "Quarter", "$billion Revenues");
         chart.setLegendAnchor(LegendAnchor.BOTTOM_RIGHT);
         CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
         plot.setGridlinePaintForValues(Color.BLACK);
-        ChartPanel3D chartPanel3D = new ChartPanel3D(chart);
-        content.add(new DisplayPanel3D(chartPanel3D, true));
+        ChartPanel3D chartPanel = new ChartPanel3D(chart);
+        chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
+        content.add(new DisplayPanel3D(chartPanel));
         return content;
     }
   
     /**
-     * Creates a sample dataset.
+     * Creates a sample dataset (hard-coded for the purpose of keeping the
+     * demo self-contained - in practice you would normally read your data
+     * from a file, database or other source).
      * 
-     * @return A sample dataset. 
+     * @return A sample dataset.
      */
     private static CategoryDataset3D createDataset() {    
         StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();

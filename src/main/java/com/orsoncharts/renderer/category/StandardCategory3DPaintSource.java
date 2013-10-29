@@ -16,8 +16,9 @@ import com.orsoncharts.util.ArgChecks;
 /**
  * A standard implementation of the {@link Category3DPaintSource} interface.
  * <br><br>
- * NOTE: The serialization format is subject to change in future releases and
- * should not be relied upon for persisting instances of this class.
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class.
  */
 public final class StandardCategory3DPaintSource 
         implements Category3DPaintSource, Serializable {

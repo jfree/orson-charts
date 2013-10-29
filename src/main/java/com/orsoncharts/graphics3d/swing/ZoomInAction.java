@@ -1,6 +1,6 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
  * (C)opyright 2013, by Object Refinery Limited.
  * 
@@ -12,24 +12,38 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import com.orsoncharts.graphics3d.ViewPoint3D;
+import com.orsoncharts.util.ArgChecks;
 
 /**
- * Zoom in.
+ * An action that performs a zoom-in operation.
  */
 public class ZoomInAction extends AbstractAction {
 
+    /** The panel that the action applies to. */
     private Panel3D panel;
   
-    public ZoomInAction(Panel3D panel3D) {
+    /**
+     * Creates a new zoom-in action associated with the specified panel.
+     * 
+     * @param panel  the panel (<code>null</code> not permitted).
+     */
+    public ZoomInAction(Panel3D panel, boolean fontAwesome) {
         super("\uf00e");
-        this.panel = panel3D;
+        ArgChecks.nullNotPermitted(panel, "panel");
+        this.panel = panel;
+        if (!fontAwesome) {
+            putValue(Action.NAME, "Zoom In");
+        }
         putValue(Action.ACTION_COMMAND_KEY, "ZOOM_IN");
+        putValue(Action.SHORT_DESCRIPTION, "Zoom in");
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        float delta = 5.0f;
         ViewPoint3D viewPt = this.panel.getViewPoint();
-        float valRho = Math.max(10.0f, viewPt.getRho() - 5.0f);
+        float valRho = Math.max(this.panel.getMinViewingDistance(), 
+                viewPt.getRho() - delta);
         float valTheta = viewPt.getTheta();
         float valPhi = viewPt.getPhi();
         panel.setViewPoint(new ViewPoint3D(valTheta, valPhi, valRho));

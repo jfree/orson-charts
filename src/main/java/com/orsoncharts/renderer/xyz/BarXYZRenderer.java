@@ -9,6 +9,7 @@
 package com.orsoncharts.renderer.xyz;
 
 import java.awt.Color;
+import java.io.Serializable;
 import com.orsoncharts.axis.Axis3D;
 import com.orsoncharts.Range;
 import com.orsoncharts.data.DataUtils;
@@ -18,11 +19,18 @@ import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.renderer.Renderer3DChangeEvent;
+import com.orsoncharts.util.ObjectUtils;
 
 /**
- * A renderer that draws 3D bars on an {@link XYZPlot}.
+ * A renderer that draws 3D bars on an {@link XYZPlot} using data from an
+ * {@link XYZDataset}.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class.
  */
-public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer {
+public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer,
+        Serializable {
  
     /** The base value (normally 0.0, but can be modified). */
     private double base;
@@ -32,7 +40,23 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer {
     
     /** The width of the bars along the z-axis. */
     private double barZWidth;
+
+    /** 
+     * The paint source used to fetch the color for the base of bars where
+     * the actual base of the bar is *outside* of the current axis range 
+     * (that is, the bar is "cropped").  If this is <code>null</code>, then 
+     * the regular bar color is used.
+     */
+    private XYZPaintSource basePaintSource;
     
+    /**
+     * The paint source used to fetch the color for the top of bars where
+     * the actual top of the bar is *outside* of the current axis range 
+     * (that is, the bar is "cropped"). If this is <code>null</code> then the 
+     * bar top is always drawn using the series paint.
+     */
+    private XYZPaintSource topPaintSource;
+
     /**
      * Creates a new default instance.
      */
@@ -40,6 +64,9 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer {
         this.base = 0.0;
         this.barXWidth = 0.8;
         this.barZWidth = 0.8;
+        this.basePaintSource = new StandardXYZPaintSource(Color.WHITE);
+        this.topPaintSource = new StandardXYZPaintSource(Color.BLACK);
+        
     }
     
     /** 
@@ -105,6 +132,68 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer {
         fireChangeEvent();
     }
  
+    /**
+     * Returns the object used to fetch the color for the base of bars
+     * where the base of the bar is "cropped" (on account of the base value
+     * falling outside of the bounds of the y-axis).  This is used to give a
+     * visual indication to the end-user that the bar on display is cropped.
+     * If this paint source is <code>null</code>, the regular series color
+     * will be used for the top of the bars.
+     * 
+     * @return A paint source (possibly <code>null</code>).
+     */
+    public XYZPaintSource getBasePaintSource() {
+        return this.basePaintSource;
+    }
+    
+    /**
+     * Sets the object that determines the color to use for the base of bars
+     * where the base value falls outside the axis range, and sends a
+     * {@link Renderer3DChangeEvent} to all registered listeners.  If you set 
+     * this to <code>null</code>, the regular series color will be used to draw
+     * the base of the bar, but it will be harder for the end-user to know that 
+     * only a section of the bar is visible in the chart.  Note that the 
+     * default base paint source returns <code>Color.WHITE</code> always.
+     * 
+     * @param source  the source (<code>null</code> permitted).
+     * 
+     * @see #getBasePaintSource() 
+     * @see #getTopPaintSource()
+     */
+    public void setBasePaintSource(XYZPaintSource source) {
+        this.basePaintSource = source;
+        fireChangeEvent();
+    }
+    
+    /**
+     * Returns the object used to fetch the color for the top of bars
+     * where the top of the bar is "cropped" (on account of the data value
+     * falling outside of the bounds of the y-axis).  This is used to give a
+     * visual indication to the end-user that the bar on display is cropped.
+     * If this paint source is <code>null</code>, the regular series color
+     * will be used for the top of the bars.
+     * 
+     * @return A paint source (possibly <code>null</code>).
+     */
+    public XYZPaintSource getTopPaintSource() {
+        return this.topPaintSource;
+    }
+    
+    /**
+     * Sets the object used to fetch the color for the top of bars where the 
+     * top of the bar is "cropped", and sends a {@link Renderer3DChangeEvent}
+     * to all registered listeners.
+     * 
+     * @param source  the source (<code>null</code> permitted).
+     * 
+     * @see #getTopPaintSource() 
+     * @see #getBasePaintSource() 
+     */
+    public void setTopPaintSource(XYZPaintSource source) {
+        this.topPaintSource = source;
+        fireChangeEvent();
+    }
+
     /**
      * Returns the range that needs to be set on the x-axis in order for this
      * renderer to be able to display all the data in the supplied dataset.
@@ -194,17 +283,17 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer {
         double ylow = Math.min(this.base, y);
         double yhigh = Math.max(this.base, y);
         Range range = yAxis.getRange();
-        if (!range.containsInterval(ylow, yhigh)) {
-            return;
+        if (!range.intersects(ylow, yhigh)) {
+            return; // the bar is not visible for the given axis range
         }
         double ybase = range.peggedValue(ylow);
         double ytop = range.peggedValue(yhigh);
-        boolean inverted = ybase > ytop;
+        boolean inverted = this.base > y;
         
         double wx0 = xAxis.translateToWorld(x0, dimensions.getWidth());
         double wx1 = xAxis.translateToWorld(x1, dimensions.getWidth());
-        double wy0 = yAxis.translateToWorld(this.base, dimensions.getHeight());
-        double wy1 = yAxis.translateToWorld(y, dimensions.getHeight());
+        double wy0 = yAxis.translateToWorld(ybase, dimensions.getHeight());
+        double wy1 = yAxis.translateToWorld(ytop, dimensions.getHeight());
         double wz0 = zAxis.translateToWorld(z0, dimensions.getDepth());
         double wz1 = zAxis.translateToWorld(z1, dimensions.getDepth());
     
@@ -218,7 +307,7 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer {
         }
 
         Color topColor = null;
-        if (this.topPaintSource != null && !range.contains(ytop)) {
+        if (this.topPaintSource != null && !range.contains(y)) {
             topColor = this.topPaintSource.getPaint(series, item);
         }
         if (topColor == null) {
@@ -232,8 +321,6 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer {
         world.add(bar);
     }
 
-    private XYZPaintSource basePaintSource = null;
-    private XYZPaintSource topPaintSource = null;
     /**
      * Tests this renderer for equality with an arbitrary object.
      * 
@@ -257,6 +344,12 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer {
             return false;
         }
         if (this.barZWidth != that.barZWidth) {
+            return false;
+        }
+        if (!ObjectUtils.equals(this.basePaintSource, that.basePaintSource)) {
+            return false;
+        }
+        if (!ObjectUtils.equals(this.topPaintSource, that.topPaintSource)) {
             return false;
         }
         return super.equals(obj);

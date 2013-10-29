@@ -1,8 +1,8 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -113,4 +113,27 @@ public abstract class AbstractRenderer3D implements Renderer3D {
         notifyListeners(new Renderer3DChangeEvent(this));
     }
 
+    /**
+     * Tests this renderer for equality with an arbitrary object.  The 
+     * change listeners are NOT considered in the test, but the 
+     * <code>notify</code> flag is taken into account.
+     * 
+     * @param obj  the object (<code>null</code> permitted).
+     * 
+     * @return A boolean. 
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof AbstractRenderer3D)) {
+            return false;
+        }
+        AbstractRenderer3D that = (AbstractRenderer3D) obj;
+        if (this.notify != that.notify) {
+            return false;
+        }
+        return true;
+    }
 }

@@ -14,16 +14,27 @@ import javax.swing.Action;
 import com.orsoncharts.graphics3d.ViewPoint3D;
 
 /**
- * Zoom out.
+ * An action that performs a zoom out operation on the content in a 
+ * {@link Panel3D}.
  */
 public class ZoomOutAction extends AbstractAction {
 
+    /** The panel that the action applies to. */
     private Panel3D panel;
   
-    public ZoomOutAction(Panel3D panel3D) {
+    /**
+     * Creates a new zoom-out action associated with the specified panel.
+     * 
+     * @param panel  the panel (<code>null</code> not permitted).
+     */
+    public ZoomOutAction(Panel3D panel3D, boolean fontAwesome) {
         super("\uf010");
         this.panel = panel3D;
+        if (!fontAwesome) {
+            putValue(Action.NAME, "Zoom Out");
+        }
         putValue(Action.ACTION_COMMAND_KEY, "ZOOM_OUT");
+        putValue(Action.SHORT_DESCRIPTION, "Zoom out");
     }
 
     @Override
