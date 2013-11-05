@@ -18,6 +18,9 @@ import java.awt.geom.Point2D;
 import java.text.DecimalFormat;
 import java.text.Format;
 import java.io.Serializable;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Objects;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +31,6 @@ import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.util.SerialUtils;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
 /**
  * A numerical axis for use with 3D plots.
@@ -105,7 +105,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
     private transient Stroke tickMarkStroke;
     
     /** The tick mark paint (never <code>null</code>). */
-    private Paint tickMarkPaint;
+    private transient Paint tickMarkPaint;
     
     /**
      * Creates a new axis with the specified label and default attributes.
@@ -700,6 +700,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
+        SerialUtils.writePaint(this.tickMarkPaint, stream);
         SerialUtils.writeStroke(this.tickMarkStroke, stream);
     }
 
@@ -714,6 +715,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
     private void readObject(ObjectInputStream stream)
         throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
+        this.tickMarkPaint = SerialUtils.readPaint(stream);
         this.tickMarkStroke = SerialUtils.readStroke(stream);
     }
     

@@ -37,7 +37,7 @@ public abstract class AbstractAxis3D implements Axis3D, Serializable {
     private Font labelFont;
     
     /** The color used to draw the axis label (never <code>null</code>). */
-    private Paint labelPaint;
+    private transient Paint labelPaint;
  
     /** The stroke used to draw the axis line. */
     private transient Stroke lineStroke;
@@ -52,7 +52,7 @@ public abstract class AbstractAxis3D implements Axis3D, Serializable {
     private Font tickLabelFont;
     
     /** The tick label paint (never <code>null</code>). */
-    private Paint tickLabelPaint;
+    private transient Paint tickLabelPaint;
 
     /** Storage for registered change listeners. */
     private transient EventListenerList listenerList;
@@ -376,6 +376,8 @@ public abstract class AbstractAxis3D implements Axis3D, Serializable {
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
+        SerialUtils.writePaint(this.labelPaint, stream);
+        SerialUtils.writePaint(this.tickLabelPaint, stream);
         SerialUtils.writeStroke(this.lineStroke, stream);
     }
 
@@ -390,6 +392,8 @@ public abstract class AbstractAxis3D implements Axis3D, Serializable {
     private void readObject(ObjectInputStream stream)
         throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
+        this.labelPaint = SerialUtils.readPaint(stream);
+        this.tickLabelPaint = SerialUtils.readPaint(stream);
         this.lineStroke = SerialUtils.readStroke(stream);
     }
 }

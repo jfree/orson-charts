@@ -28,6 +28,7 @@ import com.orsoncharts.Range;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.category.AreaRenderer3D;
+import com.orsoncharts.util.ObjectUtils;
 import com.orsoncharts.util.SerialUtils;
 
 /**
@@ -81,11 +82,11 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     private transient Stroke tickMarkStroke;
     
     /** The tick mark paint (never <code>null</code>). */
-    private Paint tickMarkPaint;
+    private transient Paint tickMarkPaint;
     
     /** 
      * The tick label offset (in Java2D units).  This is the gap between the
-     * tick labels and the axis label (based off the widest tick label).
+     * tick marks and their associated labels.
      */
     private double tickLabelOffset;
  
@@ -183,6 +184,48 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     }
     
     /**
+     * Returns the margin to leave at the lower end of the axis, as a 
+     * percentage of the axis length.  The default is <code>0.05</code>.
+     * 
+     * @return The lower margin.
+     */
+    public double getLowerMargin() {
+        return this.lowerMargin;
+    }
+    
+    /**
+     * Sets the margin to leave at the lower end of the axis and sends an
+     * {@link Axis3DChangeEvent} to all registered listeners.
+     * 
+     * @param margin  the margin. 
+     */
+    public void setLowerMargin(double margin) {
+        this.lowerMargin = margin;
+        fireChangeEvent();
+    }
+    
+    /**
+     * Returns the margin to leave at the upper end of the axis, as a 
+     * percentage of the axis length.  The default is <code>0.05</code>.
+     * 
+     * @return The lower margin.
+     */
+    public double getUpperMargin() {
+        return this.upperMargin;
+    }
+    
+    /**
+     * Sets the margin to leave at the upper end of the axis and sends an
+     * {@link Axis3DChangeEvent} to all registered listeners.
+     * 
+     * @param margin  the margin. 
+     */
+    public void setUpperMargin(double margin) {
+        this.upperMargin = margin;
+        fireChangeEvent();
+    }
+    
+    /**
      * Returns <code>true</code> if the first category on the axis should
      * occupy half the normal width, and <code>false</code> otherwise.
      * 
@@ -260,7 +303,73 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
         this.tickMarkLength = length;
         fireChangeEvent();
     }
+    
+    /**
+     * Returns the paint used to draw the tick marks, if they are visible.  
+     * The default value is <code>Color.GRAY</code>.
+     * 
+     * @return The paint used to draw the tick marks (never <code>null</code>). 
+     */
+    public Paint getTickMarkPaint() {
+        return this.tickMarkPaint;
+    }
 
+    /**
+     * Sets the paint used to draw the tick marks and sends an 
+     * {@link Axis3DChangeEvent} to all registered listeners.
+     * 
+     * @param paint  the paint (<code>null</code> not permitted). 
+     */
+    public void setTickMarkPaint(Paint paint) {
+        ArgChecks.nullNotPermitted(paint, "paint");
+        this.tickMarkPaint = paint;
+        fireChangeEvent();
+    }
+    
+    /**
+     * Returns the stroke used to draw the tick marks, if they are visible.  
+     * The default value is <code>new BasicStroke(0.5f)</code>.
+     * 
+     * @return The stroke used to draw the tick marks (never <code>null</code>). 
+     */
+    public Stroke getTickMarkStroke() {
+        return this.tickMarkStroke;
+    }
+    
+    /**
+     * Sets the stroke used to draw the tick marks and sends an 
+     * {@link Axis3DChangeEvent} to all registered listeners.
+     * 
+     * @param stroke  the stroke (<code>null</code> not permitted). 
+     */
+    public void setTickMarkStroke(Stroke stroke) {
+        ArgChecks.nullNotPermitted(stroke, "stroke");
+        this.tickMarkStroke = stroke;
+        fireChangeEvent();
+    }
+    
+    /**
+     * Returns the offset between the tick marks and the tick labels.  The
+     * default value is <code>5.0</code>.
+     * 
+     * @return The offset between the tick marks and the tick labels (in Java2D
+     *     units).
+     */
+    public double getTickLabelOffset() {
+        return this.tickLabelOffset;
+    }
+    
+    /**
+     * Sets the offset between the tick marks and the tick labels and sends
+     * a {@link Axis3DChangeEvent} to all registered listeners.
+     * 
+     * @param offset  the offset.
+     */
+    public void setTickLabelOffset(double offset) {
+        this.tickLabelOffset = offset;
+        fireChangeEvent();
+    }
+ 
     /**
      * Returns the width of a single category in the units of the axis
      * range.
@@ -452,13 +561,27 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
         if (this.visible != that.visible) {
             return false;
         }
+        if (this.lowerMargin != that.lowerMargin) {
+            return false;
+        }
+        if (this.upperMargin != that.upperMargin) {
+            return false;
+        }
         if (this.firstCategoryHalfWidth != that.firstCategoryHalfWidth) {
             return false;
         }
         if (this.lastCategoryHalfWidth != that.lastCategoryHalfWidth) {
             return false;
         }
-        //if (ObjectUtils.equalsPaint(this., tickMarkPaint))
+        if (this.tickMarkLength != that.tickMarkLength) {
+            return false;
+        }
+        if (!ObjectUtils.equalsPaint(this.tickMarkPaint, that.tickMarkPaint)) {
+            return false;            
+        }
+        if (!this.tickMarkStroke.equals(that.tickMarkStroke)) {
+            return false;
+        }
         return super.equals(obj);
     }
 
@@ -481,6 +604,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
+        SerialUtils.writePaint(this.tickMarkPaint, stream);
         SerialUtils.writeStroke(this.tickMarkStroke, stream);
     }
 
@@ -495,6 +619,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     private void readObject(ObjectInputStream stream)
         throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
+        this.tickMarkPaint = SerialUtils.readPaint(stream);
         this.tickMarkStroke = SerialUtils.readStroke(stream);
     }
 

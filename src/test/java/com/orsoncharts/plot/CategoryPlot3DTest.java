@@ -8,16 +8,19 @@
 
 package com.orsoncharts.plot;
 
+import com.orsoncharts.TestUtils;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.orsoncharts.axis.StandardCategoryAxis3D;
 import com.orsoncharts.axis.NumberAxis3D;
+import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.category.StandardCategoryDataset3D;
 import com.orsoncharts.renderer.category.BarRenderer3D;
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.GradientPaint;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests for the {@link CategoryPlot3D} class.
@@ -68,5 +71,41 @@ public class CategoryPlot3DTest {
         assertFalse(p1.equals(p2));
         p2.setGridlineStrokeForRows(new BasicStroke(0.6f));
         assertTrue(p1.equals(p2));
+    }
+        
+    /**
+     * Checks for serialization.
+     */
+    @Test
+    public void testSerialization() {
+        CategoryPlot3D p1 = createCategory3DPlot();
+        CategoryPlot3D p2 = (CategoryPlot3D) TestUtils.serialized(p1);
+        assertTrue(p1.equals(p2));
+        
+        p1.setGridlinePaintForRows(new GradientPaint(1f, 2f, Color.RED, 3f, 4f, 
+                Color.BLUE));
+        p2 = (CategoryPlot3D) TestUtils.serialized(p1);
+        assertTrue(p1.equals(p2));
+
+        p1.setGridlinePaintForColumns(new GradientPaint(5f, 6f, Color.GRAY, 7f,
+                8f, Color.YELLOW));
+        p2 = (CategoryPlot3D) TestUtils.serialized(p1);
+        assertTrue(p1.equals(p2));
+        
+        p1.setGridlinePaintForValues(new GradientPaint(9f, 10f, Color.GREEN, 
+                11f, 12f, Color.LIGHT_GRAY));
+        p2 = (CategoryPlot3D) TestUtils.serialized(p1);
+        assertTrue(p1.equals(p2));
+    }
+
+    private CategoryPlot3D createCategory3DPlot() {
+        CategoryDataset3D dataset = new StandardCategoryDataset3D();
+        BarRenderer3D renderer = new BarRenderer3D();
+        StandardCategoryAxis3D rowAxis = new StandardCategoryAxis3D("rowAxis");
+        StandardCategoryAxis3D colAxis = new StandardCategoryAxis3D("colAxis");
+        NumberAxis3D valueAxis = new NumberAxis3D("Value");
+        CategoryPlot3D plot = new CategoryPlot3D(dataset, renderer, rowAxis, 
+                colAxis, valueAxis);
+        return plot;
     }
 }

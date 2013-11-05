@@ -70,7 +70,7 @@ public class CategoryPlot3D extends AbstractPlot3D
     private boolean gridlinesVisibleForRows;
     
     /** The paint for the row axis gridlines (never <code>null</code>). */
-    private Paint gridlinePaintForRows;
+    private transient Paint gridlinePaintForRows;
     
     /** The stroke for the row axis gridlines (never <code>null</code>). */
     private transient Stroke gridlineStrokeForRows;
@@ -79,7 +79,7 @@ public class CategoryPlot3D extends AbstractPlot3D
     private boolean gridlinesVisibleForColumns;
     
     /** The paint for the column axis gridlines (never <code>null</code>). */
-    private Paint gridlinePaintForColumns;
+    private transient Paint gridlinePaintForColumns;
     
     /** The stroke for the column axis gridlines (never <code>null</code>). */
     private transient Stroke gridlineStrokeForColumns;
@@ -88,7 +88,7 @@ public class CategoryPlot3D extends AbstractPlot3D
     private boolean gridlinesVisibleForValues;
     
     /** The paint for the value axis gridlines (never <code>null</code>). */
-    private Paint gridlinePaintForValues;
+    private transient Paint gridlinePaintForValues;
 
     /** The stroke for the value axis gridlines (never <code>null</code>). */
     private transient Stroke gridlineStrokeForValues;
@@ -579,6 +579,9 @@ public class CategoryPlot3D extends AbstractPlot3D
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
+        SerialUtils.writePaint(this.gridlinePaintForRows, stream);
+        SerialUtils.writePaint(this.gridlinePaintForColumns, stream);
+        SerialUtils.writePaint(this.gridlinePaintForValues, stream);
         SerialUtils.writeStroke(this.gridlineStrokeForRows, stream);
         SerialUtils.writeStroke(this.gridlineStrokeForColumns, stream);
         SerialUtils.writeStroke(this.gridlineStrokeForValues, stream);
@@ -595,6 +598,9 @@ public class CategoryPlot3D extends AbstractPlot3D
     private void readObject(ObjectInputStream stream)
         throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
+        this.gridlinePaintForRows = SerialUtils.readPaint(stream);
+        this.gridlinePaintForColumns = SerialUtils.readPaint(stream);
+        this.gridlinePaintForValues = SerialUtils.readPaint(stream);
         this.gridlineStrokeForRows = SerialUtils.readStroke(stream);
         this.gridlineStrokeForColumns = SerialUtils.readStroke(stream);
         this.gridlineStrokeForValues = SerialUtils.readStroke(stream);

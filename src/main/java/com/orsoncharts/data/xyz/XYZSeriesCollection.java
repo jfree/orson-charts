@@ -8,6 +8,7 @@
 
 package com.orsoncharts.data.xyz;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import com.orsoncharts.util.ArgChecks;
@@ -17,7 +18,7 @@ import com.orsoncharts.data.AbstractDataset3D;
  * A collection of {@link XYZSeries} objects.
  */
 public class XYZSeriesCollection extends AbstractDataset3D 
-        implements XYZDataset {
+        implements XYZDataset, Serializable {
 
     /** Storage for the data series. */
     private List<XYZSeries> series;

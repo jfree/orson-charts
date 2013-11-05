@@ -8,6 +8,7 @@
 
 package com.orsoncharts.plot;
 
+import java.io.Serializable;
 import javax.swing.event.EventListenerList;
 
 import com.orsoncharts.data.Dataset3DChangeEvent;
@@ -32,7 +33,7 @@ import com.orsoncharts.Chart3D;
  * has axes, then the same approach is used to listen for changes to the axes.
  */
 public abstract class AbstractPlot3D implements Plot3D, 
-        Dataset3DChangeListener {
+        Dataset3DChangeListener, Serializable {
   
     /** 
      * The plot dimensions in 3D space.  By default, this is auto-adjusted

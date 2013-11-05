@@ -18,8 +18,8 @@ import org.junit.Test;
 
 import com.orsoncharts.axis.NumberAxis3D;
 import com.orsoncharts.Range;
+import com.orsoncharts.TestUtils;
 import com.orsoncharts.axis.ValueAxis3D;
-import com.orsoncharts.data.xyz.StandardXYZDataset;
 import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.data.xyz.XYZSeriesCollection;
 import com.orsoncharts.graphics3d.Dimension3D;
@@ -27,6 +27,7 @@ import com.orsoncharts.renderer.xyz.ScatterXYZRenderer;
 import com.orsoncharts.renderer.xyz.XYZRenderer;
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.GradientPaint;
 
 /**
  * Checks for the {@link XYZPlot} class.
@@ -111,9 +112,33 @@ public class XYZPlotTest implements Plot3DChangeListener {
         assertFalse(p1.equals(p2));
         p2.setGridlineStrokeZ(new BasicStroke(0.6f));
         assertTrue(p1.equals(p2));
-
     }
 
+    /**
+     * Checks for serialization.
+     */
+    @Test
+    public void testSerialization() {
+        XYZPlot p1 = createXYZPlot();
+        XYZPlot p2 = (XYZPlot) TestUtils.serialized(p1);
+        assertTrue(p1.equals(p2));
+        
+        p1.setGridlinePaintX(new GradientPaint(1f, 2f, Color.RED, 3f, 4f, 
+                Color.BLUE));
+        p2 = (XYZPlot) TestUtils.serialized(p1);
+        assertTrue(p1.equals(p2));
+
+        p1.setGridlinePaintY(new GradientPaint(5f, 6f, Color.GRAY, 7f, 8f, 
+                Color.YELLOW));
+        p2 = (XYZPlot) TestUtils.serialized(p1);
+        assertTrue(p1.equals(p2));
+        
+        p1.setGridlinePaintZ(new GradientPaint(9f, 10f, Color.GREEN, 11f, 12f, 
+                Color.LIGHT_GRAY));
+        p2 = (XYZPlot) TestUtils.serialized(p1);
+        assertTrue(p1.equals(p2));
+    }
+    
     /**
      * Returns a new dataset.
      * 

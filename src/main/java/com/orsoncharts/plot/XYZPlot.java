@@ -12,6 +12,10 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Paint;
 import java.awt.Stroke;
+import java.io.Serializable;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import com.orsoncharts.axis.Axis3DChangeEvent;
@@ -29,13 +33,14 @@ import com.orsoncharts.legend.StandardLegendItemInfo;
 import com.orsoncharts.renderer.Renderer3DChangeEvent;
 import com.orsoncharts.renderer.Renderer3DChangeListener;
 import com.orsoncharts.util.ObjectUtils;
+import com.orsoncharts.util.SerialUtils;
 
 /**
  * A 3D plot with three numerical axes that displays data from an
  * {@link XYZDataset}.
  */
 public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener, 
-        Axis3DChangeListener, Renderer3DChangeListener {
+        Axis3DChangeListener, Renderer3DChangeListener, Serializable {
 
     private static Stroke DEFAULT_GRIDLINE_STROKE = new BasicStroke(0.5f, 
             BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 1f, 
@@ -60,28 +65,28 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
     private boolean gridlinesVisibleX;
     
     /** The paint for the x-axis gridlines. */
-    private Paint gridlinePaintX;
+    private transient Paint gridlinePaintX;
 
     /** The stroke for the x-axis gridlines. */
-    private Stroke gridlineStrokeX;
+    private transient Stroke gridlineStrokeX;
     
     /** Are gridlines visible for the y-axis? */
     private boolean gridlinesVisibleY;
 
     /** The paint for the y-axis gridlines. */
-    private Paint gridlinePaintY;
+    private transient Paint gridlinePaintY;
     
     /** The stroke for the y-axis gridlines. */
-    private Stroke gridlineStrokeY;
+    private transient Stroke gridlineStrokeY;
     
     /** Are gridlines visible for the z-axis? */
     private boolean gridlinesVisibleZ;
 
     /** The paint for the z-axis gridlines. */
-    private Paint gridlinePaintZ;
+    private transient Paint gridlinePaintZ;
 
     /** The stroke for the z-axis gridlines. */
-    private Stroke gridlineStrokeZ;
+    private transient Stroke gridlineStrokeZ;
     
     /**
      * Creates a new plot with the specified axes.
@@ -545,6 +550,43 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
         this.yAxis.configureAsYAxis(this);
         this.zAxis.configureAsZAxis(this);
         super.datasetChanged(event);
+    }
+    
+    /**
+     * Provides serialization support.
+     *
+     * @param stream  the output stream.
+     *
+     * @throws IOException  if there is an I/O error.
+     */
+    private void writeObject(ObjectOutputStream stream) throws IOException {
+        stream.defaultWriteObject();
+        SerialUtils.writePaint(this.gridlinePaintX, stream);
+        SerialUtils.writePaint(this.gridlinePaintY, stream);
+        SerialUtils.writePaint(this.gridlinePaintZ, stream);
+        SerialUtils.writeStroke(this.gridlineStrokeX, stream);
+        SerialUtils.writeStroke(this.gridlineStrokeY, stream);
+        SerialUtils.writeStroke(this.gridlineStrokeZ, stream);
+        
+    }
+
+    /**
+     * Provides serialization support.
+     *
+     * @param stream  the input stream.
+     *
+     * @throws IOException  if there is an I/O error.
+     * @throws ClassNotFoundException  if there is a classpath problem.
+     */
+    private void readObject(ObjectInputStream stream)
+        throws IOException, ClassNotFoundException {
+        stream.defaultReadObject();
+        this.gridlinePaintX = SerialUtils.readPaint(stream);
+        this.gridlinePaintY = SerialUtils.readPaint(stream);
+        this.gridlinePaintZ = SerialUtils.readPaint(stream);
+        this.gridlineStrokeX = SerialUtils.readStroke(stream);
+        this.gridlineStrokeY = SerialUtils.readStroke(stream);
+        this.gridlineStrokeZ = SerialUtils.readStroke(stream);
     }
     
 }

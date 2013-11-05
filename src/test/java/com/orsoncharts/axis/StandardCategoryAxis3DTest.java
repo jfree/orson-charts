@@ -96,6 +96,16 @@ public class StandardCategoryAxis3DTest {
         axis2.setVisible(false);
         assertTrue(axis1.equals(axis2));
         
+        axis1.setLowerMargin(0.123);
+        assertFalse(axis1.equals(axis2));
+        axis2.setLowerMargin(0.123);
+        assertTrue(axis1.equals(axis2));
+        
+        axis1.setUpperMargin(0.321);
+        assertFalse(axis1.equals(axis2));
+        axis2.setUpperMargin(0.321);
+        assertTrue(axis1.equals(axis2));
+
         axis1.setFirstCategoryHalfWidth(true);
         assertFalse(axis1.equals(axis2));
         axis2.setFirstCategoryHalfWidth(true);
@@ -105,6 +115,23 @@ public class StandardCategoryAxis3DTest {
         assertFalse(axis1.equals(axis2));
         axis2.setLastCategoryHalfWidth(true);
         assertTrue(axis1.equals(axis2));
+        
+        axis1.setTickMarkLength(123);
+        assertFalse(axis1.equals(axis2));
+        axis2.setTickMarkLength(123);
+        assertTrue(axis1.equals(axis2));
+        
+        axis1.setTickMarkPaint(new GradientPaint(1f, 2f, Color.BLUE, 3f, 4f,
+                Color.GREEN));
+        assertFalse(axis1.equals(axis2));
+        axis2.setTickMarkPaint(new GradientPaint(1f, 2f, Color.BLUE, 3f, 4f,
+                Color.GREEN));
+        assertTrue(axis1.equals(axis2));
+        
+        axis1.setTickMarkStroke(new BasicStroke(1.23f));
+        assertFalse(axis1.equals(axis2));
+        axis2.setTickMarkStroke(new BasicStroke(1.23f));
+        assertTrue(axis1.equals(axis2));        
     }
     
     /**
@@ -115,6 +142,11 @@ public class StandardCategoryAxis3DTest {
         StandardCategoryAxis3D axis1 = new StandardCategoryAxis3D("T");
         StandardCategoryAxis3D axis2 = (StandardCategoryAxis3D) 
                 TestUtils.serialized(axis1);
+        assertTrue(axis1.equals(axis2));
+        
+        axis1.setTickMarkPaint(new GradientPaint(9f, 10f, Color.PINK, 11f, 12f,
+                Color.BLACK));
+        axis2 = (StandardCategoryAxis3D) TestUtils.serialized(axis1);
         assertTrue(axis1.equals(axis2));
     }
 

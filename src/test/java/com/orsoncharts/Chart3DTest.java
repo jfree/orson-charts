@@ -20,6 +20,9 @@ import com.orsoncharts.data.PieDataset3D;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.category.StandardCategoryDataset3D;
 import com.orsoncharts.data.DefaultKeyedValues;
+import com.orsoncharts.data.xyz.XYZDataset;
+import com.orsoncharts.data.xyz.XYZSeries;
+import com.orsoncharts.data.xyz.XYZSeriesCollection;
 
 /**
  * Tests for the {@link Chart3D} class.
@@ -115,6 +118,39 @@ public class Chart3DTest {
         assertEquals(c1, c2);
     }
 
+    /**
+     * A check for serialization of stacked bar charts.
+     */
+    @Test
+    public void testSerializationStackedBarChart() {
+        Chart3D c1 = Chart3DFactory.createStackedBarChart("title", "subtitle",
+                createCategoryDataset(), "rowAxis", "columnAxis", "valueAxis");
+        Chart3D c2 = (Chart3D) TestUtils.serialized(c1);
+        assertEquals(c1, c2);
+    }
+
+    /**
+     * A check for serialization of scatter charts.
+     */
+    @Test
+    public void testSerializationScatterChart() {
+        Chart3D c1 = Chart3DFactory.createScatterPlot("title", "subtitle",
+                createXYZDataset(), "rowAxis", "columnAxis", "valueAxis");
+        Chart3D c2 = (Chart3D) TestUtils.serialized(c1);
+        assertEquals(c1, c2);
+    }
+
+    /**
+     * A check for serialization of scatter charts.
+     */
+    @Test
+    public void testSerializationXYZBarChart() {
+        Chart3D c1 = Chart3DFactory.createXYZBarChart("title", "subtitle",
+                createXYZDataset(), "rowAxis", "columnAxis", "valueAxis");
+        Chart3D c2 = (Chart3D) TestUtils.serialized(c1);
+        assertEquals(c1, c2);
+    }
+
     private PieDataset3D createPieDataset() {
         StandardPieDataset3D dataset = new StandardPieDataset3D();
         dataset.add("United States", new Double(30.0));
@@ -130,6 +166,14 @@ public class Chart3DTest {
         s1.put("Q3", 3.0);
         s1.put("Q4", 4.0);
         dataset.addSeriesAsRow("Acme Widgets Ltd", s1);
+        return dataset;
+    }
+    
+    private XYZDataset createXYZDataset() {
+        XYZSeries s1 = new XYZSeries("S1");
+        s1.add(1, 2, 3);
+        XYZSeriesCollection dataset = new XYZSeriesCollection();
+        dataset.add(s1);
         return dataset;
     }
 }

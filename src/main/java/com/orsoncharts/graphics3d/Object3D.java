@@ -419,7 +419,7 @@ public class Object3D {
 
             // outside edge
             segment.addFace(new Face(new int[] {vc - 2, vc - 4, vc - 3, vc - 1},
-                    color, false));
+                    color, true));
 
             // top and bottom
             segment.addFace(new Face(new int[] {0,  vc - 4, vc - 2, 0}, color, 

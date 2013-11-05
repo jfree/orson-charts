@@ -8,8 +8,9 @@
 
 package com.orsoncharts.renderer.xyz;
 
-import com.orsoncharts.Chart3DFactory;
 import java.awt.Color;
+import java.io.Serializable;
+import com.orsoncharts.Chart3DFactory;
 import com.orsoncharts.axis.Axis3D;
 import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.plot.XYZPlot;
@@ -28,7 +29,7 @@ import com.orsoncharts.util.ArgChecks;
  * method.
  */
 public class ScatterXYZRenderer extends AbstractXYZRenderer 
-        implements XYZRenderer {
+        implements XYZRenderer, Serializable {
 
     /** The size of the cubes to render for each data point (in world units). */
     private double size;

@@ -19,6 +19,7 @@ import java.awt.Color;
 import java.awt.Font;
 import com.orsoncharts.Range;
 import com.orsoncharts.TestUtils;
+import java.awt.GradientPaint;
 
 /**
  * Checks for the {@link NumberAxis3D} class.
@@ -167,6 +168,21 @@ public class NumberAxis3DTest implements Axis3DChangeListener {
     public void testSerialization() {
         NumberAxis3D axis1 = new NumberAxis3D("T");
         NumberAxis3D axis2 = (NumberAxis3D) TestUtils.serialized(axis1);
+        assertTrue(axis1.equals(axis2));
+        
+        axis1.setLabelPaint(new GradientPaint(1f, 2f, Color.RED, 3f, 4f, 
+                Color.BLUE));
+        axis2 = (NumberAxis3D) TestUtils.serialized(axis1);
+        assertTrue(axis1.equals(axis2));
+        
+        axis1.setTickMarkPaint(new GradientPaint(5f, 6f, Color.GREEN, 7f, 8f,
+                Color.YELLOW));
+        axis2 = (NumberAxis3D) TestUtils.serialized(axis1);
+        assertTrue(axis1.equals(axis2));
+        
+        axis1.setTickMarkPaint(new GradientPaint(9f, 10f, Color.PINK, 11f, 12f,
+                Color.BLACK));
+        axis2 = (NumberAxis3D) TestUtils.serialized(axis1);
         assertTrue(axis1.equals(axis2));
     }
     

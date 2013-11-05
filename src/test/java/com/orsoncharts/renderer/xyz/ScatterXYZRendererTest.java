@@ -1,6 +1,6 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
  * (C)opyright 2013, by Object Refinery Limited.
  * 
@@ -11,6 +11,7 @@ package com.orsoncharts.renderer.xyz;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
+import com.orsoncharts.TestUtils;
 
 /**
  * Tests for the {@link ScatterXYZRenderer} class.
@@ -29,5 +30,13 @@ public class ScatterXYZRendererTest {
         r2.setSize(1.0);
         assertTrue(r1.equals(r2));
     }
-
+    /**
+     * Some checks for serialization support.
+     */
+    @Test
+    public void testSerialization() {
+        ScatterXYZRenderer r1 = new ScatterXYZRenderer();
+        ScatterXYZRenderer r2 = (ScatterXYZRenderer) TestUtils.serialized(r1);
+        assertTrue(r1.equals(r2));
+    }
 }
