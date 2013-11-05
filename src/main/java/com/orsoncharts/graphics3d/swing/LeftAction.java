@@ -35,7 +35,7 @@ public class LeftAction extends AbstractAction {
         if (drawable instanceof Chart3D) {
             Chart3D chart = (Chart3D) drawable;
         }
-        drawable.getViewPoint().moveLeftRight(Math.PI / 60);
+        drawable.getViewPoint().panLeftRight(Math.PI / 60);
         this.panel.repaint();
     }
     

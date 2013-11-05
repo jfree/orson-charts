@@ -83,7 +83,7 @@ public class Chart3DTest {
     }
     
     /**
-     * A check for serialization.
+     * A check for serialization of area charts.
      */
     @Test
     public void testSerializationAreaChart() {
@@ -93,6 +93,28 @@ public class Chart3DTest {
         assertEquals(c1, c2);
     }
     
+    /**
+     * A check for serialization of bar charts.
+     */
+    @Test
+    public void testSerializationBarChart() {
+        Chart3D c1 = Chart3DFactory.createBarChart("title", "subtitle",
+                createCategoryDataset(), "rowAxis", "columnAxis", "valueAxis");
+        Chart3D c2 = (Chart3D) TestUtils.serialized(c1);
+        assertEquals(c1, c2);
+    }
+
+    /**
+     * A check for serialization of line charts.
+     */
+    @Test
+    public void testSerializationLineChart() {
+        Chart3D c1 = Chart3DFactory.createLineChart("title", "subtitle",
+                createCategoryDataset(), "rowAxis", "columnAxis", "valueAxis");
+        Chart3D c2 = (Chart3D) TestUtils.serialized(c1);
+        assertEquals(c1, c2);
+    }
+
     private PieDataset3D createPieDataset() {
         StandardPieDataset3D dataset = new StandardPieDataset3D();
         dataset.add("United States", new Double(30.0));

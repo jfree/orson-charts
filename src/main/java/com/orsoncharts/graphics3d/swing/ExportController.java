@@ -19,8 +19,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
-import com.orsonpdf.PDFDocument;
-import com.orsonpdf.Page;
 import org.jfree.graphics2d.svg.SVGGraphics2D;
 
 /**
@@ -92,12 +90,12 @@ public class ExportController implements ActionListener {
     private void exportToPDF(String fileName) {
         int width = this.panel.getWidth();
         int height = this.panel.getHeight();
-        Rectangle pageSize = new Rectangle(width, height);
-        PDFDocument pdfDoc = new PDFDocument();
-        Page page = pdfDoc.createPage(pageSize);
-        Graphics2D g2 = page.getGraphics2D();
-        this.panel.getDrawable().draw(g2, pageSize);
-        pdfDoc.writeToFile(new File(fileName)); 
+//        Rectangle pageSize = new Rectangle(width, height);
+//        PDFDocument pdfDoc = new PDFDocument();
+//        Page page = pdfDoc.createPage(pageSize);
+//        Graphics2D g2 = page.getGraphics2D();
+//        this.panel.getDrawable().draw(g2, pageSize);
+//        pdfDoc.writeToFile(new File(fileName)); 
     }
 
     private void exportToSVG(String fileName) throws IOException {

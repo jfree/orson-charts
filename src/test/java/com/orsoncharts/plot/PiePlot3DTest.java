@@ -105,6 +105,7 @@ public class PiePlot3DTest implements Plot3DChangeListener {
         assertFalse(p1.equals(p2));
         p2.setSectionLabelFontSource(new StandardFontSource(new Font("Dialog", 
                 Font.PLAIN, 9)));
+        assertTrue(p1.equals(p2));
     }
     
     /**

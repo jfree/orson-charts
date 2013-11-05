@@ -51,7 +51,6 @@ import com.orsoncharts.table.TextElement;
 import com.orsoncharts.table.TableElement;
 import com.orsoncharts.util.Anchor2D;
 import com.orsoncharts.graphics3d.Offset2D;
-import com.orsoncharts.graphics3d.Rotate3D;
 import com.orsoncharts.util.RefPt2D;
 import com.orsoncharts.util.TextUtils;
 import com.orsoncharts.util.TextAnchor;
@@ -438,34 +437,7 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
             world.add(chartBox.getObject3D());
         }
         this.plot.compose(world, -w / 2, -h / 2, -d / 2);
-        
-        ViewPoint3D halfpt = new ViewPoint3D(this.viewPoint.getTheta(),
-                this.viewPoint.getPhi(), (float) (this.viewPoint.getRho() / 4.0), 
-                this.viewPoint.getAngle());
-
-        // the the vertical rotation axis and add a ring
-        Point3D p = this.viewPoint.getVerticalRotationAxis();
-        //addRing(world, halfpt.getPoint(), Point3D.ORIGIN, p, Color.YELLOW);
-        
-        double x = this.viewPoint.getX();
-        double y = this.viewPoint.getY();
-        double z = this.viewPoint.getZ();
-        
-        // get the horizontal rotation axis and add another ring of shapes
-        Point3D b = this.viewPoint.getHorizontalRotationAxis();
-        //addRing(world, halfpt.getPoint(), Point3D.ORIGIN, b, Color.LIGHT_GRAY);
-        
-     //   world.add(Object3D.createCube(0.20, this.nextViewPoint.x, this.nextViewPoint.y, this.nextViewPoint.z, Color.RED));
         return world;
-    }
-
-    private void addRing(World world, Point3D pt, Point3D v0, Point3D v1, Color color) {
-        Rotate3D r = new Rotate3D(v0, v1, 0);
-        for (int i = 0; i < 60; i++) {
-            r.setAngle(2 * Math.PI / 60 * i);
-            Point3D p = r.applyRotation(pt);
-            world.add(Object3D.createCube(0.20, p.x, p.y, p.z, color));
-        }
     }
     
     /**

@@ -17,6 +17,7 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.text.DecimalFormat;
 import java.text.Format;
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +27,16 @@ import com.orsoncharts.Range;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.plot.XYZPlot;
+import com.orsoncharts.util.SerialUtils;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 /**
  * A numerical axis for use with 3D plots.
  */
-public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D {
+public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
+        Serializable {
 
     /** A flag that determines whether or not the axis will be drawn. */
     private boolean visible;
@@ -96,7 +102,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D {
     private double tickMarkLength;
     
     /** The tick mark stroke (never <code>null</code>). */
-    private Stroke tickMarkStroke;
+    private transient Stroke tickMarkStroke;
     
     /** The tick mark paint (never <code>null</code>). */
     private Paint tickMarkPaint;
@@ -685,4 +691,30 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D {
         return result;
     }
 
+    /**
+     * Provides serialization support.
+     *
+     * @param stream  the output stream.
+     *
+     * @throws IOException  if there is an I/O error.
+     */
+    private void writeObject(ObjectOutputStream stream) throws IOException {
+        stream.defaultWriteObject();
+        SerialUtils.writeStroke(this.tickMarkStroke, stream);
+    }
+
+    /**
+     * Provides serialization support.
+     *
+     * @param stream  the input stream.
+     *
+     * @throws IOException  if there is an I/O error.
+     * @throws ClassNotFoundException  if there is a classpath problem.
+     */
+    private void readObject(ObjectInputStream stream)
+        throws IOException, ClassNotFoundException {
+        stream.defaultReadObject();
+        this.tickMarkStroke = SerialUtils.readStroke(stream);
+    }
+    
 }

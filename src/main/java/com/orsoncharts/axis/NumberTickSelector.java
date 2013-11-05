@@ -8,6 +8,7 @@
 
 package com.orsoncharts.axis;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.text.Format;
 
@@ -15,7 +16,7 @@ import java.text.Format;
  * A {@link TickSelector} implementation that selects tick units in multiples 
  * of 1, 2 and 5.
  */
-public class NumberTickSelector implements TickSelector {
+public class NumberTickSelector implements TickSelector, Serializable {
 
     private int power = 0;
     
@@ -145,6 +146,28 @@ public class NumberTickSelector implements TickSelector {
         }
         return this.percentage ? new DecimalFormat("0.0000E0%") 
                 : new DecimalFormat("0.0000E0");
+    }
+    
+    /**
+     * Tests this instance for equality with an arbitrary object.
+     * 
+     * @param obj  the object (<code>null</code> permitted).
+     * 
+     * @return A boolean. 
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj ==  this) {
+            return true;
+        }
+        if (!(obj instanceof NumberTickSelector)) {
+            return false;
+        }
+        NumberTickSelector that = (NumberTickSelector) obj;
+        if (this.percentage != that.percentage) {
+            return false;
+        }
+        return true;
     }
     
 }

@@ -12,6 +12,10 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Paint;
 import java.awt.Stroke;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import com.orsoncharts.axis.Axis3DChangeEvent;
@@ -29,7 +33,7 @@ import com.orsoncharts.renderer.Renderer3DChangeEvent;
 import com.orsoncharts.renderer.Renderer3DChangeListener;
 import com.orsoncharts.renderer.category.CategoryRenderer3D;
 import com.orsoncharts.util.ObjectUtils;
-import java.io.Serializable;
+import com.orsoncharts.util.SerialUtils;
 
 /**
  * A 3D plot with two category axes (x and z) and a numerical y-axis that can
@@ -69,7 +73,7 @@ public class CategoryPlot3D extends AbstractPlot3D
     private Paint gridlinePaintForRows;
     
     /** The stroke for the row axis gridlines (never <code>null</code>). */
-    private Stroke gridlineStrokeForRows;
+    private transient Stroke gridlineStrokeForRows;
 
     /** Are gridlines shown for the column (x) axis? */
     private boolean gridlinesVisibleForColumns;
@@ -78,7 +82,7 @@ public class CategoryPlot3D extends AbstractPlot3D
     private Paint gridlinePaintForColumns;
     
     /** The stroke for the column axis gridlines (never <code>null</code>). */
-    private Stroke gridlineStrokeForColumns;
+    private transient Stroke gridlineStrokeForColumns;
 
     /** Are gridlines shown for the value axis? */
     private boolean gridlinesVisibleForValues;
@@ -87,7 +91,7 @@ public class CategoryPlot3D extends AbstractPlot3D
     private Paint gridlinePaintForValues;
 
     /** The stroke for the value axis gridlines (never <code>null</code>). */
-    private Stroke gridlineStrokeForValues;
+    private transient Stroke gridlineStrokeForValues;
     
     /**
      * Creates a new plot.
@@ -564,6 +568,36 @@ public class CategoryPlot3D extends AbstractPlot3D
         // for now we just fire a plot change event which will flow up the
         // chain and eventually trigger a chart repaint
         fireChangeEvent();
+    }
+    
+    /**
+     * Provides serialization support.
+     *
+     * @param stream  the output stream.
+     *
+     * @throws IOException  if there is an I/O error.
+     */
+    private void writeObject(ObjectOutputStream stream) throws IOException {
+        stream.defaultWriteObject();
+        SerialUtils.writeStroke(this.gridlineStrokeForRows, stream);
+        SerialUtils.writeStroke(this.gridlineStrokeForColumns, stream);
+        SerialUtils.writeStroke(this.gridlineStrokeForValues, stream);
+    }
+
+    /**
+     * Provides serialization support.
+     *
+     * @param stream  the input stream.
+     *
+     * @throws IOException  if there is an I/O error.
+     * @throws ClassNotFoundException  if there is a classpath problem.
+     */
+    private void readObject(ObjectInputStream stream)
+        throws IOException, ClassNotFoundException {
+        stream.defaultReadObject();
+        this.gridlineStrokeForRows = SerialUtils.readStroke(stream);
+        this.gridlineStrokeForColumns = SerialUtils.readStroke(stream);
+        this.gridlineStrokeForValues = SerialUtils.readStroke(stream);
     }
 
 }

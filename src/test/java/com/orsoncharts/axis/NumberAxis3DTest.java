@@ -12,11 +12,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import com.orsoncharts.Range;
+import com.orsoncharts.TestUtils;
 
 /**
  * Checks for the {@link NumberAxis3D} class.
@@ -158,6 +160,17 @@ public class NumberAxis3DTest implements Axis3DChangeListener {
         assertEquals(axis1, axis2);
     }
   
+    /**
+     * Checks for serialization support.
+     */
+    @Test
+    public void testSerialization() {
+        NumberAxis3D axis1 = new NumberAxis3D("T");
+        NumberAxis3D axis2 = (NumberAxis3D) TestUtils.serialized(axis1);
+        assertTrue(axis1.equals(axis2));
+    }
+    
+    
     private Axis3DChangeEvent lastEvent;
 
     @Override

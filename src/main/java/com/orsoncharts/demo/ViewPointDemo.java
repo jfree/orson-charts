@@ -104,7 +104,7 @@ public class ViewPointDemo extends JFrame {
         while (true) {
             for (Point3D p : this.xlist) {
 //                this.panel3D.setViewPoint(new ViewPoint3D(p, 0, this.panel3D.getViewPoint().getTheta()));
-                this.panel3D.getViewPoint().moveLeftRight(Math.PI / 60);
+                this.panel3D.getViewPoint().panLeftRight(Math.PI / 60);
                 try {
                     Thread.sleep(50L);
                 } catch (InterruptedException ex) {

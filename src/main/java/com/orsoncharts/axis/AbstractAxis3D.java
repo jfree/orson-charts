@@ -15,15 +15,20 @@ import java.awt.Paint;
 import java.awt.Stroke;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
+import java.io.Serializable;
 import java.util.Objects;
 import javax.swing.event.EventListenerList;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.ObjectUtils;
+import com.orsoncharts.util.SerialUtils;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 /**
  * A base class that can be used to create an {@link Axis3D} implementation.
  */
-public abstract class AbstractAxis3D implements Axis3D {
+public abstract class AbstractAxis3D implements Axis3D, Serializable {
     
     /** The axis label (if <code>null</code>, no label is displayed). */
     private String label;
@@ -35,7 +40,7 @@ public abstract class AbstractAxis3D implements Axis3D {
     private Paint labelPaint;
  
     /** The stroke used to draw the axis line. */
-    private Stroke lineStroke;
+    private transient Stroke lineStroke;
 
     /** The color used to draw the axis line. */
     private Color lineColor;
@@ -51,7 +56,7 @@ public abstract class AbstractAxis3D implements Axis3D {
 
     /** Storage for registered change listeners. */
     private transient EventListenerList listenerList;
-  
+    
     /**
      * Creates a new label with the specified label.
      * 
@@ -360,5 +365,31 @@ public abstract class AbstractAxis3D implements Axis3D {
      */
     protected void fireChangeEvent() {
         notifyListeners(new Axis3DChangeEvent(this));
+    }
+
+    /**
+     * Provides serialization support.
+     *
+     * @param stream  the output stream.
+     *
+     * @throws IOException  if there is an I/O error.
+     */
+    private void writeObject(ObjectOutputStream stream) throws IOException {
+        stream.defaultWriteObject();
+        SerialUtils.writeStroke(this.lineStroke, stream);
+    }
+
+    /**
+     * Provides serialization support.
+     *
+     * @param stream  the input stream.
+     *
+     * @throws IOException  if there is an I/O error.
+     * @throws ClassNotFoundException  if there is a classpath problem.
+     */
+    private void readObject(ObjectInputStream stream)
+        throws IOException, ClassNotFoundException {
+        stream.defaultReadObject();
+        this.lineStroke = SerialUtils.readStroke(stream);
     }
 }

@@ -12,10 +12,14 @@ import java.awt.Graphics2D;
 import com.orsoncharts.Chart3D;
 import java.awt.geom.Rectangle2D;
 
+import com.orsoncharts.graphics3d.swing.Panel3D;
+
 /**
  * An object in 3D that can be viewed from an arbitrary viewpoint and rendered
  * to any {@link Graphics2D} instance.  The {@link Chart3D} class implements
  * this interface.
+ * 
+ * @see Panel3D
  */
 public interface Drawable3D {
 
@@ -34,7 +38,10 @@ public interface Drawable3D {
     ViewPoint3D getViewPoint();
     
     /**
-     * Sets the view point.
+     * Sets a new view point.  
+     * <br><br>
+     * NOTE:  often you will move the existing view point rather than setting
+     * a new one.
      * 
      * @param viewPoint  the view point (<code>null</code> not permitted).
      */

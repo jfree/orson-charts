@@ -8,20 +8,26 @@
 
 package com.orsoncharts.graphics3d.swing;
 
+import com.orsoncharts.util.ArgChecks;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
-import com.orsoncharts.graphics3d.ViewPoint3D;
 
 /**
- * Rotate down.
+ * An action that handles rotating the 3D view towards the bottom of the screen.
  */
 public class DownAction extends AbstractAction {
 
     private Panel3D panel;
   
-    public DownAction(Panel3D panel3D) {
+    /**
+     * Creates a new action.
+     * 
+     * @param panel  the panel (<code>null</code> not permitted).
+     */
+    public DownAction(Panel3D panel) {
         super("\uF063");
-        this.panel = panel3D;
+        ArgChecks.nullNotPermitted(panel, "panel");
+        this.panel = panel;
     }
 
     @Override

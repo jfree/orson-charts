@@ -27,7 +27,7 @@ public class RotateRightAction extends AbstractAction {
     @Override
     public void actionPerformed(ActionEvent e) {
         ViewPoint3D viewPt = this.panel.getDrawable().getViewPoint();
-        viewPt.rotate(Math.PI / 72);
+        viewPt.roll(Math.PI / 72);
         //        viewPt.setAngle(viewPt.getAngle() + Math.PI / 72);
         this.panel.repaint();
     }

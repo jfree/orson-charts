@@ -349,6 +349,12 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
         if (this.depth != that.depth) {
             return false;
         }
+        if (!this.sectionColorSource.equals(that.sectionColorSource)) {
+            return false;
+        }
+        if (!this.sectionLabelFontSource.equals(that.sectionLabelFontSource)) {
+            return false;
+        }
         return super.equals(obj);
     }
 

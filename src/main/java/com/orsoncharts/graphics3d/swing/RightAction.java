@@ -37,7 +37,7 @@ public class RightAction extends AbstractAction {
             Chart3D chart = (Chart3D) drawable;
             //this.panel.setViewPoint(new ViewPoint3D(new Point3D(30, -30, 30), chart.getViewPoint().getAngle(), 0));
         }
-        drawable.getViewPoint().moveLeftRight(-Math.PI / 60);
+        drawable.getViewPoint().panLeftRight(-Math.PI / 60);
         this.panel.repaint();
     }
     

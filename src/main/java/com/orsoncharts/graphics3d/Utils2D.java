@@ -16,6 +16,10 @@ import java.awt.geom.Point2D;
  */
 public class Utils2D {
     
+    private Utils2D() {
+        // no need to instantiate
+    }
+    
     /**
      * Calculates twice the area of a triangle for points specified in 
      * counter-clockwise order (if the points are specified in clockwise order
@@ -35,39 +39,6 @@ public class Utils2D {
         double cx = c.getX();
         double cy = c.getY();
         return (ax - cx) * (by - cy) - (ay - cy) * (bx - cx);
-    }
-    
-    public static Point3D normal(Point3D a, Point3D b, Point3D c) {
-        double ax = a.x - c.x;
-        double ay = a.y - c.y;
-        double az = a.z - c.z;
-        double bx = b.x - c.x;
-        double by = b.y - c.y;
-        double bz = b.z - c.z;
-        return new Point3D(ay * bz - az * by, az * bx - ax * bz, 
-                ax * by - ay * bx);
-    }
-    
-    public static double cross(Point3D a, Point3D b) {
-        return a.x * b.x + a.y * b.y + a.z * b.z;    
-    }
-    
-    public static double angle(Point3D a, Point3D b) {
-        double dp = a.x * b.x + a.y * b.y + a.z * b.z;
-        double alen = length(a);
-        double blen = length(b);
-        return Math.acos(dp / (alen * blen));    
-    }
-    
-    /**
-     * Returns the length of the vector v.
-     * 
-     * @param v  the vector (<code>null</code> not permitted).
-     * 
-     * @return 
-     */
-    public static double length(Point3D v) {
-        return Math.sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
     }
     
     /**

@@ -24,6 +24,11 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.geom.Dimension2D;
+import java.awt.geom.Rectangle2D;
+import java.io.File;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.Level;
@@ -37,14 +42,11 @@ import com.orsoncharts.graphics3d.Drawable3D;
 import com.orsoncharts.graphics3d.Offset2D;
 import com.orsoncharts.graphics3d.ViewPoint3D;
 import com.orsoncharts.graphics3d.Dimension3D;
-import java.awt.geom.Rectangle2D;
-import java.io.File;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 /**
  * A panel that displays a set of 3D objects from a particular viewing point.
+ * The view point is maintained by the {@link Drawable3D} but the panel
+ * provides convenience methods to get/set it.
  */
 public class Panel3D extends JPanel implements ActionListener, MouseListener, 
         MouseMotionListener, MouseWheelListener {
@@ -61,7 +63,8 @@ public class Panel3D extends JPanel implements ActionListener, MouseListener,
 
     /** 
      * The margin to leave around the edges of the chart when zooming to fit. 
-     * This is expressed as a percentage (0.25 = 25 percent).
+     * This is expressed as a percentage (0.25 = 25 percent) of the width
+     * and height.
      */
     private double margin;
 
@@ -71,9 +74,10 @@ public class Panel3D extends JPanel implements ActionListener, MouseListener,
      */
     private Point lastClickPoint;
     
+    /**
+     * The (screen) point of the last mouse move point that was handled.
+     */
     private Point lastMovePoint;
-
-    private ViewPoint3D lastViewPoint;
     
     /**
      * Temporary state to track the 2D offset during an ALT-mouse-drag
@@ -85,7 +89,8 @@ public class Panel3D extends JPanel implements ActionListener, MouseListener,
      * Creates a new panel with the specified {@link Drawable3D} to
      * display.
      *
-     * @param drawable  the content to display (<code>null</code> not permitted).
+     * @param drawable  the content to display (<code>null</code> not 
+     *     permitted).
      */
     public Panel3D(Drawable3D drawable) {
         super(new BorderLayout());
@@ -94,7 +99,6 @@ public class Panel3D extends JPanel implements ActionListener, MouseListener,
         this.margin = 0.25;
         this.minViewingDistance 
                 = (float) (drawable.getDimensions().getDiagonalLength());
-        this.lastViewPoint = this.drawable.getViewPoint();
         addMouseListener(this);
         addMouseMotionListener(this);
         addMouseWheelListener(this);
@@ -150,13 +154,13 @@ public class Panel3D extends JPanel implements ActionListener, MouseListener,
     }
     
     /**
-     * Returns the current world viewpoint.
+     * Returns the view point that is maintained by the {@link Drawable3D}
+     * instance on display.
      *
-     * @return  The view point.
+     * @return  The view point (never <code>null</code>).
      */
     public ViewPoint3D getViewPoint() {
-        return this.drawable.getViewPoint();  // TODO : remove this method and
-        // replace by getDrawable().getViewPoint();  Or should we leave it in?
+        return this.drawable.getViewPoint();
     }
 
     /**
@@ -167,6 +171,17 @@ public class Panel3D extends JPanel implements ActionListener, MouseListener,
     public void setViewPoint(ViewPoint3D vp) {
         ArgChecks.nullNotPermitted(vp, "vp");
         this.drawable.setViewPoint(vp);  // 
+        repaint();
+    }
+    
+    /**
+     * Rotates the view point around from left to right by the specified
+     * angle and repaints the 3D scene.
+     * 
+     * @param angle  the angle of rotation in radians.
+     */
+    public void panLeftRight(double angle) {
+        this.drawable.getViewPoint().panLeftRight(angle);
         repaint();
     }
 
@@ -245,7 +260,6 @@ public class Panel3D extends JPanel implements ActionListener, MouseListener,
     public void mousePressed(MouseEvent e) {
         this.lastClickPoint = e.getPoint();
         this.lastMovePoint = this.lastClickPoint;
-        this.lastViewPoint = this.drawable.getViewPoint();
         this.offsetAtMousePressed = this.drawable.getTranslate2D();
     }
 
@@ -273,7 +287,7 @@ public class Panel3D extends JPanel implements ActionListener, MouseListener,
             int dx = currPt.x - this.lastMovePoint.x;
             int dy = currPt.y - this.lastMovePoint.y;
             this.lastMovePoint = currPt;
-            this.drawable.getViewPoint().moveLeftRight(-dx * Math.PI / 120);
+            this.drawable.getViewPoint().panLeftRight(-dx * Math.PI / 120);
             this.drawable.getViewPoint().moveUpDown(-dy * Math.PI / 120);
             repaint();
 //            double valTheta = this.lastViewPoint.getTheta() 

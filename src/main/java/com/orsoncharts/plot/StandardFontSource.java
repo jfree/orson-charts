@@ -71,6 +71,7 @@ public final class StandardFontSource implements FontSource, Serializable {
      * @param key  the key (<code>null</code> not permitted).
      * @param font  the font (<code>null</code> permitted).
      */
+    @Override
     public void setFont(Comparable key, Font font) {
         if (font != null) {
             this.fonts.put(key, font);

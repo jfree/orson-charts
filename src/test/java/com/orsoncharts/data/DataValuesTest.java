@@ -35,10 +35,10 @@ public class DataValuesTest {
         DefaultKeyedValues3D data = new DefaultKeyedValues3D();
         assertNull(DataUtils.findValueRange(data));
         data.setValue(1.5, "S1", "R1", "C1");
-        assertEquals(new Range(2.5, 2.5), DataUtils.findValueRange(data, 
+        assertEquals(new Range(1.0, 1.5), DataUtils.findValueRange(data, 
                 1.0));
         data.setValue(-1.5, "S2", "R1", "C1");
-        assertEquals(new Range(-0.5, 2.5), DataUtils.findValueRange(data, 
+        assertEquals(new Range(-1.5, 1.5), DataUtils.findValueRange(data, 
                 1.0));
     }
 
