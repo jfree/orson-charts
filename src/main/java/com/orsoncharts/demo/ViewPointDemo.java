@@ -67,7 +67,6 @@ public class ViewPointDemo extends JFrame {
         World world = new World();
         world.add(Object3D.createCube(1.0, 0, 0, 0, Color.BLUE));
         ViewPoint3D vp = new ViewPoint3D(new Point3D(10, 10, 10), 0);
-        System.out.println(vp);
         xlist = addRing(false, world, new Point3D(0, 25, 0), Point3D.UNIT_X, Color.GREEN);
         //ylist = addRing(true, world, new Point3D(5, 5, 5), vp.getVerticalRotationAxis(), Color.CYAN);
         ylist = addRing(true, world, new Point3D(5, 5, 5), vp.getVerticalRotationAxis(), Color.CYAN);
@@ -78,7 +77,6 @@ public class ViewPointDemo extends JFrame {
         this.panel3D = new Panel3D(drawable);
         panel3D.setViewPoint(vp);
         content.add(new DisplayPanel3D(panel3D));
-        System.out.println(panel3D.getViewPoint());
         return content;
     }
     
@@ -105,7 +103,6 @@ public class ViewPointDemo extends JFrame {
     public void animate() {
         while (true) {
             for (Point3D p : this.xlist) {
-                System.out.println(p);
 //                this.panel3D.setViewPoint(new ViewPoint3D(p, 0, this.panel3D.getViewPoint().getTheta()));
                 this.panel3D.getViewPoint().moveLeftRight(Math.PI / 60);
                 try {

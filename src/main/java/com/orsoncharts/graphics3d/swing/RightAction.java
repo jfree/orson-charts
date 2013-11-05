@@ -39,14 +39,6 @@ public class RightAction extends AbstractAction {
         }
         drawable.getViewPoint().moveLeftRight(-Math.PI / 60);
         this.panel.repaint();
-
-//        ViewPoint3D currVP = this.panel.getViewPoint();
-//        ViewPoint3D newVP = currVP.moveLeftRight(-Math.PI / 300);
-//        ViewPoint3D nextVP = new ViewPoint3D(newVP.getTheta(), newVP.getPhi(), newVP.getRho(), newVP.getAngle());
-//        //this.chart.nextViewPoint = nextVP.getPoint();
-//        //System.out.println("Next point right = " + this.chart.nextViewPoint);
-//        this.panel.setViewPoint(newVP);
-//        this.panel.repaint();
     }
     
 }

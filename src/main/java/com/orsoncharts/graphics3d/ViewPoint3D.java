@@ -132,7 +132,6 @@ public class ViewPoint3D implements Serializable {
         // return the angle between them
         double angle = Utils2D.angle(n1, n2);
         if (Utils2D.cross(n1, screenup) >= 0.0) {
-//        System.out.println("Angle = " + angle);
             return angle;
         } else {
           return -angle;
@@ -315,17 +314,13 @@ public class ViewPoint3D implements Serializable {
     public void moveLeftRight(double delta) { 
         Point3D v = getVerticalRotationAxis();
         Rotate3D r = new Rotate3D(Point3D.ORIGIN, v, delta);
-        System.out.println("moveLeftRight from: " + getPoint());
         double x = getX();
         double y = getY();
         double z = getZ();
         Point3D p = r.applyRotation(x, y, z);
-        System.out.println("...to: " + p);
         this.theta = p.getTheta();
         this.phi = p.getPhi();
         updateMatrixElements();
-        System.out.println(getPoint());
-        System.out.println("ang: " + getAngle());
         this.rotation.setAngle(getAngle());
     }
     
@@ -355,10 +350,8 @@ public class ViewPoint3D implements Serializable {
      */
     public ViewPoint3D rotate(double delta) {
         Rotate3D r = new Rotate3D(getPoint(), Point3D.ORIGIN, delta);
-        System.out.println("Up before: " + this.up);
         this.up = r.applyRotation(this.up);
         this.rotation.setAngle(getAngle());
-        System.out.println("Up after: " + this.up);
         return this;
     }
     

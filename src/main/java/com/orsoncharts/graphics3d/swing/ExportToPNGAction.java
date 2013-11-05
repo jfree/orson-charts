@@ -41,7 +41,6 @@ public class ExportToPNGAction extends AbstractAction {
             if (!filename.endsWith(".png")) {
                 filename = filename + ".png";
             }
-            System.out.println("Saving: " + this.panel.getWidth() + ", " + this.panel.getHeight());
         }
     }
     
