@@ -50,8 +50,8 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
      */
     private Color baseColor;
     
-    /** The width (depth in 3D) of the area. */
-    private double width;
+    /** The depth of the area. */
+    private double depth;
     
     /**
      * Default constructor.
@@ -59,7 +59,7 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
     public AreaRenderer3D() {
         this.base = 0.0;
         this.baseColor = null;
-        this.width = 0.6;
+        this.depth = 0.6;
     }
 
     /**
@@ -110,23 +110,23 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
     }
     
     /**
-     * Returns the width (depth in 3D) for the area (in world units).  The 
+     * Returns the depth (in 3D) for the area (in world units).  The 
      * default value is <code>0.6</code>.
      * 
-     * @return The width.
+     * @return The depth.
      */
-    public double getWidth() {
-        return this.width;
+    public double getDepth() {
+        return this.depth;
     }
     
     /**
-     * Sets the width (depth in 3D) and sends a {@link Renderer3DChangeEvent} to 
+     * Sets the depth (in 3D) and sends a {@link Renderer3DChangeEvent} to 
      * all registered listeners.
      * 
-     * @param width  the width. 
+     * @param depth  the depth. 
      */
-    public void setWidth(double width) {
-        this.width = width;
+    public void setDepth(double depth) {
+        this.depth = depth;
         fireChangeEvent();
     }
 
@@ -182,7 +182,7 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
             if (!valueAxis.getRange().intersects(value0, value1)) {
                 return;
             }
-            if (!isBaselineCrossed(value0, value1, baseline)) {
+            if (!isBaselineCrossed(value0, value1, this.base)) {
                 composeItemWithoutCrossing(value0, value1, dataset, series,
                         row, column, world, dimensions, xOffset, yOffset, 
                         zOffset);   
@@ -238,6 +238,7 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
             double xOffset, double yOffset, double zOffset) {
 
         CategoryPlot3D plot = getPlot();
+        Color color = getPaintSource().getPaint(series, row, column);
         CategoryAxis3D rowAxis = plot.getRowAxis();
         CategoryAxis3D columnAxis = plot.getColumnAxis();
         Axis3D valueAxis = plot.getValueAxis();
@@ -247,117 +248,202 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
        
         double x0 = columnAxis.getCategoryValue(columnKey);
         double x1 = columnAxis.getCategoryValue(nextColumnKey);
-        double ybase = valueAxis.getRange().peggedValue(this.base);
-        double y00 = valueAxis.getRange().peggedValue(y0);
-        double x00 = x0;
-        if (y0 != y1) {
-            x00 = x0 + (x1 - x0) * fraction(y00, y0, y1);
-        }
-        double y11 = valueAxis.getRange().peggedValue(y1);
-        double x11 = x1;
-        if (y0 != y1) {
-            x11 = x0 + (x1 - x0) * fraction(y11, y0, y1);
-        }
-        
-        // if y0 is closer to base than y00 then move x0 to x00
-        if (Math.abs(y0 - this.base) < Math.abs(y00 - this.base)) {
-            x0 = x00;
-        }
-        // if y1 is closer to base than y11 then move x1 to x11
-        if (Math.abs(y1 - this.base) < Math.abs(y11 - this.base)) {
-            x1 = x11;
-        }
-        
-        double delta = this.width / 2.0;
-        double wx0 = columnAxis.translateToWorld(x0, dimensions.getWidth()) 
-                + xOffset;
-        double wx00 = columnAxis.translateToWorld(x00, dimensions.getWidth()) 
-                + xOffset;
-        double wx1 = columnAxis.translateToWorld(x1, dimensions.getWidth()) 
-                + xOffset;
-        double wx11 = columnAxis.translateToWorld(x11, dimensions.getWidth()) 
-                + xOffset;
-        double wy0 = valueAxis.translateToWorld(y00, dimensions.getHeight()) 
-                + yOffset;
-        double wy1 = valueAxis.translateToWorld(y11, dimensions.getHeight()) 
-                + yOffset;
-        double wbase = valueAxis.translateToWorld(ybase, 
-                dimensions.getHeight()) + yOffset;
-        
-        double wz = rowAxis.translateToWorld(
-                rowAxis.getCategoryValue(rowKey), 
-                dimensions.getDepth()) + zOffset;
-            
-        Color color = getPaintSource().getPaint(series, row, column);
-            
-        // create an area shape
-        Object3D obj = new Object3D();
-        Point3D v0 = new Point3D(wx0, wbase, wz - delta);
-        Point3D v1 = new Point3D(wx1, wbase, wz - delta);
-        Point3D v2 = new Point3D(wx1, wy0, wz - delta);
-        Point3D v3 = new Point3D(wx11, wy1, wz - delta);
-        Point3D v4 = new Point3D(wx00, wy1, wz - delta);
-        Point3D v5 = new Point3D(wx0, wy0, wz - delta);
-        obj.addVertex(v0);
-        obj.addVertex(v1);
-        obj.addVertex(v2);
-        obj.addVertex(v3);
-        obj.addVertex(v4);
-        obj.addVertex(v5);
-        
-        Point3D v6 = new Point3D(wx0, wbase, wz + delta);
-        Point3D v7 = new Point3D(wx1, wbase, wz + delta);
-        Point3D v8 = new Point3D(wx1, wy0, wz + delta);
-        Point3D v9 = new Point3D(wx11, wy1, wz + delta);
-        Point3D v10 = new Point3D(wx00, wy1, wz + delta);
-        Point3D v11 = new Point3D(wx0, wy0, wz + delta);
-        obj.addVertex(v6);
-        obj.addVertex(v7);
-        obj.addVertex(v8);
-        obj.addVertex(v9);
-        obj.addVertex(v10);
-        obj.addVertex(v11);
-           
-//        Point3D v4 = new Point3D(wx1, wybase, wz0 - delta);
-//        Point3D v5 = new Point3D(wx1, wybase, wz0 + delta);
-//        Point3D v6 = new Point3D(wx0, wybase, wz0 + delta);
-//        Point3D v7 = new Point3D(wx0, wybase, wz0 - delta);
-//        
-//        obj.addVertex(v4);
-//        obj.addVertex(v5);
-//        obj.addVertex(v6);
-//        obj.addVertex(v7);
-
+        Range range = valueAxis.getRange();
+        double y00 = range.peggedValue(y0);
+        double y11 = range.peggedValue(y1);
+        double ybb = range.peggedValue(this.base);
+   
         if (y0 > this.base) {
-            obj.addFace(new int[] {2, 3, 4, 5}, color);
-            //obj.addFace(new int[] {11, 10, 9, 8}, color);
-//            obj.addFace(new int[] {0, 3, 4, 7}, color);
-//            obj.addFace(new int[] {6, 5, 2, 1}, color);
-//            
-//            if (column == 0) {
-//                obj.addFace(new int[] {0, 7, 6, 1}, color);
-//            }
-//            if (column == dataset.getColumnCount() - 2) {
-//                obj.addFace(new int[] {5, 4, 3, 2}, color);
-//            }
+            double x00 = x0;
+            if (y0 < range.getMin()) {
+                x00 = x0 + (x1 - x0) * fraction(y00, y0, y1);
+            }
+            double x11 = x1;
+            if (y1 < range.getMin()) {
+                x11 = x1 - (x1 - x0) * fraction(y11, y1, y0);
+            }
+            double x22 = (x00 + x11) / 2.0;  // bogus
+            boolean p2required = spans(range.getMax(), y0, y1);  // only required when range max is spanned
+            if (p2required) {
+                x22 = x0 + (x1 - x0) * fraction(range.getMax(), y0, y1);
+            }
+        
+            double delta = this.depth / 2.0;
+            double wx00 = columnAxis.translateToWorld(x00, dimensions.getWidth()) 
+                    + xOffset;
+            double wx11 = columnAxis.translateToWorld(x11, dimensions.getWidth()) 
+                    + xOffset;
+            double wx22 = columnAxis.translateToWorld(x22, dimensions.getWidth()) 
+                    + xOffset;
+            double wy0 = valueAxis.translateToWorld(y00, dimensions.getHeight()) 
+                    + yOffset;
+            double wy1 = valueAxis.translateToWorld(y11, dimensions.getHeight()) 
+                    + yOffset;
+            double wymax = valueAxis.translateToWorld(range.getMax(), 
+                    dimensions.getHeight()) + yOffset;
+            double wbase = valueAxis.translateToWorld(ybb, 
+                    dimensions.getHeight()) + yOffset;
+         
+            double wz = rowAxis.translateToWorld(
+                    rowAxis.getCategoryValue(rowKey), 
+                    dimensions.getDepth()) + zOffset;
+                        
+            // create an area shape
+            Object3D obj = new Object3D();
+            Point3D v0 = new Point3D(wx00, wbase, wz - delta);
+            Point3D v1 = new Point3D(wx00, wy0, wz - delta);
+            Point3D v2 = v1;
+            if (p2required) {
+                v2 = new Point3D(wx22, wymax, wz - delta);
+            }
+            Point3D v3 = new Point3D(wx11, wy1, wz - delta);
+            Point3D v4 = new Point3D(wx11, wbase, wz - delta);
+            obj.addVertex(v0);
+            obj.addVertex(v1);
+            obj.addVertex(v2);
+            obj.addVertex(v3);
+            obj.addVertex(v4);
+        
+            Point3D v5 = new Point3D(wx00, wbase, wz + delta);
+            Point3D v6 = new Point3D(wx00, wy0, wz + delta);
+            Point3D v7 = v6;
+            if (p2required) {
+                v7 = new Point3D(wx22, wymax, wz + delta);
+            }
+            Point3D v8 = new Point3D(wx11, wy1, wz + delta);
+            Point3D v9 = new Point3D(wx11, wbase, wz + delta);
+            obj.addVertex(v5);
+            obj.addVertex(v6);
+            obj.addVertex(v7);
+            obj.addVertex(v8);
+            obj.addVertex(v9);
+
+            if (p2required) {
+                obj.addFace(new int[] {0, 1, 2, 3, 4}, color, true);
+                obj.addFace(new int[] {9, 8, 7, 6, 5}, color, true);
+                obj.addFace(new int[] {0, 4, 9, 5}, color, true);
+                obj.addFace(new int[] {6, 7, 2, 1}, color, true);
+                obj.addFace(new int[] {3, 2, 7, 8}, color, true);
+                
+            } else {
+                obj.addFace(new int[] {0, 1, 3, 4}, color, true);
+                obj.addFace(new int[] {9, 8, 6, 5}, color, true);
+                obj.addFace(new int[] {0, 4, 9, 5}, color, true);
+                obj.addFace(new int[] {1, 6, 8, 3}, color, true);
+            }
+            if (column == 0) {
+                obj.addFace(new int[] {0, 5, 6, 1}, color, true);
+            }
+            if (column == dataset.getColumnCount() - 2) {
+                obj.addFace(new int[] {8, 9, 4, 3}, color, true);
+            }
+            world.add(obj);
 //            Color bcol = this.baseColor != null ? this.baseColor : color;
 //            obj.addFace(new int[] {5, 6, 7, 4}, bcol);  // bottom side
         } else {
-//            obj.addFace(new int[] {5, 4, 3, 2}, color);
-//            obj.addFace(new int[] {8, 9, 10, 11}, color);
-//            obj.addFace(new int[] {7, 4, 3, 0}, color);
-//            obj.addFace(new int[] {1, 2, 5, 6}, color);
-//            
-//            if (column == 0) {
-//                obj.addFace(new int[] {1, 6, 7, 0}, color);
-//            }
-//            if (column == dataset.getColumnCount() - 2) {
-//                obj.addFace(new int[] {2, 3, 4, 5}, color);
-//            }
+            // let's do the case for negative areas
+            double x00 = x0;
+            if (y0 > range.getMax()) {
+                x00 = x0 + (x1 - x0) * fraction(y00, y0, y1);
+            }
+            double x11 = x1;
+            if (y1 > range.getMax()) {
+                x11 = x1 - (x1 - x0) * fraction(y11, y1, y0);
+            }
+            double x22 = (x00 + x11) / 2.0;  // bogus
+            boolean p2required = spans(range.getMin(), y0, y1);  // only required when range max is spanned
+            if (p2required) {
+                x22 = x0 + (x1 - x0) * fraction(range.getMin(), y0, y1);
+            }
+        
+            double delta = this.depth / 2.0;
+            double wx00 = columnAxis.translateToWorld(x00, dimensions.getWidth()) 
+                    + xOffset;
+            double wx11 = columnAxis.translateToWorld(x11, dimensions.getWidth()) 
+                    + xOffset;
+            double wx22 = columnAxis.translateToWorld(x22, dimensions.getWidth()) 
+                    + xOffset;
+            double wy0 = valueAxis.translateToWorld(y00, dimensions.getHeight()) 
+                    + yOffset;
+            double wy1 = valueAxis.translateToWorld(y11, dimensions.getHeight()) 
+                    + yOffset;
+            double wymin = valueAxis.translateToWorld(range.getMin(), 
+                    dimensions.getHeight()) + yOffset;
+            double wbase = valueAxis.translateToWorld(ybb, 
+                    dimensions.getHeight()) + yOffset;
+         
+            double wz = rowAxis.translateToWorld(
+                    rowAxis.getCategoryValue(rowKey), 
+                    dimensions.getDepth()) + zOffset;
+                        
+            // create an area shape
+            Object3D obj = new Object3D();
+            Point3D v0 = new Point3D(wx00, wbase, wz - delta);
+            Point3D v1 = new Point3D(wx00, wy0, wz - delta);
+            Point3D v2 = v1;
+            if (p2required) {
+                v2 = new Point3D(wx22, wymin, wz - delta);
+            }
+            Point3D v3 = new Point3D(wx11, wy1, wz - delta);
+            Point3D v4 = new Point3D(wx11, wbase, wz - delta);
+            obj.addVertex(v0);
+            obj.addVertex(v1);
+            obj.addVertex(v2);
+            obj.addVertex(v3);
+            obj.addVertex(v4);
+        
+            Point3D v5 = new Point3D(wx00, wbase, wz + delta);
+            Point3D v6 = new Point3D(wx00, wy0, wz + delta);
+            Point3D v7 = v6;
+            if (p2required) {
+                v7 = new Point3D(wx22, wymin, wz + delta);
+            }
+            Point3D v8 = new Point3D(wx11, wy1, wz + delta);
+            Point3D v9 = new Point3D(wx11, wbase, wz + delta);
+            obj.addVertex(v5);
+            obj.addVertex(v6);
+            obj.addVertex(v7);
+            obj.addVertex(v8);
+            obj.addVertex(v9);
+
+            if (p2required) {
+                obj.addFace(new int[] {4, 3, 2, 1, 0}, color, true);
+                obj.addFace(new int[] {5, 6, 7, 8, 9}, color, true);
+                obj.addFace(new int[] {5, 9, 4, 0}, color, true);
+                obj.addFace(new int[] {1, 2, 7, 6}, color, true);
+                obj.addFace(new int[] {8, 7, 2, 3}, color, true);
+//                obj.addFace(new int[] {0, 1, 2, 3, 4}, color);
+//                obj.addFace(new int[] {9, 8, 7, 6, 5}, color);
+//                obj.addFace(new int[] {0, 4, 9, 5}, color);
+//                obj.addFace(new int[] {6, 7, 2, 1}, color);
+//                obj.addFace(new int[] {3, 2, 7, 8}, color);
+                
+            } else {
+                obj.addFace(new int[] {4, 3, 1, 0}, color, true);
+                obj.addFace(new int[] {5, 6, 8, 9}, color, true);
+                obj.addFace(new int[] {5, 9, 4, 0}, color, true);
+                obj.addFace(new int[] {3, 8, 6, 1}, color, true);
+//                obj.addFace(new int[] {0, 1, 3, 4}, color);
+//                obj.addFace(new int[] {9, 8, 6, 5}, color);
+//                obj.addFace(new int[] {0, 4, 9, 5}, color);
+//                obj.addFace(new int[] {1, 6, 8, 3}, color);
+            }
+            if (column == 0) {
+                obj.addFace(new int[] {1, 6, 5, 0}, color, true);
+            }
+            if (column == dataset.getColumnCount() - 2) {
+                obj.addFace(new int[] {3, 4, 9, 8}, color, true);
+            }
+            world.add(obj);
 //            Color bcol = this.baseColor != null ? this.baseColor : color;
-//            obj.addFace(new int[] {4, 7, 6, 5}, bcol);  // bottom side            
+//            obj.addFace(new int[] {5, 6, 7, 4}, bcol);  // bottom side
         }
-        world.add(obj);
+        
+    }
+        
+    private boolean spans(double value, double bound1, double bound2) {
+        return (bound1 < value && bound2 > value)
+                || (bound1 > value && bound2 < value);
     }
     
     private void composeItemWithCrossing() {
@@ -385,7 +471,7 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
         if (!ObjectUtils.equals(this.baseColor, that.baseColor)) {
             return false;
         }
-        if (this.width != that.width) {
+        if (this.depth != that.depth) {
             return false;
         }
         return super.equals(obj);

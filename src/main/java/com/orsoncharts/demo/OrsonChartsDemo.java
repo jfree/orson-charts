@@ -18,7 +18,6 @@ import java.awt.event.WindowEvent;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -38,9 +37,14 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
+import javax.swing.JTextPane;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
-import javax.swing.JTextPane;
+import java.io.IOException;
+import java.net.URL;
+import javax.swing.JButton;
 
 /**
  * A demo application for Orson Charts.  This aggregates all the individual
@@ -53,6 +57,8 @@ public class OrsonChartsDemo extends JFrame implements ActionListener,
     public static final Dimension DEFAULT_CONTENT_SIZE 
             = new Dimension(600, 400);
     
+    private JTextPane chartDescriptionPane;
+
     /**
      * Creates a new demo instance with the specified frame title.
      * 
@@ -121,6 +127,7 @@ public class OrsonChartsDemo extends JFrame implements ActionListener,
     }
     
     public JPanel chartContainer = new JPanel(new BorderLayout());
+    
     private JComponent createChartPanel() {
         JSplitPane splitter = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
        
@@ -132,11 +139,18 @@ public class OrsonChartsDemo extends JFrame implements ActionListener,
         chartPanel.setBorder(b);
         chartContainer.add(chartPanel);
         splitter.add(chartContainer);
-        splitter.add(new JButton("Chart description goes here!"));
+        JPanel lowerPanel = new JPanel(new BorderLayout());
+        lowerPanel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createEmptyBorder(4, 4, 4, 4), 
+                BorderFactory.createLineBorder(Color.BLACK)));
+        this.chartDescriptionPane = new JTextPane();
+        this.chartDescriptionPane.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+        this.chartDescriptionPane.setText("No chart description available.");
+        lowerPanel.add(this.chartDescriptionPane);
+        splitter.add(lowerPanel);
         return splitter;
     }
     
-   
     /**
      * Creates a <code>TreeModel</code> with references to all the individual
      * demo applications.
@@ -175,10 +189,17 @@ public class OrsonChartsDemo extends JFrame implements ActionListener,
         return n;
     }
     
+    /**
+     * Creates a node for the pie chart demos.
+     * 
+     * @return A node for the pie chart demos. 
+     */
     private MutableTreeNode createPieChartsNode() {
         DefaultMutableTreeNode n = new DefaultMutableTreeNode("Pie Charts");
         n.add(createNode("com.orsoncharts.demo.PieChart3DDemo1", 
                 "PieChart3DDemo1.java"));
+        n.add(createNode("com.orsoncharts.demo.PieChart3DDemo2", 
+                "PieChart3DDemo2.java"));
         return n;        
     }
     private MutableTreeNode createXYZChartsNode() {
@@ -202,15 +223,28 @@ public class OrsonChartsDemo extends JFrame implements ActionListener,
                 SwingUtilities.invokeLater(new DisplayDemo(this, dd));
             }
             else {
-//                this.chartContainer.removeAll();
-//                this.chartContainer.add(createNoDemoSelectedPanel());
-//                this.displayPanel.validate();
-//                displayDescription("select.html");
+                this.chartContainer.removeAll();
+                this.chartContainer.add(createNoDemoSelectedPanel());
+                this.chartContainer.validate();
+                URL descriptionURL = OrsonChartsDemo.class.getResource("select.html");
+                if (descriptionURL != null) {
+                    try {
+                        this.chartDescriptionPane.setPage(descriptionURL);
+                    }
+                    catch (IOException ex) {
+                        System.err.println("Attempted to read a bad URL: "
+                            + descriptionURL);
+                    }
+                }
             }
         }
 
     }
 
+    private JComponent createNoDemoSelectedPanel() {
+        return new JButton("No demo selected.");
+    }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         if ("EXIT".equals(e.getActionCommand())) {
@@ -224,6 +258,22 @@ public class OrsonChartsDemo extends JFrame implements ActionListener,
      * @param args  ignored.
      */
     public static void main(String[] args) {
+
+        for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+            if ("Nimbus".equals(info.getName())) {
+                try {
+                    UIManager.setLookAndFeel(info.getClassName());
+                } catch (Exception ex) {
+                    try {
+                        UIManager.setLookAndFeel(
+                                UIManager.getSystemLookAndFeelClassName());
+                    }
+                    catch (Exception e2) {
+                        // do nothing
+                    }
+                }
+            }
+        }
         OrsonChartsDemo app = new OrsonChartsDemo("Orson Charts Demo 1.0");
         app.pack();
         app.setVisible(true);
@@ -255,7 +305,9 @@ public class OrsonChartsDemo extends JFrame implements ActionListener,
                 Method m = c.getDeclaredMethod("createDemoPanel",
                         (Class[]) null);
                 JPanel panel = (JPanel) m.invoke(null, (Object[]) null);
-                panel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(4,4, 4, 4), BorderFactory.createLineBorder(Color.BLACK)));
+                panel.setBorder(BorderFactory.createCompoundBorder(
+                        BorderFactory.createEmptyBorder(4,4, 4, 4), 
+                        BorderFactory.createLineBorder(Color.BLACK)));
                 this.app.chartContainer.removeAll();
                 this.app.chartContainer.add(panel);
                 this.app.chartContainer.validate();
@@ -263,6 +315,18 @@ public class OrsonChartsDemo extends JFrame implements ActionListener,
                     DisplayPanel3D displayPanel = (DisplayPanel3D) panel;
                     ChartPanel3D chartPanel = (ChartPanel3D) displayPanel.getContent();
                     chartPanel.zoomToFit();
+                }
+                String f = this.demoDescription.getFileName();
+                String f2 = f.substring(0, f.indexOf('.')) + ".html";
+                URL descriptionURL = OrsonChartsDemo.class.getResource(f2);
+                if (descriptionURL != null) {
+                    try {
+                        this.app.chartDescriptionPane.setPage(descriptionURL);
+                    }
+                    catch (IOException e) {
+                        System.err.println("Attempted to read a bad URL: "
+                            + descriptionURL);
+                    }
                 }
             }
             catch (ClassNotFoundException e1) {

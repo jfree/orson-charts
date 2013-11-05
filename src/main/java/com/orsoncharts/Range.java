@@ -1,17 +1,23 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
 package com.orsoncharts;
 
+import java.io.Serializable;
+
 /**
  * Represents a range of data values (instances are immutable).
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  */
-public class Range {
+public class Range implements Serializable {
 
     /** The lower bound of the range. */
     private double min;

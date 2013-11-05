@@ -42,11 +42,10 @@ public class ZoomInAction extends AbstractAction {
     public void actionPerformed(ActionEvent e) {
         float delta = 5.0f;
         ViewPoint3D viewPt = this.panel.getViewPoint();
-        float valRho = Math.max(this.panel.getMinViewingDistance(), 
+        double valRho = Math.max(this.panel.getMinViewingDistance(), 
                 viewPt.getRho() - delta);
-        float valTheta = viewPt.getTheta();
-        float valPhi = viewPt.getPhi();
-        panel.setViewPoint(new ViewPoint3D(valTheta, valPhi, valRho));
+        this.panel.getViewPoint().setRho(valRho);
+        this.panel.repaint();
     }
     
 }

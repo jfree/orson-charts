@@ -8,6 +8,8 @@
 
 package com.orsoncharts.util;
 
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 import com.orsoncharts.graphics3d.Offset2D;
 
@@ -22,8 +24,8 @@ import com.orsoncharts.graphics3d.Offset2D;
 public final class Anchor2D implements Serializable {
     
     /** 
-     * The reference point relative to some bounding rectangle (normally the 
-     * bounds of the chart, never <code>null</code>). 
+     * The reference point relative to some bounding rectangle, normally the 
+     * bounds of the chart (never <code>null</code>). 
      */
     private RefPt2D refPt;
     
@@ -78,6 +80,34 @@ public final class Anchor2D implements Serializable {
      */
     public Offset2D getOffset() {
         return this.offset;
+    }
+    
+    /**
+     * Returns the anchor point for the given rectangle.
+     * 
+     * @param rect  the reference rectangle (<code>null</code> not permitted).
+     * 
+     * @return The anchor point. 
+     */
+    public Point2D getAnchorPoint(Rectangle2D rect) {
+        ArgChecks.nullNotPermitted(rect, "rect");
+        double x = 0.0;
+        double y = 0.0;
+        if (this.refPt.isLeft()) {
+            x = rect.getX() + this.offset.getDX();
+        } else if (this.refPt.isHorizontalCenter()) {
+            x = rect.getCenterX();
+        } else if (this.refPt.isRight()) {
+            x = rect.getMaxX() - this.offset.getDX();
+        }
+        if (this.refPt.isTop()) {
+            y = rect.getMinY();
+        } else if (this.refPt.isVerticalCenter()) {
+            y = rect.getCenterY();
+        } else if (this.refPt.isBottom()) {
+            y = rect.getMaxY();
+        }
+        return new Point2D.Double(x, y);
     }
     
     /**

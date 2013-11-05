@@ -58,13 +58,10 @@ public class XYZBarChart3DDemo1 extends JFrame {
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         XYZDataset dataset = createDataset();
         Chart3D chart = Chart3DFactory.createXYZBarChart("XYZBarChart3DDemo1", 
-                dataset, "X", "Value", "Z");
+                "Chart created with Orson Charts", dataset, "X", "Value", "Z");
         XYZPlot plot = (XYZPlot) chart.getPlot();
-    //    plot.getXAxis().setRange(1.4, 2.6);
-  //      plot.getYAxis().setRange(6.0, 13.0);
-    //    plot.getZAxis().setRange(1.0, 2.0);
         BarXYZRenderer renderer = (BarXYZRenderer) plot.getRenderer();
-      //  renderer.setBase(10.0);
+      
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
         chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         content.add(new DisplayPanel3D(chartPanel));

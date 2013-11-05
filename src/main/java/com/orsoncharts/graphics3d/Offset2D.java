@@ -19,8 +19,10 @@ public final class Offset2D implements Serializable {
     /** Zero offset. */
     public static final Offset2D ZERO_OFFSET = new Offset2D(0, 0);
     
+    /** The x-offset. */
     private double dx;
     
+    /** The y-offset. */
     private double dy;
     
     /**

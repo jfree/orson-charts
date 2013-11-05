@@ -38,10 +38,10 @@ public class AreaRenderer3DTest {
         r2.setBaseColor(Color.BLUE);
         assertTrue(r1.equals(r2));
         
-        // width
-        r1.setWidth(8.8);
+        // depth
+        r1.setDepth(8.8);
         assertFalse(r1.equals(r2));
-        r2.setWidth(8.8);
+        r2.setDepth(8.8);
         assertTrue(r1.equals(r2));
         
         // notify

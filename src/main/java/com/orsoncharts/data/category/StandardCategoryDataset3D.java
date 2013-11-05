@@ -1,6 +1,6 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
  * (C)opyright 2013, by Object Refinery Limited.
  * 
@@ -9,6 +9,7 @@
 package com.orsoncharts.data.category;
 
 import java.util.List;
+import java.io.Serializable;
 import com.orsoncharts.data.AbstractDataset3D;
 import com.orsoncharts.data.DefaultKeyedValues3D;
 import com.orsoncharts.data.KeyedValues;
@@ -17,9 +18,13 @@ import com.orsoncharts.util.ArgChecks;
 /**
  * A standard implementation of the {@link CategoryDataset3D} interface.
  * This dataset is typically used to create bar charts and stacked bar charts.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class.
  */
 public final class StandardCategoryDataset3D extends AbstractDataset3D  
-        implements CategoryDataset3D {
+        implements CategoryDataset3D, Serializable {
   
     /**
      * Storage for the data.

@@ -8,24 +8,23 @@
 
 package com.orsoncharts;
 
+import java.awt.BasicStroke;
 import java.awt.Stroke;
 import java.awt.geom.Line2D;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Font;
-import java.awt.Image;
+import java.awt.Paint;
 import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Rectangle2D;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.awt.BasicStroke;
-import java.io.Serializable;
-import java.awt.Paint;
 import javax.swing.event.EventListenerList;
 
 import com.orsoncharts.ChartBox3D.CBFace;
@@ -52,6 +51,7 @@ import com.orsoncharts.table.TextElement;
 import com.orsoncharts.table.TableElement;
 import com.orsoncharts.util.Anchor2D;
 import com.orsoncharts.graphics3d.Offset2D;
+import com.orsoncharts.graphics3d.Rotate3D;
 import com.orsoncharts.util.RefPt2D;
 import com.orsoncharts.util.TextUtils;
 import com.orsoncharts.util.TextAnchor;
@@ -90,18 +90,14 @@ import com.orsoncharts.util.ObjectUtils;
  * to change in future releases and should not be relied upon for persisting 
  * instances of this class.
  * 
- * @see {@link ChartFactory3D}, {@link ChartPanel3D}.
+ * @see Chart3DFactory
+ * @see ChartPanel3D
  */
 
 public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
-
-    private static final Paint DEFAULT_TITLE_PAINT = Color.BLACK;
     
-    /** The background paint for the chart area (can be <code>null</code>). */
-    private Paint backgroundPaint;
-    
-    /** A background image for the chart, if any. */
-    private Image backgroundImage;
+    /** A background rectangle painter, if any. */
+    private RectanglePainter background;
     
     /** The chart title (can be <code>null</code>). */
     private TableElement title;
@@ -144,18 +140,17 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
     /**
      * Creates a 3D chart for the specified plot.
      * 
-     * @param chartTitle  the chart title (<code>null</code> permitted).
+     * @param title  the chart title (<code>null</code> permitted).
+     * @param subtitle  the chart subtitle (<code>null</code> permitted).
      * @param plot  the plot (<code>null</code> not permitted).
      * 
      * @see Chart3DFactory
      */
-    public Chart3D(String chartTitle, Plot3D plot) {
+    public Chart3D(String title, String subtitle, Plot3D plot) {
         ArgChecks.nullNotPermitted(plot, "plot");
-        this.backgroundPaint = Color.WHITE;
-        if (chartTitle != null) {
-            TextElement ste = new TextElement(chartTitle);
-            ste.setFont(new Font("Dialog", Font.BOLD, 24));
-            this.title = ste;
+        this.background = new StandardRectanglePainter(Color.WHITE);
+        if (title != null) {
+            this.title = TitleUtils.createTitle(title, subtitle);
         }
         this.titleAnchor = TitleAnchor.TOP_LEFT;
         this.legendBuilder = new StandardLegendBuilder();
@@ -164,10 +159,8 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
         this.plot.addChangeListener(this);
         Dimension3D dim = this.plot.getDimensions();
         float distance = (float) dim.getDiagonalLength() * 3.0f;
-        //float distance = 2f * (float) dim.getDepth() + 2f * (float) Math.max(dim.getWidth(), dim.getHeight());
         this.viewPoint = new ViewPoint3D((float) (4.4 * Math.PI / 3), 
-                (float) (7 * Math.PI / 6), distance);
-        System.out.println("distance : " + distance);
+                (float) (7 * Math.PI / 6), distance, 0);
         this.chartBoxColor = Color.WHITE;
         this.translate2D = new Offset2D();
         this.notify = true;
@@ -175,43 +168,26 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
     }
 
     /**
-     * Returns the paint used to fill the chart background area before the 
-     * chart is rendered.  The default value is <code>Color.WHITE</code>.
+     * Returns the background painter (an object that is responsible for filling
+     * the background area before charts are rendered).  The default value
+     * is an instance of {@link StandardRectanglePainter} that paints the
+     * background white.
      * 
-     * @return The background paint (possibly <code>null</code>). 
+     * @return The background painter (possibly <code>null</code>). 
      */
-    public Paint getBackgroundPaint() {
-        return this.backgroundPaint;
+    public RectanglePainter getBackground() {
+        return this.background;
     }
     
     /**
-     * Sets the background paint for the chart area and sends a 
-     * {@link Chart3DChangeEvent} to all registered listeners.
+     * Sets the background painter and sends a {@link Chart3DChangeEvent} to
+     * all registered listeners.  A background painter is used to fill in the
+     * background of the chart before the 3D rendering takes place.
      * 
-     * @param paint  the new paint (<code>null</code> permitted). 
+     * @param background  the background painter (<code>null</code> permitted). 
      */
-    public void setBackgroundPaint(Paint paint) {
-        this.backgroundPaint = paint;
-        fireChangeEvent();
-    }
-    
-    /**
-     * Returns the background image, or <code>null</code>.
-     * 
-     * @return The background image (possibly <code>null</code>). 
-     */
-    public Image getBackgroundImage() {
-        return this.backgroundImage;
-    }
-    
-    /**
-     * Sets the background image and sends a {@link Chart3DChangeEvent} to all
-     * registered listeners.
-     * 
-     * @param image  the image (<code>null</code> permitted). 
-     */
-    public void setBackgroundImage(Image image) {
-        this.backgroundImage = image;
+    public void setBackground(RectanglePainter background) {
+        this.background = background;
         fireChangeEvent();
     }
     
@@ -237,8 +213,8 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
         if (title == null) {
             setTitle((TableElement) null);
         } else {
-            setTitle(title, new Font("Dialog", Font.BOLD, 16), 
-                    DEFAULT_TITLE_PAINT);
+            setTitle(title, TitleUtils.DEFAULT_TITLE_FONT, 
+                    TitleUtils.DEFAULT_TITLE_PAINT);
         }
     }
     
@@ -324,7 +300,7 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
     /**
      * Sets the chart box color and sends a {@link Chart3DChangeEvent} to all 
      * registered listeners.  Bear in mind that {@link PiePlot3D} does not
-     * display a chart box, so this attribute will be ignored in that case.
+     * display a chart box, so this attribute will be ignored for pie charts.
      * 
      * @param color  the color (<code>null</code> not permitted). 
      */
@@ -375,6 +351,7 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
      * 
      * @return The offset (never <code>null</code>). 
      */
+    @Override
     public Offset2D getTranslate2D() {
         return this.translate2D;    
     }
@@ -385,6 +362,7 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
      * 
      * @param offset  the new offset (<code>null</code> not permitted).
      */
+    @Override
     public void setTranslate2D(Offset2D offset) {
         ArgChecks.nullNotPermitted(offset, "offset");
         this.translate2D = offset;
@@ -460,7 +438,34 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
             world.add(chartBox.getObject3D());
         }
         this.plot.compose(world, -w / 2, -h / 2, -d / 2);
+        
+        ViewPoint3D halfpt = new ViewPoint3D(this.viewPoint.getTheta(),
+                this.viewPoint.getPhi(), (float) (this.viewPoint.getRho() / 4.0), 
+                this.viewPoint.getAngle());
+
+        // the the vertical rotation axis and add a ring
+        Point3D p = this.viewPoint.getVerticalRotationAxis();
+        //addRing(world, halfpt.getPoint(), Point3D.ORIGIN, p, Color.YELLOW);
+        
+        double x = this.viewPoint.getX();
+        double y = this.viewPoint.getY();
+        double z = this.viewPoint.getZ();
+        
+        // get the horizontal rotation axis and add another ring of shapes
+        Point3D b = this.viewPoint.getHorizontalRotationAxis();
+        //addRing(world, halfpt.getPoint(), Point3D.ORIGIN, b, Color.LIGHT_GRAY);
+        
+     //   world.add(Object3D.createCube(0.20, this.nextViewPoint.x, this.nextViewPoint.y, this.nextViewPoint.z, Color.RED));
         return world;
+    }
+
+    private void addRing(World world, Point3D pt, Point3D v0, Point3D v1, Color color) {
+        Rotate3D r = new Rotate3D(v0, v1, 0);
+        for (int i = 0; i < 60; i++) {
+            r.setAngle(2 * Math.PI / 60 * i);
+            Point3D p = r.applyRotation(pt);
+            world.add(Object3D.createCube(0.20, p.x, p.y, p.z, color));
+        }
     }
     
     /**
@@ -473,7 +478,9 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
         
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_ROUND, 
+        g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, 
+                RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+        g2.setStroke(new BasicStroke(1.2f, BasicStroke.CAP_ROUND, 
                 BasicStroke.JOIN_ROUND, 1f));
         Dimension3D dim3D = this.plot.getDimensions();
         double w = dim3D.getWidth();
@@ -490,21 +497,13 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
             List<TickData> zTicks = fetchZTickData(this.plot, tickUnits[2]);
             chartBox.configureTicks(xTicks, yTicks, zTicks);
         }
-        World world = createWorld(chartBox);  
-        if (this.backgroundPaint != null) {
-            g2.setPaint(this.backgroundPaint);
-            g2.fill(bounds);
-        }
-        if (this.backgroundImage != null) {
-            g2.drawImage(this.backgroundImage, (int) bounds.getX(), 
-                    (int) bounds.getY(), (int) bounds.getWidth(),
-                    (int) bounds.getHeight(), null);
+        World world = createWorld(chartBox);
+        if (this.background != null) {
+            this.background.fill(g2, bounds);
         }
         AffineTransform saved = g2.getTransform();
         g2.translate(bounds.getWidth() / 2.0 + this.translate2D.getDX(), 
                 bounds.getHeight() / 2.0 + this.translate2D.getDY());
-       // g2.rotate(getViewPoint().getRotate());
-
         Point3D[] eyePts = world.calculateEyeCoordinates(this.viewPoint);
         Point2D[] pts = world.calculateProjectedPoints(this.viewPoint, 1000f);
         List<Face> facesInPaintOrder = new ArrayList<Face>(world.getFaces());
@@ -513,6 +512,7 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
         Collections.sort(facesInPaintOrder, new ZOrderComparator(eyePts));
 
         for (Face f : facesInPaintOrder) {
+            boolean drawOutline = f.getOutline();
             GeneralPath p = new GeneralPath();
             for (int v = 0; v < f.getVertexCount(); v++) {
                 if (v == 0) {
@@ -538,7 +538,9 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
                         (int) (c.getGreen() * shade),
                         (int) (c.getBlue() * shade), c.getAlpha()));
                     g2.fill(p);
-                    g2.draw(p);
+                    if (drawOutline) {
+                        g2.draw(p);
+                    }
                 }
                 
                 if (f instanceof CBFace && (this.plot instanceof CategoryPlot3D 
@@ -705,7 +707,8 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
     /**
      * Returns <code>true</code> if gridlines are visible for the x-axis
      * (column axis in the case of a {@link CategoryPlot3D}) and 
-     * <code>false</code> otherwise.
+     * <code>false</code> otherwise.  For pie charts, this method will always
+     * return <code>false>.
      * 
      * @param plot  the plot.
      * 
@@ -911,8 +914,8 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
                     ppts[f.getVertexIndex(1)], 
                     ppts[f.getVertexIndex(2)]) > 0) {
                 Comparable key = p.getDataset().getKey(i / 2);
-                g2.setColor(Color.BLACK);
-                g2.setFont(p.getDefaultSectionFont());
+                g2.setColor(p.getSectionLabelColorSource().getColor(key));
+                g2.setFont(p.getSectionLabelFontSource().getFont(key));
                 Point2D pt = Utils2D.centerPoint(ppts[f.getVertexIndex(0)], 
                         ppts[f.getVertexIndex(1)], ppts[f.getVertexIndex(2)],
                         ppts[f.getVertexIndex(3)]);
@@ -1183,8 +1186,7 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
             return false;
         }
         Chart3D that = (Chart3D) obj;
-        if (!ObjectUtils.equalsPaint(this.backgroundPaint, 
-                that.backgroundPaint)) {
+        if (!ObjectUtils.equals(this.background, that.background)) {
             return false;
         }
         if (!ObjectUtils.equals(this.title, that.title)) {

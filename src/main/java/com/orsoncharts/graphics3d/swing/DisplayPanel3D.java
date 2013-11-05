@@ -8,24 +8,15 @@
 
 package com.orsoncharts.graphics3d.swing;
 
+import com.orsoncharts.Chart3D;
 import java.awt.BorderLayout;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.geom.Rectangle2D;
-import java.io.File;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JToolBar;
-import com.orsoncharts.graphics3d.Drawable3D;
-import com.orsoncharts.util.ArgChecks;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JMenu;
 
 /**
@@ -84,25 +75,35 @@ public class DisplayPanel3D extends JPanel implements MouseListener {
         return this.content;
     }
   
+    /**
+     * Creates the toolbar used to control zooming etc.
+     * 
+     * @param content  the 3D content that will be updated by toolbar actions.
+     * 
+     * @return The toolbar. 
+     */
     private JToolBar createToolBar(Panel3D content) {
         JToolBar tb = new JToolBar(JToolBar.VERTICAL);
-        JButton zoomInButton = new JButton(new ZoomInAction(this.content, true));
+        JButton zoomInButton = new JButton(new ZoomInAction(this.content, 
+                true));
         zoomInButton.setFont(Panel3D.getFontAwesomeFont(FONT_SIZE));
-        JButton zoomOutButton = new JButton(new ZoomOutAction(this.content, true));
+        JButton zoomOutButton = new JButton(new ZoomOutAction(this.content, 
+                true));
         zoomOutButton.setFont(Panel3D.getFontAwesomeFont(FONT_SIZE));
-        JButton zoomToFitButton = new JButton(new ZoomToFitAction(this.content, true));
+        JButton zoomToFitButton = new JButton(new ZoomToFitAction(this.content, 
+                true));
         zoomToFitButton.setFont(Panel3D.getFontAwesomeFont(FONT_SIZE));
         JButton leftButton = new JButton(new LeftAction(content));
         leftButton.setFont(Panel3D.getFontAwesomeFont(FONT_SIZE));
         JButton rightButton = new JButton(new RightAction(content));
         rightButton.setFont(Panel3D.getFontAwesomeFont(FONT_SIZE));
-        JButton upButton = new JButton(new RotateUpAction(content));
+        JButton upButton = new JButton(new UpAction(content));
         upButton.setFont(Panel3D.getFontAwesomeFont(FONT_SIZE));
-        JButton downButton = new JButton(new RotateDownAction(content));
+        JButton downButton = new JButton(new DownAction(content));
         downButton.setFont(Panel3D.getFontAwesomeFont(FONT_SIZE));
-        JButton rotateLeftButton = new JButton(new RollLeftAction(content));
+        JButton rotateLeftButton = new JButton(new RotateLeftAction(content));
         rotateLeftButton.setFont(Panel3D.getFontAwesomeFont(FONT_SIZE));
-        JButton rotateRightButton = new JButton(new RollRightAction(content));
+        JButton rotateRightButton = new JButton(new RotateRightAction(content));
         rotateRightButton.setFont(Panel3D.getFontAwesomeFont(FONT_SIZE));
         JButton exportButton = new JButton(new ExportAction(content));
         exportButton.setFont(Panel3D.getFontAwesomeFont(FONT_SIZE));
@@ -116,8 +117,8 @@ public class DisplayPanel3D extends JPanel implements MouseListener {
         tb.add(downButton);
         tb.add(rotateLeftButton);
         tb.add(rotateRightButton);
-        tb.add(new JToolBar.Separator());
-        tb.add(exportButton);
+//        tb.add(new JToolBar.Separator());
+//        tb.add(exportButton);
         return tb;   
     }
     
@@ -153,6 +154,8 @@ public class DisplayPanel3D extends JPanel implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
+        // popup is triggered on mousePressed for Linux and Mac, but Windows
+        // is mouseReleased
         if (e.isPopupTrigger()) {
             if (this.popup != null) {
                 this.popup.show(this, e.getX(), e.getY());
@@ -163,7 +166,14 @@ public class DisplayPanel3D extends JPanel implements MouseListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        // nothing to do
+        // popup is triggered on mouseReleased for Windows, but Linux and Mac
+        // is mousePressed
+        if (e.isPopupTrigger()) {
+            if (this.popup != null) {
+                this.popup.show(this, e.getX(), e.getY());
+                e.consume();
+            }
+        }
     }
 
     @Override

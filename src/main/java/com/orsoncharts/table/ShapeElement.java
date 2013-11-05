@@ -79,8 +79,11 @@ public class ShapeElement extends AbstractTableElement
     @Override
     public void draw(Graphics2D g2, Rectangle2D bounds) {
         AffineTransform saved = g2.getTransform();
-        g2.setPaint(getBackgroundPaint());
-        g2.fill(bounds);
+        Paint background = getBackgroundPaint();
+        if (background != null) {
+            g2.setPaint(getBackgroundPaint());
+            g2.fill(bounds);
+        }
         g2.translate(bounds.getCenterX(), bounds.getCenterY());
         g2.setPaint(getForegroundPaint());
         g2.fill(shape);

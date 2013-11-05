@@ -9,7 +9,6 @@
 package com.orsoncharts.demo;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
@@ -17,12 +16,18 @@ import javax.swing.JPanel;
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
+import com.orsoncharts.RectanglePainter;
+import com.orsoncharts.StandardRectanglePainter;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.category.StandardCategoryDataset3D;
 import com.orsoncharts.data.DefaultKeyedValues;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.legend.LegendAnchor;
 import com.orsoncharts.plot.CategoryPlot3D;
+import com.orsoncharts.renderer.category.BarRenderer3D;
+import com.orsoncharts.renderer.category.StandardCategory3DPaintSource;
+import java.awt.Color;
+import javax.swing.ImageIcon;
 
 /**
  * A demo of a 3D bar chart.
@@ -58,11 +63,19 @@ public class BarChart3DDemo1 extends JFrame {
         JPanel content = new JPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         CategoryDataset3D dataset = createDataset();
-        Chart3D chart = Chart3DFactory.createBarChart("BarChart3DDemo1", 
-                dataset, null, "Quarter", "$billion Revenues");
+        Chart3D chart = Chart3DFactory.createBarChart("Quarterly Revenues", 
+                "For three really big companies", dataset, null, "Quarter", 
+                "$billion Revenues");
+        chart.setChartBoxColor(new Color(255, 255, 255, 127));
+        ImageIcon icon = new ImageIcon("/Users/dgilbert/Desktop/me.png"); 
+        RectanglePainter background = new StandardRectanglePainter(Color.WHITE, icon.getImage());
+        chart.setBackground(background);
         chart.setLegendAnchor(LegendAnchor.BOTTOM_RIGHT);
         CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
         plot.setGridlinePaintForValues(Color.BLACK);
+        BarRenderer3D renderer = (BarRenderer3D) plot.getRenderer();
+        renderer.setPaintSource(new StandardCategory3DPaintSource(new Color[] {new Color(0x1A9641), new Color(0xA6D96A), 
+                    new Color(0xFDAE61), new Color(0xFFFFBF)}));
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
         chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         content.add(new DisplayPanel3D(chartPanel));
@@ -80,42 +93,42 @@ public class BarChart3DDemo1 extends JFrame {
         StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
                 
         DefaultKeyedValues s1 = new DefaultKeyedValues();
-        s1.addValue("Q1/2011", 8.58);
-        s1.addValue("Q2/2011", 9.03);
-        s1.addValue("Q3/2011", 9.72);
-        s1.addValue("Q4/2011", 10.58);
-        s1.addValue("Q1/2012", 10.65);
-        s1.addValue("Q2/2012", 12.214);
-        s1.addValue("Q3/2012", 14.101);
-        s1.addValue("Q4/2012", 14.419);
-        s1.addValue("Q1/2013", 13.969);
-        s1.addValue("Q2/2013", 14.105);
+        s1.put("Q1/11", 8.58);
+        s1.put("Q2/11", 9.03);
+        s1.put("Q3/11", 9.72);
+        s1.put("Q4/11", 10.58);
+        s1.put("Q1/12", 10.65);
+        s1.put("Q2/12", 12.214);
+        s1.put("Q3/12", 14.101);
+        s1.put("Q4/12", 14.419);
+        s1.put("Q1/13", 13.969);
+        s1.put("Q2/13", 14.105);
         dataset.addSeriesAsRow("Google", s1);
         
         DefaultKeyedValues s2 = new DefaultKeyedValues();
-        s2.addValue("Q1/2011", 16.43);
-        s2.addValue("Q2/2011", 17.37);
-        s2.addValue("Q3/2011", 17.37);
-        s2.addValue("Q4/2011", 20.89);
-        s2.addValue("Q1/2012", 17.41);
-        s2.addValue("Q2/2012", 18.06);
-        s2.addValue("Q3/2012", 16.008);
-        s2.addValue("Q4/2012", 21.456);
-        s2.addValue("Q1/2013", 20.489);
-        s2.addValue("Q2/2013", 19.896);
+        s2.put("Q1/11", 16.43);
+        s2.put("Q2/11", 17.37);
+        s2.put("Q3/11", 17.37);
+        s2.put("Q4/11", 20.89);
+        s2.put("Q1/12", 17.41);
+        s2.put("Q2/12", 18.06);
+        s2.put("Q3/12", 16.008);
+        s2.put("Q4/12", 21.456);
+        s2.put("Q1/13", 20.489);
+        s2.put("Q2/13", 19.896);
         dataset.addSeriesAsRow("Microsoft", s2);
         
         DefaultKeyedValues s3 = new DefaultKeyedValues();
-        s3.addValue("Q1/2011", 24.67);
-        s3.addValue("Q2/2011", 28.57);
-        s3.addValue("Q3/2011", 28.27);
-        s3.addValue("Q4/2011", 46.33);
-        s3.addValue("Q1/2012", 39.20);
-        s3.addValue("Q2/2012", 35.00);
-        s3.addValue("Q3/2012", 36.00);
-        s3.addValue("Q4/2012", 54.5);
-        s3.addValue("Q1/2013", 43.6);
-        s3.addValue("Q2/2013", 35.323);
+        s3.put("Q1/11", 24.67);
+        s3.put("Q2/11", 28.57);
+        s3.put("Q3/11", 28.27);
+        s3.put("Q4/11", 46.33);
+        s3.put("Q1/12", 39.20);
+        s3.put("Q2/12", 35.00);
+        s3.put("Q3/12", 36.00);
+        s3.put("Q4/12", 54.5);
+        s3.put("Q1/13", 43.6);
+        s3.put("Q2/13", 35.323);
         dataset.addSeriesAsRow("Apple", s3);
 
         return dataset;

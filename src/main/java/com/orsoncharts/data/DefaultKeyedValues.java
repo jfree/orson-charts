@@ -60,7 +60,7 @@ public final class DefaultKeyedValues<T> implements KeyedValues<T>,
      * @param key  the key (<code>null</code> not permitted)
      * @param value  the value.
      */
-    public void addValue(Comparable key, T value) {
+    public void put(Comparable key, T value) {
         ArgChecks.nullNotPermitted(key, "key");
         DefaultKeyedValue<T> dkv;
         int index = getIndex(key);
@@ -77,11 +77,11 @@ public final class DefaultKeyedValues<T> implements KeyedValues<T>,
      * 
      * @param key  the key (<code>null</code> not permitted).
      */
-    public void removeValue(Comparable key) {
+    public void remove(Comparable key) {
         ArgChecks.nullNotPermitted(key, "key");
         int index = getIndex(key);
         if (index >= 0) {
-            removeValue(index);
+            remove(index);
         }
     }
   
@@ -90,7 +90,7 @@ public final class DefaultKeyedValues<T> implements KeyedValues<T>,
      * 
      * @param index  the index. 
      */
-    public void removeValue(int index) {
+    public void remove(int index) {
         this.data.remove(index);
     }
   
@@ -152,7 +152,11 @@ public final class DefaultKeyedValues<T> implements KeyedValues<T>,
     @Override
     public T getValue(Comparable key) {
         // arg checking is performed by getIndex()
-        return getValue(getIndex(key));
+        int index = getIndex(key);
+        if (index < 0) {
+            return null;
+        }
+        return getValue(index);
     }
 
     /**

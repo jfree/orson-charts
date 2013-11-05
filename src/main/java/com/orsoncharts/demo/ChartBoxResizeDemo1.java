@@ -1,8 +1,8 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -64,7 +64,7 @@ public class ChartBoxResizeDemo1 extends JFrame implements ChangeListener {
         content.setPreferredSize(new Dimension(600, 400));
         XYZDataset dataset = new StandardXYZDataset(3, 100);
         this.chart = Chart3DFactory.createScatterPlot("ChartBoxResizeDemo1", 
-                dataset, "X", "Y", "Z");
+                "Chart created with Orson Charts", dataset, "X", "Y", "Z");
         this.chartPanel3D = new ChartPanel3D(this.chart);
         content.add(new DisplayPanel3D(this.chartPanel3D));
      

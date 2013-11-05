@@ -10,6 +10,7 @@ package com.orsoncharts.graphics3d;
 
 import java.awt.Color;
 import java.awt.geom.Point2D;
+
 import com.orsoncharts.util.ArgChecks;
 
 /**
@@ -26,14 +27,22 @@ public class Face {
 
     /** The color of the face. */
     private Color color;
+    
+    /** 
+     * A flag that controls whether or not an outline will be drawn for the 
+     * face.  For pie charts and area charts, setting this to <code>true</code>
+     * helps to remove gaps.
+     */
+    private boolean outline;
 
     /**
      * Creates a new face.
      *
      * @param vertices  the indices of the vertices.
      * @param color  the face color (<code>null</code> not permitted).
+     * @param outline  outline?
      */
-    public Face(int[] vertices, Color color) {
+    public Face(int[] vertices, Color color, boolean outline) {
         if (vertices.length < 3) {
             throw new IllegalArgumentException("Faces must have at least 3 vertices.");
         }
@@ -41,6 +50,7 @@ public class Face {
         this.vertices = vertices;
         this.offset = 0;
         this.color = color;
+        this.outline = outline;
     }
 
     /**
@@ -92,6 +102,16 @@ public class Face {
     }
 
     /**
+     * Returns the flag that controls whether or not the face should be 
+     * drawn as well as filled when rendered.
+     * 
+     * @return A boolean. 
+     */
+    public boolean getOutline() {
+        return this.outline;
+    }
+    
+    /**
      * Calculates the normal vector for this face.
      *
      * @param points  the vertices of the object that this face belongs to
@@ -132,7 +152,7 @@ public class Face {
     public float calculateAverageZValue(Point3D[] points) {
         float total = 0.0f;
         for (int i = 0; i < this.vertices.length; i++) {
-            total = total + points[this.vertices[i] + this.offset].z;
+            total = total + (float)points[this.vertices[i] + this.offset].z;
         }
         return total / this.vertices.length;
     }

@@ -8,10 +8,13 @@
 
 package com.orsoncharts.graphics3d;
 
+import java.io.Serializable;
+
 /**
- * A dimension in 3D (width, height and depth).
+ * A dimension in 3D (width, height and depth).  Instances of this class
+ * are immutable.
  */
-public class Dimension3D {
+public final class Dimension3D implements Serializable {
   
     /** The width. */
     private double width;

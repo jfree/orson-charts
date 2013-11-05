@@ -24,13 +24,13 @@ public class DataUtilsTest {
         DefaultKeyedValues values = new DefaultKeyedValues();
         assertEquals(0.0, DataUtils.total(values), EPSILON);
         
-        values.addValue("K1", 1.0);
+        values.put("K1", 1.0);
         assertEquals(1.0, DataUtils.total(values), EPSILON);
-        values.addValue("K2", 2.0);
+        values.put("K2", 2.0);
         assertEquals(3.0, DataUtils.total(values), EPSILON);
-        values.addValue("K3", 3.0);
+        values.put("K3", 3.0);
         assertEquals(6.0, DataUtils.total(values), EPSILON);
-        values.addValue("K2", null);
+        values.put("K2", null);
         assertEquals(4.0, DataUtils.total(values), EPSILON);
     }
     

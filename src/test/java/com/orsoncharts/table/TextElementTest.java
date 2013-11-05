@@ -8,13 +8,13 @@
 
 package com.orsoncharts.table;
 
-import com.orsoncharts.TestUtils;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Insets;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import org.junit.Test;
+import com.orsoncharts.TestUtils;
 
 /**
  * Tests for the {@link TextElement} class.

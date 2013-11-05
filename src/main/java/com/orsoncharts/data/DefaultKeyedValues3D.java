@@ -1,6 +1,6 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
  * (C)opyright 2013, by Object Refinery Limited.
  * 
@@ -8,6 +8,7 @@
 
 package com.orsoncharts.data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import com.orsoncharts.util.ArgChecks;
@@ -16,7 +17,8 @@ import com.orsoncharts.util.ArgChecks;
  * A three dimensional table of numerical values, implementing the 
  * {@link KeyedValues3D} interface.
  */
-public final class DefaultKeyedValues3D<V> implements KeyedValues3D {
+public final class DefaultKeyedValues3D<V> implements KeyedValues3D, 
+        Serializable {
 
     /** The series keys. */
     private List<Comparable> seriesKeys;
@@ -196,7 +198,7 @@ public final class DefaultKeyedValues3D<V> implements KeyedValues3D {
     /**
      * Sets the value for an item in a series, overwriting any existing value.
      * 
-     * @param v  the value (<code>null</code> permitted).
+     * @param n  the value (<code>null</code> permitted).
      * @param seriesKey  the series key (<code>null</code> not permitted).
      * @param rowKey  the row key (<code>null</code> not permitted).
      * @param columnKey  the column key (<code>null</code> not permitted).

@@ -1,6 +1,6 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
  * (C)opyright 2013, by Object Refinery Limited.
  * 
@@ -8,11 +8,12 @@
 
 package com.orsoncharts.table;
 
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Rectangle2D;
+import java.io.Serializable;
 import java.util.Map;
-import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.Insets;
@@ -21,7 +22,8 @@ import com.orsoncharts.data.DefaultKeyedValues2D;
 /**
  * A table element that contains a grid of elements.  
  */
-public class GridElement extends AbstractTableElement implements TableElement {
+public class GridElement extends AbstractTableElement implements TableElement,
+        Serializable {
 
     /** Storage for the cell elements. */
     private DefaultKeyedValues2D<TableElement> elements;
@@ -158,6 +160,28 @@ public class GridElement extends AbstractTableElement implements TableElement {
             }
             y = y + heights[r];
         }        
+    }
+    
+    /**
+     * Tests this element for equality with an arbitrary object.
+     * 
+     * @param obj  the object (<code>null</code> permitted).
+     * 
+     * @return A boolean. 
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof GridElement)) {
+            return false;
+        }
+        GridElement that = (GridElement) obj;
+        if (!this.elements.equals(that.elements)) {
+            return false;
+        }
+        return true;
     }
     
 }

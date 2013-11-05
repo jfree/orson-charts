@@ -8,14 +8,17 @@
 
 package com.orsoncharts.data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import com.orsoncharts.util.ArgChecks;
 
 /**
- * A two dimensional grid of numerical data.
+ * A two dimensional grid of (typically numerical) data that is accessible by 
+ * row and column keys.
  */
-public final class DefaultKeyedValues2D<T> implements KeyedValues2D {
+public final class DefaultKeyedValues2D<T> implements KeyedValues2D, 
+        Serializable {
 
     /** The x-keys. */
     List<Comparable> xKeys;
@@ -205,7 +208,7 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D {
             this.xKeys.add(xKey);
             this.yKeys.add(yKey);
             DefaultKeyedValues dkvs = new DefaultKeyedValues<T>();
-            dkvs.addValue(yKey, n);
+            dkvs.put(yKey, n);
             this.data.add(dkvs);
         } else {
             int xIndex = getXIndex(xKey);
@@ -214,15 +217,15 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D {
                 DefaultKeyedValues<T> dkvs = this.data.get(xIndex);
                 if (yIndex >= 0) {
                     // 2.  Both keys exist - just update the value
-                    dkvs.addValue(yKey, n);
+                    dkvs.put(yKey, n);
                 } else {
                     // 3.  xKey exists, but yKey does not (add the yKey to 
                     //     each series)
                     this.yKeys.add(yKey);
                     for (DefaultKeyedValues kv : this.data) {
-                        kv.addValue(yKey, null);
+                        kv.put(yKey, null);
                     }
-                    dkvs.addValue(yKey, n);
+                    dkvs.put(yKey, n);
                 }
             } else {
                 if (yIndex >= 0) {
@@ -230,7 +233,7 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D {
                     this.xKeys.add(xKey);
                     DefaultKeyedValues d = new DefaultKeyedValues<T>(
                             this.yKeys);
-                    d.addValue(yKey, n);
+                    d.put(yKey, n);
                     this.data.add(d);
                 } else {
                     // 5.  neither key exists, need to create the new series, 
@@ -238,11 +241,11 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D {
                     this.xKeys.add(xKey);
                     this.yKeys.add(yKey);
                     for (DefaultKeyedValues<T> kv : this.data) {
-                        kv.addValue(yKey, null);
+                        kv.put(yKey, null);
                     }
                     DefaultKeyedValues<T> d = new DefaultKeyedValues<T>(
                             this.yKeys);
-                    d.addValue(yKey, n);
+                    d.put(yKey, n);
                     this.data.add(d);
                 }
             }

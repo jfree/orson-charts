@@ -1,16 +1,17 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
 package com.orsoncharts.data;
 
+import com.orsoncharts.TestUtils;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
@@ -71,4 +72,17 @@ public class DefaultKeyedValues2DTest {
         d2.setValue(1.0, "X1", "Y1");
         assertTrue(d1.equals(d2));
     }
+    
+    /**
+     * Check for serialization support.
+     */
+    @Test
+    public void testSerialization() {
+        DefaultKeyedValues2D<Number> d1 = new DefaultKeyedValues2D<Number>();
+        d1.setValue(1.0, "R1", "C1");
+        DefaultKeyedValues2D<Number> d2 
+                = (DefaultKeyedValues2D<Number>) TestUtils.serialized(d1);
+        assertEquals(d1, d2);
+    }
+    
 }

@@ -55,7 +55,8 @@ public class BarChart3DDemo2 extends JFrame {
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         CategoryDataset3D dataset = createDataset();
         Chart3D chart = Chart3DFactory.createBarChart("BarChart3DDemo2", 
-                dataset, null, "Quarter", "$billion Revenues");
+                "Chart created with Orson Charts", dataset, null, "Quarter", 
+                "$billion Revenues");
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
         content.add(new DisplayPanel3D(chartPanel));
         chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
@@ -73,24 +74,24 @@ public class BarChart3DDemo2 extends JFrame {
         StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
                 
         DefaultKeyedValues s1 = new DefaultKeyedValues();
-        s1.addValue("Q1/2011", 8.58);
-        s1.addValue("Q2/2011", 9.03);
-        s1.addValue("Q3/2011", 9.72);
-        s1.addValue("Q4/2011", 10.58);
+        s1.put("Q1/2011", 8.58);
+        s1.put("Q2/2011", 9.03);
+        s1.put("Q3/2011", 9.72);
+        s1.put("Q4/2011", 10.58);
         dataset.addSeriesAsRow("Google", s1);
         
         DefaultKeyedValues s2 = new DefaultKeyedValues();
-        s2.addValue("Q1/2011", 16.43);
-        s2.addValue("Q2/2011", 17.37);
-        s2.addValue("Q3/2011", 17.37);
-        s2.addValue("Q4/2011", 20.89);
+        s2.put("Q1/2011", 16.43);
+        s2.put("Q2/2011", 17.37);
+        s2.put("Q3/2011", 17.37);
+        s2.put("Q4/2011", 20.89);
         dataset.addSeriesAsRow("Microsoft", s2);
         
         DefaultKeyedValues s3 = new DefaultKeyedValues();
-        s3.addValue("Q1/2011", 24.67);
-        s3.addValue("Q2/2011", 28.57);
-        s3.addValue("Q3/2011", 28.27);
-        s3.addValue("Q4/2011", 46.33);
+        s3.put("Q1/2011", 24.67);
+        s3.put("Q2/2011", 28.57);
+        s3.put("Q3/2011", 28.27);
+        s3.put("Q4/2011", 46.33);
         dataset.addSeriesAsRow("Apple", s3);
 
         return dataset;

@@ -24,12 +24,22 @@ import com.orsoncharts.Range;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.category.AreaRenderer3D;
+import com.orsoncharts.util.SerialUtils;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import javax.swing.event.EventListenerList;
 
 /**
  * An axis that displays categories.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  */
 public class StandardCategoryAxis3D extends AbstractAxis3D 
-        implements CategoryAxis3D {
+        implements CategoryAxis3D, Serializable {
 
     /** Should the axis be displayed on the chart? */
     private boolean visible;
@@ -69,7 +79,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     private double tickMarkLength;
     
     /** The tick mark stroke (never <code>null</code>). */
-    private Stroke tickMarkStroke;
+    private transient Stroke tickMarkStroke;
     
     /** The tick mark paint (never <code>null</code>). */
     private Paint tickMarkPaint;
@@ -79,7 +89,14 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      * tick labels and the axis label (based off the widest tick label).
      */
     private double tickLabelOffset;
-    
+ 
+    /**
+     * Default constructor.
+     */
+    public StandardCategoryAxis3D() {
+        this(null);
+    }
+ 
     /**
      * Creates a new axis with the specified label.
      * 
@@ -455,4 +472,31 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
         }
         return result;
     }
+
+    /**
+     * Provides serialization support.
+     *
+     * @param stream  the output stream.
+     *
+     * @throws IOException  if there is an I/O error.
+     */
+    private void writeObject(ObjectOutputStream stream) throws IOException {
+        stream.defaultWriteObject();
+        SerialUtils.writeStroke(this.tickMarkStroke, stream);
+    }
+
+    /**
+     * Provides serialization support.
+     *
+     * @param stream  the input stream.
+     *
+     * @throws IOException  if there is an I/O error.
+     * @throws ClassNotFoundException  if there is a classpath problem.
+     */
+    private void readObject(ObjectInputStream stream)
+        throws IOException, ClassNotFoundException {
+        stream.defaultReadObject();
+        this.tickMarkStroke = SerialUtils.readStroke(stream);
+    }
+
 }

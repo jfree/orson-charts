@@ -10,9 +10,9 @@ package com.orsoncharts.plot;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import com.orsoncharts.data.PieDataset3D;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.graphics3d.Dimension3D;
@@ -23,7 +23,6 @@ import com.orsoncharts.legend.LegendItemInfo;
 import com.orsoncharts.legend.StandardLegendItemInfo;
 import com.orsoncharts.Chart3DFactory;
 import com.orsoncharts.data.DataUtils;
-import java.io.Serializable;
 
 /**
  * A pie plot in 3D.  To create a pie chart, you can use the 
@@ -31,11 +30,15 @@ import java.io.Serializable;
  * <br><br>
  * NOTE: This class is serializable, but the serialization format is subject 
  * to change in future releases and should not be relied upon for persisting 
- * instances of this class. */
+ * instances of this class. 
+ */
 public class PiePlot3D extends AbstractPlot3D implements Serializable {
 
+    /** The default font for section labels on the chart. */
+    public Font DEFAULT_SECTION_LABEL_FONT = new Font("Dialog", Font.PLAIN, 14);
+    
     /** The dataset. */
-    private PieDataset3D<Number> dataset;
+    private transient PieDataset3D<Number> dataset;
 
     /** The radius of the pie chart. */
     private double radius; 
@@ -43,13 +46,18 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
     /** The depth of the pie chart. */
     private double depth;
   
-    /** The paint source. */
-    private Pie3DPaintSource paintSource;
+    /** The section color source. */
+    private ColorSource sectionColorSource;
 
-    private Map<Comparable, Font> sectionFonts;
-  
-    private Font defaultSectionFont = new Font("SanSerif", Font.PLAIN, 16);
-  
+    /** The font source used to determine the font for section labels. */
+    private FontSource sectionLabelFontSource;
+
+    /** 
+     * The color source used to determine the foreground color for section 
+     * labels. 
+     */
+    private ColorSource sectionLabelColorSource;
+    
     /** 
      * The number of segments used to render 360 degrees of the pie.  A higher
      * number will give better output but slower performance.
@@ -67,9 +75,12 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
         this.dataset.addChangeListener(this);
         this.radius = 4.0;    
         this.depth = 0.5;
-        this.paintSource = new StandardPie3DPaintSource(
+        this.sectionColorSource = new StandardColorSource(
                 new Color[] {new Color(0x1A9641), new Color(0xA6D96A), 
                     new Color(0xFDAE61), new Color(0xFFFFBF)});
+        this.sectionLabelFontSource = new StandardFontSource(
+                DEFAULT_SECTION_LABEL_FONT);
+        this.sectionLabelColorSource = new StandardColorSource(Color.BLACK);
     }
 
     /**
@@ -136,53 +147,67 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
     }
     
     /**
-     * Returns the paint source.
+     * Returns the color source for section colors.
      * 
-     * @return The paint source (never <code>null</code>).
+     * @return The color source (never <code>null</code>).
      */
-    public Pie3DPaintSource getPaintSource() {
-        return this.paintSource;
+    public ColorSource getSectionColorSource() {
+        return this.sectionColorSource;
     }
     
     /**
-     * Sets the paint source and sends a {@link Plot3DChangeEvent} to all 
+     * Sets the color source and sends a {@link Plot3DChangeEvent} to all 
      * registered listeners.
      * 
      * @param paintSource  the paint source. 
      */
-    public void setPaintSource(Pie3DPaintSource paintSource) {
-        ArgChecks.nullNotPermitted(paintSource, "paintSource");
-        this.paintSource = paintSource;
+    public void setSectionColorSource(ColorSource source) {
+        ArgChecks.nullNotPermitted(source, "source");
+        this.sectionColorSource = source;
         fireChangeEvent();
     }
-  
-    private Color lookupSectionColor(Comparable key) {
-        int index = this.dataset.getIndex(key);
-        return this.paintSource.getPaint(index);
+
+    /**
+     * Returns the font source that is used to determine the font to use for 
+     * the section labels.
+     * 
+     * @return The font source for the section labels (never <code>null</code>). 
+     */
+    public FontSource getSectionLabelFontSource() {
+        return this.sectionLabelFontSource; 
     }
     
-//    /**
-//     * Returns the section color for the specified key.
-//     * 
-//     * @param key  the key.
-//     * 
-//     * @return The section color (possibly <code>null</code>). 
-//     */
-//    public Color getSectionColor(Comparable key) {
-//        return this.sectionColors.get(key);
-//    }
-//  
-//    /**
-//     * Sets the section color for a given key.
-//     * 
-//     * @param key
-//     * @param color  the color (<code>null</code> permitted).
-//     */
-//    public void setSectionColor(Comparable key, Color color) {
-//        this.sectionColors.put(key, color);
-//        fireChangeEvent();
-//    }
-//  
+    /**
+     * Sets the font source and sends a {@link PiePlot3D
+     * @param source 
+     */
+    public void setSectionLabelFontSource(FontSource source) {
+        ArgChecks.nullNotPermitted(source, "source");
+        this.sectionLabelFontSource = source;
+        fireChangeEvent();
+    }
+
+    /**
+     * Returns the color source for section labels.
+     * 
+     * @return The color source (never <code>null</code>).
+     */
+    public ColorSource getSectionLabelColorSource() {
+        return this.sectionLabelColorSource;
+    }
+    
+    /**
+     * Sets the color source for the section labels and sends a 
+     * {@link Plot3DChangeEvent} to all registered listeners.
+     * 
+     * @param source  the color source. 
+     */
+    public void setSectionLabelColorSource(ColorSource source) {
+        ArgChecks.nullNotPermitted(source, "source");
+        this.sectionLabelColorSource = source;
+        fireChangeEvent();
+    }
+
     /**
      * Returns the dimensions for the plot.  For the pie chart, it is more 
      * natural to specify the dimensions in terms of a radius and a depth, so
@@ -194,48 +219,30 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
     public Dimension3D getDimensions() {
         return new Dimension3D(this.radius * 2, this.depth, this.radius * 2);
     }
-  
+ 
     /**
-     * Returns the default section font.  This font will be used for 
-     * section labels when the getSectionFont(Comparable) method returns
-     * <code>null</code>.
+     * Returns the number of segments used when composing the 3D objects
+     * representing the pie chart.  The default value is <code>40</code>.
      * 
-     * @return The default section font (never <code>null</code>). 
+     * @return The number of segments used to compose the pie chart. 
      */
-    public Font getDefaultSectionFont() {
-        return this.defaultSectionFont;
+    public int getSegmentCount() {
+        return this.segments;
     }
     
     /**
-     * Sets the default section font and sends a {@link Plot3DChangeEvent}
-     * to all registered listeners.
+     * Sets the number of segments used when composing the pie chart and 
+     * sends a {@link PlotChangeEvent} to all registered listeners.  A higher
+     * number will result in a more rounded pie chart, but will take longer
+     * to render.
      * 
-     * @param font 
+     * @param count  the count. 
      */
-    public void setDefaultSectionFont(Font font) {
-        ArgChecks.nullNotPermitted(font, "font");
-        this.defaultSectionFont = font;
+    public void setSegmentCount(int count) {
+        this.segments = count;
         fireChangeEvent();
     }
-  
-    public Font getSectionFont(Comparable key) {
-        return this.sectionFonts.get(key); 
-    }
-  
-    public void setSectionFont(Comparable key, Font font) {
-        this.sectionFonts.put(key, font);
-        fireChangeEvent();
-    }
-  
-    private Font lookupSectionFont(Comparable key) {
-        Font f = getSectionFont(key);
-        if (f != null) {
-            return f;
-        } else {
-            return this.defaultSectionFont;
-        }
-    }
-  
+    
     /**
      * Returns a list containing legend item info, typically one item for
      * each series in the chart.  This is intended for use in the construction
@@ -247,9 +254,8 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
     public List<LegendItemInfo> getLegendInfo() {
         List<LegendItemInfo> result = new ArrayList<LegendItemInfo>();
         for (Comparable key : this.dataset.getKeys()) {
-            int index = this.dataset.getIndex(key);
             LegendItemInfo info = new StandardLegendItemInfo(key, 
-                    key.toString(), this.paintSource.getLegendPaint(index));
+                    key.toString(), this.sectionColorSource.getColor(key));
             result.add(info);
         }
         return result;
@@ -276,7 +282,8 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
             Number n = this.dataset.getValue(i);
             if (n != null) {
                 double angle = Math.PI * 2 * (n.doubleValue() / total);
-                Color c = this.lookupSectionColor(this.dataset.getKey(i));
+                Color c = this.sectionColorSource.getColor(
+                        this.dataset.getKey(i));
                 world.add(Object3D.createPieSegment(this.radius, 0.0, yOffset, 
                         this.depth, r, r + angle, Math.PI / this.segments, c));
                 r = r + angle;
@@ -285,12 +292,18 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
     }
   
     /**
-     * Returns...
+     * Returns a list of label faces for the plot.  These are non-visible 
+     * objects added to the 3D model of the pie chart to track the positions 
+     * for labels (which are added after the plot is projected and rendered).  
+     * <br><br>
+     * NOTE: This method is public so that it can be called by the 
+     * {@link Chart3D} class - you won't normally call it directly.
      * 
-     * @param xOffset
-     * @param yOffset
-     * @param zOffset
-     * @return 
+     * @param xOffset  the x-offset.
+     * @param yOffset  the y-offset.
+     * @param zOffset  the z-offset.
+     * 
+     * @return A list of label faces.
      */
     public List<Object3D> getLabelFaces(double xOffset, double yOffset, 
             double zOffset) {
@@ -314,7 +327,8 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
     }
   
     /**
-     * Tests this plot for equality with an arbitrary object.
+     * Tests this plot for equality with an arbitrary object.  Note that the
+     * plot's dataset is NOT considered in the equality test.
      * 
      * @param obj  the object (<code>null</code> not permitted).
      * 

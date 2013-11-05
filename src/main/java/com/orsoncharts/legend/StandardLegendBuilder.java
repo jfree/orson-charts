@@ -26,6 +26,7 @@ import com.orsoncharts.table.TableElement;
 import com.orsoncharts.table.TextElement;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.ObjectUtils;
+import java.awt.Color;
 
 /**
  * The standard legend builder, which creates a simple horizontal legend
@@ -292,14 +293,18 @@ public final class StandardLegendBuilder implements LegendBuilder,
      * 
      * @param text  the legend item text (<code>null</code> not permitted).
      * @param font  the font (<code>null</code> not permitted).
-     * @param shape  the shape
-     * @param color
-     * @return 
+     * @param shape  the shape (<code>null</code> not permitted).
+     * @param color  the color (<code>null</code> not permitted).
+     * 
+     * @return A legend item (never <code>null</code>). 
      */
     private TableElement createLegendItem(String text, Font font, Shape shape, 
             Paint color) {
+        // defer argument checks...
         ShapeElement se = new ShapeElement(shape, color);
+        se.setBackgroundPaint(new Color(0, 0, 0, 0));
         TextElement te = new TextElement(text, font);
+        te.setBackgroundPaint(new Color(0, 0, 0, 0));
         GridElement ge = new GridElement();
         ge.setElement(se, "R1", "C1");
         ge.setElement(te, "R1", "C2");

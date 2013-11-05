@@ -1,6 +1,6 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
  * (C)opyright 2013, by Object Refinery Limited.
  * 
@@ -93,6 +93,7 @@ public abstract class AbstractAxis3D implements Axis3D {
      * 
      * @return The font used to display the axis label (never <code>null</code>). 
      */
+    @Override
     public Font getLabelFont() {
         return this.labelFont;
     }
@@ -103,6 +104,7 @@ public abstract class AbstractAxis3D implements Axis3D {
      * 
      * @param font  the new font (<code>null</code> not permitted). 
      */
+    @Override
     public void setLabelFont(Font font) {
         ArgChecks.nullNotPermitted(font, "font");
         this.labelFont = font;
@@ -199,6 +201,7 @@ public abstract class AbstractAxis3D implements Axis3D {
      * 
      * @return The font (never <code>null</code>). 
      */
+    @Override
     public Font getTickLabelFont() {
         return this.tickLabelFont;
     }
@@ -209,6 +212,7 @@ public abstract class AbstractAxis3D implements Axis3D {
      * 
      * @param font  the font (<code>null</code> not permitted). 
      */
+    @Override
     public void setTickLabelFont(Font font) {
         ArgChecks.nullNotPermitted(font, "font");
         this.tickLabelFont = font;

@@ -161,15 +161,15 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
                 obj.addVertex(x1, y1 + hdelta, z0 + delta);
                 obj.addVertex(x1, y1 - hdelta, z0 - delta);
                 obj.addVertex(x1, y1 + hdelta, z0 - delta);
-                obj.addFace(new int[] {1, 3, 5, 7}, color);
-                obj.addFace(new int[] {1, 7, 6, 0}, color);
-                obj.addFace(new int[] {6, 4, 2, 0}, color);
-                obj.addFace(new int[] {2, 4, 5, 3}, color);
+                obj.addFace(new int[] {1, 3, 5, 7}, color, true);
+                obj.addFace(new int[] {1, 7, 6, 0}, color, true);
+                obj.addFace(new int[] {6, 4, 2, 0}, color, true);
+                obj.addFace(new int[] {2, 4, 5, 3}, color, true);
                 if (column == 0) {
-                    obj.addFace(new int[] {2, 3, 1, 0}, color);
+                    obj.addFace(new int[] {2, 3, 1, 0}, color, true);
                 }
                 if (column == dataset.getColumnCount() - 2) {
-                    obj.addFace(new int[] {7, 5, 4, 6}, color);
+                    obj.addFace(new int[] {7, 5, 4, 6}, color, true);
                 }
             } else {
                 // ribbon
@@ -177,8 +177,8 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
                 obj.addVertex(x0, y0, z0 + delta);
                 obj.addVertex(x1, y1, z0 + delta);
                 obj.addVertex(x1, y1, z0 - delta);
-                obj.addFace(new int[] {0, 1, 2, 3}, color);
-                obj.addFace(new int[] {3, 2, 1, 0}, color);
+                obj.addFace(new int[] {0, 1, 2, 3}, color, true);
+                obj.addFace(new int[] {3, 2, 1, 0}, color, true);
             }
             world.add(obj);
         } 

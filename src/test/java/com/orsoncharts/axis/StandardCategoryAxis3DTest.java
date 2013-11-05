@@ -1,26 +1,29 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
 package com.orsoncharts.axis;
 
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GradientPaint;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
 
 import org.junit.Test;
 
+import com.orsoncharts.TestUtils;
+
 /**
- * Tests for the {@link DefaultCategoryAxis3D} class.
+ * Tests for the {@link StandardCategoryAxis3D} class.
  */
-public class DefaultCategoryAxis3DTest {
+public class StandardCategoryAxis3DTest {
     
     @Test
     public void testEquals() {
@@ -102,6 +105,17 @@ public class DefaultCategoryAxis3DTest {
         assertFalse(axis1.equals(axis2));
         axis2.setLastCategoryHalfWidth(true);
         assertTrue(axis1.equals(axis2));
-       
     }
+    
+    /**
+     * Checks for serialization support.
+     */
+    @Test
+    public void testSerialization() {
+        StandardCategoryAxis3D axis1 = new StandardCategoryAxis3D("T");
+        StandardCategoryAxis3D axis2 = (StandardCategoryAxis3D) 
+                TestUtils.serialized(axis1);
+        assertTrue(axis1.equals(axis2));
+    }
+
 }

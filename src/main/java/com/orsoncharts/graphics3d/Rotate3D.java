@@ -1,26 +1,60 @@
+/* ============
+ * Orson Charts
+ * ============
+ * 
+ * (C)opyright 2013, by Object Refinery Limited.
+ * 
+ */
+
 package com.orsoncharts.graphics3d;
 
-/**
- * Performs rotations about the x, y and z axes.
- */
-public class Rotate3D {
+import java.io.Serializable;
 
-    static double r11, r12, r13;
-    static double r21, r22, r23;
-    static double r31, r32, r33;
-    static double r41, r42, r43;
+/**
+ * Performs rotations about the x, y and z axes.  This file is derived from
+ * code published in "Computer Graphics for Java Programmers (Second Edition)" 
+ * by Leen Ammeraal and Kang Zhang.
+ */
+public class Rotate3D implements Serializable {
+
+    Point3D a;
     
-    public static void initRotate(Point3D a, Point3D b, double alpha) {
+    Point3D b;
+    
+    double angle;
+    
+    double r11, r12, r13;
+    double r21, r22, r23;
+    double r31, r32, r33;
+    double r41, r42, r43;
+    
+    public Rotate3D(Point3D a, Point3D b, double angle) {
+        this.a = a;
+        this.b = b;
+        this.angle = angle;
         double v1 = b.x - a.x;
         double v2 = b.y - a.y;
         double v3 = b.z - a.z;
         double theta = Math.atan2(v2, v1);
         double phi = Math.atan2(Math.sqrt(v1 * v1 + v2 * v2), v3);
-        initRotate(a, theta, phi, alpha);
+        initRotate(a, theta, phi, angle);        
     }
 
-    public static void initRotate(Point3D a, double theta, double phi, 
-            double alpha) {
+    public double getAngle() {
+        return this.angle;
+    }
+    
+    public void setAngle(double angle) {
+        this.angle = angle;
+        double v1 = b.x - a.x;
+        double v2 = b.y - a.y;
+        double v3 = b.z - a.z;
+        double theta = Math.atan2(v2, v1);
+        double phi = Math.atan2(Math.sqrt(v1 * v1 + v2 * v2), v3);
+        initRotate(a, theta, phi, angle);                
+    }
+    
+    private void initRotate(Point3D a, double theta, double phi, double alpha) {
         double cosAlpha = Math.cos(alpha);
         double sinAlpha = Math.sin(alpha);
         double cosPhi = Math.cos(phi);
@@ -56,9 +90,24 @@ public class Rotate3D {
      * 
      * @return A new point.
      */
-    public static Point3D rotate(Point3D p) {
-        return new Point3D(p.x * r11 + p.y * r21 + p.z * r31 + r41,
-                p.x * r12 + p.y * r22 + p.z * r32 + r42,
-                p.x * r13 + p.y * r23 + p.z * r33 + r43);
+    public Point3D applyRotation(Point3D p) {
+        return applyRotation(p.x, p.y, p.z);
+    }
+    
+    public Point3D applyRotation(double x, double y, double z) {
+        return new Point3D(x * r11 + y * r21 + z * r31 + r41,
+                x * r12 + y * r22 + z * r32 + r42,
+                x * r13 + y * r23 + z * r33 + r43);        
+    }
+    
+    public double[] applyRotation(double x, double y, double z, 
+            double[] result) {
+        if (result == null) {
+            result = new double[3];
+        }
+        result[0] = x * r11 + y * r21 + z * r31 + r41;
+        result[1] = x * r12 + y * r22 + z * r32 + r42;
+        result[2] = x * r13 + y * r23 + z * r33 + r43;
+        return result;
     }
 }

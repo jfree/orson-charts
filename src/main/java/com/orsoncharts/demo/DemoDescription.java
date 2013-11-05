@@ -1,8 +1,9 @@
-/* --------------------
- * DemoDescription.java
- * --------------------
- * (C) Copyright 2004-2011, by Object Refinery Limited.
- *
+/* ============
+ * Orson Charts
+ * ============
+ * 
+ * (C)opyright 2013, by Object Refinery Limited.
+ * 
  */
 
 package com.orsoncharts.demo;
@@ -14,17 +15,17 @@ public class DemoDescription {
 
     private String className;
     
-    private String description;
+    private String fileName;
     
     /**
      * Creates a new description.
      * 
      * @param demoClassName  the class name.
-     * @param demoDescription  the description.
+     * @param fileName  the file name.
      */
-    public DemoDescription(String demoClassName, String demoDescription) {
+    public DemoDescription(String demoClassName, String fileName) {
         this.className = demoClassName;
-        this.description = demoDescription;
+        this.fileName = fileName;
     }
     
     /**
@@ -37,12 +38,12 @@ public class DemoDescription {
     }
     
     /**
-     * Returns the description.
+     * Returns the file name.
      * 
-     * @return The description.
+     * @return The file name.
      */
-    public String getDescription() {
-        return this.description;
+    public String getFileName() {
+        return this.fileName;
     }
     
     /**
@@ -51,7 +52,7 @@ public class DemoDescription {
      * @return The class description.
      */
     public String toString() {
-        return this.description;
+        return this.fileName;
     }
     
 }

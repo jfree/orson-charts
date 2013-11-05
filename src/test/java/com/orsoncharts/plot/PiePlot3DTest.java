@@ -8,14 +8,18 @@
 
 package com.orsoncharts.plot;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import com.orsoncharts.data.StandardPieDataset3D;
+import com.orsoncharts.Chart3D;
+import com.orsoncharts.Chart3DFactory;
+import com.orsoncharts.TestUtils;
+import java.awt.Color;
+import java.awt.Font;
 
 /** 
  * Some tests for the {@link PiePlot3D} class.
@@ -88,6 +92,30 @@ public class PiePlot3DTest implements Plot3DChangeListener {
         assertFalse(p1.equals(p2));
         p2.setDepth(3.21);
         assertTrue(p1.equals(p2));
+        
+        // section color source
+        p1.setSectionColorSource(new StandardColorSource(Color.CYAN));
+        assertFalse(p1.equals(p2));
+        p2.setSectionColorSource(new StandardColorSource(Color.CYAN));
+        assertTrue(p1.equals(p2));
+        
+        // section label font source
+        p1.setSectionLabelFontSource(new StandardFontSource(new Font("Dialog", 
+                Font.PLAIN, 9)));
+        assertFalse(p1.equals(p2));
+        p2.setSectionLabelFontSource(new StandardFontSource(new Font("Dialog", 
+                Font.PLAIN, 9)));
+    }
+    
+    /**
+     * A check for serialization.
+     */
+    @Test
+    public void testSerializationPieChart() {
+        Chart3D c1 = Chart3DFactory.createPieChart("title", "subtitle", 
+                createNewDataset());
+        Chart3D c2 = (Chart3D) TestUtils.serialized(c1);
+        assertEquals(c1, c2);
     }
   
     /**

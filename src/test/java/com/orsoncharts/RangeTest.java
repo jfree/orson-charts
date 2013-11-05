@@ -65,4 +65,14 @@ public class RangeTest {
         assertEquals(1.0, r.gridPoint(1, 11), EPSILON);
         assertEquals(10.0, r.gridPoint(10, 11), EPSILON);
     }
+    
+    /**
+     * A check for serialization.
+     */
+    @Test
+    public void testSerialization() {
+        Range r1 = new Range(0, 10);
+        Range r2 = (Range) TestUtils.serialized(r1);
+        assertEquals(r1, r2);
+    }
 }

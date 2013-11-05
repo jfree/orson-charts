@@ -266,7 +266,7 @@ public class ChartBox3D {
         private List<TickData> zTicksB;
         
         public CBFace(int[] vertices, Color color) {
-            super(vertices, color);
+            super(vertices, color, false);
             this.xTicksA = new ArrayList<TickData>();
             this.xTicksB = new ArrayList<TickData>();
             this.yTicksA = new ArrayList<TickData>();

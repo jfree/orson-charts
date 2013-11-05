@@ -11,6 +11,7 @@ package com.orsoncharts.axis;
 import java.util.List;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
+import java.awt.Font;
 import com.orsoncharts.Range;
 
 /**
@@ -18,6 +19,36 @@ import com.orsoncharts.Range;
  */
 public interface Axis3D {
 
+    /**
+     * Returns the font that is used to display the main axis label.
+     * 
+     * @return The font (never <code>null</code>). 
+     */
+    Font getLabelFont();
+    
+    /**
+     * Sets the font for the axis label (the main label, not the tick labels)
+     * and sends a {@link Axis3DChangeEvent} to all registered listeners.
+     * 
+     * @param font  the font (<code>null</code> not permitted). 
+     */
+    void setLabelFont(Font font);
+    
+    /**
+     * Returns the font that is used to display the tick labels.
+     * 
+     * @return The font (never <code>null</code>). 
+     */
+    Font getTickLabelFont();
+    
+    /**
+     * Sets the font for the tick labels and sends a {@link Axis3DChangeEvent} 
+     * to all registered listeners.
+     * 
+     * @param font  the font (<code>null</code> not permitted). 
+     */
+    void setTickLabelFont(Font font);
+    
     /**
      * Returns the axis range.
      * 

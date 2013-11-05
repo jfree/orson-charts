@@ -56,7 +56,8 @@ public class StackedBarChart3DDemo1 extends JFrame {
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         CategoryDataset3D dataset = createDataset();
         Chart3D chart = Chart3DFactory.createStackedBarChart(
-                "Water Usage Chart", dataset, null, null, "Value");
+                "Water Usage Chart", "Put the data source here", dataset, null, 
+                null, "Value");
         CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
         plot.setDimensions(new Dimension3D(14, 5, 2));
         plot.getRowAxis().setVisible(false);

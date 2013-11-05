@@ -460,9 +460,20 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
         return result;
     }
 
+    /**
+     * Adds 3D objects representing the current data for the plot to the 
+     * specified world.  After the world has been populated (or constructed) in
+     * this way, it is ready for rendering.
+     * 
+     * @param world  the world (<code>null</code> not permitted).
+     * @param xOffset  the x-offset.
+     * @param yOffset  the y-offset.
+     * @param zOffset  the z-offset.
+     */
     @Override
     public void compose(World world, double xOffset, double yOffset, 
             double zOffset) {
+      
         // for each data point in the dataset
         // figure out if the composed shape intersects with the visible subset
         // of the world, and if so add the object

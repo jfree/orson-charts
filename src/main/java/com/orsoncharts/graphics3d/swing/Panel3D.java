@@ -70,6 +70,8 @@ public class Panel3D extends JPanel implements ActionListener, MouseListener,
      * initially).  Used to calculate the mouse drag distance and direction.
      */
     private Point lastClickPoint;
+    
+    private Point lastMovePoint;
 
     private ViewPoint3D lastViewPoint;
     
@@ -179,7 +181,6 @@ public class Panel3D extends JPanel implements ActionListener, MouseListener,
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         AffineTransform saved = g2.getTransform();
-        //g2.rotate(getViewPoint().getRotate());
         Dimension size = getSize();
         Rectangle drawArea = new Rectangle(size.width, size.height);
         this.drawable.draw(g2, drawArea);
@@ -219,7 +220,6 @@ public class Panel3D extends JPanel implements ActionListener, MouseListener,
     @Override
     public void mouseClicked(MouseEvent e) {
         // nothing to do
-        System.out.println("Mouse clicked: " + e);
     }
 
     /* (non-Javadoc)
@@ -244,6 +244,7 @@ public class Panel3D extends JPanel implements ActionListener, MouseListener,
     @Override
     public void mousePressed(MouseEvent e) {
         this.lastClickPoint = e.getPoint();
+        this.lastMovePoint = this.lastClickPoint;
         this.lastViewPoint = this.drawable.getViewPoint();
         this.offsetAtMousePressed = this.drawable.getTranslate2D();
     }
@@ -269,15 +270,17 @@ public class Panel3D extends JPanel implements ActionListener, MouseListener,
             this.drawable.setTranslate2D(new Offset2D(dx, dy));
         } else {
             Point currPt = e.getPoint();
-            int dx = currPt.x - this.lastClickPoint.x;
-            int dy = currPt.y - this.lastClickPoint.y;
-
-            float valTheta = this.lastViewPoint.getTheta() 
-                    + (float) (dx * Math.PI / 100);
-            float valRho = this.lastViewPoint.getRho();
-            float valPhi = this.lastViewPoint.getPhi() 
-                    + (float) (dy * Math.PI / 100);
-            setViewPoint(new ViewPoint3D(valTheta, valPhi, valRho));
+            int dx = currPt.x - this.lastMovePoint.x;
+            int dy = currPt.y - this.lastMovePoint.y;
+            this.lastMovePoint = currPt;
+            this.drawable.getViewPoint().moveLeftRight(-dx * Math.PI / 120);
+            this.drawable.getViewPoint().moveUpDown(-dy * Math.PI / 120);
+            repaint();
+//            double valTheta = this.lastViewPoint.getTheta() 
+//                    + (dx * Math.PI / 100);
+//            double valRho = this.lastViewPoint.getRho();
+//            double valPhi = this.lastViewPoint.getPhi() + (dy * Math.PI / 100);
+//            setViewPoint(new ViewPoint3D(valTheta, valPhi, valRho, this.lastViewPoint.getAngle()));
         }
     }
 
@@ -298,11 +301,14 @@ public class Panel3D extends JPanel implements ActionListener, MouseListener,
     @Override
     public void mouseWheelMoved(MouseWheelEvent mwe) {
         float units = mwe.getUnitsToScroll();
-        float valRho = Math.max(this.minViewingDistance, 
+        double valRho = Math.max(this.minViewingDistance, 
                 this.drawable.getViewPoint().getRho() + units);
-        float valTheta = this.drawable.getViewPoint().getTheta();
-        float valPhi = this.drawable.getViewPoint().getPhi();
-        setViewPoint(new ViewPoint3D(valTheta, valPhi, valRho));
+//        float valTheta = this.drawable.getViewPoint().getTheta();
+//        float valPhi = this.drawable.getViewPoint().getPhi();
+//        double angle = this.drawable.getViewPoint().getAngle();
+        this.drawable.getViewPoint().setRho(valRho);
+        //setViewPoint(new ViewPoint3D(valTheta, valPhi, valRho, angle));
+        repaint();
     }
 
     @Override

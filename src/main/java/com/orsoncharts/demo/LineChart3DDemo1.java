@@ -9,7 +9,6 @@
 package com.orsoncharts.demo;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
@@ -60,13 +59,14 @@ public class LineChart3DDemo1 extends JFrame {
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         CategoryDataset3D dataset = createDataset();
         Chart3D chart = Chart3DFactory.createLineChart("LineChart3DDemo1", 
-                dataset, null, null, "Market Share (%)");
+                "Browser market share 2011 to 2013", dataset, null, null, 
+                "Market Share (%)");
         CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
         plot.setDimensions(new Dimension3D(18, 8, 4));
         plot.getRowAxis().setVisible(false);
         NumberAxis3D valueAxis = (NumberAxis3D) plot.getValueAxis();
         valueAxis.setTickSelector(new NumberTickSelector(true));
-        valueAxis.setRange(0.20, 0.30);
+        //valueAxis.setRange(0.20, 0.30);
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
         chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         content.add(new DisplayPanel3D(chartPanel));
@@ -91,94 +91,94 @@ public class LineChart3DDemo1 extends JFrame {
 
     private static KeyedValues createChromeData() {
         DefaultKeyedValues series = new DefaultKeyedValues();
-        series.addValue("Jan-2012", 0.2840);
-        series.addValue("Feb-2012", 0.2984);
-        series.addValue("Mar-2012", 0.3087);
-        series.addValue("Apr-2012", 0.3123);
-        series.addValue("May-2012", 0.3243);
-        series.addValue("Jun-2012", 0.3276);
-        series.addValue("Jul-2012", 0.3381);
-        series.addValue("Aug-2012", 0.3359);
-        series.addValue("Sep-2012", 0.3421);
-        series.addValue("Oct-2012", 0.3477);
-        series.addValue("Nov-2012", 0.3572);
-        series.addValue("Dec-2012", 0.3642);
+        series.put("Jan-12", 0.2840);
+        series.put("Feb-12", 0.2984);
+        series.put("Mar-12", 0.3087);
+        series.put("Apr-12", 0.3123);
+        series.put("May-12", 0.3243);
+        series.put("Jun-12", 0.3276);
+        series.put("Jul-12", 0.3381);
+        series.put("Aug-12", 0.3359);
+        series.put("Sep-12", 0.3421);
+        series.put("Oct-12", 0.3477);
+        series.put("Nov-12", 0.3572);
+        series.put("Dec-12", 0.3642);
 
-        series.addValue("Jan-2013", 0.3652);
-        series.addValue("Feb-2013", 0.3709);
-        series.addValue("Mar-2013", 0.3807);
-        series.addValue("Apr-2013", 0.3915);
-        series.addValue("May-2013", 0.4138);
-        series.addValue("Jun-2013", 0.4268);
+        series.put("Jan-13", 0.3652);
+        series.put("Feb-13", 0.3709);
+        series.put("Mar-13", 0.3807);
+        series.put("Apr-13", 0.3915);
+        series.put("May-13", 0.4138);
+        series.put("Jun-13", 0.4268);
         return series;
     }
 
     private static KeyedValues createFirefoxData() {
         DefaultKeyedValues series = new DefaultKeyedValues();
-        series.addValue("Jan-2012", 0.2478);
-        series.addValue("Feb-2012", 0.2488);
-        series.addValue("Mar-2012", 0.2498);
-        series.addValue("Apr-2012", 0.2487);
-        series.addValue("May-2012", 0.2555);
-        series.addValue("Jun-2012", 0.2456);
-        series.addValue("Jul-2012", 0.2373);
-        series.addValue("Aug-2012", 0.2285);
-        series.addValue("Sep-2012", 0.2240);
-        series.addValue("Oct-2012", 0.2232);
-        series.addValue("Nov-2012", 0.2237);
-        series.addValue("Dec-2012", 0.2189);
-        series.addValue("Jan-2013", 0.2142);
-        series.addValue("Feb-2013", 0.2134);
-        series.addValue("Mar-2013", 0.2087);
-        series.addValue("Apr-2013", 0.2006);
-        series.addValue("May-2013", 0.1976);
-        series.addValue("Jun-2013", 0.2001);
+        series.put("Jan-12", 0.2478);
+        series.put("Feb-12", 0.2488);
+        series.put("Mar-12", 0.2498);
+        series.put("Apr-12", 0.2487);
+        series.put("May-12", 0.2555);
+        series.put("Jun-12", 0.2456);
+        series.put("Jul-12", 0.2373);
+        series.put("Aug-12", 0.2285);
+        series.put("Sep-12", 0.2240);
+        series.put("Oct-12", 0.2232);
+        series.put("Nov-12", 0.2237);
+        series.put("Dec-12", 0.2189);
+        series.put("Jan-13", 0.2142);
+        series.put("Feb-13", 0.2134);
+        series.put("Mar-13", 0.2087);
+        series.put("Apr-13", 0.2006);
+        series.put("May-13", 0.1976);
+        series.put("Jun-13", 0.2001);
         return series;
     }
 
     private static KeyedValues createInternetExplorerData() {
         DefaultKeyedValues series = new DefaultKeyedValues();
-        series.addValue("Jan-2012", 0.3745);
-        series.addValue("Feb-2012", 0.3575);
-        series.addValue("Mar-2012", 0.3481);
-        series.addValue("Apr-2012", 0.3407);
-        series.addValue("May-2012", 0.3212);
-        series.addValue("Jun-2012", 0.3231);
-        series.addValue("Jul-2012", 0.3204);
-        series.addValue("Aug-2012", 0.3285);
-        series.addValue("Sep-2012", 0.3270);
-        series.addValue("Oct-2012", 0.3208);
-        series.addValue("Nov-2012", 0.3123);
-        series.addValue("Dec-2012", 0.3078);
-        series.addValue("Jan-2013", 0.3069);
-        series.addValue("Feb-2013", 0.2982);
-        series.addValue("Mar-2013", 0.2930);
-        series.addValue("Jun-2013", 0.2544);
-        series.addValue("May-2013", 0.2772);
-        series.addValue("Apr-2013", 0.2971);
+        series.put("Jan-12", 0.3745);
+        series.put("Feb-12", 0.3575);
+        series.put("Mar-12", 0.3481);
+        series.put("Apr-12", 0.3407);
+        series.put("May-12", 0.3212);
+        series.put("Jun-12", 0.3231);
+        series.put("Jul-12", 0.3204);
+        series.put("Aug-12", 0.3285);
+        series.put("Sep-12", 0.3270);
+        series.put("Oct-12", 0.3208);
+        series.put("Nov-12", 0.3123);
+        series.put("Dec-12", 0.3078);
+        series.put("Jan-13", 0.3069);
+        series.put("Feb-13", 0.2982);
+        series.put("Mar-13", 0.2930);
+        series.put("Jun-13", 0.2544);
+        series.put("May-13", 0.2772);
+        series.put("Apr-13", 0.2971);
         return series;
     }
 //
     private static KeyedValues createSafariData() {
         DefaultKeyedValues series = new DefaultKeyedValues();
-        series.addValue("Jan-2012", 0.0662);
-        series.addValue("Feb-2012", 0.0677);
-        series.addValue("Mar-2012", 0.0672);
-        series.addValue("Apr-2012", 0.0713);
-        series.addValue("May-2012", 0.0709);
-        series.addValue("Jun-2012", 0.0700);
-        series.addValue("Jul-2012", 0.0712);
-        series.addValue("Aug-2012", 0.0739);
-        series.addValue("Sep-2012", 0.0770);
-        series.addValue("Oct-2012", 0.0781);
-        series.addValue("Nov-2012", 0.0783);
-        series.addValue("Dec-2012", 0.0792);
-        series.addValue("Jan-2013", 0.0830);
-        series.addValue("Feb-2013", 0.0860);
-        series.addValue("Mar-2013", 0.0850);
-        series.addValue("Apr-2013", 0.0800);
-        series.addValue("May-2013", 0.0796);
-        series.addValue("Jun-2013", 0.0839);
+        series.put("Jan-12", 0.0662);
+        series.put("Feb-12", 0.0677);
+        series.put("Mar-12", 0.0672);
+        series.put("Apr-12", 0.0713);
+        series.put("May-12", 0.0709);
+        series.put("Jun-12", 0.0700);
+        series.put("Jul-12", 0.0712);
+        series.put("Aug-12", 0.0739);
+        series.put("Sep-12", 0.0770);
+        series.put("Oct-12", 0.0781);
+        series.put("Nov-12", 0.0783);
+        series.put("Dec-12", 0.0792);
+        series.put("Jan-13", 0.0830);
+        series.put("Feb-13", 0.0860);
+        series.put("Mar-13", 0.0850);
+        series.put("Apr-13", 0.0800);
+        series.put("May-13", 0.0796);
+        series.put("Jun-13", 0.0839);
         return series;
     }
     

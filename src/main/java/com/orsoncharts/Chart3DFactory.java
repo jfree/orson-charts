@@ -1,8 +1,8 @@
-/* =============
- * OrsonCharts3D
- * =============
+/* ============
+ * Orson Charts 
+ * ============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -43,19 +43,22 @@ public class Chart3DFactory {
      * Creates a pie chart in 3D.
      * 
      * @param title  the chart title (<code>null</code> permitted).
+     * @param subtitle  the chart subtitle (<code>null</code> permitted).
      * @param dataset  the dataset (<code>null</code> not permitted).
      * 
      * @return A pie chart. 
      */
-    public static Chart3D createPieChart(String title, PieDataset3D dataset) {
+    public static Chart3D createPieChart(String title, String subtitle, 
+            PieDataset3D dataset) {
         PiePlot3D plot = new PiePlot3D(dataset);
-        return new Chart3D(title, plot);
+        return new Chart3D(title, subtitle, plot);
     }
     
     /**
      * Creates a bar chart in 3D.
      * 
-     * @param title  the chart title.
+     * @param title  the chart title (<code>null</code> permitted).
+     * @param subtitle  the chart subtitle (<code>null</code> permitted).
      * @param dataset  the dataset (<code>null</code> not permitted).
      * @param rowAxisLabel  the row axis label.
      * @param columnAxisLabel  the column axis label.
@@ -63,7 +66,7 @@ public class Chart3DFactory {
      * 
      * @return A bar chart. 
      */
-    public static Chart3D createBarChart(String title, 
+    public static Chart3D createBarChart(String title, String subtitle,
             CategoryDataset3D dataset, String rowAxisLabel, 
             String columnAxisLabel, String valueAxisLabel) {
         CategoryAxis3D rowAxis = new StandardCategoryAxis3D(rowAxisLabel);
@@ -73,13 +76,14 @@ public class Chart3DFactory {
         CategoryRenderer3D renderer = new BarRenderer3D();
         CategoryPlot3D plot = new CategoryPlot3D(dataset, renderer, 
                 rowAxis, columnAxis, valueAxis);
-        return new Chart3D(title, plot);
+        return new Chart3D(title, subtitle, plot);
     }
     
     /**
      * Creates a stacked bar chart in 3D.
      * 
-     * @param title  the chart title.
+     * @param title  the chart title (<code>null</code> permitted).
+     * @param subtitle  the chart subtitle (<code>null</code> permitted).
      * @param dataset  the dataset (<code>null</code> not permitted).
      * @param rowAxisLabel  the row axis label.
      * @param columnAxisLabel  the column axis label.
@@ -87,7 +91,7 @@ public class Chart3DFactory {
      * 
      * @return A stacked bar chart. 
      */
-    public static Chart3D createStackedBarChart(String title, 
+    public static Chart3D createStackedBarChart(String title, String subtitle,
             CategoryDataset3D dataset, String rowAxisLabel, 
             String columnAxisLabel, String valueAxisLabel) {
         CategoryAxis3D rowAxis = new StandardCategoryAxis3D(rowAxisLabel);
@@ -97,13 +101,14 @@ public class Chart3DFactory {
         CategoryRenderer3D renderer = new StackedBarRenderer3D();
         CategoryPlot3D plot = new CategoryPlot3D(dataset, renderer, rowAxis, 
                 columnAxis, valueAxis);
-        return new Chart3D(title, plot);
+        return new Chart3D(title, subtitle, plot);
     }
     
     /**
      * Creates an area chart in 3D.
      * 
-     * @param title  the chart title.
+     * @param title  the chart title (<code>null</code> permitted).
+     * @param subtitle  the chart subtitle (<code>null</code> permitted).
      * @param dataset  the dataset (<code>null</code> not permitted).
      * @param rowAxisLabel  the row axis label.
      * @param columnAxisLabel  the column axis label.
@@ -111,7 +116,7 @@ public class Chart3DFactory {
      * 
      * @return An area chart. 
      */
-    public static Chart3D createAreaChart(String title, 
+    public static Chart3D createAreaChart(String title, String subtitle,
             CategoryDataset3D dataset, String rowAxisLabel, 
             String columnAxisLabel, String valueAxisLabel) {
         
@@ -125,14 +130,15 @@ public class Chart3DFactory {
         CategoryRenderer3D renderer = new AreaRenderer3D();
         CategoryPlot3D plot = new CategoryPlot3D(dataset, renderer, rowAxis, 
                 columnAxis, valueAxis);
-        return new Chart3D(title, plot);
+        return new Chart3D(title, subtitle, plot);
     }
     
     /**
      * Creates a line chart in 3D for the supplied dataset.  This chart
      * uses a {@link CategoryPlot3D} with a {@link LineRenderer3D}.
      * 
-     * @param title  the chart title.
+     * @param title  the chart title (<code>null</code> permitted).
+     * @param subtitle  the chart subtitle (<code>null</code> permitted).
      * @param dataset  the dataset (<code>null</code> not permitted).
      * @param rowAxisLabel  the row axis label.
      * @param columnAxisLabel  the column axis label.
@@ -140,7 +146,7 @@ public class Chart3DFactory {
      * 
      * @return A line chart. 
      */
-    public static Chart3D createLineChart(String title, 
+    public static Chart3D createLineChart(String title, String subtitle,
             CategoryDataset3D dataset, String rowAxisLabel, 
             String columnAxisLabel, String valueAxisLabel) {
         CategoryAxis3D rowAxis = new StandardCategoryAxis3D(rowAxisLabel);
@@ -153,13 +159,14 @@ public class Chart3DFactory {
         CategoryRenderer3D renderer = new LineRenderer3D();
         CategoryPlot3D plot = new CategoryPlot3D(dataset, renderer, rowAxis, 
                 columnAxis, valueAxis);
-        return new Chart3D(title, plot);
+        return new Chart3D(title, subtitle, plot);
     }
     
     /**
      * Creates a scatter plot of <code>(x, y, z)</code> values.
      * 
-     * @param title  the chart title.
+     * @param title  the chart title (<code>null</code> permitted).
+     * @param subtitle  the chart subtitle (<code>null</code> permitted).
      * @param dataset  the dataset (<code>null</code> not permitted).
      * @param xAxisLabel  the x-axis label.
      * @param yAxisLabel  the y-axis label.
@@ -167,14 +174,15 @@ public class Chart3DFactory {
      * 
      * @return The chart. 
      */
-    public static Chart3D createScatterPlot(String title, XYZDataset dataset, 
-            String xAxisLabel, String yAxisLabel, String zAxisLabel) {
+    public static Chart3D createScatterPlot(String title, String subtitle, 
+            XYZDataset dataset, String xAxisLabel, String yAxisLabel, 
+            String zAxisLabel) {
         ValueAxis3D xAxis = new NumberAxis3D(xAxisLabel);
         ValueAxis3D yAxis = new NumberAxis3D(yAxisLabel);
         ValueAxis3D zAxis = new NumberAxis3D(zAxisLabel);
         XYZRenderer renderer = new ScatterXYZRenderer();
         XYZPlot plot = new XYZPlot(dataset, renderer, xAxis, yAxis, zAxis);
-        return new Chart3D(title, plot);
+        return new Chart3D(title, subtitle, plot);
     }
     
     /**
@@ -183,7 +191,8 @@ public class Chart3DFactory {
      * bar charts using the {@link #createBarChart(java.lang.String, com.orsoncharts.data.category.CategoryDataset3D, java.lang.String, java.lang.String, java.lang.String) }
      * method.
      * 
-     * @param title  the chart title.
+     * @param title  the chart title (<code>null</code> permitted).
+     * @param subtitle  the chart subtitle (<code>null</code> permitted).
      * @param dataset  the dataset (<code>null</code> not permitted).
      * @param xAxisLabel  the x-axis label.
      * @param yAxisLabel  the y-axis label.
@@ -191,14 +200,15 @@ public class Chart3DFactory {
      * 
      * @return The chart. 
      */
-    public static Chart3D createXYZBarChart(String title, XYZDataset dataset, 
-            String xAxisLabel, String yAxisLabel, String zAxisLabel) {
+    public static Chart3D createXYZBarChart(String title, String subtitle, 
+            XYZDataset dataset, String xAxisLabel, String yAxisLabel, 
+            String zAxisLabel) {
         ValueAxis3D xAxis = new NumberAxis3D(xAxisLabel);
         ValueAxis3D yAxis = new NumberAxis3D(yAxisLabel);
         ValueAxis3D zAxis = new NumberAxis3D(zAxisLabel);
         XYZRenderer renderer = new BarXYZRenderer();
         XYZPlot plot = new XYZPlot(dataset, renderer, xAxis, yAxis, zAxis);
-        return new Chart3D(title, plot);
+        return new Chart3D(title, subtitle, plot);
     }
 
 }

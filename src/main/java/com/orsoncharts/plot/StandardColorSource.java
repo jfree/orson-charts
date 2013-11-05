@@ -12,26 +12,42 @@ import java.awt.Color;
 import java.io.Serializable;
 import java.util.Arrays;
 import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.data.DefaultKeyedValues;
 
 /**
- * A standard implementation of the {@link Pie3DPaintSource} interface.
+ * A standard implementation of the {@link ColorSource} interface.
  * <br><br>
  * NOTE: This class is serializable, but the serialization format is subject 
  * to change in future releases and should not be relied upon for persisting 
  * instances of this class.
  */
-public final class StandardPie3DPaintSource implements Pie3DPaintSource, 
+public final class StandardColorSource implements ColorSource, 
         Serializable {
 
-    /** The sequence of color objects to use for each series. */
-    private Color[] paint;
+    /** 
+     * An array of standard colors from which a color will be assigned if
+     * there is not one already stored for a given key. 
+     */
+    private Color[] standardColors;
+    
+    /** Storage for the colors assigned to keys. */
+    private DefaultKeyedValues<Color> colors;
     
     /**
      * Creates a new instance with default colors.
      */
-    public StandardPie3DPaintSource() {
+    public StandardColorSource() {
         this(new Color[] { new Color(0, 55, 122),  
             new Color(24, 123, 58), Color.RED, Color.YELLOW });
+    }
+    
+    /**
+     * Creates a new instance with a single default color.
+     * 
+     * @param color  the color (<code>null</code> not permitted).
+     */
+    public StandardColorSource(Color color) {
+        this(new Color[] { color });    
     }
     
     /**
@@ -41,7 +57,7 @@ public final class StandardPie3DPaintSource implements Pie3DPaintSource,
      * 
      * @param colors  the colors (<code>null</code> not permitted). 
      */
-    public StandardPie3DPaintSource(Color[] colors) {
+    public StandardColorSource(Color[] colors) {
         ArgChecks.nullNotPermitted(colors, "colors");
         if (colors.length == 0) {
             throw new IllegalArgumentException(
@@ -53,31 +69,29 @@ public final class StandardPie3DPaintSource implements Pie3DPaintSource,
                         "Null array entries not permitted.");
             }
         }
-        this.paint = colors.clone();
+        this.standardColors = colors.clone();
+        this.colors = new DefaultKeyedValues<Color>();
     }
-    
-    /**
-     * Returns the color to use for the specified item.
-     * 
-     * @param item  the item index.
-     * 
-     * @return The color (never <code>null</code>). 
-     */
+ 
     @Override
-    public Color getPaint(int item) {
-        return this.paint[item % this.paint.length];
+    public Color getColor(Comparable key) {
+        Color c = this.colors.getValue(key);
+        if (c != null) {
+            return c;
+        }
+        c = this.standardColors[this.colors.getItemCount() 
+                % this.standardColors.length];
+        this.colors.put(key, c);
+        return c;
     }
 
-    /**
-     * Returns the color to use in the legend for the specified series.
-     * 
-     * @param series  the series index.
-     * 
-     * @return The color (never <code>null</code>).
-     */
     @Override
-    public Color getLegendPaint(int series) {
-        return this.paint[series % this.paint.length];
+    public void setColor(Comparable key, Color color) {
+        if (color != null) {
+            this.colors.put(key, color);
+        } else {
+            this.colors.remove(key);
+        }
     }
     
     /**
@@ -92,13 +106,17 @@ public final class StandardPie3DPaintSource implements Pie3DPaintSource,
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof StandardPie3DPaintSource)) {
+        if (!(obj instanceof StandardColorSource)) {
             return false;
         }
-        StandardPie3DPaintSource that = (StandardPie3DPaintSource) obj;
-        if (!Arrays.equals(this.paint, that.paint)) {
+        StandardColorSource that = (StandardColorSource) obj;
+        if (!Arrays.equals(this.standardColors, that.standardColors)) {
+            return false;
+        }
+        if (!this.colors.equals(that.colors)) {
             return false;
         }
         return true;
     }
+
 }

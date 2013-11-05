@@ -1,6 +1,6 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
  * (C)opyright 2013, by Object Refinery Limited.
  * 
@@ -29,13 +29,19 @@ import com.orsoncharts.renderer.Renderer3DChangeEvent;
 import com.orsoncharts.renderer.Renderer3DChangeListener;
 import com.orsoncharts.renderer.category.CategoryRenderer3D;
 import com.orsoncharts.util.ObjectUtils;
+import java.io.Serializable;
 
 /**
  * A 3D plot with two category axes (x and z) and a numerical y-axis that can
  * display data from a {@link CategoryDataset3D}.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  */
 public class CategoryPlot3D extends AbstractPlot3D 
-        implements Axis3DChangeListener, Renderer3DChangeListener {
+        implements Axis3DChangeListener, Renderer3DChangeListener, 
+        Serializable {
 
     private static Stroke DEFAULT_GRIDLINE_STROKE = new BasicStroke(0.5f, 
             BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 1f, 

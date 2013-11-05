@@ -26,7 +26,6 @@ import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.renderer.xyz.FastScatterXYZRenderer;
-import com.orsoncharts.renderer.xyz.ScatterXYZRenderer;
 
 /**
  * A demonstration of a scatter plot in 3D.
@@ -60,7 +59,8 @@ public class FastScatterPlot3DDemo1 extends JFrame {
         JPanel content = new JPanel(new BorderLayout());
         content.setPreferredSize(new Dimension(600, 400));
         XYZDataset dataset = createDataset();
-        Chart3D chart = Chart3DFactory.createScatterPlot("FastScatterPlot3DDemo1", 
+        Chart3D chart = Chart3DFactory.createScatterPlot(
+                "FastScatterPlot3DDemo1", "Chart created with Orson Charts", 
                 dataset, "X", "Y", "Z");
         XYZPlot plot = (XYZPlot) chart.getPlot();
         plot.setRenderer(new FastScatterXYZRenderer());

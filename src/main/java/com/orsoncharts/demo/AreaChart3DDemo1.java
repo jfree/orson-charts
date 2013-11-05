@@ -18,6 +18,8 @@ import javax.swing.JPanel;
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
+import com.orsoncharts.RectanglePainter;
+import com.orsoncharts.StandardRectanglePainter;
 import com.orsoncharts.axis.StandardCategoryAxis3D;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.category.StandardCategoryDataset3D;
@@ -26,6 +28,7 @@ import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.legend.StandardLegendBuilder;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.category.AreaRenderer3D;
+import javax.swing.ImageIcon;
 
 /**
  * A demo of a 3D area chart.
@@ -60,18 +63,26 @@ public class AreaChart3DDemo1 extends JFrame {
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         CategoryDataset3D dataset = createDataset();
         Chart3D chart = Chart3DFactory.createAreaChart("AreaChart3DDemo1", 
-                dataset, "Company", "Quarter", "Value");
-        chart.setTitle("AreaChart3DDemo1", new Font("Dialog", Font.BOLD, 20),
-                Color.DARK_GRAY);
+                "Chart created with Orson Charts", dataset, "Company", 
+                "Quarter", "Value");
+        chart.setChartBoxColor(new Color(255, 255, 255, 128));
+        
         StandardLegendBuilder slb = (StandardLegendBuilder) chart.getLegendBuilder();
         slb.setFooter("Orson Charts (c) 2013, by Object Refinery Limited");
+        
+        
         chart.getLegendBuilder().setItemFont(new Font("Dialog", Font.ITALIC, 12));
-//        ImageIcon icon = new ImageIcon("/Users/dgilbert/Desktop/me.png"); TODO
-//        chart.setBackgroundImage(icon.getImage()); TODO
+        ImageIcon icon = new ImageIcon("/Users/dgilbert/Desktop/me.png");
+        RectanglePainter background = new StandardRectanglePainter(Color.WHITE, icon.getImage());
+        chart.setBackground(background); 
         CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
         StandardCategoryAxis3D rowAxis = (StandardCategoryAxis3D) plot.getRowAxis();
+        rowAxis.setLabelPaint(Color.WHITE);
+        rowAxis.setTickLabelPaint(Color.WHITE);
         rowAxis.setTickLabelsVisible(false);
-        //     plot.getValueAxis().setRange(4.0, 10.0);
+        
+        //plot.getValueAxis().setLabelFont();
+            // plot.getValueAxis().setRange(-10.0, 4.0);
         AreaRenderer3D renderer = (AreaRenderer3D) plot.getRenderer();
         renderer.setBaseColor(Color.GRAY);
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
@@ -91,18 +102,18 @@ public class AreaChart3DDemo1 extends JFrame {
         StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
 
         DefaultKeyedValues s1 = new DefaultKeyedValues();
-        s1.addValue("Q1", 1.0);
-        s1.addValue("Q2", 7.0);
-        s1.addValue("Q3", 3.0);
-        s1.addValue("Q4", 4.0);
+        s1.put("Q1", 1.0);
+        s1.put("Q2", 7.0);
+        s1.put("Q3", 3.0);
+        s1.put("Q4", 4.0);
         dataset.addSeriesAsRow("Acme Widgets Ltd", s1);
 
-//        DefaultKeyedValues s2 = new DefaultKeyedValues();
-//        s2.addValue("Q1", 14.0);
-//        s2.addValue("Q2", 7.0);
-//        s2.addValue("Q3", 6.0);
-//        s2.addValue("Q4", 4.0);
-//        dataset.addSeriesAsRow("Zorro Corporation Ltd", s2);
+        DefaultKeyedValues s2 = new DefaultKeyedValues();
+        s2.put("Q1", 14.0);
+        s2.put("Q2", 7.0);
+        s2.put("Q3", 6.0);
+        s2.put("Q4", 4.0);
+        dataset.addSeriesAsRow("Zorro Corporation Ltd", s2);
 
         return dataset;
     }

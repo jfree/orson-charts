@@ -1,6 +1,6 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
  * (C)opyright 2013, by Object Refinery Limited.
  * 
@@ -39,7 +39,7 @@ public class NumberTickSelector implements TickSelector {
      * percentages.  The axis follows the normal convention that values in the
      * range 0.0 to 1.0 a represented as 0% to 100%.
      * 
-     * @param boolean percentage  format the tick values as percentages. 
+     * @param percentage  format the tick values as percentages. 
      */
     public NumberTickSelector(boolean percentage) {
         this.power = 0;
@@ -63,8 +63,10 @@ public class NumberTickSelector implements TickSelector {
     }
 
     /**
-     * 
-     * @return 
+     * Move the cursor to the next (larger) tick size, if there is one.  
+     * Returns <code>true</code> in the case that the cursor is moved, and 
+     * <code>false</code> where there are a finite number of tick sizes and the
+     * current tick size is the largest available.
      */
     @Override
     public boolean next() {
@@ -84,6 +86,12 @@ public class NumberTickSelector implements TickSelector {
         throw new IllegalStateException("We should never get here.");
     }
 
+    /**
+     * Move the cursor to the previous (smaller) tick size, if there is one.  
+     * Returns <code>true</code> in the case that the cursor is moved, and 
+     * <code>false</code> where there are a finite number of tick sizes and the
+     * current tick size is the smallest available.
+     */
     @Override
     public boolean previous() {
         if (factor == 1) {

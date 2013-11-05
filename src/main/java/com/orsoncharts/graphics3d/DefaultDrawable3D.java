@@ -44,7 +44,7 @@ public class DefaultDrawable3D implements Drawable3D {
     public DefaultDrawable3D(World world) {
         ArgChecks.nullNotPermitted(world, "world");
         this.viewPoint = new ViewPoint3D((float) (3 * Math.PI / 2.0), 
-                (float) Math.PI / 6, 40.0f);
+                (float) Math.PI / 6, 40.0f, 0.0);
         this.world = world;    
     }
     

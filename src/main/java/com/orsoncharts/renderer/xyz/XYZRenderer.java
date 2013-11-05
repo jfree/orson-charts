@@ -35,7 +35,7 @@ public interface XYZRenderer extends Renderer3D {
      * @param plot  the plot (<code>null</code> permitted). 
      */
     public void setPlot(XYZPlot plot);
-
+    
     /**
      * Returns the paint source for the renderer, which is an object that
      * is responsible for providing the colors used by the renderer to draw

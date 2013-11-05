@@ -18,8 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import com.orsoncharts.util.ArgChecks;
-import com.orsonpdf.util.TextAnchor;
-import com.orsonpdf.util.TextUtils;
+import com.orsoncharts.util.TextAnchor;
+import com.orsoncharts.util.TextUtils;
 
 /**
  * A table element consisting of some text that will be drawn on one line.

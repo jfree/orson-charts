@@ -15,22 +15,21 @@ import com.orsoncharts.graphics3d.ViewPoint3D;
 /**
  * Rotate right.
  */
-public class RollRightAction extends AbstractAction {
+public class RotateRightAction extends AbstractAction {
 
     private Panel3D panel;
   
-    public RollRightAction(Panel3D panel3D) {
+    public RotateRightAction(Panel3D panel3D) {
         super("\uF064");
         this.panel = panel3D;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        ViewPoint3D viewPt = this.panel.getViewPoint();
-        float valRho = viewPt.getRho();
-        float valTheta = (float) (viewPt.getTheta() + (Math.PI / 30.0));
-        float valPhi = viewPt.getPhi();
-        panel.setViewPoint(new ViewPoint3D(valTheta, valPhi, valRho));
+        ViewPoint3D viewPt = this.panel.getDrawable().getViewPoint();
+        viewPt.rotate(Math.PI / 72);
+        //        viewPt.setAngle(viewPt.getAngle() + Math.PI / 72);
+        this.panel.repaint();
     }
     
 }

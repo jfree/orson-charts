@@ -8,6 +8,9 @@
 
 package com.orsoncharts.graphics3d.swing;
 
+import com.orsoncharts.Chart3D;
+import com.orsoncharts.graphics3d.Drawable3D;
+import com.orsoncharts.graphics3d.Point3D;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import com.orsoncharts.graphics3d.ViewPoint3D;
@@ -18,22 +21,32 @@ import com.orsoncharts.graphics3d.ViewPoint3D;
 public class RightAction extends AbstractAction {
 
     private Panel3D panel;
+    
+    //private Chart3D chart;
   
     public RightAction(Panel3D panel3D) {
         super("\uF061");
         this.panel = panel3D;
+        //this.chart = chart;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        ViewPoint3D viewPt = this.panel.getViewPoint();
-        float valRho = (float) (viewPt.getRho() - (Math.PI / 30.0));
-        float valTheta = viewPt.getTheta();
-        float valPhi = viewPt.getPhi();
-  //              float rotate = viewPt.getRotate();
-  //      viewPt.setRotate(rotate - (float) (Math.PI / 36));
-//panel.setViewPoint(viewPt);
-        //panel.setViewPoint(new ViewPoint3D(valTheta, valPhi, valRho));
+        Drawable3D drawable = this.panel.getDrawable();
+        if (drawable instanceof Chart3D) {
+            Chart3D chart = (Chart3D) drawable;
+            //this.panel.setViewPoint(new ViewPoint3D(new Point3D(30, -30, 30), chart.getViewPoint().getAngle(), 0));
+        }
+        drawable.getViewPoint().moveLeftRight(-Math.PI / 60);
+        this.panel.repaint();
+
+//        ViewPoint3D currVP = this.panel.getViewPoint();
+//        ViewPoint3D newVP = currVP.moveLeftRight(-Math.PI / 300);
+//        ViewPoint3D nextVP = new ViewPoint3D(newVP.getTheta(), newVP.getPhi(), newVP.getRho(), newVP.getAngle());
+//        //this.chart.nextViewPoint = nextVP.getPoint();
+//        //System.out.println("Next point right = " + this.chart.nextViewPoint);
+//        this.panel.setViewPoint(newVP);
+//        this.panel.repaint();
     }
     
 }

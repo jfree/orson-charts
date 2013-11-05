@@ -15,6 +15,7 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
@@ -24,11 +25,12 @@ import com.orsoncharts.data.PieDataset3D;
 import com.orsoncharts.plot.PiePlot3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.legend.LegendAnchor;
-import com.orsoncharts.plot.Pie3DPaintSource;
-import com.orsoncharts.plot.StandardPie3DPaintSource;
+import com.orsoncharts.plot.ColorSource;
+import com.orsoncharts.plot.StandardColorSource;
+import java.awt.Font;
 
 /**
- * A test app.
+ * A demo showing a simple pie chart in 3D.
  */
 public class PieChart3DDemo1 extends JFrame {
 
@@ -59,14 +61,14 @@ public class PieChart3DDemo1 extends JFrame {
         JPanel content = new JPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         Chart3D chart = Chart3DFactory.createPieChart("PieChart3DDemo1", 
-                createDataset());
+                "This data is random", createDataset());
         chart.setTitleAnchor(TitleAnchor.TOP_LEFT);
         chart.setLegendAnchor(LegendAnchor.BOTTOM_RIGHT);
         PiePlot3D plot = (PiePlot3D) chart.getPlot();
-        Pie3DPaintSource paintSource = new StandardPie3DPaintSource(
+        ColorSource colorSource = new StandardColorSource(
                 new Color[] {new Color(0x1A9641), new Color(0xA6D96A), 
                     new Color(0xFDAE61), new Color(0xFFFFBF)});
-        plot.setPaintSource(paintSource);
+        plot.setSectionColorSource(colorSource);
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
         chartPanel.setMargin(0.05);
         content.add(new DisplayPanel3D(chartPanel));

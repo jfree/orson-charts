@@ -1,8 +1,8 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -43,17 +43,67 @@ public enum RefPt2D {
     /** The bottom-right corner of a rectangle. */
     BOTTOM_RIGHT;
     
+    /**
+     * Returns <code>true</code> if the reference point is at the left, and
+     * <code>false</code> otherwise.
+     * 
+     * @return A boolean. 
+     */
     public boolean isLeft() {
         return (this == TOP_LEFT || this == CENTER_LEFT || this == BOTTOM_LEFT);
     }
     
+    /**
+     * Returns <code>true</code> if the reference point is at the right, and
+     * <code>false</code> otherwise.
+     * 
+     * @return A boolean. 
+     */
     public boolean isRight() {
         return (this == TOP_RIGHT || this == CENTER_RIGHT 
                 || this == BOTTOM_RIGHT);        
     }
     
-    public boolean isCenter() {
+    /**
+     * Returns <code>true</code> if the reference point is at the center 
+     * horizontally, and <code>false</code> otherwise.
+     * 
+     * @return A boolean. 
+     */
+    public boolean isHorizontalCenter() {
         return (this == TOP_CENTER || this == CENTER 
                 || this == BOTTOM_CENTER);                
+    }
+    
+    /**
+     * Returns <code>true</code> if the reference point is at the top, and 
+     * <code>false</code> otherwise.
+     * 
+     * @return A boolean. 
+     */
+    public boolean isTop() {
+        return (this == TOP_LEFT || this == TOP_CENTER || this == TOP_RIGHT);
+    }
+
+    /**
+     * Returns <code>true</code> if the reference point is at the bottom, and 
+     * <code>false</code> otherwise.
+     * 
+     * @return A boolean. 
+     */
+    public boolean isBottom() {
+        return (this == BOTTOM_LEFT || this == BOTTOM_CENTER 
+                || this == BOTTOM_RIGHT);
+    }
+    
+    /**
+     * Returns <code>true</code> if the reference point is at the center 
+     * vertically, and <code>false</code> otherwise.
+     * 
+     * @return A boolean. 
+     */
+    public boolean isVerticalCenter() {
+        return (this == CENTER_LEFT || this == CENTER 
+                || this == CENTER_RIGHT);
     }
 }

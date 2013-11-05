@@ -9,19 +9,21 @@
 package com.orsoncharts.table;
 
 import java.awt.Dimension;
+import java.awt.Insets;
 import java.awt.Graphics2D;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Rectangle2D;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import com.orsoncharts.util.ArgChecks;
-import java.awt.Insets;
 
 /**
  * A table element that displays a list of sub-elements in a flow layout.
  */
-public class FlowElement extends AbstractTableElement implements TableElement {
+public class FlowElement extends AbstractTableElement implements TableElement,
+        Serializable {
 
     /** The sub-elements in this flow. */
     private List<TableElement> elements;
@@ -98,23 +100,28 @@ public class FlowElement extends AbstractTableElement implements TableElement {
         Insets insets = getInsets();
         double width = insets.left + insets.right;
         double height = insets.top + insets.bottom;
-        double w = insets.left + insets.right;
-        double h = 0.0;
-        // FIXME:  this is not going to work when the flow wraps...
+        double rowWidth = insets.left + insets.right;
+        double rowHeight = 0.0;
+        boolean first = true;
         for (TableElement e : this.elements) {
             Dimension2D dim = e.preferredSize(g2, bounds, constraints);
-            if (w + dim.getWidth() <= maxWidth) {
-                w += dim.getWidth();
-                h = Math.max(dim.getHeight() + insets.top + insets.bottom, h);
-                width = Math.max(width, w);
-                height = Math.max(height, h);
+            if (rowWidth + dim.getWidth() <= maxWidth) {
+                rowWidth += dim.getWidth();
+                if (first) {
+                    first = false;
+                } else {
+                    rowWidth += this.hgap;
+                }
+                rowHeight = Math.max(dim.getHeight(), rowHeight);
             } else {
-                width = Math.max(width, w);
-                height = Math.max(height, h);
-                w = insets.left + insets.right + dim.getWidth();
-                h = insets.top + insets.bottom + dim.getHeight();
+                width = Math.max(width, rowWidth);
+                rowWidth = insets.left + insets.right + dim.getWidth();
+                height += rowHeight;
+                rowHeight = dim.getHeight();
             }
+            width = Math.max(width, rowWidth);
         }
+        height += rowHeight;
         return new Dimension((int) width, (int) height);
     }
 
@@ -203,6 +210,31 @@ public class FlowElement extends AbstractTableElement implements TableElement {
             TableElement element = this.elements.get(i);
             element.draw(g2, rect);
         }
+    }
+    
+    /**
+     * Tests this element for equality with an arbitrary object.
+     * 
+     * @param obj  the object (<code>null</code> permitted).
+     * 
+     * @return A boolean. 
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof FlowElement)) {
+            return false;
+        }
+        FlowElement that = (FlowElement) obj;
+        if (this.hgap != that.hgap) {
+            return false;
+        }
+        if (!this.elements.equals(that.elements)) {
+            return false;
+        }
+        return super.equals(obj);
     }
     
     /** 

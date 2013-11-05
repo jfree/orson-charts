@@ -1,6 +1,6 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
  * (C)opyright 2013, by Object Refinery Limited.
  * 
@@ -26,10 +26,11 @@ public class ZoomOutAction extends AbstractAction {
      * Creates a new zoom-out action associated with the specified panel.
      * 
      * @param panel  the panel (<code>null</code> not permitted).
+     * @param fontAwesome  use the FontAwesome icon text?
      */
-    public ZoomOutAction(Panel3D panel3D, boolean fontAwesome) {
+    public ZoomOutAction(Panel3D panel, boolean fontAwesome) {
         super("\uf010");
-        this.panel = panel3D;
+        this.panel = panel;
         if (!fontAwesome) {
             putValue(Action.NAME, "Zoom Out");
         }
@@ -40,10 +41,9 @@ public class ZoomOutAction extends AbstractAction {
     @Override
     public void actionPerformed(ActionEvent e) {
         ViewPoint3D viewPt = this.panel.getViewPoint();
-        float valRho = Math.max(10.0f, viewPt.getRho() + 5.0f);
-        float valTheta = viewPt.getTheta();
-        float valPhi = viewPt.getPhi();
-        panel.setViewPoint(new ViewPoint3D(valTheta, valPhi, valRho));
+        double valRho = Math.max(10.0f, viewPt.getRho() + 5.0f);
+        this.panel.getViewPoint().setRho(valRho);
+        this.panel.repaint();
     }
     
 }

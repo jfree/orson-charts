@@ -1,6 +1,6 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
  * (C)opyright 2013, by Object Refinery Limited.
  * 
@@ -8,6 +8,7 @@
 
 package com.orsoncharts.data.category;
 
+import com.orsoncharts.TestUtils;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -41,5 +42,23 @@ public class StandardCategoryDataset3DTest {
         assertFalse(d1.equals(d2));
         d2.addValue(1.0, "S1", "R1", "C1");
         assertTrue(d1.equals(d2));
+        
+        d1.addValue(null, "S1", "R2", "C2");
+        assertFalse(d1.equals(d2));
+        d2.addValue(null, "S1", "R2", "C2");
+        assertTrue(d1.equals(d2));
     }
+    
+    /**
+     * A check for serialization.
+     */
+    @Test
+    public void testSerializationPieChart() {
+        StandardCategoryDataset3D d1 = new StandardCategoryDataset3D();
+        d1.addValue(1.0, "S1", "R1", "C1");
+        StandardCategoryDataset3D d2 
+                = (StandardCategoryDataset3D) TestUtils.serialized(d1);
+        assertEquals(d1, d2);
+    }
+  
 }

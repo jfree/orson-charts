@@ -8,9 +8,11 @@
 
 package com.orsoncharts.data;
 
+import com.orsoncharts.TestUtils;
+import com.orsoncharts.data.category.StandardCategoryDataset3D;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
@@ -117,5 +119,23 @@ public class DefaultKeyedValues3DTest {
         DefaultKeyedValues3D<Number> d2 = new DefaultKeyedValues3D<Number>();
         assertTrue(d1.equals(d2));
         assertFalse(d1.equals(null));
+        
+        d1.setValue(1.0, "S1", "R1", "C1");
+        assertFalse(d1.equals(d2));
+        d2.setValue(1.0, "S1", "R1", "C1");
+        assertTrue(d1.equals(d2));
     }
+
+    /**
+     * Check for serialization support.
+     */
+    @Test
+    public void testSerialization() {
+        DefaultKeyedValues3D<Number> d1 = new DefaultKeyedValues3D<Number>();
+        d1.setValue(1.0, "S1", "R1", "C1");
+        DefaultKeyedValues3D<Number> d2 
+                = (DefaultKeyedValues3D<Number>) TestUtils.serialized(d1);
+        assertEquals(d1, d2);
+    }
+
 }

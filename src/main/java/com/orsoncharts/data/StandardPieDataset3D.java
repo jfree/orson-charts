@@ -1,6 +1,6 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
  * (C)opyright 2013, by Object Refinery Limited.
  * 
@@ -8,7 +8,9 @@
 
 package com.orsoncharts.data;
 
+import java.io.Serializable;
 import java.util.List;
+
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.plot.PiePlot3D;
 
@@ -16,7 +18,7 @@ import com.orsoncharts.plot.PiePlot3D;
  * A dataset that can be used with a {@link PiePlot3D}.
  */
 public final class StandardPieDataset3D extends AbstractDataset3D 
-        implements PieDataset3D {
+        implements PieDataset3D, Serializable {
 
     /** Storage for the data. */
     private DefaultKeyedValues<Number> data;
@@ -98,7 +100,7 @@ public final class StandardPieDataset3D extends AbstractDataset3D
      */
     public void add(Comparable key, Number value) {
         ArgChecks.nullNotPermitted(key, "key");
-        this.data.addValue(key, value);
+        this.data.put(key, value);
         fireDatasetChanged();
     }
 
