@@ -89,8 +89,10 @@ public final class Offset2D implements Serializable {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 59 * hash + (int) (Double.doubleToLongBits(this.dx) ^ (Double.doubleToLongBits(this.dx) >>> 32));
-        hash = 59 * hash + (int) (Double.doubleToLongBits(this.dy) ^ (Double.doubleToLongBits(this.dy) >>> 32));
+        hash = 59 * hash + (int) (Double.doubleToLongBits(this.dx) 
+                ^ (Double.doubleToLongBits(this.dx) >>> 32));
+        hash = 59 * hash + (int) (Double.doubleToLongBits(this.dy) 
+                ^ (Double.doubleToLongBits(this.dy) >>> 32));
         return hash;
     }
 }

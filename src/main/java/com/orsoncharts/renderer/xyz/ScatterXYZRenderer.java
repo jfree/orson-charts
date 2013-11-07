@@ -25,7 +25,7 @@ import com.orsoncharts.util.ArgChecks;
  * {@link XYZPlot} and any {@link XYZDataset} instance.
  * <br><br>
  * TIP: to create a chart using this renderer, you can use the
- * {@link Chart3DFactory#createScatterPlot(String, XYZDataset, String, String, String)}
+ * {@link Chart3DFactory#createScatterPlot(String, String, XYZDataset, String, String, String)}
  * method.
  */
 public class ScatterXYZRenderer extends AbstractXYZRenderer 

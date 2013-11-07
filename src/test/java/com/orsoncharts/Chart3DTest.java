@@ -23,12 +23,17 @@ import com.orsoncharts.data.DefaultKeyedValues;
 import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.data.xyz.XYZSeries;
 import com.orsoncharts.data.xyz.XYZSeriesCollection;
+import com.orsoncharts.legend.StandardLegendBuilder;
+import java.awt.GradientPaint;
 
 /**
  * Tests for the {@link Chart3D} class.
  */
 public class Chart3DTest {
  
+    /**
+     * Checks for the equals() method.
+     */
     @Test
     public void checkEquals() {
         Chart3D c1 = Chart3DFactory.createPieChart("title", "subtitle", 
@@ -67,6 +72,15 @@ public class Chart3DTest {
         c2.setLegendBuilder(null);
         assertTrue(c1.equals(c2));
         
+        StandardLegendBuilder slb1 = new StandardLegendBuilder();
+        slb1.setHeader("ABC");
+        c1.setLegendBuilder(slb1);
+        assertFalse(c1.equals(c2));
+        StandardLegendBuilder slb2 = new StandardLegendBuilder();
+        slb2.setHeader("ABC");
+        c2.setLegendBuilder(slb2);
+        assertTrue(c1.equals(c2));
+        
         // chart box color
         c1.setChartBoxColor(Color.CYAN);
         assertFalse(c1.equals(c2));
@@ -82,6 +96,12 @@ public class Chart3DTest {
         Chart3D c1 = Chart3DFactory.createPieChart("title", "subtitle", 
                 createPieDataset());
         Chart3D c2 = (Chart3D) TestUtils.serialized(c1);
+        assertEquals(c1, c2);
+        
+        // check that gradient paint is correctly serialized
+        c1.setBackground(new StandardRectanglePainter(new GradientPaint(1f, 2f,
+                Color.RED, 3f, 4f, Color.BLUE)));
+        c2 = (Chart3D) TestUtils.serialized(c1);
         assertEquals(c1, c2);
     }
     

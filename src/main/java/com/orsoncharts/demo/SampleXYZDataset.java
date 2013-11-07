@@ -1,30 +1,29 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
  * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
-package com.orsoncharts.data.xyz;
+package com.orsoncharts.demo;
 
 import com.orsoncharts.data.AbstractDataset3D;
+import com.orsoncharts.data.xyz.XYZDataset;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A default {@link XYZDataset} implementation.  This is used for some 
+ * A sample {@link XYZDataset} implementation.  This is used for some 
  * demo applications.
- * 
- * TODO:  generalise this class or remove it.
  */
-public class StandardXYZDataset extends AbstractDataset3D implements XYZDataset {
+public class SampleXYZDataset extends AbstractDataset3D implements XYZDataset {
 
     private double[][] xValues;
     private double[][] yValues;
     private double[][] zValues;
 
-    public StandardXYZDataset(int seriesCount, int pointCount) {
+    public SampleXYZDataset(int seriesCount, int pointCount) {
         this.xValues = new double[seriesCount][pointCount];
         this.yValues = new double[seriesCount][pointCount];
         this.zValues = new double[seriesCount][pointCount];

@@ -8,11 +8,11 @@
 
 package com.orsoncharts.renderer.category;
 
-import com.orsoncharts.Chart3D;
-import com.orsoncharts.Chart3DFactory;
 import java.awt.Color;
 import java.io.Serializable;
 
+import com.orsoncharts.Chart3D;
+import com.orsoncharts.Chart3DFactory;
 import com.orsoncharts.axis.Axis3D;
 import com.orsoncharts.axis.CategoryAxis3D;
 import com.orsoncharts.data.category.CategoryDataset3D;

@@ -13,6 +13,7 @@ import java.awt.Font;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import com.orsoncharts.Chart3D;
 import com.orsoncharts.data.PieDataset3D;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.graphics3d.Dimension3D;
@@ -38,7 +39,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
     public Font DEFAULT_SECTION_LABEL_FONT = new Font("Dialog", Font.PLAIN, 14);
     
     /** The dataset. */
-    private transient PieDataset3D<Number> dataset;
+    private PieDataset3D<Number> dataset;
 
     /** The radius of the pie chart. */
     private double radius; 
@@ -75,9 +76,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
         this.dataset.addChangeListener(this);
         this.radius = 4.0;    
         this.depth = 0.5;
-        this.sectionColorSource = new StandardColorSource(
-                new Color[] {new Color(0x1A9641), new Color(0xA6D96A), 
-                    new Color(0xFDAE61), new Color(0xFFFFBF)});
+        this.sectionColorSource = new StandardColorSource();
         this.sectionLabelFontSource = new StandardFontSource(
                 DEFAULT_SECTION_LABEL_FONT);
         this.sectionLabelColorSource = new StandardColorSource(Color.BLACK);
@@ -159,7 +158,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
      * Sets the color source and sends a {@link Plot3DChangeEvent} to all 
      * registered listeners.
      * 
-     * @param paintSource  the paint source. 
+     * @param source  the color source (<code>null</code> not permitted). 
      */
     public void setSectionColorSource(ColorSource source) {
         ArgChecks.nullNotPermitted(source, "source");
@@ -178,8 +177,10 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
     }
     
     /**
-     * Sets the font source and sends a {@link PiePlot3D
-     * @param source 
+     * Sets the font source and sends a {@link Plot3DChangeEvent} to all
+     * registered listeners.
+     * 
+     * @param source  the source (<code>null</code> not permitted). 
      */
     public void setSectionLabelFontSource(FontSource source) {
         ArgChecks.nullNotPermitted(source, "source");
@@ -188,9 +189,13 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
     }
 
     /**
-     * Returns the color source for section labels.
+     * Returns the color source for section labels.  The default value is
+     * an instance of {@link StandardColorSource} that always returns
+     * <code>Color.BLACK</code>.
      * 
      * @return The color source (never <code>null</code>).
+     * 
+     * @see #setSectionLabelColorSource(ColorSource) 
      */
     public ColorSource getSectionLabelColorSource() {
         return this.sectionLabelColorSource;
@@ -201,6 +206,8 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
      * {@link Plot3DChangeEvent} to all registered listeners.
      * 
      * @param source  the color source. 
+     * 
+     * @see #getSectionLabelColorSource() 
      */
     public void setSectionLabelColorSource(ColorSource source) {
         ArgChecks.nullNotPermitted(source, "source");
@@ -232,7 +239,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
     
     /**
      * Sets the number of segments used when composing the pie chart and 
-     * sends a {@link PlotChangeEvent} to all registered listeners.  A higher
+     * sends a {@link Plot3DChangeEvent} to all registered listeners.  A higher
      * number will result in a more rounded pie chart, but will take longer
      * to render.
      * 
@@ -319,7 +326,8 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
             if (n != null) {
                 double angle = Math.PI * 2 * (n.doubleValue() / total);
                 result.addAll(Object3D.createPieLabelMarkers(this.radius * 1.2,
-                        0.0, yOffset - 0.5, this.depth + 0.5, r, r + angle));
+                        0.0, yOffset - this.depth * 0.05, this.depth * 1.1, r, 
+                        r + angle));
                 r = r + angle;
             }
         }
@@ -353,6 +361,12 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
             return false;
         }
         if (!this.sectionLabelFontSource.equals(that.sectionLabelFontSource)) {
+            return false;
+        }
+        if (!this.sectionLabelColorSource.equals(that.sectionLabelColorSource)) {
+            return false;
+        }
+        if (this.segments != that.segments) {
             return false;
         }
         return super.equals(obj);

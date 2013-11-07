@@ -1,8 +1,8 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -11,9 +11,13 @@ package com.orsoncharts.demo;
 import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import static com.orsoncharts.demo.AreaChart3DDemo1.createDemoPanel;
 import com.orsoncharts.graphics3d.DefaultDrawable3D;
 import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.Point3D;
@@ -22,16 +26,11 @@ import com.orsoncharts.graphics3d.ViewPoint3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.graphics3d.swing.Panel3D;
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * A demo of the viewing point.
  */
-public class ViewPointDemo extends JFrame {
+public class ViewPoint3DDemo extends JFrame {
 
     List<Point3D> xlist;
     List<Point3D> ylist;
@@ -43,7 +42,7 @@ public class ViewPointDemo extends JFrame {
      *
      * @param title  the frame title.
      */
-    public ViewPointDemo(String title) {
+    public ViewPoint3DDemo(String title) {
         super(title);
         addWindowListener(new WindowAdapter() {
             @Override
@@ -67,10 +66,8 @@ public class ViewPointDemo extends JFrame {
         World world = new World();
         world.add(Object3D.createCube(1.0, 0, 0, 0, Color.BLUE));
         ViewPoint3D vp = new ViewPoint3D(new Point3D(10, 10, 10), 0);
-        xlist = addRing(false, world, new Point3D(0, 25, 0), Point3D.UNIT_X, Color.GREEN);
-        //ylist = addRing(true, world, new Point3D(5, 5, 5), vp.getVerticalRotationAxis(), Color.CYAN);
-        ylist = addRing(true, world, new Point3D(5, 5, 5), vp.getVerticalRotationAxis(), Color.CYAN);
-        //ylist = addRing(true, world, new Point3D(5, -5, 0), vp.getVerticalRotationAxis(), Color.CYAN);
+        xlist = addRing(true, world, new Point3D(0, 5, 0), Point3D.UNIT_X, Color.GREEN);
+//        ylist = addRing(true, world, new Point3D(5, 5, 5), vp.getVerticalRotationAxis(), Color.CYAN);
         ylist = addRing(true, world, new Point3D(0, 0, 5), Point3D.UNIT_Y, Color.ORANGE);
         zlist = addRing(true, world, new Point3D(0, 5, 0), Point3D.UNIT_Z, Color.RED);
         DefaultDrawable3D drawable = new DefaultDrawable3D(world);
@@ -108,7 +105,7 @@ public class ViewPointDemo extends JFrame {
                 try {
                     Thread.sleep(50L);
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(ViewPointDemo.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ViewPoint3DDemo.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -120,7 +117,7 @@ public class ViewPointDemo extends JFrame {
      * @param args  command line arguments (ignored).
      */
     public static void main(String[] args) {
-        ViewPointDemo app = new ViewPointDemo(
+        ViewPoint3DDemo app = new ViewPoint3DDemo(
                 "OrsonCharts: ViewPointDemo.java");
         app.pack();
         app.setVisible(true);

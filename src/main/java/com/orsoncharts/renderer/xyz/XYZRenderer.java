@@ -26,7 +26,7 @@ public interface XYZRenderer extends Renderer3D {
      * 
      * @return The plot (possibly <code>null</code>). 
      */
-    public XYZPlot getPlot();
+    XYZPlot getPlot();
   
     /**
      * Sets the plot that the renderer is assigned to.  Although this method
@@ -34,7 +34,7 @@ public interface XYZRenderer extends Renderer3D {
      * 
      * @param plot  the plot (<code>null</code> permitted). 
      */
-    public void setPlot(XYZPlot plot);
+    void setPlot(XYZPlot plot);
     
     /**
      * Returns the paint source for the renderer, which is an object that
@@ -43,7 +43,7 @@ public interface XYZRenderer extends Renderer3D {
      * 
      * @return The paint source (never <code>null</code>). 
      */
-    public XYZPaintSource getPaintSource();
+    XYZPaintSource getPaintSource();
 
     /**
      * Returns the range that should be set on the x-axis in order for this 
@@ -54,7 +54,7 @@ public interface XYZRenderer extends Renderer3D {
      * 
      * @return The range (possibly <code>null</code>). 
      */
-    public Range findXRange(XYZDataset dataset);
+    Range findXRange(XYZDataset dataset);
     
     /**
      * Returns the range that should be set on the y-axis in order for this 
@@ -65,7 +65,7 @@ public interface XYZRenderer extends Renderer3D {
      * 
      * @return The range. 
      */
-    public Range findYRange(XYZDataset dataset);
+    Range findYRange(XYZDataset dataset);
     
     /**
      * Returns the range that should be set on the z-axis in order for this 
@@ -76,7 +76,7 @@ public interface XYZRenderer extends Renderer3D {
      * 
      * @return The range. 
      */
-    public Range findZRange(XYZDataset dataset);
+    Range findZRange(XYZDataset dataset);
 
     /**
      * Constructs and places one item from the specified dataset into the given 
@@ -93,7 +93,7 @@ public interface XYZRenderer extends Renderer3D {
      * @param yOffset  the y-offset.
      * @param zOffset  the z-offset.
      */
-    public void composeItem(XYZDataset dataset, int series, int item, 
+    void composeItem(XYZDataset dataset, int series, int item, 
             World world, Dimension3D dimensions, 
             double xOffset, double yOffset, double zOffset);
 

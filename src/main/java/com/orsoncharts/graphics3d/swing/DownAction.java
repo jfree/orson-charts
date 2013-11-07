@@ -1,6 +1,6 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
  * (C)opyright 2013, by Object Refinery Limited.
  * 
@@ -8,9 +8,10 @@
 
 package com.orsoncharts.graphics3d.swing;
 
-import com.orsoncharts.util.ArgChecks;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
+import com.orsoncharts.util.ArgChecks;
+import javax.swing.Action;
 
 /**
  * An action that handles rotating the 3D view towards the bottom of the screen.
@@ -20,7 +21,7 @@ public class DownAction extends AbstractAction {
     private Panel3D panel;
   
     /**
-     * Creates a new action.
+     * Creates a new action associated with the specified panel. 
      * 
      * @param panel  the panel (<code>null</code> not permitted).
      */
@@ -28,11 +29,13 @@ public class DownAction extends AbstractAction {
         super("\uF063");
         ArgChecks.nullNotPermitted(panel, "panel");
         this.panel = panel;
+        putValue(Action.SHORT_DESCRIPTION, "Rotate down");
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        this.panel.getViewPoint().moveUpDown(-Math.PI / 60);
+        double delta = this.panel.getRotateIncrement();
+        this.panel.getViewPoint().moveUpDown(-delta);
         this.panel.repaint();
     }
     

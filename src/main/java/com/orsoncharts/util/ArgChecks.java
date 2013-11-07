@@ -11,8 +11,12 @@ package com.orsoncharts.util;
 /**
  * Utility methods for argument checking.
  */
-public class ArgChecks {
+public final class ArgChecks {
 
+    private ArgChecks() {
+        // no need to instantiate this ever
+    }
+ 
     /**
      * Checks if the specified argument is <code>null</code> and, if it is,
      * throws an <code>IllegalArgumentException</code>.

@@ -1,9 +1,8 @@
-/**
- * ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -19,14 +18,14 @@ public interface Values2D<T> {
      * 
      * @return The number of items in the x-dimension. 
      */
-    public int getXCount();
+    int getXCount();
   
     /**
      * Returns the number of items in the y-dimension.
      * 
      * @return The number of items in the y-dimension. 
      */
-    public int getYCount();
+    int getYCount();
   
     /**
      * Returns the data item at the specified position.
@@ -36,18 +35,19 @@ public interface Values2D<T> {
      * 
      * @return The data value (possibly <code>null</code>).
      */
-    public T getValue(int xIndex, int yIndex);
+    T getValue(int xIndex, int yIndex);
 
     /**
-     * Returns the data item at the specified position as a double primitive.
-     * Where the {@link #getValue(int, int)} method returns <code>null</code>, 
-     * this method returns <code>Double.NaN</code>.
+     * Returns the data value at the specified position as a double primitive,
+     * or <code>Double.NaN</code> if the value is not an instance of 
+     * <code>Number</code>.  Where the {@link #getValue(int, int)} method 
+     * returns <code>null</code>, this method returns <code>Double.NaN</code>.
      * 
      * @param xIndex  the x-index.
      * @param yIndex  the y-index.
      * 
      * @return The data value.
      */
-    public double getDoubleValue(int xIndex, int yIndex);
+    double getDoubleValue(int xIndex, int yIndex);
 
 }

@@ -22,7 +22,11 @@ import java.awt.Image;
 
 /**
  * A {@link RectanglePainter} that fills the rectangle with a 
- * <code>Paint</code>.  Instances of this class are immutable.
+ * color or image.  Instances of this class are immutable.
+ * <br><br>
+ * Note that it is possible to use gradient paint with this painter, but it is
+ * usually better to use {@link GradientRectanglePainter} since it provides
+ * options to transform the gradient to fit the chart background size.
  */
 public class StandardRectanglePainter implements RectanglePainter, 
         Serializable {
@@ -32,6 +36,8 @@ public class StandardRectanglePainter implements RectanglePainter,
     
     /** A background image for the chart, if any. */
     private transient Image image;
+    
+    // TODO : add the fitting specification (see Fit2D).
     
     /**
      * Creates a new painter that will fill a rectangle with the specified

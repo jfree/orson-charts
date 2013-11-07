@@ -1,8 +1,8 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -22,4 +22,5 @@ public interface Dataset3DChangeListener extends EventListener {
      * @param event  the event details. 
      */
     public void datasetChanged(Dataset3DChangeEvent event);
+
 }

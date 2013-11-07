@@ -1,6 +1,6 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
  * (C)opyright 2013, by Object Refinery Limited.
  * 
@@ -24,21 +24,21 @@ public interface Values3D<T> {
      * 
      * @return The number of items in the x-dimension. 
      */
-    public int getSeriesCount();
+    int getSeriesCount();
   
     /**
      * Returns the number of items in the y-dimension.
      * 
      * @return The number of items in the y-dimension. 
      */
-    public int getRowCount();
+    int getRowCount();
   
     /**
      * Returns the number of items in the z-dimension.
      * 
      * @return The number of items in the z-dimension. 
      */
-    public int getColumnCount();
+    int getColumnCount();
   
     /**
      * Returns the data item at the specified position.
@@ -49,7 +49,7 @@ public interface Values3D<T> {
      * 
      * @return The data value (possibly <code>null</code>).
      */
-    public T getValue(int seriesIndex, int rowIndex, int columnIndex);
+    T getValue(int seriesIndex, int rowIndex, int columnIndex);
    
     /**
      * Returns the data item at the specified position as a double primitive.
@@ -62,7 +62,6 @@ public interface Values3D<T> {
      * 
      * @return The data value.
      */
-    public double getDoubleValue(int seriesIndex, int rowIndex, 
-            int columnIndex);
+    double getDoubleValue(int seriesIndex, int rowIndex, int columnIndex);
   
 }

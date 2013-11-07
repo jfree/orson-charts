@@ -8,6 +8,7 @@
 
 package com.orsoncharts.legend;
 
+import java.awt.Color;
 import java.awt.Paint;
 import java.awt.geom.Rectangle2D;
 import java.awt.Font;
@@ -26,7 +27,6 @@ import com.orsoncharts.table.TableElement;
 import com.orsoncharts.table.TextElement;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.ObjectUtils;
-import java.awt.Color;
 
 /**
  * The standard legend builder, which creates a simple horizontal legend
@@ -51,6 +51,9 @@ public final class StandardLegendBuilder implements LegendBuilder,
     public static final Font DEFAULT_ITEM_FONT = new Font("Dialog", Font.PLAIN,
             12);
     
+    private static final Shape DEFAULT_LEGEND_SHAPE 
+            = new Rectangle2D.Double(-6, -4, 12, 8);
+
     /** An optional header/title for the legend (can be <code>null</code>). */
     private String header;
     
@@ -284,9 +287,6 @@ public final class StandardLegendBuilder implements LegendBuilder,
         return legend;
     }
     
-    private static final Shape DEFAULT_LEGEND_SHAPE 
-            = new Rectangle2D.Double(-6, -4, 12, 8);
-
     /**
      * Creates a single item in the legend (normally this represents one
      * data series from the dataset).

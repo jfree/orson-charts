@@ -513,13 +513,16 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
         if (this.gridlinesVisibleZ != that.gridlinesVisibleZ) {
             return false;
         }
-        if (!ObjectUtils.equalsPaint(this.gridlinePaintX, that.gridlinePaintX)) {
+        if (!ObjectUtils.equalsPaint(this.gridlinePaintX, 
+                that.gridlinePaintX)) {
             return false;
         }
-        if (!ObjectUtils.equalsPaint(this.gridlinePaintY, that.gridlinePaintY)) {
+        if (!ObjectUtils.equalsPaint(this.gridlinePaintY, 
+                that.gridlinePaintY)) {
             return false;
         }
-        if (!ObjectUtils.equalsPaint(this.gridlinePaintZ, that.gridlinePaintZ)) {
+        if (!ObjectUtils.equalsPaint(this.gridlinePaintZ, 
+                that.gridlinePaintZ)) {
             return false;
         }
         if (!this.gridlineStrokeX.equals(that.gridlineStrokeX)) {
@@ -534,16 +537,40 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
         return super.equals(obj);
     }
 
+    /**
+     * Receives notification that one of the plot's axes has changed, and 
+     * responds by passing on a {@link Plot3DChangeEvent} to the plot's 
+     * registered listeners (with the default set-up, this notifies the 
+     * chart).
+     * 
+     * @param event  the event. 
+     */
     @Override
     public void axisChanged(Axis3DChangeEvent event) {
         fireChangeEvent();
     }
 
+    /**
+     * Receives notification that the plot's renderer has changed, and 
+     * responds by passing on a {@link Plot3DChangeEvent} to the plot's 
+     * registered listeners (with the default set-up, this notifies the 
+     * chart).
+     * 
+     * @param event  the event. 
+     */
     @Override
     public void rendererChanged(Renderer3DChangeEvent event) {
         fireChangeEvent();
     }
 
+    /**
+     * Receives notification that the plot's dataset has changed, and 
+     * responds by passing on a {@link Plot3DChangeEvent} to the plot's 
+     * registered listeners (with the default set-up, this notifies the 
+     * chart).
+     * 
+     * @param event  the event. 
+     */
     @Override
     public void datasetChanged(Dataset3DChangeEvent event) {
         this.xAxis.configureAsXAxis(this);

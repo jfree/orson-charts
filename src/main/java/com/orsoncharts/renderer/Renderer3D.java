@@ -36,7 +36,7 @@ public interface Renderer3D {
      * 
      * @param listener  the listener (<code>null</code> not permitted).
      */
-    public void addChangeListener(Renderer3DChangeListener listener);
+    void addChangeListener(Renderer3DChangeListener listener);
     
     /**
      * Deregisters a listener so that it no longer receives notification of
@@ -44,6 +44,6 @@ public interface Renderer3D {
      * 
      * @param listener  the listener (<code>null</code> not permitted).
      */
-    public void removeChangeListener(Renderer3DChangeListener listener);
+    void removeChangeListener(Renderer3DChangeListener listener);
 
 }

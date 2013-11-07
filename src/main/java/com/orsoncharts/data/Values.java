@@ -1,9 +1,8 @@
-/**
- * ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -19,7 +18,7 @@ public interface Values<T> {
      *
      * @return The number of items in the dataset.
      */
-    public int getItemCount();
+    int getItemCount();
 
     /**
      * Returns the value for the specified item.
@@ -28,10 +27,11 @@ public interface Values<T> {
      *
      * @return The value for the specified item (possibly <code>null</code>).
      */
-    public T getValue(int item);
+    T getValue(int item);
   
     /**
-     * Returns the value for the specified item as a double primitive.  Where
+     * Returns the value for the specified item as a double primitive, provided
+     * that the data type is a subclass of <code>Number</code>.  Where
      * the {@link #getValue(int)} method returns <code>null</code>, this method
      * returns <code>Double.NaN</code>.
      * 
@@ -39,6 +39,6 @@ public interface Values<T> {
      * 
      * @return The value for the specified item. 
      */
-    public double getDoubleValue(int item);
+    double getDoubleValue(int item);
 
 }

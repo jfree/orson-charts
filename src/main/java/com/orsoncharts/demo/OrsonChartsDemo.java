@@ -55,7 +55,7 @@ public class OrsonChartsDemo extends JFrame implements ActionListener,
     
     /** Default size for the content panel in the demo applications. */
     public static final Dimension DEFAULT_CONTENT_SIZE 
-            = new Dimension(600, 400);
+            = new Dimension(760, 480);
     
     private JTextPane chartDescriptionPane;
 
@@ -110,24 +110,41 @@ public class OrsonChartsDemo extends JFrame implements ActionListener,
         JTree tree = new JTree(createTreeModel());
         tree.addTreeSelectionListener(this);
         JScrollPane scroller = new JScrollPane(tree);
-        scroller.setPreferredSize(new Dimension(250, 580));
+        scroller.setPreferredSize(new Dimension(300, 580));
         splitter.add(scroller);
         splitter.add(createChartPanel());
         tabs.add("Demos", splitter);
-        tabs.add("Other Info", createOtherInfoPanel());
+        tabs.add("About", createAboutPanel());
         return tabs;
     }
     
-    private JPanel createOtherInfoPanel() {
+    /**
+     * Creates a panel containing information about Orson Charts.
+     * 
+     * @return A panel containing information about Orson Charts. 
+     */
+    private JPanel createAboutPanel() {
         JPanel result = new JPanel(new BorderLayout());
+        result.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
         JTextPane textPane = new JTextPane();
-        textPane.setText("This is where the other info goes");
-        result.add(textPane);
+        textPane.setEditable(false);
+        URL descriptionURL = OrsonChartsDemo.class.getResource("about.html");
+        try {
+            textPane.setPage(descriptionURL);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        JScrollPane scroller = new JScrollPane(textPane);
+        result.add(scroller);
         return result;
     }
     
     public JPanel chartContainer = new JPanel(new BorderLayout());
     
+    /**
+     * Creates the panel that contains the chart and the chart description.
+     * @return 
+     */
     private JComponent createChartPanel() {
         JSplitPane splitter = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
        
@@ -144,6 +161,8 @@ public class OrsonChartsDemo extends JFrame implements ActionListener,
                 BorderFactory.createEmptyBorder(4, 4, 4, 4), 
                 BorderFactory.createLineBorder(Color.BLACK)));
         this.chartDescriptionPane = new JTextPane();
+        this.chartDescriptionPane.setPreferredSize(new Dimension(400, 200));
+        this.chartDescriptionPane.setEditable(false);
         this.chartDescriptionPane.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
         this.chartDescriptionPane.setText("No chart description available.");
         lowerPanel.add(this.chartDescriptionPane);
@@ -186,6 +205,7 @@ public class OrsonChartsDemo extends JFrame implements ActionListener,
         n.add(createNode("com.orsoncharts.demo.BarChart3DDemo2", "BarChart3DDemo2.java"));
         n.add(createNode("com.orsoncharts.demo.LineChart3DDemo1", "LineChart3DDemo1.java"));
         n.add(createNode("com.orsoncharts.demo.StackedBarChart3DDemo1", "StackedBarChart3DDemo1.java"));
+        n.add(createNode("com.orsoncharts.demo.StackedBarChart3DDemo2", "StackedBarChart3DDemo2.java"));
         return n;
     }
     

@@ -1,6 +1,6 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
  * (C)opyright 2013 by Object Refinery Limited.
  * 
@@ -27,7 +27,7 @@ public interface CategoryRenderer3D extends Renderer3D {
      * 
      * @return The plot (possibly <code>null</code>). 
      */
-    public CategoryPlot3D getPlot();
+    CategoryPlot3D getPlot();
   
     /**
      * Sets the plot that the renderer is assigned to.  Although this method
@@ -35,7 +35,7 @@ public interface CategoryRenderer3D extends Renderer3D {
      * 
      * @param plot  the plot (<code>null</code> permitted). 
      */
-    public void setPlot(CategoryPlot3D plot);
+    void setPlot(CategoryPlot3D plot);
   
     /**
      * Returns the paint source for the renderer, which is an object that
@@ -44,7 +44,7 @@ public interface CategoryRenderer3D extends Renderer3D {
      * 
      * @return The paint source (never <code>null</code>). 
      */
-    public Category3DPaintSource getPaintSource();
+    Category3DPaintSource getPaintSource();
     
     /**
      * Returns the range that should be used on the value axis to display all 
@@ -56,7 +56,7 @@ public interface CategoryRenderer3D extends Renderer3D {
      * 
      * @return The data range. 
      */
-    public Range findValueRange(Values3D data);
+    Range findValueRange(Values3D data);
     
     /**
      * Constructs and places one item from the specified dataset into the given 
@@ -73,8 +73,8 @@ public interface CategoryRenderer3D extends Renderer3D {
      * @param yOffset  the y-offset.
      * @param zOffset  the z-offset.
      */
-    public void composeItem(CategoryDataset3D dataset, int series, int row, 
-            int column, World world, Dimension3D dimensions, 
+    void composeItem(CategoryDataset3D dataset, int series, int row, int column,
+            World world, Dimension3D dimensions, 
             double xOffset, double yOffset, double zOffset);
  
 }

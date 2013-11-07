@@ -16,14 +16,14 @@ import java.awt.Stroke;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.io.Serializable;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Objects;
 import javax.swing.event.EventListenerList;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.ObjectUtils;
 import com.orsoncharts.util.SerialUtils;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
 /**
  * A base class that can be used to create an {@link Axis3D} implementation.

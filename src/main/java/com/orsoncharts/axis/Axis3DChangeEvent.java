@@ -1,15 +1,15 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
 package com.orsoncharts.axis;
 
-import com.orsoncharts.util.ArgChecks;
 import java.util.EventObject;
+import com.orsoncharts.util.ArgChecks;
 
 /**
  * An event associated with a change to an {@link Axis3D}.
@@ -48,4 +48,5 @@ public class Axis3DChangeEvent extends EventObject {
     public Axis3D getAxis() {
         return this.axis;
     }
+
 }

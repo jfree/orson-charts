@@ -40,7 +40,8 @@ public class Chart3DFactory {
     }
     
     /**
-     * Creates a pie chart in 3D.
+     * Creates a pie chart in 3D.  This chart is constructed using a 
+     * {@link PiePlot3D}.
      * 
      * @param title  the chart title (<code>null</code> permitted).
      * @param subtitle  the chart subtitle (<code>null</code> permitted).
@@ -55,14 +56,17 @@ public class Chart3DFactory {
     }
     
     /**
-     * Creates a bar chart in 3D.
+     * Creates a bar chart in 3D.  This chart is constructed using a 
+     * {@link CategoryPlot3D} with a {@link BarRenderer3D}.
      * 
      * @param title  the chart title (<code>null</code> permitted).
      * @param subtitle  the chart subtitle (<code>null</code> permitted).
      * @param dataset  the dataset (<code>null</code> not permitted).
-     * @param rowAxisLabel  the row axis label.
-     * @param columnAxisLabel  the column axis label.
-     * @param valueAxisLabel  the value axis label.
+     * @param rowAxisLabel  the row axis label (<code>null</code> permitted).
+     * @param columnAxisLabel  the column axis label (<code>null</code> 
+     *     permitted).
+     * @param valueAxisLabel  the value axis label (<code>null</code> 
+     *     permitted).
      * 
      * @return A bar chart. 
      */
@@ -80,14 +84,17 @@ public class Chart3DFactory {
     }
     
     /**
-     * Creates a stacked bar chart in 3D.
+     * Creates a stacked bar chart in 3D.  This chart is constructed using a 
+     * {@link CategoryPlot3D} with a {@link StackedBarRenderer3D}.
      * 
      * @param title  the chart title (<code>null</code> permitted).
      * @param subtitle  the chart subtitle (<code>null</code> permitted).
      * @param dataset  the dataset (<code>null</code> not permitted).
-     * @param rowAxisLabel  the row axis label.
-     * @param columnAxisLabel  the column axis label.
-     * @param valueAxisLabel  the value axis label.
+     * @param rowAxisLabel  the row axis label (<code>null</code> permitted).
+     * @param columnAxisLabel  the column axis label (<code>null</code> 
+     *     permitted).
+     * @param valueAxisLabel  the value axis label (<code>null</code> 
+     *     permitted).
      * 
      * @return A stacked bar chart. 
      */
@@ -105,14 +112,17 @@ public class Chart3DFactory {
     }
     
     /**
-     * Creates an area chart in 3D.
+     * Creates an area chart in 3D. This chart is constructed using a 
+     * {@link CategoryPlot3D} with an {@link AreaRenderer3D}.
      * 
      * @param title  the chart title (<code>null</code> permitted).
      * @param subtitle  the chart subtitle (<code>null</code> permitted).
      * @param dataset  the dataset (<code>null</code> not permitted).
-     * @param rowAxisLabel  the row axis label.
-     * @param columnAxisLabel  the column axis label.
-     * @param valueAxisLabel  the value axis label.
+     * @param rowAxisLabel  the row axis label (<code>null</code> permitted).
+     * @param columnAxisLabel  the column axis label (<code>null</code> 
+     *     permitted).
+     * @param valueAxisLabel  the value axis label (<code>null</code> 
+     *     permitted).
      * 
      * @return An area chart. 
      */
@@ -134,15 +144,18 @@ public class Chart3DFactory {
     }
     
     /**
-     * Creates a line chart in 3D for the supplied dataset.  This chart
-     * uses a {@link CategoryPlot3D} with a {@link LineRenderer3D}.
+     * Creates a line chart in 3D for the supplied dataset.  This chart is
+     * constructed using a {@link CategoryPlot3D} with a 
+     * {@link LineRenderer3D}.
      * 
      * @param title  the chart title (<code>null</code> permitted).
      * @param subtitle  the chart subtitle (<code>null</code> permitted).
      * @param dataset  the dataset (<code>null</code> not permitted).
-     * @param rowAxisLabel  the row axis label.
-     * @param columnAxisLabel  the column axis label.
-     * @param valueAxisLabel  the value axis label.
+     * @param rowAxisLabel  the row axis label (<code>null</code> permitted).
+     * @param columnAxisLabel  the column axis label (<code>null</code> 
+     *     permitted).
+     * @param valueAxisLabel  the value axis label (<code>null</code> 
+     *     permitted).
      * 
      * @return A line chart. 
      */
@@ -163,14 +176,15 @@ public class Chart3DFactory {
     }
     
     /**
-     * Creates a scatter plot of <code>(x, y, z)</code> values.
+     * Creates a scatter plot of <code>(x, y, z)</code> values.  This chart is
+     * constructed using a {@link XYZPlot} with a {@link ScatterXYZRenderer}.
      * 
      * @param title  the chart title (<code>null</code> permitted).
      * @param subtitle  the chart subtitle (<code>null</code> permitted).
      * @param dataset  the dataset (<code>null</code> not permitted).
-     * @param xAxisLabel  the x-axis label.
-     * @param yAxisLabel  the y-axis label.
-     * @param zAxisLabel  the z-axis label.
+     * @param xAxisLabel  the x-axis label (<code>null</code> permitted).
+     * @param yAxisLabel  the y-axis label (<code>null</code> permitted).
+     * @param zAxisLabel  the z-axis label (<code>null</code> permitted).
      * 
      * @return The chart. 
      */
@@ -188,15 +202,15 @@ public class Chart3DFactory {
     /**
      * Creates a bar chart based on <code>(x, y, z)</code> values.  You should
      * only use this for special cases, it is usually easier to create 3D
-     * bar charts using the {@link #createBarChart(java.lang.String, com.orsoncharts.data.category.CategoryDataset3D, java.lang.String, java.lang.String, java.lang.String) }
+     * bar charts using the {@link #createBarChart(String, String, CategoryDataset3D, String, String, String) }
      * method.
      * 
      * @param title  the chart title (<code>null</code> permitted).
      * @param subtitle  the chart subtitle (<code>null</code> permitted).
      * @param dataset  the dataset (<code>null</code> not permitted).
-     * @param xAxisLabel  the x-axis label.
-     * @param yAxisLabel  the y-axis label.
-     * @param zAxisLabel  the z-axis label.
+     * @param xAxisLabel  the x-axis label (<code>null</code> permitted).
+     * @param yAxisLabel  the y-axis label (<code>null</code> permitted).
+     * @param zAxisLabel  the z-axis label (<code>null</code> permitted).
      * 
      * @return The chart. 
      */

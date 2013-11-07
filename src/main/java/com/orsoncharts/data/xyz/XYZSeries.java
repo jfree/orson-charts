@@ -1,6 +1,6 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
  * (C)opyright 2013, by Object Refinery Limited.
  * 
@@ -125,6 +125,9 @@ public class XYZSeries implements Serializable {
             return false;
         }
         XYZSeries that = (XYZSeries) obj;
+        if (!this.key.equals(that.key)) {
+            return false;
+        }
         if (!this.items.equals(that.items)) {
             return false;
         }

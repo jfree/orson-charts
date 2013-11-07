@@ -17,7 +17,7 @@ import com.orsoncharts.graphics3d.Dot3D;
 import com.orsoncharts.graphics3d.World;
 
 /**
- * A renderer for 3D scatter plots.
+ * A renderer for 3D scatter plots.  // FIXME : this doesn't actually work at the moment
  * <br><br>
  * NOTE: This class is serializable, but the serialization format is subject 
  * to change in future releases and should not be relied upon for persisting 

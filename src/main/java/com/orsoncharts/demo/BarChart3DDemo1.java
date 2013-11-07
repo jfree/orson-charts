@@ -8,6 +8,7 @@
 
 package com.orsoncharts.demo;
 
+import java.awt.Color;
 import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -16,8 +17,6 @@ import javax.swing.JPanel;
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
-import com.orsoncharts.RectanglePainter;
-import com.orsoncharts.StandardRectanglePainter;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.category.StandardCategoryDataset3D;
 import com.orsoncharts.data.DefaultKeyedValues;
@@ -26,8 +25,6 @@ import com.orsoncharts.legend.LegendAnchor;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.category.BarRenderer3D;
 import com.orsoncharts.renderer.category.StandardCategory3DPaintSource;
-import java.awt.Color;
-import javax.swing.ImageIcon;
 
 /**
  * A demo of a 3D bar chart.
@@ -64,12 +61,12 @@ public class BarChart3DDemo1 extends JFrame {
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         CategoryDataset3D dataset = createDataset();
         Chart3D chart = Chart3DFactory.createBarChart("Quarterly Revenues", 
-                "For three really big companies", dataset, null, "Quarter", 
+                "For some large IT companies", dataset, null, "Quarter", 
                 "$billion Revenues");
         chart.setChartBoxColor(new Color(255, 255, 255, 127));
-        ImageIcon icon = new ImageIcon("/Users/dgilbert/Desktop/me.png"); 
-        RectanglePainter background = new StandardRectanglePainter(Color.WHITE, icon.getImage());
-        chart.setBackground(background);
+//        ImageIcon icon = new ImageIcon("/Users/dgilbert/Desktop/me.png"); 
+//        RectanglePainter background = new StandardRectanglePainter(Color.WHITE, icon.getImage());
+//        chart.setBackground(background);
         chart.setLegendAnchor(LegendAnchor.BOTTOM_RIGHT);
         CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
         plot.setGridlinePaintForValues(Color.BLACK);

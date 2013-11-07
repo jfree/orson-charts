@@ -1,26 +1,27 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
 package com.orsoncharts.plot;
 
-import com.orsoncharts.TestUtils;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
+
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.GradientPaint;
 
 import com.orsoncharts.axis.StandardCategoryAxis3D;
 import com.orsoncharts.axis.NumberAxis3D;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.category.StandardCategoryDataset3D;
 import com.orsoncharts.renderer.category.BarRenderer3D;
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.GradientPaint;
-import static org.junit.Assert.assertTrue;
+import com.orsoncharts.TestUtils;
 
 /**
  * Tests for the {@link CategoryPlot3D} class.

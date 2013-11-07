@@ -14,8 +14,9 @@ import java.util.List;
 import com.orsoncharts.util.ArgChecks;
 
 /**
- * A world is a model containing a collection of objects in 3D space, a
- * viewing point, and a direction for the sunlight.
+ * A world is a model containing a collection of objects in 3D space and a 
+ * direction vector for the sunlight.  A viewing point ({@link ViewPoint3D}) is 
+ * specified externally.
  */
 public class World {
 

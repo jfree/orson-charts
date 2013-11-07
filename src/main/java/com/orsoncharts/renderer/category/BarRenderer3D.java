@@ -22,12 +22,11 @@ import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.Renderer3DChangeEvent;
 import com.orsoncharts.Chart3DFactory;
-import org.jfree.graphics2d.ObjectUtils;
+import com.orsoncharts.util.ObjectUtils;
 
 /**
  * A renderer for creating 3D bar charts from a {@link CategoryDataset3D} (for 
  * use with a {@link CategoryPlot3D}).
- * 
  * <div>
  * <object id="ABC" data="doc-files/BarRenderer3D.svg"  type="image/svg+xml" 
  * width="700" height="400"> 
@@ -35,7 +34,7 @@ import org.jfree.graphics2d.ObjectUtils;
  * </div>
  * <br><br>
  * TIP: to create a chart using this renderer, you can use the
- * {@link Chart3DFactory#createBarChart(String, CategoryDataset3D, String, String, String)} 
+ * {@link Chart3DFactory#createBarChart(String, String, CategoryDataset3D, String, String, String)} 
  * method.
  * <br><br>
  * NOTE: This class is serializable, but the serialization format is subject 

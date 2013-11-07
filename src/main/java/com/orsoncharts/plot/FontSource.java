@@ -27,5 +27,12 @@ public interface FontSource {
      */
     Font getFont(Comparable key);
     
+    /**
+     * Sets the font associated with a key.
+     * 
+     * @param key  the key (<code>null</code> not permitted).
+     * @param font  the font (<code>null</code> not permitted).
+     */
     void setFont(Comparable key, Font font);
+ 
 }

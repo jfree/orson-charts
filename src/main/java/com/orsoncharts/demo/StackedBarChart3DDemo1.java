@@ -16,12 +16,15 @@ import javax.swing.JPanel;
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
+import com.orsoncharts.Colors;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.category.StandardCategoryDataset3D;
 import com.orsoncharts.graphics3d.Dimension3D;
+import com.orsoncharts.graphics3d.ViewPoint3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.category.StackedBarRenderer3D;
+import com.orsoncharts.renderer.category.StandardCategory3DPaintSource;
 
 /**
  * A demo of a 3D stacked bar chart.
@@ -56,15 +59,18 @@ public class StackedBarChart3DDemo1 extends JFrame {
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         CategoryDataset3D dataset = createDataset();
         Chart3D chart = Chart3DFactory.createStackedBarChart(
-                "Water Usage Chart", "Put the data source here", dataset, null, 
-                null, "Value");
+                "Water Usage Chart", 
+                "Source: http://en.wikipedia.org/wiki/Peak_water#Water_supply", 
+                dataset, null, null, "Value");
         CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
         plot.setDimensions(new Dimension3D(14, 5, 2));
         plot.getRowAxis().setVisible(false);
-        //plot.getValueAxis().setRange(100, 2000);
         StackedBarRenderer3D renderer 
                 = (StackedBarRenderer3D) plot.getRenderer();
         renderer.setBarZWidth(0.3);
+        renderer.setPaintSource(new StandardCategory3DPaintSource(
+                Colors.getColors1()));
+        chart.setViewPoint(ViewPoint3D.createAboveViewPoint(50));  
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
         chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         content.add(new DisplayPanel3D(chartPanel));

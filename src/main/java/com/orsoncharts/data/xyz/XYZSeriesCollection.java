@@ -1,6 +1,6 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
  * (C)opyright 2013, by Object Refinery Limited.
  * 
@@ -13,9 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.data.AbstractDataset3D;
+import com.orsoncharts.plot.XYZPlot;
+import com.orsoncharts.renderer.xyz.XYZRenderer;
 
 /**
- * A collection of {@link XYZSeries} objects.
+ * A collection of {@link XYZSeries} objects (implements the {@link XYZDataset}
+ * interface so that it can be used as a source of data for an 
+ * {@link XYZRenderer} on an {@link XYZPlot}).
  */
 public class XYZSeriesCollection extends AbstractDataset3D 
         implements XYZDataset, Serializable {

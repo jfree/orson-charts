@@ -9,7 +9,6 @@
 package com.orsoncharts.demo;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -22,12 +21,8 @@ import com.orsoncharts.Chart3DFactory;
 import com.orsoncharts.TitleAnchor;
 import com.orsoncharts.data.StandardPieDataset3D;
 import com.orsoncharts.data.PieDataset3D;
-import com.orsoncharts.plot.PiePlot3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.legend.LegendAnchor;
-import com.orsoncharts.plot.ColorSource;
-import com.orsoncharts.plot.StandardColorSource;
-import java.awt.Font;
 
 /**
  * A demo showing a simple pie chart in 3D.
@@ -60,15 +55,12 @@ public class PieChart3DDemo1 extends JFrame {
     public static JPanel createDemoPanel() {
         JPanel content = new JPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
-        Chart3D chart = Chart3DFactory.createPieChart("PieChart3DDemo1", 
-                "This data is random", createDataset());
+        Chart3D chart = Chart3DFactory.createPieChart(
+                "New Zealand Exports 2012", 
+                "http://www.stats.govt.nz/browse_for_stats/snapshots-of-nz/nz-in-profile-2013.aspx", createDataset());
         chart.setTitleAnchor(TitleAnchor.TOP_LEFT);
         chart.setLegendAnchor(LegendAnchor.BOTTOM_RIGHT);
-        PiePlot3D plot = (PiePlot3D) chart.getPlot();
-        ColorSource colorSource = new StandardColorSource(
-                new Color[] {new Color(0x1A9641), new Color(0xA6D96A), 
-                    new Color(0xFDAE61), new Color(0xFFFFBF)});
-        plot.setSectionColorSource(colorSource);
+        
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
         chartPanel.setMargin(0.05);
         content.add(new DisplayPanel3D(chartPanel));
@@ -85,10 +77,15 @@ public class PieChart3DDemo1 extends JFrame {
      */
     static PieDataset3D createDataset() {
         StandardPieDataset3D dataset = new StandardPieDataset3D();
-        dataset.add("United States", new Double(30.0));
-        dataset.add("France", new Double(20.0));
-        dataset.add("New Zealand", new Double(12.0));
-        dataset.add("United Kingdom", new Double(43.3));
+        dataset.add("Milk Products", 11625);
+        dataset.add("Meat", 5114);
+        dataset.add("Wood/Logs", 3060);
+        dataset.add("Crude Oil", 2023);
+        dataset.add("Machinery", 1865);
+        dataset.add("Fruit", 1587);
+        dataset.add("Fish", 1367);
+        dataset.add("Wine", 1177);
+        dataset.add("Other", 18870);
         return dataset; 
     }
     

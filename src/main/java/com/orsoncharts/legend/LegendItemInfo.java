@@ -11,9 +11,13 @@ package com.orsoncharts.legend;
 import java.awt.Paint;
 import java.awt.Shape;
 import java.util.Map;
+import com.orsoncharts.plot.Plot3D;
 
 /**
- * Information about a legend item.
+ * Information about an item (typically a data series) that can be displayed
+ * in a legend.  All plots will return a list of these, to be used in the
+ * construction of a chart legend, via the {@link Plot3D#getLegendInfo()}
+ * method.
  */
 public interface LegendItemInfo {
     
@@ -44,7 +48,7 @@ public interface LegendItemInfo {
     /**
      * Returns the shape used to represent the series in the legend.  This
      * may be <code>null</code>, in which case the legend builder should
-     * use some default shape.
+     * use a default shape.
      * 
      * @return The shape (possibly <code>null</code>). 
      */
@@ -59,7 +63,7 @@ public interface LegendItemInfo {
     
     /**
      * A map containing other properties for the legend item.  Not currently
-     * used.
+     * used, but available for future expansion.
      * 
      * @return A map (never <code>null</code>). 
      */

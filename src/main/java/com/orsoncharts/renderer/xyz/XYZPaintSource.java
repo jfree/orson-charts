@@ -27,7 +27,7 @@ public interface XYZPaintSource {
      * 
      * @return The color (never <code>null</code>). 
      */
-    public Color getPaint(int series, int item);
+    Color getPaint(int series, int item);
     
     /**
      * Returns the color that represents the specified series.
@@ -36,6 +36,6 @@ public interface XYZPaintSource {
      * 
      * @return The color (never <code>null</code>).
      */
-    public Color getLegendPaint(int series);
+    Color getLegendPaint(int series);
 
 }

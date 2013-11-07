@@ -1,8 +1,8 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -16,6 +16,9 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.GradientPaint;
 import com.orsoncharts.axis.NumberAxis3D;
 import com.orsoncharts.Range;
 import com.orsoncharts.TestUtils;
@@ -25,9 +28,6 @@ import com.orsoncharts.data.xyz.XYZSeriesCollection;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.renderer.xyz.ScatterXYZRenderer;
 import com.orsoncharts.renderer.xyz.XYZRenderer;
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.GradientPaint;
 
 /**
  * Checks for the {@link XYZPlot} class.

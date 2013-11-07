@@ -436,7 +436,7 @@ public class Object3D {
         segment.addVertex(v1);
         vc = vc + 2;
         segment.addFace(new Face(new int[] {vc - 2, vc - 4, vc - 3, vc - 1}, 
-                color, false));
+                color, true));
 
         // top and bottom
         segment.addFace(new Face(new int[] {0,  vc - 4, vc - 2, 0}, color, 

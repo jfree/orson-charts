@@ -5,6 +5,7 @@
  * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
+
 package com.orsoncharts;
 
 import java.awt.Color;
@@ -113,7 +114,8 @@ public final class GradientRectanglePainter implements RectanglePainter,
      * on the painter's anchor points and the supplied rectangle.
      * 
      * @param area  the area (<code>null</code> not permitted).
-     * @return 
+     * 
+     * @return A gradient paint (never <code>null</code>). 
      */
     private GradientPaint createTransformedGradient(Rectangle2D area) {
         // defer arg check

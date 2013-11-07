@@ -14,12 +14,12 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+import java.awt.Color;
+import java.awt.Font;
 import com.orsoncharts.data.StandardPieDataset3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
 import com.orsoncharts.TestUtils;
-import java.awt.Color;
-import java.awt.Font;
 
 /** 
  * Some tests for the {@link PiePlot3D} class.
@@ -105,6 +105,18 @@ public class PiePlot3DTest implements Plot3DChangeListener {
         assertFalse(p1.equals(p2));
         p2.setSectionLabelFontSource(new StandardFontSource(new Font("Dialog", 
                 Font.PLAIN, 9)));
+        assertTrue(p1.equals(p2));
+        
+        // section label color source
+        p1.setSectionLabelColorSource(new StandardColorSource(Color.BLUE));
+        assertFalse(p1.equals(p2));
+        p2.setSectionLabelColorSource(new StandardColorSource(Color.BLUE));
+        assertTrue(p1.equals(p2));
+        
+        // segments
+        p1.setSegmentCount(123);
+        assertFalse(p1.equals(p2));
+        p2.setSegmentCount(123);
         assertTrue(p1.equals(p2));
     }
     

@@ -8,7 +8,6 @@
 
 package com.orsoncharts.graphics3d.swing;
 
-import com.orsoncharts.Chart3D;
 import java.awt.BorderLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -101,12 +100,10 @@ public class DisplayPanel3D extends JPanel implements MouseListener {
         upButton.setFont(Panel3D.getFontAwesomeFont(FONT_SIZE));
         JButton downButton = new JButton(new DownAction(content));
         downButton.setFont(Panel3D.getFontAwesomeFont(FONT_SIZE));
-        JButton rotateLeftButton = new JButton(new RotateLeftAction(content));
+        JButton rotateLeftButton = new JButton(new RollLeftAction(content));
         rotateLeftButton.setFont(Panel3D.getFontAwesomeFont(FONT_SIZE));
-        JButton rotateRightButton = new JButton(new RotateRightAction(content));
+        JButton rotateRightButton = new JButton(new RollRightAction(content));
         rotateRightButton.setFont(Panel3D.getFontAwesomeFont(FONT_SIZE));
-        JButton exportButton = new JButton(new ExportAction(content));
-        exportButton.setFont(Panel3D.getFontAwesomeFont(FONT_SIZE));
         tb.add(zoomInButton);
         tb.add(zoomOutButton);
         tb.add(zoomToFitButton);
@@ -117,17 +114,15 @@ public class DisplayPanel3D extends JPanel implements MouseListener {
         tb.add(downButton);
         tb.add(rotateLeftButton);
         tb.add(rotateRightButton);
-//        tb.add(new JToolBar.Separator());
-//        tb.add(exportButton);
         return tb;   
     }
     
     private JPopupMenu createPopupMenu() {
-        JPopupMenu popup = new JPopupMenu();
-        popup.add(new JMenuItem(new ZoomInAction(this.content, false)));
-        popup.add(new JMenuItem(new ZoomOutAction(this.content, false)));
-        popup.add(new JMenuItem(new ZoomToFitAction(this.content, false)));
-        popup.addSeparator();
+        JPopupMenu popupMenu = new JPopupMenu();
+        popupMenu.add(new JMenuItem(new ZoomInAction(this.content, false)));
+        popupMenu.add(new JMenuItem(new ZoomOutAction(this.content, false)));
+        popupMenu.add(new JMenuItem(new ZoomToFitAction(this.content, false)));
+        popupMenu.addSeparator();
         JMenu exportSubMenu = new JMenu("Export as");
         JMenuItem pngItem = new JMenuItem(new ExportToPNGAction(this.content));
         exportSubMenu.add(pngItem);
@@ -143,13 +138,13 @@ public class DisplayPanel3D extends JPanel implements MouseListener {
                     this.content));
             exportSubMenu.add(svgItem);
         }
-        popup.add(exportSubMenu);
-        return popup;
+        popupMenu.add(exportSubMenu);
+        return popupMenu;
     }
     
     @Override
     public void mouseClicked(MouseEvent e) {
-        
+        // nothing to do
     }
 
     @Override

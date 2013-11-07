@@ -68,6 +68,15 @@ public class Panel3D extends JPanel implements ActionListener, MouseListener,
      */
     private double margin;
 
+    /** The angle increment for panning left and right (in radians). */
+    private double panIncrement;
+    
+    /** The angle increment for rotating up and down (in radians). */
+    private double rotateIncrement;
+    
+    /** The roll increment (in radians). */
+    private double rollIncrement;
+    
     /** 
      * The (screen) point of the last mouse click (will be <code>null</code> 
      * initially).  Used to calculate the mouse drag distance and direction.
@@ -99,6 +108,9 @@ public class Panel3D extends JPanel implements ActionListener, MouseListener,
         this.margin = 0.25;
         this.minViewingDistance 
                 = (float) (drawable.getDimensions().getDiagonalLength());
+        this.panIncrement = Math.PI / 60;
+        this.rotateIncrement = Math.PI / 60;
+        this.rollIncrement = Math.PI / 60;
         addMouseListener(this);
         addMouseMotionListener(this);
         addMouseWheelListener(this);
@@ -143,6 +155,49 @@ public class Panel3D extends JPanel implements ActionListener, MouseListener,
     public float getMinViewingDistance() {
         return this.minViewingDistance;
     }
+
+    /**
+     * Returns the angle delta for each pan left or right.  The default
+     * value is <code>Math.PI / 60</code>.
+     * 
+     * @return The angle delta (in radians).
+     */
+    public double getPanIncrement() {
+        return panIncrement;
+    }
+
+    public void setPanIncrement(double panIncrement) {
+        this.panIncrement = panIncrement;
+    }
+
+    /**
+     * Returns the angle delta for each rotate up or down.  The default
+     * value is <code>Math.PI / 60</code>.
+     * 
+     * @return The angle delta (in radians).
+     */
+    public double getRotateIncrement() {
+        return rotateIncrement;
+    }
+
+    public void setRotateIncrement(double rotateIncrement) {
+        this.rotateIncrement = rotateIncrement;
+    }
+
+    /**
+     * Returns the angle delta for each roll operation.  The default
+     * value is <code>Math.PI / 60</code>.
+     * 
+     * @return The angle delta (in radians).
+     */
+    public double getRollIncrement() {
+        return rollIncrement;
+    }
+
+    public void setRollIncrement(double rollIncrement) {
+        this.rollIncrement = rollIncrement;
+    }
+    
     
     /**
      * Returns the last click point (possibly <code>null</code>).

@@ -79,6 +79,13 @@ public interface ValueAxis3D extends Axis3D {
     double selectTick(Graphics2D g2, Point2D pt0, Point2D pt1, 
             Point2D opposingPt);
     
+    /**
+     * Generates a list of tick data for the specified tick unit.
+     * 
+     * @param tickUnit  the tick unit.
+     * 
+     * @return A list of tick data. 
+     */
     List<TickData> generateTickData(double tickUnit);
 
 }

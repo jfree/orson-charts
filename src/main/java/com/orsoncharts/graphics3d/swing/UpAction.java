@@ -1,6 +1,6 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
  * (C)opyright 2013, by Object Refinery Limited.
  * 
@@ -8,26 +8,36 @@
 
 package com.orsoncharts.graphics3d.swing;
 
+import com.orsoncharts.util.ArgChecks;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
-import com.orsoncharts.graphics3d.ViewPoint3D;
+import javax.swing.Action;
 
 /**
- * Rotate up.
+ * An action that handles rotating the 3D view towards the top of the screen.
  */
 public class UpAction extends AbstractAction {
 
+    /** The panel containing the 3D content. */
     private Panel3D panel;
   
-    public UpAction(Panel3D panel3D) {
+    /**
+     * Creates a new action associated with the specified panel. 
+     * 
+     * @param panel  the panel (<code>null</code> not permitted).
+     */
+    public UpAction(Panel3D panel) {
         super("\uF062");
-        this.panel = panel3D;
+        ArgChecks.nullNotPermitted(panel, "panel");
+        this.panel = panel;
+        putValue(Action.SHORT_DESCRIPTION, "Rotate up");
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        this.panel.getViewPoint().moveUpDown(Math.PI / 60);
-        panel.repaint();
+        double delta = this.panel.getRotateIncrement();
+        this.panel.getViewPoint().moveUpDown(delta);
+        this.panel.repaint();
     }
     
 }

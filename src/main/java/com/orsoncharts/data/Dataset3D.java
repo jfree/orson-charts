@@ -1,6 +1,6 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
  * (C)opyright 2013, by Object Refinery Limited.
  * 
@@ -36,5 +36,15 @@ public interface Dataset3D {
      */
     void removeChangeListener(Dataset3DChangeListener listener);  
 
+    /**
+     * Returns <code>true</code> if the specified listener is registered with
+     * the dataset, and <code>false</code> otherwise.  This method is used
+     * for unit testing to confirm that listeners are removed correctly 
+     * following dataset switches.
+     * 
+     * @param listener  the listener.
+     * 
+     * @return A boolean. 
+     */
     boolean hasListener(EventListener listener);
 }

@@ -1,6 +1,6 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
  * (C)opyright 2013, by Object Refinery Limited.
  * 
@@ -8,6 +8,7 @@
 
 package com.orsoncharts.renderer.category;
 
+import com.orsoncharts.Colors;
 import java.awt.Color;
 import java.io.Serializable;
 import java.util.Arrays;
@@ -30,8 +31,7 @@ public final class StandardCategory3DPaintSource
      * Creates a new instance with default colors.
      */
     public StandardCategory3DPaintSource() {
-        this(new Color[] { new Color(0, 55, 122),  
-            new Color(24, 123, 58), Color.RED, Color.YELLOW });
+        this(Colors.getDefaultColors());
     }
     
     /**

@@ -25,7 +25,7 @@ public class SerialUtils {
     
     /**
      * Reads a <code>Paint</code> object that has been serialized by the
-     * {@link SerialUtilities#writePaint(Paint, ObjectOutputStream)} method.
+     * {@link SerialUtils#writePaint(Paint, ObjectOutputStream)} method.
      *
      * @param stream  the input stream (<code>null</code> not permitted).
      *
@@ -93,7 +93,7 @@ public class SerialUtils {
 
     /**
      * Reads a <code>Stroke</code> object that has been serialized by the
-     * {@link SerialUtilities#writeStroke(Stroke, ObjectOutputStream)} method.
+     * {@link SerialUtils#writeStroke(Stroke, ObjectOutputStream)} method.
      *
      * @param stream  the input stream (<code>null</code> not permitted).
      *

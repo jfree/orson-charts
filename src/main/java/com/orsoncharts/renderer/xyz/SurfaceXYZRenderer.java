@@ -19,6 +19,8 @@ import com.orsoncharts.graphics3d.World;
 public class SurfaceXYZRenderer extends AbstractXYZRenderer 
         implements XYZRenderer {
     
+    // FIXME : this is not implemented
+    // TODO
     public SurfaceXYZRenderer() {
         
     }

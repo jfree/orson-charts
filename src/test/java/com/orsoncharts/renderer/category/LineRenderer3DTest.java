@@ -1,6 +1,6 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
  * (C)opyright 2013, by Object Refinery Limited.
  * 
@@ -8,10 +8,11 @@
 
 package com.orsoncharts.renderer.category;
 
-import com.orsoncharts.TestUtils;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
+
+import com.orsoncharts.TestUtils;
 
 /**
  * Tests for the {@link LineRenderer3D} class.

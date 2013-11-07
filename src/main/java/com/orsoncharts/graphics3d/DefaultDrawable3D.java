@@ -8,11 +8,11 @@
 
 package com.orsoncharts.graphics3d;
 
-import com.orsoncharts.Chart3D;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.geom.Rectangle2D;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
@@ -20,12 +20,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import com.orsoncharts.util.ArgChecks;
-import java.awt.geom.Rectangle2D;
+import com.orsoncharts.Chart3D;
 
 /**
  * Provides a default implementation of the {@link Drawable3D} interface.
  * This is not used directly in Orson Charts, since the {@link Chart3D} class
- * implements the {@link Drawable3D} interface.  
+ * implements the {@link Drawable3D} interface itself.  
  */
 public class DefaultDrawable3D implements Drawable3D {
 

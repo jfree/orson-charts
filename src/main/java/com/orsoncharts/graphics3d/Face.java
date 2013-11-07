@@ -31,7 +31,8 @@ public class Face {
     /** 
      * A flag that controls whether or not an outline will be drawn for the 
      * face.  For pie charts and area charts, setting this to <code>true</code>
-     * helps to remove gaps.
+     * helps to remove gaps in the rendering, which results in better looking
+     * charts.
      */
     private boolean outline;
 
@@ -157,6 +158,14 @@ public class Face {
         return total / this.vertices.length;
     }
 
+    /**
+     * Returns <code>true</code> if this face is front facing, and 
+     * <code>false</code> otherwise.
+     * 
+     * @param projPts  the projection points.
+     * 
+     * @return A boolean. 
+     */
     public boolean isFrontFacing(Point2D[] projPts) {
         return Utils2D.area2(projPts[getVertexIndex(0)], 
                 projPts[getVertexIndex(1)], projPts[getVertexIndex(2)]) > 0;  

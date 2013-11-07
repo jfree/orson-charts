@@ -1,8 +1,8 @@
-/* =============
- * OrsonCharts3D
- * =============
+/* ============
+ * Orson Charts 
+ * ============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -22,4 +22,5 @@ public interface Chart3DChangeListener extends EventListener {
      * @param event  the event. 
      */
     public void chartChanged(Chart3DChangeEvent event);
+
 }

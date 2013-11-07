@@ -154,6 +154,7 @@ public final class Point3D implements Serializable {
      * 
      * @return A string (never <code>null</code>).
      */
+    @Override
     public String toString() {
         return "[" + this.x + ", " + this.y + ", " + this.z + "]";
     }

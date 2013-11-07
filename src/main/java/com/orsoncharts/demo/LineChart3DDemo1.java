@@ -23,6 +23,7 @@ import com.orsoncharts.data.category.StandardCategoryDataset3D;
 import com.orsoncharts.data.DefaultKeyedValues;
 import com.orsoncharts.data.KeyedValues;
 import com.orsoncharts.graphics3d.Dimension3D;
+import com.orsoncharts.graphics3d.ViewPoint3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.plot.CategoryPlot3D;
 
@@ -58,8 +59,9 @@ public class LineChart3DDemo1 extends JFrame {
         JPanel content = new JPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         CategoryDataset3D dataset = createDataset();
-        Chart3D chart = Chart3DFactory.createLineChart("LineChart3DDemo1", 
-                "Browser market share 2011 to 2013", dataset, null, null, 
+        Chart3D chart = Chart3DFactory.createLineChart(
+                "Web Browser Market Share", 
+                "Source: http://gs.statcounter.com", dataset, null, null, 
                 "Market Share (%)");
         CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
         plot.setDimensions(new Dimension3D(18, 8, 4));
@@ -67,6 +69,7 @@ public class LineChart3DDemo1 extends JFrame {
         NumberAxis3D valueAxis = (NumberAxis3D) plot.getValueAxis();
         valueAxis.setTickSelector(new NumberTickSelector(true));
         //valueAxis.setRange(0.20, 0.30);
+        chart.setViewPoint(ViewPoint3D.createAboveViewPoint(30));
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
         chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         content.add(new DisplayPanel3D(chartPanel));

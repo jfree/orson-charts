@@ -1,6 +1,6 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
  * (C)opyright 2013, by Object Refinery Limited.
  * 
@@ -20,7 +20,7 @@ import java.util.Map;
  * the element (including sub-elements if there are any), and drawing the
  * element within specified bounds.  Various kinds of table elements will be
  * used to construct interesting tables.
- * 
+ * <br><br>
  * It is important that these methods are implemented in a stateless manner. 
  * There is some redundancy in calculation between the layout and drawing 
  * methods in order to preserve the statelessness, but it is important to 

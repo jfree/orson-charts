@@ -1,6 +1,6 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
  * (C)opyright 2013, by Object Refinery Limited.
  * 
@@ -13,8 +13,8 @@ import java.awt.Color;
 /**
  * A paint source.  This is the interface through which the renderer will 
  * obtain colors for each data item in the chart.  A default implementation
- * ({@link StandardCategory3DPaintSource}) is provided and you can customise the
- * rendering colors by providing an alternate implementation.
+ * ({@link StandardCategory3DPaintSource}) is provided and you can customise 
+ * the rendering colors by providing an alternate implementation.
  */
 public interface Category3DPaintSource {
 
@@ -29,7 +29,7 @@ public interface Category3DPaintSource {
      * 
      * @return The color.
      */
-    public Color getPaint(int series, int row, int column);
+    Color getPaint(int series, int row, int column);
   
     /**
      * Returns the color to be used in the legend to represent the specified
@@ -39,7 +39,7 @@ public interface Category3DPaintSource {
      * 
      * @return The color. 
      */
-    public Color getLegendPaint(int series);
+    Color getLegendPaint(int series);
     
 }
 

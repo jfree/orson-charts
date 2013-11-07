@@ -96,6 +96,18 @@ public final class StandardPieDataset3D extends AbstractDataset3D
      * to all registered listeners.
      * 
      * @param key  the key (<code>null</code> not permitted).
+     * @param value  the value.
+     */
+    public void add(Comparable key, double value) {
+        add(key, Double.valueOf(value));
+    }
+    
+    /**
+     * Adds a value to the dataset (if there is already a value with the given
+     * key, the value is overwritten) and sends a {@link Dataset3DChangeEvent}
+     * to all registered listeners.
+     * 
+     * @param key  the key (<code>null</code> not permitted).
      * @param value  the value (<code>null</code> permitted).
      */
     public void add(Comparable key, Number value) {

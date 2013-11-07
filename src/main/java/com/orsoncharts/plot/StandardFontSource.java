@@ -27,6 +27,7 @@ public final class StandardFontSource implements FontSource, Serializable {
     /** Storage for the fonts assigned to keys. */
     private DefaultKeyedValues<Font> fonts;
 
+    /** The default font (never <code>null</code>). */
     private Font defaultFont;
     
     /**
@@ -47,14 +48,32 @@ public final class StandardFontSource implements FontSource, Serializable {
         this.fonts = new DefaultKeyedValues<Font>();
     }
     
+    /**
+     * Returns the default font.  The default value is {@link #DEFAULT_FONT}.
+     * 
+     * @return The default font (never <code>null</code>). 
+     */
     public Font getDefaultFont() {
         return this.defaultFont;
     }
     
+    /**
+     * Sets the default font.
+     * 
+     * @param font  the font (<code>null</code> not permitted).
+     */
     public void setDefaultFont(Font font) {
+        ArgChecks.nullNotPermitted(font, "font");
         this.defaultFont = font;
     }
     
+    /**
+     * Returns the font for the specified key.
+     * 
+     * @param key  the key (<code>null</code> not permitted).
+     * 
+     * @return The font (never <code>null</code>). 
+     */
     @Override
     public Font getFont(Comparable key) {
         Font result = this.fonts.getValue(key);
@@ -77,14 +96,6 @@ public final class StandardFontSource implements FontSource, Serializable {
             this.fonts.put(key, font);
         } else {
             this.fonts.remove(key);
-        }
-    }
-
-    public void put(Comparable key, Font font) {
-        if (font != null) {
-            this.fonts.put(key, font);
-        } else {
-            this.fonts.remove(key);        
         }
     }
     

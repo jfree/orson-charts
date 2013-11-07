@@ -176,7 +176,8 @@ public class CategoryPlot3D extends AbstractPlot3D
     }
     
     /**
-     * Returns the renderer.
+     * Returns the renderer (very often you will need to cast this to a 
+     * specific class to make customisations).
      * 
      * @return The renderer (never <code>null</code>). 
      */

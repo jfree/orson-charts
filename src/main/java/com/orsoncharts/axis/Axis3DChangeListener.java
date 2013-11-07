@@ -1,8 +1,8 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -15,10 +15,11 @@ import java.util.EventListener;
  */
 public interface Axis3DChangeListener extends EventListener {
     
-  /**
-   * Called to inform that an axis change event has occurred.
-   * 
-   * @param event  the event (<code>null</code> not permitted). 
-   */
-  public void axisChanged(Axis3DChangeEvent event);
+    /**
+     * Called to inform that an axis change event has occurred.
+     * 
+     * @param event  the event (<code>null</code> not permitted). 
+     */
+    public void axisChanged(Axis3DChangeEvent event);
+
 }

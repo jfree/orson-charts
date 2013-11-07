@@ -13,6 +13,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.data.DefaultKeyedValues;
+import com.orsoncharts.Colors;
 
 /**
  * A standard implementation of the {@link ColorSource} interface.
@@ -37,8 +38,7 @@ public final class StandardColorSource implements ColorSource,
      * Creates a new instance with default colors.
      */
     public StandardColorSource() {
-        this(new Color[] { new Color(0, 55, 122),  
-            new Color(24, 123, 58), Color.RED, Color.YELLOW });
+        this(Colors.getDefaultColors());
     }
     
     /**
@@ -73,8 +73,16 @@ public final class StandardColorSource implements ColorSource,
         this.colors = new DefaultKeyedValues<Color>();
     }
  
+    /**
+     * Returns the color associated with the specified key.
+     * 
+     * @param key  the key (<code>null</code> not permitted).
+     * 
+     * @return The color (never <code>null</code>). 
+     */
     @Override
     public Color getColor(Comparable key) {
+        // defer argument check
         Color c = this.colors.getValue(key);
         if (c != null) {
             return c;
@@ -85,6 +93,12 @@ public final class StandardColorSource implements ColorSource,
         return c;
     }
 
+    /**
+     * Sets the color for the specified key.
+     * 
+     * @param key  the key (<code>null</code> not permitted).
+     * @param color  the color (<code>null</code> permitted).
+     */
     @Override
     public void setColor(Comparable key, Color color) {
         if (color != null) {

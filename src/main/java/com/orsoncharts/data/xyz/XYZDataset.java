@@ -1,19 +1,19 @@
-/* ===========
- * OrsonCharts
+/* ============
+ * Orson Charts=
  * ===========
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
 package com.orsoncharts.data.xyz;
 
-import com.orsoncharts.data.Dataset3D;
 import java.util.List;
+import com.orsoncharts.data.Dataset3D;
 
 /**
  * Defines the methods used to access data in the form of multiple series
- * containing (x, y, z) data items.
+ * containing <code>(x, y, z)</code> data items.
  */
 public interface XYZDataset extends Dataset3D {
 
@@ -22,7 +22,7 @@ public interface XYZDataset extends Dataset3D {
      * 
      * @return The number of series in the dataset.
      */
-    public int getSeriesCount();
+    int getSeriesCount();
 
     /**
      * Returns a list of the series-keys for the dataset.  Modifying this
@@ -31,9 +31,17 @@ public interface XYZDataset extends Dataset3D {
      * @return A list of the series-keys (possibly empty, but never 
      *     <code>null</code>). 
      */
-    public List<Comparable> getSeriesKeys();
+    List<Comparable> getSeriesKeys();
     
-    public int getSeriesIndex(Comparable key);
+    /**
+     * Returns the index of the specified series key, or <code>-1</code> if
+     * the key is not found.
+     * 
+     * @param key  the key (<code>null</code> not permitted).
+     * 
+     * @return The index of the key, or <code>-1</code>. 
+     */
+    int getSeriesIndex(Comparable key);
     
     /**
      * Returns the number of items in a given series.
@@ -42,7 +50,7 @@ public interface XYZDataset extends Dataset3D {
      * 
      * @return The item count.
      */
-    public int getItemCount(int series);
+    int getItemCount(int series);
 
     /**
      * Returns the x-value for an item in a series.
@@ -52,7 +60,7 @@ public interface XYZDataset extends Dataset3D {
      * 
      * @return The x-value. 
      */
-    public double getX(int series, int item);
+    double getX(int series, int item);
 
     /**
      * Returns the y-value for an item in a series.
@@ -62,7 +70,7 @@ public interface XYZDataset extends Dataset3D {
      * 
      * @return The y-value. 
      */
-    public double getY(int series, int item);
+    double getY(int series, int item);
 
     /**
      * Returns the z-value for an item in a series.
@@ -72,6 +80,6 @@ public interface XYZDataset extends Dataset3D {
      * 
      * @return The z-value. 
      */
-    public double getZ(int series, int item);
+    double getZ(int series, int item);
 
 }

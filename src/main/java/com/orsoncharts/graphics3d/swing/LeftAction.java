@@ -8,35 +8,35 @@
 
 package com.orsoncharts.graphics3d.swing;
 
-import com.orsoncharts.Chart3D;
-import com.orsoncharts.graphics3d.Drawable3D;
-import com.orsoncharts.graphics3d.ViewPoint3D;
+import com.orsoncharts.util.ArgChecks;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
+import javax.swing.Action;
 
 /**
- * Left.
+ * An action that handles rotating the 3D view towards the left of the screen.
+ * 
+ * @see RightAction
  */
 public class LeftAction extends AbstractAction {
 
     private Panel3D panel;
-    
-    //private Chart3D chart;
   
-    public LeftAction(Panel3D panel3D) {
+    /**
+     * Creates a new action instance.
+     * 
+     * @param panel  the panel (<code>null</code> not permitted).
+     */
+    public LeftAction(Panel3D panel) {
         super("\uF060");
-        this.panel = panel3D;
-        //.chart = chart;
+        ArgChecks.nullNotPermitted(panel, "panel");
+        this.panel = panel;
+        putValue(Action.SHORT_DESCRIPTION, "Rotate to the left");
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Drawable3D drawable = this.panel.getDrawable();
-        if (drawable instanceof Chart3D) {
-            Chart3D chart = (Chart3D) drawable;
-        }
-        drawable.getViewPoint().panLeftRight(Math.PI / 60);
-        this.panel.repaint();
+        this.panel.panLeftRight(this.panel.getPanIncrement());
     }
     
 }

@@ -7,9 +7,9 @@
  */
 package com.orsoncharts;
 
-import com.orsoncharts.graphics3d.swing.Panel3D;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import com.orsoncharts.graphics3d.swing.Panel3D;
 
 /**
  * A panel designed to display a {@link Chart3D}.  The panel registers with the

@@ -8,13 +8,15 @@
 
 package com.orsoncharts.graphics3d.swing;
 
-import com.orsoncharts.util.ArgChecks;
+import static javax.swing.Action.NAME;
+
 import java.awt.event.ActionEvent;
 import java.io.File;
 import javax.swing.AbstractAction;
-import static javax.swing.Action.NAME;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import com.orsoncharts.util.ArgChecks;
 
 /**
  * An action that handles saving the content of a panel to a Scalable Vector

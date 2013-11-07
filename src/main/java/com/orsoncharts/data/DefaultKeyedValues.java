@@ -183,7 +183,8 @@ public final class DefaultKeyedValues<T> implements KeyedValues<T>,
     }
   
     /**
-     * Returns the value for the specified item, as a double primitive.
+     * Returns the value for the specified item, as a double primitive, 
+     * provided that the data value is an instance of <code>Number</code>.
      * 
      * @param item  the item index.
      * 

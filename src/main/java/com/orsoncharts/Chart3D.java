@@ -158,8 +158,9 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
         this.plot.addChangeListener(this);
         Dimension3D dim = this.plot.getDimensions();
         float distance = (float) dim.getDiagonalLength() * 3.0f;
-        this.viewPoint = new ViewPoint3D((float) (4.4 * Math.PI / 3), 
-                (float) (7 * Math.PI / 6), distance, 0);
+//        this.viewPoint = new ViewPoint3D((float) (4.4 * Math.PI / 3), 
+//                (float) (7 * Math.PI / 6), distance, 0);
+        this.viewPoint = ViewPoint3D.createAboveViewPoint(distance);
         this.chartBoxColor = Color.WHITE;
         this.translate2D = new Offset2D();
         this.notify = true;
@@ -172,7 +173,9 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
      * is an instance of {@link StandardRectanglePainter} that paints the
      * background white.
      * 
-     * @return The background painter (possibly <code>null</code>). 
+     * @return The background painter (possibly <code>null</code>).
+     * 
+     * @see #setBackground(com.orsoncharts.RectanglePainter) 
      */
     public RectanglePainter getBackground() {
         return this.background;
@@ -181,9 +184,14 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
     /**
      * Sets the background painter and sends a {@link Chart3DChangeEvent} to
      * all registered listeners.  A background painter is used to fill in the
-     * background of the chart before the 3D rendering takes place.
+     * background of the chart before the 3D rendering takes place.  To fill
+     * the background with a color or image, you can use 
+     * {@link StandardRectanglePainter}.  To fill the background with a 
+     * gradient paint, use {@link GradientRectanglePainter}.
      * 
-     * @param background  the background painter (<code>null</code> permitted). 
+     * @param background  the background painter (<code>null</code> permitted).
+     * 
+     * @see #getBackground() 
      */
     public void setBackground(RectanglePainter background) {
         this.background = background;
@@ -288,9 +296,13 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
     }
     
     /**
-     * Returns the chart box color.
+     * Returns the chart box color (the chart box is the visible, open-sided 
+     * box inside which data is plotted for all charts except pie charts). 
+     * The default value is <code>Color.WHITE</code>.
      * 
      * @return The chart box color (never <code>null</code>). 
+     * 
+     * @see #setChartBoxColor(java.awt.Color) 
      */
     public Color getChartBoxColor() {
         return this.chartBoxColor;
@@ -301,7 +313,9 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
      * registered listeners.  Bear in mind that {@link PiePlot3D} does not
      * display a chart box, so this attribute will be ignored for pie charts.
      * 
-     * @param color  the color (<code>null</code> not permitted). 
+     * @param color  the color (<code>null</code> not permitted).
+     * 
+     * @see #getChartBoxColor()
      */
     public void setChartBoxColor(Color color) {
         ArgChecks.nullNotPermitted(color, "color");
@@ -447,7 +461,6 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
      */
     @Override
     public void draw(Graphics2D g2, Rectangle2D bounds) {
-        
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, 

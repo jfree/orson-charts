@@ -23,7 +23,6 @@ import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
 import com.orsoncharts.plot.XYZPlot;
-import com.orsoncharts.data.xyz.StandardXYZDataset;
 import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
@@ -62,7 +61,7 @@ public class ChartBoxResizeDemo1 extends JFrame implements ChangeListener {
     final JPanel createContent() {
         JPanel content = new JPanel(new BorderLayout());
         content.setPreferredSize(new Dimension(600, 400));
-        XYZDataset dataset = new StandardXYZDataset(3, 100);
+        XYZDataset dataset = new SampleXYZDataset(3, 100);
         this.chart = Chart3DFactory.createScatterPlot("ChartBoxResizeDemo1", 
                 "Chart created with Orson Charts", dataset, "X", "Y", "Z");
         this.chartPanel3D = new ChartPanel3D(this.chart);

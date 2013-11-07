@@ -9,7 +9,6 @@
 package com.orsoncharts.renderer.category;
 
 import java.awt.Color;
-
 import java.io.Serializable;
 import com.orsoncharts.axis.Axis3D;
 import com.orsoncharts.axis.CategoryAxis3D;
@@ -31,7 +30,7 @@ import com.orsoncharts.util.ObjectUtils;
  * {@link CategoryDataset3D} (for use with a {@link CategoryPlot3D}).
  * <br><br>
  * TIP: to create a chart using this renderer, you can use the
- * {@link Chart3DFactory#createAreaChart(String, CategoryDataset3D, String, String, String)} 
+ * {@link Chart3DFactory#createAreaChart(String, String, CategoryDataset3D, String, String, String)} 
  * method.
  * <br><br>
  * NOTE: This class is serializable, but the serialization format is subject 

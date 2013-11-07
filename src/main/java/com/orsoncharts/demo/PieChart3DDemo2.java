@@ -2,12 +2,14 @@
  * Orson Charts
  * ============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
 package com.orsoncharts.demo;
 
+import com.orsoncharts.Colors;
+import java.awt.Color;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,7 +30,6 @@ import com.orsoncharts.plot.PiePlot3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.legend.StandardLegendBuilder;
 import com.orsoncharts.plot.StandardColorSource;
-import java.awt.Color;
 
 /**
  * A test app.
@@ -85,14 +86,16 @@ public class PieChart3DDemo2 extends JFrame {
                         
                 }
                 ));
+        plot.setSectionColorSource(new StandardColorSource(Colors.getDesignSeedsShells()));
+        // 255, 219, 142
+        // 220, 21, 20
+        // 149, 0, 1
+        // 82, 102, 41
+        // 142, 101, 72
+        // 199, 169, 128
         
-// Colorseed
-// 228, 233, 239
-// 184, 197, 219
-// 111, 122, 143
-// 95, 89, 89
-// 206, 167, 145
-// 188, 182, 173
+        
+        
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
         chartPanel.setMargin(0.15);
         chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);

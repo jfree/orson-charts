@@ -216,10 +216,21 @@ public final class StandardCategoryDataset3D extends AbstractDataset3D
      * @param data  the data (<code>null</code> not permitted).
      */
     public void addSeriesAsRow(Comparable seriesKey, KeyedValues<Number> data) {
+        addSeriesAsRow(seriesKey, seriesKey, data);    
+    }
+    
+    /**
+     * Adds a data series as a single row in the dataset.
+     * 
+     * @param seriesKey  the series key (<code>null</code> not permitted).
+     * @param data  the data (<code>null</code> not permitted).
+     */
+    public void addSeriesAsRow(Comparable seriesKey, Comparable rowKey, 
+            KeyedValues<Number> data) {
         ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
         ArgChecks.nullNotPermitted(data, "data");
         for (Comparable key : data.getKeys()) {
-            setValue(data.getValue(key), seriesKey, seriesKey, key);
+            setValue(data.getValue(key), seriesKey, rowKey, key);
         }
     }
     

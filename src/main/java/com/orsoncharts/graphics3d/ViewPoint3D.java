@@ -32,6 +32,46 @@ import java.io.Serializable;
  */
 public class ViewPoint3D implements Serializable {
 
+    /**
+     * Creates and returns a view point for looking at a chart from the 
+     * front and above.
+     * 
+     * @param rho  the distance.
+     * 
+     * @return A view point. 
+     */
+    public static ViewPoint3D createAboveViewPoint(double rho) {
+        return new ViewPoint3D(-Math.PI / 2, 9 * Math.PI / 8, rho, 0);    
+    }
+
+    /**
+     * Creates and returns a view point for looking at a chart from the 
+     * front and above and to the left.
+     * 
+     * @param rho  the distance.
+     * 
+     * @return A view point. 
+     */
+    public static ViewPoint3D createAboveLeftViewPoint(double rho) {
+        ViewPoint3D vp = createAboveViewPoint(rho);
+        vp.panLeftRight(-Math.PI / 6);
+        return vp;    
+    }
+
+    /**
+     * Creates and returns a view point for looking at a chart from the 
+     * front and above and to the right.
+     * 
+     * @param rho  the distance.
+     * 
+     * @return A view point. 
+     */
+    public static ViewPoint3D createAboveRightViewPoint(double rho) {
+        ViewPoint3D vp = createAboveViewPoint(rho);
+        vp.panLeftRight(Math.PI / 6);
+        return vp;    
+    }
+    
     /** The rotation of the viewing point from the x-axis around the z-axis. */
     private double theta;
 
@@ -302,8 +342,7 @@ public class ViewPoint3D implements Serializable {
         double ww = dim3D.getWidth();
         double hh = dim3D.getHeight();
         double dd = dim3D.getDepth();
-        w.add(Object3D.createBox(-ww / 2.0, ww, -hh / 2.0, hh, -dd / 2.0, dd, 
-                Color.RED));
+        w.add(Object3D.createBox(0, ww, 0, hh, 0, dd, Color.RED));
                
         while (true) {
             vp.setRho(near);
@@ -343,7 +382,7 @@ public class ViewPoint3D implements Serializable {
         } else {
             if (wpercent >= 1.0) {
                 if (hpercent >= 1.0) {
-                    return Math.min(wpercent, hpercent);
+                    return Math.max(wpercent, hpercent);
                 } else {
                     return wpercent;
                 }

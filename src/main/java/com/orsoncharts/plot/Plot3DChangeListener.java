@@ -25,6 +25,6 @@ public interface Plot3DChangeListener extends EventListener {
      * 
      * @param event  event info. 
      */
-    public void plotChanged(Plot3DChangeEvent event);
+    void plotChanged(Plot3DChangeEvent event);
 
 }

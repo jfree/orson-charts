@@ -1,8 +1,8 @@
-/* ===========
- * OrsonCharts
- * ===========
+/* ============
+ * Orson Charts
+ * ============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -15,12 +15,10 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import com.orsoncharts.Colors;
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
-import com.orsoncharts.RectanglePainter;
-import com.orsoncharts.StandardRectanglePainter;
-import com.orsoncharts.axis.StandardCategoryAxis3D;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.category.StandardCategoryDataset3D;
 import com.orsoncharts.data.DefaultKeyedValues;
@@ -28,7 +26,7 @@ import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.legend.StandardLegendBuilder;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.category.AreaRenderer3D;
-import javax.swing.ImageIcon;
+import com.orsoncharts.renderer.category.StandardCategory3DPaintSource;
 
 /**
  * A demo of a 3D area chart.
@@ -62,29 +60,26 @@ public class AreaChart3DDemo1 extends JFrame {
         JPanel content = new JPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         CategoryDataset3D dataset = createDataset();
-        Chart3D chart = Chart3DFactory.createAreaChart("AreaChart3DDemo1", 
+        Chart3D chart = Chart3DFactory.createAreaChart("Reported Revenues By Quarter", 
                 "Chart created with Orson Charts", dataset, "Company", 
                 "Quarter", "Value");
         chart.setChartBoxColor(new Color(255, 255, 255, 128));
-        
+        //chart.setViewPoint(ViewPoint3D.createAboveLeftViewPoint(40));
         StandardLegendBuilder slb = (StandardLegendBuilder) chart.getLegendBuilder();
         slb.setFooter("Orson Charts (c) 2013, by Object Refinery Limited");
         
-        
         chart.getLegendBuilder().setItemFont(new Font("Dialog", Font.ITALIC, 12));
-        ImageIcon icon = new ImageIcon("/Users/dgilbert/Desktop/me.png");
-        RectanglePainter background = new StandardRectanglePainter(Color.WHITE, icon.getImage());
-        chart.setBackground(background); 
+//        ImageIcon icon = new ImageIcon("/Users/dgilbert/Desktop/me.png");
+//        RectanglePainter background = new StandardRectanglePainter(Color.WHITE, 
+//                icon.getImage());
+//        chart.setBackground(background); 
         CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
-        StandardCategoryAxis3D rowAxis = (StandardCategoryAxis3D) plot.getRowAxis();
-        rowAxis.setLabelPaint(Color.WHITE);
-        rowAxis.setTickLabelPaint(Color.WHITE);
-        rowAxis.setTickLabelsVisible(false);
-        
+        plot.getRowAxis().setVisible(false);
         //plot.getValueAxis().setLabelFont();
             // plot.getValueAxis().setRange(-10.0, 4.0);
         AreaRenderer3D renderer = (AreaRenderer3D) plot.getRenderer();
         renderer.setBaseColor(Color.GRAY);
+        renderer.setPaintSource(new StandardCategory3DPaintSource(Colors.getColors1()));
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
         content.add(new DisplayPanel3D(chartPanel));
         chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
@@ -100,20 +95,45 @@ public class AreaChart3DDemo1 extends JFrame {
      */
     private static CategoryDataset3D createDataset() {    
         StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
-
+                
         DefaultKeyedValues s1 = new DefaultKeyedValues();
-        s1.put("Q1", 1.0);
-        s1.put("Q2", 7.0);
-        s1.put("Q3", 3.0);
-        s1.put("Q4", 4.0);
-        dataset.addSeriesAsRow("Acme Widgets Ltd", s1);
-
+        s1.put("Q1/11", 8.58);
+        s1.put("Q2/11", 9.03);
+        s1.put("Q3/11", 9.72);
+        s1.put("Q4/11", 10.58);
+        s1.put("Q1/12", 10.65);
+        s1.put("Q2/12", 12.214);
+        s1.put("Q3/12", 14.101);
+        s1.put("Q4/12", 14.419);
+        s1.put("Q1/13", 13.969);
+        s1.put("Q2/13", 14.105);
+        dataset.addSeriesAsRow("Google", s1);
+        
         DefaultKeyedValues s2 = new DefaultKeyedValues();
-        s2.put("Q1", 14.0);
-        s2.put("Q2", 7.0);
-        s2.put("Q3", 6.0);
-        s2.put("Q4", 4.0);
-        dataset.addSeriesAsRow("Zorro Corporation Ltd", s2);
+        s2.put("Q1/11", 16.43);
+        s2.put("Q2/11", 17.37);
+        s2.put("Q3/11", 17.37);
+        s2.put("Q4/11", 20.89);
+        s2.put("Q1/12", 17.41);
+        s2.put("Q2/12", 18.06);
+        s2.put("Q3/12", 16.008);
+        s2.put("Q4/12", 21.456);
+        s2.put("Q1/13", 20.489);
+        s2.put("Q2/13", 19.896);
+        dataset.addSeriesAsRow("Microsoft", s2);
+        
+        DefaultKeyedValues s3 = new DefaultKeyedValues();
+        s3.put("Q1/11", 24.67);
+        s3.put("Q2/11", 28.57);
+        s3.put("Q3/11", 28.27);
+        s3.put("Q4/11", 46.33);
+        s3.put("Q1/12", 39.20);
+        s3.put("Q2/12", 35.00);
+        s3.put("Q3/12", 36.00);
+        s3.put("Q4/12", 54.5);
+        s3.put("Q1/13", 43.6);
+        s3.put("Q2/13", 35.323);
+        dataset.addSeriesAsRow("Apple", s3);
 
         return dataset;
     }

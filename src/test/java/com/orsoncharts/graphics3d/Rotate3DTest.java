@@ -1,7 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/* ============
+ * Orson Charts
+ * ============
+ * 
+ * (C)opyright 2013, by Object Refinery Limited.
+ * 
  */
+
 package com.orsoncharts.graphics3d;
 
 import static org.junit.Assert.assertEquals;

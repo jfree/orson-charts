@@ -8,14 +8,14 @@
 
 package com.orsoncharts.data;
 
-import com.orsoncharts.TestUtils;
-import com.orsoncharts.data.category.StandardCategoryDataset3D;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
+
+import com.orsoncharts.TestUtils;
 
 /**
  * Some tests for the {@link DefaultKeyedValues3D} class.
