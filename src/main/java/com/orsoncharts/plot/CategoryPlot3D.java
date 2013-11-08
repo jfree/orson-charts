@@ -449,7 +449,7 @@ public class CategoryPlot3D extends AbstractPlot3D
         List<Comparable> keys = this.dataset.getSeriesKeys();
         for (Comparable key : keys) {
             int series = this.dataset.getSeriesIndex(key);
-            Paint paint = this.renderer.getPaintSource().getLegendPaint(series);
+            Paint paint = this.renderer.getColorSource().getLegendColor(series);
             LegendItemInfo info = new StandardLegendItemInfo(key, 
                     key.toString(), paint);
             result.add(info);

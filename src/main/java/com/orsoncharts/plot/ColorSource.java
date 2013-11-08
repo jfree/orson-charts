@@ -10,25 +10,8 @@ package com.orsoncharts.plot;
 
 import java.awt.Color;
 
-// 255, 61, 81
-// 81, 204,107
-// 73, 151, 214
-// 255, 163, 74
-// 171, 88, 171
-// 220, 104, 78
-// 232, 112, 177
-
-
-// Colorseed
-// 228, 233, 239
-// 184, 197, 219
-// 111, 122, 143
-// 95, 89, 89
-// 206, 167, 145
-// 188, 182, 173
-
 /**
- * A paint source for use by the {@link PiePlot3D} class.  This is the 
+ * A color source for use by the {@link PiePlot3D} class.  This is the 
  * interface through which the plot will obtain colors for each data item 
  * (segment) in the chart.  A default implementation
  * ({@link StandardColorSource}) is provided.

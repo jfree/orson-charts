@@ -24,14 +24,14 @@ public class StandardXYZPaintSourceTest {
      */
     @Test
     public void testEquals() {
-        StandardXYZPaintSource s1 = new StandardXYZPaintSource();
-        StandardXYZPaintSource s2 = new StandardXYZPaintSource();
+        StandardXYZColorSource s1 = new StandardXYZColorSource();
+        StandardXYZColorSource s2 = new StandardXYZColorSource();
         assertTrue(s1.equals(s2));
         assertFalse(s1.equals(null));
         
-        s1 = new StandardXYZPaintSource(Color.BLUE);
+        s1 = new StandardXYZColorSource(Color.BLUE);
         assertFalse(s1.equals(s2));
-        s2 = new StandardXYZPaintSource(Color.BLUE);
+        s2 = new StandardXYZColorSource(Color.BLUE);
         assertTrue(s1.equals(s2));
     }
     
@@ -40,9 +40,9 @@ public class StandardXYZPaintSourceTest {
      */
     @Test
     public void testSerialization() {
-        StandardXYZPaintSource ps1 = new StandardXYZPaintSource();
-        StandardXYZPaintSource ps2 
-                = (StandardXYZPaintSource) TestUtils.serialized(ps1);
+        StandardXYZColorSource ps1 = new StandardXYZColorSource();
+        StandardXYZColorSource ps2 
+                = (StandardXYZColorSource) TestUtils.serialized(ps1);
         assertTrue(ps1.equals(ps2));
     }
 

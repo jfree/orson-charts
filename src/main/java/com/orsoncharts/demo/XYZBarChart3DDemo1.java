@@ -21,9 +21,12 @@ import com.orsoncharts.data.xyz.XYZDataItem;
 import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.data.xyz.XYZSeries;
 import com.orsoncharts.data.xyz.XYZSeriesCollection;
+import com.orsoncharts.graphics3d.ViewPoint3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.renderer.xyz.BarXYZRenderer;
+import com.orsoncharts.renderer.xyz.StandardXYZColorSource;
+import java.awt.Color;
 
 /**
  * A demo of a 3D bar chart.
@@ -54,15 +57,19 @@ public class XYZBarChart3DDemo1 extends JFrame {
      * @return A panel containing the content for the demo.
      */
     public static JPanel createDemoPanel() {
-        JPanel content = new JPanel(new BorderLayout());
+        DemoPanel content = new DemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         XYZDataset dataset = createDataset();
         Chart3D chart = Chart3DFactory.createXYZBarChart("XYZBarChart3DDemo1", 
                 "Chart created with Orson Charts", dataset, "X", "Value", "Z");
         XYZPlot plot = (XYZPlot) chart.getPlot();
         BarXYZRenderer renderer = (BarXYZRenderer) plot.getRenderer();
-      
+        renderer.setBarXWidth(Math.PI / 20);
+        renderer.setBarZWidth(Math.PI / 20);
+        renderer.setColorSource(new StandardXYZColorSource(Color.GREEN));
+        chart.setViewPoint(ViewPoint3D.createAboveRightViewPoint(40));
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
+        content.setChartPanel(chartPanel);
         chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         content.add(new DisplayPanel3D(chartPanel));
         return content;
@@ -76,22 +83,24 @@ public class XYZBarChart3DDemo1 extends JFrame {
      * @return A sample dataset.
      */
     private static XYZDataset createDataset() {
-        XYZSeries series1 = new XYZSeries("Series 1");
-        for (int x = 0; x < 4; x++) {
-            series1.add(new XYZDataItem(x + 0.5, Math.random() * 20, 0.5));            
+        XYZSeries series1 = new XYZSeries("y = cos(x) * sin(z)");
+        for (double x = Math.PI / 2; x < 3 * Math.PI / 2; x += Math.PI / 20) {
+            for (double z = Math.PI; z < 2 * Math.PI; z += Math.PI / 20) {
+                series1.add(new XYZDataItem(x, Math.cos(x) * Math.sin(z), z));            
+            }
         }
-        XYZSeries series2 = new XYZSeries("Series 2");
-        for (int x = 0; x < 4; x++) {
-            series2.add(new XYZDataItem(x + 0.5, Math.random() * 20, 1.5));            
-        }     
-        XYZSeries series3 = new XYZSeries("Series 3");
-        for (int x = 0; x < 4; x++) {
-            series3.add(new XYZDataItem(x + 0.5, Math.random() * 20 - 10, 2.5));            
-        }
+//        XYZSeries series2 = new XYZSeries("Series 2");
+//        for (int x = 0; x < 4; x++) {
+//            series2.add(new XYZDataItem(x + 0.5, Math.random() * 20, 1.5));            
+//        }     
+//        XYZSeries series3 = new XYZSeries("Series 3");
+//        for (int x = 0; x < 4; x++) {
+//            series3.add(new XYZDataItem(x + 0.5, Math.random() * 20 - 10, 2.5));            
+//        }
         XYZSeriesCollection dataset = new XYZSeriesCollection();
         dataset.add(series1);
-        dataset.add(series2);
-        dataset.add(series3);
+//        dataset.add(series2);
+//        dataset.add(series3);
         return dataset;
     }
 

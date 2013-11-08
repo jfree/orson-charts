@@ -8,10 +8,10 @@
 
 package com.orsoncharts.renderer.category;
 
-import com.orsoncharts.Colors;
 import java.awt.Color;
 import java.io.Serializable;
 import java.util.Arrays;
+import com.orsoncharts.Colors;
 import com.orsoncharts.util.ArgChecks;
 
 /**
@@ -21,16 +21,16 @@ import com.orsoncharts.util.ArgChecks;
  * to change in future releases and should not be relied upon for persisting 
  * instances of this class.
  */
-public final class StandardCategory3DPaintSource 
-        implements Category3DPaintSource, Serializable {
+public final class StandardCategoryColorSource 
+        implements CategoryColorSource, Serializable {
 
     /** The sequence of color objects to use for each series. */
-    private Color[] paint;
+    private Color[] colors;
     
     /**
      * Creates a new instance with default colors.
      */
-    public StandardCategory3DPaintSource() {
+    public StandardCategoryColorSource() {
         this(Colors.getDefaultColors());
     }
     
@@ -39,7 +39,7 @@ public final class StandardCategory3DPaintSource
      * 
      * @param color  the color (<code>null</code> not permitted).
      */
-    public StandardCategory3DPaintSource(Color color) {
+    public StandardCategoryColorSource(Color color) {
         this(new Color[] { color} );
     }
     
@@ -50,7 +50,7 @@ public final class StandardCategory3DPaintSource
      * 
      * @param colors  the colors (<code>null</code> not permitted). 
      */
-    public StandardCategory3DPaintSource(Color[] colors) {
+    public StandardCategoryColorSource(Color[] colors) {
         ArgChecks.nullNotPermitted(colors, "colors");
         if (colors.length == 0) {
             throw new IllegalArgumentException(
@@ -62,7 +62,7 @@ public final class StandardCategory3DPaintSource
                         "Null array entries not permitted.");
             }
         }
-        this.paint = colors.clone();
+        this.colors = colors.clone();
     }
     
     /**
@@ -75,8 +75,8 @@ public final class StandardCategory3DPaintSource
      * @return The color (never <code>null</code>). 
      */
     @Override
-    public Color getPaint(int series, int row, int column) {
-        return this.paint[series % this.paint.length];
+    public Color getColor(int series, int row, int column) {
+        return this.colors[series % this.colors.length];
     }
 
     /**
@@ -87,8 +87,8 @@ public final class StandardCategory3DPaintSource
      * @return The color (never <code>null</code>).
      */
     @Override
-    public Color getLegendPaint(int series) {
-        return this.paint[series % this.paint.length];
+    public Color getLegendColor(int series) {
+        return this.colors[series % this.colors.length];
     }
     
     /**
@@ -103,12 +103,12 @@ public final class StandardCategory3DPaintSource
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof StandardCategory3DPaintSource)) {
+        if (!(obj instanceof StandardCategoryColorSource)) {
             return false;
         }
-        StandardCategory3DPaintSource that 
-                = (StandardCategory3DPaintSource) obj;
-        if (!Arrays.equals(this.paint, that.paint)) {
+        StandardCategoryColorSource that 
+                = (StandardCategoryColorSource) obj;
+        if (!Arrays.equals(this.colors, that.colors)) {
             return false;
         }
         return true;

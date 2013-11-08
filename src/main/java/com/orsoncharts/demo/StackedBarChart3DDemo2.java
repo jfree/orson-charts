@@ -16,10 +16,14 @@ import javax.swing.JPanel;
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
-import com.orsoncharts.data.DefaultKeyedValues;
+import com.orsoncharts.Colors;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.category.StandardCategoryDataset3D;
+import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
+import com.orsoncharts.plot.CategoryPlot3D;
+import com.orsoncharts.renderer.category.StackedBarRenderer3D;
+import com.orsoncharts.renderer.category.StandardCategoryColorSource;
 
 /**
  * A demo of a 3D stacked bar chart.
@@ -50,14 +54,24 @@ public class StackedBarChart3DDemo2 extends JFrame {
      * @return A panel containing the content for the demo.
      */
     public static JPanel createDemoPanel() {
-        JPanel content = new JPanel(new BorderLayout());
+        DemoPanel content = new DemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         CategoryDataset3D dataset = createDataset();
         Chart3D chart = Chart3DFactory.createStackedBarChart(
-                "Stacked Bar Chart", "Put the data source here", dataset, null, 
-                null, "Value");
-
+                "Water Usage Chart", 
+                "Source: http://en.wikipedia.org/wiki/Peak_water#Water_supply", 
+                dataset, null, null, "Cubic meters / person / year");
+        CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
+        plot.setDimensions(new Dimension3D(14, 6.5, 2));
+        plot.getRowAxis().setVisible(false);
+        StackedBarRenderer3D renderer 
+                = (StackedBarRenderer3D) plot.getRenderer();
+        renderer.setBarZWidth(0.3);
+        renderer.setColorSource(new StandardCategoryColorSource(
+                Colors.getColors1()));
+        chart.getViewPoint().moveUpDown(Math.PI / 30);
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
+        content.setChartPanel(chartPanel);
         chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         content.add(new DisplayPanel3D(chartPanel));
         return content;
@@ -74,48 +88,86 @@ public class StackedBarChart3DDemo2 extends JFrame {
         
         StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
 
-        DefaultKeyedValues s1 = new DefaultKeyedValues();
-        s1.put("A", 4);
-        s1.put("B", 2);
-        s1.put("C", 3);
-        s1.put("D", 5);
-        s1.put("E", 2);
-        s1.put("F", 1);
-        DefaultKeyedValues s2 = new DefaultKeyedValues();
-        s2.put("A", 1);
-        s2.put("B", 2);
-        s2.put("C", 3);
-        s2.put("D", 2);
-        s2.put("E", 3);
-        s2.put("F", 1);
-        DefaultKeyedValues s3 = new DefaultKeyedValues();
-        s3.put("A", 6);
-        s3.put("B", 6);
-        s3.put("C", 6);
-        s3.put("D", 4);
-        s3.put("E", 4);
-        s3.put("F", 4);
-        DefaultKeyedValues s4 = new DefaultKeyedValues();
-        s4.put("A", 9);
-        s4.put("B", 8);
-        s4.put("C", 7);
-        s4.put("D", 6);
-        s4.put("D", 3);
-        s4.put("E", 4);
-        s4.put("F", 6);
-        DefaultKeyedValues s5 = new DefaultKeyedValues();
-        s5.put("A", 9);
-        s5.put("B", 8);
-        s5.put("C", 7);
-        s5.put("D", 6);
-        s5.put("E", 7);
-        s5.put("F", 9);
+        dataset.addValue(197, "Agricultural", "R1", "Brazil");
+        dataset.addValue(64, "Domestic", "R1", "Brazil");
+        dataset.addValue(57, "Industrial", "R1", "Brazil");
+        
+        dataset.addValue(339, "Agricultural", "R1", "Indonesia");
+        dataset.addValue(30, "Domestic", "R1", "Indonesia");
+        dataset.addValue(4, "Industrial", "R1", "Indonesia");
+        
+        dataset.addValue(279, "Agricultural", "R1", "China");
+        dataset.addValue(27, "Domestic", "R1", "China");
+        dataset.addValue(107, "Industrial", "R1", "China");
 
-        dataset.addSeriesAsRow("Series 1", "Row 1", s1);
-        dataset.addSeriesAsRow("Series 2", "Row 2", s2);
-        dataset.addSeriesAsRow("Series 3", "Row 2", s3);
-        dataset.addSeriesAsRow("Series 4", "Row 3", s4);
-        dataset.addSeriesAsRow("Series 5", "Row 3", s5);
+        dataset.addValue(92, "Agricultural", "R1", "Germany");
+        dataset.addValue(55, "Domestic", "R1", "Germany");
+        dataset.addValue(313, "Industrial", "R1", "Germany");
+
+        dataset.addValue(96, "Agricultural", "R1", "Russia");
+        dataset.addValue(102, "Domestic", "R1", "Russia");
+        dataset.addValue(337, "Industrial", "R1", "Russia");
+
+        dataset.addValue(403, "Agricultural", "R1", "Turkey");
+        dataset.addValue(82, "Domestic", "R1", "Turkey");
+        dataset.addValue(60, "Industrial", "R1", "Turkey");
+        
+        dataset.addValue(536, "Agricultural", "R1", "Bangladesh");
+        dataset.addValue(17, "Domestic", "R1", "Bangladesh");
+        dataset.addValue(6, "Industrial", "R1", "Bangladesh");
+        
+        dataset.addValue(508, "Agricultural", "R1", "India");
+        dataset.addValue(47, "Domestic", "R1", "India");
+        dataset.addValue(30, "Industrial", "R1", "India");
+        
+        dataset.addValue(428, "Agricultural", "R1", "Japan");
+        dataset.addValue(138, "Domestic", "R1", "Japan");
+        dataset.addValue(124, "Industrial", "R1", "Japan");
+
+        dataset.addValue(325, "Agricultural", "R1", "Italy");
+        dataset.addValue(130, "Domestic", "R1", "Italy");
+        dataset.addValue(268, "Industrial", "R1", "Italy");
+        
+        dataset.addValue(569, "Agricultural", "R1", "Mexico");
+        dataset.addValue(126, "Domestic", "R1", "Mexico");
+        dataset.addValue(37, "Industrial", "R1", "Mexico");
+
+        dataset.addValue(576, "Agricultural", "R1", "Vietnam");
+        dataset.addValue(68, "Domestic", "R1", "Vietnam");
+        dataset.addValue(203, "Industrial", "R1", "Vietnam");
+        
+        dataset.addValue(794, "Agricultural", "R1", "Egypt");
+        dataset.addValue(74, "Domestic", "R1", "Egypt");
+        dataset.addValue(55, "Industrial", "R1", "Egypt");
+
+        dataset.addValue(954, "Agricultural", "R1", "Iran");
+        dataset.addValue(21, "Domestic", "R1", "Iran");
+        dataset.addValue(73, "Industrial", "R1", "Iran");
+
+        dataset.addValue(1029, "Agricultural", "R1", "Pakistan");
+        dataset.addValue(21, "Domestic", "R1", "Pakistan");
+        dataset.addValue(21, "Industrial", "R1", "Pakistan");
+
+        dataset.addValue(1236, "Agricultural", "R1", "Thailand");
+        dataset.addValue(26, "Domestic", "R1", "Thailand");
+        dataset.addValue(26, "Industrial", "R1", "Thailand");
+
+        dataset.addValue(165, "Agricultural", "R1", "Canada");
+        dataset.addValue(274, "Domestic", "R1", "Canada");
+        dataset.addValue(947, "Industrial", "R1", "Canada");
+        
+        dataset.addValue(1363, "Agricultural", "R1", "Iraq");
+        dataset.addValue(44, "Domestic", "R1", "Iraq");
+        dataset.addValue(74, "Industrial", "R1", "Iraq");
+        
+        dataset.addValue(656, "Agricultural", "R1", "US");
+        dataset.addValue(208, "Domestic", "R1", "US");
+        dataset.addValue(736, "Industrial", "R1", "US");
+        
+        dataset.addValue(2040, "Agricultural", "R1", "Uzbekistan");
+        dataset.addValue(110, "Domestic", "R1", "Uzbekistan");
+        dataset.addValue(44, "Industrial", "R1", "Uzbekistan");
+        
         return dataset;
     }
     
@@ -126,10 +178,9 @@ public class StackedBarChart3DDemo2 extends JFrame {
      */
     public static void main(String[] args) {
         StackedBarChart3DDemo2 app = new StackedBarChart3DDemo2(
-                "OrsonCharts: StackedBarChart3DDemo2.java");
+                "OrsonCharts: StackedBarChart3DDemo1.java");
         app.pack();
         app.setVisible(true);
     }
 }
-
 

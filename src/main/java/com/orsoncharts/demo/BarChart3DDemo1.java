@@ -24,7 +24,7 @@ import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.legend.LegendAnchor;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.category.BarRenderer3D;
-import com.orsoncharts.renderer.category.StandardCategory3DPaintSource;
+import com.orsoncharts.renderer.category.StandardCategoryColorSource;
 
 /**
  * A demo of a 3D bar chart.
@@ -57,7 +57,7 @@ public class BarChart3DDemo1 extends JFrame {
      * @return A panel containing the content for the demo.
      */
     public static JPanel createDemoPanel() {
-        JPanel content = new JPanel(new BorderLayout());
+        DemoPanel content = new DemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         CategoryDataset3D dataset = createDataset();
         Chart3D chart = Chart3DFactory.createBarChart("Quarterly Revenues", 
@@ -71,9 +71,11 @@ public class BarChart3DDemo1 extends JFrame {
         CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
         plot.setGridlinePaintForValues(Color.BLACK);
         BarRenderer3D renderer = (BarRenderer3D) plot.getRenderer();
-        renderer.setPaintSource(new StandardCategory3DPaintSource(new Color[] {new Color(0x1A9641), new Color(0xA6D96A), 
-                    new Color(0xFDAE61), new Color(0xFFFFBF)}));
+        renderer.setColorSource(new StandardCategoryColorSource(
+                new Color[] {new Color(0x1A9641), new Color(0xA6D96A), 
+                new Color(0xFDAE61), new Color(0xFFFFBF)}));
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
+        content.setChartPanel(chartPanel);
         chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         content.add(new DisplayPanel3D(chartPanel));
         return content;

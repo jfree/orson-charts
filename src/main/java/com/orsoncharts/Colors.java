@@ -51,19 +51,31 @@ public class Colors {
     }
     
     /**
+     * Returns an array of four colors.
      * 
-     * @return 
+     * @return An array of four colors. 
      */
     public static Color[] getColors1() {
         return new Color[] { new Color(0, 55, 122),  
             new Color(24, 123, 58), Color.RED, Color.YELLOW };
     }
     
+    /**
+     * Returns an array of four colors.
+     * 
+     * @return An array of four colors. 
+     */
     public static Color[] getColors2() {
         return new Color[] {new Color(0x1A9641), new Color(0xA6D96A), 
                     new Color(0xFDAE61), new Color(0xFFFFBF)};
     }
         
+    /**
+     * Returns an array of six colors 
+     * (source: http://blog.design-seeds.com/generating-color/).
+     * 
+     * @return An array of six colors. 
+     */
     public static Color[] getDesignSeedsShells() {
         return new Color[] {
             new Color(228, 233, 239),
@@ -75,6 +87,12 @@ public class Colors {
         };
     }
     
+    /**
+     * Returns an array of six colors 
+     * (source: http://blog.design-seeds.com/generating-color/).
+     * 
+     * @return An array of six colors. 
+     */
     public static Color[] getDesignSeedsPepper() {
         return new Color[] {
             new Color(255, 219, 142),

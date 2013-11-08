@@ -53,7 +53,7 @@ public class PieChart3DDemo1 extends JFrame {
      * @return A panel containing the content for the demo.
      */
     public static JPanel createDemoPanel() {
-        JPanel content = new JPanel(new BorderLayout());
+        DemoPanel content = new DemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         Chart3D chart = Chart3DFactory.createPieChart(
                 "New Zealand Exports 2012", 
@@ -63,6 +63,7 @@ public class PieChart3DDemo1 extends JFrame {
         
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
         chartPanel.setMargin(0.05);
+        content.setChartPanel(chartPanel);
         content.add(new DisplayPanel3D(chartPanel));
         chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         return content;

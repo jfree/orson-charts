@@ -17,11 +17,11 @@ import javax.swing.JPanel;
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
-import com.orsoncharts.axis.ValueAxis3D;
 import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.data.xyz.XYZSeries;
 import com.orsoncharts.data.xyz.XYZSeriesCollection;
 import com.orsoncharts.graphics3d.Dimension3D;
+import com.orsoncharts.graphics3d.ViewPoint3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.renderer.xyz.ScatterXYZRenderer;
@@ -55,7 +55,7 @@ public class ScatterPlot3DDemo1 extends JFrame {
      * @return A panel containing the content for the demo.
      */
     public static JPanel createDemoPanel() {
-        JPanel content = new JPanel(new BorderLayout());
+        DemoPanel content = new DemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         XYZDataset dataset = createDataset();
         Chart3D chart = Chart3DFactory.createScatterPlot("ScatterPlot3DDemo1", 
@@ -64,9 +64,10 @@ public class ScatterPlot3DDemo1 extends JFrame {
         plot.setDimensions(new Dimension3D(10.0, 4.0, 4.0));
         ScatterXYZRenderer renderer = (ScatterXYZRenderer) plot.getRenderer();
         renderer.setSize(0.15);
-        ValueAxis3D xAxis = plot.getXAxis();
-        xAxis.setRange(20, 80);
+        chart.setViewPoint(ViewPoint3D.createAboveLeftViewPoint(40));
+//        chart.getViewPoint().panLeftRight(-Math.PI / 60);
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
+        content.setChartPanel(chartPanel);
         chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         content.add(new DisplayPanel3D(chartPanel));
         return content;

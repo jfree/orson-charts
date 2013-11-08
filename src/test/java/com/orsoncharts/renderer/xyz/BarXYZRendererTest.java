@@ -44,32 +44,32 @@ public class BarXYZRendererTest {
         r2.setBarZWidth(3.3);
         assertTrue(r1.equals(r2));
 
-        // basePaintSource
-        r1.setBasePaintSource(null);
+        // baseColorSource
+        r1.setBaseColorSource(null);
         assertFalse(r1.equals(r2));
-        r2.setBasePaintSource(null);
+        r2.setBaseColorSource(null);
         assertTrue(r1.equals(r2));
         
-        r1.setBasePaintSource(new StandardXYZPaintSource(Color.CYAN));
+        r1.setBaseColorSource(new StandardXYZColorSource(Color.CYAN));
         assertFalse(r1.equals(r2));
-        r2.setBasePaintSource(new StandardXYZPaintSource(Color.CYAN));
+        r2.setBaseColorSource(new StandardXYZColorSource(Color.CYAN));
         assertTrue(r1.equals(r2));
         
         // topPaintSource
-        r1.setTopPaintSource(null);
+        r1.setBaseColorSource(null);
         assertFalse(r1.equals(r2));
-        r2.setTopPaintSource(null);
+        r2.setBaseColorSource(null);
         assertTrue(r1.equals(r2));
         
-        r1.setTopPaintSource(new StandardXYZPaintSource(Color.YELLOW));
+        r1.setBaseColorSource(new StandardXYZColorSource(Color.YELLOW));
         assertFalse(r1.equals(r2));
-        r2.setTopPaintSource(new StandardXYZPaintSource(Color.YELLOW));
+        r2.setBaseColorSource(new StandardXYZColorSource(Color.YELLOW));
         assertTrue(r1.equals(r2));
         
         // regular paintSource
-        r1.setPaintSource(new StandardXYZPaintSource(Color.RED));
+        r1.setBaseColorSource(new StandardXYZColorSource(Color.RED));
         assertFalse(r1.equals(r2));
-        r2.setPaintSource(new StandardXYZPaintSource(Color.RED));
+        r2.setBaseColorSource(new StandardXYZColorSource(Color.RED));
         assertTrue(r1.equals(r2));
     }
 

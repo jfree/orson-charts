@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
+import com.orsoncharts.Colors;
 import com.orsoncharts.axis.NumberAxis3D;
 import com.orsoncharts.axis.NumberTickSelector;
 import com.orsoncharts.data.category.CategoryDataset3D;
@@ -26,6 +27,7 @@ import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.ViewPoint3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.plot.CategoryPlot3D;
+import com.orsoncharts.renderer.category.StandardCategoryColorSource;
 
 /**
  * A demo of a 3D line chart.
@@ -56,7 +58,7 @@ public class LineChart3DDemo1 extends JFrame {
      * @return A panel containing the content for the demo.
      */
     public static JPanel createDemoPanel() {
-        JPanel content = new JPanel(new BorderLayout());
+        DemoPanel content = new DemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         CategoryDataset3D dataset = createDataset();
         Chart3D chart = Chart3DFactory.createLineChart(
@@ -68,9 +70,11 @@ public class LineChart3DDemo1 extends JFrame {
         plot.getRowAxis().setVisible(false);
         NumberAxis3D valueAxis = (NumberAxis3D) plot.getValueAxis();
         valueAxis.setTickSelector(new NumberTickSelector(true));
-        //valueAxis.setRange(0.20, 0.30);
+        plot.getRenderer().setColorSource(new StandardCategoryColorSource(
+                Colors.getColors1()));
         chart.setViewPoint(ViewPoint3D.createAboveViewPoint(30));
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
+        content.setChartPanel(chartPanel);
         chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         content.add(new DisplayPanel3D(chartPanel));
         return content;

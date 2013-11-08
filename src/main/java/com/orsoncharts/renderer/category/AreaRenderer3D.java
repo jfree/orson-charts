@@ -62,7 +62,7 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
     }
 
     /**
-     * Returns the base value for the area.  The default value is 
+     * Returns the y-value for the base of the area.  The default value is 
      * <code>0.0</code>.
      * 
      * @return The base value. 
@@ -170,7 +170,6 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
         }
         CategoryPlot3D plot = getPlot();
         Axis3D valueAxis = plot.getValueAxis();
-        double baseline = valueAxis.getRange().peggedValue(this.base);
         
         // for all but the last item, we add regular segments
         if (column < dataset.getColumnCount() - 1) {
@@ -186,7 +185,9 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
                         row, column, world, dimensions, xOffset, yOffset, 
                         zOffset);   
             } else {
-                composeItemWithCrossing();
+                composeItemWithCrossing(value0, value1, dataset, series,
+                        row, column, world, dimensions, xOffset, yOffset, 
+                        zOffset);
             }
         }
     }
@@ -237,7 +238,7 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
             double xOffset, double yOffset, double zOffset) {
 
         CategoryPlot3D plot = getPlot();
-        Color color = getPaintSource().getPaint(series, row, column);
+        Color color = getColorSource().getColor(series, row, column);
         CategoryAxis3D rowAxis = plot.getRowAxis();
         CategoryAxis3D columnAxis = plot.getColumnAxis();
         Axis3D valueAxis = plot.getValueAxis();
@@ -261,7 +262,7 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
             if (y1 < range.getMin()) {
                 x11 = x1 - (x1 - x0) * fraction(y11, y1, y0);
             }
-            double x22 = (x00 + x11) / 2.0;  // bogus
+            double x22 = Double.NaN;  // bogus
             boolean p2required = spans(range.getMax(), y0, y1);  // only required when range max is spanned
             if (p2required) {
                 x22 = x0 + (x1 - x0) * fraction(range.getMax(), y0, y1);
@@ -272,8 +273,11 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
                     + xOffset;
             double wx11 = columnAxis.translateToWorld(x11, dimensions.getWidth()) 
                     + xOffset;
-            double wx22 = columnAxis.translateToWorld(x22, dimensions.getWidth()) 
+            double wx22 = Double.NaN;
+            if (p2required) {
+                wx22 = columnAxis.translateToWorld(x22, dimensions.getWidth()) 
                     + xOffset;
+            }
             double wy0 = valueAxis.translateToWorld(y00, dimensions.getHeight()) 
                     + yOffset;
             double wy1 = valueAxis.translateToWorld(y11, dimensions.getHeight()) 
@@ -410,22 +414,12 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
                 obj.addFace(new int[] {5, 6, 7, 8, 9}, color, true);
                 obj.addFace(new int[] {5, 9, 4, 0}, color, true);
                 obj.addFace(new int[] {1, 2, 7, 6}, color, true);
-                obj.addFace(new int[] {8, 7, 2, 3}, color, true);
-//                obj.addFace(new int[] {0, 1, 2, 3, 4}, color);
-//                obj.addFace(new int[] {9, 8, 7, 6, 5}, color);
-//                obj.addFace(new int[] {0, 4, 9, 5}, color);
-//                obj.addFace(new int[] {6, 7, 2, 1}, color);
-//                obj.addFace(new int[] {3, 2, 7, 8}, color);
-                
+                obj.addFace(new int[] {8, 7, 2, 3}, color, true);                
             } else {
                 obj.addFace(new int[] {4, 3, 1, 0}, color, true);
                 obj.addFace(new int[] {5, 6, 8, 9}, color, true);
                 obj.addFace(new int[] {5, 9, 4, 0}, color, true);
                 obj.addFace(new int[] {3, 8, 6, 1}, color, true);
-//                obj.addFace(new int[] {0, 1, 3, 4}, color);
-//                obj.addFace(new int[] {9, 8, 6, 5}, color);
-//                obj.addFace(new int[] {0, 4, 9, 5}, color);
-//                obj.addFace(new int[] {1, 6, 8, 3}, color);
             }
             if (column == 0) {
                 obj.addFace(new int[] {1, 6, 5, 0}, color, true);
@@ -445,7 +439,29 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
                 || (bound1 > value && bound2 < value);
     }
     
-    private void composeItemWithCrossing() {
+    /**
+     * 
+     * @param y0
+     * @param y1
+     * @param dataset
+     * @param series
+     * @param row
+     * @param column
+     * @param world
+     * @param dimensions
+     * @param xOffset
+     * @param yOffset
+     * @param zOffset 
+     */
+    private void composeItemWithCrossing(double y0, double y1,
+            CategoryDataset3D dataset, int series, int row, int column, 
+            World world, Dimension3D dimensions, 
+            double xOffset, double yOffset, double zOffset) {
+        
+        // find the crossing point
+        
+        // then process a regular shape before the crossing
+        // and a regular shape after the crossing
     }
     
     /**

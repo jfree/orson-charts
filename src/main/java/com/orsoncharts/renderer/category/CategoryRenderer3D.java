@@ -2,7 +2,7 @@
  * Orson Charts
  * ============
  * 
- * (C)opyright 2013 by Object Refinery Limited.
+ * (C)opyright 2013, by Object Refinery Limited.
  * 
  */
 
@@ -38,13 +38,15 @@ public interface CategoryRenderer3D extends Renderer3D {
     void setPlot(CategoryPlot3D plot);
   
     /**
-     * Returns the paint source for the renderer, which is an object that
+     * Returns the color source for the renderer, which is an object that
      * is responsible for providing the colors used by the renderer to draw
      * data (and legend) items.
      * 
      * @return The paint source (never <code>null</code>). 
      */
-    Category3DPaintSource getPaintSource();
+    CategoryColorSource getColorSource();
+    
+    void setColorSource(CategoryColorSource colorSource);
     
     /**
      * Returns the range that should be used on the value axis to display all 

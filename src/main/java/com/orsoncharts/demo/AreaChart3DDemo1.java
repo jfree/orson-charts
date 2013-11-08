@@ -14,8 +14,6 @@ import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import com.orsoncharts.Colors;
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
@@ -26,7 +24,6 @@ import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.legend.StandardLegendBuilder;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.category.AreaRenderer3D;
-import com.orsoncharts.renderer.category.StandardCategory3DPaintSource;
 
 /**
  * A demo of a 3D area chart.
@@ -56,8 +53,8 @@ public class AreaChart3DDemo1 extends JFrame {
      * 
      * @return A panel containing the content for the demo.
      */
-    public static JPanel createDemoPanel() {
-        JPanel content = new JPanel(new BorderLayout());
+    public static DemoPanel createDemoPanel() {
+        DemoPanel content = new DemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         CategoryDataset3D dataset = createDataset();
         Chart3D chart = Chart3DFactory.createAreaChart("Reported Revenues By Quarter", 
@@ -75,12 +72,10 @@ public class AreaChart3DDemo1 extends JFrame {
 //        chart.setBackground(background); 
         CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
         plot.getRowAxis().setVisible(false);
-        //plot.getValueAxis().setLabelFont();
-            // plot.getValueAxis().setRange(-10.0, 4.0);
         AreaRenderer3D renderer = (AreaRenderer3D) plot.getRenderer();
         renderer.setBaseColor(Color.GRAY);
-        renderer.setPaintSource(new StandardCategory3DPaintSource(Colors.getColors1()));
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
+        content.setChartPanel(chartPanel);
         content.add(new DisplayPanel3D(chartPanel));
         chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         return content;

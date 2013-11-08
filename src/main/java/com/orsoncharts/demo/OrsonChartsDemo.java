@@ -17,6 +17,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.io.IOException;
+import java.net.URL;
+import javax.swing.JButton;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -40,11 +43,6 @@ import javax.swing.tree.TreePath;
 import javax.swing.JTextPane;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
-import com.orsoncharts.ChartPanel3D;
-import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
-import java.io.IOException;
-import java.net.URL;
-import javax.swing.JButton;
 
 /**
  * A demo application for Orson Charts.  This aggregates all the individual
@@ -57,8 +55,12 @@ public class OrsonChartsDemo extends JFrame implements ActionListener,
     public static final Dimension DEFAULT_CONTENT_SIZE 
             = new Dimension(760, 480);
     
+    public JPanel chartContainer = new JPanel(new BorderLayout());
+    
     private JTextPane chartDescriptionPane;
 
+    private TreePath defaultChartPath;
+    
     /**
      * Creates a new demo instance with the specified frame title.
      * 
@@ -109,6 +111,8 @@ public class OrsonChartsDemo extends JFrame implements ActionListener,
         splitter.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
         JTree tree = new JTree(createTreeModel());
         tree.addTreeSelectionListener(this);
+        
+        tree.setSelectionPath(this.defaultChartPath);
         JScrollPane scroller = new JScrollPane(tree);
         scroller.setPreferredSize(new Dimension(300, 580));
         splitter.add(scroller);
@@ -138,8 +142,6 @@ public class OrsonChartsDemo extends JFrame implements ActionListener,
         result.add(scroller);
         return result;
     }
-    
-    public JPanel chartContainer = new JPanel(new BorderLayout());
     
     /**
      * Creates the panel that contains the chart and the chart description.
@@ -199,8 +201,9 @@ public class OrsonChartsDemo extends JFrame implements ActionListener,
         DefaultMutableTreeNode n = new DefaultMutableTreeNode(
                 "Category Charts");
         MutableTreeNode defaultNode = createNode("com.orsoncharts.demo.AreaChart3DDemo1", "AreaChart3DDemo1.java");
-        //this.defaultChartPath = new TreePath(new Object[] {r, root, defaultNode});
+        this.defaultChartPath = new TreePath(new Object[] {r, n, defaultNode});
         n.add(defaultNode);
+        n.add(createNode("com.orsoncharts.demo.AreaChart3DDemo2", "AreaChart3DDemo2.java"));
         n.add(createNode("com.orsoncharts.demo.BarChart3DDemo1", "BarChart3DDemo1.java"));
         n.add(createNode("com.orsoncharts.demo.BarChart3DDemo2", "BarChart3DDemo2.java"));
         n.add(createNode("com.orsoncharts.demo.LineChart3DDemo1", "LineChart3DDemo1.java"));
@@ -222,10 +225,13 @@ public class OrsonChartsDemo extends JFrame implements ActionListener,
                 "PieChart3DDemo2.java"));
         return n;        
     }
+    
     private MutableTreeNode createXYZChartsNode() {
         DefaultMutableTreeNode n = new DefaultMutableTreeNode("XYZ Charts");
         n.add(createNode("com.orsoncharts.demo.ScatterPlot3DDemo1", 
                 "ScatterPlot3DDemo1.java"));
+        n.add(createNode("com.orsoncharts.demo.ScatterPlot3DDemo2", 
+                "ScatterPlot3DDemo2.java"));
         n.add(createNode("com.orsoncharts.demo.XYZBarChart3DDemo1", 
                 "XYZBarChart3DDemo1.java"));
         return n;        
@@ -331,10 +337,9 @@ public class OrsonChartsDemo extends JFrame implements ActionListener,
                 this.app.chartContainer.removeAll();
                 this.app.chartContainer.add(panel);
                 this.app.chartContainer.validate();
-                if (panel instanceof DisplayPanel3D) {
-                    DisplayPanel3D displayPanel = (DisplayPanel3D) panel;
-                    ChartPanel3D chartPanel = (ChartPanel3D) displayPanel.getContent();
-                    chartPanel.zoomToFit();
+                if (panel instanceof DemoPanel) {
+                    DemoPanel demoPanel = (DemoPanel) panel;
+                    demoPanel.getChartPanel().zoomToFit();
                 }
                 String f = this.demoDescription.getFileName();
                 String f2 = f.substring(0, f.indexOf('.')) + ".html";

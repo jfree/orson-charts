@@ -9,7 +9,6 @@
 package com.orsoncharts.demo;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -18,26 +17,26 @@ import javax.swing.JPanel;
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
-import com.orsoncharts.axis.ValueAxis3D;
+import com.orsoncharts.data.function.Function3D;
 import com.orsoncharts.data.xyz.XYZDataset;
-import com.orsoncharts.data.xyz.XYZSeries;
-import com.orsoncharts.data.xyz.XYZSeriesCollection;
+import com.orsoncharts.data.xyz.XYZDatasetUtils;
 import com.orsoncharts.graphics3d.Dimension3D;
+import com.orsoncharts.graphics3d.ViewPoint3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.plot.XYZPlot;
-import com.orsoncharts.renderer.xyz.FastScatterXYZRenderer;
+import com.orsoncharts.renderer.xyz.ScatterXYZRenderer;
 
 /**
  * A demonstration of a scatter plot in 3D.
  */
-public class FastScatterPlot3DDemo1 extends JFrame {
+public class ScatterPlot3DDemo2 extends JFrame {
 
     /**
      * Creates a new test app.
      *
      * @param title  the frame title.
      */
-    public FastScatterPlot3DDemo1(String title) {
+    public ScatterPlot3DDemo2(String title) {
         super(title);
         addWindowListener(new WindowAdapter() {
             @Override
@@ -56,20 +55,20 @@ public class FastScatterPlot3DDemo1 extends JFrame {
      * @return A panel containing the content for the demo.
      */
     public static JPanel createDemoPanel() {
-        JPanel content = new JPanel(new BorderLayout());
-        content.setPreferredSize(new Dimension(600, 400));
+        DemoPanel content = new DemoPanel(new BorderLayout());
+        content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         XYZDataset dataset = createDataset();
-        Chart3D chart = Chart3DFactory.createScatterPlot(
-                "FastScatterPlot3DDemo1", "Chart created with Orson Charts", 
-                dataset, "X", "Y", "Z");
+        Chart3D chart = Chart3DFactory.createScatterPlot("ScatterPlot3DDemo2", 
+                "Chart created with Orson Charts", dataset, "X", "Y", "Z");
         XYZPlot plot = (XYZPlot) chart.getPlot();
-        plot.setRenderer(new FastScatterXYZRenderer());
-        plot.setDimensions(new Dimension3D(10.0, 4.0, 4.0));
-        //ScatterXYZRenderer renderer = (ScatterXYZRenderer) plot.getRenderer();
-        //renderer.setSize(0.20);
-        ValueAxis3D xAxis = plot.getXAxis();
-        xAxis.setRange(20, 80);
-        content.add(new DisplayPanel3D(new ChartPanel3D(chart)));
+        plot.setDimensions(new Dimension3D(10.0, 4.0, 10.0));
+        ScatterXYZRenderer renderer = (ScatterXYZRenderer) plot.getRenderer();
+        renderer.setSize(0.05);
+        chart.setViewPoint(ViewPoint3D.createAboveLeftViewPoint(40));
+        ChartPanel3D chartPanel = new ChartPanel3D(chart);
+        content.setChartPanel(chartPanel);
+        chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
+        content.add(new DisplayPanel3D(chartPanel));
         return content;
     }
 
@@ -81,31 +80,26 @@ public class FastScatterPlot3DDemo1 extends JFrame {
      * @return A sample dataset.
      */
     private static XYZDataset createDataset() {
-        XYZSeries s1 = createRandomSeries("S1", 10);
-        XYZSeries s2 = createRandomSeries("S2", 50);
-        XYZSeries s3 = createRandomSeries("S3", 150);
-        XYZSeriesCollection dataset = new XYZSeriesCollection();
-        dataset.add(s1);
-        dataset.add(s2);
-        dataset.add(s3);
+        Function3D f = new Function3D() {
+            @Override
+            public double getValue(double x, double z) {
+                return Math.cos(x) * Math.sin(z);
+            }
+        };
+        
+        XYZDataset dataset = XYZDatasetUtils.sampleFunction(f, 
+                "y = cos(x) * sin(z)", 0, Math.PI * 2, 60, 0, Math.PI * 2, 60);
         return dataset;
     }
-    
-    private static XYZSeries createRandomSeries(String name, int count) {
-        XYZSeries s = new XYZSeries(name);
-        for (int i = 0; i < count; i++) {
-            s.add(Math.random() * 100, Math.random() / 100, Math.random() * 100);
-        }
-        return s;
-    }
+   
     /**
      * Starting point for the app.
      *
      * @param args  command line arguments (ignored).
      */
     public static void main(String[] args) {
-        FastScatterPlot3DDemo1 app = new FastScatterPlot3DDemo1(
-                "OrsonCharts : FastScatterPlot3DDemo1.java");
+        ScatterPlot3DDemo2 app = new ScatterPlot3DDemo2(
+                "OrsonCharts : ScatterPlot3DDemo2.java");
         app.pack();
         app.setVisible(true);
     }

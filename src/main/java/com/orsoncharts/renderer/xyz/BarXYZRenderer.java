@@ -42,20 +42,20 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer,
     private double barZWidth;
 
     /** 
-     * The paint source used to fetch the color for the base of bars where
+     * The color source used to fetch the color for the base of bars where
      * the actual base of the bar is *outside* of the current axis range 
      * (that is, the bar is "cropped").  If this is <code>null</code>, then 
      * the regular bar color is used.
      */
-    private XYZPaintSource basePaintSource;
+    private XYZColorSource baseColorSource;
     
     /**
-     * The paint source used to fetch the color for the top of bars where
+     * The color source used to fetch the color for the top of bars where
      * the actual top of the bar is *outside* of the current axis range 
      * (that is, the bar is "cropped"). If this is <code>null</code> then the 
      * bar top is always drawn using the series paint.
      */
-    private XYZPaintSource topPaintSource;
+    private XYZColorSource topColorSource;
 
     /**
      * Creates a new default instance.
@@ -64,8 +64,8 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer,
         this.base = 0.0;
         this.barXWidth = 0.8;
         this.barZWidth = 0.8;
-        this.basePaintSource = new StandardXYZPaintSource(Color.WHITE);
-        this.topPaintSource = new StandardXYZPaintSource(Color.BLACK);
+        this.baseColorSource = new StandardXYZColorSource(Color.WHITE);
+        this.topColorSource = new StandardXYZColorSource(Color.BLACK);
         
     }
     
@@ -142,8 +142,8 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer,
      * 
      * @return A paint source (possibly <code>null</code>).
      */
-    public XYZPaintSource getBasePaintSource() {
-        return this.basePaintSource;
+    public XYZColorSource getBaseColorSource() {
+        return this.baseColorSource;
     }
     
     /**
@@ -160,8 +160,8 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer,
      * @see #getBasePaintSource() 
      * @see #getTopPaintSource()
      */
-    public void setBasePaintSource(XYZPaintSource source) {
-        this.basePaintSource = source;
+    public void setBaseColorSource(XYZColorSource source) {
+        this.baseColorSource = source;
         fireChangeEvent();
     }
     
@@ -175,8 +175,8 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer,
      * 
      * @return A paint source (possibly <code>null</code>).
      */
-    public XYZPaintSource getTopPaintSource() {
-        return this.topPaintSource;
+    public XYZColorSource getTopColorSource() {
+        return this.topColorSource;
     }
     
     /**
@@ -189,8 +189,8 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer,
      * @see #getTopPaintSource() 
      * @see #getBasePaintSource() 
      */
-    public void setTopPaintSource(XYZPaintSource source) {
-        this.topPaintSource = source;
+    public void setTopColorSource(XYZColorSource source) {
+        this.topColorSource = source;
         fireChangeEvent();
     }
 
@@ -297,18 +297,18 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer,
         double wz0 = zAxis.translateToWorld(z0, dimensions.getDepth());
         double wz1 = zAxis.translateToWorld(z1, dimensions.getDepth());
     
-        Color color = getPaintSource().getPaint(series, item);
+        Color color = getColorSource().getColor(series, item);
         Color baseColor = null;
-        if (this.basePaintSource != null && !range.contains(this.base)) {
-            baseColor = this.basePaintSource.getPaint(series, item);
+        if (this.baseColorSource != null && !range.contains(this.base)) {
+            baseColor = this.baseColorSource.getColor(series, item);
         }
         if (baseColor == null) {
             baseColor = color;
         }
 
         Color topColor = null;
-        if (this.topPaintSource != null && !range.contains(y)) {
-            topColor = this.topPaintSource.getPaint(series, item);
+        if (this.topColorSource != null && !range.contains(y)) {
+            topColor = this.topColorSource.getColor(series, item);
         }
         if (topColor == null) {
             topColor = color;
@@ -346,10 +346,10 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer,
         if (this.barZWidth != that.barZWidth) {
             return false;
         }
-        if (!ObjectUtils.equals(this.basePaintSource, that.basePaintSource)) {
+        if (!ObjectUtils.equals(this.baseColorSource, that.baseColorSource)) {
             return false;
         }
-        if (!ObjectUtils.equals(this.topPaintSource, that.topPaintSource)) {
+        if (!ObjectUtils.equals(this.topColorSource, that.topColorSource)) {
             return false;
         }
         return super.equals(obj);

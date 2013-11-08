@@ -37,13 +37,13 @@ public interface XYZRenderer extends Renderer3D {
     void setPlot(XYZPlot plot);
     
     /**
-     * Returns the paint source for the renderer, which is an object that
+     * Returns the color source for the renderer, which is an object that
      * is responsible for providing the colors used by the renderer to draw
      * data (and legend) items.
      * 
      * @return The paint source (never <code>null</code>). 
      */
-    XYZPaintSource getPaintSource();
+    XYZColorSource getColorSource();
 
     /**
      * Returns the range that should be set on the x-axis in order for this 

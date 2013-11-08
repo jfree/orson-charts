@@ -9,7 +9,6 @@
 package com.orsoncharts.renderer.xyz;
 
 import java.awt.Color;
-import java.awt.Paint;
 import java.io.Serializable;
 import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.graphics3d.Dimension3D;
@@ -53,9 +52,9 @@ public class FastScatterXYZRenderer extends AbstractXYZRenderer
         double x = dataset.getX(series, item);
         double y = dataset.getY(series, item);
         double z = dataset.getZ(series, item);
-        Paint paint = getPaintSource().getPaint(series, item);
+        Color color = getColorSource().getColor(series, item);
         Dot3D point = new Dot3D((float) (x + xOffset), (float) (y + yOffset), 
-                (float) (z + zOffset), (Color) paint);
+                (float) (z + zOffset), color);
         world.add(point);
     }
 

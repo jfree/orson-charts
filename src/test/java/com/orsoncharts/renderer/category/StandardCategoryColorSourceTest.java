@@ -15,27 +15,27 @@ import java.awt.Color;
 import com.orsoncharts.TestUtils;
 
 /**
- * Tests for the {@link DefaultCategory3DPaintSource} class.
+ * Tests for the {@link StandardCategoryColorSource} class.
  */
-public class StandardCategory3DPaintSourceTest {
+public class StandardCategoryColorSourceTest {
     
     @Test
     public void testEquals() {
-        StandardCategory3DPaintSource s1 = new StandardCategory3DPaintSource();
-        StandardCategory3DPaintSource s2 = new StandardCategory3DPaintSource();
+        StandardCategoryColorSource s1 = new StandardCategoryColorSource();
+        StandardCategoryColorSource s2 = new StandardCategoryColorSource();
         assertTrue(s1.equals(s2));
         assertFalse(s1.equals(null));
         
-        s1 = new StandardCategory3DPaintSource(new Color[] { Color.BLUE });
+        s1 = new StandardCategoryColorSource(new Color[] { Color.BLUE });
         assertFalse(s1.equals(s2));
-        s2 = new StandardCategory3DPaintSource(new Color[] { Color.BLUE });
+        s2 = new StandardCategoryColorSource(new Color[] { Color.BLUE });
         assertTrue(s1.equals(s2)); 
     }
     
     @Test
     public void testSerialization() {
-        StandardCategory3DPaintSource s1 = new StandardCategory3DPaintSource();
-        StandardCategory3DPaintSource s2 = (StandardCategory3DPaintSource) 
+        StandardCategoryColorSource s1 = new StandardCategoryColorSource();
+        StandardCategoryColorSource s2 = (StandardCategoryColorSource) 
                 TestUtils.serialized(s1);
         assertTrue(s1.equals(s2));
     }

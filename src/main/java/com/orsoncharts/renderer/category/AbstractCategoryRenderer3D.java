@@ -27,16 +27,16 @@ public abstract class AbstractCategoryRenderer3D extends AbstractRenderer3D
     private CategoryPlot3D plot;
    
     /** 
-     * The paint source is used to determine the color for each item drawn
+     * The color source is used to determine the color for each item drawn
      * by the renderer (never <code>null</code>).
      */
-    private Category3DPaintSource paintSource;
+    private CategoryColorSource colorSource;
     
     /**
      * Default constructor.
      */
     public AbstractCategoryRenderer3D() {
-        this.paintSource = new StandardCategory3DPaintSource();
+        this.colorSource = new StandardCategoryColorSource();
     }
     
     /**
@@ -67,19 +67,20 @@ public abstract class AbstractCategoryRenderer3D extends AbstractRenderer3D
      * @return The paint source (never <code>null</code>). 
      */
     @Override
-    public Category3DPaintSource getPaintSource() {
-        return this.paintSource;
+    public CategoryColorSource getColorSource() {
+        return this.colorSource;
     }
     
     /**
-     * Sets the paint source for the renderer and sends a 
+     * Sets the color source for the renderer and sends a 
      * {@link Renderer3DChangeEvent} to all registered listeners.
      * 
-     * @param paintSource  the paint source (<code>null</code> not permitted). 
+     * @param colorSource  the color source (<code>null</code> not permitted). 
      */
-    public void setPaintSource(Category3DPaintSource paintSource) {
-        ArgChecks.nullNotPermitted(paintSource, "paintSource");
-        this.paintSource = paintSource;
+    @Override
+    public void setColorSource(CategoryColorSource colorSource) {
+        ArgChecks.nullNotPermitted(colorSource, "colorSource");
+        this.colorSource = colorSource;
         fireChangeEvent();
     }
     
@@ -112,7 +113,7 @@ public abstract class AbstractCategoryRenderer3D extends AbstractRenderer3D
             return false;
         }
         AbstractCategoryRenderer3D that = (AbstractCategoryRenderer3D) obj;
-        if (!this.paintSource.equals(that.paintSource)) {
+        if (!this.colorSource.equals(that.colorSource)) {
             return false;
         }
         return super.equals(obj);

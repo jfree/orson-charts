@@ -41,26 +41,26 @@ public class BarRenderer3DTest {
         r2.setBarZWidth(2.2);
         assertTrue(r1.equals(r2));
 
-        // basePaintSource
-        r1.setBasePaintSource(null);
+        // baseColorSource
+        r1.setBaseColorSource(null);
         assertFalse(r1.equals(r2));
-        r2.setBasePaintSource(null);
+        r2.setBaseColorSource(null);
         assertTrue(r1.equals(r2));
         
-        r1.setBasePaintSource(new StandardCategory3DPaintSource(Color.CYAN));
+        r1.setBaseColorSource(new StandardCategoryColorSource(Color.CYAN));
         assertFalse(r1.equals(r2));
-        r2.setBasePaintSource(new StandardCategory3DPaintSource(Color.CYAN));
+        r2.setBaseColorSource(new StandardCategoryColorSource(Color.CYAN));
         assertTrue(r1.equals(r2));
         
-        // topPaintSource
-        r1.setTopPaintSource(null);
+        // topColorSource
+        r1.setTopColorSource(null);
         assertFalse(r1.equals(r2));
-        r2.setTopPaintSource(null);
+        r2.setTopColorSource(null);
         assertTrue(r1.equals(r2));
         
-        r1.setTopPaintSource(new StandardCategory3DPaintSource(Color.YELLOW));
+        r1.setTopColorSource(new StandardCategoryColorSource(Color.YELLOW));
         assertFalse(r1.equals(r2));
-        r2.setTopPaintSource(new StandardCategory3DPaintSource(Color.YELLOW));
+        r2.setTopColorSource(new StandardCategoryColorSource(Color.YELLOW));
         assertTrue(r1.equals(r2));
         
         // notify

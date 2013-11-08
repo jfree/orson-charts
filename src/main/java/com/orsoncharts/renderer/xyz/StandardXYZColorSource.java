@@ -20,15 +20,15 @@ import com.orsoncharts.util.ObjectUtils;
  * to change in future releases and should not be relied upon for persisting 
  * instances of this class.
  */
-public class StandardXYZPaintSource implements XYZPaintSource, Serializable {
+public class StandardXYZColorSource implements XYZColorSource, Serializable {
 
     /** The sequence of color objects to use for each series. */
-    private Color[] paint;
+    private Color[] colors;
     
     /**
      * Creates a new instance with default colors.
      */
-    public StandardXYZPaintSource() {
+    public StandardXYZColorSource() {
         this(new Color[] { Color.RED, Color.BLUE, Color.YELLOW, 
             Color.GRAY, Color.GREEN});    
     }
@@ -39,9 +39,9 @@ public class StandardXYZPaintSource implements XYZPaintSource, Serializable {
      * 
      * @param color  the color (<code>null</code> not permitted).
      */
-    public StandardXYZPaintSource(Color color) {
+    public StandardXYZColorSource(Color color) {
         ArgChecks.nullNotPermitted(color, "color");
-        this.paint = new Color[] { color };
+        this.colors = new Color[] { color };
     }
     
     /**
@@ -51,9 +51,9 @@ public class StandardXYZPaintSource implements XYZPaintSource, Serializable {
      * 
      * @param colors  the colors (<code>null</code> not permitted). 
      */
-    public StandardXYZPaintSource(Color[] colors) {
+    public StandardXYZColorSource(Color[] colors) {
         ArgChecks.nullNotPermitted(colors, "colors");
-        this.paint = colors;
+        this.colors = colors;
     }
     
     /**
@@ -65,8 +65,8 @@ public class StandardXYZPaintSource implements XYZPaintSource, Serializable {
      * @return The color (never <code>null</code>). 
      */
     @Override
-    public Color getPaint(int series, int item) {
-        return this.paint[series % this.paint.length];
+    public Color getColor(int series, int item) {
+        return this.colors[series % this.colors.length];
     }
 
     /**
@@ -77,8 +77,8 @@ public class StandardXYZPaintSource implements XYZPaintSource, Serializable {
      * @return The color (never <code>null</code>).
      */
     @Override
-    public Color getLegendPaint(int series) {
-        return this.paint[series % this.paint.length];
+    public Color getLegendColor(int series) {
+        return this.colors[series % this.colors.length];
     }
     
     /**
@@ -93,15 +93,15 @@ public class StandardXYZPaintSource implements XYZPaintSource, Serializable {
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof StandardXYZPaintSource)) {
+        if (!(obj instanceof StandardXYZColorSource)) {
             return false;
         }
-        StandardXYZPaintSource that = (StandardXYZPaintSource) obj;
-        if (this.paint.length != that.paint.length) {
+        StandardXYZColorSource that = (StandardXYZColorSource) obj;
+        if (this.colors.length != that.colors.length) {
             return false;
         }
-        for (int i = 0; i < this.paint.length; i++) {
-            if (!ObjectUtils.equalsPaint(this.paint[i], that.paint[i])) {
+        for (int i = 0; i < this.colors.length; i++) {
+            if (!ObjectUtils.equalsPaint(this.colors[i], that.colors[i])) {
                 return false;
             }
         }

@@ -108,10 +108,10 @@ public class ScatterXYZRenderer extends AbstractXYZRenderer
         if ((xmin >= xmax) || (ymin >= ymax) || (zmin >= zmax)) {
             return;
         }
-        Color paint = getPaintSource().getPaint(series, item);
+        Color color = getColorSource().getColor(series, item);
         Object3D cube = Object3D.createBox((xmax + xmin) / 2.0 + xOffset, xmax - xmin,
                 (ymax + ymin) / 2.0 + yOffset, ymax - ymin,
-                (zmax + zmin) / 2.0 + zOffset, zmax - zmin, paint);
+                (zmax + zmin) / 2.0 + zOffset, zmax - zmin, color);
         world.add(cube);
     }
 

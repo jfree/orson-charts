@@ -497,18 +497,27 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
 
             if (getTickLabelsVisible()) {
                 double theta = calculateTheta(axisLine);
-                double thetaAdj = theta + Math.PI / 2.0;
-                if (thetaAdj < -Math.PI / 2.0) {
-                    thetaAdj = thetaAdj + Math.PI;
-                }
-                if (thetaAdj > Math.PI / 2.0) {
-                    thetaAdj = thetaAdj - Math.PI;
-                }
+                //double thetaAdj = theta + Math.PI / 2.0;
+                //if (thetaAdj < -Math.PI / 2.0) {
+                //    thetaAdj = thetaAdj + Math.PI;
+                //    throw new RuntimeException("In fact we don't get here");
+               // }
+                //if (thetaAdj > Math.PI / 2.0) {
+                //    thetaAdj = thetaAdj - Math.PI;
+               // }
 
                 double perpTheta = calculateTheta(perpLine);
                 TextAnchor textAnchor = TextAnchor.CENTER_LEFT;
-                if (Math.abs(perpTheta) > Math.PI / 2.0) {
+                if (perpTheta >= Math.PI / 2.0) {
+                    perpTheta = perpTheta - Math.PI;
                     textAnchor = TextAnchor.CENTER_RIGHT;
+                    //System.out.println(perpTheta + " RIGHT " + thetaAdj);
+                } else if (perpTheta <= -Math.PI / 2) {
+                    perpTheta = perpTheta + Math.PI;
+                    textAnchor = TextAnchor.CENTER_RIGHT;
+                    
+                } else {
+                    //System.out.println(perpTheta + " LEFT " + thetaAdj);                    
                 }
                 g2.setFont(getTickLabelFont());
                 g2.setPaint(getTickLabelPaint());
@@ -517,7 +526,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
                         g2.getFontMetrics().stringWidth(tickLabel));
                 TextUtils.drawRotatedString(tickLabel, g2, 
                         (float) perpLine.getX2(), (float) perpLine.getY2(), 
-                        textAnchor, thetaAdj, textAnchor);
+                        textAnchor, perpTheta, textAnchor);
             }
         }        
 

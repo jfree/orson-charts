@@ -11,12 +11,13 @@ package com.orsoncharts.renderer.category;
 import java.awt.Color;
 
 /**
- * A paint source.  This is the interface through which the renderer will 
- * obtain colors for each data item in the chart.  A default implementation
- * ({@link StandardCategory3DPaintSource}) is provided and you can customise 
+ * A color source that can supply the colors for category plots.  This is the 
+ * interface through which the renderer will obtain colors for each data item 
+ * in the chart.  A default implementation 
+ * ({@link StandardCategoryColorSource}) is provided and you can customise 
  * the rendering colors by providing an alternate implementation.
  */
-public interface Category3DPaintSource {
+public interface CategoryColorSource {
 
     /**
      * Returns the color for one data item in the chart.  We return a 
@@ -29,7 +30,7 @@ public interface Category3DPaintSource {
      * 
      * @return The color.
      */
-    Color getPaint(int series, int row, int column);
+    Color getColor(int series, int row, int column);
   
     /**
      * Returns the color to be used in the legend to represent the specified
@@ -39,7 +40,7 @@ public interface Category3DPaintSource {
      * 
      * @return The color. 
      */
-    Color getLegendPaint(int series);
+    Color getLegendColor(int series);
     
 }
 

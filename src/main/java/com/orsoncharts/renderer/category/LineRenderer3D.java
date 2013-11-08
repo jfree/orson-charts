@@ -147,7 +147,7 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
             double y1 = valueAxis.translateToWorld(value1, 
                     dimensions.getHeight()) + yOffset;
             
-            Color color = getPaintSource().getPaint(series, row, column);
+            Color color = getColorSource().getColor(series, row, column);
             
             // create a line shape
             Object3D obj = new Object3D();

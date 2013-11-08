@@ -17,7 +17,7 @@ import java.awt.Color;
  * <code>java.io.Serializable</code>, otherwise it will not be possible to 
  * serialize and deserialize charts that use the non-serializable instance.
  */
-public interface XYZPaintSource {
+public interface XYZColorSource {
 
     /**
      * Returns the color for one item in the plot.
@@ -27,7 +27,7 @@ public interface XYZPaintSource {
      * 
      * @return The color (never <code>null</code>). 
      */
-    Color getPaint(int series, int item);
+    Color getColor(int series, int item);
     
     /**
      * Returns the color that represents the specified series.
@@ -36,6 +36,6 @@ public interface XYZPaintSource {
      * 
      * @return The color (never <code>null</code>).
      */
-    Color getLegendPaint(int series);
+    Color getLegendColor(int series);
 
 }

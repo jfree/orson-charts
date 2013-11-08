@@ -8,8 +8,6 @@
 
 package com.orsoncharts.demo;
 
-import com.orsoncharts.Colors;
-import java.awt.Color;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import com.orsoncharts.Colors;
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
@@ -62,7 +61,7 @@ public class PieChart3DDemo2 extends JFrame {
      * @return A panel containing the content for the demo.
      */
     public static JPanel createDemoPanel() {
-        JPanel content = new JPanel(new BorderLayout());
+        DemoPanel content = new DemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         final Chart3D chart = Chart3DFactory.createPieChart("PieChart3DDemo2", 
                 "www.object-refinery.com", createDataset());
@@ -75,29 +74,10 @@ public class PieChart3DDemo2 extends JFrame {
         slb.setFooter("Orson Charts (C)opyright 2013, by Object Refinery Limited");
         chart.setLegendBuilder(slb);
         PiePlot3D plot = (PiePlot3D) chart.getPlot();
-        plot.setSectionColorSource(new StandardColorSource(
-                new Color[] {
-                    new Color(228, 233, 239),
-                    new Color(184, 197, 219),
-                    new Color(111, 122, 143),
-                    new Color(95, 89, 89),
-                    new Color(206, 167, 145),
-                    new Color(188, 182, 173)
-                        
-                }
-                ));
         plot.setSectionColorSource(new StandardColorSource(Colors.getDesignSeedsShells()));
-        // 255, 219, 142
-        // 220, 21, 20
-        // 149, 0, 1
-        // 82, 102, 41
-        // 142, 101, 72
-        // 199, 169, 128
-        
-        
-        
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
         chartPanel.setMargin(0.15);
+        content.setChartPanel(chartPanel);
         chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         content.add(new DisplayPanel3D(chartPanel));
         JButton button = new JButton("Change the Data");

@@ -24,13 +24,13 @@ public class AbstractXYZRenderer extends AbstractRenderer3D {
 
     private XYZPlot plot;
   
-    private XYZPaintSource paintSource;
+    private XYZColorSource colorSource;
   
     /**
      * Creates a new default instance.
      */
     protected AbstractXYZRenderer() {
-        this.paintSource = new StandardXYZPaintSource();
+        this.colorSource = new StandardXYZColorSource();
     }
   
     /**
@@ -52,24 +52,24 @@ public class AbstractXYZRenderer extends AbstractRenderer3D {
     }
 
     /**
-     * Returns the object that provides the paint instances for items drawn
+     * Returns the object that provides the color instances for items drawn
      * by the renderer.
      * 
-     * @return The paint source (never <code>null</code>). 
+     * @return The color source (never <code>null</code>). 
      */
-    public XYZPaintSource getPaintSource() {
-        return this.paintSource;
+    public XYZColorSource getColorSource() {
+        return this.colorSource;
     }
     
     /**
-     * Sets the paint source and sends a {@link Renderer3DChangeEvent} to all
+     * Sets the color source and sends a {@link Renderer3DChangeEvent} to all
      * registered listeners.
      * 
-     * @param paintSource  the paint source (<code>null</code> not permitted). 
+     * @param colorSource  the color source (<code>null</code> not permitted). 
      */
-    public void setPaintSource(XYZPaintSource paintSource) {
-        ArgChecks.nullNotPermitted(paintSource, "paintSource");
-        this.paintSource = paintSource;
+    public void setColorSource(XYZColorSource colorSource) {
+        ArgChecks.nullNotPermitted(colorSource, "colorSource");
+        this.colorSource = colorSource;
         fireChangeEvent();
     }
   
@@ -123,7 +123,7 @@ public class AbstractXYZRenderer extends AbstractRenderer3D {
             return false;
         }
         AbstractXYZRenderer that = (AbstractXYZRenderer) obj;
-        if (!this.paintSource.equals(that.paintSource)) {
+        if (!this.colorSource.equals(that.colorSource)) {
             return false;
         }
         return true;

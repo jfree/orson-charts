@@ -54,12 +54,12 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
     private double barZWidth;
     
     /** 
-     * The paint source used to fetch the color for the base of bars where
+     * The color source used to fetch the color for the base of bars where
      * the actual base of the bar is *outside* of the current axis range 
      * (that is, the bar is "cropped").  If this is <code>null</code>, then 
      * the regular bar color is used.
      */
-    private Category3DPaintSource basePaintSource;
+    private CategoryColorSource baseColorSource;
     
     /**
      * The paint source used to fetch the color for the top of bars where
@@ -67,7 +67,7 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
      * (that is, the bar is "cropped"). If this is <code>null</code> then the 
      * bar top is always drawn using the series paint.
      */
-    private Category3DPaintSource topPaintSource;
+    private CategoryColorSource topColorSource;
         
     /**
      * Creates a new renderer with default attribute values.
@@ -76,8 +76,8 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
         this.base = 0.0;
         this.barXWidth = 0.8;
         this.barZWidth = 0.5;
-        this.basePaintSource = new StandardCategory3DPaintSource(Color.WHITE);
-        this.topPaintSource = new StandardCategory3DPaintSource(Color.BLACK);
+        this.baseColorSource = new StandardCategoryColorSource(Color.WHITE);
+        this.topColorSource = new StandardCategoryColorSource(Color.BLACK);
     }
     
     /**
@@ -159,8 +159,8 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
      * 
      * @return A paint source (possibly <code>null</code>).
      */
-    public Category3DPaintSource getBasePaintSource() {
-        return this.basePaintSource;
+    public CategoryColorSource getBaseColorSource() {
+        return this.baseColorSource;
     }
     
     /**
@@ -174,11 +174,11 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
      * 
      * @param source  the source (<code>null</code> permitted).
      * 
-     * @see #getBasePaintSource() 
-     * @see #getTopPaintSource()
+     * @see #getBaseColorSource() 
+     * @see #getTopColorSource()
      */
-    public void setBasePaintSource(Category3DPaintSource source) {
-        this.basePaintSource = source;
+    public void setBaseColorSource(CategoryColorSource source) {
+        this.baseColorSource = source;
         fireChangeEvent();
     }
     
@@ -192,8 +192,8 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
      * 
      * @return A paint source (possibly <code>null</code>).
      */
-    public Category3DPaintSource getTopPaintSource() {
-        return this.topPaintSource;
+    public CategoryColorSource getTopColorSource() {
+        return this.topColorSource;
     }
     
     /**
@@ -203,11 +203,11 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
      * 
      * @param source  the source (<code>null</code> permitted).
      * 
-     * @see #getTopPaintSource() 
-     * @see #getBasePaintSource() 
+     * @see #getTopColorSource() 
+     * @see #getBaseColorSource() 
      */
-    public void setTopPaintSource(Category3DPaintSource source) {
-        this.topPaintSource = source;
+    public void setTopColorSource(CategoryColorSource source) {
+        this.topColorSource = source;
         fireChangeEvent();
     }
 
@@ -311,18 +311,18 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
         double xzw = rowAxis.translateToWorld(zw, depth);
         double basew = valueAxis.translateToWorld(vbase, height);
     
-        Color color = getPaintSource().getPaint(series, row, column);
+        Color color = getColorSource().getColor(series, row, column);
         Color baseColor = null;
-        if (this.basePaintSource != null && !range.contains(this.base)) {
-            baseColor = this.basePaintSource.getPaint(series, row, column);
+        if (this.baseColorSource != null && !range.contains(this.base)) {
+            baseColor = this.baseColorSource.getColor(series, row, column);
         }
         if (baseColor == null) {
             baseColor = color;
         }
 
         Color topColor = null;
-        if (this.topPaintSource != null && !range.contains(value)) {
-            topColor = this.topPaintSource.getPaint(series, row, column);
+        if (this.topColorSource != null && !range.contains(value)) {
+            topColor = this.topColorSource.getColor(series, row, column);
         }
         if (topColor == null) {
             topColor = color;
@@ -358,10 +358,10 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
         if (this.barZWidth != that.barZWidth) {
             return false;
         }
-        if (!ObjectUtils.equals(this.basePaintSource, that.basePaintSource)) {
+        if (!ObjectUtils.equals(this.baseColorSource, that.baseColorSource)) {
             return false;
         }
-        if (!ObjectUtils.equals(this.topPaintSource, that.topPaintSource)) {
+        if (!ObjectUtils.equals(this.topColorSource, that.topColorSource)) {
             return false;
         }
         return super.equals(obj);
