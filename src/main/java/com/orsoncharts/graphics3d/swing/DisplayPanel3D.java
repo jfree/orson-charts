@@ -57,7 +57,7 @@ public class DisplayPanel3D extends JPanel implements MouseListener {
         
         if (toolbar) {
             JToolBar tb = createToolBar(content);
-            add(tb, BorderLayout.WEST);
+            add(tb, BorderLayout.EAST);
         }
         if (popupMenu) {
             this.popup = createPopupMenu();
