@@ -55,10 +55,22 @@ public class OrsonChartsDemo extends JFrame implements ActionListener,
     public static final Dimension DEFAULT_CONTENT_SIZE 
             = new Dimension(760, 480);
     
+    /** 
+     * The panel that contains the current chart - sits in the upper section of 
+     * the right-hand split pane. 
+     */
     public JPanel chartContainer = new JPanel(new BorderLayout());
     
+    /**
+     * The panel that contains the chart description - sits in the lower 
+     * section of the right-hand split pane.
+     */
     private JTextPane chartDescriptionPane;
 
+    /** 
+     * The path to the default demo chart.  This gets used to ensure the
+     * JTree is open at the initial demo selection.
+     */
     private TreePath defaultChartPath;
     
     /**
@@ -105,18 +117,30 @@ public class OrsonChartsDemo extends JFrame implements ActionListener,
         return fileMenu;
     }
     
+    /**
+     * Creates the main content of the demo application, a tabbed pane with 
+     * one tab showing the demo charts and another showing general information
+     * about Orson Charts.
+     * 
+     * @return The content component.
+     */
     private JComponent createContent() {
         JTabbedPane tabs = new JTabbedPane();
+        
         JSplitPane splitter = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
         splitter.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
+        
+        // tree on the left
         JTree tree = new JTree(createTreeModel());
         tree.addTreeSelectionListener(this);
-        
         tree.setSelectionPath(this.defaultChartPath);
         JScrollPane scroller = new JScrollPane(tree);
         scroller.setPreferredSize(new Dimension(300, 580));
         splitter.add(scroller);
-        splitter.add(createChartPanel());
+        
+        // chart display on the right
+        splitter.add(createChartComponent());
+        
         tabs.add("Demos", splitter);
         tabs.add("About", createAboutPanel());
         return tabs;
@@ -136,7 +160,7 @@ public class OrsonChartsDemo extends JFrame implements ActionListener,
         try {
             textPane.setPage(descriptionURL);
         } catch (IOException ex) {
-            ex.printStackTrace();
+            throw new RuntimeException(ex);
         }
         JScrollPane scroller = new JScrollPane(textPane);
         result.add(scroller);
@@ -147,7 +171,7 @@ public class OrsonChartsDemo extends JFrame implements ActionListener,
      * Creates the panel that contains the chart and the chart description.
      * @return 
      */
-    private JComponent createChartPanel() {
+    private JComponent createChartComponent() {
         JSplitPane splitter = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
        
         Border b = BorderFactory.createCompoundBorder(
@@ -200,15 +224,23 @@ public class OrsonChartsDemo extends JFrame implements ActionListener,
     private MutableTreeNode createCategoryChartsNode(DefaultMutableTreeNode r) {
         DefaultMutableTreeNode n = new DefaultMutableTreeNode(
                 "Category Charts");
-        MutableTreeNode defaultNode = createNode("com.orsoncharts.demo.AreaChart3DDemo1", "AreaChart3DDemo1.java");
+        MutableTreeNode defaultNode = createNode(
+                "com.orsoncharts.demo.AreaChart3DDemo1", 
+                "AreaChart3DDemo1.java");
         this.defaultChartPath = new TreePath(new Object[] {r, n, defaultNode});
         n.add(defaultNode);
-        n.add(createNode("com.orsoncharts.demo.AreaChart3DDemo2", "AreaChart3DDemo2.java"));
-        n.add(createNode("com.orsoncharts.demo.BarChart3DDemo1", "BarChart3DDemo1.java"));
-        n.add(createNode("com.orsoncharts.demo.BarChart3DDemo2", "BarChart3DDemo2.java"));
-        n.add(createNode("com.orsoncharts.demo.LineChart3DDemo1", "LineChart3DDemo1.java"));
-        n.add(createNode("com.orsoncharts.demo.StackedBarChart3DDemo1", "StackedBarChart3DDemo1.java"));
-        n.add(createNode("com.orsoncharts.demo.StackedBarChart3DDemo2", "StackedBarChart3DDemo2.java"));
+        n.add(createNode("com.orsoncharts.demo.AreaChart3DDemo2", 
+                "AreaChart3DDemo2.java"));
+        n.add(createNode("com.orsoncharts.demo.BarChart3DDemo1", 
+                "BarChart3DDemo1.java"));
+        n.add(createNode("com.orsoncharts.demo.BarChart3DDemo2", 
+                "BarChart3DDemo2.java"));
+        n.add(createNode("com.orsoncharts.demo.LineChart3DDemo1", 
+                "LineChart3DDemo1.java"));
+        n.add(createNode("com.orsoncharts.demo.StackedBarChart3DDemo1", 
+                "StackedBarChart3DDemo1.java"));
+        n.add(createNode("com.orsoncharts.demo.StackedBarChart3DDemo2", 
+                "StackedBarChart3DDemo2.java"));
         return n;
     }
     
@@ -284,25 +316,31 @@ public class OrsonChartsDemo extends JFrame implements ActionListener,
      * @param args  ignored.
      */
     public static void main(String[] args) {
-
-        for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-            if ("Nimbus".equals(info.getName())) {
-                try {
-                    UIManager.setLookAndFeel(info.getClassName());
-                } catch (Exception ex) {
-                    try {
-                        UIManager.setLookAndFeel(
-                                UIManager.getSystemLookAndFeelClassName());
-                    }
-                    catch (Exception e2) {
-                        // do nothing
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                        try {
+                            UIManager.setLookAndFeel(info.getClassName());
+                        } catch (Exception ex) {
+                            try {
+                                UIManager.setLookAndFeel(
+                                        UIManager.getSystemLookAndFeelClassName());
+                            }
+                            catch (Exception e2) {
+                                // do nothing
+                            }
+                        }
                     }
                 }
+                OrsonChartsDemo app = new OrsonChartsDemo(
+                        "Orson Charts Demo 1.0");
+                app.pack();
+                app.setVisible(true);
             }
-        }
-        OrsonChartsDemo app = new OrsonChartsDemo("Orson Charts Demo 1.0");
-        app.pack();
-        app.setVisible(true);
+            
+        });
     }
    
     static class DisplayDemo implements Runnable {
