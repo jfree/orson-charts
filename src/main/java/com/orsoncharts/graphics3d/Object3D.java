@@ -472,20 +472,19 @@ public class Object3D {
             double explodeRadius, double base, double height, 
             double angle1, double angle2) {
         List<Object3D> result = new ArrayList<Object3D>();
-        double angleCentre = (angle1 + angle2) / 2.0;
-        Point3D centre = new Point3D(explodeRadius * Math.cos(angleCentre), 
-                base, explodeRadius * Math.sin(angleCentre));
+        double angle = (angle1 + angle2) / 2.0;
+        Point3D centre = new Point3D(explodeRadius * Math.cos(angle), 
+                base, explodeRadius * Math.sin(angle));
         float cx = (float) centre.x;
         float cz = (float) centre.z;
-        double angle = (angle1 + angle2) / 2.0;
         double r = radius * 0.9;
         Point3D v0 = new Point3D(cx + r * Math.cos(angle), base, 
                 cz + r * Math.sin(angle));
         Point3D v1 = new Point3D(cx + r * Math.cos(angle), base + height, 
                 cz + r * Math.sin(angle));
-        result.add(Object3D.createYSheet(6.0, v0.x, v0.y, v0.z, Color.RED, 
+        result.add(Object3D.createYSheet(2.0, v0.x, v0.y, v0.z, Color.RED, 
                 false));
-        result.add(Object3D.createYSheet(6.0, v1.x, v1.y, v1.z, Color.BLUE, 
+        result.add(Object3D.createYSheet(2.0, v1.x, v1.y, v1.z, Color.BLUE, 
                 true));
         return result;
     }
