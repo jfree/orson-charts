@@ -267,6 +267,8 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
         double y11 = range.peggedValue(y1);
         double ybb = range.peggedValue(this.base);
    
+        double ww = dimensions.getWidth();
+        double hh = dimensions.getHeight();
         if (y0 >= this.base) {            
             double x00 = x0;
             if (y0 < range.getMin()) {
@@ -276,36 +278,22 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
             if (y1 < range.getMin()) {
                 x11 = x1 - (x1 - x0) * fraction(y11, y1, y0);
             }
-            double x22 = Double.NaN;  // bogus
-            boolean p2required = spans(range.getMax(), y0, y1);  // only required when range max is spanned
-            if (p2required) {
-                x22 = x0 + (x1 - x0) * fraction(range.getMax(), y0, y1);
-            }
-            double wx00 = columnAxis.translateToWorld(x00, dimensions.getWidth()) 
-                    + xOffset;
-            double wx11 = columnAxis.translateToWorld(x11, dimensions.getWidth()) 
-                    + xOffset;
-            double wx22 = Double.NaN;
-            if (p2required) {
-                wx22 = columnAxis.translateToWorld(x22, dimensions.getWidth()) 
-                    + xOffset;
-            }
-            double wy0 = valueAxis.translateToWorld(y00, dimensions.getHeight()) 
+            double wx00 = columnAxis.translateToWorld(x00, ww) + xOffset;
+            double wx11 = columnAxis.translateToWorld(x11, ww) + xOffset;
+            double wy0 = valueAxis.translateToWorld(y00, hh) + yOffset;
+            double wy1 = valueAxis.translateToWorld(y11, hh) + yOffset;
+            double wymin = valueAxis.translateToWorld(range.getMin(), hh) 
                     + yOffset;
-            double wy1 = valueAxis.translateToWorld(y11, dimensions.getHeight()) 
+            double wymax = valueAxis.translateToWorld(range.getMax(), hh) 
                     + yOffset;
-            double wymin = valueAxis.translateToWorld(range.getMin(), dimensions.getHeight()) + yOffset;
-            double wymax = valueAxis.translateToWorld(range.getMax(), 
-                    dimensions.getHeight()) + yOffset;
-            double wbase = valueAxis.translateToWorld(ybb, 
-                    dimensions.getHeight()) + yOffset;
+            double wbase = valueAxis.translateToWorld(ybb, hh) + yOffset;
          
             double wz = rowAxis.translateToWorld(
                     rowAxis.getCategoryValue(rowKey), 
                     dimensions.getDepth()) + zOffset;
-            
             world.add(createPositiveArea(color, wx00, wy0, wx11, wy1, wbase, 
-                    wz, new Range(wymin, wymax), column == 0, column == dataset.getColumnCount() - 2));
+                    wz, new Range(wymin, wymax), column == 0, 
+                    column == dataset.getColumnCount() - 2));
         } else {
             // let's do the case for negative areas
             double x00 = x0;
@@ -316,36 +304,24 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
             if (y1 > range.getMax()) {
                 x11 = x1 - (x1 - x0) * fraction(y11, y1, y0);
             }
-            double x22 = (x00 + x11) / 2.0;  // bogus
-            boolean p2required = spans(range.getMin(), y0, y1);  // only required when range max is spanned
-            if (p2required) {
-                x22 = x0 + (x1 - x0) * fraction(range.getMin(), y0, y1);
-            }
         
-            double delta = this.depth / 2.0;
-            double wx00 = columnAxis.translateToWorld(x00, dimensions.getWidth()) 
-                    + xOffset;
-            double wx11 = columnAxis.translateToWorld(x11, dimensions.getWidth()) 
-                    + xOffset;
-            double wx22 = columnAxis.translateToWorld(x22, dimensions.getWidth()) 
-                    + xOffset;
-            double wy0 = valueAxis.translateToWorld(y00, dimensions.getHeight()) 
+            double wx00 = columnAxis.translateToWorld(x00, ww) + xOffset;
+            double wx11 = columnAxis.translateToWorld(x11, ww) + xOffset;
+            double wy0 = valueAxis.translateToWorld(y00, hh) + yOffset;
+            double wy1 = valueAxis.translateToWorld(y11, hh) + yOffset;
+            double wymin = valueAxis.translateToWorld(range.getMin(), hh) 
                     + yOffset;
-            double wy1 = valueAxis.translateToWorld(y11, dimensions.getHeight()) 
+            double wymax = valueAxis.translateToWorld(range.getMax(), hh) 
                     + yOffset;
-            double wymin = valueAxis.translateToWorld(range.getMin(), 
-                    dimensions.getHeight()) + yOffset;
-            double wymax = valueAxis.translateToWorld(range.getMax(), 
-                    dimensions.getHeight()) + yOffset;
-            double wbase = valueAxis.translateToWorld(ybb, 
-                    dimensions.getHeight()) + yOffset;
+            double wbase = valueAxis.translateToWorld(ybb, hh) + yOffset;
          
             double wz = rowAxis.translateToWorld(
                     rowAxis.getCategoryValue(rowKey), 
                     dimensions.getDepth()) + zOffset;
                         
             world.add(createNegativeArea(color, wx00, wy0, wx11, wy1, wbase, wz, 
-                    new Range(wymin, wymax), column == 0, column == dataset.getColumnCount() - 2));
+                    new Range(wymin, wymax), column == 0, 
+                    column == dataset.getColumnCount() - 2));
         }
         
     }
