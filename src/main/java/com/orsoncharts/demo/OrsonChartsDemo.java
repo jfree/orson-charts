@@ -207,6 +207,7 @@ public class OrsonChartsDemo extends JFrame implements ActionListener,
         root.add(createCategoryChartsNode(root));
         root.add(createPieChartsNode());
         root.add(createXYZChartsNode());
+        root.add(createAxisRangeTestNode());
         return new DefaultTreeModel(root);
     }
     
@@ -237,6 +238,8 @@ public class OrsonChartsDemo extends JFrame implements ActionListener,
                 "BarChart3DDemo2.java"));
         n.add(createNode("com.orsoncharts.demo.LineChart3DDemo1", 
                 "LineChart3DDemo1.java"));
+        n.add(createNode("com.orsoncharts.demo.LineChart3DDemo2", 
+                "LineChart3DDemo2.java"));
         n.add(createNode("com.orsoncharts.demo.StackedBarChart3DDemo1", 
                 "StackedBarChart3DDemo1.java"));
         n.add(createNode("com.orsoncharts.demo.StackedBarChart3DDemo2", 
@@ -267,6 +270,23 @@ public class OrsonChartsDemo extends JFrame implements ActionListener,
         n.add(createNode("com.orsoncharts.demo.XYZBarChart3DDemo1", 
                 "XYZBarChart3DDemo1.java"));
         return n;        
+    }
+    
+    private MutableTreeNode createAxisRangeTestNode() {
+        DefaultMutableTreeNode n = new DefaultMutableTreeNode("Axis Range Tests");
+        n.add(createNode("com.orsoncharts.demo.AxisRangeDemo1", 
+                "AxisRangeDemo1.java"));
+        n.add(createNode("com.orsoncharts.demo.AxisRangeDemo2", 
+                "AxisRangeDemo2.java"));
+        n.add(createNode("com.orsoncharts.demo.AxisRangeDemo3", 
+                "AxisRangeDemo3.java"));
+        n.add(createNode("com.orsoncharts.demo.AxisRangeDemo4", 
+                "AxisRangeDemo4.java"));
+        n.add(createNode("com.orsoncharts.demo.AxisRangeDemo5", 
+                "AxisRangeDemo5.java"));
+        n.add(createNode("com.orsoncharts.demo.AxisRangeDemo6", 
+                "AxisRangeDemo6.java"));
+        return n;                
     }
 
     @Override

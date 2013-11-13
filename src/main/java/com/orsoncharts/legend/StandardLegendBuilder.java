@@ -8,7 +8,6 @@
 
 package com.orsoncharts.legend;
 
-import java.awt.Color;
 import java.awt.Paint;
 import java.awt.geom.Rectangle2D;
 import java.awt.Font;
@@ -302,9 +301,9 @@ public final class StandardLegendBuilder implements LegendBuilder,
             Paint color) {
         // defer argument checks...
         ShapeElement se = new ShapeElement(shape, color);
-        se.setBackgroundPaint(new Color(0, 0, 0, 0));
+        //se.setBackgroundPaint(new Color(0, 0, 0, 0));
         TextElement te = new TextElement(text, font);
-        te.setBackgroundPaint(new Color(0, 0, 0, 0));
+        //te.setBackgroundPaint(new Color(0, 0, 0, 0));
         GridElement ge = new GridElement();
         ge.setElement(se, "R1", "C1");
         ge.setElement(te, "R1", "C2");

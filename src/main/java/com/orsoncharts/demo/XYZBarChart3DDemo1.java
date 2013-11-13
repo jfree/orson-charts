@@ -89,18 +89,8 @@ public class XYZBarChart3DDemo1 extends JFrame {
                 series1.add(new XYZDataItem(x, Math.cos(x) * Math.sin(z), z));            
             }
         }
-//        XYZSeries series2 = new XYZSeries("Series 2");
-//        for (int x = 0; x < 4; x++) {
-//            series2.add(new XYZDataItem(x + 0.5, Math.random() * 20, 1.5));            
-//        }     
-//        XYZSeries series3 = new XYZSeries("Series 3");
-//        for (int x = 0; x < 4; x++) {
-//            series3.add(new XYZDataItem(x + 0.5, Math.random() * 20 - 10, 2.5));            
-//        }
         XYZSeriesCollection dataset = new XYZSeriesCollection();
         dataset.add(series1);
-//        dataset.add(series2);
-//        dataset.add(series3);
         return dataset;
     }
 

@@ -102,6 +102,7 @@ public class ScatterPlot3DDemo1 extends JFrame {
         }
         return s;
     }
+
     /**
      * Starting point for the app.
      *

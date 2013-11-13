@@ -269,7 +269,8 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
    
         double ww = dimensions.getWidth();
         double hh = dimensions.getHeight();
-        if (y0 >= this.base) {            
+        boolean positive = y0 > this.base || y1 > this.base;
+        if (positive) {            
             double x00 = x0;
             if (y0 < range.getMin()) {
                 x00 = x0 + (x1 - x0) * fraction(y00, y0, y1);
@@ -280,8 +281,8 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
             }
             double wx00 = columnAxis.translateToWorld(x00, ww) + xOffset;
             double wx11 = columnAxis.translateToWorld(x11, ww) + xOffset;
-            double wy0 = valueAxis.translateToWorld(y00, hh) + yOffset;
-            double wy1 = valueAxis.translateToWorld(y11, hh) + yOffset;
+            double wy0 = valueAxis.translateToWorld(y0, hh) + yOffset;
+            double wy1 = valueAxis.translateToWorld(y1, hh) + yOffset;
             double wymin = valueAxis.translateToWorld(range.getMin(), hh) 
                     + yOffset;
             double wymax = valueAxis.translateToWorld(range.getMax(), hh) 
@@ -307,8 +308,8 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
         
             double wx00 = columnAxis.translateToWorld(x00, ww) + xOffset;
             double wx11 = columnAxis.translateToWorld(x11, ww) + xOffset;
-            double wy0 = valueAxis.translateToWorld(y00, hh) + yOffset;
-            double wy1 = valueAxis.translateToWorld(y11, hh) + yOffset;
+            double wy0 = valueAxis.translateToWorld(y0, hh) + yOffset;
+            double wy1 = valueAxis.translateToWorld(y1, hh) + yOffset;
             double wymin = valueAxis.translateToWorld(range.getMin(), hh) 
                     + yOffset;
             double wymax = valueAxis.translateToWorld(range.getMax(), hh) 
@@ -421,11 +422,13 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
         int vertices = obj.getVertexCount();
         
         if (vertices == 10) {
-            
+            obj.addFace(new int[] {0, 2, 4, 6, 8}, color, true);  // front
+            obj.addFace(new int[] {1, 9, 7, 5, 3}, color, true);  // rear
+            obj.addFace(new int[] {0, 8, 9, 1}, color, true);  // base
         } else if (vertices == 8) {
             obj.addFace(new int[] {0, 2, 4, 6}, color, true);  // front
             obj.addFace(new int[] {7, 5, 3, 1}, color, true);  // rear
-            obj.addFace(new int[] {2, 3, 5, 4}, color, true); // top
+            obj.addFace(new int[] {2, 3, 5, 4}, color, true);  // top
             obj.addFace(new int[] {1, 0, 6, 7}, color, true);
             if (openingFace) {
                 obj.addFace(new int[] {0, 1, 3, 2}, color, true);
