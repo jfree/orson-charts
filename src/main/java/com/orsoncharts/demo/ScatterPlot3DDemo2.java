@@ -88,7 +88,7 @@ public class ScatterPlot3DDemo2 extends JFrame {
         };
         
         XYZDataset dataset = XYZDatasetUtils.sampleFunction(f, 
-                "y = cos(x) * sin(z)", 0, Math.PI * 2, 60, 0, Math.PI * 2, 60);
+                "y = cos(x) * sin(z)", 0, Math.PI * 2, 50, 0, Math.PI * 2, 50);
         return dataset;
     }
    

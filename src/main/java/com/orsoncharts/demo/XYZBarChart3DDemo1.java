@@ -17,16 +17,11 @@ import javax.swing.JPanel;
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
-import com.orsoncharts.data.xyz.XYZDataItem;
 import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.data.xyz.XYZSeries;
 import com.orsoncharts.data.xyz.XYZSeriesCollection;
 import com.orsoncharts.graphics3d.ViewPoint3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
-import com.orsoncharts.plot.XYZPlot;
-import com.orsoncharts.renderer.xyz.BarXYZRenderer;
-import com.orsoncharts.renderer.xyz.StandardXYZColorSource;
-import java.awt.Color;
 
 /**
  * A demo of a 3D bar chart.
@@ -62,11 +57,6 @@ public class XYZBarChart3DDemo1 extends JFrame {
         XYZDataset dataset = createDataset();
         Chart3D chart = Chart3DFactory.createXYZBarChart("XYZBarChart3DDemo1", 
                 "Chart created with Orson Charts", dataset, "X", "Value", "Z");
-        XYZPlot plot = (XYZPlot) chart.getPlot();
-        BarXYZRenderer renderer = (BarXYZRenderer) plot.getRenderer();
-        renderer.setBarXWidth(Math.PI / 20);
-        renderer.setBarZWidth(Math.PI / 20);
-        renderer.setColorSource(new StandardXYZColorSource(Color.GREEN));
         chart.setViewPoint(ViewPoint3D.createAboveRightViewPoint(40));
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
         content.setChartPanel(chartPanel);
@@ -83,14 +73,16 @@ public class XYZBarChart3DDemo1 extends JFrame {
      * @return A sample dataset.
      */
     private static XYZDataset createDataset() {
-        XYZSeries series1 = new XYZSeries("y = cos(x) * sin(z)");
-        for (double x = Math.PI / 2; x < 3 * Math.PI / 2; x += Math.PI / 20) {
-            for (double z = Math.PI; z < 2 * Math.PI; z += Math.PI / 20) {
-                series1.add(new XYZDataItem(x, Math.cos(x) * Math.sin(z), z));            
-            }
-        }
+        XYZSeries series1 = new XYZSeries("Series 1");
+        series1.add(1.0, 5.0, 1.0);
+        XYZSeries series2 = new XYZSeries("Series 2");
+        series2.add(2.0, 8.0, 2.0);
+        XYZSeries series3 = new XYZSeries("Series 3");
+        series3.add(1.0, 10.0, 2.0);
         XYZSeriesCollection dataset = new XYZSeriesCollection();
         dataset.add(series1);
+        dataset.add(series2);
+        dataset.add(series3);
         return dataset;
     }
 
