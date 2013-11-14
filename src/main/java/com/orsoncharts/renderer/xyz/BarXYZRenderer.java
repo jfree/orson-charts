@@ -157,8 +157,8 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer,
      * 
      * @param source  the source (<code>null</code> permitted).
      * 
-     * @see #getBasePaintSource() 
-     * @see #getTopPaintSource()
+     * @see #getBaseColorSource() 
+     * @see #getTopColorSource()
      */
     public void setBaseColorSource(XYZColorSource source) {
         this.baseColorSource = source;
@@ -186,8 +186,8 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer,
      * 
      * @param source  the source (<code>null</code> permitted).
      * 
-     * @see #getTopPaintSource() 
-     * @see #getBasePaintSource() 
+     * @see #getTopColorSource() 
+     * @see #getBaseColorSource() 
      */
     public void setTopColorSource(XYZColorSource source) {
         this.topColorSource = source;
