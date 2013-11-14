@@ -11,14 +11,17 @@ package com.orsoncharts.util;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.io.Serializable;
 
 /**
  * A specification for the alignment and fitting of one rectangle (the source 
- * rectangle) with reference to another (the target rectangle).  One application
- * for this is to specify how the background image for a chart should be 
- * aligned and scaled.
+ * rectangle) with reference to another (the target rectangle).  Instances of
+ * this class are immutable.
+ * <br><br>
+ * One application for this is to specify how the background image for a chart 
+ * should be aligned and scaled.
  */
-public class Fit2D {
+public class Fit2D implements Serializable {
     
     /** The anchor point for alignment. */
     private Anchor2D anchor;
@@ -86,5 +89,23 @@ public class Fit2D {
         }
         result.setRect(x, y, width, height);
         return result;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof Fit2D)) {
+            return false;
+        }
+        Fit2D that = (Fit2D) obj;
+        if (!this.anchor.equals(that.anchor)) {
+            return false;
+        }
+        if (!this.scale.equals(that.scale)) {
+            return false;
+        }
+        return true;
     }
 }

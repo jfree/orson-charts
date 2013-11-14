@@ -9,11 +9,14 @@
 package com.orsoncharts.util;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 import com.orsoncharts.TitleAnchor;
+import com.orsoncharts.TestUtils;
 
 /**
  * Tests for the {@link Fit2D} class.
@@ -21,6 +24,23 @@ import com.orsoncharts.TitleAnchor;
 public class Fit2DTest {
     
     private static double EPSILON = 0.00000001;
+    
+    @Test
+    public void testEquals() {
+        Fit2D f1 = new Fit2D(TitleAnchor.TOP_LEFT, Scale2D.SCALE_BOTH);
+        Fit2D f2 = new Fit2D(TitleAnchor.TOP_LEFT, Scale2D.SCALE_BOTH);
+        assertTrue(f1.equals(f2));
+        
+        f1 = new Fit2D(TitleAnchor.CENTER_LEFT, Scale2D.SCALE_BOTH);
+        assertFalse(f1.equals(f2));
+        f2 = new Fit2D(TitleAnchor.CENTER_LEFT, Scale2D.SCALE_BOTH);
+        assertTrue(f1.equals(f2));
+        
+        f1 = new Fit2D(TitleAnchor.CENTER_LEFT, Scale2D.NONE);
+        assertFalse(f1.equals(f2));
+        f2 = new Fit2D(TitleAnchor.CENTER_LEFT, Scale2D.NONE);
+        assertTrue(f1.equals(f2));
+    }
     
     /**
      * For SCALE_BOTH the result will always fill the target - the anchor is
@@ -35,5 +55,15 @@ public class Fit2DTest {
         assertEquals(10, rect.getY(), EPSILON);
         assertEquals(30, rect.getWidth(), EPSILON);
         assertEquals(20, rect.getHeight(), EPSILON);
+    }
+    
+    /**
+     * A check for serialization.
+     */
+    @Test
+    public void testSerialization() {
+        Fit2D f1 = new Fit2D(TitleAnchor.BOTTOM_CENTER, Scale2D.SCALE_BOTH);
+        Fit2D f2 = (Fit2D) TestUtils.serialized(f1);
+        assertEquals(f1, f2);
     }
 }
