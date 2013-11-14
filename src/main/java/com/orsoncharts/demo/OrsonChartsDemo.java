@@ -284,8 +284,6 @@ public class OrsonChartsDemo extends JFrame implements ActionListener,
                 "AxisRangeDemo4.java"));
         n.add(createNode("com.orsoncharts.demo.AxisRangeDemo5", 
                 "AxisRangeDemo5.java"));
-        n.add(createNode("com.orsoncharts.demo.AxisRangeDemo6", 
-                "AxisRangeDemo6.java"));
         return n;                
     }
 
