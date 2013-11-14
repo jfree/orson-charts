@@ -21,6 +21,21 @@ public class Utils2D {
     }
     
     /**
+     * Returns <code>true</code> if the specified value is spanned by the
+     * two bounds, and <code>false</code> otherwise.
+     * 
+     * @param value  the value.
+     * @param bound1  the first boundary.
+     * @param bound2  the second boundary.
+     * 
+     * @return A boolean. 
+     */
+    public static boolean spans(double value, double bound1, double bound2) {
+        return (bound1 < value && bound2 > value)
+                || (bound1 > value && bound2 < value);
+    }
+
+    /**
      * Calculates twice the area of a triangle for points specified in 
      * counter-clockwise order (if the points are specified in clockwise order
      * the result will be negative).
