@@ -15,7 +15,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import com.orsoncharts.Colors;
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
@@ -25,22 +24,19 @@ import com.orsoncharts.data.category.StandardCategoryDataset3D;
 import com.orsoncharts.data.DefaultKeyedValues;
 import com.orsoncharts.graphics3d.ViewPoint3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
-import com.orsoncharts.legend.StandardLegendBuilder;
 import com.orsoncharts.plot.CategoryPlot3D;
-import com.orsoncharts.renderer.category.AreaRenderer3D;
-import com.orsoncharts.renderer.category.StandardCategoryColorSource;
 
 /**
  * A demo of a 3D area chart.
  */
-public class AreaChartTest extends JFrame {
+public class LineChartTest extends JFrame {
 
     /**
      * Creates a new test app.
      *
      * @param title  the frame title.
      */
-    public AreaChartTest(String title) {
+    public LineChartTest(String title) {
         super(title);
         addWindowListener(new WindowAdapter() {
             @Override
@@ -62,29 +58,17 @@ public class AreaChartTest extends JFrame {
         DemoPanel content = new DemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         CategoryDataset3D dataset = createDataset();
-        Chart3D chart = Chart3DFactory.createAreaChart("AreaChart3DDemo2", 
+        Chart3D chart = Chart3DFactory.createLineChart("AreaChart3DDemo2", 
                 "Chart created with Orson Charts", dataset, "Row", 
                 "Category", "Value");
         chart.setChartBoxColor(new Color(255, 255, 255, 128));
         chart.setViewPoint(ViewPoint3D.createAboveLeftViewPoint(40));
-        StandardLegendBuilder slb 
-                = (StandardLegendBuilder) chart.getLegendBuilder();
-        slb.setFooter("Orson Charts (c) 2013, by Object Refinery Limited");
         
         chart.getLegendBuilder().setItemFont(new Font("Dialog", 
                 Font.ITALIC, 12));
-//        ImageIcon icon = new ImageIcon("/Users/dgilbert/Desktop/me.png");
-//        RectanglePainter background = new StandardRectanglePainter(Color.WHITE, 
-//                icon.getImage());
-//        chart.setBackground(background); 
         CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
         plot.getRowAxis().setVisible(false);
-        plot.getValueAxis().setRange(new Range(-2, 0));
-        AreaRenderer3D renderer = (AreaRenderer3D) plot.getRenderer();
-        //renderer.setBase(1.0);
-        renderer.setBaseColor(Color.GRAY);
-        renderer.setColorSource(new StandardCategoryColorSource(
-                Colors.getColors1()));
+        plot.getValueAxis().setRange(new Range(0, 2));
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
         content.setChartPanel(chartPanel);
         content.add(new DisplayPanel3D(chartPanel));
@@ -103,9 +87,8 @@ public class AreaChartTest extends JFrame {
         StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
                 
         DefaultKeyedValues s1 = new DefaultKeyedValues();
-        s1.put("A", 3);
-        s1.put("B", -12);
-        s1.put("C", 5);
+        s1.put("A", 2);
+        s1.put("B", 0);
         dataset.addSeriesAsRow("Series 1", s1);
 
         return dataset;
@@ -117,7 +100,7 @@ public class AreaChartTest extends JFrame {
      * @param args  command line arguments (ignored).
      */
     public static void main(String[] args) {
-        AreaChartTest app = new AreaChartTest(
+        LineChartTest app = new LineChartTest(
                 "OrsonCharts: AreaChartTest.java");
         app.pack();
         app.setVisible(true);
