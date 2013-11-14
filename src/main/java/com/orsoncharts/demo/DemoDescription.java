@@ -51,6 +51,7 @@ public class DemoDescription {
      * 
      * @return The class description.
      */
+    @Override
     public String toString() {
         return this.fileName;
     }

@@ -16,8 +16,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.geom.AffineTransform;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -48,7 +46,7 @@ import com.orsoncharts.graphics3d.Dimension3D;
  * The view point is maintained by the {@link Drawable3D} but the panel
  * provides convenience methods to get/set it.
  */
-public class Panel3D extends JPanel implements ActionListener, MouseListener, 
+public class Panel3D extends JPanel implements MouseListener, 
         MouseMotionListener, MouseWheelListener {
   
     /**
@@ -372,17 +370,8 @@ public class Panel3D extends JPanel implements ActionListener, MouseListener,
         float units = mwe.getUnitsToScroll();
         double valRho = Math.max(this.minViewingDistance, 
                 this.drawable.getViewPoint().getRho() + units);
-//        float valTheta = this.drawable.getViewPoint().getTheta();
-//        float valPhi = this.drawable.getViewPoint().getPhi();
-//        double angle = this.drawable.getViewPoint().getAngle();
         this.drawable.getViewPoint().setRho(valRho);
-        //setViewPoint(new ViewPoint3D(valTheta, valPhi, valRho, angle));
         repaint();
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        String cmd = e.getActionCommand();
     }
     
     private static Font FONT_AWESOME;

@@ -244,7 +244,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
      * @param renderer  the renderer (<code>null</code> not permitted). 
      */
     public void setRenderer(XYZRenderer renderer) {
-        this.renderer.setPlot(null);;
+        this.renderer.setPlot(null);
         this.renderer.removeChangeListener(this);
         this.renderer = renderer;
         this.renderer.setPlot(this);

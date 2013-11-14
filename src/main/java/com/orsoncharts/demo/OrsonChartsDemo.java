@@ -383,6 +383,7 @@ public class OrsonChartsDemo extends JFrame implements ActionListener,
         /**
          * Runs the task.
          */
+        @Override
         public void run() {
             try {
                 Class c = Class.forName(this.demoDescription.getClassName());

@@ -14,8 +14,6 @@ import java.awt.event.WindowEvent;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import com.orsoncharts.graphics3d.DefaultDrawable3D;
@@ -96,20 +94,6 @@ public class ViewPoint3DDemo extends JFrame {
         }
         return result;
     }
-
-    public void animate() {
-        while (true) {
-            for (Point3D p : this.xlist) {
-//                this.panel3D.setViewPoint(new ViewPoint3D(p, 0, this.panel3D.getViewPoint().getTheta()));
-                this.panel3D.getViewPoint().panLeftRight(Math.PI / 60);
-                try {
-                    Thread.sleep(50L);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(ViewPoint3DDemo.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-    }
     
     /**
      * Starting point for the app.
@@ -121,7 +105,6 @@ public class ViewPoint3DDemo extends JFrame {
                 "OrsonCharts: ViewPointDemo.java");
         app.pack();
         app.setVisible(true);
-//        app.animate();
     }
 
 }

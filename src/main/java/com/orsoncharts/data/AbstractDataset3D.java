@@ -101,6 +101,7 @@ public class AbstractDataset3D implements Dataset3D {
      * @see #addChangeListener(Dataset3DChangeListener)
      * @see #removeChangeListener(Dataset3DChangeListener)
      */
+    @Override
     public boolean hasListener(EventListener listener) {
         List list = Arrays.asList(this.listenerList.getListenerList());
         return list.contains(listener);

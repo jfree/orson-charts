@@ -146,65 +146,6 @@ public class AreaChart3DDemo2 extends JFrame {
         return dataset;
     }
     
-    private static CategoryDataset3D createDataset2() {
-        StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
-        
-        // http://investor.bankofamerica.com/phoenix.zhtml?c=71595&p=quarterlyearnings#fbid=Ke_-yRMOTA4
-        DefaultKeyedValues s0 = new DefaultKeyedValues();
-        s0.put("Q3/2011", 5889);
-        s0.put("Q4/2011", 1584);
-        s0.put("Q1/2012", 328);
-        s0.put("Q2/2012", 2098);
-        s0.put("Q3/2012", -33);
-        s0.put("Q4/2012", 367);
-        s0.put("Q1/2013", 1110);
-        s0.put("Q2/2013", 3571);
-        s0.put("Q3/2013", 2218);
-        dataset.addSeriesAsRow("Bank of America", s0);
-
-        // http://www.citigroup.com/citi/investor/data/qer313s.pdf
-        DefaultKeyedValues s1 = new DefaultKeyedValues();
-        s1.put("Q3/2011", 3771);
-        s1.put("Q4/2011", 956);
-        s1.put("Q1/2012", 2931);
-        s1.put("Q2/2012", 2946);
-        s1.put("Q3/2012", 468);
-        s1.put("Q4/2012", 1196);
-        s1.put("Q1/2013", 3808);
-        s1.put("Q2/2013", 4182);
-        s1.put("Q3/2013", 3227);
-        dataset.addSeriesAsRow("Citigroup", s1);
-        
-        // https://www.wellsfargo.com/downloads/pdf/press/3q13pr.pdf 
-        DefaultKeyedValues s3 = new DefaultKeyedValues();
-        s3.put("Q3/2011", 4055);
-        s3.put("Q4/2011", 4107);
-        s3.put("Q1/2012", 4248);
-        s3.put("Q2/2012", 4622);
-        s3.put("Q3/2012", 4937);
-        s3.put("Q4/2012", 4857);
-        s3.put("Q1/2013", 4931);
-        s3.put("Q2/2013", 5272);
-        s3.put("Q3/2013", 5317);
-
-        dataset.addSeriesAsRow("Wells Fargo", s3);
-
-        // http://files.shareholder.com/downloads/ONE/2724973994x0x696270/df38c408-0315-43dd-b896-6fe6bc895050/3Q13_Earnings_Earnings_Supplement.pdf
-        DefaultKeyedValues s2 = new DefaultKeyedValues();
-        s2.put("Q3/2011", 4262);
-        s2.put("Q4/2011", 3728);
-        s2.put("Q1/2012", 4924);
-        s2.put("Q2/2012", 4960);
-        s2.put("Q3/2012", 5708);
-        s2.put("Q4/2012", 5692);
-        s2.put("Q1/2013", 6529);
-        s2.put("Q2/2013", 6496);
-        s2.put("Q3/2013", -380);
-        dataset.addSeriesAsRow("J.P.Morgan", s2);
-        
-        return dataset;
-    }
-
     /**
      * Starting point for the app.
      *
