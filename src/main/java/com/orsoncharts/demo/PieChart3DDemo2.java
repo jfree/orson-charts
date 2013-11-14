@@ -27,7 +27,6 @@ import com.orsoncharts.data.StandardPieDataset3D;
 import com.orsoncharts.data.PieDataset3D;
 import com.orsoncharts.plot.PiePlot3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
-import com.orsoncharts.legend.StandardLegendBuilder;
 import com.orsoncharts.plot.StandardColorSource;
 
 /**
@@ -69,10 +68,6 @@ public class PieChart3DDemo2 extends JFrame {
                 "For more info see: http://www.object-refinery.com", 
                 TitleAnchor.TOP_LEFT));
         chart.setTitleAnchor(TitleAnchor.TOP_LEFT);
-        StandardLegendBuilder slb = new StandardLegendBuilder();
-        
-        slb.setFooter("Orson Charts (C)opyright 2013, by Object Refinery Limited");
-        chart.setLegendBuilder(slb);
         PiePlot3D plot = (PiePlot3D) chart.getPlot();
         plot.setSectionColorSource(new StandardColorSource(Colors.getDesignSeedsShells()));
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
