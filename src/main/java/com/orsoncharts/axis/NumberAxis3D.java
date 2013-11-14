@@ -58,8 +58,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
 
     /** 
      * A flag indicating whether or not the auto-range calculation should
-     * include zero.  FIXME:  how does this interact with the renderer making
-     * a decision about whether or not to include zero?
+     * include zero.
      */
     private boolean autoRangeIncludesZero;
     
@@ -134,7 +133,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
         this.defaultAutoRange = new Range(0.0, 1.0);
         this.tickSelector = new NumberTickSelector();
         this.tickLabelFactor = 1.4;
-        this.tickSize = range.getLength() / 10.0;  // FIXME
+        this.tickSize = range.getLength() / 10.0;
         this.tickLabelFormatter = new DecimalFormat("0.00");
         this.tickLabelOffset = 5.0;
         this.tickMarkLength = 3.0;

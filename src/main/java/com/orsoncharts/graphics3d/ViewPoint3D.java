@@ -119,9 +119,13 @@ public class ViewPoint3D implements Serializable {
         this.workspace = new double[3];
     }
     
+    /**
+     * Creates a new instance using the specified point and orientation.
+     * 
+     * @param p  the viewing point.
+     * @param orientation  the orientation.
+     */
     public ViewPoint3D(Point3D p, double orientation) {
-        // FIXME : there is a special case when x and y are both 0
-        // how do we handle that?
         this.rho = (float) Math.sqrt(p.x * p.x + p.y * p.y + p.z * p.z);
         if (Math.sqrt(p.x * p.x + p.y * p.y) > 0.000001) {
             this.theta = (float) Math.atan2(p.y, p.x);

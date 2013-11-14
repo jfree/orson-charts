@@ -34,7 +34,9 @@ public class DefaultDrawable3D implements Drawable3D {
     
     /** The 3D world being drawn. */
     private World world;
-    
+
+    private Offset2D offset;
+
     /**
      * Creates a new instance to display the content of the specified
      * <code>world</code>.
@@ -45,7 +47,8 @@ public class DefaultDrawable3D implements Drawable3D {
         ArgChecks.nullNotPermitted(world, "world");
         this.viewPoint = new ViewPoint3D((float) (3 * Math.PI / 2.0), 
                 (float) Math.PI / 6, 40.0f, 0.0);
-        this.world = world;    
+        this.world = world;
+        this.offset = new Offset2D();
     }
     
     /**
@@ -81,13 +84,13 @@ public class DefaultDrawable3D implements Drawable3D {
 
     @Override
     public Offset2D getTranslate2D() {
-        // TODO
-        return new Offset2D();
+        return this.offset;
     }
 
     @Override
     public void setTranslate2D(Offset2D offset) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArgChecks.nullNotPermitted(offset, "offset");
+        this.offset = offset;
     }
     
     /**

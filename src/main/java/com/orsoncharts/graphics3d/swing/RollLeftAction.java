@@ -35,7 +35,7 @@ public class RollLeftAction extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        this.panel.getViewPoint().roll(- Math.PI / 72);  // FIXME : get this value from somewhere configurable
+        this.panel.getViewPoint().roll(-this.panel.getRollIncrement());
         this.panel.repaint();
     }
     

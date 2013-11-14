@@ -157,7 +157,13 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
             double y1 = valueAxis.translateToWorld(value1, hh) + yOffset;
             
             Color color = getColorSource().getColor(series, row, column);
-            Color clipColor = Color.RED;  // FIXME
+            Color clipColor = color;  
+            if (getClipColorSource() != null) {
+                Color c = getClipColorSource().getColor(series, row, column);
+                if (c != null) {
+                    clipColor = c;
+                }
+            }
             boolean closingFace = column == dataset.getColumnCount() - 2;
             boolean openingFace = column == 0;
             // create a line shape - this is complex because of the polygon
@@ -521,7 +527,6 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
                 if (closingFace) {
                     seg.addFace(new int[] {6, 7, 9, 8}, color, true);
                 }
-                // TODO
                 return seg;  
             } else {
                 return null;  // TODO
@@ -747,7 +752,6 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
                 seg.addFace(new int[] {0, 1, 3, 2}, color, true); // top
                 seg.addFace(new int[] {0, 8, 9, 1}, clipColor, true); // clip bottom
                 seg.addFace(new int[] {6, 7, 9, 8}, color, true); // bottom
-                // TODO
                 // there is no opening face in this case
                 if (closingFace) {
                     seg.addFace(new int[] {4, 5, 7, 6}, color, true);
@@ -776,7 +780,6 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
                 if (closingFace) {
                     seg.addFace(new int[] {2, 3, 5, 4}, color, true);
                 }
-                // TODO other faces
                 return seg;
             } else {
                 Object3D seg = new Object3D();

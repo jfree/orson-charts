@@ -27,7 +27,6 @@ import com.orsoncharts.util.TextAnchor;
 import com.orsoncharts.Range;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.plot.CategoryPlot3D;
-import com.orsoncharts.renderer.category.AreaRenderer3D;
 import com.orsoncharts.util.ObjectUtils;
 import com.orsoncharts.util.SerialUtils;
 
@@ -164,8 +163,6 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      */
     @Override
     public void setRange(double lowerBound, double upperBound) {
-        // TODO : consider whether it makes sense to enable the range to be
-        // modified
         setRange(new Range(lowerBound, upperBound));
     }
 

@@ -35,7 +35,7 @@ public class RollRightAction extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        this.panel.getViewPoint().roll(Math.PI / 72);
+        this.panel.getViewPoint().roll(this.panel.getRollIncrement());
         this.panel.repaint();
     }
     
