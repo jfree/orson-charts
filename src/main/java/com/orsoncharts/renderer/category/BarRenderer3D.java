@@ -26,14 +26,16 @@ import com.orsoncharts.util.ObjectUtils;
 
 /**
  * A renderer for creating 3D bar charts from a {@link CategoryDataset3D} (for 
- * use with a {@link CategoryPlot3D}).
+ * use with a {@link CategoryPlot3D}).  For example:
  * <div>
- * <object id="ABC" data="doc-files/BarRenderer3D.svg"  type="image/svg+xml" 
- * width="700" height="400"> 
+ * <object id="ABC" data="../../../../doc-files/BarChart3DDemo1.svg"  type="image/svg+xml" 
+ * width="500" height="359"> 
  * </object>
  * </div>
+ * (refer to <code>BarChart3DDemo1.java</code> for the code to generate the
+ * above chart).
  * <br><br>
- * TIP: to create a chart using this renderer, you can use the
+ * There is a factory method to create a chart using this renderer - see the
  * {@link Chart3DFactory#createBarChart(String, String, CategoryDataset3D, String, String, String)} 
  * method.
  * <br><br>

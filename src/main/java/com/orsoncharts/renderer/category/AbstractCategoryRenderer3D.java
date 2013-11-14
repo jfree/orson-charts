@@ -15,7 +15,6 @@ import com.orsoncharts.data.Values3D;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.AbstractRenderer3D;
 import com.orsoncharts.renderer.Renderer3DChangeEvent;
-import java.awt.Color;
 
 /**
  * A base class that can be used to implement renderers for a 
@@ -34,17 +33,10 @@ public abstract class AbstractCategoryRenderer3D extends AbstractRenderer3D
     private CategoryColorSource colorSource;
     
     /**
-     * The color source that determines the color used to highlight clipped
-     * items in the chart.
-     */
-    private CategoryColorSource clipColorSource;
-    
-    /**
      * Default constructor.
      */
     public AbstractCategoryRenderer3D() {
         this.colorSource = new StandardCategoryColorSource();
-        this.clipColorSource = new StandardCategoryColorSource(Color.RED);
     }
     
     /**
@@ -91,29 +83,6 @@ public abstract class AbstractCategoryRenderer3D extends AbstractRenderer3D
     public void setColorSource(CategoryColorSource colorSource) {
         ArgChecks.nullNotPermitted(colorSource, "colorSource");
         this.colorSource = colorSource;
-        fireChangeEvent();
-    }
-    
-    /**
-     * Returns the color source used to determine the color used to highlight
-     * clipping in the chart elements.  If the source is <code>null</code>,
-     * then the regular series color is used instead.
-     * 
-     * @return The color source (possibly <code>null</code>). 
-     */
-    public CategoryColorSource getClipColorSource() {
-        return this.clipColorSource;
-    }
-    
-    /**
-     * Sets the color source that determines the color used to highlight
-     * clipping in the chart elements, and sends a {@link Renderer3DChangeEvent}
-     * to all registered listeners.
-     * 
-     * @param source  the source (<code>null</code> permitted). 
-     */
-    public void setClipColorSource(CategoryColorSource source) {
-        this.clipColorSource = source;
         fireChangeEvent();
     }
     

@@ -13,6 +13,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.orsoncharts.TestUtils;
+import java.awt.Color;
 
 /**
  * Tests for the {@link LineRenderer3D} class.
@@ -34,6 +35,11 @@ public class LineRenderer3DTest {
         r1.setLineHeight(2.2);
         assertFalse(r1.equals(r2));
         r2.setLineHeight(2.2);
+        assertTrue(r1.equals(r2));
+
+        r1.setClipColorSource(new StandardCategoryColorSource(Color.BLUE));
+        assertFalse(r1.equals(r2));
+        r2.setClipColorSource(new StandardCategoryColorSource(Color.BLUE));
         assertTrue(r1.equals(r2));
 
         // notify

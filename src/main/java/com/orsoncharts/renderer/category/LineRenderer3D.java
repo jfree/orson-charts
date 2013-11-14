@@ -22,6 +22,7 @@ import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.Renderer3DChangeEvent;
+import com.orsoncharts.util.ObjectUtils;
 
 /**
  * A renderer that can be used with the {@link CategoryPlot3D} class to create
@@ -45,12 +46,20 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
     /** The line height (in world units). */
     private double lineHeight;
     
+    
+    /**
+     * The color source that determines the color used to highlight clipped
+     * items in the chart.
+     */
+    private CategoryColorSource clipColorSource;
+    
     /**
      * Creates a new instance with default attribute values.
      */
     public LineRenderer3D() {
         this.lineWidth = 0.4;
         this.lineHeight = 0.2;
+        this.clipColorSource = new StandardCategoryColorSource(Color.RED);
     }
     
     /**
@@ -95,6 +104,30 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
         fireChangeEvent();
     }
 
+    
+    /**
+     * Returns the color source used to determine the color used to highlight
+     * clipping in the chart elements.  If the source is <code>null</code>,
+     * then the regular series color is used instead.
+     * 
+     * @return The color source (possibly <code>null</code>). 
+     */
+    public CategoryColorSource getClipColorSource() {
+        return this.clipColorSource;
+    }
+    
+    /**
+     * Sets the color source that determines the color used to highlight
+     * clipping in the chart elements, and sends a {@link Renderer3DChangeEvent}
+     * to all registered listeners.
+     * 
+     * @param source  the source (<code>null</code> permitted). 
+     */
+    public void setClipColorSource(CategoryColorSource source) {
+        this.clipColorSource = source;
+        fireChangeEvent();
+    }
+    
     /**
      * Constructs and places one item from the specified dataset into the given 
      * world.  This method will be called by the {@link CategoryPlot3D} class
@@ -823,6 +856,9 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
             return false;
         }
         if (this.lineHeight != that.lineHeight) {
+            return false;
+        }
+        if (!ObjectUtils.equals(this.clipColorSource, that.clipColorSource)) {
             return false;
         }
         return super.equals(obj);
