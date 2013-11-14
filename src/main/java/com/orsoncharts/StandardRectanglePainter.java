@@ -16,8 +16,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.util.Fit2D;
 import com.orsoncharts.util.ObjectUtils;
+import com.orsoncharts.util.Scale2D;
 import com.orsoncharts.util.SerialUtils;
+import java.awt.Dimension;
 import java.awt.Image;
 
 /**
@@ -37,7 +40,7 @@ public class StandardRectanglePainter implements RectanglePainter,
     /** A background image for the chart, if any. */
     private transient Image image;
     
-    // TODO : add the fitting specification (see Fit2D).
+    private Fit2D fit;
     
     /**
      * Creates a new painter that will fill a rectangle with the specified
@@ -46,7 +49,7 @@ public class StandardRectanglePainter implements RectanglePainter,
      * @param paint  the fill paint (<code>null</code> not permitted).
      */
     public StandardRectanglePainter(Paint paint) {
-        this(paint, null);
+        this(paint, null, null);
     }
     
     /**
@@ -55,11 +58,16 @@ public class StandardRectanglePainter implements RectanglePainter,
      * 
      * @param paint  the background paint (<code>null</code> not permitted).
      * @param image  the image (<code>null</code> permitted).
+     * @param imageFit  the fit (<code>null</code> permitted).
      */
-    public StandardRectanglePainter(Paint paint, Image image) {
+    public StandardRectanglePainter(Paint paint, Image image, Fit2D imageFit) {
         ArgChecks.nullNotPermitted(paint, "paint");
         this.paint = paint;
         this.image = image;
+        this.fit = new Fit2D(TitleAnchor.TOP_CENTER, Scale2D.SCALE_BOTH);
+        if (imageFit != null) {
+            this.fit = imageFit;
+        }
     }
 
     /**
@@ -81,6 +89,15 @@ public class StandardRectanglePainter implements RectanglePainter,
     }
     
     /**
+     * Returns the image fit specification.
+     * 
+     * @return The image fit specification. 
+     */
+    public Fit2D getImageFit() {
+        return this.fit;
+    }
+    
+    /**
      * Fills the rectangle with the paint specified in the constructor.
      * 
      * @param g2  the graphics target (<code>null</code> not permitted).
@@ -92,9 +109,12 @@ public class StandardRectanglePainter implements RectanglePainter,
         g2.setPaint(this.paint);
         g2.fill(bounds);
         if (this.image != null) {
-            g2.drawImage(this.image, (int) bounds.getX(), 
-                    (int) bounds.getY(), (int) bounds.getWidth(),
-                    (int) bounds.getHeight(), null);
+            int w = this.image.getWidth(null);
+            int h = this.image.getHeight(null);
+            Rectangle2D imageBounds = this.fit.fit(new Dimension(w, h), bounds);
+            g2.drawImage(this.image, (int) imageBounds.getX(), 
+                    (int) imageBounds.getY(), (int) imageBounds.getWidth(),
+                    (int) imageBounds.getHeight(), null);
         }
         g2.setPaint(saved);
     }
