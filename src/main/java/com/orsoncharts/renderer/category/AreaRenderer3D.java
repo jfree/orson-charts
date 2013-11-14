@@ -19,6 +19,7 @@ import com.orsoncharts.data.DataUtils;
 import com.orsoncharts.data.Values3D;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.Object3D;
+import com.orsoncharts.graphics3d.Utils2D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.Renderer3DChangeEvent;
@@ -178,7 +179,8 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
             if (Double.isNaN(y1)) {
                 return;  // we can't do anything
             }
-            if (!valueAxis.getRange().intersects(y0, y1)) {
+            if (!valueAxis.getRange().intersects(this.base, y0) 
+                    && !valueAxis.getRange().intersects(this.base, y1)) {
                 return;
             }
             if (!isBaselineCrossed(y0, y1, this.base)) {
@@ -189,14 +191,16 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
                 double x0 = xAxis.getCategoryValue(dataset.getColumnKey(column));
                 double x1 = xAxis.getCategoryValue(dataset.getColumnKey(column + 1));
                 
-                double wx0 = xAxis.translateToWorld(x0, dimensions.getWidth()) + xOffset;
-                double wx1 = xAxis.translateToWorld(x1, dimensions.getWidth()) + xOffset;
-                double wy0 = valueAxis.translateToWorld(y0, dimensions.getHeight()) + yOffset;
-                double wy1 = valueAxis.translateToWorld(y1, dimensions.getHeight()) + yOffset;
-                double wbase = valueAxis.translateToWorld(this.base, dimensions.getHeight()) + yOffset;
+                double ww = dimensions.getWidth();
+                double hh = dimensions.getHeight();
+                double wx0 = xAxis.translateToWorld(x0, ww) + xOffset;
+                double wx1 = xAxis.translateToWorld(x1, ww) + xOffset;
+                double wy0 = valueAxis.translateToWorld(y0, hh) + yOffset;
+                double wy1 = valueAxis.translateToWorld(y1, hh) + yOffset;
+                double wbase = valueAxis.translateToWorld(this.base, hh) + yOffset;
                 double wz = zAxis.translateToWorld(zAxis.getCategoryValue(dataset.getRowKey(row)), dimensions.getDepth()) + zOffset;
-                double wmin = valueAxis.translateToWorld(valueAxis.getRange().getMin(), dimensions.getHeight()) + yOffset;
-                double wmax = valueAxis.translateToWorld(valueAxis.getRange().getMax(), dimensions.getHeight()) + yOffset;
+                double wmin = valueAxis.translateToWorld(valueAxis.getRange().getMin(), hh) + yOffset;
+                double wmax = valueAxis.translateToWorld(valueAxis.getRange().getMax(), hh) + yOffset;
                 Color color = getColorSource().getColor(series, row, column);
                 boolean openingFace = (column == 0);
                 boolean closingFace = (column == dataset.getColumnCount() - 2);
@@ -234,8 +238,8 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
      * the same side of the baseline (no crossing) which means we can use a
      * single 3D object to represent the item.
      * 
-     * @param value0
-     * @param value1
+     * @param y0
+     * @param y1
      * @param dataset
      * @param series
      * @param row
@@ -319,18 +323,17 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
             double wz = rowAxis.translateToWorld(
                     rowAxis.getCategoryValue(rowKey), 
                     dimensions.getDepth()) + zOffset;
-                        
-            world.add(createNegativeArea(color, wx00, wy0, wx11, wy1, wbase, wz, 
+                       
+            Object3D neg = createNegativeArea(color, wx00, wy0, wx11, wy1, wbase, wz, 
                     new Range(wymin, wymax), column == 0, 
-                    column == dataset.getColumnCount() - 2));
+                    column == dataset.getColumnCount() - 2);
+            if (neg != null) {
+                world.add(neg);
+            }
         }
         
     }
         
-    private boolean spans(double value, double bound1, double bound2) {
-        return (bound1 < value && bound2 > value)
-                || (bound1 > value && bound2 < value);
-    }
     
     /**
      * Adds two objects to the world to show an area shape where the data
@@ -366,23 +369,50 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
         if (wy0 > wbase) {
             world.add(createPositiveArea(color, wx0, wy0, xcross, wbase, wbase, wz, 
                     range, openingFace, closingFace));
-            world.add(createNegativeArea(color, xcross, wbase, wx1, wy1, wbase, wz, 
-                    range, openingFace, closingFace));
+            Object3D neg = createNegativeArea(color, xcross, wbase, wx1, wy1, 
+                    wbase, wz, range, openingFace, closingFace); 
+            if (neg != null) {
+                world.add(neg);
+            }
         } else {
-            world.add(createNegativeArea(color, wx0, wy0, xcross, wbase, wbase, wz, 
-                    range, openingFace, closingFace));
-            world.add(createPositiveArea(color, xcross, wbase, wx1, wy1, wbase, wz, 
-                    range, openingFace, closingFace));
+            Object3D neg = createNegativeArea(color, wx0, wy0, xcross, wbase, 
+                    wbase, wz, range, openingFace, closingFace);
+            if (neg != null) {
+                world.add(neg);
+            }
+            world.add(createPositiveArea(color, xcross, wbase, wx1, wy1, wbase, 
+                    wz, range, openingFace, closingFace));
         }
     }
     
+    /**
+     * Creates a 3D object to represent a positive "area", taking into account
+     * that the visible range can be restricted.
+     * 
+     * @param color
+     * @param wx0
+     * @param wy0
+     * @param wx1
+     * @param wy1
+     * @param wbase
+     * @param wz
+     * @param range
+     * @param openingFace
+     * @param closingFace
+     * 
+     * @return A 3D object or <code>null</code>. 
+     */
     private Object3D createPositiveArea(Color color, double wx0, double wy0, 
             double wx1, double wy1, double wbase, double wz, Range range,
             boolean openingFace, boolean closingFace) {
         
+        if (!range.intersects(wy0, wbase) && !range.intersects(wy1, wbase)) {
+            return null;
+        }
         double wy00 = range.peggedValue(wy0);
         double wy11 = range.peggedValue(wy1);
-
+        double wbb = range.peggedValue(wbase);
+        
         double wx00 = wx0;
         if (wy0 < range.getMin()) {
             wx00 = wx0 + (wx1 - wx0) * fraction(wy00, wy0, wy1);
@@ -392,7 +422,7 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
             wx11 = wx1 - (wx1 - wx0) * fraction(wy11, wy1, wy0);
         }
         double wx22 = Double.NaN;  // bogus
-        boolean p2required = spans(range.getMax(), wy0, wy1);  // only required when range max is spanned
+        boolean p2required = Utils2D.spans(range.getMax(), wy0, wy1); 
         if (p2required) {
             wx22 = wx0 + (wx1 - wx0) * fraction(range.getMax(), wy0, wy1);
         }
@@ -401,11 +431,11 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
                         
         // create an area shape
         Object3D obj = new Object3D();
-        obj.addVertex(wx00, wbase, wz - delta);
-        obj.addVertex(wx00, wbase, wz + delta);
-        boolean left = false;
-        if (wy00 != wbase) {
-            left = true;
+        obj.addVertex(wx00, wbb, wz - delta);
+        obj.addVertex(wx00, wbb, wz + delta);
+        boolean leftSide = false;
+        if (wy00 != wbb) {
+            leftSide = true;
             obj.addVertex(wx00, wy00, wz - delta);
             obj.addVertex(wx00, wy00, wz + delta);
         }
@@ -415,9 +445,11 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
         }
         obj.addVertex(wx11, wy11, wz - delta);
         obj.addVertex(wx11, wy11, wz + delta);
-        if (wy11 != wbase) {
-            obj.addVertex(wx11, wbase, wz - delta);
-            obj.addVertex(wx11, wbase, wz + delta);
+        boolean rightSide = false;
+        if (wy11 != wbb) {
+            rightSide = true;
+            obj.addVertex(wx11, wbb, wz - delta);
+            obj.addVertex(wx11, wbb, wz + delta);
         }
         int vertices = obj.getVertexCount();
         
@@ -425,11 +457,25 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
             obj.addFace(new int[] {0, 2, 4, 6, 8}, color, true);  // front
             obj.addFace(new int[] {1, 9, 7, 5, 3}, color, true);  // rear
             obj.addFace(new int[] {0, 8, 9, 1}, color, true);  // base
+            obj.addFace(new int[] {2, 3, 5, 4}, color, true); // top 1
+            obj.addFace(new int[] {4, 5, 7, 6}, color, true);  // top 2
+            if (openingFace) {
+                obj.addFace(new int[] {0, 1, 3, 2}, color, true);
+            }
+            if (closingFace) {
+                obj.addFace(new int[] {6, 7, 9, 8}, color, true);
+            }
         } else if (vertices == 8) {
             obj.addFace(new int[] {0, 2, 4, 6}, color, true);  // front
             obj.addFace(new int[] {7, 5, 3, 1}, color, true);  // rear
-            obj.addFace(new int[] {2, 3, 5, 4}, color, true);  // top
-            obj.addFace(new int[] {1, 0, 6, 7}, color, true);
+            if (!leftSide) {
+                obj.addFace(new int[] {0, 1, 3, 2}, color, true);  // top left
+            }
+            obj.addFace(new int[] {2, 3, 5, 4}, color, true);  // top 1
+            if (!rightSide) {
+                obj.addFace(new int[] {4, 5, 7, 6}, color, true); // top 2 
+            }
+            obj.addFace(new int[] {1, 0, 6, 7}, color, true); // base
             if (openingFace) {
                 obj.addFace(new int[] {0, 1, 3, 2}, color, true);
             }
@@ -439,7 +485,7 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
         } else if (vertices == 6) {
             obj.addFace(new int[] {0, 2, 4}, color, true); // front
             obj.addFace(new int[] {5, 3, 1}, color, true); // rear
-            if (left) {
+            if (leftSide) {
                 obj.addFace(new int[] {3, 5, 4, 2}, color, true); // top            
                 if (openingFace) {
                     obj.addFace(new int[] {0, 1, 3, 2}, color, true);
@@ -451,6 +497,9 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
                 }
             }
             obj.addFace(new int[] {0, 4, 5, 1}, color, true); // base            
+        } else {
+            obj.addFace(new int[] {0, 1, 3, 2}, color, true);
+            obj.addFace(new int[] {2, 3, 1, 0}, color, true);
         }
         return obj;
     }
@@ -458,9 +507,14 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
     private Object3D createNegativeArea(Color color, double wx0, double wy0, 
             double wx1, double wy1, double wbase, double wz, Range range,
             boolean openingFace, boolean closingFace) {
-           
+        
+        if (!range.intersects(wy0, wbase) && !range.intersects(wy1, wbase)) {
+            return null;
+        }
         double wy00 = range.peggedValue(wy0);
         double wy11 = range.peggedValue(wy1);
+        double wbb = range.peggedValue(wbase);
+        
         double wx00 = wx0;
         if (wy0 > range.getMax()) {
             wx00 = wx0 + (wx1 - wx0) * fraction(wy00, wy0, wy1);
@@ -470,7 +524,7 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
             wx11 = wx1 - (wx1 - wx0) * fraction(wy11, wy1, wy0);
         }
         double wx22 = (wx00 + wx11) / 2.0;  // bogus
-        boolean p2required = spans(range.getMin(), wy0, wy1);  // only required when range max is spanned
+        boolean p2required = Utils2D.spans(range.getMin(), wy0, wy1); 
         if (p2required) {
             wx22 = wx0 + (wx1 - wx0) * fraction(range.getMin(), wy0, wy1);
         }
@@ -479,13 +533,13 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
 
         // create an area shape
         Object3D obj = new Object3D();
-        obj.addVertex(wx00, wbase, wz - delta);
-        obj.addVertex(wx00, wbase, wz + delta);
-        boolean left = false;
-        if (wy00 != wbase) {
-            left = true;
-            obj.addVertex(wx00, wy0, wz - delta);
-            obj.addVertex(wx00, wy0, wz + delta);
+        obj.addVertex(wx00, wbb, wz - delta);
+        obj.addVertex(wx00, wbb, wz + delta);
+        boolean leftSide = false;
+        if (wy00 != wbb) {
+            leftSide = true;
+            obj.addVertex(wx00, wy00, wz - delta);
+            obj.addVertex(wx00, wy00, wz + delta);
         }
         if (p2required) {
             obj.addVertex(wx22, range.getMin(), wz - delta);
@@ -493,18 +547,35 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
         }
         obj.addVertex(wx11, wy11, wz - delta);
         obj.addVertex(wx11, wy11, wz + delta);
-        if (wy11 != wbase) {
-            obj.addVertex(wx11, wbase, wz - delta);
-            obj.addVertex(wx11, wbase, wz + delta);
+        boolean rightSide = false;
+        if (wy11 != wbb) {
+            obj.addVertex(wx11, wbb, wz - delta);
+            obj.addVertex(wx11, wbb, wz + delta);
         }
         int vertices = obj.getVertexCount();
         if (vertices == 10) {
-            
+            obj.addFace(new int[] {8, 6, 4, 2, 0}, color, true);  // front
+            obj.addFace(new int[] {1, 3, 5, 7, 9}, color, true);  // rear
+            obj.addFace(new int[] {1, 9, 8, 0}, color, true);  // base
+            obj.addFace(new int[] {4, 5, 3, 2}, color, true); // top 1
+            obj.addFace(new int[] {6, 7, 5, 4}, color, true);  // top 2
+            if (openingFace) {
+                obj.addFace(new int[] {2, 3, 1, 0}, color, true);
+            }
+            if (closingFace) {
+                obj.addFace(new int[] {8, 9, 7, 6}, color, true);
+            }            
         } else if (vertices == 8) {
             obj.addFace(new int[] {2, 0, 6, 4}, color, true);  // front
             obj.addFace(new int[] {1, 3, 5, 7}, color, true);  // rear
             obj.addFace(new int[] {0, 1, 7, 6}, color, true);  // base
+            if (!leftSide) {
+                obj.addFace(new int[] {2, 3, 1, 0}, color, true);            
+            }
             obj.addFace(new int[] {3, 2, 4, 5}, color, true);  // negative top
+            if (!rightSide) {
+                obj.addFace(new int[] {6, 7, 5, 4}, color, true);  
+            }
             if (openingFace) {
                 obj.addFace(new int[] {1, 0, 2, 3}, color, true);
             }
@@ -514,7 +585,7 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
         } else if (vertices == 6) {
             obj.addFace(new int[] {4, 2, 0}, color, true);  // front  
             obj.addFace(new int[] {1, 3, 5}, color, true);  // rear
-            if (left) {
+            if (leftSide) {
                 obj.addFace(new int[] {4, 5, 3, 2}, color, true);  // negative top
                 if (openingFace) {
                     obj.addFace(new int[] {1, 0, 2, 3}, color, true);
@@ -529,7 +600,6 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
         } else {
             obj.addFace(new int[] {0, 1, 3, 2}, color, true);
             obj.addFace(new int[] {2, 3, 1, 0}, color, true);
-            //throw new RuntimeException("Should not get here: vertices = " + vertices);
         }
         return obj;
     }
