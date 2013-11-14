@@ -42,6 +42,13 @@ public final class TitleAnchor {
             = new Anchor2D(RefPt2D.CENTER_LEFT);
 
     /**
+     * An anchor point at the center of the chart area (provided for
+     * completeness, you wouldn't normally anchor a chart title at the 
+     * center).
+     */
+    public static final Anchor2D CENTER = new Anchor2D(RefPt2D.CENTER);
+
+    /**
      * An anchor point at the center-right of the chart area. 
      */
     public static final Anchor2D CENTER_RIGHT
