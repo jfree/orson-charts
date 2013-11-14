@@ -15,7 +15,7 @@ import com.orsoncharts.Colors;
 import com.orsoncharts.util.ArgChecks;
 
 /**
- * A standard implementation of the {@link Category3DPaintSource} interface.
+ * A standard implementation of the {@link CategoryColorSource} interface.
  * <br><br>
  * NOTE: This class is serializable, but the serialization format is subject 
  * to change in future releases and should not be relied upon for persisting 
@@ -92,7 +92,7 @@ public final class StandardCategoryColorSource
     }
     
     /**
-     * Tests this paint source for equality with an arbitrary object.
+     * Tests this color source for equality with an arbitrary object.
      * 
      * @param obj  the object (<code>null</code> permitted).
      * 
