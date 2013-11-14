@@ -57,6 +57,8 @@ import com.orsoncharts.util.TextAnchor;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.legend.LegendBuilder;
 import com.orsoncharts.legend.StandardLegendBuilder;
+import com.orsoncharts.table.GridElement;
+import com.orsoncharts.table.HAlign;
 import com.orsoncharts.util.ObjectUtils;
 
 /**
@@ -158,8 +160,6 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
         this.plot.addChangeListener(this);
         Dimension3D dim = this.plot.getDimensions();
         float distance = (float) dim.getDiagonalLength() * 3.0f;
-//        this.viewPoint = new ViewPoint3D((float) (4.4 * Math.PI / 3), 
-//                (float) (7 * Math.PI / 6), distance, 0);
         this.viewPoint = ViewPoint3D.createAboveViewPoint(distance);
         this.chartBoxColor = Color.WHITE;
         this.translate2D = new Offset2D();
@@ -554,6 +554,14 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
         // generate and draw the legend...
         if (this.legendBuilder != null) {
             TableElement legend = this.legendBuilder.createLegend(this.plot);
+            if (true) { // eval
+                GridElement legend2 = new GridElement();
+                legend2.setElement(legend, "R1", "C1");
+                TextElement te = new TextElement("Orson Charts (c) 2013, by Object Refinery Limited", new Font("Dialog", Font.PLAIN, 10));
+                te.setHorizontalAligment(HAlign.RIGHT);
+                legend2.setElement(te, "R2", "C1");
+                legend = legend2;         
+            }
             Dimension2D legendSize = legend.preferredSize(g2, bounds);
             Rectangle2D legendArea = calculateDrawArea(legendSize, 
                     this.legendAnchor, bounds);
