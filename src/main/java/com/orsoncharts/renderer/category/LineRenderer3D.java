@@ -812,7 +812,7 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof LineRenderer3D2)) {
+        if (!(obj instanceof LineRenderer3D)) {
             return false;
         }
         LineRenderer3D that = (LineRenderer3D) obj;

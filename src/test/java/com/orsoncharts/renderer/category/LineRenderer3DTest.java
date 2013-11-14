@@ -21,8 +21,8 @@ public class LineRenderer3DTest {
 
     @Test
     public void testEquals() {
-        LineRenderer3D2 r1 = new LineRenderer3D2();
-        LineRenderer3D2 r2 = new LineRenderer3D2();
+        LineRenderer3D r1 = new LineRenderer3D();
+        LineRenderer3D r2 = new LineRenderer3D();
         assertTrue(r1.equals(r2));
         assertFalse(r1.equals(null));
         
@@ -45,8 +45,8 @@ public class LineRenderer3DTest {
     
     @Test
     public void testSerialization() {
-        LineRenderer3D2 r1 = new LineRenderer3D2();
-        LineRenderer3D2 r2 = (LineRenderer3D2) TestUtils.serialized(r1);
+        LineRenderer3D r1 = new LineRenderer3D();
+        LineRenderer3D r2 = (LineRenderer3D) TestUtils.serialized(r1);
         assertTrue(r1.equals(r2));
     }
 
