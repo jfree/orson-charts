@@ -28,7 +28,13 @@ import com.orsoncharts.util.ObjectUtils;
  * A renderer that can be used with the {@link CategoryPlot3D} class to create
  * 3D lines charts from data in a {@link CategoryDataset3D}.  The 
  * <code>createLineChart()</code> method in the {@link Chart3DFactory} class 
- * will construct a chart that uses this renderer.
+ * will construct a chart that uses this renderer.  Here is a sample:
+ * <div>
+ * <object id="ABC" data="../../../../doc-files/LineChart3DDemo1.svg"  
+ * type="image/svg+xml" width="500" height="359"></object>
+ * </div>
+ * (refer to <code>LineChart3DDemo1.java</code> for the code to generate the
+ * above chart).
  * <br><br>
  * Some attributes in the renderer are specified in "world units" - see the
  * {@link Chart3D} class description for more information about world units.
@@ -266,7 +272,8 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
      * @param y1t
      * @param ymin
      * @param ymax
-     * @return 
+     * 
+     * @return An array of 4 x-coordinates. 
      */
     private double[] calcCrossPoints(double x0, double x1, double y0b, 
             double y0t, double y1b, double y1t, double ymin, double ymax) {

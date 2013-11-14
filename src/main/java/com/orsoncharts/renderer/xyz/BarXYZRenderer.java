@@ -23,7 +23,13 @@ import com.orsoncharts.util.ObjectUtils;
 
 /**
  * A renderer that draws 3D bars on an {@link XYZPlot} using data from an
- * {@link XYZDataset}.
+ * {@link XYZDataset}.  Here is a sample:
+ * <div>
+ * <object id="ABC" data="../../../../doc-files/XYZBarChart3DDemo1.svg"  
+ * type="image/svg+xml" width="500" height="359"></object>
+ * </div>
+ * (refer to <code>XYZBarChart3DDemo1.java</code> for the code to generate 
+ * the above chart).
  * <br><br>
  * NOTE: This class is serializable, but the serialization format is subject 
  * to change in future releases and should not be relied upon for persisting 

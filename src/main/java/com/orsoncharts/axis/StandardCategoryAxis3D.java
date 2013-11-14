@@ -27,6 +27,7 @@ import com.orsoncharts.util.TextAnchor;
 import com.orsoncharts.Range;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.plot.CategoryPlot3D;
+import com.orsoncharts.renderer.category.AreaRenderer3D;
 import com.orsoncharts.util.ObjectUtils;
 import com.orsoncharts.util.SerialUtils;
 

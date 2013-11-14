@@ -22,7 +22,13 @@ import com.orsoncharts.util.ArgChecks;
 
 /**
  * A renderer for 3D scatter plots.  This renderer is used with an
- * {@link XYZPlot} and any {@link XYZDataset} instance.
+ * {@link XYZPlot} and any {@link XYZDataset} instance.  Here is a sample:
+ * <div>
+ * <object id="ABC" data="../../../../doc-files/ScatterPlot3DDemo2.svg"  
+ * type="image/svg+xml" width="500" height="359"></object>
+ * </div>
+ * (refer to <code>ScatterPlot3DDemo2.java</code> for the code to generate 
+ * the above chart).
  * <br><br>
  * TIP: to create a chart using this renderer, you can use the
  * {@link Chart3DFactory#createScatterPlot(String, String, XYZDataset, String, String, String)}

@@ -27,7 +27,15 @@ import com.orsoncharts.util.ObjectUtils;
 
 /**
  * A renderer for creating 3D area charts from data in a 
- * {@link CategoryDataset3D} (for use with a {@link CategoryPlot3D}).
+ * {@link CategoryDataset3D} (for use with a {@link CategoryPlot3D}). For 
+ * example:
+ * <div>
+ * <object id="ABC" data="../../../../doc-files/AreaChart3DDemo1.svg"  
+ * type="image/svg+xml" width="500" height="359"> 
+ * </object>
+ * </div>
+ * (refer to <code>AreaChart3DDemo1.java</code> for the code to generate the
+ * above chart).
  * <br><br>
  * TIP: to create a chart using this renderer, you can use the
  * {@link Chart3DFactory#createAreaChart(String, String, CategoryDataset3D, String, String, String)} 

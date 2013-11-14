@@ -21,7 +21,13 @@ import com.orsoncharts.Chart3DFactory;
  * A renderer that can be used with the {@link CategoryPlot3D} class to create
  * 3D stacked bar charts from data in a {@link CategoryDataset3D}.  The 
  * <code>createStackedBarChart()</code> method in the {@link Chart3DFactory} 
- * class will construct a chart that uses this renderer.
+ * class will construct a chart that uses this renderer.  Here is a sample:
+ * <div>
+ * <object id="ABC" data="../../../../doc-files/StackedBarChart3DDemo1.svg"  
+ * type="image/svg+xml" width="500" height="359"></object>
+ * </div>
+ * (refer to <code>StackedBarChart3DDemo1.java</code> for the code to generate 
+ * the above chart).
  */
 public class StackedBarRenderer3D extends BarRenderer3D {
 
