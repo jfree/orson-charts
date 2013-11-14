@@ -14,7 +14,7 @@ import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.ObjectUtils;
 
 /**
- * A standard implementation of the {@link XYZPaintSource} interface.
+ * A standard implementation of the {@link XYZColorSource} interface.
  * <br><br>
  * NOTE: This class is serializable, but the serialization format is subject 
  * to change in future releases and should not be relied upon for persisting 
