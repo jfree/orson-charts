@@ -15,20 +15,46 @@ servlets.  The key features include:
 <li>easy export of charts to PDF and SVG for reporting;</li>
 <li>a clean and well-documented API, with a high degree of chart 
     configurability;</li></ol>
-<p>
+
+For 2D charts, we recommend the excellent 
+<a href="http://www.jfree.org/">JFreeChart</a> library.
+
+<h4>Getting Started</h4>
+To get started with Orson Charts, you simply need to add the 
+<code>orsoncharts-1.x.jar</code> file to your classpath and begin coding.  Your 
+first step is to set up some data that you want to display.  Orson Charts reads
+data through a dataset interface - there are three key interfaces, one that is
+used for pie charts (<code>PieDataset3D</code>), one that is used for bar charts
+and other category based charts (<code>CategoryDataset3D</code>) and one for 
+plots that use numerical data (<code>XYZDataset</code>).  There are standard
+implementations of these interfaces includes in the library, making it 
+straightforward to create a new dataset. Here is an example for a pie chart:
+<br><br>
+<code>&nbsp;&nbsp;StandardPieDataset3D dataset = new StandardPieDataset3D();<br></code>
+<code>&nbsp;&nbsp;dataset.add("Milk Products", 625);<br></code>
+<code>&nbsp;&nbsp;dataset.add("Meat", 114);<br></code>
+<br><br>
+Once your dataset is ready, the next step is to create a chart object - here the 
+<code>Chart3DFactory</code> class can help, as it has utility methods to create 
+some standard chart types:
+<br><br>
+<code>&nbsp;&nbsp;Chart3D chart = Chart3DFactory.createPieChart("Title", "Subtitle", dataset);</code>
+<br><br>
+Finally, if you are developing a Swing application, you will want to place the
+chart somewhere in your UI.  Here the <code>ChartPanel3D</code> class can
+be used:
+<br><br>
+<code>&nbsp;&nbsp;ChartPanel3D chartPanel = new ChartPanel3D(chart);</code>
+<br><br>
+You can find complete examples in the <code>com.orsoncharts.demo</code> package.
+You are encouraged to explore these example programs and review these Javadoc
+pages to learn more about Orson Charts.
+
+<h4>More Information</h4>
 Please visit <a href="http://www.object-refinery.com/orsoncharts/index.html" target="_blank">
   http://www.object-refinery.com/orsoncharts/index.html
 </a>
 for the latest information about Orson Charts.
-<table>
-    <tr><td>
-HELLO!
-    </td><td>
-<object data="doc-files/BarRenderer3D.svg"  type="image/svg+xml" 
-width="100" height="80"> 
-</object>XX
-</td></tr>
-</table>
 
 </body>
 </html>
