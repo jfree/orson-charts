@@ -28,7 +28,9 @@ import com.orsoncharts.renderer.category.StackedBarRenderer3D;
 import com.orsoncharts.renderer.xyz.ScatterXYZRenderer;
 
 /**
- * Utility methods for constructing common chart types.
+ * Utility methods for constructing common chart types.  Charts can be 
+ * assembled piece-wise, but usually it is simpler to use the methods in this
+ * class then customise the resulting chart as necessary.
  */
 public class Chart3DFactory {
     
@@ -40,14 +42,23 @@ public class Chart3DFactory {
     }
     
     /**
-     * Creates a pie chart in 3D.  This chart is constructed using a 
-     * {@link PiePlot3D}.
+     * Creates and returns a pie chart based on the supplied dataset.  The 
+     * chart returned by this method will be constructed using a  
+     * {@link PiePlot3D} instance (so it is safe to cast the result of
+     * <code>chart.getPlot()</code>).
+     * <br><br>
+     * For reference, here is a sample pie chart:
+     * <div>
+     * <object id="ABC" data="../../doc-files/PieChart3DDemo1.svg"  
+     * type="image/svg+xml" width="500" height="359"> 
+     * </object>
+     * </div>
      * 
      * @param title  the chart title (<code>null</code> permitted).
      * @param subtitle  the chart subtitle (<code>null</code> permitted).
      * @param dataset  the dataset (<code>null</code> not permitted).
      * 
-     * @return A pie chart. 
+     * @return A pie chart (never <code>null</code>). 
      */
     public static Chart3D createPieChart(String title, String subtitle, 
             PieDataset3D dataset) {
@@ -56,8 +67,18 @@ public class Chart3DFactory {
     }
     
     /**
-     * Creates a bar chart in 3D.  This chart is constructed using a 
-     * {@link CategoryPlot3D} with a {@link BarRenderer3D}.
+     * Creates and returns a bar chart based on the supplied dataset. The chart
+     * returned by this method will be constructed with a 
+     * {@link CategoryPlot3D} using a {@link BarRenderer3D} (so it is
+     * safe to cast the plot and/or renderer to customise attributes that are
+     * specific to those subclasses).
+     * <br><br>
+     * For reference, here is a sample bar chart:
+     * <div>
+     * <object id="ABC" data="../../doc-files/BarChart3DDemo1.svg"  
+     * type="image/svg+xml" width="500" height="359"> 
+     * </object>
+     * </div>
      * 
      * @param title  the chart title (<code>null</code> permitted).
      * @param subtitle  the chart subtitle (<code>null</code> permitted).
@@ -68,7 +89,7 @@ public class Chart3DFactory {
      * @param valueAxisLabel  the value axis label (<code>null</code> 
      *     permitted).
      * 
-     * @return A bar chart. 
+     * @return A bar chart (never <code>null</code>). 
      */
     public static Chart3D createBarChart(String title, String subtitle,
             CategoryDataset3D dataset, String rowAxisLabel, 
@@ -84,8 +105,18 @@ public class Chart3DFactory {
     }
     
     /**
-     * Creates a stacked bar chart in 3D.  This chart is constructed using a 
-     * {@link CategoryPlot3D} with a {@link StackedBarRenderer3D}.
+     * Creates and returns a stacked bar chart based on the supplied dataset.
+     * The chart returned by this method will be constructed with a 
+     * {@link CategoryPlot3D} using a {@link StackedBarRenderer3D} (so it is
+     * safe to cast the plot and/or renderer to customise attributes that
+     * are specific to those subclasses).
+     * <br><br>
+     * For reference, here is a sample stacked bar chart:
+     * <div>
+     * <object id="ABC" data="../../doc-files/StackedBarChart3DDemo1.svg"  
+     * type="image/svg+xml" width="500" height="359"> 
+     * </object>
+     * </div>
      * 
      * @param title  the chart title (<code>null</code> permitted).
      * @param subtitle  the chart subtitle (<code>null</code> permitted).
@@ -96,7 +127,7 @@ public class Chart3DFactory {
      * @param valueAxisLabel  the value axis label (<code>null</code> 
      *     permitted).
      * 
-     * @return A stacked bar chart. 
+     * @return A stacked bar chart (never <code>null</code>). 
      */
     public static Chart3D createStackedBarChart(String title, String subtitle,
             CategoryDataset3D dataset, String rowAxisLabel, 
@@ -112,8 +143,18 @@ public class Chart3DFactory {
     }
     
     /**
-     * Creates an area chart in 3D. This chart is constructed using a 
-     * {@link CategoryPlot3D} with an {@link AreaRenderer3D}.
+     * Creates and returns an area chart based on the supplied dataset.  The 
+     * chart returned by this method will be constructed with a 
+     * {@link CategoryPlot3D} using an {@link AreaRenderer3D} (so it is safe 
+     * to cast the plot and/or renderer to customise attributes that are 
+     * specific to those subclasses).
+     * <br><br>
+     * For reference, here is a sample area chart:
+     * <div>
+     * <object id="ABC" data="../../doc-files/AreaChart3DDemo1.svg"  
+     * type="image/svg+xml" width="500" height="359"> 
+     * </object>
+     * </div>
      * 
      * @param title  the chart title (<code>null</code> permitted).
      * @param subtitle  the chart subtitle (<code>null</code> permitted).
@@ -124,7 +165,7 @@ public class Chart3DFactory {
      * @param valueAxisLabel  the value axis label (<code>null</code> 
      *     permitted).
      * 
-     * @return An area chart. 
+     * @return An area chart (never <code>null</code>). 
      */
     public static Chart3D createAreaChart(String title, String subtitle,
             CategoryDataset3D dataset, String rowAxisLabel, 
@@ -144,9 +185,18 @@ public class Chart3DFactory {
     }
     
     /**
-     * Creates a line chart in 3D for the supplied dataset.  This chart is
-     * constructed using a {@link CategoryPlot3D} with a 
-     * {@link LineRenderer3D}.
+     * Creates and returns a line chart based on the supplied dataset.  The 
+     * chart returned by this method will be constructed with a 
+     * {@link CategoryPlot3D} using a {@link LineRenderer3D} (so it is safe
+     * to cast the plot and/or renderer to customise attributes that are
+     * specific to those subclasses).
+     * <br><br>
+     * For reference, here is a sample line chart:
+     * <div>
+     * <object id="ABC" data="../../doc-files/LineChart3DDemo1.svg"  
+     * type="image/svg+xml" width="500" height="359"> 
+     * </object>
+     * </div>
      * 
      * @param title  the chart title (<code>null</code> permitted).
      * @param subtitle  the chart subtitle (<code>null</code> permitted).
@@ -157,7 +207,7 @@ public class Chart3DFactory {
      * @param valueAxisLabel  the value axis label (<code>null</code> 
      *     permitted).
      * 
-     * @return A line chart. 
+     * @return A line chart (never <code>null</code>).
      */
     public static Chart3D createLineChart(String title, String subtitle,
             CategoryDataset3D dataset, String rowAxisLabel, 
@@ -176,8 +226,19 @@ public class Chart3DFactory {
     }
     
     /**
-     * Creates a scatter plot of <code>(x, y, z)</code> values.  This chart is
-     * constructed using a {@link XYZPlot} with a {@link ScatterXYZRenderer}.
+     * Creates and returns a scatter plot based on the supplied dataset 
+     * (containing one or more series of <code>(x, y, z)</code> values).  The 
+     * chart returned by this method will be constructed with an 
+     * {@link XYZPlot} using a {@link ScatterXYZRenderer}  (so it is safe
+     * to cast the plot and/or renderer to customise attributes that are
+     * specific to those subclasses).
+     * <br><br>
+     * For reference, here is a sample scatter chart:
+     * <div>
+     * <object id="ABC" data="../../doc-files/ScatterPlot3DDemo1.svg"  
+     * type="image/svg+xml" width="564" height="351"> 
+     * </object>
+     * </div>
      * 
      * @param title  the chart title (<code>null</code> permitted).
      * @param subtitle  the chart subtitle (<code>null</code> permitted).
@@ -188,7 +249,7 @@ public class Chart3DFactory {
      * 
      * @return The chart. 
      */
-    public static Chart3D createScatterPlot(String title, String subtitle, 
+    public static Chart3D createScatterChart(String title, String subtitle, 
             XYZDataset dataset, String xAxisLabel, String yAxisLabel, 
             String zAxisLabel) {
         ValueAxis3D xAxis = new NumberAxis3D(xAxisLabel);
@@ -200,10 +261,20 @@ public class Chart3DFactory {
     }
     
     /**
-     * Creates a bar chart based on <code>(x, y, z)</code> values.  You should
-     * only use this for special cases, it is usually easier to create 3D
-     * bar charts using the {@link #createBarChart(String, String, CategoryDataset3D, String, String, String) }
-     * method.
+     * Creates and returns a bar chart based on the supplied dataset (this is 
+     * for special cases, most general cases will be covered by the 
+     * {@link #createBarChart(String, String, CategoryDataset3D, String, String, String) }
+     * method). The chart returned by this method will be constructed with an 
+     * {@link XYZPlot} using a {@link BarXYZRenderer}  (so it is safe
+     * to cast the plot and/or renderer to customise attributes that are
+     * specific to those subclasses).
+     * <br><br>
+     * For reference, here is a sample XYZ bar chart:
+     * <div>
+     * <object id="ABC" data="../../doc-files/XYZBarChart3DDemo1.svg"  
+     * type="image/svg+xml" width="500" height="359"> 
+     * </object>
+     * </div>
      * 
      * @param title  the chart title (<code>null</code> permitted).
      * @param subtitle  the chart subtitle (<code>null</code> permitted).

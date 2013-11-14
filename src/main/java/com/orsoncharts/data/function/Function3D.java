@@ -8,8 +8,12 @@
 
 package com.orsoncharts.data.function;
 
+import com.orsoncharts.data.xyz.XYZDatasetUtils;
+
 /**
- * Represents a function <code>y = f(x, z)</code>.
+ * Represents a function <code>y = f(x, z)</code>.  A dataset can be created
+ * by sampling a function - see the {@link XYZDatasetUtils#sampleFunction(Function3D, String, Range, double, Range, double)} 
+ * method.
  */
 public interface Function3D {
     

@@ -154,7 +154,7 @@ public class Chart3DTest {
      */
     @Test
     public void testSerializationScatterChart() {
-        Chart3D c1 = Chart3DFactory.createScatterPlot("title", "subtitle",
+        Chart3D c1 = Chart3DFactory.createScatterChart("title", "subtitle",
                 createXYZDataset(), "rowAxis", "columnAxis", "valueAxis");
         Chart3D c2 = (Chart3D) TestUtils.serialized(c1);
         assertEquals(c1, c2);

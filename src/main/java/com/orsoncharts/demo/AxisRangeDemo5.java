@@ -159,7 +159,7 @@ public class AxisRangeDemo5 extends JFrame {
         DemoPanel content = new CustomDemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         XYZDataset dataset = createDataset();
-        Chart3D chart = Chart3DFactory.createScatterPlot("AxisRangeDemo5", 
+        Chart3D chart = Chart3DFactory.createScatterChart("AxisRangeDemo5", 
                 "Chart created with Orson Charts", dataset, "X", "Y", "Z");
         XYZPlot plot = (XYZPlot) chart.getPlot();
         plot.setDimensions(new Dimension3D(10.0, 4.0, 10.0));

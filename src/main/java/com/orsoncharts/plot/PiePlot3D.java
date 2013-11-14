@@ -26,8 +26,14 @@ import com.orsoncharts.Chart3DFactory;
 import com.orsoncharts.data.DataUtils;
 
 /**
- * A pie plot in 3D.  To create a pie chart, you can use the 
- * <code>createPieChart()</code> method in the {@link Chart3DFactory} class.
+ * A plot for creating 3D pie charts.  To create a pie chart, you can use the 
+ * <code>createPieChart()</code> method in the {@link Chart3DFactory} class.  
+ * A typical pie chart will look like this:  
+ * <div>
+ * <object id="ABC" data="../../../doc-files/PieChart3DDemo1.svg"  
+ * type="image/svg+xml" width="500" height="359"> 
+ * </object>
+ * </div>
  * <br><br>
  * NOTE: This class is serializable, but the serialization format is subject 
  * to change in future releases and should not be relied upon for persisting 

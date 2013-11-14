@@ -17,8 +17,6 @@ import javax.swing.JPanel;
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
-import com.orsoncharts.GradientRectanglePainter;
-import com.orsoncharts.TitleAnchor;
 import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.data.xyz.XYZSeries;
 import com.orsoncharts.data.xyz.XYZSeriesCollection;
@@ -27,7 +25,6 @@ import com.orsoncharts.graphics3d.ViewPoint3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.renderer.xyz.ScatterXYZRenderer;
-import java.awt.Color;
 
 /**
  * A demonstration of a scatter plot in 3D.
@@ -61,10 +58,8 @@ public class ScatterPlot3DDemo1 extends JFrame {
         DemoPanel content = new DemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         XYZDataset dataset = createDataset();
-        Chart3D chart = Chart3DFactory.createScatterPlot("ScatterPlot3DDemo1", 
+        Chart3D chart = Chart3DFactory.createScatterChart("ScatterPlot3DDemo1", 
                 "Chart created with Orson Charts", dataset, "X", "Y", "Z");
-        chart.setBackground(new GradientRectanglePainter(Color.LIGHT_GRAY, 
-                TitleAnchor.TOP_LEFT, Color.GRAY, TitleAnchor.BOTTOM_RIGHT));
         XYZPlot plot = (XYZPlot) chart.getPlot();
         plot.setDimensions(new Dimension3D(10.0, 4.0, 4.0));
         ScatterXYZRenderer renderer = (ScatterXYZRenderer) plot.getRenderer();

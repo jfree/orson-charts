@@ -58,7 +58,7 @@ public class ScatterPlot3DDemo2 extends JFrame {
         DemoPanel content = new DemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         XYZDataset dataset = createDataset();
-        Chart3D chart = Chart3DFactory.createScatterPlot("ScatterPlot3DDemo2", 
+        Chart3D chart = Chart3DFactory.createScatterChart("ScatterPlot3DDemo2", 
                 "Chart created with Orson Charts", dataset, "X", "Y", "Z");
         XYZPlot plot = (XYZPlot) chart.getPlot();
         plot.setDimensions(new Dimension3D(10.0, 4.0, 10.0));
