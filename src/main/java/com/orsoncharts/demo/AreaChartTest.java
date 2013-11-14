@@ -79,7 +79,7 @@ public class AreaChartTest extends JFrame {
 //        chart.setBackground(background); 
         CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
         plot.getRowAxis().setVisible(false);
-        plot.getValueAxis().setRange(new Range(-2, 4));
+        plot.getValueAxis().setRange(new Range(-2, 0));
         AreaRenderer3D renderer = (AreaRenderer3D) plot.getRenderer();
         //renderer.setBase(1.0);
         renderer.setBaseColor(Color.GRAY);
@@ -103,9 +103,9 @@ public class AreaChartTest extends JFrame {
         StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
                 
         DefaultKeyedValues s1 = new DefaultKeyedValues();
-        s1.put("A", 5);
-        s1.put("B", 2);
-        s1.put("C", 12);
+        s1.put("A", 3);
+        s1.put("B", -12);
+        s1.put("C", 5);
         dataset.addSeriesAsRow("Series 1", s1);
 
         return dataset;

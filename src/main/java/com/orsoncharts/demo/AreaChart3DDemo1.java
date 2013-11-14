@@ -21,7 +21,6 @@ import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.category.StandardCategoryDataset3D;
 import com.orsoncharts.data.DefaultKeyedValues;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
-import com.orsoncharts.legend.StandardLegendBuilder;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.category.AreaRenderer3D;
 
@@ -57,19 +56,13 @@ public class AreaChart3DDemo1 extends JFrame {
         DemoPanel content = new DemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         CategoryDataset3D dataset = createDataset();
-        Chart3D chart = Chart3DFactory.createAreaChart("Reported Revenues By Quarter", 
-                "Chart created with Orson Charts", dataset, "Company", 
+        Chart3D chart = Chart3DFactory.createAreaChart(
+                "Reported Revenues By Quarter", 
+                "Large companies in the IT industry", dataset, "Company", 
                 "Quarter", "Value");
         chart.setChartBoxColor(new Color(255, 255, 255, 128));
-        //chart.setViewPoint(ViewPoint3D.createAboveLeftViewPoint(40));
-        StandardLegendBuilder slb = (StandardLegendBuilder) chart.getLegendBuilder();
-        slb.setFooter("Orson Charts (c) 2013, by Object Refinery Limited");
-        
-        chart.getLegendBuilder().setItemFont(new Font("Dialog", Font.ITALIC, 12));
-//        ImageIcon icon = new ImageIcon("/Users/dgilbert/Desktop/me.png");
-//        RectanglePainter background = new StandardRectanglePainter(Color.WHITE, 
-//                icon.getImage());
-//        chart.setBackground(background); 
+        chart.getLegendBuilder().setItemFont(new Font("Dialog", Font.ITALIC, 
+                12));
         CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
         plot.getRowAxis().setVisible(false);
         AreaRenderer3D renderer = (AreaRenderer3D) plot.getRenderer();

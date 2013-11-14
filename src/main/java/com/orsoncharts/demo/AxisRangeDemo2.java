@@ -30,7 +30,6 @@ import com.orsoncharts.data.category.StandardCategoryDataset3D;
 import com.orsoncharts.data.DefaultKeyedValues;
 import com.orsoncharts.graphics3d.ViewPoint3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
-import com.orsoncharts.legend.StandardLegendBuilder;
 import com.orsoncharts.plot.CategoryPlot3D;
 
 /**
@@ -105,19 +104,12 @@ public class AxisRangeDemo2 extends JFrame {
                 "Category", "Value");
         chart.setChartBoxColor(new Color(255, 255, 255, 128));
         chart.setViewPoint(ViewPoint3D.createAboveLeftViewPoint(40));
-        StandardLegendBuilder slb 
-                = (StandardLegendBuilder) chart.getLegendBuilder();
-        slb.setFooter("Orson Charts (c) 2013, by Object Refinery Limited");
         
         chart.getLegendBuilder().setItemFont(new Font("Dialog", 
                 Font.ITALIC, 12));
         CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
         plot.getValueAxis().setRange(-500, 500);
         plot.getRowAxis().setVisible(false);
-//        AreaRenderer3D renderer = (AreaRenderer3D) plot.getRenderer();
-//        renderer.setBaseColor(Color.GRAY);
-//        renderer.setColorSource(new StandardCategoryColorSource(
-//                Colors.getColors1()));
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
         content.setChartPanel(chartPanel);
         content.add(new DisplayPanel3D(chartPanel));
