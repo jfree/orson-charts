@@ -15,6 +15,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import java.awt.Color;
+import java.awt.GradientPaint;
 import com.orsoncharts.data.StandardPieDataset3D;
 import com.orsoncharts.data.PieDataset3D;
 import com.orsoncharts.data.category.CategoryDataset3D;
@@ -24,7 +25,6 @@ import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.data.xyz.XYZSeries;
 import com.orsoncharts.data.xyz.XYZSeriesCollection;
 import com.orsoncharts.legend.StandardLegendBuilder;
-import java.awt.GradientPaint;
 
 /**
  * Tests for the {@link Chart3D} class.

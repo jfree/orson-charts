@@ -13,8 +13,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Paint;
 import java.awt.Stroke;
-import java.awt.geom.Line2D;
-import java.awt.geom.Point2D;
 import java.io.Serializable;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -27,6 +25,8 @@ import com.orsoncharts.util.SerialUtils;
 
 /**
  * A base class that can be used to create an {@link Axis3D} implementation.
+ * This class implements the core axis attributes as well as the change 
+ * listener mechanism required to enable automatic repainting of charts.
  */
 public abstract class AbstractAxis3D implements Axis3D, Serializable {
     
@@ -58,7 +58,8 @@ public abstract class AbstractAxis3D implements Axis3D, Serializable {
     private transient EventListenerList listenerList;
     
     /**
-     * Creates a new label with the specified label.
+     * Creates a new label with the specified label.  If the supplied label
+     * is <code>null</code>, the axis will be shown without a label.
      * 
      * @param label  the axis label (<code>null</code> permitted). 
      */
@@ -84,7 +85,9 @@ public abstract class AbstractAxis3D implements Axis3D, Serializable {
     }
   
     /**
-     * Sets the axis label and sends a change event to all registered listeners.
+     * Sets the axis label and sends an {@link AxisChangeEvent} to all 
+     * registered listeners.  If the supplied label is <code>null</code>,
+     * the axis will be drawn without a label.
      * 
      * @param label  the label (<code>null</code> permitted). 
      */
@@ -94,7 +97,8 @@ public abstract class AbstractAxis3D implements Axis3D, Serializable {
     }
 
     /**
-     * Returns the font used to display the axis label.
+     * Returns the font used to display the main axis label.  The default value
+     * is <code>Font("SansSerif", Font.BOLD, 12)</code>.
      * 
      * @return The font used to display the axis label (never <code>null</code>). 
      */
@@ -104,8 +108,8 @@ public abstract class AbstractAxis3D implements Axis3D, Serializable {
     }
    
     /**
-     * Sets the font used to display the axis label and sends a change event to
-     * all registered listeners.
+     * Sets the font used to display the main axis label and sends an
+     * {@link Axis3DChangeEvent} to all registered listeners.
      * 
      * @param font  the new font (<code>null</code> not permitted). 
      */
@@ -212,8 +216,8 @@ public abstract class AbstractAxis3D implements Axis3D, Serializable {
     }
   
     /**
-     * Sets the font used to display tick labels and sends a change event to
-     * all registered listeners.
+     * Sets the font used to display tick labels and sends an 
+     * {@link Axis3DChangeEvent} to all registered listeners.
      * 
      * @param font  the font (<code>null</code> not permitted). 
      */
@@ -288,52 +292,6 @@ public abstract class AbstractAxis3D implements Axis3D, Serializable {
             return false;
         }
         return true;
-    }
-  
-    /**
-     * Creates and returns a line that is perpendicular to the specified line.
-     *
-     * @param line  the reference line.
-     * @param b  the base point, expressed as a percentage along the length of 
-     *     the reference line.
-     * @param size  the size or length of the perpendicular line.
-     * @param opposingPoint  an opposing point, to define which side of the 
-     *     reference line the perpendicular line will extend.
-     *
-     * @return The perpendicular line.
-     */
-    protected Line2D createPerpendicularLine(Line2D line, double b, double size, 
-            Point2D opposingPoint) {
-        double dx = line.getX2() - line.getX1();
-        double dy = line.getY2() - line.getY1();
-        double length = Math.sqrt(dx * dx + dy * dy);
-        double pdx = dy / length;
-        double pdy = -dx / length;
-        int ccw = line.relativeCCW(opposingPoint);
-        Point2D pt1 = new Point2D.Double(line.getX1() + b * dx, 
-                line.getY1() + b * dy);
-        Point2D pt2 = new Point2D.Double(pt1.getX() - ccw * size * pdx, 
-                pt1.getY() - ccw * size * pdy);
-        return new Line2D.Double(pt1, pt2);
-    }
-    
-    protected Line2D createPerpendicularLine(Line2D line, Point2D pt1, double size, 
-            Point2D opposingPoint) {
-        double dx = line.getX2() - line.getX1();
-        double dy = line.getY2() - line.getY1();
-        double length = Math.sqrt(dx * dx + dy * dy);
-        double pdx = dy / length;
-        double pdy = -dx / length;
-        int ccw = line.relativeCCW(opposingPoint);
-        Point2D pt2 = new Point2D.Double(pt1.getX() - ccw * size * pdx, 
-                pt1.getY() - ccw * size * pdy);
-        return new Line2D.Double(pt1, pt2);
-    }
-  
-    protected double calculateTheta(Line2D line) {
-        double dx = line.getX2() - line.getX1();
-        double dy = line.getY2() - line.getY1();
-        return Math.atan2(dy, dx);
     }
     
     @Override

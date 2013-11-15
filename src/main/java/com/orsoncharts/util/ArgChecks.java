@@ -9,7 +9,10 @@
 package com.orsoncharts.util;
 
 /**
- * Utility methods for argument checking.
+ * Utility methods for argument checking.  Throughout Orson Charts, arguments
+ * passed to methods are validated and exceptions thrown for invalid cases
+ * (the idea is to fail fast, which usually helps when tracking down errors
+ * in programming logic).
  */
 public final class ArgChecks {
 

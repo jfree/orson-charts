@@ -27,13 +27,18 @@ import java.util.List;
 import com.orsoncharts.util.TextUtils;
 import com.orsoncharts.util.TextAnchor;
 import com.orsoncharts.Range;
+import com.orsoncharts.graphics3d.Utils2D;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.plot.XYZPlot;
+import com.orsoncharts.util.ObjectUtils;
 import com.orsoncharts.util.SerialUtils;
 
 /**
- * A numerical axis for use with 3D plots.
+ * A numerical axis for use with 3D plots (implements {@link ValueAxis3D}).
+ * In a {@link CategoryPlot3D} the value axis (the vertical one) is numerical, 
+ * and in an {@link XYZPlot} all the axes (x, y and z) are numerical - for
+ * all these cases an instance of this class can be used.
  */
 public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
         Serializable {
@@ -83,16 +88,16 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
     private TickSelector tickSelector;
 
     /** 
-     * The tick size (never <code>null</code>).  If the tickSelector is not
-     * <code>null</code> then it is used to auto-select an appropriate tick
-     * size and format.
+     * The tick size.  If the tickSelector is not <code>null</code> then it is 
+     * used to auto-select an appropriate tick size and format.
      */
     private double tickSize;
 
     /** The tick formatter (never <code>null</code>). */
     private Format tickLabelFormatter;
 
-    private double tickLabelFactor = 1.4;    
+    /** The tick label factor (defaults to 1.4). */
+    private double tickLabelFactor;    
 
     /** The tick label offset (number of Java2D units). */
     private double tickLabelOffset;
@@ -212,7 +217,8 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
     
     /**
      * Returns the flag that controls whether or not the axis range is 
-     * automatically updated in response to dataset changes.
+     * automatically updated in response to dataset changes.  The default 
+     * value is <code>true</code>.
      * 
      * @return A boolean. 
      */
@@ -220,6 +226,13 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
         return this.autoAdjustRange;
     }
     
+    /**
+     * Sets the flag that controls whether or not the axis range is 
+     * automatically updated in response to dataset changes, and sends an
+     * {@link Axis3DChangeEvent} to all registered listeners.
+     * 
+     * @param autoAdjust  the new flag value. 
+     */
     public void setAutoAdjustRange(boolean autoAdjust) {
         this.autoAdjustRange = autoAdjust;
         fireChangeEvent();
@@ -279,19 +292,50 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
         fireChangeEvent();
     }
     
+    /**
+     * Returns the flag that determines whether or not the auto range 
+     * mechanism should force zero to be included in the range.  The default
+     * value is <code>false</code>.
+     * 
+     * @return A boolean.
+     */
     public boolean getAutoRangeIncludesZero() {
         return this.autoRangeIncludesZero;
     }
     
+    /**
+     * Sets the flag that controls whether or not the auto range mechanism 
+     * should force zero to be included in the axis range, and sends an
+     * {@link Axis3DChangeEvent} to all registered listeners.
+     * 
+     * @param include  the new flag value.
+     */
     public void setAutoRangeIncludeZero(boolean include) {
         this.autoRangeIncludesZero = include;
         fireChangeEvent();
     }
     
+    /**
+     * Returns the flag that controls the behaviour of the auto range 
+     * mechanism when zero falls into the axis margins.  The default value
+     * is <code>true</code>.
+     * 
+     * @return A boolean. 
+     * 
+     * @see #setAutoRangeStickyZero(boolean) 
+     */
     public boolean getAutoRangeStickyZero() {
         return this.autoRangeStickyZero;
     }
     
+    /**
+     * Sets the flag that controls the behaviour of the auto range mechanism 
+     * when zero falls into the axis margins.  If <code>true</code>, when
+     * zero is in the axis margin the axis range is truncated at zero.  If
+     * <code>false</code>, there is no special treatment.
+     * 
+     * @param sticky  the new flag value. 
+     */
     public void setAutoRangeStickyZero(boolean sticky) {
         this.autoRangeStickyZero = sticky;
         fireChangeEvent();
@@ -325,18 +369,35 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
         fireChangeEvent();
     }
   
+    /**
+     * Returns the tick selector, an object that is responsible for choosing
+     * standard tick units for the axis.  The default value is a default
+     * instance of {@link NumberTickSelector}.
+     * 
+     * @return The tick selector. 
+     * 
+     * @see #setTickSelector(TickSelector) 
+     */
     public TickSelector getTickSelector() {
         return this.tickSelector;    
     }
     
+    /**
+     * Sets the tick selector and sends an {@link Axis3DChangeEvent} to all
+     * registered listeners.
+     * 
+     * @param selector  the selector (<code>null</code> permitted).
+     * 
+     * @see #getTickSelector() 
+     */
     public void setTickSelector(TickSelector selector) {
-        ArgChecks.nullNotPermitted(selector, "selector");
         this.tickSelector = selector;
         fireChangeEvent();
     }
     
     /**
-     * Returns the tick size.
+     * Returns the tick size (to be used when the tick selector is 
+     * <code>null</code>).
      * 
      * @return The tick size.
      */
@@ -355,7 +416,8 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
     }
     
     /**
-     * Returns the tick label formatter.
+     * Returns the tick label formatter.  The default value is
+     * <code>DecimalFormat("0.00")</code>.
      * 
      * @return The tick label formatter (never <code>null</code>). 
      */
@@ -375,46 +437,109 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
         fireChangeEvent();
     }
     
+    /**
+     * Returns the tick label factor, a multiplier for the label height to
+     * determine the maximum number of tick labels that can be displayed.  
+     * The default value is <code>1.4</code>.
+     * 
+     * @return The tick label factor. 
+     */
     public double getTickLabelFactor() {
         return this.tickLabelFactor;
     }
     
+    /**
+     * Sets the tick label factor and sends an {@link Axis3DChangeEvent}
+     * to all registered listeners.  This should be at least 1.0, higher values
+     * will result in larger gaps between the tick marks.
+     * 
+     * @param factor  the factor. 
+     */
     public void setTickLabelFactor(double factor) {
         this.tickLabelFactor = factor;
         fireChangeEvent();
     }
     
+    /**
+     * Returns the tick label offset, the gap between the tick marks and the
+     * tick labels (in Java2D units).  The default value is <code>5.0</code>.
+     * 
+     * @return The tick label offset.
+     */
     public double getTickLabelOffset() {
         return this.tickLabelOffset;
     }
     
+    /**
+     * Sets the tick label offset and sends an {@link Axis3DChangeEvent} to
+     * all registered listeners.
+     * 
+     * @param offset  the offset.
+     */
     public void setTickLabelOffset(double offset) {
         this.tickLabelOffset = offset;
     }
     
+    /**
+     * Returns the length of the tick marks (in Java2D units).  The default
+     * value is <code>3.0</code>.
+     * 
+     * @return The length of the tick marks. 
+     */
     public double getTickMarkLength() {
         return this.tickMarkLength;
     }
     
+    /**
+     * Sets the length of the tick marks and sends an {@link Axis3DChangeEvent}
+     * to all registered listeners.  You can set this to <code>0.0</code> if
+     * you prefer no tick marks to be displayed on the axis.
+     * 
+     * @param length  the length (in Java2D units). 
+     */
     public void setTickMarkLength(double length) {
         this.tickMarkLength = length;
         fireChangeEvent();
     }
 
+    /**
+     * Returns the stroke used to draw the tick marks.  The default value is
+     * <code>BasicStroke(0.5f)</code>.
+     * 
+     * @return The tick mark stroke (never <code>null</code>).
+     */
     public Stroke getTickMarkStroke() {
         return this.tickMarkStroke;
     }
     
+    /**
+     * Sets the stroke used to draw the tick marks and sends an 
+     * {@link Axis3DChangeEvent} to all registered listeners.
+     * 
+     * @param stroke  the stroke (<code>null</code> not permitted). 
+     */
     public void setTickMarkStroke(Stroke stroke) {
         ArgChecks.nullNotPermitted(stroke, "stroke");
         this.tickMarkStroke = stroke;
         fireChangeEvent();
     }
     
+    /**
+     * Returns the paint used to draw the tick marks.  The default value is
+     * <code>Color.GRAY</code>.
+     * 
+     * @return The tick mark paint (never <code>null</code>). 
+     */
     public Paint getTickMarkPaint() {
         return this.tickMarkPaint;
     }
     
+    /**
+     * Sets the paint used to draw the tick marks and sends an 
+     * {@link Axis3DChangeEvent} to all registered listeners.
+     * 
+     * @param paint  the paint (<code>null</code> not permitted). 
+     */
     public void setTickMarkPaint(Paint paint) {
         ArgChecks.nullNotPermitted(paint, "paint");
         this.tickMarkPaint = paint;
@@ -435,7 +560,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
         double um = range.getLength() * this.upperMargin;
         double lowerBound = range.getMin() - lm;
         double upperBound = range.getMax() + um;
-        // does zero fall in the margins
+        // does zero fall in the margins?
         if (this.autoRangeStickyZero) {
             if (0.0 <= range.getMin() && 0.0 > lowerBound) {
                 lowerBound = 0.0;
@@ -447,6 +572,13 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
         return new Range(lowerBound, upperBound);
     }
     
+    /**
+     * Configures the axis to be used as the value axis for the specified
+     * plot.  This method is used internally, you should not need to call it
+     * directly.
+     * 
+     * @param plot  the plot (<code>null</code> not permitted). 
+     */
     @Override
     public void configureAsValueAxis(CategoryPlot3D plot) {
         if (this.autoAdjustRange) {
@@ -460,6 +592,13 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
         }
     }
     
+    /**
+     * Configures the axis to be used as the x-axis for the specified plot.  
+     * This method is used internally, you should not need to call it
+     * directly.
+     * 
+     * @param plot  the plot (<code>null</code> not permitted). 
+     */
     @Override
     public void configureAsXAxis(XYZPlot plot) {
         if (this.autoAdjustRange) {
@@ -472,6 +611,13 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
         }
     }
 
+    /**
+     * Configures the axis to be used as the y-axis for the specified plot.  
+     * This method is used internally, you should not need to call it
+     * directly.
+     * 
+     * @param plot  the plot (<code>null</code> not permitted). 
+     */
     @Override
     public void configureAsYAxis(XYZPlot plot) {
         if (this.autoAdjustRange) {
@@ -484,6 +630,13 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
         }
     }
 
+    /**
+     * Configures the axis to be used as the z-axis for the specified plot.  
+     * This method is used internally, you should not need to call it
+     * directly.
+     * 
+     * @param plot  the plot (<code>null</code> not permitted). 
+     */
     @Override
     public void configureAsZAxis(XYZPlot plot) {
         if (this.autoAdjustRange) {
@@ -498,13 +651,15 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
     
     /**
      * Draws the axis using the supplied graphics device, with the
-     * specified starting and ending points for the line.
+     * specified starting and ending points for the line.  This method is used
+     * internally, you should not need to call it directly.
      *
-     * @param g2
-     * @param pt0
-     * @param pt1
-     * @param opposingPt
-     * @param tickData
+     * @param g2  the graphics target (<code>null</code> not permitted).
+     * @param pt0  the starting point (<code>null</code> not permitted).
+     * @param pt1  the ending point (<code>null</code> not permitted).
+     * @param opposingPt  an opposing point (to determine which side of the 
+     *     axis line the labels should appear, <code>null</code> not permitted).
+     * @param tickData  tick details (<code>null</code> not permitted).
      */
     @Override
     public void draw(Graphics2D g2, Point2D pt0, Point2D pt1, 
@@ -523,12 +678,12 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
         // draw the tick marks and labels
         double maxTickLabelWidth = 0.0;
         for (TickData t : tickData) {
-            Line2D perpLine = createPerpendicularLine(axisLine, 
+            Line2D perpLine = Utils2D.createPerpendicularLine(axisLine, 
                     t.getAnchorPt(), this.tickMarkLength 
                     + this.tickLabelOffset, opposingPt);
             
             if (this.tickMarkLength > 0.0) {
-                Line2D tickLine = createPerpendicularLine(axisLine, 
+                Line2D tickLine = Utils2D.createPerpendicularLine(axisLine, 
                        t.getAnchorPt(), this.tickMarkLength, 
                        opposingPt);
                 g2.setPaint(this.tickMarkPaint);
@@ -537,7 +692,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
             }
             
             if (getTickLabelsVisible()) {
-                double theta = calculateTheta(axisLine);
+                double theta = Utils2D.calculateTheta(axisLine);
                 double thetaAdj = theta + Math.PI / 2.0;
                 if (thetaAdj < -Math.PI / 2.0) {
                     thetaAdj = thetaAdj + Math.PI;
@@ -546,7 +701,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
                     thetaAdj = thetaAdj - Math.PI;
                 }
 
-                double perpTheta = calculateTheta(perpLine);  
+                double perpTheta = Utils2D.calculateTheta(perpLine);  
                 TextAnchor textAnchor = TextAnchor.CENTER_LEFT;
                 if (Math.abs(perpTheta) > Math.PI / 2.0) {
                     textAnchor = TextAnchor.CENTER_RIGHT;
@@ -567,11 +722,11 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
         if (getLabel() != null) {
             g2.setFont(getLabelFont());
             g2.setPaint(getLabelPaint());
-            Line2D labelPosLine = createPerpendicularLine(axisLine, 0.5, 
+            Line2D labelPosLine = Utils2D.createPerpendicularLine(axisLine, 0.5, 
                     this.tickMarkLength + this.tickLabelOffset 
                     + maxTickLabelWidth + 10.0, 
                     opposingPt);
-            double theta = calculateTheta(axisLine);
+            double theta = Utils2D.calculateTheta(axisLine);
             if (theta < -Math.PI / 2.0) {
                 theta = theta + Math.PI;
             }
@@ -585,49 +740,21 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
         }
     }
 
+    /**
+     * Converts a data value to world coordinates, taking into account the
+     * current axis range (assumes the world axis is zero-based and has the
+     * specified length).
+     * 
+     * @param value  the data value (in axis units).
+     * @param length  the length of the (zero based) world axis.
+     * 
+     * @return A world coordinate.
+     */
     @Override
     public double translateToWorld(double value, double length) {
         return length * (value - this.range.getMin()) / this.range.getLength();
     }
   
-    /**
-     * Tests this instance for equality with an arbitrary object.
-     * 
-     * @param obj  the object to test against (<code>null</code> permitted).
-     * 
-     * @return A boolean. 
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (!(obj instanceof NumberAxis3D)) {
-            return false;
-        }
-        NumberAxis3D that = (NumberAxis3D) obj;
-        if (this.visible != that.visible) {
-            return false;
-        }
-        if (!this.range.equals(that.range)) {
-            return false;
-        }
-        if (this.tickSize != that.tickSize) {
-            return false;
-        }
-        return super.equals(obj);
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 59 * hash + Objects.hashCode(this.range);
-        hash = 59 * hash + (int) (Double.doubleToLongBits(this.tickSize) 
-                ^ (Double.doubleToLongBits(this.tickSize) >>> 32));
-        hash = 59 * hash + Objects.hashCode(this.tickLabelFormatter);
-        return hash;
-    }
-
     /**
      * Selects a tick size that is appropriate for drawing the axis from
      * <code>pt0</code> to <code>pt1</code>.
@@ -642,7 +769,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
             Point2D opposingPt) {
         
         if (this.tickSelector == null) {
-            return Double.NaN; // this should not happen :)
+            return this.tickSize;
         }
         
         // based on the font height, we can determine roughly how many tick
@@ -674,6 +801,13 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
         return this.tickSize;
     }
 
+    /**
+     * Returns a list of tick info for the specified tick unit.
+     * 
+     * @param tickUnit  the tick unit.
+     * 
+     * @return A list of tick info. 
+     */
     @Override
     public List<TickData> generateTickData(double tickUnit) {
         List<TickData> result = new ArrayList<TickData>();
@@ -688,6 +822,89 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
             }
         }
         return result;
+    }
+
+    /**
+     * Tests this instance for equality with an arbitrary object.
+     * 
+     * @param obj  the object to test against (<code>null</code> permitted).
+     * 
+     * @return A boolean. 
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof NumberAxis3D)) {
+            return false;
+        }
+        NumberAxis3D that = (NumberAxis3D) obj;
+        if (this.visible != that.visible) {
+            return false;
+        }
+        if (!this.range.equals(that.range)) {
+            return false;
+        }
+        if (this.autoAdjustRange != that.autoAdjustRange) {
+            return false;
+        }
+        if (this.lowerMargin != that.lowerMargin) {
+            return false;
+        }
+        if (this.upperMargin != that.upperMargin) {
+            return false;
+        }
+        if (this.autoRangeIncludesZero != that.autoRangeIncludesZero) {
+            return false;
+        }
+        if (this.autoRangeStickyZero != that.autoRangeStickyZero) {
+            return false;
+        }
+        if (!this.defaultAutoRange.equals(that.defaultAutoRange)) {
+            return false;
+        }
+        if (this.tickSize != that.tickSize) {
+            return false;
+        }
+        if (!ObjectUtils.equals(this.tickSelector, that.tickSelector)) {
+            return false;
+        }
+        if (!this.tickLabelFormatter.equals(that.tickLabelFormatter)) {
+            return false;
+        }
+        if (this.tickLabelFactor != that.tickLabelFactor) {
+            return false;
+        }
+        if (this.tickLabelOffset != that.tickLabelOffset) {
+            return false;
+        }
+        if (this.tickMarkLength != that.tickMarkLength) {
+            return false;
+        }
+        if (!ObjectUtils.equalsPaint(this.tickMarkPaint, that.tickMarkPaint)) {
+            return false;
+        }
+        if (!this.tickMarkStroke.equals(that.tickMarkStroke)) {
+            return false;
+        }
+        
+        return super.equals(obj);
+    }
+
+    /**
+     * Returns a hash code for this instance.
+     * 
+     * @return A hash code. 
+     */
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 59 * hash + Objects.hashCode(this.range);
+        hash = 59 * hash + (int) (Double.doubleToLongBits(this.tickSize) 
+                ^ (Double.doubleToLongBits(this.tickSize) >>> 32));
+        hash = 59 * hash + Objects.hashCode(this.tickLabelFormatter);
+        return hash;
     }
 
     /**

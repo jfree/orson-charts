@@ -10,8 +10,6 @@ package com.orsoncharts.graphics3d.swing;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -27,10 +25,6 @@ import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.awt.Rectangle;
 
 import javax.swing.JPanel;
@@ -116,9 +110,10 @@ public class Panel3D extends JPanel implements MouseListener,
 
     /**
      * Returns the <code>Drawable3D</code> object that is displayed in this
-     * panel.
+     * panel.  This is specified via the panel constructor and there is no
+     * setter method to change it.
      * 
-     * @return The <code>Drawable3D</code> object.
+     * @return The <code>Drawable3D</code> object (never <code>null</code>).
      */
     public Drawable3D getDrawable() {
         return this.drawable;
@@ -164,6 +159,12 @@ public class Panel3D extends JPanel implements MouseListener,
         return panIncrement;
     }
 
+    /**
+     * Sets the standard increment for panning left and right (a rotation
+     * specified in radians).
+     * 
+     * @param panIncrement  the increment (in radians).
+     */
     public void setPanIncrement(double panIncrement) {
         this.panIncrement = panIncrement;
     }
@@ -178,6 +179,11 @@ public class Panel3D extends JPanel implements MouseListener,
         return rotateIncrement;
     }
 
+    /**
+     * Sets the vertical (up and down) rotation increment (in radians).
+     * 
+     * @param rotateIncrement  the increment (in radians). 
+     */
     public void setRotateIncrement(double rotateIncrement) {
         this.rotateIncrement = rotateIncrement;
     }
@@ -192,18 +198,13 @@ public class Panel3D extends JPanel implements MouseListener,
         return rollIncrement;
     }
 
+    /**
+     * Sets the roll increment in radians.
+     * 
+     * @param rollIncrement  the increment (in radians). 
+     */
     public void setRollIncrement(double rollIncrement) {
         this.rollIncrement = rollIncrement;
-    }
-    
-    
-    /**
-     * Returns the last click point (possibly <code>null</code>).
-     * 
-     * @return The last click point (possibly <code>null</code>).
-     */
-    protected Point getLastClickPoint() {
-        return this.lastClickPoint;
     }
     
     /**
@@ -228,33 +229,26 @@ public class Panel3D extends JPanel implements MouseListener,
     }
     
     /**
-     * Rotates the view point around from left to right by the specified
-     * angle and repaints the 3D scene.
+     * Returns the last click point (possibly <code>null</code>).
      * 
-     * @param angle  the angle of rotation in radians.
+     * @return The last click point (possibly <code>null</code>).
+     */
+    protected Point getLastClickPoint() {
+        return this.lastClickPoint;
+    }
+    
+    /**
+     * Rotates the view point around from left to right by the specified
+     * angle and repaints the 3D scene.  The direction relative to the
+     * world coordinates depends on the orientation of the view point.
+     * 
+     * @param angle  the angle of rotation (in radians).
      */
     public void panLeftRight(double angle) {
         this.drawable.getViewPoint().panLeftRight(angle);
         repaint();
     }
 
-    /**
-     * Paints a 2D projection of the objects.
-     *
-     * @param g  the graphics target (assumed to be an instance of
-     *           <code>Graphics2D</code>).
-     */
-    @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D) g;
-        AffineTransform saved = g2.getTransform();
-        Dimension size = getSize();
-        Rectangle drawArea = new Rectangle(size.width, size.height);
-        this.drawable.draw(g2, drawArea);
-        g2.setTransform(saved);
-    }
-  
     /**
      * Adjusts the viewing distance so that the chart fits the current panel
      * size.  A margin is left (see {@link #getMargin()} around the edges to 
@@ -282,6 +276,24 @@ public class Panel3D extends JPanel implements MouseListener,
         repaint();        
     }
 
+    /**
+     * Paints the panel by asking the drawable to render a 2D projection of the 
+     * objects it is managing.
+     *
+     * @param g  the graphics target (assumed to be an instance of
+     *           <code>Graphics2D</code>).
+     */
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D) g;
+        AffineTransform saved = g2.getTransform();
+        Dimension size = getSize();
+        Rectangle drawArea = new Rectangle(size.width, size.height);
+        this.drawable.draw(g2, drawArea);
+        g2.setTransform(saved);
+    }
+  
     /* (non-Javadoc)
      * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
      */
@@ -321,6 +333,7 @@ public class Panel3D extends JPanel implements MouseListener,
      */
     @Override
     public void mouseReleased(MouseEvent e) {
+        // nothing to do
     }
 
     /* (non-Javadoc)
@@ -343,11 +356,6 @@ public class Panel3D extends JPanel implements MouseListener,
             this.drawable.getViewPoint().panLeftRight(-dx * Math.PI / 120);
             this.drawable.getViewPoint().moveUpDown(-dy * Math.PI / 120);
             repaint();
-//            double valTheta = this.lastViewPoint.getTheta() 
-//                    + (dx * Math.PI / 100);
-//            double valRho = this.lastViewPoint.getRho();
-//            double valPhi = this.lastViewPoint.getPhi() + (dy * Math.PI / 100);
-//            setViewPoint(new ViewPoint3D(valTheta, valPhi, valRho, this.lastViewPoint.getAngle()));
         }
     }
 
@@ -374,22 +382,6 @@ public class Panel3D extends JPanel implements MouseListener,
         repaint();
     }
     
-    private static Font FONT_AWESOME;
-    
-    public static Font getFontAwesomeFont(int size) {
-        InputStream in = Panel3D.class.getResourceAsStream("fontawesome-webfont.ttf");
-        if (FONT_AWESOME == null) {
-            try {
-                FONT_AWESOME = Font.createFont(Font.TRUETYPE_FONT, in);
-            } catch (FontFormatException ex) {
-                Logger.getLogger(Panel3D.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(Panel3D.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return FONT_AWESOME.deriveFont(Font.PLAIN, size);
-    }
-
     /**
      * Returns <code>true</code> if OrsonPDF is on the classpath, and 
      * <code>false</code> otherwise.  The OrsonPDF library can be found at

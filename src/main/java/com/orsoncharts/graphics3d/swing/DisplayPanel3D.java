@@ -9,8 +9,14 @@
 package com.orsoncharts.graphics3d.swing;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -25,6 +31,33 @@ import javax.swing.JMenu;
 public class DisplayPanel3D extends JPanel implements MouseListener {
   
     private static final int FONT_SIZE = 22;
+
+    private static Font FONT_AWESOME;
+    
+    /**
+     * Returns a font for "Font Awesome" (http://fontawesome.io) at the 
+     * specified size.
+     * 
+     * @param size  the point size.
+     * 
+     * @return A font. 
+     */
+    public static Font getFontAwesomeFont(int size) {
+        if (FONT_AWESOME == null) {
+            try {
+                InputStream in = DisplayPanel3D.class.getResourceAsStream(
+                        "fontawesome-webfont.ttf");
+                FONT_AWESOME = Font.createFont(Font.TRUETYPE_FONT, in);
+            } catch (FontFormatException ex) {
+                Logger.getLogger(Panel3D.class.getName()).log(Level.SEVERE, 
+                        null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Panel3D.class.getName()).log(Level.SEVERE, 
+                        null, ex);
+            }
+        }
+        return FONT_AWESOME.deriveFont(Font.PLAIN, size);
+    }
 
     /** The 3D content. */
     Panel3D content;
@@ -83,27 +116,28 @@ public class DisplayPanel3D extends JPanel implements MouseListener {
      */
     private JToolBar createToolBar(Panel3D content) {
         JToolBar tb = new JToolBar(JToolBar.VERTICAL);
+        Font font = getFontAwesomeFont(FONT_SIZE);
         JButton zoomInButton = new JButton(new ZoomInAction(this.content, 
                 true));
-        zoomInButton.setFont(Panel3D.getFontAwesomeFont(FONT_SIZE));
+        zoomInButton.setFont(font);
         JButton zoomOutButton = new JButton(new ZoomOutAction(this.content, 
                 true));
-        zoomOutButton.setFont(Panel3D.getFontAwesomeFont(FONT_SIZE));
+        zoomOutButton.setFont(font);
         JButton zoomToFitButton = new JButton(new ZoomToFitAction(this.content, 
                 true));
-        zoomToFitButton.setFont(Panel3D.getFontAwesomeFont(FONT_SIZE));
+        zoomToFitButton.setFont(font);
         JButton leftButton = new JButton(new LeftAction(content));
-        leftButton.setFont(Panel3D.getFontAwesomeFont(FONT_SIZE));
+        leftButton.setFont(font);
         JButton rightButton = new JButton(new RightAction(content));
-        rightButton.setFont(Panel3D.getFontAwesomeFont(FONT_SIZE));
+        rightButton.setFont(font);
         JButton upButton = new JButton(new UpAction(content));
-        upButton.setFont(Panel3D.getFontAwesomeFont(FONT_SIZE));
+        upButton.setFont(font);
         JButton downButton = new JButton(new DownAction(content));
-        downButton.setFont(Panel3D.getFontAwesomeFont(FONT_SIZE));
+        downButton.setFont(font);
         JButton rotateLeftButton = new JButton(new RollLeftAction(content));
-        rotateLeftButton.setFont(Panel3D.getFontAwesomeFont(FONT_SIZE));
+        rotateLeftButton.setFont(font);
         JButton rotateRightButton = new JButton(new RollRightAction(content));
-        rotateRightButton.setFont(Panel3D.getFontAwesomeFont(FONT_SIZE));
+        rotateRightButton.setFont(font);
         tb.add(zoomInButton);
         tb.add(zoomOutButton);
         tb.add(zoomToFitButton);

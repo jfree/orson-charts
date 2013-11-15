@@ -11,11 +11,18 @@ package com.orsoncharts.util;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
+import com.orsoncharts.TitleAnchor;
 import com.orsoncharts.graphics3d.Offset2D;
+import com.orsoncharts.legend.LegendAnchor;
 
 /**
- * Represents an anchor point for a chart title and/or legend.  Instances
- * of this class are immutable.
+ * Represents an anchor point for a chart title and/or legend.  The anchor
+ * point is defined relative to a reference rectangle, the dimensions of which
+ * are not known in advance (typically the reference rectangle is the bounding
+ * rectangle of a chart that is being drawn).  Some predefined anchor points 
+ * are provided in the {@link TitleAnchor} and {@link LegendAnchor} classes.  
+ * <br><br>
+ * Instances of this class are immutable.
  * <br><br>
  * NOTE: This class is serializable, but the serialization format is subject 
  * to change in future releases and should not be relied upon for persisting 

@@ -66,8 +66,11 @@ import com.orsoncharts.util.ObjectUtils;
  * some factory methods to construct common types of charts.
  * <br><br>
  * All rendering is done via the Java2D API, so this object is able to draw to 
- * any implementation of the Graphics2D API (including JFreeSVG for SVG output,
- * and OrsonPDF for PDF output).
+ * any implementation of the Graphics2D API (including 
+ * <a href="http://www.jfree.org/jfreesvg/" target="JFreeSVG">JFreeSVG</a> for 
+ * SVG output, and 
+ * <a href="http://www.object-refinery.com/pdf/" target="OrsonPDF">OrsonPDF</a> 
+ * for PDF output).
  * <br><br>
  * In the step prior to rendering, a chart is composed in a 3D model that is
  * referred to as the "world".  The dimensions of this 3D model are measured

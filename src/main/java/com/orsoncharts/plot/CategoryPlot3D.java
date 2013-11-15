@@ -251,9 +251,9 @@ public class CategoryPlot3D extends AbstractPlot3D
     }
     
     /**
-     * Returns the value axis.
+     * Returns the value axis (the vertical axis in the plot).
      * 
-     * @return The value axis. 
+     * @return The value axis (never <code>null</code>). 
      */
     public ValueAxis3D getValueAxis() {
         return this.valueAxis;

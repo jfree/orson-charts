@@ -10,11 +10,16 @@ package com.orsoncharts;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import com.orsoncharts.graphics3d.swing.Panel3D;
+import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 
 /**
  * A panel designed to display a {@link Chart3D}.  The panel registers with the
  * chart to receive change notifications, and when these are received the chart
  * is automatically repainted.
+ * <br><br>
+ * This panel will display the chart in a Swing user interface, but does not
+ * include additional features such as the view toolbar and popup menu (these
+ * are provided by the {@link DisplayPanel3D} class).
  */
 public class ChartPanel3D extends Panel3D implements Chart3DChangeListener, 
         ComponentListener {

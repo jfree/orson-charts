@@ -25,6 +25,7 @@ import java.util.List;
 import com.orsoncharts.util.TextUtils;
 import com.orsoncharts.util.TextAnchor;
 import com.orsoncharts.Range;
+import com.orsoncharts.graphics3d.Utils2D;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.category.AreaRenderer3D;
@@ -483,18 +484,19 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
         // draw the tick marks
         double maxTickLabelWidth = 0.0;
         for (TickData t : tickData) {
-            Line2D perpLine = createPerpendicularLine(axisLine, t.getAnchorPt(), 
-                    this.tickMarkLength + this.tickLabelOffset, opposingPt);
+            Line2D perpLine = Utils2D.createPerpendicularLine(axisLine, 
+                    t.getAnchorPt(), this.tickMarkLength + this.tickLabelOffset,
+                    opposingPt);
             if (this.tickMarkLength > 0.0) {
-                Line2D tickLine = createPerpendicularLine(axisLine, t.getAnchorPt(), 
-                        this.tickMarkLength, opposingPt);
+                Line2D tickLine = Utils2D.createPerpendicularLine(axisLine, 
+                        t.getAnchorPt(), this.tickMarkLength, opposingPt);
                 g2.setPaint(this.tickMarkPaint);
                 g2.setStroke(this.tickMarkStroke);
                 g2.draw(tickLine);
             }
 
             if (getTickLabelsVisible()) {
-                double perpTheta = calculateTheta(perpLine);
+                double perpTheta = Utils2D.calculateTheta(perpLine);
                 TextAnchor textAnchor = TextAnchor.CENTER_LEFT;
                 if (perpTheta >= Math.PI / 2.0) {
                     perpTheta = perpTheta - Math.PI;
@@ -518,11 +520,11 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
         if (getLabel() != null) {
             g2.setFont(getLabelFont());
             g2.setPaint(getLabelPaint());
-            Line2D labelPosLine = createPerpendicularLine(axisLine, 0.5, 
+            Line2D labelPosLine = Utils2D.createPerpendicularLine(axisLine, 0.5, 
                     this.tickMarkLength + this.tickLabelOffset 
                     + maxTickLabelWidth + 10.0, 
                     opposingPt);
-            double theta = calculateTheta(axisLine);
+            double theta = Utils2D.calculateTheta(axisLine);
             if (theta < -Math.PI / 2.0) {
                 theta = theta + Math.PI;
             }

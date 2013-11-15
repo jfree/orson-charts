@@ -9,6 +9,7 @@
 package com.orsoncharts.graphics3d;
 
 import java.awt.Dimension;
+import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 
 /**
@@ -96,4 +97,72 @@ public class Utils2D {
         }
         return new Dimension((int) (maxx - minx), (int) (maxy - miny));
     }
+  
+    /**
+     * Creates and returns a line that is perpendicular to the specified line.
+     *
+     * @param line  the reference line (<code>null</code> not permitted).
+     * @param b  the base point, expressed as a percentage along the length of 
+     *     the reference line.
+     * @param size  the size or length of the perpendicular line.
+     * @param opposingPoint  an opposing point, to define which side of the 
+     *     reference line the perpendicular line will extend (<code>null</code> 
+     *     not permitted).
+     *
+     * @return The perpendicular line.
+     */
+    public static Line2D createPerpendicularLine(Line2D line, double b, 
+            double size, Point2D opposingPoint) {
+        double dx = line.getX2() - line.getX1();
+        double dy = line.getY2() - line.getY1();
+        double length = Math.sqrt(dx * dx + dy * dy);
+        double pdx = dy / length;
+        double pdy = -dx / length;
+        int ccw = line.relativeCCW(opposingPoint);
+        Point2D pt1 = new Point2D.Double(line.getX1() + b * dx, 
+                line.getY1() + b * dy);
+        Point2D pt2 = new Point2D.Double(pt1.getX() - ccw * size * pdx, 
+                pt1.getY() - ccw * size * pdy);
+        return new Line2D.Double(pt1, pt2);
+    }
+    
+    /**
+     * Creates and returns a line that is perpendicular to the specified 
+     * line.
+     * 
+     * @param line  the reference line (<code>null</code> not permitted).
+     * @param pt1
+     * @param size  the length of the new line.
+     * @param opposingPoint  an opposing point, to define which side of the 
+     *     reference line the perpendicular line will extend (<code>null</code> 
+     *     not permitted).
+     * 
+     * @return The perpendicular line. 
+     */
+    public static Line2D createPerpendicularLine(Line2D line, Point2D pt1, 
+            double size, Point2D opposingPoint) {
+        double dx = line.getX2() - line.getX1();
+        double dy = line.getY2() - line.getY1();
+        double length = Math.sqrt(dx * dx + dy * dy);
+        double pdx = dy / length;
+        double pdy = -dx / length;
+        int ccw = line.relativeCCW(opposingPoint);
+        Point2D pt2 = new Point2D.Double(pt1.getX() - ccw * size * pdx, 
+                pt1.getY() - ccw * size * pdy);
+        return new Line2D.Double(pt1, pt2);
+    }
+  
+    /**
+     * Returns the angle of rotation (in radians) for the specified line.
+     * 
+     * @param line  the line (<code>null</code> not permitted).
+     * 
+     * @return The angle of rotation (in radians). 
+     */
+    public static double calculateTheta(Line2D line) {
+        double dx = line.getX2() - line.getX1();
+        double dy = line.getY2() - line.getY1();
+        return Math.atan2(dy, dx);
+    }
+
 }
