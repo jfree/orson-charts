@@ -561,7 +561,7 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
             if (true) { // eval
                 GridElement legend2 = new GridElement();
                 legend2.setElement(legend, "R1", "C1");
-                TextElement te = new TextElement("Orson Charts (c) 2013, by Object Refinery Limited", new Font("Dialog", Font.PLAIN, 10));
+                TextElement te = new TextElement("Orson Charts (evaluation) (c) 2013, by Object Refinery Limited", new Font("Dialog", Font.PLAIN, 10));
                 te.setHorizontalAligment(HAlign.RIGHT);
                 legend2.setElement(te, "R2", "C1");
                 legend = legend2;         
