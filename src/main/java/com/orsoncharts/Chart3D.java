@@ -558,7 +558,7 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
         // generate and draw the legend...
         if (this.legendBuilder != null) {
             TableElement legend = this.legendBuilder.createLegend(this.plot);
-            if (true) { // eval
+            if (false) { // eval
                 GridElement legend2 = new GridElement();
                 legend2.setElement(legend, "R1", "C1");
                 TextElement te = new TextElement("Orson Charts (evaluation) (c) 2013, by Object Refinery Limited", new Font("Dialog", Font.PLAIN, 10));
