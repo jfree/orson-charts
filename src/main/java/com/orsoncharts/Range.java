@@ -122,15 +122,6 @@ public class Range implements Serializable {
     public double percent(double value) {
         return (value - this.min) / getLength();
     }
-    
-    public double firstStandardTickValue(double tickUnit) {
-        return tickUnit * Math.ceil(this.min / tickUnit);
-    }
-
-    public double gridPoint(int index, int count) {
-        double fraction = (double) index / (count - 1.0);
-        return this.min + fraction * (this.max - this.min);
-    }
   
     /**
      * Tests this instance for equality with an arbitrary object.
@@ -157,6 +148,11 @@ public class Range implements Serializable {
         return true;
     }
 
+    /**
+     * Returns a hash code for this instance.
+     * 
+     * @return A hash code. 
+     */
     @Override
     public int hashCode() {
         int hash = 7;
@@ -167,6 +163,12 @@ public class Range implements Serializable {
         return hash;
     }
     
+    /**
+     * Returns a string representation of this instance, primarily for
+     * debugging purposes.
+     * 
+     * @return A string. 
+     */
     @Override
     public String toString() {
         return "Range[" + this.min + ", " + this.max + "]";

@@ -33,6 +33,11 @@ public class UpAction extends AbstractAction {
         putValue(Action.SHORT_DESCRIPTION, "Rotate up");
     }
 
+    /**
+     * Performs the rotate up action.
+     * 
+     * @param e  the action event. 
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         double delta = this.panel.getRotateIncrement();

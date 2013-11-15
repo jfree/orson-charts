@@ -16,6 +16,10 @@ import java.awt.Color;
  */
 public class Colors {
 
+    private Colors() {
+        // no need to instantiate this class
+    }
+    
     /**
      * Returns the default colors.
      * 

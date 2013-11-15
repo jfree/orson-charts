@@ -38,6 +38,11 @@ public class ZoomInAction extends AbstractAction {
         putValue(Action.SHORT_DESCRIPTION, "Zoom in");
     }
 
+    /**
+     * Performs the zoom in action.
+     * 
+     * @param e the action event.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         float delta = 5.0f;

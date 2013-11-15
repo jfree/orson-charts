@@ -23,6 +23,10 @@ import java.io.Serializable;
  */
 public class SerialUtils {
     
+    private SerialUtils() {
+        // no need to instantiate this class
+    }
+    
     /**
      * Reads a <code>Paint</code> object that has been serialized by the
      * {@link SerialUtils#writePaint(Paint, ObjectOutputStream)} method.

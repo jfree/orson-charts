@@ -176,11 +176,21 @@ public class DisplayPanel3D extends JPanel implements MouseListener {
         return popupMenu;
     }
     
+    /**
+     * This method does nothing.  
+     * 
+     * @param e  the mouse event.
+     */
     @Override
     public void mouseClicked(MouseEvent e) {
         // nothing to do
     }
 
+    /**
+     * Checks if the popup is triggered in which case it is displayed.
+     * 
+     * @param e  the mouse event. 
+     */
     @Override
     public void mousePressed(MouseEvent e) {
         // popup is triggered on mousePressed for Linux and Mac, but Windows
@@ -193,6 +203,11 @@ public class DisplayPanel3D extends JPanel implements MouseListener {
         }
     }
 
+    /**
+     * Checks if the popup is triggered in which case it is displayed.
+     * 
+     * @param e  the mouse event. 
+     */
     @Override
     public void mouseReleased(MouseEvent e) {
         // popup is triggered on mouseReleased for Windows, but Linux and Mac
@@ -205,11 +220,21 @@ public class DisplayPanel3D extends JPanel implements MouseListener {
         }
     }
 
+    /**
+     * This method does nothing.  
+     * 
+     * @param e  the mouse event.
+     */
     @Override
     public void mouseEntered(MouseEvent e) {
         // nothing to do
     }
 
+    /**
+     * This method does nothing.  
+     * 
+     * @param e  the mouse event.
+     */
     @Override
     public void mouseExited(MouseEvent e) {
         // nothing to do

@@ -8,12 +8,12 @@
 
 package com.orsoncharts.graphics3d.swing;
 
-import com.orsoncharts.util.ArgChecks;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import javax.swing.AbstractAction;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import com.orsoncharts.util.ArgChecks;
 
 /**
  * An action that handles saving the content of a panel to a PDF file using
@@ -36,6 +36,11 @@ public class ExportToPDFAction extends AbstractAction {
         this.panel = panel;
     }
 
+    /**
+     * Writes the content of the panel to a PDF file, using Orson PDF.
+     * 
+     * @param e  the event. 
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         JFileChooser fileChooser = new JFileChooser();

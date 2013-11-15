@@ -86,6 +86,11 @@ public final class Offset2D implements Serializable {
         return true;
     }
 
+    /**
+     * Returns a hash code for this instance.
+     * 
+     * @return A hash code. 
+     */
     @Override
     public int hashCode() {
         int hash = 3;

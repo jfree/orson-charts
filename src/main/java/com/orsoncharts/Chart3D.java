@@ -62,7 +62,8 @@ import com.orsoncharts.table.HAlign;
 import com.orsoncharts.util.ObjectUtils;
 
 /**
- * A chart object for 3D charts.  The {@link Chart3DFactory} class provides 
+ * A chart object for 3D charts (this is the umbrella object that manages all
+ * the components of the chart).  The {@link Chart3DFactory} class provides 
  * some factory methods to construct common types of charts.
  * <br><br>
  * All rendering is done via the Java2D API, so this object is able to draw to 

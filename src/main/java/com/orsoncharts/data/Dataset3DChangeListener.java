@@ -11,7 +11,9 @@ package com.orsoncharts.data;
 import java.util.EventListener;
 
 /**
- * The interface through which dataset change events are passed in OrsonCharts.
+ * The interface through which dataset change events are passed.  The plot
+ * classes implement this interface so they can receive notification of 
+ * changes to the dataset they are managing.
  */
 public interface Dataset3DChangeListener extends EventListener {
 

@@ -815,7 +815,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
             result.add(new TickData(0, getRange().getMin()));
             result.add(new TickData(1, getRange().getMax()));
         } else {
-            double x = this.range.firstStandardTickValue(tickUnit);
+            double x = tickUnit * Math.ceil(this.range.getMin() / tickUnit);
             while (x <= this.range.getMax()) {
                 result.add(new TickData(this.range.percent(x), x));
                 x += tickUnit;

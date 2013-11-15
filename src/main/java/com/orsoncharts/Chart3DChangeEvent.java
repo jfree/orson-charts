@@ -8,12 +8,14 @@
 
 package com.orsoncharts;
 
-import com.orsoncharts.util.ArgChecks;
 import java.util.EventObject;
+import com.orsoncharts.util.ArgChecks;
 
 /**
  * An event indicating some change in the attributes of a chart.  Typically 
- * this indicates that the chart needs to be redrawn.
+ * this indicates that the chart needs to be redrawn.  Any object that 
+ * implements the {@link Chart3DChangeListener} interface can register
+ * with a chart to receive change event notification.
  */
 public class Chart3DChangeEvent extends EventObject {
 

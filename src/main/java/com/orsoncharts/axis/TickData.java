@@ -58,6 +58,12 @@ public class TickData {
         this.anchorPt = null;
     }
     
+    /**
+     * Creates a new instance.
+     * 
+     * @param source  a source to copy.
+     * @param vertexIndex  the vertex index.
+     */
     public TickData(TickData source, int vertexIndex) {
         this.pos = source.pos;
         this.dataValue = source.dataValue;
@@ -66,29 +72,68 @@ public class TickData {
         this.vertexIndex = vertexIndex;
     }
     
+    /**
+     * Returns the position.
+     * 
+     * @return The position. 
+     */
     public double getPos() {
         return this.pos;
     }
     
+    /**
+     * Returns the key.
+     * 
+     * @return The key. 
+     */
     public Comparable getKey() {
         return this.key;
     }
     
+    /**
+     * Returns the data value.
+     * 
+     * @return The data value.
+     */
     public double getDataValue() {
         return this.dataValue;
     }
     
+    /**
+     * Returns the vertex index.
+     * 
+     * @return The vertex index. 
+     */
     public int getVertexIndex() {
         return this.vertexIndex;
     }
     
+    /**
+     * Sets the vertex index.  The vertex is a point in 3D space that is 
+     * the anchor point for the tick mark, after this is projected to 
+     * 2D space we have a reference point for the tick mark.
+     * 
+     * @param index  the index. 
+     */
     public void setVertexIndex(int index) {
         this.vertexIndex = index;
     }
+    
+    /**
+     * Returns the anchor point.
+     * 
+     * @return The anchor point.
+     */
     public Point2D getAnchorPt() {
         return this.anchorPt;
     }
     
+    /**
+     * Sets the anchor point.  This is the projected point in 2D space of the
+     * vertex we track in 3D space.
+     * 
+     * @param anchorPt  the anchor point. 
+     */
     public void setAnchorPt(Point2D anchorPt) {
         this.anchorPt = anchorPt;
     }

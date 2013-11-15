@@ -8,7 +8,6 @@
 
 package com.orsoncharts.graphics3d.swing;
 
-import com.orsoncharts.util.ArgChecks;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -20,6 +19,7 @@ import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import com.orsoncharts.util.ArgChecks;
 
 /**
  * An action that handles saving the content of a panel to a PNG image.
@@ -40,6 +40,11 @@ public class ExportToPNGAction extends AbstractAction {
         this.panel = panel;
     }
 
+    /**
+     * Writes the content of the panel to a PNG image, using Java's ImageIO.
+     * 
+     * @param e  the event.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         JFileChooser fileChooser = new JFileChooser();

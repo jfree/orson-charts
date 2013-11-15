@@ -38,6 +38,11 @@ public class ZoomToFitAction extends AbstractAction {
         putValue(Action.SHORT_DESCRIPTION, "Zoom to fit");
     }
 
+    /**
+     * Performs the zoom to fit action.
+     * 
+     * @param e  the action event.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         this.panel.zoomToFit();

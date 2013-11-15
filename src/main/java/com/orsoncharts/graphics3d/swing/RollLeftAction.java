@@ -8,10 +8,10 @@
 
 package com.orsoncharts.graphics3d.swing;
 
-import com.orsoncharts.util.ArgChecks;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import com.orsoncharts.util.ArgChecks;
 
 /**
  * An action that handles rolling the 3D view counter-clockwise around an
@@ -33,6 +33,11 @@ public class RollLeftAction extends AbstractAction {
         putValue(Action.SHORT_DESCRIPTION, "Roll counter-clockwise");
     }
 
+    /**
+     * Rotates the orientation of the view point and repaints the panel.
+     * 
+     * @param e  the action event.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         this.panel.getViewPoint().roll(-this.panel.getRollIncrement());

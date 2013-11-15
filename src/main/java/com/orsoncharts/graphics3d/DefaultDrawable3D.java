@@ -25,7 +25,9 @@ import com.orsoncharts.Chart3D;
 /**
  * Provides a default implementation of the {@link Drawable3D} interface.
  * This is not used directly in Orson Charts, since the {@link Chart3D} class
- * implements the {@link Drawable3D} interface itself.  
+ * implements the {@link Drawable3D} interface itself.  However, it is used
+ * in testing to ensure that the <code>com.orsoncharts.graphics3d.*</code>
+ * package can function on a stand-alone basis.
  */
 public class DefaultDrawable3D implements Drawable3D {
 

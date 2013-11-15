@@ -38,6 +38,11 @@ public class ZoomOutAction extends AbstractAction {
         putValue(Action.SHORT_DESCRIPTION, "Zoom out");
     }
 
+    /**
+     * Performs the zoom out action.
+     * 
+     * @param e  the action event. 
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         ViewPoint3D viewPt = this.panel.getViewPoint();

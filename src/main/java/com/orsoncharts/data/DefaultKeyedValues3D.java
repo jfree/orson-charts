@@ -248,6 +248,13 @@ public final class DefaultKeyedValues3D<V> implements KeyedValues3D,
         }
     }
     
+    /**
+     * Tests this instance for equality with an arbitrary object.
+     * 
+     * @param obj  the object (<code>null</code> permitted).
+     * 
+     * @return A boolean. 
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {

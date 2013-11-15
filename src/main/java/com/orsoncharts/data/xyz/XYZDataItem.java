@@ -65,6 +65,13 @@ public class XYZDataItem implements Serializable {
         return z;
     }
     
+    /**
+     * Tests this instance for equality with an arbitrary object.
+     * 
+     * @param obj  the object (<code>null</code> permitted).
+     * 
+     * @return A boolean. 
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {

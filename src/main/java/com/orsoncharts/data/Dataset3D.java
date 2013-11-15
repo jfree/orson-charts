@@ -11,12 +11,13 @@ package com.orsoncharts.data;
 import java.util.EventListener;
 
 /**
- * The base interface for datasets in OrsonCharts.  All datasets must support
+ * The base interface for datasets in Orson Charts.  All datasets must support
  * the change event notification mechanism.  The idea is that when a dataset
  * is changed, an event is passed to the plot.  The plot can react to this
  * event, then pass on the change event to the chart.  The chart in turn will
  * pass on the event and this can result in the chart being repainted (for
- * example, if the chart is displayed in a {@link com.orsoncharts.ChartPanel3D}.
+ * example, if the chart is displayed in a
+ * {@link com.orsoncharts.ChartPanel3D}).
  */
 public interface Dataset3D {
 

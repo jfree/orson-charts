@@ -33,6 +33,10 @@ public class TitleUtils {
     public static final Font DEFAULT_SUBTITLE_FONT = new Font("Dialog", 
             Font.PLAIN, 12);
     
+    private TitleUtils() {
+        // no need to instantiate this class
+    }
+    
     /**
      * Creates a chart title using the default font and alignment.
      * 

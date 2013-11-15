@@ -329,7 +329,7 @@ public class ViewPoint3D implements Serializable {
      * Calculate the distance that would render a box of the given dimensions 
      * within a screen area of the specified size.
      * 
-     * @param target  the target dimension (<code>null/<code> not permitted).
+     * @param target  the target dimension (<code>null</code> not permitted).
      * @param dim3D  the dimensions of the 3D content (<code>null</code> not 
      *     permitted).
      * 

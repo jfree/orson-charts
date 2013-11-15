@@ -18,6 +18,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import com.orsoncharts.Chart3D;
 import com.orsoncharts.axis.Axis3DChangeEvent;
 import com.orsoncharts.axis.Axis3DChangeListener;
 import com.orsoncharts.axis.CategoryAxis3D;

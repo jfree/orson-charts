@@ -14,8 +14,9 @@ import java.util.List;
 import com.orsoncharts.util.ArgChecks;
 
 /**
- * A list of <code>(key, value)</code> pairs.  This is the basic structure of 
- * the data required for a pie chart.
+ * A list of <code>(key, value)</code> pairs.
+ * <br><br>
+ * This is the basic structure of the data required for a pie chart.
  */
 public final class DefaultKeyedValues<T> implements KeyedValues<T>, 
         Serializable {

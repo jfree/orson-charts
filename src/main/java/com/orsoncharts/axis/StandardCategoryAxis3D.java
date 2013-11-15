@@ -580,6 +580,11 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
         return super.equals(obj);
     }
 
+    /**
+     * Generates the tick data for the axis.
+     * 
+     * @return The tick data.
+     */
     @Override
     public List<TickData> generateTickData() {
         List<TickData> result = new ArrayList(this.categories.size());

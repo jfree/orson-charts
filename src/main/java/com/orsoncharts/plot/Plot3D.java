@@ -12,10 +12,14 @@ import java.util.List;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.legend.LegendItemInfo;
+import com.orsoncharts.Chart3D;
 
 /**
- * A plot for a 3D chart.  Built-in implementations include {@link PiePlot3D},
- * {@link CategoryPlot3D} and {@link XYZPlot}.
+ * A plot for a {@link Chart3D}.  In Orson Charts, the <code>Chart3D</code> is
+ * the umbrella object for all charts, but it is the <code>Plot3D</code>
+ * instance that determines the real structure of the chart.  Built-in 
+ * implementations include {@link PiePlot3D}, {@link CategoryPlot3D} and 
+ * {@link XYZPlot}.
  */
 public interface Plot3D {
 

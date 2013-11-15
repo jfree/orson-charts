@@ -13,6 +13,10 @@ package com.orsoncharts.graphics3d;
  */
 public class Utils3D {
     
+    private Utils3D() {
+        // no need to instantiate this class
+    }
+    
     /**
      * Returns the length of the vector v.
      * 

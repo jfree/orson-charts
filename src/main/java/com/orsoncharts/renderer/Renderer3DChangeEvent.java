@@ -12,6 +12,10 @@ import java.util.EventObject;
 
 /**
  * An event containing information about a change to a {@link Renderer3D}.
+ * Any object that implements the {@link Renderer3DChangeListener} interface
+ * can register with a renderer to receive change event notifications.  By 
+ * default, the plot classes register with the renderer they manage in order
+ * to monitor changes to the renderer.
  */
 public class Renderer3DChangeEvent extends EventObject {
 

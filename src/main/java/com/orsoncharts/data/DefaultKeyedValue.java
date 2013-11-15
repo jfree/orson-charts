@@ -13,7 +13,7 @@ import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.ObjectUtils;
 
 /**
- * A data item where a key is associated with a numerical value.
+ * A data item where a key is associated with a value (typically numerical).
  */
 public final class DefaultKeyedValue<T> implements KeyedValue, Serializable {
 

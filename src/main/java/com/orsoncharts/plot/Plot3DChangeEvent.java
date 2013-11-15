@@ -8,12 +8,17 @@
 
 package com.orsoncharts.plot;
 
+import java.util.EventObject;
+import com.orsoncharts.Chart3D;
 import com.orsoncharts.data.Dataset3DChangeEvent;
 import com.orsoncharts.util.ArgChecks;
-import java.util.EventObject;
 
 /**
- * An event used to signal a change to a {@link Plot3D}.
+ * An event used to signal a change to a {@link Plot3D}.  Any object that
+ * implements the {@link Plot3DChangeListener} interface can register with a 
+ * plot to receive change notifications.  By default, the {@link Chart3D}
+ * object will register with the plot it manages to monitor changes to the plot
+ * and its subcomponents.
  */
 public class Plot3DChangeEvent extends EventObject {
 

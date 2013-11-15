@@ -13,6 +13,16 @@ package com.orsoncharts.util;
  */
 public enum Scale2D {
     
-    NONE, SCALE_HORIZONTAL, SCALE_VERTICAL, SCALE_BOTH;
+    /** No scaling. */
+    NONE, 
+    
+    /** Scale horizontally (but not vertically). */
+    SCALE_HORIZONTAL,
+    
+    /** Scale vertically (but not horizontally). */
+    SCALE_VERTICAL, 
+    
+    /** Scale both horizontally and vertically. */
+    SCALE_BOTH;
     
 }

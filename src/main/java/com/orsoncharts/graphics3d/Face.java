@@ -171,6 +171,12 @@ public class Face {
                 projPts[getVertexIndex(1)], projPts[getVertexIndex(2)]) > 0;  
     }
 
+    /**
+     * Returns a string representation of this instance, primarily for
+     * debugging purposes.
+     * 
+     * @return A string. 
+     */
     @Override
     public String toString() {
         String result = "[";

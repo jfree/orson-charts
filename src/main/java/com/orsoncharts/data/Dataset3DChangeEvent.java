@@ -11,7 +11,10 @@ package com.orsoncharts.data;
 import java.util.EventObject;
 
 /**
- * A dataset change event.
+ * A dataset change event.  Any object that implements the 
+ * {@link Dataset3DChangeListener} interface can register with a dataset to
+ * receive notification of change events.  By default, the plot classes in
+ * Orson Charts register with their dataset to monitor dataset changes.
  */
 public class Dataset3DChangeEvent extends EventObject {
 

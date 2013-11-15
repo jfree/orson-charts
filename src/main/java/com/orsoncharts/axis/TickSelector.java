@@ -11,7 +11,7 @@ package com.orsoncharts.axis;
 import java.text.Format;
 
 /**
- * Provides standard tick sizes and formatting.
+ * Provides standard tick sizes and formatting for numerical axes.
  */
 public interface TickSelector {
     

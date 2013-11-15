@@ -10,10 +10,12 @@ package com.orsoncharts.data.xyz;
 
 import java.util.List;
 import com.orsoncharts.data.Dataset3D;
+import com.orsoncharts.plot.XYZPlot;
 
 /**
  * Defines the methods used to access data in the form of multiple series
- * containing <code>(x, y, z)</code> data items.
+ * containing <code>(x, y, z)</code> data items.  This is the standard
+ * dataset format used by the {@link XYZPlot} class.
  */
 public interface XYZDataset extends Dataset3D {
 

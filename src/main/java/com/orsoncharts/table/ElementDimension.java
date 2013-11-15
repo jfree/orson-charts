@@ -12,7 +12,8 @@ import java.awt.geom.Dimension2D;
 import java.io.Serializable;
 
 /**
- * A dimension.
+ * An element dimension (in fact a simple implementation of the 
+ * <code>Dimension2D</code> interface).
  */
 public final class ElementDimension extends Dimension2D 
         implements Serializable {

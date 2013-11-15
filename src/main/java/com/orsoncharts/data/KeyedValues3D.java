@@ -12,7 +12,8 @@ import java.util.List;
 
 /**
  * A three dimensional cube of data values where each value is uniquely 
- * identified by three keys (the seriesKey, rowKey and columnKey).  
+ * identified by three keys (the <code>seriesKey</code>, <code>rowKey</code> 
+ * and <code>columnKey</code>).  
  */
 public interface KeyedValues3D<T> extends Values3D {
 

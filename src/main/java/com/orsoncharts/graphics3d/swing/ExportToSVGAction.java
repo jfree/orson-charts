@@ -39,6 +39,11 @@ public class ExportToSVGAction extends AbstractAction {
         this.panel = panel;
     }
 
+    /**
+     * Writes the content of the panel to an SVG file, using JFreeSVG.
+     * 
+     * @param e  the event. 
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         JFileChooser fileChooser = new JFileChooser();

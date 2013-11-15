@@ -33,6 +33,11 @@ public class RollRightAction extends AbstractAction {
         putValue(Action.SHORT_DESCRIPTION, "Roll clockwise");
     }
 
+    /**
+     * Rotates the orientation of the view point and repaints the panel.
+     * 
+     * @param e  the action event.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         this.panel.getViewPoint().roll(this.panel.getRollIncrement());
