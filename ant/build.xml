@@ -102,6 +102,12 @@
         <!-- copy across about.html -->
         <copy file="${basedir}/src/main/java/com/orsoncharts/demo/about.html" tofile="${basedir}/build/com/orsoncharts/demo/about.html" />
 
+        <copy todir="${basedir}/build/com/orsoncharts/demo">
+            <fileset dir="${basedir}/src/main/java/com/orsoncharts/demo">
+                <include name="*.html"/>
+            </fileset>
+        </copy>
+
         <!-- make the jar -->
         <jar jarfile="${basedir}/${orsoncharts.name}-${orsoncharts.version}-demo.jar"
              basedir="${basedir}/build" >
@@ -163,6 +169,54 @@
         </zip>
     </target>
 
+    <!-- Make the evaluation ZIP file (demo, javadocs, jar files but no source code) -->
+    <target name="fill-nosrc" depends="compile,compile-demo">
+
+        <!-- delete the temporary distribution directory, if there is one -->
+        <delete dir="${basedir}/distribution" />
+
+        <!-- make a temporary distribution directory -->
+        <mkdir dir="${basedir}/distribution" />
+
+        <!-- copy across README -->
+        <copy file="${basedir}/README.md" tofile="${basedir}/distribution/README.md" />
+
+        <!-- copy across runtime jar file and demo jar file -->
+        <copy file="${basedir}/lib/${orsoncharts.name}-${orsoncharts.version}.jar" tofile="${basedir}/distribution/lib/${orsoncharts.name}-${orsoncharts.version}.jar" />
+        <copy file="${basedir}/${orsoncharts.name}-${orsoncharts.version}-demo.jar" tofile="${basedir}/distribution/${orsoncharts.name}-${orsoncharts.version}-demo.jar" />
+
+        <!-- copy across Javadoc files -->
+        <copy todir="${basedir}/distribution/javadoc">
+            <fileset dir="${basedir}/javadoc/">
+            </fileset>
+        </copy>
+
+        <!-- copy across demo source files -->
+        <copy todir="${basedir}/distribution/src/main/java/com/orsoncharts/demo">
+            <fileset dir="${basedir}/src/main/java/com/orsoncharts/demo">
+            </fileset>
+        </copy>
+
+        <!-- copy across lib files -->
+        <copy file="${orsonpdf.jar}" tofile="${basedir}/distribution/lib/${orsonpdf.name}-${orsonpdf.version}.jar" />
+        <copy file="${jfreesvg.jar}" tofile="${basedir}/distribution/lib/${jfreesvg.name}-${jfreesvg.version}.jar" />
+
+        <!-- convert end-of-line characters in text files -->
+        <fixcrlf srcdir="${basedir}/distribution/src"
+                 eol="crlf" eof="remove"
+                 excludes="**/*.jpg" />
+    </target>
+
+    <!-- Make .zip distribution for Orson Charts -->
+    <target name="zip-nosrc" depends="fill-nosrc">
+
+        <!-- make the zip file -->
+        <zip zipfile="${basedir}/${orsoncharts.name}-${orsoncharts.version}-nosrc.zip">
+             <zipfileset dir="${basedir}/distribution"
+                         prefix="${orsoncharts.name}-${orsoncharts.version}" />
+        </zip>
+
+    </target>
 
     <!-- Fill the 'distribution' directory. -->
     <target name="fill-distribution" depends="compile,compile-demo">
@@ -186,8 +240,9 @@
             </fileset>
         </copy>
 
-        <copy todir="${basedir}/distribution/docfiles">
-            <fileset dir="${basedir}/docfiles">
+        <!-- copy across Javadoc files -->
+        <copy todir="${basedir}/distribution/javadoc">
+            <fileset dir="${basedir}/javadoc/">
             </fileset>
         </copy>
 
@@ -210,7 +265,7 @@
     <target name="zip" depends="fill-distribution">
 
         <!-- make the zip file -->
-        <zip zipfile="${basedir}/${orsoncharts.name}-${orsoncharts.version}.zip">
+        <zip zipfile="${basedir}/${orsoncharts.name}-${orsoncharts.version}-src.zip">
              <zipfileset dir="${basedir}/distribution"
                          prefix="${orsoncharts.name}-${orsoncharts.version}" />
         </zip>
@@ -274,7 +329,7 @@
 
     <!-- ALL -->
     <target name="all"
-            depends="compile,compile-demo,zip-javadocs,zip"
+            depends="compile,compile-demo,zip-javadocs,zip-nosrc,zip"
             description="Compiles Orson Charts, builds the jar files, generates the Javadoc HTML pages and creates a zip file.">
 
         <!-- delete the temporary distribution directory -->
