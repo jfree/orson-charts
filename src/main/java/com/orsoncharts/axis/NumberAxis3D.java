@@ -161,7 +161,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
     
     /**
      * Sets the flag that determines whether or not the axis is drawn on the
-     * chart and sends an {@link Axis3DChangeEvent} to all registerd listeners.
+     * chart and sends an {@link Axis3DChangeEvent} to all registered listeners.
      * 
      * @param visible  the flag.
      * 
