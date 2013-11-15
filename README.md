@@ -15,10 +15,8 @@ use in applications, applets and servlets. Key features include:
 - support for PDF, SVG and PNG export of charts for reporting;
 - a clean and well-documented API with a high degree of chart configurability.
 
-Orson Charts is very easy to use, and includes comprehensive Javadocs.
-
-For a limited time, a license can be purchased for US$495 (jar file) or US$1495 (jar file plus source code). 
-The license permits royalty-free redistribution.
+Orson Charts is very easy to use, and includes comprehensive Javadocs.  Licenses can be purchased from 
+Object Refinery Limited.  The license permits royalty-free redistribution of the Orson Charts runtime jar file.
 
 More Info
 ---------
