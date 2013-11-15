@@ -180,6 +180,9 @@
 
         <!-- copy across README -->
         <copy file="${basedir}/README.md" tofile="${basedir}/distribution/README.md" />
+        
+        <!-- copy across licence -->
+        <copy file="${basedir}/Orson Charts Software Licence.pdf" tofile="${basedir}/distribution/Orson Charts Software Licence.pdf" />
 
         <!-- copy across runtime jar file and demo jar file -->
         <copy file="${basedir}/lib/${orsoncharts.name}-${orsoncharts.version}.jar" tofile="${basedir}/distribution/lib/${orsoncharts.name}-${orsoncharts.version}.jar" />
