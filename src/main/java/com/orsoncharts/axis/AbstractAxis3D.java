@@ -85,7 +85,7 @@ public abstract class AbstractAxis3D implements Axis3D, Serializable {
     }
   
     /**
-     * Sets the axis label and sends an {@link AxisChangeEvent} to all 
+     * Sets the axis label and sends an {@link Axis3DChangeEvent} to all 
      * registered listeners.  If the supplied label is <code>null</code>,
      * the axis will be drawn without a label.
      * 

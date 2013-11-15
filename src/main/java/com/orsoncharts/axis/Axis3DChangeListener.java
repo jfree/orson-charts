@@ -9,6 +9,8 @@
 package com.orsoncharts.axis;
 
 import java.util.EventListener;
+import com.orsoncharts.plot.CategoryPlot3D;
+import com.orsoncharts.plot.XYZPlot;
 
 /**
  * A listener for axis change events.  The plot classes that have axes
