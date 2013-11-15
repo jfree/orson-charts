@@ -39,6 +39,9 @@ import com.orsoncharts.util.ObjectUtils;
  * Some attributes in the renderer are specified in "world units" - see the
  * {@link Chart3D} class description for more information about world units.
  * <br><br>
+ * There is a factory method to create a chart using this renderer - see
+ * {@link Chart3DFactory#createLineChart(String, String, CategoryDataset3D, String, String, String)}.
+ * <br><br> 
  * NOTE: This class is serializable, but the serialization format is subject 
  * to change in future releases and should not be relied upon for persisting 
  * instances of this class.

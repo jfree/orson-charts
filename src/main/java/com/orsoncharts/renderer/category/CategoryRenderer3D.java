@@ -15,6 +15,7 @@ import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.Renderer3D;
+import com.orsoncharts.renderer.Renderer3DChangeEvent;
 
 /**
  * Defines the methods that all renderers must support to work with a 
@@ -46,7 +47,13 @@ public interface CategoryRenderer3D extends Renderer3D {
      */
     CategoryColorSource getColorSource();
     
-    void setColorSource(CategoryColorSource colorSource);
+    /**
+     * Sets the color source for the renderer and sends a 
+     * {@link Renderer3DChangeEvent} to all registered listeners.
+     * 
+     * @param source  the color source (<code>null</code> not permitted).
+     */
+    void setColorSource(CategoryColorSource source);
     
     /**
      * Returns the range that should be used on the value axis to display all 

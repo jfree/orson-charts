@@ -28,6 +28,9 @@ import com.orsoncharts.Chart3DFactory;
  * </div>
  * (refer to <code>StackedBarChart3DDemo1.java</code> for the code to generate 
  * the above chart).
+ * <br><br> 
+ * There is a factory method to create a chart using this renderer - see
+ * {@link Chart3DFactory#createStackedBarChart(String, String, CategoryDataset3D, String, String, String)}.
  */
 public class StackedBarRenderer3D extends BarRenderer3D {
 

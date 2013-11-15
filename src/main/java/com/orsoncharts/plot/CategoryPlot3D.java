@@ -39,6 +39,14 @@ import com.orsoncharts.util.SerialUtils;
  * A 3D plot with two category axes (x and z) and a numerical y-axis that can
  * display data from a {@link CategoryDataset3D}.
  * <br><br>
+ * The plot implements several listener interfaces so that it can receive 
+ * notification of changes to its dataset, axes and renderer.  When change
+ * events are received, the plot passes on a {@link Plot3DChangeEvent} to the
+ * {@link Chart3D} instance that owns the plot.  This event chain is the 
+ * mechanism that ensures that charts are repainted whenever the dataset 
+ * changes, or when changes are made to the configuration of any chart 
+ * component.
+ * <br><br>
  * NOTE: This class is serializable, but the serialization format is subject 
  * to change in future releases and should not be relied upon for persisting 
  * instances of this class. 
