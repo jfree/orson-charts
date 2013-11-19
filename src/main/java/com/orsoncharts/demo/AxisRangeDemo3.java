@@ -96,7 +96,7 @@ public class AxisRangeDemo3 extends JFrame {
      * @return A panel containing the content for the demo.
      */
     public static JPanel createDemoPanel() {
-        DemoPanel content = new AxisRangeDemo1.CustomDemoPanel(new BorderLayout());
+        DemoPanel content = new CustomDemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         CategoryDataset3D dataset = createDataset();
         Chart3D chart = Chart3DFactory.createLineChart("AxisRangeDemo3", 
