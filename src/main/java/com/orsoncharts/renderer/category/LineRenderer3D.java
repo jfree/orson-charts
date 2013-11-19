@@ -54,8 +54,7 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
     
     /** The line height (in world units). */
     private double lineHeight;
-    
-    
+
     /**
      * The color source that determines the color used to highlight clipped
      * items in the chart.
@@ -293,6 +292,30 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
         return xpts;
     }
     
+    /**
+     * Creates a segment for the case where the start of the segment is 
+     * completely above the upper bound of the axis at the left side of the
+     * chart.
+     * 
+     * @param x0
+     * @param x1
+     * @param xpts
+     * @param y0b
+     * @param y0t
+     * @param y1b
+     * @param y1t
+     * @param wmin
+     * @param wmax
+     * @param zf
+     * @param zb
+     * @param color
+     * @param clipColor
+     * @param openingFace  ignored because there is no opening face for this
+     *     case.
+     * @param closingFace
+     * 
+     * @return A segment (<code>null</code> if the segment is entirely clipped). 
+     */
     private Object3D createSegmentA(double x0, double x1, double[] xpts, 
             double y0b, double y0t, double y1b, double y1t, double wmin, 
             double wmax, double zf, double zb, Color color, Color clipColor, 
@@ -319,7 +342,24 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
                 }
                 return seg;
             } else {
-                return null;  // TODO
+                Object3D seg = new Object3D();
+                seg.addVertex(xpts[2], wmax, zf);
+                seg.addVertex(xpts[2], wmax, zb);
+                seg.addVertex(x1, wmax, zf);
+                seg.addVertex(x1, wmax, zb);
+                seg.addVertex(x1, wmin, zf);
+                seg.addVertex(x1, wmin, zb);
+                seg.addVertex(xpts[0], wmin, zf);
+                seg.addVertex(xpts[0], wmin, zb);
+                seg.addFace(new int[] {0, 2, 4, 6}, color, true); // front
+                seg.addFace(new int[] {1, 7, 5, 3}, color, true); // rear
+                seg.addFace(new int[] {0, 1, 3, 2}, clipColor, true); // clip top
+                seg.addFace(new int[] {4, 5, 7, 6}, clipColor, true); // clip bottom
+                seg.addFace(new int[] {6, 7, 1, 0}, color, true); // bottom
+                if (closingFace) {
+                    seg.addFace(new int[] {2, 3, 5, 4}, color, true);
+                }
+                return seg;
             }
         } else if (y1t >= wmin) {
             if (y1b >= wmin) {
@@ -386,10 +426,33 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
         }
     }
     
+    /**
+     * Creates a segment for the case where the left end of the line spans
+     * the axis maximum on the left side of the chart.
+     * 
+     * @param x0
+     * @param x1
+     * @param xpts
+     * @param y0b
+     * @param y0t
+     * @param y1b
+     * @param y1t
+     * @param wmin
+     * @param wmax
+     * @param zf
+     * @param zb
+     * @param color
+     * @param clipColor
+     * @param openingFace
+     * @param closingFace
+     * 
+     * @return A segment. 
+     */
     private Object3D createSegmentB(double x0, double x1, double[] xpts, 
             double y0b, double y0t, double y1b, double y1t, double wmin, 
             double wmax, double zf, double zb, Color color, Color clipColor, 
             boolean openingFace, boolean closingFace) {
+        
         if (y1b >= wmax) {
             Object3D seg = new Object3D();
             seg.addVertex(x0, y0b, zf);
@@ -431,8 +494,29 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
                 }
                 return seg;
             } else {
-                // TODO
-                return null;
+                Object3D seg = new Object3D();
+                seg.addVertex(x0, y0b, zf);
+                seg.addVertex(x0, y0b, zb);
+                seg.addVertex(x0, wmax, zf);
+                seg.addVertex(x0, wmax, zb);
+                seg.addVertex(x1, wmax, zf);
+                seg.addVertex(x1, wmax, zb);
+                seg.addVertex(x1, wmin, zf);
+                seg.addVertex(x1, wmin, zb);
+                seg.addVertex(xpts[0], wmin, zf);
+                seg.addVertex(xpts[0], wmin, zb);
+                seg.addFace(new int[] {0, 2, 4, 6, 8}, color, true);  // front
+                seg.addFace(new int[] {1, 9, 7, 5, 3}, color, true); // rear
+                seg.addFace(new int[] {2, 3, 5, 4}, clipColor, true); // clip top
+                seg.addFace(new int[] {8, 6, 7, 9}, clipColor, true); // clip bottom
+                seg.addFace(new int[] {0, 8, 9, 1}, color, true);
+                if (openingFace) {
+                    seg.addFace(new int[] {0, 1, 3, 2}, color, true);
+                }
+                if (closingFace) {
+                    seg.addFace(new int[] {4, 5, 7, 6}, color, true);
+                }
+                return seg;
             }
         }
         if (y1t > wmin) {
@@ -513,24 +597,153 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
         return seg;
     }
 
+    /**
+     * Creates a segment for the case where the line end spans the entire axis
+     * range at the left side of the chart.
+     * 
+     * @param x0
+     * @param x1
+     * @param xpts
+     * @param y0b
+     * @param y0t
+     * @param y1b
+     * @param y1t
+     * @param wmin
+     * @param wmax
+     * @param zf
+     * @param zb
+     * @param color
+     * @param clipColor
+     * @param openingFace
+     * @param closingFace
+     * 
+     * @return A segment. 
+     */
     private Object3D createSegmentC(double x0, double x1, double[] xpts, 
             double y0b, double y0t, double y1b, double y1t, double wmin, 
             double wmax, double zf, double zb, Color color, Color clipColor, 
             boolean openingFace, boolean closingFace) {
 
-        return null;
+        // the first 4 vertices and the opening face are common to all 
+        // segments in this case
+        Object3D seg = new Object3D();
+        seg.addVertex(x0, wmin, zf);
+        seg.addVertex(x0, wmin, zb);
+        seg.addVertex(x0, wmax, zf);
+        seg.addVertex(x0, wmax, zb);
+        if (openingFace) {
+            seg.addFace(new int[] {0, 1, 3, 2}, color, true);
+        }
+        
+        if (y1b >= wmax) {
+            seg.addVertex(xpts[2], wmax, zf);
+            seg.addVertex(xpts[2], wmax, zb);
+            seg.addVertex(xpts[0], wmin, zf);
+            seg.addVertex(xpts[0], wmin, zb);
+            seg.addFace(new int[] {0, 2, 4, 6}, color, true); // front
+            seg.addFace(new int[] {1, 7, 5, 3}, color, true); // rear
+            seg.addFace(new int[] {2, 3, 5, 4}, clipColor, true); // clip top
+            seg.addFace(new int[] {4, 5, 7, 6}, color, true); // bottom
+            seg.addFace(new int[] {7, 1, 0, 6}, clipColor, true); // bottom clip
+            return seg;
+        }
+        if (y1t > wmax) {
+            if (y1b >= wmin) {
+                seg.addVertex(x1, wmax, zf);
+                seg.addVertex(x1, wmax, zb);
+                seg.addVertex(x1, y1b, zf);
+                seg.addVertex(x1, y1b, zb);
+                seg.addVertex(xpts[0], wmin, zf);
+                seg.addVertex(xpts[0], wmin, zb);
+                seg.addFace(new int[] {0, 2, 4, 6, 8}, color, true); // front
+                seg.addFace(new int[] {1, 9, 7, 5, 3}, color, true); // rear
+                seg.addFace(new int[] {2, 3, 5, 4}, clipColor, true); // top clip
+                seg.addFace(new int[] {6, 7, 9, 8}, color, true); // bottom
+                seg.addFace(new int[] {8, 9, 1, 0}, clipColor, true); // clip bottom
+                if (closingFace) {
+                    seg.addFace(new int[] {4, 5, 7, 6}, color, true);
+                }
+                return seg;
+            } else {
+                seg.addVertex(x1, wmax, zf);
+                seg.addVertex(x1, wmax, zb);
+                seg.addVertex(x1, wmin, zf);
+                seg.addVertex(x1, wmin, zb);
+                seg.addFace(new int[] {0, 2, 4, 6}, color, true); // front
+                seg.addFace(new int[] {1, 7, 5, 3}, color, true); // rear
+                seg.addFace(new int[] {2, 3, 5, 4}, clipColor, true); // clip top
+                seg.addFace(new int[] {4, 5, 7, 6}, color, true); // bottom
+                seg.addFace(new int[] {7, 1, 0, 6}, clipColor, true); // bottom clip
+                return seg;
+            }
+        }
+        if (y1t > wmin) {
+            if (y1b >= wmin) {
+                return null; // in practice I don't think this case
+                             // can occur
+            } else {
+                seg.addVertex(xpts[3], wmax, zf);
+                seg.addVertex(xpts[3], wmax, zb);
+                seg.addVertex(x1, y1t, zf);
+                seg.addVertex(x1, y1t, zb);
+                seg.addVertex(x1, wmin, zf);
+                seg.addVertex(x1, wmin, zb);
+                seg.addFace(new int[] {0, 2, 4, 6, 8}, color, true); // front
+                seg.addFace(new int[] {1, 9, 7, 5, 3}, color, true); // rear
+                seg.addFace(new int[] {2, 3, 5, 4}, clipColor, true); // clip top
+                seg.addFace(new int[] {4, 5, 7, 6}, color, true); // top
+                seg.addFace(new int[] {9, 1, 0, 8}, clipColor, true); // clip bottom
+                if (closingFace) {
+                    seg.addFace(new int[] {6, 7, 9, 8}, color, true);
+                }
+                return seg; 
+            }
+        }
+        seg.addVertex(xpts[3], wmax, zf);
+        seg.addVertex(xpts[3], wmax, zb);
+        seg.addVertex(xpts[1], wmin, zf);
+        seg.addVertex(xpts[1], wmin, zb);
+        seg.addFace(new int[] {0, 2, 4, 6}, color, true); // front
+        seg.addFace(new int[] {1, 7, 5, 3}, color, true); // rear
+        seg.addFace(new int[] {2, 3, 5, 4}, clipColor, true); // clip top
+        seg.addFace(new int[] {4, 5, 7, 6}, color, true); // top
+        seg.addFace(new int[] {6, 7, 1, 0}, clipColor, true); // clip bottom
+        return seg;
     }
     
+    /**
+     * Creates a segment for the case where the segment is contained within
+     * the axis range at the left side.
+     * 
+     * @param x0
+     * @param x1
+     * @param xpts
+     * @param y0b
+     * @param y0t
+     * @param y1b
+     * @param y1t
+     * @param wmin
+     * @param wmax
+     * @param zf
+     * @param zb
+     * @param color
+     * @param clipColor
+     * @param openingFace
+     * @param closingFace
+     * 
+     * @return A segment. 
+     */
     private Object3D createSegmentD(double x0, double x1, double[] xpts, 
             double y0b, double y0t, double y1b, double y1t, double wmin, 
             double wmax, double zf, double zb, Color color, Color clipColor, 
             boolean openingFace, boolean closingFace) {
+
+        Object3D seg = new Object3D();
+        seg.addVertex(x0, y0b, zf);
+        seg.addVertex(x0, y0b, zb);
+        seg.addVertex(x0, y0t, zf);
+        seg.addVertex(x0, y0t, zb);
         if (y1b >= wmax) {
-            Object3D seg = new Object3D();
-            seg.addVertex(x0, y0b, zf);
-            seg.addVertex(x0, y0b, zb);
-            seg.addVertex(x0, y0t, zf);
-            seg.addVertex(x0, y0t, zb);
             seg.addVertex(xpts[3], wmax, zf);
             seg.addVertex(xpts[3], wmax, zb);
             seg.addVertex(xpts[2], wmax, zf);
@@ -548,11 +761,6 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
         }
         if (y1t > wmax) {
             if (y1b >= wmin) {
-                Object3D seg = new Object3D();
-                seg.addVertex(x0, y0b, zf);
-                seg.addVertex(x0, y0b, zb);
-                seg.addVertex(x0, y0t, zf);
-                seg.addVertex(x0, y0t, zb);
                 seg.addVertex(xpts[3], wmax, zf);
                 seg.addVertex(xpts[3], wmax, zb);
                 seg.addVertex(x1, wmax, zf);
@@ -572,17 +780,12 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
                 }
                 return seg;  
             } else {
-                return null;  // TODO
+                return null;  // this case should not be possible
             }
         }
         if (y1t > wmin) {
             if (y1b >= wmin) {
                 // this is the regular segment, no clipping
-                Object3D seg = new Object3D();
-                seg.addVertex(x0, y0b, zf);
-                seg.addVertex(x0, y0b, zb);
-                seg.addVertex(x0, y0t, zf);
-                seg.addVertex(x0, y0t, zb);
                 seg.addVertex(x1, y1t, zf);
                 seg.addVertex(x1, y1t, zb);
                 seg.addVertex(x1, y1b, zf);
@@ -599,11 +802,6 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
                 }
                 return seg;
             } else {
-                Object3D seg = new Object3D();
-                seg.addVertex(x0, y0b, zf);
-                seg.addVertex(x0, y0b, zb);
-                seg.addVertex(x0, y0t, zf);
-                seg.addVertex(x0, y0t, zb);
                 seg.addVertex(x1, y1t, zf);
                 seg.addVertex(x1, y1t, zb);
                 seg.addVertex(x1, wmin, zf);
@@ -624,11 +822,6 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
                 return seg;
             }
         } else {
-            Object3D seg = new Object3D();
-            seg.addVertex(x0, y0b, zf);
-            seg.addVertex(x0, y0b, zb);
-            seg.addVertex(x0, y0t, zf);
-            seg.addVertex(x0, y0t, zb);
             seg.addVertex(xpts[1], wmin, zf);
             seg.addVertex(xpts[1], wmin, zb);
             seg.addVertex(xpts[0], wmin, zf);
@@ -646,6 +839,28 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
         }
     }
     
+    /**
+     * Returns a segment for the case where the line height spans the lower 
+     * bound of the axis range at the left side of the chart.
+     * 
+     * @param x0
+     * @param x1
+     * @param xpts
+     * @param y0b
+     * @param y0t
+     * @param y1b
+     * @param y1t
+     * @param wmin
+     * @param wmax
+     * @param zf
+     * @param zb
+     * @param color
+     * @param clipColor
+     * @param openingFace
+     * @param closingFace
+     * 
+     * @return The segment. 
+     */
     private Object3D createSegmentE(double x0, double x1, double[] xpts, 
             double y0b, double y0t, double y1b, double y1t, double wmin, 
             double wmax, double zf, double zb, Color color, Color clipColor, 
@@ -702,7 +917,29 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
                 }
                 return seg;
             } else {
-                return null;  // TODO
+                Object3D seg = new Object3D();
+                seg.addVertex(x0, wmin, zf);
+                seg.addVertex(x0, wmin, zb);
+                seg.addVertex(x0, y0t, zf);
+                seg.addVertex(x0, y0t, zb);
+                seg.addVertex(xpts[3], wmax, zf);
+                seg.addVertex(xpts[3], wmax, zb);
+                seg.addVertex(x1, wmax, zf);
+                seg.addVertex(x1, wmax, zb);
+                seg.addVertex(x1, wmin, zf);
+                seg.addVertex(x1, wmin, zb);
+                seg.addFace(new int[] {0, 2, 4, 6, 8}, color, true); // front
+                seg.addFace(new int[] {1, 9, 7, 5, 3}, color, true); // rear
+                seg.addFace(new int[] {2, 3, 5, 4}, color, true); // top
+                seg.addFace(new int[] {5, 7, 6, 4}, clipColor, true); // clip top
+                seg.addFace(new int[] {0, 8, 9, 1}, clipColor, true); // clip bottom
+                if (openingFace) {
+                    seg.addFace(new int[] {0, 1, 3, 2}, color, true); 
+                }
+                if (closingFace) {
+                    seg.addFace(new int[] {6, 7, 9, 8}, color, true); 
+                }
+                return seg;  
             }
         }
         if (y1t > wmin) {
@@ -731,7 +968,26 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
                 }
                 return seg;
             } else {
-                return null;  // TODO
+                Object3D seg = new Object3D();
+                seg.addVertex(x0, wmin, zf);
+                seg.addVertex(x0, wmin, zb);
+                seg.addVertex(x0, y0t, zf);
+                seg.addVertex(x0, y0t, zb);
+                seg.addVertex(x1, y1t, zf);                
+                seg.addVertex(x1, y1t, zb);
+                seg.addVertex(x1, wmin, zf);
+                seg.addVertex(x1, wmin, zb);
+                seg.addFace(new int[] {0, 2, 4, 6}, color, true); // front
+                seg.addFace(new int[] {1, 7, 5, 3}, color, true); // rear
+                seg.addFace(new int[] {2, 3, 5, 4}, color, true); // top
+                seg.addFace(new int[] {0, 6, 7, 1}, clipColor, true); // clip bottom
+                if (openingFace) {
+                    seg.addFace(new int[] {0, 1, 3, 2}, color, true);
+                }
+                if (closingFace) {
+                    seg.addFace(new int[] {4, 5, 7, 6}, color, true);
+                }
+                return seg;
             }
         }
         Object3D seg = new Object3D();
@@ -752,6 +1008,29 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
         return seg;
     }
     
+    /**
+     * Creates and returns a segment for the case where the line is completely
+     * below the axis range at the left side.
+     * 
+     * @param x0
+     * @param x1
+     * @param xpts
+     * @param y0b
+     * @param y0t
+     * @param y1b
+     * @param y1t
+     * @param wmin
+     * @param wmax
+     * @param zf
+     * @param zb
+     * @param color
+     * @param clipColor
+     * @param openingFace  ignored because there is no opening face in this 
+     *     case.
+     * @param closingFace
+     * 
+     * @return A segment. 
+     */
     private Object3D createSegmentF(double x0, double x1, double[] xpts, 
             double y0b, double y0t, double y1b, double y1t, double wmin, 
             double wmax, double zf, double zb, Color color, Color clipColor, 
@@ -801,7 +1080,24 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
                 }
                 return seg;
             } else {
-                return null;
+                Object3D seg = new Object3D();
+                seg.addVertex(xpts[1], wmin, zf);
+                seg.addVertex(xpts[1], wmin, zb);
+                seg.addVertex(xpts[3], wmax, zf);
+                seg.addVertex(xpts[3], wmax, zb);
+                seg.addVertex(x1, wmax, zf);
+                seg.addVertex(x1, wmax, zb);
+                seg.addVertex(x1, wmin, zf);
+                seg.addVertex(x1, wmin, zb);
+                seg.addFace(new int[] {0, 2, 4, 6}, color, true); // front
+                seg.addFace(new int[] {1, 7, 5, 3}, color, true); // rear
+                seg.addFace(new int[] {0, 1, 3, 2}, color, true); // top
+                seg.addFace(new int[] {2, 3, 5, 4}, clipColor, true); // clip top
+                seg.addFace(new int[] {6, 7, 1, 0}, clipColor, true); // clip bottom
+                if (closingFace) {
+                    seg.addFace(new int[] {4, 5, 7, 6}, color, true);
+                }
+                return seg;
             }
         }
         if (y1t > wmin) {
