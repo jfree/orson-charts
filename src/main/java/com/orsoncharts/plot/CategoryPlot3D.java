@@ -305,6 +305,12 @@ public class CategoryPlot3D extends AbstractPlot3D
         fireChangeEvent();
     }
 
+    /**
+     * Returns the paint used to draw the gridlines for the row axis, if they
+     * are visible.
+     * 
+     * @return The paint (never <code>null</code>). 
+     */
     public Paint getGridlinePaintForRows() {
         return this.gridlinePaintForRows;
     }
@@ -318,6 +324,7 @@ public class CategoryPlot3D extends AbstractPlot3D
     public void setGridlinePaintForRows(Paint paint) {
         ArgChecks.nullNotPermitted(paint, "paint");
         this.gridlinePaintForRows = paint;
+        fireChangeEvent();
     }
 
     /**
@@ -331,9 +338,17 @@ public class CategoryPlot3D extends AbstractPlot3D
         return this.gridlineStrokeForRows;
     }
 
+    /**
+     * Sets the stroke used to draw the gridlines for the row axis, if they
+     * are visible, and sends a {@link Plot3DChangeEvent} to all 
+     * registered listeners.
+     * 
+     * @param stroke  the stroke (<code>null</code> not permitted). 
+     */
     public void setGridlineStrokeForRows(Stroke stroke) {
         ArgChecks.nullNotPermitted(stroke, "stroke");
         this.gridlineStrokeForRows = stroke;
+        fireChangeEvent();
     }
 
     /**
@@ -400,6 +415,7 @@ public class CategoryPlot3D extends AbstractPlot3D
     public void setGridlinePaintForValues(Paint paint) {
         ArgChecks.nullNotPermitted(paint, "paint");
         this.gridlinePaintForValues = paint;
+        fireChangeEvent();
     }
 
     /**
@@ -413,15 +429,36 @@ public class CategoryPlot3D extends AbstractPlot3D
         return this.gridlineStrokeForValues;
     }
     
+    /**
+     * Sets the stroke used to draw the grid lines for the value axis, if
+     * they are visible, and sends a {@link Plot3DChangeEvent} to all
+     * registered listeners.
+     * 
+     * @param stroke  the stroke (<code>null</code> not permitted).
+     */
     public void setGridlineStrokeForValues(Stroke stroke) {
         ArgChecks.nullNotPermitted(stroke, "stroke");
         this.gridlineStrokeForValues = stroke;
+        fireChangeEvent();
     }
     
+    /**
+     * Returns the paint used to draw the grid lines for the column axis, if
+     * they are visible.
+     * 
+     * @return The paint (never <code>null</code>). 
+     */
     public Paint getGridlinePaintForColumns() {
         return this.gridlinePaintForColumns;
     }
     
+    /**
+     * Sets the paint used to draw the grid lines for the column axis, if 
+     * they are visible, and sends a {@link Plot3DChangeEvent} to all 
+     * registered listeners.
+     * 
+     * @param paint  the paint (<code>null</code> not permitted). 
+     */
     public void setGridlinePaintForColumns(Paint paint) {
         ArgChecks.nullNotPermitted(paint, "paint");
         this.gridlinePaintForColumns = paint;
@@ -439,6 +476,13 @@ public class CategoryPlot3D extends AbstractPlot3D
         return this.gridlineStrokeForColumns;
     }
     
+    /**
+     * Sets the stroke used to draw the grid lines for the column axis, if
+     * they are visible, and sends a {@link Plot3DChangeEvent} to all
+     * registered listeners.
+     * 
+     * @param stroke  the stroke (<code>null</code> not permitted).
+     */
     public void setGridlineStrokeForColumns(Stroke stroke) {
         ArgChecks.nullNotPermitted(stroke, "stroke");
         this.gridlineStrokeForColumns = stroke;
@@ -502,16 +546,20 @@ public class CategoryPlot3D extends AbstractPlot3D
         if (!this.gridlineStrokeForRows.equals(that.gridlineStrokeForRows)) {
             return false;
         }
-        if (!ObjectUtils.equalsPaint(this.gridlinePaintForRows, that.gridlinePaintForRows)) {
+        if (!ObjectUtils.equalsPaint(this.gridlinePaintForRows, 
+                that.gridlinePaintForRows)) {
             return false;
         }
-        if (this.gridlinesVisibleForColumns != that.gridlinesVisibleForColumns) {
+        if (this.gridlinesVisibleForColumns 
+                != that.gridlinesVisibleForColumns) {
             return false;
         }
-        if (!this.gridlineStrokeForColumns.equals(that.gridlineStrokeForColumns)) {
+        if (!this.gridlineStrokeForColumns.equals(
+                that.gridlineStrokeForColumns)) {
             return false;
         }
-        if (!ObjectUtils.equalsPaint(this.gridlinePaintForColumns, that.gridlinePaintForColumns)) {
+        if (!ObjectUtils.equalsPaint(this.gridlinePaintForColumns, 
+                that.gridlinePaintForColumns)) {
             return false;
         }
         if (this.gridlinesVisibleForValues != that.gridlinesVisibleForValues) {
@@ -520,7 +568,8 @@ public class CategoryPlot3D extends AbstractPlot3D
         if (!this.gridlineStrokeForValues.equals(that.gridlineStrokeForValues)) {
             return false;
         }
-         if (!ObjectUtils.equalsPaint(this.gridlinePaintForValues, that.gridlinePaintForValues)) {
+         if (!ObjectUtils.equalsPaint(this.gridlinePaintForValues, 
+                 that.gridlinePaintForValues)) {
             return false;
         }
        return super.equals(obj);
