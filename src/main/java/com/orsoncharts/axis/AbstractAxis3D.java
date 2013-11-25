@@ -17,7 +17,6 @@ import java.io.Serializable;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.Objects;
 import javax.swing.event.EventListenerList;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.ObjectUtils;
@@ -266,7 +265,7 @@ public abstract class AbstractAxis3D implements Axis3D, Serializable {
             return false;
         }
         AbstractAxis3D that = (AbstractAxis3D) obj;
-        if (!Objects.equals(this.label, that.label)) {
+        if (!ObjectUtils.equals(this.label, that.label)) {
             return false;
         }
         if (!this.labelFont.equals(that.labelFont)) {
