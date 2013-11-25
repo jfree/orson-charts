@@ -21,7 +21,6 @@ import java.io.Serializable;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.Objects;
 import java.util.ArrayList;
 import java.util.List;
 import com.orsoncharts.util.TextUtils;
@@ -900,10 +899,10 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 59 * hash + Objects.hashCode(this.range);
+        hash = 59 * hash + ObjectUtils.hashCode(this.range);
         hash = 59 * hash + (int) (Double.doubleToLongBits(this.tickSize) 
                 ^ (Double.doubleToLongBits(this.tickSize) >>> 32));
-        hash = 59 * hash + Objects.hashCode(this.tickLabelFormatter);
+        hash = 59 * hash + ObjectUtils.hashCode(this.tickLabelFormatter);
         return hash;
     }
 
