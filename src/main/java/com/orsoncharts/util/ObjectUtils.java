@@ -34,6 +34,19 @@ public class ObjectUtils {
     }
     
     /**
+     * Returns the hash code of the object, or 0 if the object is 
+     * <code>null</code>.  This method is provided in the Objects class in 
+     * Java 1.7, but you can use this one to run on Java 1.6.
+     * 
+     * @param obj (<code>null</code> permitted).
+     * 
+     * @return A hash code. 
+     */
+    public static int hashCode(Object obj) {
+        return obj != null ? obj.hashCode() : 0;
+    }
+    
+    /**
      * Returns <code>true</code> if the two <code>Paint</code> objects are equal 
      * OR both <code>null</code>.  This method handles
      * <code>GradientPaint</code> as a special case.
