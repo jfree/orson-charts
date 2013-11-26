@@ -40,7 +40,9 @@ public class ObjectUtils {
      * 
      * @param obj (<code>null</code> permitted).
      * 
-     * @return A hash code. 
+     * @return A hash code.
+     * 
+     * @since 1.1
      */
     public static int hashCode(Object obj) {
         return obj != null ? obj.hashCode() : 0;
