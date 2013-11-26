@@ -73,7 +73,8 @@ public class TickData {
     }
     
     /**
-     * Returns the position.
+     * Returns the position of the tick, as a percentage along the axis (for 
+     * example, 0.5 is halfway along the axis).
      * 
      * @return The position. 
      */
@@ -82,16 +83,18 @@ public class TickData {
     }
     
     /**
-     * Returns the key.
+     * Returns the key when the tick data is for a {@link CategoryAxis3D}, 
+     * and <code>null</code> otherwise.
      * 
-     * @return The key. 
+     * @return The key (possibly <code>null</code>).  
      */
     public Comparable getKey() {
         return this.key;
     }
     
     /**
-     * Returns the data value.
+     * Returns the data value when the tick data is for a {@link NumberAxis3D},
+     * and <code>Double.NaN</code> otherwise.
      * 
      * @return The data value.
      */
@@ -100,7 +103,7 @@ public class TickData {
     }
     
     /**
-     * Returns the vertex index.
+     * Returns the vertex index that is the anchor point for the tick mark.
      * 
      * @return The vertex index. 
      */
