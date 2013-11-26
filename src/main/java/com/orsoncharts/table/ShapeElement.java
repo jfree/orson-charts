@@ -57,7 +57,7 @@ public class ShapeElement extends AbstractTableElement
         return new ElementDimension(Math.min(shapeBounds.getWidth() 
                 + insets.left + insets.right, bounds.getWidth()), 
                 Math.min(shapeBounds.getHeight() + insets.top + insets.bottom, 
-                shapeBounds.getHeight()));
+                bounds.getHeight()));
     }
 
     @Override
