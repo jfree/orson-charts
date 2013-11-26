@@ -477,13 +477,12 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
         ChartBox3D chartBox = null;
         if (this.plot instanceof XYZPlot 
                 || this.plot instanceof CategoryPlot3D) {
-            chartBox = new ChartBox3D(w, h, depth, -w / 2, -h / 2, -depth / 2, 
-                    this.chartBoxColor);
             double[] tickUnits = findAxisTickUnits(g2, w, h, depth);
             List<TickData> xTicks = fetchXTickData(this.plot, tickUnits[0]);
             List<TickData> yTicks = fetchYTickData(this.plot, tickUnits[1]);
             List<TickData> zTicks = fetchZTickData(this.plot, tickUnits[2]);
-            chartBox.configureTicks(xTicks, yTicks, zTicks);
+            chartBox = new ChartBox3D(w, h, depth, -w / 2, -h / 2, -depth / 2, 
+                    this.chartBoxColor, xTicks, yTicks, zTicks);
         }
         World world = createWorld(chartBox);
         if (this.background != null) {
@@ -934,11 +933,11 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
      */
     private double[] findAxisTickUnits(Graphics2D g2, double w, double h, 
             double depth) {
-        World axisOverlay = new World();
+        World tempWorld = new World();
         ChartBox3D chartBox = new ChartBox3D(w, h, depth, -w / 2.0, -h / 2.0, 
                 -depth / 2.0, Color.WHITE);
-        axisOverlay.add(chartBox.getObject3D());
-        Point2D[] axisPts2D = axisOverlay.calculateProjectedPoints(
+        tempWorld.add(chartBox.getObject3D());
+        Point2D[] axisPts2D = tempWorld.calculateProjectedPoints(
                 this.viewPoint, 1000f);
 
         // vertices
