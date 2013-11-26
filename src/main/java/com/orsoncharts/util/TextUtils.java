@@ -70,7 +70,7 @@ public class TextUtils {
         FontRenderContext frc = g2.getFontRenderContext();
         Font f = g2.getFont();
         FontMetrics fm = g2.getFontMetrics(f);
-        Rectangle2D bounds = getTextBounds(text, g2, fm);
+        Rectangle2D bounds = getTextBounds(text, fm);
         LineMetrics metrics = f.getLineMetrics(text, frc);
         float ascent = metrics.getAscent();
         float halfAscent = ascent / 2.0f;
@@ -130,7 +130,7 @@ public class TextUtils {
         FontRenderContext frc = g2.getFontRenderContext();
         Font f = g2.getFont();
         FontMetrics fm = g2.getFontMetrics(f);
-        Rectangle2D bounds = getTextBounds(text, g2, fm);
+        Rectangle2D bounds = getTextBounds(text, fm);
         LineMetrics metrics = f.getLineMetrics(text, frc);
         float ascent = metrics.getAscent();
         result[2] = -ascent;
@@ -173,17 +173,15 @@ public class TextUtils {
     /**
      * Returns the bounds for the specified text.
      *
-     * @param text  the text (<code>null</code> permitted).
+     * @param text  the text (<code>null</code> not permitted).
      * @param g2  the graphics context (not <code>null</code>).
-     * @param fm  the font metrics (not <code>null</code>).
+     * @param fm  the font metrics (<code>null</code> not permitted).
      *
-     * @return The text bounds (<code>null</code> if the <code>text</code>
-     *         argument is <code>null</code>).
+     * @return The text bounds.
      */
-    public static Rectangle2D getTextBounds(String text, Graphics2D g2,
-            FontMetrics fm) {
-
-        Rectangle2D bounds;
+    public static Rectangle2D getTextBounds(String text, FontMetrics fm) {
+        ArgChecks.nullNotPermitted(text, "text");
+        ArgChecks.nullNotPermitted(fm, "fm");
         double width = fm.stringWidth(text);
         double height = fm.getHeight();
         return new Rectangle2D.Double(0.0, -fm.getAscent(), width, height);
@@ -259,7 +257,7 @@ public class TextUtils {
         FontRenderContext frc = g2.getFontRenderContext();
         LineMetrics metrics = g2.getFont().getLineMetrics(text, frc);
         FontMetrics fm = g2.getFontMetrics();
-        Rectangle2D bounds = TextUtils.getTextBounds(text, g2, fm);
+        Rectangle2D bounds = TextUtils.getTextBounds(text, fm);
         float ascent = metrics.getAscent();
         float halfAscent = ascent / 2.0f;
         float descent = metrics.getDescent();

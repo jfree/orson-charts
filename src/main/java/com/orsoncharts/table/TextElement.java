@@ -117,7 +117,7 @@ public class TextElement extends AbstractTableElement
     public Dimension2D preferredSize(Graphics2D g2, Rectangle2D bounds, 
             Map<String, Object> constraints) {
         g2.setFont(this.font);
-        Rectangle2D textBounds = TextUtils.getTextBounds(this.text, g2, 
+        Rectangle2D textBounds = TextUtils.getTextBounds(this.text, 
                 g2.getFontMetrics(this.font));
         Insets insets = getInsets();
         double w = Math.min(textBounds.getWidth() + insets.left + insets.right, 
@@ -141,7 +141,7 @@ public class TextElement extends AbstractTableElement
     public List<Rectangle2D> layoutElements(Graphics2D g2, Rectangle2D bounds, 
             Map<String, Object> constraints) {
         g2.setFont(this.font);
-        Rectangle2D textBounds = TextUtils.getTextBounds(this.text, g2, 
+        Rectangle2D textBounds = TextUtils.getTextBounds(this.text, 
                 g2.getFontMetrics(this.font));
         Insets insets = getInsets();
         double width = textBounds.getWidth() + insets.left + insets.right;
