@@ -98,7 +98,6 @@ import com.orsoncharts.util.ObjectUtils;
  * @see Chart3DFactory
  * @see ChartPanel3D
  */
-
 public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
     
     /** A background rectangle painter, if any. */
@@ -662,40 +661,40 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
      */
     private void drawGridlines(Graphics2D g2, CBFace face, Point2D[] pts) {
         if (isGridlinesVisibleForX(this.plot)) {
+            g2.setPaint(fetchGridlinePaintX(this.plot));
+            g2.setStroke(fetchGridlineStrokeX(this.plot));
             List<TickData> xA = face.getXTicksA();
             List<TickData> xB = face.getXTicksB();
             for (int i = 0; i < xA.size(); i++) {
                 Line2D line = new Line2D.Double(
                         pts[face.getOffset() + xA.get(i).getVertexIndex()], 
                         pts[face.getOffset() + xB.get(i).getVertexIndex()]);
-                g2.setPaint(fetchGridlinePaintX(this.plot));
-                g2.setStroke(fetchGridlineStrokeX(this.plot));
                 g2.draw(line);
             }
         }
                     
         if (isGridlinesVisibleForY(this.plot)) {
+            g2.setPaint(fetchGridlinePaintY(this.plot));
+            g2.setStroke(fetchGridlineStrokeY(this.plot));
             List<TickData> yA = face.getYTicksA();
             List<TickData> yB = face.getYTicksB();
             for (int i = 0; i < yA.size(); i++) {
                 Line2D line = new Line2D.Double(
                         pts[face.getOffset() + yA.get(i).getVertexIndex()], 
                         pts[face.getOffset() + yB.get(i).getVertexIndex()]);
-                g2.setPaint(fetchGridlinePaintY(this.plot));
-                g2.setStroke(fetchGridlineStrokeY(this.plot));
                 g2.draw(line);
             }
         }
                     
         if (isGridlinesVisibleForZ(this.plot)) {
+            g2.setPaint(fetchGridlinePaintZ(this.plot));
+            g2.setStroke(fetchGridlineStrokeZ(this.plot));
             List<TickData> zA = face.getZTicksA();
             List<TickData> zB = face.getZTicksB();
             for (int i = 0; i < zA.size(); i++) {
                 Line2D line = new Line2D.Double(
                         pts[face.getOffset() + zA.get(i).getVertexIndex()], 
                         pts[face.getOffset() + zB.get(i).getVertexIndex()]);
-                g2.setPaint(fetchGridlinePaintZ(this.plot));
-                g2.setStroke(fetchGridlineStrokeZ(this.plot));
                 g2.draw(line);
             }
         }
