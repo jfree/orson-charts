@@ -16,6 +16,7 @@ import com.orsoncharts.graphics3d.Face;
 import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.Point3D;
 import com.orsoncharts.axis.TickData;
+import com.orsoncharts.util.ArgChecks;
 
 /**
  * A chart box is the container within which the chart elements are drawn.
@@ -46,6 +47,8 @@ public class ChartBox3D {
     private List<TickData> zTicks;
 
     private Color color;
+    
+    private Object3D object3D;
 
     private CBFace faceA;
     private CBFace faceB;
@@ -65,11 +68,37 @@ public class ChartBox3D {
      * @param xOffset  the x-offset.
      * @param yOffset  the y-offset.
      * @param zOffset  the z-offset.
-     * @param color  the color for the sides of the box.
+     * @param color  the color for the sides of the box (<code>null</code>
+     *     not permitted).
      */
     public ChartBox3D(double xLength, double yLength, double zLength, 
             double xOffset, double yOffset,
             double zOffset, Color color) {
+        this(xLength, yLength, zLength, xOffset, yOffset, zOffset, color,
+                new ArrayList<TickData>(0), new ArrayList<TickData>(0), 
+                new ArrayList<TickData>(0));
+    }
+    
+    /**
+     * 
+     * @param xLength
+     * @param yLength
+     * @param zLength
+     * @param xOffset
+     * @param yOffset
+     * @param zOffset
+     * @param color
+     * @param xTicks  tick data for the x-axis.
+     * @param yTicks  tick data for the y-axis.
+     * @param zTicks  tick data for the z-axis.
+     * 
+     * @since 1.1
+     */
+    public ChartBox3D(double xLength, double yLength, double zLength, 
+            double xOffset, double yOffset, double zOffset, Color color, 
+            List<TickData> xTicks, List<TickData> yTicks, 
+            List<TickData> zTicks) {
+        ArgChecks.nullNotPermitted(color, "color");
         this.xLength = xLength;
         this.yLength = yLength;
         this.zLength = zLength;
@@ -77,25 +106,23 @@ public class ChartBox3D {
         this.yOffset = yOffset;
         this.zOffset = zOffset;
         this.color = color;
-        this.xTicks = new ArrayList<TickData>();
-        this.yTicks = new ArrayList<TickData>();
-        this.zTicks = new ArrayList<TickData>();
-    }
-    
-    public void configureTicks(List<TickData> xTicks, List<TickData> yTicks, 
-            List<TickData> zTicks) {
         this.xTicks = xTicks;
         this.yTicks = yTicks;
         this.zTicks = zTicks;
+        this.object3D = createObject3D();
     }
 
     /**
-     * Returns the 3D object for the chart box.
+     * Returns the 3D object for the chart box.  This includes vertices for
+     * the tick marks specified in the constructor, if any.  Individual
+     * faces for the box are returned by the methods {@link #faceA()}, 
+     * {@link #faceB()}, {@link #faceC()},  {@link #faceD()},  {@link #faceE()},
+     * and {@link #faceF()}. 
      * 
      * @return The 3D object for the chart box. 
      */
     public Object3D getObject3D() {
-        return createObject3D();
+        return this.object3D;
     }
 
     /**
@@ -152,6 +179,13 @@ public class ChartBox3D {
         return this.faceF;
     }
 
+    /**
+     * Creates an {@link Object3D} that contains the six faces for the 
+     * chart box, plus the vertices for the tick marks along the edges of
+     * each face.  This method is called from the constructor.
+     * 
+     * @return A 3D object. 
+     */
     private Object3D createObject3D() {
         Object3D box = new Object3D();
         Point3D v0 = new Point3D(xOffset, yOffset, zOffset);
@@ -174,12 +208,12 @@ public class ChartBox3D {
         box.addVertex(v6);   // 1, 0, 1
         box.addVertex(v7);   // 1, 1, 1
                 
-        this.faceA = new CBFace(new int[] {0, 5, 6, 1}, color);  // XZ
-        this.faceB = new CBFace(new int[] {0, 1, 2, 3}, color);  // XY
-        this.faceC = new CBFace(new int[] {7, 4, 3, 2}, color);  // XZ
-        this.faceD = new CBFace(new int[] {5, 4, 7, 6}, color);  // XY
-        this.faceE = new CBFace(new int[] {0, 3, 4, 5}, color);  // YZ
-        this.faceF = new CBFace(new int[] {6, 7, 2, 1}, color);  // YZ
+        this.faceA = new CBFace(new int[] {0, 5, 6, 1}, this.color);  // XZ
+        this.faceB = new CBFace(new int[] {0, 1, 2, 3}, this.color);  // XY
+        this.faceC = new CBFace(new int[] {7, 4, 3, 2}, this.color);  // XZ
+        this.faceD = new CBFace(new int[] {5, 4, 7, 6}, this.color);  // XY
+        this.faceE = new CBFace(new int[] {0, 3, 4, 5}, this.color);  // YZ
+        this.faceF = new CBFace(new int[] {6, 7, 2, 1}, this.color);  // YZ
         box.addFace(faceA);
         box.addFace(faceB);
         box.addFace(faceC);
@@ -252,19 +286,30 @@ public class ChartBox3D {
      */
     public static final class CBFace extends Face {
 
-        // indices of the vertices that are anchor points for the tick labels
+        /** Info about the x-axis ticks on edge A. */
         private List<TickData> xTicksA;
         
+        /** Info about the x-axis ticks on edge B. */
         private List<TickData> xTicksB;
         
+        /** Info about the y-axis ticks on edge A. */
         private List<TickData> yTicksA;
         
+        /** Info about the y-axis ticks on edge B. */
         private List<TickData> yTicksB;
         
+        /** Info about the z-axis ticks on edge A. */
         private List<TickData> zTicksA;
         
+        /** Info about the z-axis ticks on edge B. */
         private List<TickData> zTicksB;
         
+        /**
+         * Creates a new face for a {@link ChartBox}.
+         * 
+         * @param vertices  the indices of the vertices.
+         * @param color  the color (<code>null</code> not permitted).
+         */
         public CBFace(int[] vertices, Color color) {
             super(vertices, color, false);
             this.xTicksA = new ArrayList<TickData>();
@@ -275,46 +320,113 @@ public class ChartBox3D {
             this.zTicksB = new ArrayList<TickData>();
         }
         
+        /**
+         * Clears the ticks for the x-axis.
+         */
         public void clearXTicks() {
             this.xTicksA.clear();
             this.xTicksB.clear();
         }
         
+        /**
+         * Returns the x-axis tick data for edge A.
+         * 
+         * @return The x-axis tick data for edge A.
+         */
         public List<TickData> getXTicksA() {
             return this.xTicksA;
         }
+        
+        /**
+         * Adds tick data for edges A and B.
+         * 
+         * @param a
+         * @param b 
+         */
         public void addXTicks(TickData a, TickData b) {
             this.xTicksA.add(a);
             this.xTicksB.add(b);
         }
+        
+        /**
+         * Returns the x-axis tick data for the edge B.
+         * 
+         * @return The x-axis tick data for the edge B. 
+         */
         public List<TickData> getXTicksB() {
             return this.xTicksB;
         }
         
+        /**
+         * Adds tick data items for the y-axis.
+         * 
+         * @param a  data for a tick on edge A.
+         * @param b  data for a tick on edge B.
+         */
         public void addYTicks(TickData a, TickData b) {
             this.yTicksA.add(a);
             this.yTicksB.add(b);
         }
+        
+        /**
+         * Returns the y-axis tick data for the edge A.
+         * 
+         * @return The y-axis tick data for the edge A.
+         */
         public List<TickData> getYTicksA() {
             return this.yTicksA;
         }
+        
+        /**
+         * Returns the y-axis tick data for the edge B.
+         * 
+         * @return The y-axis tick data for the edge B.
+         */
         public List<TickData> getYTicksB() {
             return this.yTicksB;
         }
-        public List<TickData> getZTicksA() {
-            return this.zTicksA;
-        }
-        public List<TickData> getZTicksB() {
-            return this.zTicksB;
-        }
+
+        /**
+         * Adds tick data items for the z-axis.
+         * 
+         * @param a  data for a tick on edge A.
+         * @param b  data for a tick on edge B.
+         */
         public void addZTicks(TickData a, TickData b) {
             this.zTicksA.add(a);
             this.zTicksB.add(b);
         }
         
+        /**
+         * Returns the z-axis tick data for the edge A.
+         * 
+         * @return The z-axis tick data for the edge A.
+         */
+        public List<TickData> getZTicksA() {
+            return this.zTicksA;
+        }
+        
+        /**
+         * Returns the z-axis tick data for the edge B.
+         * 
+         * @return The z-axis tick data for the edge B. 
+         */
+        public List<TickData> getZTicksB() {
+            return this.zTicksB;
+        }
+        
+        /**
+         * Returns <code>-123456f</code> which ensures that the chart box face 
+         * is always drawn first (before any data items).
+         * 
+         * @param points  the points (ignored here).
+         * 
+         * @return <code>-123456f</code>. 
+         */
         @Override
         public float calculateAverageZValue(Point3D[] points) {
             return -123456f;
         }
-  }
+    }
+
 }
