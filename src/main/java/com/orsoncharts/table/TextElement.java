@@ -154,7 +154,7 @@ public class TextElement extends AbstractTableElement
                 x = bounds.getCenterX() - width / 2.0 - insets.left;
                 break;
             case RIGHT:
-                x = bounds.getMaxX() - width;
+                x = bounds.getMaxX() - width - insets.right;
                 break;
             default: 
                 throw new IllegalStateException("HAlign: " + this.alignment);
