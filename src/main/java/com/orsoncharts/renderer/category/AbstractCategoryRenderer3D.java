@@ -8,6 +8,7 @@
 
 package com.orsoncharts.renderer.category;
 
+import java.awt.Color;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.Range;
 import com.orsoncharts.data.DataUtils;
@@ -84,6 +85,20 @@ public abstract class AbstractCategoryRenderer3D extends AbstractRenderer3D
         ArgChecks.nullNotPermitted(colorSource, "colorSource");
         this.colorSource = colorSource;
         fireChangeEvent();
+    }
+    
+    /**
+     * Sets a new color source for the renderer using the specified colors and
+     * sends a {@link Renderer3DChangeEvent} to all registered listeners. This 
+     * is a convenience method that is equivalent to 
+     * <code>setColorSource(new StandardCategoryColorSource(colors))</code>.
+     * 
+     * @param colors  one or more colors (<code>null</code> not permitted).
+     * 
+     * @since 1.1
+     */
+    public void setColors(Color... colors) {
+        setColorSource(new StandardCategoryColorSource(colors));
     }
     
     /**
