@@ -12,6 +12,7 @@ import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
+import com.orsoncharts.TitleAnchor;
 
 /**
  * A specification for the alignment and fitting of one rectangle (the source 
@@ -22,7 +23,24 @@ import java.io.Serializable;
  * should be aligned and scaled.
  */
 public class Fit2D implements Serializable {
+
+    /** 
+     * Center the source rectangle within the target rectangle, but do not
+     * resize it.
+     * 
+     * @since 1.1
+     */
+    public static final Fit2D CENTER_NO_SCALING = new Fit2D(TitleAnchor.CENTER, 
+            Scale2D.NONE);
     
+    /**
+     * Scale the source rectangle to fit the target rectangle.
+     * 
+     * @since 1.1
+     */
+    public static final Fit2D SCALE_TO_FIT_TARGET 
+            = new Fit2D(TitleAnchor.CENTER, Scale2D.SCALE_BOTH);
+
     /** The anchor point for alignment. */
     private Anchor2D anchor;
     
@@ -36,8 +54,32 @@ public class Fit2D implements Serializable {
      * @param scale  the scaling (<code>null</code> not permitted).
      */
     public Fit2D(Anchor2D anchor, Scale2D scale) {
+        ArgChecks.nullNotPermitted(anchor, "anchor");
+        ArgChecks.nullNotPermitted(anchor, "anchor");
         this.anchor = anchor;
         this.scale = scale;
+    }
+    
+    /**
+     * Returns the anchor.
+     * 
+     * @return The anchor (never <code>null</code>).
+     * 
+     * @since 1.1
+     */
+    public Anchor2D getAnchor() {
+        return this.anchor;
+    }
+    
+    /**
+     * Returns the scaling.
+     * 
+     * @return The scaling (never <code>null</code>).
+     * 
+     * @since 1.1
+     */
+    public Scale2D getScale() {
+        return this.scale;
     }
     
     /**
