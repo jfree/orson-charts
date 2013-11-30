@@ -500,18 +500,6 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
 
         for (Face f : facesInPaintOrder) {
             boolean drawOutline = f.getOutline();
-            GeneralPath p = new GeneralPath();
-            for (int v = 0; v < f.getVertexCount(); v++) {
-                if (v == 0) {
-                    p.moveTo(pts[f.getVertexIndex(v)].getX(),
-                            pts[f.getVertexIndex(v)].getY());
-                }
-                else {
-                    p.lineTo(pts[f.getVertexIndex(v)].getX(),
-                            pts[f.getVertexIndex(v)].getY());
-                }
-            }
-            p.closePath();
 
             double[] plane = f.calculateNormal(eyePts);
             double inprod = plane[0] * world.getSunX() + plane[1]
@@ -521,6 +509,18 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
                     pts[f.getVertexIndex(1)], pts[f.getVertexIndex(2)]) > 0) {
                 Color c = f.getColor();
                 if (c != null) {
+                    GeneralPath p = new GeneralPath();
+                    for (int v = 0; v < f.getVertexCount(); v++) {
+                        if (v == 0) {
+                            p.moveTo(pts[f.getVertexIndex(v)].getX(),
+                                    pts[f.getVertexIndex(v)].getY());
+                        }
+                        else {
+                            p.lineTo(pts[f.getVertexIndex(v)].getX(),
+                                    pts[f.getVertexIndex(v)].getY());
+                        }
+                    }
+                    p.closePath();
                     g2.setPaint(new Color((int) (c.getRed() * shade),
                         (int) (c.getGreen() * shade),
                         (int) (c.getBlue() * shade), c.getAlpha()));
