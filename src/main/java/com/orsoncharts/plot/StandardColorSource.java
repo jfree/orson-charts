@@ -42,22 +42,13 @@ public final class StandardColorSource implements ColorSource,
     }
     
     /**
-     * Creates a new instance with a single default color.
-     * 
-     * @param color  the color (<code>null</code> not permitted).
-     */
-    public StandardColorSource(Color color) {
-        this(new Color[] { color });    
-    }
-    
-    /**
      * Creates a new instance with the supplied sequence of colors.  The
      * supplied array must have at least one entry, and all entries must be
      * non-<code>null</code>.
      * 
      * @param colors  the colors (<code>null</code> not permitted). 
      */
-    public StandardColorSource(Color[] colors) {
+    public StandardColorSource(Color... colors) {
         ArgChecks.nullNotPermitted(colors, "colors");
         if (colors.length == 0) {
             throw new IllegalArgumentException(
