@@ -34,25 +34,24 @@ public class StandardXYZColorSource implements XYZColorSource, Serializable {
     }
     
     /**
-     * Creates a new instance that returns a single color for all series and
-     * items.
-     * 
-     * @param color  the color (<code>null</code> not permitted).
-     */
-    public StandardXYZColorSource(Color color) {
-        ArgChecks.nullNotPermitted(color, "color");
-        this.colors = new Color[] { color };
-    }
-    
-    /**
      * Creates a new instance with the supplied sequence of colors.  The
      * supplied array must have at least one entry, and all entries must be
      * non-<code>null</code>.
      * 
      * @param colors  the colors (<code>null</code> not permitted). 
      */
-    public StandardXYZColorSource(Color[] colors) {
+    public StandardXYZColorSource(Color... colors) {
         ArgChecks.nullNotPermitted(colors, "colors");
+        if (colors.length == 0) {
+            throw new IllegalArgumentException(
+                    "Zero length array not permitted.");
+        }
+        for (int i = 0; i < colors.length; i++) {
+            if (colors[i] == null) {
+                throw new IllegalArgumentException(
+                        "Null array entries not permitted.");
+            }
+        }
         this.colors = colors;
     }
     
