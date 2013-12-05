@@ -90,6 +90,20 @@ public class Object3D {
     }
     
     /**
+     * Adds a double-sided face for the given vertices (specified by index 
+     * value) and color.
+     * 
+     * @param vertices  the vertices (all should lie in a plane).
+     * @param color  the color (<code>null</code> not permitted).
+     * 
+     * @since 1.1
+     */
+    public void addDoubleSidedFace(int[] vertices, Color color, 
+            boolean outline) {
+        addFace(new DoubleSidedFace(vertices, color, outline));
+    }
+    
+    /**
      * Adds a face.
      *
      * @param face  the face (<code>null</code> not permitted).
@@ -100,7 +114,9 @@ public class Object3D {
     }
 
     /**
-     * Returns the faces.
+     * Returns the faces.  Note that the list returned is a direct reference
+     * to the internal storage for this <code>Object3D</code> instance, so
+     * callers should take care not to modify this list unintentionally.
      *
      * @return The faces.
      */
