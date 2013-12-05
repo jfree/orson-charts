@@ -244,6 +244,8 @@ public class OrsonChartsDemo extends JFrame implements ActionListener,
                 "StackedBarChart3DDemo1.java"));
         n.add(createNode("com.orsoncharts.demo.StackedBarChart3DDemo2", 
                 "StackedBarChart3DDemo2.java"));
+        n.add(createNode("com.orsoncharts.demo.StackedBarChart3DDemo3", 
+                "StackedBarChart3DDemo3.java"));
         return n;
     }
     
@@ -267,6 +269,10 @@ public class OrsonChartsDemo extends JFrame implements ActionListener,
                 "ScatterPlot3DDemo1.java"));
         n.add(createNode("com.orsoncharts.demo.ScatterPlot3DDemo2", 
                 "ScatterPlot3DDemo2.java"));
+        n.add(createNode("com.orsoncharts.demo.SurfaceRendererDemo1", 
+                "SurfaceRendererDemo1.java"));
+        n.add(createNode("com.orsoncharts.demo.SurfaceRendererDemo2", 
+                "SurfaceRendererDemo2.java"));
         n.add(createNode("com.orsoncharts.demo.XYZBarChart3DDemo1", 
                 "XYZBarChart3DDemo1.java"));
         return n;        
@@ -353,7 +359,7 @@ public class OrsonChartsDemo extends JFrame implements ActionListener,
                     }
                 }
                 OrsonChartsDemo app = new OrsonChartsDemo(
-                        "Orson Charts Demo 1.0");
+                        "Orson Charts Demo 1.1");
                 app.pack();
                 app.setVisible(true);
             }
