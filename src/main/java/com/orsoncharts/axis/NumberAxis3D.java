@@ -199,6 +199,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
                     "Requires a range with length > 0");
         }
         this.range = range;
+        this.autoAdjustRange = false;
         fireChangeEvent();
     }
     
