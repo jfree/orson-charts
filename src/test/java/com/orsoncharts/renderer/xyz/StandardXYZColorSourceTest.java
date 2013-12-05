@@ -10,14 +10,42 @@ package com.orsoncharts.renderer.xyz;
 
 import com.orsoncharts.TestUtils;
 import java.awt.Color;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import org.junit.Test;
 
 /**
  * Tests for the {@link DefaultXYZPaintSource} class.
  */
-public class StandardXYZPaintSourceTest {
+public class StandardXYZColorSourceTest {
+    
+    @Test
+    public void testConstructors() {
+        StandardXYZColorSource scs = new StandardXYZColorSource(Color.RED);
+        assertEquals(Color.RED, scs.getColor(0, 0));
+        assertEquals(Color.RED, scs.getColor(1, 0));
+        
+        scs = new StandardXYZColorSource(Color.RED, Color.GREEN, Color.BLUE);
+        assertEquals(Color.RED, scs.getColor(0, 0));
+        assertEquals(Color.GREEN, scs.getColor(1, 0));
+        assertEquals(Color.BLUE, scs.getColor(2, 0));
+        
+        try {
+            scs = new StandardXYZColorSource((Color[]) null);
+            fail("Should have thrown an exception.");
+        } catch (IllegalArgumentException e) {
+            // expected
+        }
+        
+        try {
+            scs = new StandardXYZColorSource(Color.RED, null);
+            fail("Should have thrown an exception");
+        } catch (IllegalArgumentException e) {
+            // expected
+        }
+    }
     
     /**
      * Some checks for the equals() method.
