@@ -13,6 +13,7 @@ import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.World;
+import com.orsoncharts.renderer.ComposeType;
 import com.orsoncharts.renderer.Renderer3D;
 
 /**
@@ -79,6 +80,18 @@ public interface XYZRenderer extends Renderer3D {
     Range findZRange(XYZDataset dataset);
 
     /**
+     * Returns the type of composition performed by the renderer.  This
+     * determines whether the plot will call the <code>composeItem()</code>
+     * method (once for each data item) or just call the 
+     * <code>composeAll()</code> method once.
+     * 
+     * @return The type of composition (never <code>null</code>).
+     * 
+     * @since 1.1
+     */
+    ComposeType getComposeType();
+    
+    /**
      * Constructs and places one item from the specified dataset into the given 
      * world.  The {@link XYZPlot} class will iterate over its dataset and
      * and call this method for each item (in other words, you don't need to 
@@ -95,6 +108,23 @@ public interface XYZRenderer extends Renderer3D {
      */
     void composeItem(XYZDataset dataset, int series, int item, 
             World world, Dimension3D dimensions, 
+            double xOffset, double yOffset, double zOffset);
+
+    /**
+     * Composes all the 3D objects that this renderer needs to present.  This
+     * method only needs to be implemented if the <code>getComposeType()</code>
+     * method returns <code>ALL</code>, otherwise it can be left empty.
+     * 
+     * @param plot  the plot.
+     * @param world  the world (<code>null</code> not permitted).
+     * @param dimensions  the dimensions (<code>null</code> not permitted).
+     * @param xOffset  the x-offset.
+     * @param yOffset  the y-offset.
+     * @param zOffset  the z-offset.
+     * 
+     * @since 1.1
+     */
+    void composeAll(XYZPlot plot, World world, Dimension3D dimensions, 
             double xOffset, double yOffset, double zOffset);
 
 }

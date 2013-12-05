@@ -30,6 +30,7 @@ import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.legend.LegendItemInfo;
 import com.orsoncharts.legend.StandardLegendItemInfo;
+import com.orsoncharts.renderer.ComposeType;
 import com.orsoncharts.renderer.Renderer3DChangeEvent;
 import com.orsoncharts.renderer.Renderer3DChangeListener;
 import com.orsoncharts.util.ObjectUtils;
@@ -113,12 +114,12 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
         this.xAxis = xAxis;
         this.xAxis.addChangeListener(this);
         this.xAxis.configureAsXAxis(this);
-        this.yAxis = yAxis;
-        this.yAxis.addChangeListener(this);
-        this.yAxis.configureAsYAxis(this);
         this.zAxis = zAxis;
         this.zAxis.addChangeListener(this);
         this.zAxis.configureAsZAxis(this);
+        this.yAxis = yAxis;
+        this.yAxis.addChangeListener(this);
+        this.yAxis.configureAsYAxis(this);
         this.gridlinesVisibleX = true;
         this.gridlinePaintX = Color.WHITE;
         this.gridlineStrokeX = DEFAULT_GRIDLINE_STROKE;
@@ -129,7 +130,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
         this.gridlinePaintZ = Color.WHITE;
         this.gridlineStrokeZ = DEFAULT_GRIDLINE_STROKE;
     }
-  
+    
     /**
      * Sets the dimensions for the plot and notifies registered listeners that
      * the plot dimensions have been changed.
@@ -478,17 +479,25 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
     @Override
     public void compose(World world, double xOffset, double yOffset, 
             double zOffset) {
-      
-        // for each data point in the dataset
-        // figure out if the composed shape intersects with the visible subset
-        // of the world, and if so add the object
-        int seriesCount = this.dataset.getSeriesCount();
-        for (int series = 0; series < seriesCount; series++) {
-            int itemCount = this.dataset.getItemCount(series);
-            for (int item = 0; item < itemCount; item++) {
-                this.renderer.composeItem(this.dataset, series, item, world, 
-                this.dimensions, xOffset, yOffset, zOffset);
+            if (this.renderer.getComposeType() == ComposeType.ALL) {
+            this.renderer.composeAll(this, world, this.dimensions, xOffset, 
+                    yOffset, zOffset);
+        } else if (this.renderer.getComposeType() == ComposeType.PER_ITEM) {
+            // for each data point in the dataset figure out if the composed 
+            // shape intersects with the visible 
+            // subset of the world, and if so add the object
+            int seriesCount = this.dataset.getSeriesCount();
+            for (int series = 0; series < seriesCount; series++) {
+                int itemCount = this.dataset.getItemCount(series);
+                for (int item = 0; item < itemCount; item++) {
+                    this.renderer.composeItem(this.dataset, series, item, world, 
+                            this.dimensions, xOffset, yOffset, zOffset);
+                }
             }
+        } else {
+            // if we get here, someone changed the ComposeType enum
+            throw new IllegalStateException("ComposeType not expected: " 
+                    + this.renderer.getComposeType());
         }
     }
 
@@ -547,6 +556,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
      */
     @Override
     public void axisChanged(Axis3DChangeEvent event) {
+        this.yAxis.configureAsYAxis(this);
         fireChangeEvent();
     }
 
