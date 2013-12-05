@@ -122,6 +122,19 @@ public class Range implements Serializable {
     public double percent(double value) {
         return (value - this.min) / getLength();
     }
+    
+    /**
+     * Returns the value corresponding to the specified percentage.
+     * 
+     * @param percent  the percentage along the range.
+     * 
+     * @return The value.
+     * 
+     * @since 1.1
+     */
+    public double value(double percent) {
+        return this.min + percent * (this.max - this.min);
+    }
   
     /**
      * Tests this instance for equality with an arbitrary object.
