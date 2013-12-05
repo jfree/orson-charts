@@ -32,6 +32,7 @@ import com.orsoncharts.axis.Axis3D;
 import com.orsoncharts.axis.TickData;
 import com.orsoncharts.axis.ValueAxis3D;
 import com.orsoncharts.graphics3d.Dimension3D;
+import com.orsoncharts.graphics3d.DoubleSidedFace;
 import com.orsoncharts.graphics3d.Drawable3D;
 import com.orsoncharts.graphics3d.Face;
 import com.orsoncharts.graphics3d.Object3D;
@@ -505,7 +506,8 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
             double inprod = plane[0] * world.getSunX() + plane[1]
                     * world.getSunY() + plane[2] * world.getSunZ();
             double shade = (inprod + 1) / 2.0;
-            if (Utils2D.area2(pts[f.getVertexIndex(0)],
+            if (f instanceof DoubleSidedFace 
+                    || Utils2D.area2(pts[f.getVertexIndex(0)],
                     pts[f.getVertexIndex(1)], pts[f.getVertexIndex(2)]) > 0) {
                 Color c = f.getColor();
                 if (c != null) {
