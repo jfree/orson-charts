@@ -8,6 +8,8 @@
 
 package com.orsoncharts.data.function;
 
+import java.io.Serializable;
+import com.orsoncharts.Range;
 import com.orsoncharts.data.xyz.XYZDatasetUtils;
 
 /**
@@ -17,7 +19,7 @@ import com.orsoncharts.data.xyz.XYZDatasetUtils;
  * {@link XYZDatasetUtils#sampleFunction(Function3D, String, Range, double, Range, double)} 
  * method.
  */
-public interface Function3D {
+public interface Function3D extends Serializable {
     
     /**
      * Returns the value of the function ('y') for the specified inputs ('x' 
