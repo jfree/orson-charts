@@ -22,6 +22,7 @@ import com.orsoncharts.graphics3d.Point3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.renderer.ColorScale;
+import com.orsoncharts.renderer.ColorScaleRenderer;
 import com.orsoncharts.renderer.ComposeType;
 import com.orsoncharts.renderer.FixedColorScale;
 import com.orsoncharts.renderer.Renderer3DChangeEvent;
@@ -29,12 +30,20 @@ import com.orsoncharts.util.ArgChecks;
 
 /**
  * A renderer that plots a surface based on a function (any implementation
- * of {@link Function3D}.
+ * of {@link Function3D}).  This renderer is different to others in that it
+ * does not plot data from a dataset, instead it samples a function and plots
+ * those values.  By default 900 samples are taken (30 x-values by 30 z-values)
+ * although this can be modified.
+ * <br><br>
+ * For the fastest rendering, the <code>drawFaceOutlines</code> flag can be set 
+ * to <code>false</code> (the default is <code>true</code>) but this may 
+ * cause slight rendering artifacts if anti-aliasing is on (note that switching
+ * off anti-aliasing as well also improves rendering performance).
  * 
  * @since 1.1
  */
 public class SurfaceRenderer extends AbstractXYZRenderer implements XYZRenderer,
-        Serializable {
+        ColorScaleRenderer, Serializable {
     
     /** The function. */
     private Function3D function;
@@ -103,7 +112,7 @@ public class SurfaceRenderer extends AbstractXYZRenderer implements XYZRenderer,
      * when plotting the function and sends a {@link Renderer3DChangeEvent} to
      * all registered listeners.  The default value is 30.
      * 
-     * @return 
+     * @return The number of samples.
      */
     public int getZSamples() {
         return this.zSamples;
@@ -178,7 +187,7 @@ public class SurfaceRenderer extends AbstractXYZRenderer implements XYZRenderer,
      * outlines are drawn (the default), the surface is solid (but takes longer
      * to draw).  If the face outlines are not drawn, Java2D can leave small 
      * gaps that you can "see" through (if you don't mind this, then the
-     * performance is better).  
+     * performance is better).
      * 
      * @param draw  the new flag value. 
      */
