@@ -8,6 +8,8 @@
 
 package com.orsoncharts.renderer;
 
+import com.orsoncharts.renderer.xyz.SurfaceRenderer;
+
 /**
  * An enumeration of the different methods used by renderers for composing the
  * items in a chart.  Most renderers work on a per-item basis, where the plot
