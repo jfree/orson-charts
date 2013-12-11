@@ -143,22 +143,16 @@ public class GridElement extends AbstractTableElement implements TableElement,
      */
     @Override
     public void draw(Graphics2D g2, Rectangle2D bounds) {
-        double[][] cellDimensions = findCellDimensions(g2, bounds);
-        double[] widths = cellDimensions[0];
-        double[] heights = cellDimensions[1];
-        double y = bounds.getY() + getInsets().top;
-        for (int r = 0; r < elements.getXCount(); r++) {
-            double x = bounds.getX() + getInsets().left;
+        List<Rectangle2D> positions = layoutElements(g2, bounds, null);
+        for (int r = 0; r < this.elements.getXCount(); r++) {
             for (int c = 0; c < this.elements.getYCount(); c++) {
                 TableElement element = this.elements.getValue(r, c);
                 if (element == null) {
                     continue;
                 }
-                element.draw(g2, new Rectangle2D.Double(x, y, widths[c], 
-                        heights[r]));
-                x += widths[c];
+                Rectangle2D pos = positions.get(r * elements.getYCount() + c);
+                element.draw(g2, pos);
             }
-            y = y + heights[r];
         }        
     }
     
