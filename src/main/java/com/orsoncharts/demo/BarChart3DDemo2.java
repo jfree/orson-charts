@@ -20,6 +20,8 @@ import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.category.StandardCategoryDataset3D;
 import com.orsoncharts.data.DefaultKeyedValues;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
+import com.orsoncharts.legend.LegendAnchor;
+import com.orsoncharts.util.Orientation;
 
 /**
  * A demo of a 3D bar chart.
@@ -57,6 +59,7 @@ public class BarChart3DDemo2 extends JFrame {
                 "Average Maximum Temperature", 
                 "http://www.worldclimateguide.co.uk/climateguides/", dataset, 
                 null, null, "Temp °C");
+        chart.setLegendPosition(LegendAnchor.BOTTOM_RIGHT, Orientation.VERTICAL);
         chart.getViewPoint().panLeftRight(-Math.PI / 60);
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
         content.setChartPanel(chartPanel);
