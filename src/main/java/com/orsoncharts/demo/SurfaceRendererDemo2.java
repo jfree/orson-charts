@@ -20,9 +20,11 @@ import com.orsoncharts.axis.ValueAxis3D;
 import com.orsoncharts.data.function.Function3D;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
+import com.orsoncharts.legend.LegendAnchor;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.renderer.RainbowScale;
 import com.orsoncharts.renderer.xyz.SurfaceRenderer;
+import com.orsoncharts.util.Orientation;
 
 /**
  * A demo of a surface chart.
@@ -78,6 +80,9 @@ public class SurfaceRendererDemo2 extends JFrame {
         renderer.setColorScale(new RainbowScale(new Range(-1.0, 1.0)));
         renderer.setXSamples(50);
         renderer.setZSamples(50);
+        renderer.setDrawFaceOutlines(false);
+        chart.setLegendPosition(LegendAnchor.TOP_RIGHT, Orientation.VERTICAL);
+        chart.setAntiAlias(false);
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
         chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         content.setChartPanel(chartPanel);
