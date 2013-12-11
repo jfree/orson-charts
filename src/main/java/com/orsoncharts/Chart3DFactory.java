@@ -17,6 +17,7 @@ import com.orsoncharts.data.PieDataset3D;
 import com.orsoncharts.data.function.Function3D;
 import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.data.xyz.XYZSeriesCollection;
+import com.orsoncharts.legend.ColorScaleLegendBuilder;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.plot.PiePlot3D;
 import com.orsoncharts.plot.XYZPlot;
@@ -288,7 +289,10 @@ public class Chart3DFactory {
         // dataset, but the renderer never looks at it...
         XYZPlot plot = new XYZPlot(new XYZSeriesCollection(), renderer, xAxis, 
                 yAxis, zAxis);
-        return new Chart3D(title, subtitle, plot);
+        
+        Chart3D chart = new Chart3D(title, subtitle, plot);
+        chart.setLegendBuilder(new ColorScaleLegendBuilder());
+        return chart;
     }
     
     /**
