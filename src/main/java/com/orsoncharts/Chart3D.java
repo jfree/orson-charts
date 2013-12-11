@@ -61,6 +61,7 @@ import com.orsoncharts.legend.StandardLegendBuilder;
 import com.orsoncharts.table.GridElement;
 import com.orsoncharts.table.HAlign;
 import com.orsoncharts.util.ObjectUtils;
+import com.orsoncharts.util.Orientation;
 
 /**
  * A chart object for 3D charts (this is the umbrella object that manages all
@@ -116,6 +117,9 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
     /** The anchor point for the legend (never <code>null</code>). */
     private Anchor2D legendAnchor;
     
+    /** The orientation for the legend (never <code>null</code>). */
+    private Orientation legendOrientation;
+    
     /** The plot. */
     private Plot3D plot;
     
@@ -141,7 +145,15 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
      * to disable this).
      */
     private boolean notify;
-  
+
+    /**
+     * Rendering hints that will be used for chart drawing.  This should never
+     * be <code>null</code>.
+     * 
+     * @since 1.1
+     */
+    private transient RenderingHints renderingHints;
+
     /**
      * Creates a 3D chart for the specified plot.
      * 
@@ -160,6 +172,7 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
         this.titleAnchor = TitleAnchor.TOP_LEFT;
         this.legendBuilder = new StandardLegendBuilder();
         this.legendAnchor = LegendAnchor.BOTTOM_RIGHT;
+        this.legendOrientation = Orientation.HORIZONTAL;
         this.plot = plot;
         this.plot.addChangeListener(this);
         Dimension3D dim = this.plot.getDimensions();
@@ -167,6 +180,11 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
         this.viewPoint = ViewPoint3D.createAboveViewPoint(distance);
         this.chartBoxColor = Color.WHITE;
         this.translate2D = new Offset2D();
+        this.renderingHints = new RenderingHints(
+                RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        this.renderingHints.put(RenderingHints.KEY_TEXT_ANTIALIASING,
+                RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         this.notify = true;
         this.listenerList = new EventListenerList();
     }
@@ -439,7 +457,119 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
         this.legendAnchor = anchor;
         fireChangeEvent();
     }
+    
+    /**
+     * Returns the orientation for the legend.
+     * 
+     * @return The orientation (never <code>null</code>). 
+     * 
+     * @since 1.1
+     */
+    public Orientation getLegendOrientation() {
+        return this.legendOrientation;
+    }
 
+    /**
+     * Sets the legend orientation and sends a {@link Chart3DChangeEvent}
+     * to all registered listeners.
+     * 
+     * @param orientation  the orientation (<code>null</code> not permitted).
+     * 
+     * @since 1.1
+     */
+    public void setLegendOrientation(Orientation orientation) {
+        ArgChecks.nullNotPermitted(orientation, "orientation");
+        this.legendOrientation = orientation;
+        fireChangeEvent();
+    }
+    
+    /**
+     * Sets the legend position (both the anchor point and the orientation) and
+     * sends a {@link Chart3DChangeEvent} to all registered listeners. 
+     * This is a convenience method that calls both the 
+     * {@link #setLegendAnchor(com.orsoncharts.util.Anchor2D)} and 
+     * {@link #setLegendOrientation(com.orsoncharts.util.Orientation)}
+     * methods.
+     * 
+     * @param anchor  the anchor (<code>null</code> not permitted).
+     * @param orientation  the orientation (<code>null</code> not permitted).
+     * 
+     * @since 1.1
+     */
+    public void setLegendPosition(Anchor2D anchor, Orientation orientation) {
+        setNotify(false);
+        setLegendAnchor(anchor);
+        setLegendOrientation(orientation);
+        setNotify(true);
+    }
+    
+    /**
+     * Returns the collection of rendering hints for the chart.
+     *
+     * @return The rendering hints for the chart (never <code>null</code>).
+     *
+     * @see #setRenderingHints(RenderingHints)
+     * 
+     * @since 1.1
+     */
+    public RenderingHints getRenderingHints() {
+        return this.renderingHints;
+    }
+
+    /**
+     * Sets the rendering hints for the chart.  These will be added (using the
+     * Graphics2D.addRenderingHints() method) near the start of the chart
+     * rendering.
+     *
+     * @param hints  the rendering hints (<code>null</code> not permitted).
+     *
+     * @see #getRenderingHints()
+     * 
+     * @since 1.1
+     */
+    public void setRenderingHints(RenderingHints hints) {
+        ArgChecks.nullNotPermitted(hints, "hints");
+        this.renderingHints = hints;
+        fireChangeEvent();
+    }
+
+    /**
+     * Returns a flag that indicates whether or not anti-aliasing is used when
+     * the chart is drawn.
+     *
+     * @return The flag.
+     *
+     * @see #setAntiAlias(boolean)
+     * @since 1.1
+     */
+    public boolean getAntiAlias() {
+        Object val = this.renderingHints.get(RenderingHints.KEY_ANTIALIASING);
+        return RenderingHints.VALUE_ANTIALIAS_ON.equals(val);
+    }
+
+    /**
+     * Sets a flag that indicates whether or not anti-aliasing is used when the
+     * chart is drawn.
+     * <P>
+     * Anti-aliasing usually improves the appearance of charts, but is slower.
+     *
+     * @param flag  the new value of the flag.
+     *
+     * @see #getAntiAlias()
+     * @since 1.1
+     */
+    public void setAntiAlias(boolean flag) {
+        if (flag) {
+            this.renderingHints.put(RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_ON);
+        }
+        else {
+            this.renderingHints.put(RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_OFF);
+        }
+        fireChangeEvent();
+    }
+ 
     /**
      * Creates a world containing the chart and the supplied chart box.
      * 
@@ -465,10 +595,7 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
      */
     @Override
     public void draw(Graphics2D g2, Rectangle2D bounds) {
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, 
-                RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+        g2.addRenderingHints(this.renderingHints);
         g2.setStroke(new BasicStroke(1.2f, BasicStroke.CAP_ROUND, 
                 BasicStroke.JOIN_ROUND, 1f));
         Dimension3D dim3D = this.plot.getDimensions();
@@ -557,19 +684,22 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
         
         // generate and draw the legend...
         if (this.legendBuilder != null) {
-            TableElement legend = this.legendBuilder.createLegend(this.plot);
-            if (false) { // eval
-                GridElement legend2 = new GridElement();
-                legend2.setElement(legend, "R1", "C1");
-                TextElement te = new TextElement("Orson Charts (evaluation) (c) 2013, by Object Refinery Limited", new Font("Dialog", Font.PLAIN, 10));
-                te.setHorizontalAligment(HAlign.RIGHT);
-                legend2.setElement(te, "R2", "C1");
-                legend = legend2;         
+            TableElement legend = this.legendBuilder.createLegend(this.plot,
+                    this.legendAnchor, this.legendOrientation);
+            if (legend != null) {
+                if (true) { // eval
+                    GridElement legend2 = new GridElement();
+                    legend2.setElement(legend, "R1", "C1");
+                    TextElement te = new TextElement("Orson Charts (evaluation) (c) 2013, by Object Refinery Limited", new Font("Dialog", Font.PLAIN, 10));
+                    te.setHorizontalAligment(HAlign.RIGHT);
+                    legend2.setElement(te, "R2", "C1");
+                    legend = legend2;         
+                }
+                Dimension2D legendSize = legend.preferredSize(g2, bounds);
+                Rectangle2D legendArea = calculateDrawArea(legendSize, 
+                        this.legendAnchor, bounds);
+                legend.draw(g2, legendArea);
             }
-            Dimension2D legendSize = legend.preferredSize(g2, bounds);
-            Rectangle2D legendArea = calculateDrawArea(legendSize, 
-                    this.legendAnchor, bounds);
-            legend.draw(g2, legendArea);
         }
 
         // draw the title...
@@ -1196,6 +1326,9 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
             return false;
         }
         if (!ObjectUtils.equals(this.legendBuilder, that.legendBuilder)) {
+            return false;
+        }
+        if (!this.renderingHints.equals(that.renderingHints)) {
             return false;
         }
         return true;
