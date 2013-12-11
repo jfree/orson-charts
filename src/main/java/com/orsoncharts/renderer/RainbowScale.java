@@ -48,7 +48,7 @@ public class RainbowScale extends AbstractColorScale implements ColorScale {
      * @param range  the range (<code>null</code> not permitted).
      */
     public RainbowScale(Range range) {
-        this(range, 255, BLUE_TO_RED_RANGE);
+        this(range, 256, BLUE_TO_RED_RANGE);
     }
     
     /**
@@ -97,7 +97,7 @@ public class RainbowScale extends AbstractColorScale implements ColorScale {
             return valueToColor(r.getMax());
         }
         double fraction = getRange().percent(value);
-        int i = (int) (fraction * this.colors.length);
+        int i = (int) (fraction * (this.colors.length - 1));
         if (this.colors[i] == null) {
             this.colors[i] = createRainbowColor(fraction);
         }
