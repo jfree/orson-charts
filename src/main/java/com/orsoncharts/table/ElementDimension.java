@@ -92,5 +92,15 @@ public final class ElementDimension extends Dimension2D
         }
         return true;
     }
-    
+ 
+    /**
+     * Returns a string representation of this dimension, primarily for
+     * debugging purposes.
+     * 
+     * @return A string. 
+     */
+    @Override
+    public String toString() {
+        return "ElementDimension(" + this.width + ", " + this.height + ")";
+    }
 }
