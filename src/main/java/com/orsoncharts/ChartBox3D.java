@@ -305,7 +305,7 @@ public class ChartBox3D {
         private List<TickData> zTicksB;
         
         /**
-         * Creates a new face for a {@link ChartBox}.
+         * Creates a new face for a {@link ChartBox3D}.
          * 
          * @param vertices  the indices of the vertices.
          * @param color  the color (<code>null</code> not permitted).
