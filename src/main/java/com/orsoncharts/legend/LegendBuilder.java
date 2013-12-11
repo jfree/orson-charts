@@ -12,6 +12,8 @@ import java.awt.Font;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.plot.Plot3D;
 import com.orsoncharts.table.TableElement;
+import com.orsoncharts.util.Anchor2D;
+import com.orsoncharts.util.Orientation;
 
 /**
  * A legend builder is responsible for creating a legend for a chart.  The API
@@ -30,13 +32,20 @@ import com.orsoncharts.table.TableElement;
 public interface LegendBuilder {
 
     /**
-     * Creates a legend for the specified plot.
+     * Creates a legend for the specified plot.  If this method returns 
+     * <code>null</code>, no legend will be displayed.
      * 
      * @param plot  the plot (<code>null</code> not permitted).
+     * @param anchor  the anchor (<code>null</code> not permitted).
+     * @param orientation  the legend orientation (<code>null</code> not 
+     *         permitted).
      * 
-     * @return A legend.
+     * @return A legend (possibly <code>null</code>).
+     * 
+     * @since 1.1
      */
-    TableElement createLegend(Plot3D plot);
+    TableElement createLegend(Plot3D plot, Anchor2D anchor, 
+            Orientation orientation);
 
     /**
      * Returns the font used for each item within the legend.
