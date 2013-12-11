@@ -29,7 +29,9 @@ public class Function3DUtils {
      * @param zRange  the z-range to sample (<code>null</code> not permitted).
      * @param xSamples  the number of x-samples (must be at least 2).
      * @param zSamples  the number of z-samples (must be at least 2).
-     * @return 
+     * 
+     * @return The range (<code>null</code> in the case that the function 
+     *     returns no valid values). 
      */
     public static Range findYRange(Function3D f, Range xRange, Range zRange, 
             int xSamples, int zSamples, boolean ignoreNaN) {
