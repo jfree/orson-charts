@@ -23,6 +23,7 @@ import com.orsoncharts.data.StandardPieDataset3D;
 import com.orsoncharts.data.PieDataset3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.legend.LegendAnchor;
+import com.orsoncharts.util.Orientation;
 
 /**
  * A demo showing a simple pie chart in 3D.
@@ -59,8 +60,8 @@ public class PieChart3DDemo1 extends JFrame {
                 "New Zealand Exports 2012", 
                 "http://www.stats.govt.nz/browse_for_stats/snapshots-of-nz/nz-in-profile-2013.aspx", createDataset());
         chart.setTitleAnchor(TitleAnchor.TOP_LEFT);
-        chart.setLegendAnchor(LegendAnchor.BOTTOM_RIGHT);
-        
+        chart.setLegendPosition(LegendAnchor.BOTTOM_CENTER,
+                Orientation.HORIZONTAL);
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
         chartPanel.setMargin(0.05);
         content.setChartPanel(chartPanel);
