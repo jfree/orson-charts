@@ -17,6 +17,7 @@ import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.renderer.AbstractRenderer3D;
 import com.orsoncharts.renderer.ComposeType;
+import com.orsoncharts.renderer.Renderer3DChangeEvent;
 import com.orsoncharts.util.ArgChecks;
 
 /**
@@ -60,7 +61,8 @@ public class AbstractXYZRenderer extends AbstractRenderer3D {
      * to compose one data item at a time into the 3D model.  Some renderers
      * will override this method to return <code>ALL</code>, which means the
      * renderer will compose all of the data items in one go (the plot calls
-     * the {@link composeAll} method to trigger this).
+     * the {@link #composeAll(XYZPlot, World, Dimension3D, double, double, double)} 
+     * method to trigger this).
      * 
      * @return The compose type (never <code>null</code>).
      * 
