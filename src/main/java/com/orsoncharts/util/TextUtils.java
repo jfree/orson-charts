@@ -174,7 +174,6 @@ public class TextUtils {
      * Returns the bounds for the specified text.
      *
      * @param text  the text (<code>null</code> not permitted).
-     * @param g2  the graphics context (not <code>null</code>).
      * @param fm  the font metrics (<code>null</code> not permitted).
      *
      * @return The text bounds.
