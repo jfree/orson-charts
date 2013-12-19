@@ -10,8 +10,6 @@ package com.orsoncharts.demo;
 
 import java.awt.Color;
 import java.awt.BorderLayout;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import com.orsoncharts.ChartPanel3D;
@@ -40,12 +38,7 @@ public class BarChart3DDemo1 extends JFrame {
      */
     public BarChart3DDemo1(String title) {
         super(title);
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                System.exit(0);
-            }
-        });
+        addWindowListener(new ExitOnClose());
         getContentPane().add(createDemoPanel());
     }
 
