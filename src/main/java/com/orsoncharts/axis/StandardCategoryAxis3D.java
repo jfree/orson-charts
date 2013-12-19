@@ -46,7 +46,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     private boolean visible;
     
     /** The categories. */
-    private List<Comparable> categories;
+    private List<Comparable<?>> categories;
   
     /** 
      * The axis range (never <code>null</code>). 
@@ -106,7 +106,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     public StandardCategoryAxis3D(String label) {
         super(label);
         this.visible = true;
-        this.categories = new ArrayList<Comparable>();
+        this.categories = new ArrayList<Comparable<?>>();
         this.range = new Range(0.0, 1.0);
         this.lowerMargin = 0.05;
         this.upperMargin = 0.05;
@@ -418,7 +418,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      * @return The value.
      */
     @Override
-    public double getCategoryValue(Comparable category) {
+    public double getCategoryValue(Comparable<?> category) {
         int index = this.categories.indexOf(category);
         if (index < 0) {
             return Double.NaN;
@@ -587,8 +587,8 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      */
     @Override
     public List<TickData> generateTickData() {
-        List<TickData> result = new ArrayList(this.categories.size());
-        for (Comparable key : this.categories) {
+        List<TickData> result = new ArrayList<TickData>(this.categories.size());
+        for (Comparable<?> key : this.categories) {
             double pos = this.range.percent(getCategoryValue(key));
             result.add(new TickData(pos, key));
         }
