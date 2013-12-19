@@ -42,8 +42,8 @@ public class GridElement extends AbstractTableElement implements TableElement,
      * @param rowKey  the row key (<code>null</code> not permitted).
      * @param columnKey  the column key (<code>null</code> not permitted).
      */
-    public void setElement(TableElement element, Comparable rowKey, 
-            Comparable columnKey) {
+    public void setElement(TableElement element, Comparable<?> rowKey, 
+            Comparable<?> columnKey) {
         // defer argument checking
         this.elements.setValue(element, rowKey, columnKey);
     }
