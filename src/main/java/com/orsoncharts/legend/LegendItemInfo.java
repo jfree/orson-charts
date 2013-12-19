@@ -26,7 +26,7 @@ public interface LegendItemInfo {
      * 
      * @return The series key (never <code>null</code>). 
      */
-    Comparable getSeriesKey();
+    Comparable<?> getSeriesKey();
     
     /**
      * Returns the series label that will be displayed in the legend.  Very
