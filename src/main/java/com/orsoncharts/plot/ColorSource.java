@@ -28,7 +28,7 @@ public interface ColorSource {
      * 
      * @return The color.
      */
-    Color getColor(Comparable key);
+    Color getColor(Comparable<?> key);
     
     /**
      * Sets the color associated with the specified key.  If the supplied
@@ -38,7 +38,7 @@ public interface ColorSource {
      * @param key  the key (<code>null</code> not permitted).
      * @param color  the color (<code>null</code> permitted).
      */
-    void setColor(Comparable key, Color color);
+    void setColor(Comparable<?> key, Color color);
     
 }
 
