@@ -72,7 +72,7 @@ public final class StandardColorSource implements ColorSource,
      * @return The color (never <code>null</code>). 
      */
     @Override
-    public Color getColor(Comparable key) {
+    public Color getColor(Comparable<?> key) {
         // defer argument check
         Color c = this.colors.getValue(key);
         if (c != null) {
@@ -91,7 +91,7 @@ public final class StandardColorSource implements ColorSource,
      * @param color  the color (<code>null</code> permitted).
      */
     @Override
-    public void setColor(Comparable key, Color color) {
+    public void setColor(Comparable<?> key, Color color) {
         if (color != null) {
             this.colors.put(key, color);
         } else {
