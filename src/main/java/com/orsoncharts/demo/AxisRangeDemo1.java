@@ -11,8 +11,6 @@ package com.orsoncharts.demo;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.awt.FlowLayout;
 import java.awt.LayoutManager;
 import javax.swing.JLabel;
@@ -79,12 +77,7 @@ public class AxisRangeDemo1 extends JFrame {
      */
     public AxisRangeDemo1(String title) {
         super(title);
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                System.exit(0);
-            }
-        });
+        addWindowListener(new ExitOnClose());
         getContentPane().add(createDemoPanel());
     }
 
