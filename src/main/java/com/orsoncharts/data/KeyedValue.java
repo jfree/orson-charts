@@ -20,7 +20,7 @@ public interface KeyedValue<T> {
      * 
      * @return The key (never <code>null</code>). 
      */
-    public Comparable getKey();
+    public Comparable<?> getKey();
   
     /**
      * Returns the value.
