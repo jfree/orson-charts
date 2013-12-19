@@ -9,8 +9,6 @@
 package com.orsoncharts.demo;
 
 import java.awt.BorderLayout;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,12 +40,7 @@ public class ViewPoint3DDemo extends JFrame {
      */
     public ViewPoint3DDemo(String title) {
         super(title);
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                System.exit(0);
-            }
-        });
+        addWindowListener(new ExitOnClose());
         getContentPane().add(createDemoPanel());
     }
 
