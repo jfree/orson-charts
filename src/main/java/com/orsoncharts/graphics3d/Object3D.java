@@ -34,8 +34,8 @@ public class Object3D {
      * Creates a new object, initially with no vertices or faces.
      */
     public Object3D() {
-        this.vertices = new java.util.ArrayList();
-        this.faces = new java.util.ArrayList();
+        this.vertices = new java.util.ArrayList<Point3D>();
+        this.faces = new java.util.ArrayList<Face>();
     }
 
     /**
@@ -129,7 +129,7 @@ public class Object3D {
      * given viewpoint.
      *
      * @param viewPoint  the view point (<code>null</code> not permitted).
-     * @param d
+     * @param d  the distance.
      *
      * @return The projected points.
      */
