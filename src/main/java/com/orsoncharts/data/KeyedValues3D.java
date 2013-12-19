@@ -24,7 +24,7 @@ public interface KeyedValues3D<T> extends Values3D {
      * @return A list of the series keys (possibly empty, but never 
      *     <code>null</code>). 
      */
-    List<Comparable> getSeriesKeys();
+    List<Comparable<?>> getSeriesKeys();
 
     /**
      * Returns a list of the row keys for the dataset.  Modifying this
@@ -33,7 +33,7 @@ public interface KeyedValues3D<T> extends Values3D {
      * @return A list of the row keys (possibly empty, but never 
      *     <code>null</code>). 
      */
-    List<Comparable> getRowKeys();
+    List<Comparable<?>> getRowKeys();
     
     /**
      * Returns a list of the column keys for the dataset.  Modifying this
@@ -42,7 +42,7 @@ public interface KeyedValues3D<T> extends Values3D {
      * @return A list of the column keys (possibly empty, but never 
      *     <code>null</code>). 
      */
-    List<Comparable> getColumnKeys();
+    List<Comparable<?>> getColumnKeys();
     
     /**
      * Returns the series key with the specified index.
@@ -51,7 +51,7 @@ public interface KeyedValues3D<T> extends Values3D {
      * 
      * @return The key. 
      */
-    Comparable getSeriesKey(int seriesIndex);
+    Comparable<?> getSeriesKey(int seriesIndex);
 
     /**
      * Returns the row key with the specified index.
@@ -60,7 +60,7 @@ public interface KeyedValues3D<T> extends Values3D {
      * 
      * @return The key. 
      */    
-    Comparable getRowKey(int rowIndex);
+    Comparable<?> getRowKey(int rowIndex);
 
     /**
      * Returns the column key with the specified index.
@@ -69,7 +69,7 @@ public interface KeyedValues3D<T> extends Values3D {
      * 
      * @return The key. 
      */    
-    Comparable getColumnKey(int columnIndex);
+    Comparable<?> getColumnKey(int columnIndex);
 
     /**
      * Returns the index of the specified series key, or <code>-1</code> if
@@ -79,7 +79,7 @@ public interface KeyedValues3D<T> extends Values3D {
      * 
      * @return The key index, or <code>-1</code>. 
      */
-    int getSeriesIndex(Comparable serieskey);
+    int getSeriesIndex(Comparable<?> serieskey);
 
     /**
      * Returns the index of the specified row key, or <code>-1</code> if there
@@ -89,7 +89,7 @@ public interface KeyedValues3D<T> extends Values3D {
      * 
      * @return The row index or <code>-1</code>. 
      */
-    int getRowIndex(Comparable rowkey);
+    int getRowIndex(Comparable<?> rowkey);
 
     /**
      * Returns the index of the specified column key, or <code>-1</code> if 
@@ -99,7 +99,7 @@ public interface KeyedValues3D<T> extends Values3D {
      * 
      * @return The column index or <code>-1</code>. 
      */
-    int getColumnIndex(Comparable columnkey);
+    int getColumnIndex(Comparable<?> columnkey);
 
     /**
      * Returns the value for a given series, row and column.
@@ -110,6 +110,7 @@ public interface KeyedValues3D<T> extends Values3D {
      * 
      * @return The value (possibly <code>null</code>).
      */
-    T getValue(Comparable seriesKey, Comparable rowKey, Comparable columnKey);
+    T getValue(Comparable<?> seriesKey, Comparable<?> rowKey, 
+            Comparable<?> columnKey);
     
 }
