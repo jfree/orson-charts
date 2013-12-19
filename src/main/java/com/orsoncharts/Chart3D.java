@@ -22,6 +22,8 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -733,7 +735,7 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
             XYZPlot xp = (XYZPlot) plot;
             return xp.getXAxis().generateTickData(tickUnit);
         }
-        return new ArrayList<TickData>(); 
+        return Collections.EMPTY_LIST;
     }
 
     /**
@@ -1040,7 +1042,7 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
             if (Utils2D.area2(ppts[f.getVertexIndex(0)], 
                     ppts[f.getVertexIndex(1)], 
                     ppts[f.getVertexIndex(2)]) > 0) {
-                Comparable key = p.getDataset().getKey(i / 2);
+                Comparable<?> key = p.getDataset().getKey(i / 2);
                 g2.setColor(p.getSectionLabelColorSource().getColor(key));
                 g2.setFont(p.getSectionLabelFontSource().getFont(key));
                 Point2D pt = Utils2D.centerPoint(ppts[f.getVertexIndex(0)], 
@@ -1142,16 +1144,16 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
             }
 
             if (count(b, e) == 1 && longest(be, bf, df, de)) {
-                ytick = ((ValueAxis3D) yAxis).selectTick(g2, v0, v3, v7);
+                ytick = yAxis.selectTick(g2, v0, v3, v7);
             }
             if (count(b, f) == 1 && longest(bf, be, df, de)) {
-                ytick = ((ValueAxis3D) yAxis).selectTick(g2, v1, v2, v4);
+                ytick = yAxis.selectTick(g2, v1, v2, v4);
             }
             if (count(d, f) == 1 && longest(df, be, bf, de)) {
-                ytick = ((ValueAxis3D) yAxis).selectTick(g2, v6, v7, v0);
+                ytick = yAxis.selectTick(g2, v6, v7, v0);
             }
             if (count(d, e) == 1 && longest(de, be, bf, df)) {
-                ytick = ((ValueAxis3D) yAxis).selectTick(g2, v5, v4, v1);
+                ytick = yAxis.selectTick(g2, v5, v4, v1);
             }
 
             if (count(a, e) == 1 && longest(ae, af, cf, ce)) {
@@ -1326,6 +1328,12 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
             return false;
         }
         if (!ObjectUtils.equals(this.legendBuilder, that.legendBuilder)) {
+            return false;
+        }
+        if (!this.legendAnchor.equals(that.legendAnchor)) {
+            return false;
+        }
+        if (this.legendOrientation != that.legendOrientation) {
             return false;
         }
         if (!this.renderingHints.equals(that.renderingHints)) {
@@ -1509,4 +1517,27 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
         notifyListeners(new Chart3DChangeEvent(this, this));
     }
 
+    /**
+     * Provides serialization support.
+     *
+     * @param stream  the input stream.
+     *
+     * @throws IOException  if there is an I/O error.
+     * @throws ClassNotFoundException  if there is a classpath problem.
+     */
+    private void readObject(ObjectInputStream stream)
+            throws IOException, ClassNotFoundException {
+        stream.defaultReadObject();
+        // recreate an empty listener list
+        this.listenerList = new EventListenerList();
+        this.plot.addChangeListener(this);
+        // RenderingHints is not easily serialized, so we just put back the
+        // defaults...
+        this.renderingHints = new RenderingHints(
+                RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        this.renderingHints.put(RenderingHints.KEY_TEXT_ANTIALIASING,
+                RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+                
+    }
 }
