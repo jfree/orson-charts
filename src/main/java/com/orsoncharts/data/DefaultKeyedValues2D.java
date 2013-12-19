@@ -17,14 +17,14 @@ import com.orsoncharts.util.ArgChecks;
  * A two dimensional grid of (typically numerical) data that is accessible by 
  * row and column keys.
  */
-public final class DefaultKeyedValues2D<T> implements KeyedValues2D, 
+public final class DefaultKeyedValues2D<T> implements KeyedValues2D<T>, 
         Serializable {
 
     /** The x-keys. */
-    List<Comparable> xKeys;
+    List<Comparable<?>> xKeys;
     
     /** The y-keys. */
-    List<Comparable> yKeys;
+    List<Comparable<?>> yKeys;
     
     /** The data values. */
     List<DefaultKeyedValues<T>> data;  // one entry per xKey
@@ -33,7 +33,7 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D,
      * Creates a new (empty) instance.
      */
     public DefaultKeyedValues2D() {
-        this(new ArrayList<Comparable>(), new ArrayList<Comparable>());
+        this(new ArrayList<Comparable<?>>(), new ArrayList<Comparable<?>>());
     }
     
     /**
@@ -43,14 +43,14 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D,
      * @param xKeys  the xKeys (<code>null</code> not permitted).
      * @param yKeys  the yKeys (<code>null</code> not permitted).
      */
-    public DefaultKeyedValues2D(List<Comparable> xKeys, 
-            List<Comparable> yKeys) {
+    public DefaultKeyedValues2D(List<Comparable<?>> xKeys, 
+            List<Comparable<?>> yKeys) {
         ArgChecks.nullNotPermitted(xKeys, "xKeys");
         ArgChecks.nullNotPermitted(yKeys, "yKeys");
-        this.xKeys = new ArrayList<Comparable>(xKeys);
-        this.yKeys = new ArrayList<Comparable>(yKeys);
+        this.xKeys = new ArrayList<Comparable<?>>(xKeys);
+        this.yKeys = new ArrayList<Comparable<?>>(yKeys);
         this.data = new ArrayList<DefaultKeyedValues<T>>();    
-        for (Comparable c : xKeys) {
+        for (Comparable<?> c : xKeys) {
             this.data.add(new DefaultKeyedValues<T>(yKeys));
         }
     }
@@ -63,7 +63,7 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D,
      * @return The key. 
      */
     @Override
-    public Comparable getXKey(int xIndex) {
+    public Comparable<?> getXKey(int xIndex) {
         return this.xKeys.get(xIndex);
     }
 
@@ -75,7 +75,7 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D,
      * @return The key. 
      */
     @Override
-    public Comparable getYKey(int yIndex) {
+    public Comparable<?> getYKey(int yIndex) {
         return this.yKeys.get(yIndex);
     }
 
@@ -87,7 +87,7 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D,
      * @return The index. 
      */
     @Override
-    public int getXIndex(Comparable xkey) {
+    public int getXIndex(Comparable<?> xkey) {
         ArgChecks.nullNotPermitted(xkey, "xkey");
         return this.xKeys.indexOf(xkey);
     }
@@ -100,7 +100,7 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D,
      * @return The index. 
      */
     @Override
-    public int getYIndex(Comparable ykey) {
+    public int getYIndex(Comparable<?> ykey) {
         ArgChecks.nullNotPermitted(ykey, "ykey");
         return this.yKeys.indexOf(ykey);
     }
@@ -111,8 +111,8 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D,
      * @return A copy of the list of xKeys (never <code>null</code>). 
      */
     @Override
-    public List<Comparable> getXKeys() {
-        return new ArrayList<Comparable>(this.xKeys);
+    public List<Comparable<?>> getXKeys() {
+        return new ArrayList<Comparable<?>>(this.xKeys);
     }
 
     /**
@@ -121,8 +121,8 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D,
      * @return A copy of the list of y-keys (never <code>null</code>). 
      */
     @Override
-    public List<Comparable> getYKeys() {
-        return new ArrayList<Comparable>(this.yKeys);
+    public List<Comparable<?>> getYKeys() {
+        return new ArrayList<Comparable<?>>(this.yKeys);
     }
 
     /**
@@ -154,7 +154,7 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D,
      * @return The value (possibly <code>null</code>).
      */
     @Override
-    public T getValue(Comparable xKey, Comparable yKey) {
+    public T getValue(Comparable<?> xKey, Comparable<?> yKey) {
         // arg checking is handled in getXIndex() and getYIndex()
         int xIndex = getXIndex(xKey);
         int yIndex = getYIndex(yKey);
@@ -200,14 +200,14 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D,
      * @param xKey  the x-key (<code>null</code> not permitted).
      * @param yKey  the y-key (<code>null</code> not permitted).
      */
-    public void setValue(T n, Comparable xKey, Comparable yKey) {
+    public void setValue(T n, Comparable<?> xKey, Comparable<?> yKey) {
         ArgChecks.nullNotPermitted(xKey, "xKey");
         ArgChecks.nullNotPermitted(yKey, "yKey");
         
         if (this.data.isEmpty()) {  // 1. no data - just add one new entry
             this.xKeys.add(xKey);
             this.yKeys.add(yKey);
-            DefaultKeyedValues dkvs = new DefaultKeyedValues<T>();
+            DefaultKeyedValues<T> dkvs = new DefaultKeyedValues<T>();
             dkvs.put(yKey, n);
             this.data.add(dkvs);
         } else {
@@ -222,7 +222,7 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D,
                     // 3.  xKey exists, but yKey does not (add the yKey to 
                     //     each series)
                     this.yKeys.add(yKey);
-                    for (DefaultKeyedValues kv : this.data) {
+                    for (DefaultKeyedValues<T> kv : this.data) {
                         kv.put(yKey, null);
                     }
                     dkvs.put(yKey, n);
@@ -231,7 +231,7 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D,
                 if (yIndex >= 0) {
                     // 4.  xKey does not exist, but yKey does
                     this.xKeys.add(xKey);
-                    DefaultKeyedValues d = new DefaultKeyedValues<T>(
+                    DefaultKeyedValues<T> d = new DefaultKeyedValues<T>(
                             this.yKeys);
                     d.put(yKey, n);
                     this.data.add(d);
@@ -260,7 +260,7 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D,
         if (!(obj instanceof DefaultKeyedValues2D)) {
             return false;
         }
-        DefaultKeyedValues2D that = (DefaultKeyedValues2D) obj;
+        DefaultKeyedValues2D<?> that = (DefaultKeyedValues2D<?>) obj;
         if (!this.xKeys.equals(that.xKeys)) {
             return false;
         }
