@@ -80,17 +80,22 @@ public class ChartBox3D {
     }
     
     /**
+     * Creates a new chart box with the specified attributes.
      * 
-     * @param xLength
-     * @param yLength
-     * @param zLength
-     * @param xOffset
-     * @param yOffset
-     * @param zOffset
-     * @param color
-     * @param xTicks  tick data for the x-axis.
-     * @param yTicks  tick data for the y-axis.
-     * @param zTicks  tick data for the z-axis.
+     * @param xLength  the length of the box along the x-axis.
+     * @param yLength  the length of the box along the y-axis.
+     * @param zLength  the length of the box along the z-axis.
+     * @param xOffset  the x-offset.
+     * @param yOffset  the y-offset.
+     * @param zOffset  the z-offset
+     * @param color  the color for the sides of the box (<code>null</code>
+     *     not permitted).
+     * @param xTicks  tick data for the x-axis (<code>null</code> not 
+     *     permitted).
+     * @param yTicks  tick data for the y-axis (<code>null</code> not 
+     *     permitted).
+     * @param zTicks  tick data for the z-axis (<code>null</code> not 
+     *     permitted).
      * 
      * @since 1.1
      */
@@ -99,6 +104,9 @@ public class ChartBox3D {
             List<TickData> xTicks, List<TickData> yTicks, 
             List<TickData> zTicks) {
         ArgChecks.nullNotPermitted(color, "color");
+        ArgChecks.nullNotPermitted(xTicks, "xTicks");
+        ArgChecks.nullNotPermitted(yTicks, "yTicks");
+        ArgChecks.nullNotPermitted(zTicks, "zTicks");
         this.xLength = xLength;
         this.yLength = yLength;
         this.zLength = zLength;
@@ -340,8 +348,8 @@ public class ChartBox3D {
         /**
          * Adds tick data for edges A and B.
          * 
-         * @param a
-         * @param b 
+         * @param a  data for a tick on edge A.
+         * @param b  data for a tick on edge B.
          */
         public void addXTicks(TickData a, TickData b) {
             this.xTicksA.add(a);
