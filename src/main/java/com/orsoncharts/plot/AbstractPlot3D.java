@@ -8,6 +8,8 @@
 
 package com.orsoncharts.plot;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
 import javax.swing.event.EventListenerList;
 
@@ -204,4 +206,18 @@ public abstract class AbstractPlot3D implements Plot3D,
         notifyListeners(new Plot3DChangeEvent(event, this));
     }
     
+    /**
+     * Provides serialization support.
+     *
+     * @param stream  the input stream.
+     *
+     * @throws IOException  if there is an I/O error.
+     * @throws ClassNotFoundException  if there is a classpath problem.
+     */
+    private void readObject(ObjectInputStream stream)
+            throws IOException, ClassNotFoundException {
+        stream.defaultReadObject();
+        // recreate an empty listener list
+        this.listenerList = new EventListenerList();
+    }
 }
