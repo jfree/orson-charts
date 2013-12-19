@@ -143,7 +143,10 @@ public class Panel3D extends JPanel implements MouseListener,
     }
     
     /**
-     * Returns the minimum viewing distance.
+     * Returns the minimum viewing distance.  Zooming by mouse wheel or other
+     * means will not move the viewing point closer than this.
+     * 
+     * @return The minimum viewing distance.
      */
     public float getMinViewingDistance() {
         return this.minViewingDistance;
