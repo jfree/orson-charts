@@ -9,8 +9,6 @@ package com.orsoncharts.demo;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import com.orsoncharts.ChartPanel3D;
@@ -37,12 +35,7 @@ public class SurfaceRendererDemo1 extends JFrame {
      */
     public SurfaceRendererDemo1(String title) {
         super(title);
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                System.exit(0);
-            }
-        });
+        addWindowListener(new ExitOnClose());
         getContentPane().add(createDemoPanel());
     }
 
