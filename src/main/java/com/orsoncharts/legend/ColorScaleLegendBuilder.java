@@ -190,4 +190,31 @@ public class ColorScaleLegendBuilder implements LegendBuilder, Serializable {
                 this.barLength, this.itemFont);
     }
 
+    /**
+     * Tests this builder for equality with an arbitrary object.
+     * 
+     * @param obj  the object (<code>null</code> permitted).
+     * 
+     * @return A boolean. 
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof ColorScaleLegendBuilder)) {
+            return false;
+        }
+        ColorScaleLegendBuilder that = (ColorScaleLegendBuilder) obj;
+        if (this.barWidth != that.barWidth) {
+            return false;
+        }
+        if (this.barLength != that.barLength) {
+            return false;
+        }
+        if (!this.itemFont.equals(that.itemFont)) {
+            return false;
+        }
+        return true;
+    }
 }
