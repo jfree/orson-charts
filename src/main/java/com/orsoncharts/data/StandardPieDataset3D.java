@@ -48,7 +48,7 @@ public final class StandardPieDataset3D extends AbstractDataset3D
      * @return The key. 
      */
     @Override
-    public Comparable getKey(int item) {
+    public Comparable<?> getKey(int item) {
         return this.data.getKey(item);
     }
 
@@ -61,7 +61,7 @@ public final class StandardPieDataset3D extends AbstractDataset3D
      * @return The item index, or <code>-1</code>. 
      */
     @Override
-    public int getIndex(Comparable key) {
+    public int getIndex(Comparable<?> key) {
         return this.data.getIndex(key);
     }
 
@@ -86,7 +86,7 @@ public final class StandardPieDataset3D extends AbstractDataset3D
      * @return The value (possibly <code>null</code>). 
      */
     @Override
-    public Number getValue(Comparable key) {
+    public Number getValue(Comparable<?> key) {
         return this.data.getValue(key);
     }
 
@@ -98,7 +98,7 @@ public final class StandardPieDataset3D extends AbstractDataset3D
      * @param key  the key (<code>null</code> not permitted).
      * @param value  the value.
      */
-    public void add(Comparable key, double value) {
+    public void add(Comparable<?> key, double value) {
         add(key, Double.valueOf(value));
     }
     
@@ -110,7 +110,7 @@ public final class StandardPieDataset3D extends AbstractDataset3D
      * @param key  the key (<code>null</code> not permitted).
      * @param value  the value (<code>null</code> permitted).
      */
-    public void add(Comparable key, Number value) {
+    public void add(Comparable<?> key, Number value) {
         ArgChecks.nullNotPermitted(key, "key");
         this.data.put(key, value);
         fireDatasetChanged();
@@ -123,7 +123,7 @@ public final class StandardPieDataset3D extends AbstractDataset3D
      * @return A list of keys (possibly empty, but never <code>null</code>).
      */
     @Override
-    public List<Comparable> getKeys() {
+    public List<Comparable<?>> getKeys() {
         return this.data.getKeys();
     }
 
