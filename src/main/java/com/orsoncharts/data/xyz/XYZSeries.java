@@ -21,7 +21,7 @@ import com.orsoncharts.util.ArgChecks;
 public class XYZSeries implements Serializable {
 
     /** The series key (never <code>null</code>). */
-    private Comparable key;
+    private Comparable<?> key;
 
     /** The data items in the series. */
     private List<XYZDataItem> items;
@@ -31,7 +31,7 @@ public class XYZSeries implements Serializable {
      * 
      * @param key  the key (<code>null</code> not permitted). 
      */
-    public XYZSeries(Comparable key) {
+    public XYZSeries(Comparable<?> key) {
         ArgChecks.nullNotPermitted(key, "key");
         this.key = key;
         this.items = new ArrayList<XYZDataItem>();
@@ -42,7 +42,7 @@ public class XYZSeries implements Serializable {
      * 
      * @return The series key (never <code>null</code>). 
      */
-    public Comparable getKey() {
+    public Comparable<?> getKey() {
         return this.key;
     }
     
