@@ -9,8 +9,6 @@
 package com.orsoncharts.demo;
 
 import java.awt.BorderLayout;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -37,12 +35,7 @@ public class XYZBarChart3DDemo1 extends JFrame {
      */
     public XYZBarChart3DDemo1(String title) {
         super(title);
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                System.exit(0);
-            }
-        });
+        addWindowListener(new ExitOnClose());
         getContentPane().add(createDemoPanel());
     }
 
