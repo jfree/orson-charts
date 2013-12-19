@@ -20,7 +20,7 @@ import com.orsoncharts.util.ArgChecks;
 public class StandardLegendItemInfo implements LegendItemInfo {
 
     /** The series key. */
-    private Comparable seriesKey;
+    private Comparable<?> seriesKey;
     
     /** The series label. */
     private String label;
@@ -44,7 +44,7 @@ public class StandardLegendItemInfo implements LegendItemInfo {
      * @param label  the label (<code>null</code> not permitted).
      * @param paint  the paint (<code>null</code> not permitted).
      */
-    public StandardLegendItemInfo(Comparable seriesKey, String label, 
+    public StandardLegendItemInfo(Comparable<?> seriesKey, String label, 
             Paint paint) {
         this(seriesKey, label, null, paint, null);
     }
@@ -58,7 +58,7 @@ public class StandardLegendItemInfo implements LegendItemInfo {
      * @param paint  the paint (<code>null</code> not permitted).
      * @param shape the shape (<code>null</code> permitted).
      */
-    public StandardLegendItemInfo(Comparable seriesKey, String label, 
+    public StandardLegendItemInfo(Comparable<?> seriesKey, String label, 
             String description, Paint paint, Shape shape) {
         ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
         ArgChecks.nullNotPermitted(label, "label");
@@ -77,7 +77,7 @@ public class StandardLegendItemInfo implements LegendItemInfo {
      * @return The series key (never <code>null</code>). 
      */
     @Override
-    public Comparable getSeriesKey() {
+    public Comparable<?> getSeriesKey() {
         return this.seriesKey;
     }
 
