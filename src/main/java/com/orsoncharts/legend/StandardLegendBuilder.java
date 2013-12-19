@@ -157,7 +157,7 @@ public final class StandardLegendBuilder implements LegendBuilder,
     /**
      * Returns the header alignment.
      * 
-     * @return The header alignment (never </code>null</code>).
+     * @return The header alignment (never <code>null</code>).
      */
     public HAlign getHeaderAlignment() {
         return this.headerAlignment;
@@ -213,7 +213,7 @@ public final class StandardLegendBuilder implements LegendBuilder,
     /**
      * Returns the footer alignment.
      * 
-     * @return The footer alignment (never </code>null</code>).
+     * @return The footer alignment (never <code>null</code>).
      */
     public HAlign getFooterAlignment() {
         return this.footerAlignment;
