@@ -122,7 +122,7 @@ public class World {
      * objects in the world.
      * 
      * @param vp  the view point (<code>null</code> not permitted).
-     * @param d
+     * @param d  the distance.
      * 
      * @return The projected points.
      */
