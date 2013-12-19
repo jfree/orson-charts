@@ -62,8 +62,13 @@ public interface CategoryAxis3D extends Axis3D {
      * 
      * @return The axis value. 
      */
-    double getCategoryValue(Comparable category);
+    double getCategoryValue(Comparable<?> category);
     
+    /**
+     * Generates the tick data for the axis.
+     * 
+     * @return The tick data.
+     */
     List<TickData> generateTickData();
 
 }
