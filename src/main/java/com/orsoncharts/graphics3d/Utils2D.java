@@ -131,7 +131,8 @@ public class Utils2D {
      * line.
      * 
      * @param line  the reference line (<code>null</code> not permitted).
-     * @param pt1
+     * @param pt1  a point on the reference line (<code>null</code> not 
+     *     permitted).
      * @param size  the length of the new line.
      * @param opposingPoint  an opposing point, to define which side of the 
      *     reference line the perpendicular line will extend (<code>null</code> 
