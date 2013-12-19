@@ -294,8 +294,8 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
         double vtop = range.peggedValue(vhigh);
         boolean inverted = barBase > value;
         
-        Comparable rowKey = dataset.getRowKey(row);
-        Comparable columnKey = dataset.getColumnKey(column);
+        Comparable<?> rowKey = dataset.getRowKey(row);
+        Comparable<?> columnKey = dataset.getColumnKey(column);
         double rowValue = rowAxis.getCategoryValue(rowKey);
         double columnValue = columnAxis.getCategoryValue(columnKey);
 
