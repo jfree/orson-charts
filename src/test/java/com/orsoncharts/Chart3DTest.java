@@ -24,7 +24,9 @@ import com.orsoncharts.data.DefaultKeyedValues;
 import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.data.xyz.XYZSeries;
 import com.orsoncharts.data.xyz.XYZSeriesCollection;
+import com.orsoncharts.legend.LegendAnchor;
 import com.orsoncharts.legend.StandardLegendBuilder;
+import com.orsoncharts.util.Orientation;
 
 /**
  * Tests for the {@link Chart3D} class.
@@ -70,6 +72,18 @@ public class Chart3DTest {
         c1.setLegendBuilder(null);
         assertFalse(c1.equals(c2));
         c2.setLegendBuilder(null);
+        assertTrue(c1.equals(c2));
+        
+        // legend anchor
+        c1.setLegendAnchor(LegendAnchor.CENTER_LEFT);
+        assertFalse(c1.equals(c2));
+        c2.setLegendAnchor(LegendAnchor.CENTER_LEFT);
+        assertTrue(c1.equals(c2));
+
+        // legend orientation
+        c1.setLegendOrientation(Orientation.VERTICAL);
+        assertFalse(c1.equals(c2));
+        c2.setLegendOrientation(Orientation.VERTICAL);
         assertTrue(c1.equals(c2));
         
         StandardLegendBuilder slb1 = new StandardLegendBuilder();
@@ -169,6 +183,26 @@ public class Chart3DTest {
                 createXYZDataset(), "rowAxis", "columnAxis", "valueAxis");
         Chart3D c2 = (Chart3D) TestUtils.serialized(c1);
         assertEquals(c1, c2);
+    }
+    
+    /**
+     * After deserializing, check that we can still register listeners.
+     */
+    @Test
+    public void testListenerStorageAfterDeserialization() {
+        Chart3D c1 = Chart3DFactory.createPieChart("title", "subtitle", 
+                createPieDataset());
+        Chart3D c2 = (Chart3D) TestUtils.serialized(c1);
+        assertEquals(c1, c2);
+        
+        c2.addChangeListener(new Chart3DChangeListener() {
+
+            @Override
+            public void chartChanged(Chart3DChangeEvent event) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        });
+        
     }
 
     private PieDataset3D createPieDataset() {
