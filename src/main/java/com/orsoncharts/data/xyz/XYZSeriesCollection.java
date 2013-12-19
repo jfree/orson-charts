@@ -53,7 +53,7 @@ public class XYZSeriesCollection extends AbstractDataset3D
      * @return The series index or <code>-1</code>. 
      */
     @Override
-    public int getSeriesIndex(Comparable key) {
+    public int getSeriesIndex(Comparable<?> key) {
         ArgChecks.nullNotPermitted(key, "key");
         return getSeriesKeys().indexOf(key);
     }
@@ -66,8 +66,8 @@ public class XYZSeriesCollection extends AbstractDataset3D
      *     <code>null</code>).
      */
     @Override
-    public List<Comparable> getSeriesKeys() {
-        List<Comparable> result = new ArrayList();
+    public List<Comparable<?>> getSeriesKeys() {
+        List<Comparable<?>> result = new ArrayList<Comparable<?>>();
         for (XYZSeries s : this.series) {
             result.add(s.getKey());
         }
