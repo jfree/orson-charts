@@ -153,6 +153,7 @@ public class SurfaceRenderer extends AbstractXYZRenderer implements XYZRenderer,
      * 
      * @return The color scale (never <code>null</code>). 
      */
+    @Override
     public ColorScale getColorScale() {
         return this.colorScale;
     }
@@ -464,14 +465,14 @@ public class SurfaceRenderer extends AbstractXYZRenderer implements XYZRenderer,
      * Throws an <code>UnsupportedOperationException</code> because this 
      * renderer does not support per-item rendering.
      * 
-     * @param dataset
-     * @param series
-     * @param item
-     * @param world
-     * @param dimensions
-     * @param xOffset
-     * @param yOffset
-     * @param zOffset 
+     * @param dataset the dataset (<code>null</code> not permitted).
+     * @param series  the series index.
+     * @param item  the item index.
+     * @param world  the world (<code>null</code> not permitted).
+     * @param dimensions  the dimensions (<code>null</code> not permitted).
+     * @param xOffset  the x-offset.
+     * @param yOffset  the y-offset.
+     * @param zOffset  the z-offset.
      */
     @Override
     public void composeItem(XYZDataset dataset, int series, int item, 
@@ -532,6 +533,7 @@ public class SurfaceRenderer extends AbstractXYZRenderer implements XYZRenderer,
      * 
      * @return A boolean. 
      */
+    @Override
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;
