@@ -735,7 +735,7 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
             XYZPlot xp = (XYZPlot) plot;
             return xp.getXAxis().generateTickData(tickUnit);
         }
-        return Collections.EMPTY_LIST;
+        return Collections.emptyList();
     }
 
     /**
@@ -758,7 +758,7 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
             XYZPlot xp = (XYZPlot) plot;
             return xp.getYAxis().generateTickData(tickUnit);
         }
-        return new ArrayList<TickData>(); 
+        return Collections.emptyList(); 
     }
 
     /**
@@ -782,7 +782,7 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
             XYZPlot xp = (XYZPlot) plot;
             return xp.getZAxis().generateTickData(tickUnit);
         }
-        return new ArrayList<TickData>(); 
+        return Collections.emptyList(); 
     }
     
     /**
