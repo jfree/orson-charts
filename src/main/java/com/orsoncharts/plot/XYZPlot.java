@@ -455,8 +455,8 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
     @Override
     public List<LegendItemInfo> getLegendInfo() {
         List<LegendItemInfo> result = new ArrayList<LegendItemInfo>();
-        List<Comparable> keys = this.dataset.getSeriesKeys();
-        for (Comparable key : keys) {
+        List<Comparable<?>> keys = this.dataset.getSeriesKeys();
+        for (Comparable<?> key : keys) {
             int series = this.dataset.getSeriesIndex(key);
             Color color = this.renderer.getColorSource().getLegendColor(series);
             LegendItemInfo info = new StandardLegendItemInfo(key, 
@@ -479,7 +479,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
     @Override
     public void compose(World world, double xOffset, double yOffset, 
             double zOffset) {
-            if (this.renderer.getComposeType() == ComposeType.ALL) {
+        if (this.renderer.getComposeType() == ComposeType.ALL) {
             this.renderer.composeAll(this, world, this.dimensions, xOffset, 
                     yOffset, zOffset);
         } else if (this.renderer.getComposeType() == ComposeType.PER_ITEM) {
