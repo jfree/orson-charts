@@ -169,18 +169,18 @@ public class ColorScaleLegendBuilder implements LegendBuilder, Serializable {
                 renderer = (ColorScaleRenderer) r;
             }
         }
+        if (renderer == null) {
+            return null;
+        }
         // it doesn't make much sense to display a color scale legend for a
         // FixedColorScale so we check for that and ignore it (unless the
         // developer switched the ignoreFixedColorScale flag, in which case
         // you can have your legend)...
-        if (this.ignoreFixedColorScale && renderer instanceof FixedColorScale) {
+        if (this.ignoreFixedColorScale 
+                && renderer.getColorScale() instanceof FixedColorScale) {
             return null;
         }
-        if (renderer != null) {
-            return createColorScaleLegend(renderer, orientation);  
-        } else {
-            return null;
-        }
+        return createColorScaleLegend(renderer, orientation);  
     }
 
     private TableElement createColorScaleLegend(ColorScaleRenderer r, 
