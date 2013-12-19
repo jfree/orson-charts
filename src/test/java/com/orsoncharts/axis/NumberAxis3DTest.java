@@ -149,9 +149,9 @@ public class NumberAxis3DTest implements Axis3DChangeListener {
         axis2.setRange(new Range(1, 2));
         assertEquals(axis1, axis2);
 
-        axis1.setAutoAdjustRange(false);
+        axis1.setAutoAdjustRange(true);
         assertFalse(axis1.equals(axis2));
-        axis2.setAutoAdjustRange(false);
+        axis2.setAutoAdjustRange(true);
         assertTrue(axis1.equals(axis2));
 
         axis1.setLowerMargin(0.123);
