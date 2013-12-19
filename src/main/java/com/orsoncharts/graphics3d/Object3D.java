@@ -83,6 +83,7 @@ public class Object3D {
      * 
      * @param vertices  the vertices (all should lie in a plane).
      * @param color  the color (<code>null</code> not permitted).
+     * @param outline  draw the face outline.
      */
     public void addFace(int[] vertices, Color color, boolean outline) {
         // defer the arg checks...
@@ -95,6 +96,7 @@ public class Object3D {
      * 
      * @param vertices  the vertices (all should lie in a plane).
      * @param color  the color (<code>null</code> not permitted).
+     * @param outline  draw face outlines.
      * 
      * @since 1.1
      */
@@ -138,7 +140,7 @@ public class Object3D {
         Point2D[] result = new Point2D[this.vertices.size()];
         int vertexCount = this.vertices.size();
         for (int i = 0; i < vertexCount; i++) {
-            Point3D p = (Point3D) this.vertices.get(i);
+            Point3D p = this.vertices.get(i);
             result[i] = viewPoint.worldToScreen(p, d);
         }
         return result;
@@ -196,10 +198,10 @@ public class Object3D {
      * Creates a square flat surface in the x-y plane (constant z).
      * 
      * @param size  the sheet size.
-     * @param x
-     * @param y
-     * @param z
-     * @param color
+     * @param x  the x-coordinate of a point on the surface.
+     * @param y  the y-coordinate of a point on the surface.
+     * @param z  the z-coordinate of a point on the surface.
+     * @param color  the color.
      * 
      * @return The sheet. 
      */
@@ -462,8 +464,6 @@ public class Object3D {
 
         // closing side
         segment.addFace(new Face(new int[] {1, 0, vc-2, vc-1}, color, false));
-
-        double j = angle1;
         return segment;
     }
 
