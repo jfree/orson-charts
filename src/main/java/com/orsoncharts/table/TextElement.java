@@ -31,6 +31,14 @@ import com.orsoncharts.util.TextUtils;
 public class TextElement extends AbstractTableElement 
         implements TableElement, Serializable {
 
+    /**
+     * The default font.
+     * 
+     * @since 1.1
+     */
+    public static final Font DEFAULT_FONT = new Font(Font.DIALOG, Font.PLAIN, 
+            12);
+    
     /** The text (never <code>null</code>). */
     private String text;
     
@@ -41,12 +49,13 @@ public class TextElement extends AbstractTableElement
     private HAlign alignment;
    
     /**
-     * Creates a new instance.
+     * Creates a new element that will display the specified text using the
+     * default font ({@link #DEFAULT_FONT}).
      * 
      * @param text  the text (<code>null</code> not permitted).
      */
     public TextElement(String text) {
-        this(text, new Font("Dialog", Font.PLAIN, 12));
+        this(text, DEFAULT_FONT);
     }
     
     /**
@@ -65,8 +74,7 @@ public class TextElement extends AbstractTableElement
     }
     
     /**
-     * Returns the font.  The default is 
-     * <code>Font("Dialog", Font.PLAIN, 12)</code>.
+     * Returns the font.  The default value is {@link #DEFAULT_FONT}.
      * 
      * @return The font (never <code>null</code>). 
      */
@@ -85,8 +93,8 @@ public class TextElement extends AbstractTableElement
     }
     
     /**
-     * Returns the horizontal alignment.  The default value is 
-     * <code>LEFT</code>.
+     * Returns the horizontal alignment that will be used when rendering the
+     * text.  The default value is <code>LEFT</code>.
      * 
      * @return The horizontal alignment (never <code>null</code>). 
      */
@@ -135,7 +143,8 @@ public class TextElement extends AbstractTableElement
      * @param bounds  the bounds.
      * @param constraints  the constraints (if any).
      * 
-     * @return A list of bounding rectangles. 
+     * @return A list containing the bounding rectangle for the text (as the
+     *     only item in the list). 
      */
     @Override
     public List<Rectangle2D> layoutElements(Graphics2D g2, Rectangle2D bounds, 
@@ -176,6 +185,7 @@ public class TextElement extends AbstractTableElement
      */
     @Override
     public void draw(Graphics2D g2, Rectangle2D bounds) {
+        
         List<Rectangle2D> layout = layoutElements(g2, bounds, null);
         Rectangle2D textBounds = layout.get(0);
         if (getBackgroundPaint() != null) {
