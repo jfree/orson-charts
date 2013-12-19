@@ -267,7 +267,7 @@ public class ViewPoint3D implements Serializable {
     /**
      * Moves the viewing point up or down on the viewing sphere.
      * 
-     * @param delta
+     * @param delta  the angle delta (in radians).
      */
     public void moveUpDown(double delta) {
         Point3D v = getHorizontalRotationAxis();
