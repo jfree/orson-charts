@@ -18,7 +18,7 @@ import com.orsoncharts.util.ObjectUtils;
 public final class DefaultKeyedValue<T> implements KeyedValue, Serializable {
 
     /** The key. */
-    private Comparable key;
+    private Comparable<?> key;
 
     /** The value. */
     private T value;
@@ -29,7 +29,7 @@ public final class DefaultKeyedValue<T> implements KeyedValue, Serializable {
      * @param key  the key (<code>null</code> not permitted).
      * @param value  the value.
      */
-    public DefaultKeyedValue(Comparable key, T value) {
+    public DefaultKeyedValue(Comparable<?> key, T value) {
         ArgChecks.nullNotPermitted(key, "key");
         this.key = key;
         this.value = value;
@@ -41,7 +41,7 @@ public final class DefaultKeyedValue<T> implements KeyedValue, Serializable {
      * @return The key (never <code>null</code>). 
      */
     @Override
-    public Comparable getKey() {
+    public Comparable<?> getKey() {
         return this.key;
     }
 
