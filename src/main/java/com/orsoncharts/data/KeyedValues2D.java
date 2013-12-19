@@ -26,7 +26,7 @@ public interface KeyedValues2D<T> extends Values2D<T> {
      * 
      * @return The key. 
      */
-    public Comparable getXKey(int xIndex);
+    public Comparable<?> getXKey(int xIndex);
 
     /**
      * Returns the y-key with the specified index.
@@ -35,7 +35,7 @@ public interface KeyedValues2D<T> extends Values2D<T> {
      * 
      * @return The key. 
      */
-    public Comparable getYKey(int yIndex);
+    public Comparable<?> getYKey(int yIndex);
 
     /**
      * Returns the index of the specified key, or <code>-1</code> if there
@@ -45,7 +45,7 @@ public interface KeyedValues2D<T> extends Values2D<T> {
      * 
      * @return The index, or <code>-1</code>. 
      */
-    public int getXIndex(Comparable xkey);
+    public int getXIndex(Comparable<?> xkey);
 
     /**
      * Returns the index of the specified key, or <code>-1</code> if there
@@ -55,7 +55,7 @@ public interface KeyedValues2D<T> extends Values2D<T> {
      * 
      * @return The index, or <code>-1</code>. 
      */
-    public int getYIndex(Comparable ykey);
+    public int getYIndex(Comparable<?> ykey);
   
     /**
      * Returns a list of the x-keys (the order is significant, since data 
@@ -66,7 +66,7 @@ public interface KeyedValues2D<T> extends Values2D<T> {
      * 
      * @return A list of x-keys.
      */
-    public List<Comparable> getXKeys();
+    public List<Comparable<?>> getXKeys();
 
     /**
      * Returns a list of the y-keys (the order is significant, since data 
@@ -77,7 +77,7 @@ public interface KeyedValues2D<T> extends Values2D<T> {
      * 
      * @return A list of y-keys.
      */
-    public List<Comparable> getYKeys();
+    public List<Comparable<?>> getYKeys();
 
     /**
      * Returns the value (possibly <code>null</code>) associated with the 
@@ -89,6 +89,6 @@ public interface KeyedValues2D<T> extends Values2D<T> {
      * 
      * @return The value (possibly <code>null</code>). 
      */
-    public T getValue(Comparable xKey, Comparable yKey);
+    public T getValue(Comparable<?> xKey, Comparable<?> yKey);
 
 }
