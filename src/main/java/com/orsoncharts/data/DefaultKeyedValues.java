@@ -28,7 +28,7 @@ public final class DefaultKeyedValues<T> implements KeyedValues<T>,
      * Creates a new (empty) list of keyed values.
      */
     public DefaultKeyedValues() {
-        this(new ArrayList<Comparable>());
+        this(new ArrayList<Comparable<?>>());
     }
   
     /**
@@ -39,11 +39,11 @@ public final class DefaultKeyedValues<T> implements KeyedValues<T>,
      * 
      * @param keys  the keys (<code>null</code> not permitted).
      */
-    public DefaultKeyedValues(List<Comparable> keys) {
+    public DefaultKeyedValues(List<Comparable<?>> keys) {
         ArgChecks.nullNotPermitted(keys, "keys");
         this.data = new ArrayList<KeyedValue<T>>();
-        for (Comparable key : keys) {
-            this.data.add(new DefaultKeyedValue(key, null));
+        for (Comparable<?> key : keys) {
+            this.data.add(new DefaultKeyedValue<T>(key, null));
         }
     }
   
@@ -61,7 +61,7 @@ public final class DefaultKeyedValues<T> implements KeyedValues<T>,
      * @param key  the key (<code>null</code> not permitted)
      * @param value  the value.
      */
-    public void put(Comparable key, T value) {
+    public void put(Comparable<?> key, T value) {
         ArgChecks.nullNotPermitted(key, "key");
         DefaultKeyedValue<T> dkv;
         int index = getIndex(key);
@@ -78,7 +78,7 @@ public final class DefaultKeyedValues<T> implements KeyedValues<T>,
      * 
      * @param key  the key (<code>null</code> not permitted).
      */
-    public void remove(Comparable key) {
+    public void remove(Comparable<?> key) {
         ArgChecks.nullNotPermitted(key, "key");
         int index = getIndex(key);
         if (index >= 0) {
@@ -103,8 +103,8 @@ public final class DefaultKeyedValues<T> implements KeyedValues<T>,
      * @return The key. 
      */
     @Override
-    public Comparable getKey(int index) {
-        KeyedValue kv = this.data.get(index);
+    public Comparable<?> getKey(int index) {
+        KeyedValue<T> kv = this.data.get(index);
         return kv.getKey();
     }
 
@@ -117,10 +117,10 @@ public final class DefaultKeyedValues<T> implements KeyedValues<T>,
      * @return The item index, or <code>-1</code>. 
      */
     @Override
-    public int getIndex(Comparable key) {
+    public int getIndex(Comparable<?> key) {
         ArgChecks.nullNotPermitted(key, "key");
         for (int i = 0; i < this.data.size(); i++) {
-            KeyedValue kv = this.data.get(i);
+            KeyedValue<T> kv = this.data.get(i);
             if (kv.getKey().equals(key)) {
                 return i;
             }
@@ -135,9 +135,9 @@ public final class DefaultKeyedValues<T> implements KeyedValues<T>,
      * @return A list of keys (possibly empty, but never <code>null</code>).
      */
     @Override
-    public List<Comparable> getKeys() {
-        List<Comparable> keys = new ArrayList<Comparable>();
-        for (KeyedValue kv : this.data) {
+    public List<Comparable<?>> getKeys() {
+        List<Comparable<?>> keys = new ArrayList<Comparable<?>>();
+        for (KeyedValue<T> kv : this.data) {
             keys.add(kv.getKey());
         }
         return keys;
@@ -151,7 +151,7 @@ public final class DefaultKeyedValues<T> implements KeyedValues<T>,
      * @return The value (possibly <code>null</code>). 
      */
     @Override
-    public T getValue(Comparable key) {
+    public T getValue(Comparable<?> key) {
         // arg checking is performed by getIndex()
         int index = getIndex(key);
         if (index < 0) {
@@ -212,10 +212,10 @@ public final class DefaultKeyedValues<T> implements KeyedValues<T>,
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof DefaultKeyedValues)) {
+        if (!(obj instanceof DefaultKeyedValues<?>)) {
             return false;
         }
-        DefaultKeyedValues that = (DefaultKeyedValues) obj;
+        DefaultKeyedValues<?> that = (DefaultKeyedValues<?>) obj;
         if (!this.data.equals(that.data)) {
             return false;
         }
