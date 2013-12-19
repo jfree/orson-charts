@@ -54,6 +54,10 @@ public class RainbowScale extends AbstractColorScale implements ColorScale {
     /**
      * Creates a new rainbow scale for the specified value range, with the
      * given number of samples and hues restricted to the specified range.
+     * 
+     * @param range  the range (<code>null</code> not permitted).
+     * @param samples  the number of samples.
+     * @param hueSubrange  the hue sub-range.
      */
     public RainbowScale(Range range, int samples, Range hueSubrange) {
         super(range);
