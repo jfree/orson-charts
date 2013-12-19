@@ -170,8 +170,8 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
         ValueAxis3D valueAxis = plot.getValueAxis();
         Range r = valueAxis.getRange();
         
-        Comparable rowKey = dataset.getRowKey(row);
-        Comparable columnKey = dataset.getColumnKey(column);
+        Comparable<?> rowKey = dataset.getRowKey(row);
+        Comparable<?> columnKey = dataset.getColumnKey(column);
         double rowValue = rowAxis.getCategoryValue(rowKey);
         double columnValue = columnAxis.getCategoryValue(columnKey);
         double ww = dimensions.getWidth();
@@ -190,7 +190,7 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
             double wmin = valueAxis.translateToWorld(r.getMin(), hh) + yOffset;
             double wmax = valueAxis.translateToWorld(r.getMax(), hh) + yOffset;
     
-            Comparable nextColumnKey = dataset.getColumnKey(column + 1);
+            Comparable<?> nextColumnKey = dataset.getColumnKey(column + 1);
             double nextColumnValue = columnAxis.getCategoryValue(nextColumnKey);
             double x1 = columnAxis.translateToWorld(nextColumnValue, ww) 
                     + xOffset;
