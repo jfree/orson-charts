@@ -75,7 +75,7 @@ public final class StandardFontSource implements FontSource, Serializable {
      * @return The font (never <code>null</code>). 
      */
     @Override
-    public Font getFont(Comparable key) {
+    public Font getFont(Comparable<?> key) {
         Font result = this.fonts.getValue(key);
         if (result != null) {
             return result;
@@ -91,7 +91,7 @@ public final class StandardFontSource implements FontSource, Serializable {
      * @param font  the font (<code>null</code> permitted).
      */
     @Override
-    public void setFont(Comparable key, Font font) {
+    public void setFont(Comparable<?> key, Font font) {
         if (font != null) {
             this.fonts.put(key, font);
         } else {
