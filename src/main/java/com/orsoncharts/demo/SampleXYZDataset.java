@@ -62,8 +62,8 @@ public class SampleXYZDataset extends AbstractDataset3D implements XYZDataset {
     }
 
     @Override
-    public List<Comparable> getSeriesKeys() {
-        List<Comparable> result = new ArrayList<Comparable>();
+    public List<Comparable<?>> getSeriesKeys() {
+        List<Comparable<?>> result = new ArrayList<Comparable<?>>();
         for (int s = 0; s < getSeriesCount(); s++) {
             result.add("S" + s);
         }
@@ -71,7 +71,7 @@ public class SampleXYZDataset extends AbstractDataset3D implements XYZDataset {
     }
 
     @Override
-    public int getSeriesIndex(Comparable key) {
+    public int getSeriesIndex(Comparable<?> key) {
         return getSeriesKeys().indexOf(key);
     }
 
