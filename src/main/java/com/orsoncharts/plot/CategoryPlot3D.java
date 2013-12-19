@@ -499,8 +499,8 @@ public class CategoryPlot3D extends AbstractPlot3D
     @Override
     public List<LegendItemInfo> getLegendInfo() {
         List<LegendItemInfo> result = new ArrayList<LegendItemInfo>();
-        List<Comparable> keys = this.dataset.getSeriesKeys();
-        for (Comparable key : keys) {
+        List<Comparable<?>> keys = this.dataset.getSeriesKeys();
+        for (Comparable<?> key : keys) {
             int series = this.dataset.getSeriesIndex(key);
             Paint paint = this.renderer.getColorSource().getLegendColor(series);
             LegendItemInfo info = new StandardLegendItemInfo(key, 
