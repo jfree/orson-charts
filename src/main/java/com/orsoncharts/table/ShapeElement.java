@@ -43,11 +43,6 @@ public class ShapeElement extends AbstractTableElement
         setForegroundPaint(fillPaint);
         //setBackgroundPaint(new Color(0, 0, 0, 0)); // transparent
     }
-    
-    @Override
-    public Dimension2D preferredSize(Graphics2D g2, Rectangle2D bounds) {
-        return preferredSize(g2, bounds, null);
-    }
 
     @Override
     public Dimension2D preferredSize(Graphics2D g2, Rectangle2D bounds, 
@@ -63,7 +58,7 @@ public class ShapeElement extends AbstractTableElement
     @Override
     public List<Rectangle2D> layoutElements(Graphics2D g2, Rectangle2D bounds, 
             Map<String, Object> constraints) {
-        List<Rectangle2D> result = new ArrayList<Rectangle2D>();
+        List<Rectangle2D> result = new ArrayList<Rectangle2D>(1);
         Insets insets = getInsets();
         Rectangle2D shapeBounds = this.shape.getBounds2D();
         double w = Math.min(shapeBounds.getWidth() + insets.left + insets.right,
