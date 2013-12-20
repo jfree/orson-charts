@@ -30,6 +30,8 @@ public interface TickSelector {
      * Returns <code>true</code> in the case that the cursor is moved, and 
      * <code>false</code> where there are a finite number of tick sizes and the
      * current tick size is the largest available.
+     * 
+     * @return A boolean.
      */
     public boolean next();
     
@@ -38,6 +40,8 @@ public interface TickSelector {
      * Returns <code>true</code> in the case that the cursor is moved, and 
      * <code>false</code> where there are a finite number of tick sizes and the
      * current tick size is the smallest available.
+     * 
+     * @return A boolean.
      */
     public boolean previous();
     
