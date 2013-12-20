@@ -8,11 +8,6 @@
 
 package com.orsoncharts.util;
 
-import static com.orsoncharts.util.RefPt2D.CENTER_LEFT;
-import static com.orsoncharts.util.RefPt2D.TOP_CENTER;
-import static com.orsoncharts.util.RefPt2D.TOP_LEFT;
-import static com.orsoncharts.util.RefPt2D.TOP_RIGHT;
-
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
