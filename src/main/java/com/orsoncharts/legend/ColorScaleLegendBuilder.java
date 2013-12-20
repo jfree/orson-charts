@@ -180,14 +180,16 @@ public class ColorScaleLegendBuilder implements LegendBuilder, Serializable {
                 && renderer.getColorScale() instanceof FixedColorScale) {
             return null;
         }
-        return createColorScaleLegend(renderer, orientation);  
+        return createColorScaleLegend(renderer, orientation, anchor);  
     }
 
     private TableElement createColorScaleLegend(ColorScaleRenderer r, 
-            Orientation orientation) {
+            Orientation orientation, Anchor2D anchor) {
         ColorScale scale = r.getColorScale();
-        return new ColorScaleElement(scale, orientation, this.barWidth, 
-                this.barLength, this.itemFont);
+        ColorScaleElement element = new ColorScaleElement(scale, orientation, 
+                this.barWidth, this.barLength, this.itemFont);
+        element.setRefPoint(anchor.getRefPt());
+        return element;
     }
 
     /**
