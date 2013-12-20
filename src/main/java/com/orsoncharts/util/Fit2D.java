@@ -8,6 +8,11 @@
 
 package com.orsoncharts.util;
 
+import static com.orsoncharts.util.RefPt2D.CENTER_LEFT;
+import static com.orsoncharts.util.RefPt2D.TOP_CENTER;
+import static com.orsoncharts.util.RefPt2D.TOP_LEFT;
+import static com.orsoncharts.util.RefPt2D.TOP_RIGHT;
+
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
@@ -25,13 +30,109 @@ import com.orsoncharts.TitleAnchor;
 public class Fit2D implements Serializable {
 
     /** 
-     * Center the source rectangle within the target rectangle, but do not
-     * resize it.
+     * Aligns a source rectangle to the center of a target rectangle, without
+     * resizing it.
      * 
      * @since 1.1
      */
     public static final Fit2D CENTER_NO_SCALING = new Fit2D(TitleAnchor.CENTER, 
             Scale2D.NONE);
+ 
+    /** 
+     * Fits a source rectangle to the top left of a target rectangle, without
+     * resizing it.
+     * 
+     * @since 1.1
+     */
+    public static final Fit2D TOP_LEFT_NO_SCALING 
+            = new Fit2D(Anchor2D.TOP_LEFT, Scale2D.NONE);
+
+    /** 
+     * Fits a source rectangle to the top center of a target rectangle, without
+     * resizing it.
+     * 
+     * @since 1.1
+     */
+    public static final Fit2D TOP_CENTER_NO_SCALING 
+            = new Fit2D(Anchor2D.TOP_CENTER, Scale2D.NONE);
+
+    /** 
+     * Fits a source rectangle to the top right of a target rectangle, without
+     * resizing it.
+     * 
+     * @since 1.1
+     */
+    public static final Fit2D TOP_RIGHT_NO_SCALING 
+            = new Fit2D(Anchor2D.TOP_RIGHT, Scale2D.NONE);
+
+    /** 
+     * Fits a source rectangle to the center left of a target rectangle, 
+     * without resizing it.
+     * 
+     * @since 1.1
+     */
+    public static final Fit2D CENTER_LEFT_NO_SCALING 
+            = new Fit2D(Anchor2D.CENTER_LEFT, Scale2D.NONE);
+
+    /** 
+     * Fits a source rectangle to the center right of a target rectangle, 
+     * without resizing it.
+     * 
+     * @since 1.1
+     */
+    public static final Fit2D CENTER_RIGHT_NO_SCALING 
+            = new Fit2D(Anchor2D.CENTER_RIGHT, Scale2D.NONE);
+
+    /** 
+     * Fits a source rectangle to the bottom left of a target rectangle, 
+     * without resizing it.
+     * 
+     * @since 1.1
+     */
+    public static final Fit2D BOTTOM_LEFT_NO_SCALING 
+            = new Fit2D(Anchor2D.BOTTOM_LEFT, Scale2D.NONE);
+
+    /** 
+     * Fits a source rectangle to the bottom center of a target rectangle, 
+     * without resizing it.
+     * 
+     * @since 1.1
+     */
+    public static final Fit2D BOTTOM_CENTER_NO_SCALING 
+            = new Fit2D(Anchor2D.BOTTOM_CENTER, Scale2D.NONE);
+
+    /** 
+     * Fits a source rectangle to the bottom right of a target rectangle, 
+     * without resizing it.
+     * 
+     * @since 1.1
+     */
+    public static final Fit2D BOTTOM_RIGHT_NO_SCALING 
+            = new Fit2D(Anchor2D.BOTTOM_RIGHT, Scale2D.NONE);
+    
+    /**
+     * Returns a fitter for the specified reference point.
+     * 
+     * @param refPt  the reference point (<code>null</code> not permitted).
+     * 
+     * @return A fitter.
+     * 
+     * @since 1.1
+     */
+    public static Fit2D getNoScalingFitter(RefPt2D refPt) {
+        switch (refPt) {
+            case TOP_LEFT : return Fit2D.TOP_LEFT_NO_SCALING;
+            case TOP_CENTER : return Fit2D.TOP_CENTER_NO_SCALING;
+            case TOP_RIGHT : return Fit2D.TOP_RIGHT_NO_SCALING;
+            case CENTER_LEFT : return Fit2D.CENTER_LEFT_NO_SCALING;
+            case CENTER : return Fit2D.CENTER_NO_SCALING;
+            case CENTER_RIGHT : return Fit2D.CENTER_RIGHT_NO_SCALING;
+            case BOTTOM_LEFT : return Fit2D.BOTTOM_LEFT_NO_SCALING;
+            case BOTTOM_CENTER : return Fit2D.BOTTOM_CENTER_NO_SCALING;
+            case BOTTOM_RIGHT : return Fit2D.BOTTOM_RIGHT_NO_SCALING;
+        }
+        throw new IllegalStateException("RefPt2D not recognised : " + refPt); 
+    }
     
     /**
      * Scale the source rectangle to fit the target rectangle.
@@ -55,7 +156,7 @@ public class Fit2D implements Serializable {
      */
     public Fit2D(Anchor2D anchor, Scale2D scale) {
         ArgChecks.nullNotPermitted(anchor, "anchor");
-        ArgChecks.nullNotPermitted(anchor, "anchor");
+        ArgChecks.nullNotPermitted(scale, "scale");
         this.anchor = anchor;
         this.scale = scale;
     }
