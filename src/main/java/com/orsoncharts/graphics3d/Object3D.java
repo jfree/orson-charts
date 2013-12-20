@@ -273,21 +273,25 @@ public class Object3D {
     /**
      * Creates a tetrahedron.
      * 
-     * @param size
-     * @param xOffset
-     * @param yOffset
-     * @param zOffset
-     * @param color
+     * @param size  the size.
+     * @param xOffset  the x-offset.
+     * @param yOffset  the y-offset.
+     * @param zOffset  the z-offset.
+     * @param color  the color (<code>null</code> not permitted).
      * 
      * @return A tetrahedron.
      */
     public static Object3D createTetrahedron(double size, double xOffset,
             double yOffset, double zOffset, Color color) {
         Object3D tetra = new Object3D();
-        tetra.addVertex(new Point3D(size + xOffset, -size + yOffset, -size + zOffset));
-        tetra.addVertex(new Point3D(-size + xOffset, size + yOffset, -size + zOffset));
-        tetra.addVertex(new Point3D(size + xOffset, size + yOffset, size + zOffset));
-        tetra.addVertex(new Point3D(-size + xOffset, -size + yOffset, size + zOffset));
+        tetra.addVertex(new Point3D(size + xOffset, -size + yOffset, 
+                -size + zOffset));
+        tetra.addVertex(new Point3D(-size + xOffset, size + yOffset, 
+                -size + zOffset));
+        tetra.addVertex(new Point3D(size + xOffset, size + yOffset, 
+                size + zOffset));
+        tetra.addVertex(new Point3D(-size + xOffset, -size + yOffset, 
+                size + zOffset));
         tetra.addFace(new Face(new int[] {0, 1, 2}, color, false));
         tetra.addFace(new Face(new int[] {1, 3, 2}, color, false));
         tetra.addFace(new Face(new int[] {0, 3, 1}, color, false));
@@ -298,11 +302,11 @@ public class Object3D {
     /**
      * Creates an octahedron.
      * 
-     * @param size
-     * @param xOffset
-     * @param yOffset
-     * @param zOffset
-     * @param color
+     * @param size  the size.
+     * @param xOffset  the x-offset.
+     * @param yOffset  the y-offset.
+     * @param zOffset  the z-offset.
+     * @param color  the color (<code>null</code> not permitted).
      * 
      * @return An octahedron.
      */
