@@ -105,6 +105,7 @@
         <copy todir="${basedir}/build/com/orsoncharts/demo">
             <fileset dir="${basedir}/src/main/java/com/orsoncharts/demo">
                 <include name="*.html"/>
+                <include name="*.jpeg"/>
             </fileset>
         </copy>
 
