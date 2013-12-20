@@ -27,7 +27,7 @@ public class TextUtils {
     
     /**
      * Draws a string such that the specified anchor point is aligned to the
-     * given (x, y) location.
+     * given <code>(x, y)</code> location.
      *
      * @param text  the text.
      * @param g2  the graphics device.
@@ -171,7 +171,9 @@ public class TextUtils {
 
     }
     /**
-     * Returns the bounds for the specified text.
+     * Returns the bounds for the specified text.  The supplied text is
+     * assumed to be on a single line (no carriage return or newline 
+     * characters).
      *
      * @param text  the text (<code>null</code> not permitted).
      * @param fm  the font metrics (<code>null</code> not permitted).
