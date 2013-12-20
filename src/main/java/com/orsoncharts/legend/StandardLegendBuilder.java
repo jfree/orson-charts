@@ -359,9 +359,14 @@ public final class StandardLegendBuilder implements LegendBuilder,
         ArgChecks.nullNotPermitted(orientation, "orientation");
         ContainerElement legend;
         if (orientation == Orientation.HORIZONTAL) {
-            legend = new FlowElement(horizontalAlignment(anchor), 2);
+            FlowElement fe = new FlowElement(horizontalAlignment(anchor), 2);
+            fe.setRefPoint(anchor.getRefPt());
+            legend = fe;
         } else {
-            legend = new VerticalFlowElement(verticalAlignment(anchor), 2);        
+            VerticalFlowElement vfe = new VerticalFlowElement(
+                    verticalAlignment(anchor), 2); 
+            vfe.setRefPoint(anchor.getRefPt());
+            legend = vfe;        
         }
         for (LegendItemInfo item : items) {
             Shape shape = item.getShape();
@@ -393,7 +398,7 @@ public final class StandardLegendBuilder implements LegendBuilder,
         }
         return HAlign.CENTER;
     }
-    
+        
     /**
      * Returns the vertical alignment that should be used.
      * 
@@ -413,7 +418,7 @@ public final class StandardLegendBuilder implements LegendBuilder,
         }
         return VAlign.MIDDLE;
     }
-    
+        
     /**
      * Creates a single item in the legend (normally this represents one
      * data series from the dataset).
