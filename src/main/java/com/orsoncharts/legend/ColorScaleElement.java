@@ -8,6 +8,8 @@
 
 package com.orsoncharts.legend;
 
+import java.awt.Shape;
+import java.util.ArrayList;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Insets;
@@ -28,6 +30,7 @@ import com.orsoncharts.util.TextAnchor;
 import com.orsoncharts.util.TextUtils;
 import com.orsoncharts.Range;
 import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.util.Fit2D;
 
 /**
  * A {@link TableElement} that displays a {@link ColorScale}.
@@ -184,20 +187,31 @@ public class ColorScaleElement extends AbstractTableElement
     @Override
     public List<Rectangle2D> layoutElements(Graphics2D g2, Rectangle2D bounds, 
             Map<String, Object> constraints) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        List<Rectangle2D> result = new ArrayList<Rectangle2D>(1);
+        Dimension2D prefDim = preferredSize(g2, bounds);
+        Fit2D fitter = Fit2D.getNoScalingFitter(getRefPoint());
+        Rectangle2D dest = fitter.fit(prefDim, bounds);
+        result.add(dest);
+        return result;
     }
 
     /**
      * Draws the element within the specified bounds.
      * 
-     * @param g2  the graphics target.
-     * @param bounds  the bounds.
+     * @param g2  the graphics target (<code>null</code> not permitted).
+     * @param bounds  the bounds (<code>null</code> not permitted).
      */
     @Override
     public void draw(Graphics2D g2, Rectangle2D bounds) {
+        Shape savedClip = g2.getClip();
+        g2.clip(bounds);
+
+        List<Rectangle2D> layoutInfo = layoutElements(g2, bounds, null);
+        Rectangle2D dest = layoutInfo.get(0);
+        
         if (getBackgroundPaint() != null) {
             g2.setPaint(getBackgroundPaint());
-            g2.fill(bounds);
+            g2.fill(dest);
         }
         g2.setPaint(getForegroundPaint());
         g2.setFont(this.font);
@@ -209,11 +223,11 @@ public class ColorScaleElement extends AbstractTableElement
         Rectangle2D maxStrBounds = TextUtils.getTextBounds(maxStr, fm);
         Insets insets = getInsets();
         if (this.orientation == Orientation.HORIZONTAL) {
-            double x0 = bounds.getX() + insets.left 
+            double x0 = dest.getX() + insets.left 
                     + minStrBounds.getWidth() / 2.0;
-            double x1 = bounds.getMaxX() - insets.right 
+            double x1 = dest.getMaxX() - insets.right 
                     - maxStrBounds.getWidth() / 2.0;
-            double y0 = bounds.getY() + insets.top;
+            double y0 = dest.getY() + insets.top;
             double y1 = y0 + this.barWidth;
             
             drawHorizontalScale(this.scale, g2, new Rectangle2D.Double(
@@ -228,10 +242,10 @@ public class ColorScaleElement extends AbstractTableElement
         } else { // VERTICAL
             double maxStrWidth = Math.max(minStrBounds.getWidth(), 
                     maxStrBounds.getWidth());
-            double x1 = bounds.getMaxX() - insets.right - maxStrWidth 
+            double x1 = dest.getMaxX() - insets.right - maxStrWidth 
                     - this.textOffset;
             double x0 = x1 - this.barWidth;
-            double y0 = bounds.getY() + insets.top 
+            double y0 = dest.getY() + insets.top 
                     + maxStrBounds.getHeight() / 2.0;
             double y1 = y0 + this.barLength;            
             
@@ -245,6 +259,7 @@ public class ColorScaleElement extends AbstractTableElement
                     (float) (x1 + this.textOffset), (float) y0, 
                     TextAnchor.HALF_ASCENT_LEFT);
         }
+        g2.setClip(savedClip);
     }
     
     /**
