@@ -14,12 +14,12 @@
     <target name="initialise" description="Initialise required settings.">
         <tstamp />
         <property name="orsoncharts.name" value="orsoncharts" />
-        <property name="orsoncharts.version" value="1.0" />
+        <property name="orsoncharts.version" value="1.1" />
         <property name="jfreesvg.name" value="jfreesvg" />
-        <property name="jfreesvg.version" value="1.4" />
+        <property name="jfreesvg.version" value="1.6" />
         <property name="jfreesvg.jar" value="${basedir}/lib/${jfreesvg.name}-${jfreesvg.version}.jar"/>
         <property name="orsonpdf.name" value="orsonpdf" />
-        <property name="orsonpdf.version" value="1.3-eval" />
+        <property name="orsonpdf.version" value="1.3" />
         <property name="orsonpdf.jar" value="${basedir}/lib/${orsonpdf.name}-${orsonpdf.version}.jar"/>
         <property name="builddir" value="${basedir}/build" />
         <property name="junit.jar" value="${basedir}/lib/junit-4.11.jar"/>
@@ -148,13 +148,6 @@
                 <exclude name="com/orsoncharts/demo/**"/>
             </packageset>
         </javadoc>
-
-        <!-- copy across .png files -->
-        <copy todir="${basedir}/javadoc/images">
-            <fileset dir="${basedir}/docfiles">
-                <include name="*.png" />
-            </fileset>
-        </copy>
     </target>
 
 
@@ -169,7 +162,7 @@
         </zip>
     </target>
 
-    <!-- Make the evaluation ZIP file (demo, javadocs, jar files but no source code) -->
+    <!-- Make the nosrc ZIP file (demo, javadocs, jar files but no source code) -->
     <target name="fill-nosrc" depends="compile,compile-demo">
 
         <!-- delete the temporary distribution directory, if there is one -->
@@ -210,8 +203,14 @@
                  excludes="**/*.jpg" />
     </target>
 
+    <target name="copy-svg-and-pdf" unless="eval">
+        <!-- copy across lib files -->
+        <copy file="${basedir}/lib/orsonpdf-licence-1.0.pdf" tofile="${basedir}/distribution/lib/orsonpdf-licence-1.0.pdf" />
+        <copy file="${basedir}/lib/jfreesvg-licence-1.0.pdf" tofile="${basedir}/distribution/lib/jfreesvg-licence-1.0.pdf" />
+    </target>
+
     <!-- Make .zip distribution for Orson Charts -->
-    <target name="zip-nosrc" depends="fill-nosrc">
+    <target name="zip-nosrc" depends="fill-nosrc,copy-svg-and-pdf">
 
         <!-- make the zip file -->
         <zip zipfile="${basedir}/${orsoncharts.name}-${orsoncharts.version}-nosrc.zip">
@@ -233,6 +232,8 @@
         <!-- copy across README -->
         <copy file="${basedir}/README.md" tofile="${basedir}/distribution/README.md" />
 
+        <!-- copy across licence -->
+        <copy file="${basedir}/Orson Charts Software Licence.pdf" tofile="${basedir}/distribution/Orson Charts Software Licence.pdf" />
         <!-- copy across runtime jar file and demo jar file -->
         <copy file="${basedir}/lib/${orsoncharts.name}-${orsoncharts.version}.jar" tofile="${basedir}/distribution/lib/${orsoncharts.name}-${orsoncharts.version}.jar" />
         <copy file="${basedir}/${orsoncharts.name}-${orsoncharts.version}-demo.jar" tofile="${basedir}/distribution/${orsoncharts.name}-${orsoncharts.version}-demo.jar" />
@@ -264,8 +265,14 @@
                  excludes="**/*.jpg" />
     </target>
 
+    <target name="copy-svg-and-pdf2" unless="eval">
+        <!-- copy across lib files -->
+        <copy file="${basedir}/lib/orsonpdf-licence-1.0.pdf" tofile="${basedir}/distribution/lib/orsonpdf-licence-1.0.pdf" />
+        <copy file="${basedir}/lib/jfreesvg-licence-1.0.pdf" tofile="${basedir}/distribution/lib/jfreesvg-licence-1.0.pdf" />
+    </target>
+
     <!-- Make .zip distribution for Orson Charts -->
-    <target name="zip" depends="fill-distribution">
+    <target name="zip" depends="fill-distribution,copy-svg-and-pdf2">
 
         <!-- make the zip file -->
         <zip zipfile="${basedir}/${orsoncharts.name}-${orsoncharts.version}-src.zip">
