@@ -96,6 +96,8 @@ public interface Axis3D {
      * @param endPt  the end point (<code>null</code> not permitted)
      * @param opposingPt  an opposing point (<code>null</code> not permitted).
      * @param labels  draw labels?
+     * @param tickData  info about the ticks to draw (<code>null</code> not 
+     *     permitted).
      */
     void draw(Graphics2D g2, Point2D startPt, Point2D endPt, Point2D opposingPt, 
             boolean labels, List<TickData> tickData);
