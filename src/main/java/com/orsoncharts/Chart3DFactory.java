@@ -269,7 +269,7 @@ public class Chart3DFactory {
      * <br><br>
      * For reference, here is a sample surface chart:
      * <div>
-     * <object id="ABC" data="../../doc-files/SurfaceChart3DDemo2.svg"  
+     * <object id="SurfaceRenderer3DDemo2" data="../../doc-files/SurfaceRenderer3DDemo2.svg"  
      * type="image/svg+xml" width="562" height="408"> 
      * </object>
      * </div>
