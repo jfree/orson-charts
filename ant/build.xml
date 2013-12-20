@@ -19,7 +19,7 @@
         <property name="jfreesvg.version" value="1.6" />
         <property name="jfreesvg.jar" value="${basedir}/lib/${jfreesvg.name}-${jfreesvg.version}.jar"/>
         <property name="orsonpdf.name" value="orsonpdf" />
-        <property name="orsonpdf.version" value="1.4-eval" />
+        <property name="orsonpdf.version" value="1.4" />
         <property name="orsonpdf.jar" value="${basedir}/lib/${orsonpdf.name}-${orsonpdf.version}.jar"/>
         <property name="builddir" value="${basedir}/build" />
         <property name="junit.jar" value="${basedir}/lib/junit-4.11.jar"/>
