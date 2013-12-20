@@ -759,10 +759,11 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
      * Selects a tick size that is appropriate for drawing the axis from
      * <code>pt0</code> to <code>pt1</code>.
      * 
-     * @param g2
-     * @param pt0
-     * @param pt1
-     * @param opposingPt 
+     * @param g2  the graphics target (<code>null</code> not permitted).
+     * @param pt0  the starting point for the axis.
+     * @param pt1  the ending point for the axis.
+     * @param opposingPt  a point on the opposite side of the line from where
+     *     the labels should be drawn.
      */
     @Override
     public double selectTick(Graphics2D g2, Point2D pt0, Point2D pt1, 
