@@ -26,6 +26,8 @@ public class ZoomInAction extends AbstractAction {
      * Creates a new zoom-in action associated with the specified panel.
      * 
      * @param panel  the panel (<code>null</code> not permitted).
+     * @param fontAwesome  if <code>true</code> an icon from Font Awesome is 
+     *     used for the action label, otherwise a regular text label is used.
      */
     public ZoomInAction(Panel3D panel, boolean fontAwesome) {
         super("\uf00e");
