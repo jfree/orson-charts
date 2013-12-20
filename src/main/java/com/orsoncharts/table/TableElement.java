@@ -13,6 +13,7 @@ import java.awt.geom.Dimension2D;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
 import java.util.Map;
+import com.orsoncharts.util.RefPt2D;
 
 /**
  * An element (typically a single cell) in a table.  This interface defines
@@ -28,17 +29,19 @@ import java.util.Map;
  * simultaneously.
  * 
  */
-
 public interface TableElement {
     
     /**
-     * Calculates the preferred size for the element, with the only constraint
-     * being that the element fits within the specified bounds.
+     * Calculates the preferred size for the element, with reference to the 
+     * specified bounds.  The preferred size can exceed the bounds, but the
+     * bounds might influence how sub-elements are sized and/or positioned.
+     * For example, in a {@link FlowElement}, the width of the bounds will
+     * determine when the flow layout wraps.
      * 
-     * @param g2  the graphics target.
-     * @param bounds  the bounds.
+     * @param g2  the graphics target (<code>null</code> not permitted).
+     * @param bounds  the bounds (<code>null</code> not permitted).
      * 
-     * @return The preferred size.
+     * @return The preferred size (never <code>null</code>).
      */
     Dimension2D preferredSize(Graphics2D g2, Rectangle2D bounds);
     
@@ -46,9 +49,9 @@ public interface TableElement {
      * Returns the preferred size of the element, subject to the supplied
      * constraints.
      * 
-     * @param g2  the graphics target.
-     * @param bounds  the bounds.
-     * @param constraints  the constraints.
+     * @param g2  the graphics target (<code>null</code> not permitted).
+     * @param bounds  the bounds (<code>null</code> not permitted).
+     * @param constraints  the constraints (<code>null</code> permitted).
      * 
      * @return The preferred size. 
      */
@@ -56,11 +59,21 @@ public interface TableElement {
             Map<String, Object> constraints);
     
     /**
-     * Performs a layout of this table element, returning a list of bounding
-     * rectangles for the element and its subelements.
+     * Returns the reference point used to align the element with the bounding
+     * rectangle within which it is drawn.
      * 
-     * @param g2  the graphics target.
-     * @param bounds  the bounds.
+     * @return The anchor point (never <code>null</code>). 
+     */
+    RefPt2D getRefPoint();
+    
+    /**
+     * Performs a layout of this table element, returning a list of bounding
+     * rectangles for the element and its subelements.  This method is
+     * typically called by the {@link #draw(java.awt.Graphics2D, java.awt.geom.Rectangle2D) }
+     * method.
+     * 
+     * @param g2  the graphics target (<code>null</code> not permitted).
+     * @param bounds  the bounds (<code>null</code> not permitted).
      * @param constraints  the constraints (if any).
      * 
      * @return A list of bounding rectangles. 
@@ -71,8 +84,8 @@ public interface TableElement {
     /**
      * Draws the element within the specified bounds.
      * 
-     * @param g2  the graphics target.
-     * @param bounds  the bounds.
+     * @param g2  the graphics target (<code>null</code> not permitted).
+     * @param bounds  the bounds (<code>null</code> not permitted).
      */
     void draw(Graphics2D g2, Rectangle2D bounds);
     
