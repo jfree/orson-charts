@@ -275,6 +275,7 @@ public final class StandardCategoryDataset3D extends AbstractDataset3D
      * Adds a data series as a single row in the dataset.
      * 
      * @param seriesKey  the series key (<code>null</code> not permitted).
+     * @param rowKey  the row key (<code>null</code> not permitted).
      * @param data  the data (<code>null</code> not permitted).
      */
     public void addSeriesAsRow(Comparable<?> seriesKey, Comparable<?> rowKey, 
