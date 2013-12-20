@@ -29,7 +29,87 @@ import com.orsoncharts.legend.LegendAnchor;
  * instances of this class.
  */
 public final class Anchor2D implements Serializable {
+
+    /** 
+     * An anchor point at the top left with zero offset from the target
+     * rectangle bounds.
+     * 
+     * @since 1.1
+     */
+    public static final Anchor2D TOP_LEFT = new Anchor2D(RefPt2D.TOP_LEFT, 
+            Offset2D.ZERO_OFFSET);
+
+    /** 
+     * An anchor point at the top center with zero offset from the target
+     * rectangle bounds.
+     * 
+     * @since 1.1
+     */
+    public static final Anchor2D TOP_CENTER = new Anchor2D(RefPt2D.TOP_CENTER, 
+            Offset2D.ZERO_OFFSET);
+
+    /** 
+     * An anchor point at the top right with zero offset from the target
+     * rectangle bounds.
+     * 
+     * @since 1.1
+     */
+    public static final Anchor2D TOP_RIGHT = new Anchor2D(RefPt2D.TOP_RIGHT, 
+            Offset2D.ZERO_OFFSET);
+
+    /** 
+     * An anchor point at the center left with zero offset from the target
+     * rectangle bounds.
+     * 
+     * @since 1.1
+     */
+    public static final Anchor2D CENTER_LEFT = new Anchor2D(RefPt2D.CENTER_LEFT,
+            Offset2D.ZERO_OFFSET);
     
+    /** 
+     * An anchor point at the center of the target rectangle.
+     * 
+     * @since 1.1
+     */
+    public static final Anchor2D CENTER = new Anchor2D(RefPt2D.CENTER,
+            Offset2D.ZERO_OFFSET);
+
+    /** 
+     * An anchor point at the center right with zero offset from the target
+     * rectangle bounds.
+     * 
+     * @since 1.1
+     */
+    public static final Anchor2D CENTER_RIGHT 
+            = new Anchor2D(RefPt2D.CENTER_RIGHT, Offset2D.ZERO_OFFSET);
+
+    /** 
+     * An anchor point at the bottom left with zero offset from the target
+     * rectangle bounds.
+     * 
+     * @since 1.1
+     */
+    public static final Anchor2D BOTTOM_LEFT = new Anchor2D(RefPt2D.BOTTOM_LEFT, 
+            Offset2D.ZERO_OFFSET);
+
+    /** 
+     * An anchor point at the bottom center with zero offset from the target
+     * rectangle bounds.
+     * 
+     * @since 1.1
+     */
+    public static final Anchor2D BOTTOM_CENTER 
+            = new Anchor2D(RefPt2D.BOTTOM_CENTER, Offset2D.ZERO_OFFSET);
+
+    /** 
+     * An anchor point at the bottom right with zero offset from the target
+     * rectangle bounds.
+     * 
+     * @since 1.1
+     */
+    public static final Anchor2D BOTTOM_RIGHT 
+            = new Anchor2D(RefPt2D.BOTTOM_RIGHT, Offset2D.ZERO_OFFSET);
+
     /** 
      * The reference point relative to some bounding rectangle, normally the 
      * bounds of the chart (never <code>null</code>). 
