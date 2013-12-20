@@ -74,7 +74,8 @@ public class SurfaceRendererDemo2 extends JFrame {
         renderer.setXSamples(50);
         renderer.setZSamples(50);
         renderer.setDrawFaceOutlines(false);
-        chart.setLegendPosition(LegendAnchor.TOP_RIGHT, Orientation.VERTICAL);
+        chart.setLegendPosition(LegendAnchor.BOTTOM_RIGHT, 
+                Orientation.VERTICAL);
         chart.setAntiAlias(false);
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
         chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
