@@ -12,7 +12,7 @@ package com.orsoncharts.data;
  * A generic representation of a three dimensional grid (cube) of data values.
  * We refer to the indices in the three dimensions as the 
  * <code>seriesIndex</code>, the <code>rowIndex</code> and the 
- * </code>columnIndex</code> (to match the downstream use of this data
+ * <code>columnIndex</code> (to match the downstream use of this data
  * structure to represent data values in a three dimensional plot).
  * 
  * @see KeyedValues3D
