@@ -266,6 +266,13 @@ public class Chart3DFactory {
     
     /**
      * Creates a surface chart for the specified function.
+     * <br><br>
+     * For reference, here is a sample surface chart:
+     * <div>
+     * <object id="ABC" data="../../doc-files/SurfaceChart3DDemo2.svg"  
+     * type="image/svg+xml" width="562" height="408"> 
+     * </object>
+     * </div>
      * 
      * @param title  the chart title (<code>null</code> permitted).
      * @param subtitle  the chart subtitle (<code>null</code> permitted).
