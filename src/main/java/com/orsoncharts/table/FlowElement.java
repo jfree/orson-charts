@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.util.Fit2D;
 
 /**
  * A table element that displays a list of sub-elements in a flow layout.
@@ -277,12 +278,25 @@ public class FlowElement extends AbstractTableElement
     public void draw(Graphics2D g2, Rectangle2D bounds) {
         Shape savedClip = g2.getClip();
         g2.clip(bounds);
-        List<Rectangle2D> layoutInfo = layoutElements(g2, bounds, null);
+        
+        // find the preferred size of the flow layout
+        Dimension2D prefDim = preferredSize(g2, bounds);
+        
+        // fit a rectangle of this dimension to the bounds according to the 
+        // element anchor
+        Fit2D fitter = Fit2D.getNoScalingFitter(getRefPoint());
+        Rectangle2D dest = fitter.fit(prefDim, bounds);
+        
+        // perform layout within this bounding rectangle
+        List<Rectangle2D> layoutInfo = this.layoutElements(g2, dest, null);
+        
+        // draw the elements
         for (int i = 0; i < this.elements.size(); i++) {
             Rectangle2D rect = layoutInfo.get(i);
             TableElement element = this.elements.get(i);
             element.draw(g2, rect);
         }
+        
         g2.setClip(savedClip);
     }
     
