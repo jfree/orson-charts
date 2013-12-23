@@ -43,15 +43,15 @@ If you have any questions, don't hesitate to send a mail to info@object-refinery
 
 History
 -------
-20-Dec-2013 : Version 1.1
+23-Dec-2013 : Version 1.1
 
 - added surface plots (via the new SurfaceRenderer class and Chart3DFactory.createSurfaceChart());
-- added orientation attribute to control the chart legend;
+- added ColorScale and supporting classes for use by the surface charts;
+- added orientation attribute to control the chart legend orientation;
 - optimized rendering code for improved performance;
 - added missing change events for gridline attributes in CategoryPlot3D;
-- added constants SCALE_TO_FIT_TARGET and CENTER_NO_SCALING to the Fit2D class;
+- added constants including SCALE_TO_FIT_TARGET and CENTER_NO_SCALING to the Fit2D class;
 - added setColors(Color...) to AbstractCategoryRenderer3D and AbstractXYZRenderer3D;
-- use varargs in the constructor for StandardCategoryColorSource and StandardXYZCategorySource.
 
 
 17-Nov-2013 : Version 1.0
