@@ -35,8 +35,18 @@ import com.orsoncharts.Chart3D;
  */
 public class DefaultDrawable3D implements Drawable3D {
 
+    /** 
+     * The default projection distance. 
+     * 
+     * @since 1.2
+     */
+    public static final double DEFAULT_PROJ_DIST = 1500.0;
+
     /** The viewing point. */
     private ViewPoint3D viewPoint;
+    
+    /** The projection distance. */
+    private double projDist;
     
     /** The 3D world being drawn. */
     private World world;
@@ -53,6 +63,7 @@ public class DefaultDrawable3D implements Drawable3D {
         ArgChecks.nullNotPermitted(world, "world");
         this.viewPoint = new ViewPoint3D((float) (3 * Math.PI / 2.0), 
                 (float) Math.PI / 6, 40.0f, 0.0);
+        this.projDist = DEFAULT_PROJ_DIST;
         this.world = world;
         this.offset = new Offset2D();
     }
@@ -88,6 +99,32 @@ public class DefaultDrawable3D implements Drawable3D {
         this.viewPoint = viewPoint;
     }
 
+    /** 
+     * Returns the projection distance.  The default value is 
+     * {@link #DEFAULT_PROJ_DIST}, higher numbers flatten out the perspective 
+     * and reduce distortion in the projected image.
+     * 
+     * @return The projection distance.
+     * 
+     * @since 1.2
+     */
+    @Override
+    public double getProjDistance() {
+        return this.projDist;
+    }
+    
+    /**
+     * Sets the projection distance.  
+     * 
+     * @param dist  the distance.
+     * 
+     * @since 1.2
+     */
+    @Override
+    public void setProjDistance(double dist) {
+        this.projDist = dist;
+    }
+
     @Override
     public Offset2D getTranslate2D() {
         return this.offset;
@@ -120,7 +157,7 @@ public class DefaultDrawable3D implements Drawable3D {
         Point3D[] eyePts = this.world.calculateEyeCoordinates(this.viewPoint);
 
         Point2D[] pts = this.world.calculateProjectedPoints(this.viewPoint,
-                    1000f);
+                    this.projDist);
         List<Face> facesInPaintOrder = new ArrayList<Face>(
                 this.world.getFaces());
 

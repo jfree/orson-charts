@@ -130,7 +130,7 @@ public class World {
      * 
      * @return The projected points.
      */
-    public Point2D[] calculateProjectedPoints(ViewPoint3D vp, float d) {
+    public Point2D[] calculateProjectedPoints(ViewPoint3D vp, double d) {
         Point2D[] result = new Point2D[getVertexCount()];
         int index = 0;
         for (Object3D object : this.objects) {

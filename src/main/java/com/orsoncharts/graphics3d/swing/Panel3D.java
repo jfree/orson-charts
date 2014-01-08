@@ -278,7 +278,7 @@ public class Panel3D extends JPanel implements MouseListener,
         Dimension2D target = new Dimension(w, h);
         Dimension3D d3d = this.drawable.getDimensions();
         float distance = this.drawable.getViewPoint().optimalDistance(target, 
-                d3d);
+                d3d, this.drawable.getProjDistance());
         this.drawable.getViewPoint().setRho(distance);
         repaint();        
     }

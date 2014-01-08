@@ -135,11 +135,11 @@ public class Object3D {
      * given viewpoint.
      *
      * @param viewPoint  the view point (<code>null</code> not permitted).
-     * @param d  the distance.
+     * @param d  the projection distance.
      *
      * @return The projected points.
      */
-    public Point2D[] calculateProjectedPoints(ViewPoint3D viewPoint, float d) {
+    public Point2D[] calculateProjectedPoints(ViewPoint3D viewPoint, double d) {
         ArgChecks.nullNotPermitted(viewPoint, "viewPoint");
         Point2D[] result = new Point2D[this.vertices.size()];
         int vertexCount = this.vertices.size();

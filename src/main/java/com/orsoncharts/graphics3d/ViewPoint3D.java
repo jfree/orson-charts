@@ -316,11 +316,11 @@ public class ViewPoint3D implements Serializable {
      * in (world) 3D space.  
      *
      * @param p  the point.
-     * @param d  the distance (explain this better).
+     * @param d  the projection distance.
      *
      * @return The screen coordinate.
      */
-    public Point2D worldToScreen(Point3D p, float d) {
+    public Point2D worldToScreen(Point3D p, double d) {
         double x = this.v11 * p.x + this.v21 * p.y;
         double y = this.v12 * p.x + this.v22 * p.y + this.v32 * p.z;
         double z = this.v13 * p.x + this.v23 * p.y + this.v33 * p.z + this.v43;
@@ -336,10 +336,12 @@ public class ViewPoint3D implements Serializable {
      * @param target  the target dimension (<code>null</code> not permitted).
      * @param dim3D  the dimensions of the 3D content (<code>null</code> not 
      *     permitted).
+     * @param projDist  the projection distance.
      * 
      * @return The optimal viewing distance. 
      */
-    public float optimalDistance(Dimension2D target, Dimension3D dim3D) {
+    public float optimalDistance(Dimension2D target, Dimension3D dim3D,
+            double projDist) {
         
         ViewPoint3D vp = new ViewPoint3D(this.theta, this.phi, this.rho, 
                 calcRollAngle());
@@ -354,11 +356,11 @@ public class ViewPoint3D implements Serializable {
                
         while (true) {
             vp.setRho(near);
-            Point2D[] nearpts = w.calculateProjectedPoints(vp, 1000f);
+            Point2D[] nearpts = w.calculateProjectedPoints(vp, projDist);
             Dimension neardim = Utils2D.findDimension(nearpts);
             double nearcover = coverage(neardim, target);
             vp.setRho(far);
-            Point2D[] farpts = w.calculateProjectedPoints(vp, 1000f);
+            Point2D[] farpts = w.calculateProjectedPoints(vp, projDist);
             Dimension fardim = Utils2D.findDimension(farpts);
             double farcover = coverage(fardim, target);
             if (nearcover <= 1.0) {
@@ -371,7 +373,7 @@ public class ViewPoint3D implements Serializable {
             // dimension
             float mid = (near + far) / 2.0f;
             vp.setRho(mid);
-            Point2D[] midpts = w.calculateProjectedPoints(vp, 1000f);
+            Point2D[] midpts = w.calculateProjectedPoints(vp, projDist);
             Dimension middim = Utils2D.findDimension(midpts);
             double midcover = coverage(middim, target);
             if (midcover >= 1.0) {
