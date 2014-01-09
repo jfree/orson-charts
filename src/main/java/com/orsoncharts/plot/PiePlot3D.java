@@ -17,7 +17,6 @@ import java.awt.Font;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import com.orsoncharts.Chart3D;
 import com.orsoncharts.data.PieDataset3D;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.graphics3d.Dimension3D;
@@ -28,6 +27,8 @@ import com.orsoncharts.legend.LegendItemInfo;
 import com.orsoncharts.legend.StandardLegendItemInfo;
 import com.orsoncharts.Chart3DFactory;
 import com.orsoncharts.data.DataUtils;
+import com.orsoncharts.label.PieLabelGenerator;
+import com.orsoncharts.label.StandardPieLabelGenerator;
 
 /**
  * A plot for creating 3D pie charts.  To create a pie chart, you can use the 
@@ -61,6 +62,9 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
     /** The section color source. */
     private ColorSource sectionColorSource;
 
+    /** The section label generator. */
+    private PieLabelGenerator sectionLabelGenerator;
+    
     /** The font source used to determine the font for section labels. */
     private FontSource sectionLabelFontSource;
 
@@ -88,6 +92,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
         this.radius = 4.0;    
         this.depth = 0.5;
         this.sectionColorSource = new StandardColorSource();
+        this.sectionLabelGenerator = new StandardPieLabelGenerator();
         this.sectionLabelFontSource = new StandardFontSource(
                 DEFAULT_SECTION_LABEL_FONT);
         this.sectionLabelColorSource = new StandardColorSource(Color.BLACK);
@@ -177,6 +182,32 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
         fireChangeEvent();
     }
 
+    /**
+     * Returns the object that creates labels for each section of the pie
+     * chart.
+     * 
+     * @return The section label generator (never <code>null</code>).
+     * 
+     * @since 1.2
+     */
+    public PieLabelGenerator getSectionLabelGenerator() {
+        return this.sectionLabelGenerator;    
+    }
+    
+    /**
+     * Sets the object that creates labels for each section of the pie chart,
+     * and sends a {@link Plot3DChangeEvent} to all registered listeners.
+     * 
+     * @param generator  the generator (<code>null</code> not permitted).
+     * 
+     * @since 1.2
+     */
+    public void setSectionLabelGenerator(PieLabelGenerator generator) {
+        ArgChecks.nullNotPermitted(generator, "generator");
+        this.sectionLabelGenerator = generator;
+        fireChangeEvent();
+    }
+    
     /**
      * Returns the font source that is used to determine the font to use for 
      * the section labels.
@@ -371,6 +402,9 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
         if (!this.sectionColorSource.equals(that.sectionColorSource)) {
             return false;
         }
+        if (!this.sectionLabelGenerator.equals(that.sectionLabelGenerator)) {
+            return false;
+        }
         if (!this.sectionLabelFontSource.equals(that.sectionLabelFontSource)) {
             return false;
         }
@@ -381,6 +415,21 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
             return false;
         }
         return super.equals(obj);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 97 * hash + (int) (Double.doubleToLongBits(this.radius) 
+                ^ (Double.doubleToLongBits(this.radius) >>> 32));
+        hash = 97 * hash + (int) (Double.doubleToLongBits(this.depth) 
+                ^ (Double.doubleToLongBits(this.depth) >>> 32));
+        hash = 97 * hash + this.sectionColorSource.hashCode();
+        hash = 97 * hash + this.sectionLabelGenerator.hashCode();
+        hash = 97 * hash + this.sectionLabelFontSource.hashCode();
+        hash = 97 * hash + this.sectionLabelColorSource.hashCode();
+        hash = 97 * hash + this.segments;
+        return hash;
     }
 
 }

@@ -1090,7 +1090,9 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
                 Point2D pt = Utils2D.centerPoint(ppts[f.getVertexIndex(0)], 
                         ppts[f.getVertexIndex(1)], ppts[f.getVertexIndex(2)],
                         ppts[f.getVertexIndex(3)]);
-                TextUtils.drawAlignedString(key.toString(), g2, 
+                String label = p.getSectionLabelGenerator().generateLabel(
+                        p.getDataset(), key);
+                TextUtils.drawAlignedString(label, g2, 
                         (float) pt.getX(), (float) pt.getY(), 
                         TextAnchor.CENTER);
             }
