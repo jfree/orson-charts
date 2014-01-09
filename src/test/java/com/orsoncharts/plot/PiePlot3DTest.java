@@ -17,9 +17,12 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
+
 import java.awt.Color;
 import java.awt.Font;
+
 import com.orsoncharts.data.StandardPieDataset3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
@@ -99,9 +102,9 @@ public class PiePlot3DTest implements Plot3DChangeListener {
         assertTrue(p1.equals(p2));
         
         // section label generator
-        p1.setSectionLabelGenerator(new StandardPieLabelGenerator("%s"));
+        p1.setSectionLabelGenerator(new StandardPieLabelGenerator("Key: %s"));
         assertFalse(p1.equals(p2));
-        p2.setSectionLabelGenerator(new StandardPieLabelGenerator("%s"));
+        p2.setSectionLabelGenerator(new StandardPieLabelGenerator("Key: %s"));
         assertTrue(p1.equals(p2));
         
         // section color source
@@ -124,6 +127,12 @@ public class PiePlot3DTest implements Plot3DChangeListener {
         p2.setSectionLabelColorSource(new StandardColorSource(Color.BLUE));
         assertTrue(p1.equals(p2));
         
+        // legend label generator
+        p1.setLegendLabelGenerator(new StandardPieLabelGenerator("Key: %s"));
+        assertFalse(p1.equals(p2));
+        p2.setLegendLabelGenerator(new StandardPieLabelGenerator("Key: %s"));
+        assertTrue(p1.equals(p2));
+
         // segments
         p1.setSegmentCount(123);
         assertFalse(p1.equals(p2));
