@@ -74,6 +74,9 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
      */
     private ColorSource sectionLabelColorSource;
     
+    /** The legend label generator. */
+    private PieLabelGenerator legendLabelGenerator;
+    
     /** 
      * The number of segments used to render 360 degrees of the pie.  A higher
      * number will give better output but slower performance.
@@ -92,10 +95,12 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
         this.radius = 4.0;    
         this.depth = 0.5;
         this.sectionColorSource = new StandardColorSource();
-        this.sectionLabelGenerator = new StandardPieLabelGenerator();
+        this.sectionLabelGenerator = new StandardPieLabelGenerator(
+                StandardPieLabelGenerator.KEY_ONLY_TEMPLATE);
         this.sectionLabelFontSource = new StandardFontSource(
                 DEFAULT_SECTION_LABEL_FONT);
         this.sectionLabelColorSource = new StandardColorSource(Color.BLACK);
+        this.legendLabelGenerator = new StandardPieLabelGenerator();
     }
 
     /**
@@ -256,6 +261,33 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
         this.sectionLabelColorSource = source;
         fireChangeEvent();
     }
+    
+    /**
+     * Returns the object that creates legend labels for each section of the pie
+     * chart.
+     * 
+     * @return The legend label generator (never <code>null</code>).
+     * 
+     * @since 1.2
+     */
+    public PieLabelGenerator getLegendLabelGenerator() {
+        return this.legendLabelGenerator;
+    }
+    
+    /**
+     * Sets the object that creates legend labels for each section of the pie 
+     * chart, and sends a {@link Plot3DChangeEvent} to all registered 
+     * listeners.
+     * 
+     * @param generator  the generator (<code>null</code> not permitted).
+     * 
+     * @since 1.2
+     */
+    public void setLegendLabelGenerator(PieLabelGenerator generator) {
+        ArgChecks.nullNotPermitted(generator, "generator");
+        this.legendLabelGenerator = generator;
+        fireChangeEvent();
+    }
 
     /**
      * Returns the dimensions for the plot.  For the pie chart, it is more 
@@ -303,8 +335,10 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
     public List<LegendItemInfo> getLegendInfo() {
         List<LegendItemInfo> result = new ArrayList<LegendItemInfo>();
         for (Comparable<?> key : this.dataset.getKeys()) {
+            String label = this.legendLabelGenerator.generateLabel(dataset, 
+                    key);
             LegendItemInfo info = new StandardLegendItemInfo(key, 
-                    key.toString(), this.sectionColorSource.getColor(key));
+                    label, this.sectionColorSource.getColor(key));
             result.add(info);
         }
         return result;
@@ -408,7 +442,11 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
         if (!this.sectionLabelFontSource.equals(that.sectionLabelFontSource)) {
             return false;
         }
-        if (!this.sectionLabelColorSource.equals(that.sectionLabelColorSource)) {
+        if (!this.sectionLabelColorSource.equals(
+                that.sectionLabelColorSource)) {
+            return false;
+        }
+        if (!this.legendLabelGenerator.equals(that.legendLabelGenerator)) {
             return false;
         }
         if (this.segments != that.segments) {
