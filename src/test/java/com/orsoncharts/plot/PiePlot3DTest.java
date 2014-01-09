@@ -2,7 +2,11 @@
  * Orson Charts
  * ============
  * 
- * (C)opyright 2013, by Object Refinery Limited.
+ * (C)opyright 2013, 2014, by Object Refinery Limited.
+ * 
+ * http://www.object-refinery.com/orsoncharts/index.html
+ * 
+ * Redistribution of these source files is prohibited.
  * 
  */
 
@@ -20,6 +24,7 @@ import com.orsoncharts.data.StandardPieDataset3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
 import com.orsoncharts.TestUtils;
+import com.orsoncharts.label.StandardPieLabelGenerator;
 
 /** 
  * Some tests for the {@link PiePlot3D} class.
@@ -91,6 +96,12 @@ public class PiePlot3DTest implements Plot3DChangeListener {
         p1.setDepth(3.21);
         assertFalse(p1.equals(p2));
         p2.setDepth(3.21);
+        assertTrue(p1.equals(p2));
+        
+        // section label generator
+        p1.setSectionLabelGenerator(new StandardPieLabelGenerator("%s"));
+        assertFalse(p1.equals(p2));
+        p2.setSectionLabelGenerator(new StandardPieLabelGenerator("%s"));
         assertTrue(p1.equals(p2));
         
         // section color source
