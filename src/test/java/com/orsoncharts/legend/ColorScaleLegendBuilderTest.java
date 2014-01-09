@@ -2,7 +2,11 @@
  * Orson Charts
  * ============
  * 
- * (C)opyright 2013, by Object Refinery Limited.
+ * (C)opyright 2013, 2014, by Object Refinery Limited.
+ * 
+ * http://www.object-refinery.com/orsoncharts/index.html
+ * 
+ * Redistribution of this source file is prohibited.
  * 
  */
 
