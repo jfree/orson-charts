@@ -44,6 +44,207 @@ public class DataUtils {
         }
         return result;
     }
+    
+    /**
+     * Returns the count of the non-<code>null</code> entries in the dataset
+     * for the specified series.
+     * 
+     * @param data  the dataset (<code>null</code> not permitted).
+     * @param seriesKey  the series key (<code>null</code> not permitted).
+     * 
+     * @return The count.
+     * 
+     * @since 1.2
+     */
+    public static int count(KeyedValues3D<?> data, Comparable<?> seriesKey) {
+        ArgChecks.nullNotPermitted(data, "data");
+        ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
+        int seriesIndex = data.getSeriesIndex(seriesKey);
+        if (seriesIndex < 0) {
+            throw new IllegalArgumentException("Series not found: " 
+                    + seriesKey);
+        }
+        int count = 0;
+        int rowCount = data.getRowCount();
+        int columnCount = data.getColumnCount();
+        for (int r = 0; r < rowCount; r++) {
+            for (int c = 0; c < columnCount; c++) {
+                Number n = (Number) data.getValue(seriesIndex, r, c);
+                if (n != null) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+        
+    /**
+     * Returns the count of the non-<code>null</code> entries in the dataset
+     * for the specified row (all series).
+     * 
+     * @param data  the dataset (<code>null</code> not permitted).
+     * @param rowKey  the row key (<code>null</code> not permitted).
+     * 
+     * @return The count.
+     * 
+     * @since 1.2
+     */
+    public static int countForRow(KeyedValues3D<?> data, Comparable<?> rowKey) {
+        ArgChecks.nullNotPermitted(data, "data");
+        ArgChecks.nullNotPermitted(rowKey, "rowKey");
+        int rowIndex = data.getRowIndex(rowKey);
+        if (rowIndex < 0) {
+            throw new IllegalArgumentException("Row not found: " + rowKey);
+        }
+        int count = 0;
+        int seriesCount = data.getSeriesCount();
+        int columnCount = data.getColumnCount();
+        for (int s = 0; s < seriesCount; s++) {
+            for (int c = 0; c < columnCount; c++) {
+                Number n = (Number) data.getValue(s, rowIndex, c);
+                if (n != null) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    /**
+     * Returns the count of the non-<code>null</code> entries in the dataset
+     * for the specified column (all series).
+     * 
+     * @param data  the dataset (<code>null</code> not permitted).
+     * @param columnKey  the column key (<code>null</code> not permitted).
+     * 
+     * @return The count.
+     * 
+     * @since 1.2
+     */
+    public static int countForColumn(KeyedValues3D<?> data, 
+            Comparable<?> columnKey) {
+        ArgChecks.nullNotPermitted(data, "data");
+        ArgChecks.nullNotPermitted(columnKey, "columnKey");
+        int columnIndex = data.getColumnIndex(columnKey);
+        if (columnIndex < 0) {
+            throw new IllegalArgumentException("Column not found: " 
+                    + columnKey);
+        }
+        int count = 0;
+        int seriesCount = data.getSeriesCount();
+        int rowCount = data.getRowCount();
+        for (int s = 0; s < seriesCount; s++) {
+            for (int r = 0; r < rowCount; r++) {
+                Number n = (Number) data.getValue(s, r, columnIndex);
+                if (n != null) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+        
+    /**
+     * Returns the total of the non-<code>null</code> values in the dataset
+     * for the specified series.  If there is no series with the specified 
+     * key, this method will throw an <code>IllegalArgumentException</code>.
+     * 
+     * @param data  the dataset (<code>null</code> not permitted).
+     * @param seriesKey  the series key (<code>null</code> not permitted).
+     * 
+     * @return The total.
+     * 
+     * @since 1.2
+     */
+    public static double total(KeyedValues3D<? extends Number> data, 
+            Comparable<?> seriesKey) {
+        ArgChecks.nullNotPermitted(data, "data");
+        ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
+        int seriesIndex = data.getSeriesIndex(seriesKey);
+        if (seriesIndex < 0) {
+            throw new IllegalArgumentException("Series not found: " 
+                    + seriesKey);
+        }
+        double total = 0.0;
+        int rowCount = data.getRowCount();
+        int columnCount = data.getColumnCount();
+        for (int r = 0; r < rowCount; r++) {
+            for (int c = 0; c < columnCount; c++) {
+                Number n = (Number) data.getValue(seriesIndex, r, c);
+                if (n != null) {
+                    total += n.doubleValue();
+                }
+            }
+        }
+        return total;
+    }
+
+    /**
+     * Returns the total of the non-<code>null</code> entries in the dataset
+     * for the specified row (all series).
+     * 
+     * @param data  the dataset (<code>null</code> not permitted).
+     * @param rowKey  the row key (<code>null</code> not permitted).
+     * 
+     * @return The total.
+     * 
+     * @since 1.2
+     */
+    public static double totalForRow(KeyedValues3D<? extends Number> data, 
+            Comparable<?> rowKey) {
+        ArgChecks.nullNotPermitted(data, "data");
+        ArgChecks.nullNotPermitted(rowKey, "rowKey");
+        int rowIndex = data.getRowIndex(rowKey);
+        if (rowIndex < 0) {
+            throw new IllegalArgumentException("Row not found: " + rowKey);
+        }
+        double total = 0.0;
+        int seriesCount = data.getSeriesCount();
+        int columnCount = data.getColumnCount();
+        for (int s = 0; s < seriesCount; s++) {
+            for (int c = 0; c < columnCount; c++) {
+                Number n = (Number) data.getValue(s, rowIndex, c);
+                if (n != null) {
+                    total += n.doubleValue();
+                }
+            }
+        }
+        return total;
+    }
+
+    /**
+     * Returns the total of the non-<code>null</code> entries in the dataset
+     * for the specified column (all series).
+     * 
+     * @param data  the dataset (<code>null</code> not permitted).
+     * @param columnKey  the row key (<code>null</code> not permitted).
+     * 
+     * @return The total.
+     * 
+     * @since 1.2
+     */
+    public static double totalForColumn(KeyedValues3D<? extends Number> data, 
+            Comparable<?> columnKey) {
+        ArgChecks.nullNotPermitted(data, "data");
+        ArgChecks.nullNotPermitted(columnKey, "columnKey");
+        int columnIndex = data.getColumnIndex(columnKey);
+        if (columnIndex < 0) {
+            throw new IllegalArgumentException("Column not found: " 
+                    + columnKey);
+        }
+        double total = 0.0;
+        int seriesCount = data.getSeriesCount();
+        int rowCount = data.getRowCount();
+        for (int s = 0; s < seriesCount; s++) {
+            for (int r = 0; r < rowCount; r++) {
+                Number n = (Number) data.getValue(s, r, columnIndex);
+                if (n != null) {
+                    total += n.doubleValue();
+                }
+            }
+        }
+        return total;
+    }
 
     /**
      * Returns the range of values in the specified data structure (a three
@@ -170,6 +371,36 @@ public class DataUtils {
             }
         }
         return new double[] { neg, pos };
+    }
+
+    /**
+     * Returns the total of the non-<code>NaN</code> entries in the dataset
+     * for the specified series.
+     * 
+     * @param data  the dataset (<code>null</code> not permitted).
+     * @param seriesKey  the series key (<code>null</code> not permitted).
+     * 
+     * @return The count.
+     * 
+     * @since 1.2
+     */
+    public static double total(XYZDataset data, Comparable<?> seriesKey) {
+        ArgChecks.nullNotPermitted(data, "data");
+        ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
+        int seriesIndex = data.getSeriesIndex(seriesKey);
+        if (seriesIndex < 0) {
+            throw new IllegalArgumentException("Series not found: " 
+                    + seriesKey);
+        }
+        double total = 0;
+        int itemCount = data.getItemCount(seriesIndex);
+        for (int item = 0; item < itemCount; item++) {
+            double y = data.getY(seriesIndex, item);
+            if (!Double.isNaN(y)) {
+                total += y;
+            }
+        }
+        return total;
     }
     
     /**

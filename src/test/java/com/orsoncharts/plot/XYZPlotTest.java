@@ -18,6 +18,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
 import java.awt.BasicStroke;
@@ -30,6 +31,7 @@ import com.orsoncharts.axis.ValueAxis3D;
 import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.data.xyz.XYZSeriesCollection;
 import com.orsoncharts.graphics3d.Dimension3D;
+import com.orsoncharts.label.StandardXYZLabelGenerator;
 import com.orsoncharts.renderer.xyz.ScatterXYZRenderer;
 import com.orsoncharts.renderer.xyz.XYZRenderer;
 
@@ -115,6 +117,11 @@ public class XYZPlotTest implements Plot3DChangeListener {
         p1.setGridlineStrokeZ(new BasicStroke(0.6f));
         assertFalse(p1.equals(p2));
         p2.setGridlineStrokeZ(new BasicStroke(0.6f));
+        assertTrue(p1.equals(p2));
+        
+        p1.setLegendLabelGenerator(new StandardXYZLabelGenerator("%s XX"));
+        assertFalse(p1.equals(p2));
+        p2.setLegendLabelGenerator(new StandardXYZLabelGenerator("%s XX"));
         assertTrue(p1.equals(p2));
     }
 

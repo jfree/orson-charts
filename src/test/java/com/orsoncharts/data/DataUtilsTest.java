@@ -12,8 +12,11 @@
 
 package com.orsoncharts.data;
 
+import com.orsoncharts.data.xyz.XYZSeries;
+import com.orsoncharts.data.xyz.XYZSeriesCollection;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertArrayEquals;
+
 import org.junit.Test;
 
 /**
@@ -36,6 +39,29 @@ public class DataUtilsTest {
         assertEquals(6.0, DataUtils.total(values), EPSILON);
         values.put("K2", null);
         assertEquals(4.0, DataUtils.total(values), EPSILON);
+    }
+    
+    @Test
+    public void testTotal_KeyedValues3D() {
+        DefaultKeyedValues3D<Double> data = new DefaultKeyedValues3D<Double>();
+        data.setValue(1.0, "S1", "R1", "C1");
+        assertEquals(1.0, DataUtils.total(data, "S1"), EPSILON);
+        data.setValue(null, "S1", "R2", "C1");
+        assertEquals(1.0, DataUtils.total(data, "S1"), EPSILON);
+        data.setValue(2.0, "S1", "R2", "C1");
+        assertEquals(3.0, DataUtils.total(data, "S1"), EPSILON);
+    }
+    
+    @Test
+    public void testTotal_XYZDataset() {
+        XYZSeries s1 = new XYZSeries("S1");
+        XYZSeriesCollection dataset = new XYZSeriesCollection();
+        dataset.add(s1);
+        assertEquals(0.0, DataUtils.total(dataset, "S1"), EPSILON);
+        s1.add(1.0, 2.0, 3.0);
+        assertEquals(2.0, DataUtils.total(dataset, "S1"), EPSILON);
+        s1.add(11.0, 12.0, 13.0);
+        assertEquals(14.0, DataUtils.total(dataset, "S1"), EPSILON);
     }
     
     public void testStackSubTotal() {

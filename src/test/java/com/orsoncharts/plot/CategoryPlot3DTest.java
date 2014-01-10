@@ -26,6 +26,7 @@ import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.category.StandardCategoryDataset3D;
 import com.orsoncharts.renderer.category.BarRenderer3D;
 import com.orsoncharts.TestUtils;
+import com.orsoncharts.label.StandardCategoryLabelGenerator;
 
 /**
  * Tests for the {@link CategoryPlot3D} class.
@@ -75,6 +76,11 @@ public class CategoryPlot3DTest {
         p1.setGridlineStrokeForRows(new BasicStroke(0.6f));
         assertFalse(p1.equals(p2));
         p2.setGridlineStrokeForRows(new BasicStroke(0.6f));
+        assertTrue(p1.equals(p2));
+        
+        p1.setLegendLabelGenerator(new StandardCategoryLabelGenerator("%s XX"));
+        assertFalse(p1.equals(p2));
+        p2.setLegendLabelGenerator(new StandardCategoryLabelGenerator("%s XX"));
         assertTrue(p1.equals(p2));
     }
         

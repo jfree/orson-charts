@@ -639,7 +639,7 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
     @Override
     public void draw(Graphics2D g2, Rectangle2D bounds) {
         g2.addRenderingHints(this.renderingHints);
-        g2.setStroke(new BasicStroke(1.2f, BasicStroke.CAP_ROUND, 
+        g2.setStroke(new BasicStroke(1.5f, BasicStroke.CAP_ROUND, 
                 BasicStroke.JOIN_ROUND, 1f));
         Dimension3D dim3D = this.plot.getDimensions();
         double w = dim3D.getWidth();
@@ -665,9 +665,9 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
         Point3D[] eyePts = world.calculateEyeCoordinates(this.viewPoint);
         Point2D[] pts = world.calculateProjectedPoints(this.viewPoint, 
                 this.projDist);
-        List<Face> facesInPaintOrder = new ArrayList<Face>(world.getFaces());
-
+        
         // sort faces by z-order
+        List<Face> facesInPaintOrder = new ArrayList<Face>(world.getFaces());
         Collections.sort(facesInPaintOrder, new ZOrderComparator(eyePts));
 
         for (Face f : facesInPaintOrder) {
@@ -734,7 +734,7 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
                 if (true) { // eval
                     GridElement legend2 = new GridElement();
                     legend2.setElement(legend, "R1", "C1");
-                    TextElement te = new TextElement("Orson Charts (evaluation) (c) 2013, by Object Refinery Limited", new Font("Dialog", Font.PLAIN, 10));
+                    TextElement te = new TextElement("Orson Charts (evaluation) (c) 2013, 2014, by Object Refinery Limited", new Font("Dialog", Font.PLAIN, 10));
                     te.setHorizontalAligment(HAlign.RIGHT);
                     legend2.setElement(te, "R2", "C1");
                     legend = legend2;         
@@ -771,7 +771,8 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
     private List<TickData> fetchXTickData(Plot3D plot, double tickUnit) {
         if (plot instanceof CategoryPlot3D) {
             CategoryPlot3D cp = (CategoryPlot3D) plot;
-            return cp.getColumnAxis().generateTickData();
+            return cp.getColumnAxis().generateTickDataForColumns(
+                    cp.getDataset());
         }
         if (plot instanceof XYZPlot) {
             XYZPlot xp = (XYZPlot) plot;
@@ -818,7 +819,7 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
     private List<TickData> fetchZTickData(Plot3D plot, double tickUnit) {
         if (plot instanceof CategoryPlot3D) {
             CategoryPlot3D cp = (CategoryPlot3D) plot;
-            return cp.getRowAxis().generateTickData();
+            return cp.getRowAxis().generateTickDataForRows(cp.getDataset());
         }
         if (plot instanceof XYZPlot) {
             XYZPlot xp = (XYZPlot) plot;

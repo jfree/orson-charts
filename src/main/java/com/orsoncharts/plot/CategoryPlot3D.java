@@ -32,6 +32,8 @@ import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.axis.ValueAxis3D;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.World;
+import com.orsoncharts.label.CategoryLabelGenerator;
+import com.orsoncharts.label.StandardCategoryLabelGenerator;
 import com.orsoncharts.legend.LegendItemInfo;
 import com.orsoncharts.legend.StandardLegendItemInfo;
 import com.orsoncharts.renderer.Renderer3DChangeEvent;
@@ -106,6 +108,9 @@ public class CategoryPlot3D extends AbstractPlot3D
     /** The stroke for the value axis gridlines (never <code>null</code>). */
     private transient Stroke gridlineStrokeForValues;
     
+    /** The legend label generator. */
+    private CategoryLabelGenerator legendLabelGenerator;
+
     /**
      * Creates a new plot.
      * 
@@ -147,6 +152,7 @@ public class CategoryPlot3D extends AbstractPlot3D
         this.gridlineStrokeForRows = DEFAULT_GRIDLINE_STROKE;
         this.gridlineStrokeForColumns = DEFAULT_GRIDLINE_STROKE;
         this.gridlineStrokeForValues = DEFAULT_GRIDLINE_STROKE;
+        this.legendLabelGenerator = new StandardCategoryLabelGenerator();
     }
     
     /**
@@ -494,6 +500,31 @@ public class CategoryPlot3D extends AbstractPlot3D
     }
 
     /**
+     * Returns the legend label generator.
+     * 
+     * @return The legend label generator (never <code>null</code>).
+     * 
+     * @since 1.2
+     */
+    public CategoryLabelGenerator getLegendLabelGenerator() {
+        return this.legendLabelGenerator;    
+    }
+    
+    /**
+     * Sets the legend label generator and sends a {@link Plot3DChangeEvent}
+     * to all registered listeners.
+     * 
+     * @param generator  the generator (<code>null</code> not permitted).
+     * 
+     * @since 1.2
+     */
+    public void setLegendLabelGenerator(CategoryLabelGenerator generator) {
+        ArgChecks.nullNotPermitted(generator, "generator");
+        this.legendLabelGenerator = generator;
+        fireChangeEvent();
+    }
+    
+    /**
      * Returns a list containing legend item info, typically one item for
      * each series in the chart.  This is intended for use in the construction
      * of a chart legend.
@@ -507,8 +538,10 @@ public class CategoryPlot3D extends AbstractPlot3D
         for (Comparable<?> key : keys) {
             int series = this.dataset.getSeriesIndex(key);
             Paint paint = this.renderer.getColorSource().getLegendColor(series);
+            String seriesLabel = this.legendLabelGenerator.generateSeriesLabel(
+                    this.dataset, key);
             LegendItemInfo info = new StandardLegendItemInfo(key, 
-                    key.toString(), paint);
+                    seriesLabel, paint);
             result.add(info);
         }
         return result;
@@ -572,8 +605,11 @@ public class CategoryPlot3D extends AbstractPlot3D
         if (!this.gridlineStrokeForValues.equals(that.gridlineStrokeForValues)) {
             return false;
         }
-         if (!ObjectUtils.equalsPaint(this.gridlinePaintForValues, 
+        if (!ObjectUtils.equalsPaint(this.gridlinePaintForValues, 
                  that.gridlinePaintForValues)) {
+            return false;
+        }
+        if (!this.legendLabelGenerator.equals(that.legendLabelGenerator)) {
             return false;
         }
        return super.equals(obj);

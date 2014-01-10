@@ -13,6 +13,7 @@
 package com.orsoncharts.axis;
 
 import java.awt.geom.Point2D;
+import com.orsoncharts.util.ArgChecks;
 
 /**
  * Data related to the tick marks and labels on a chart.
@@ -25,6 +26,12 @@ public class TickData {
     /** The key for the tick (used for CategoryAxis3D, null otherwise). */
     private Comparable<?> key;
     
+    /** 
+     * The label used for the category key (used for CategoryAxis3D, null 
+     * otherwise). 
+     */
+    private String keyLabel;
+    
     /** The data value (used for ValueAxis3D). */
     private double dataValue;
 
@@ -35,21 +42,23 @@ public class TickData {
     private Point2D anchorPt;
     
     /**
-     * Creates a new instance.
+     * Creates a new instance.  This constructor is used for category axes.
      * 
      * @param pos  the position along the axis as a percentage of the range.
      * @param key  the key.
+     * @param keyLabel  the key label.
      */
-    public TickData(double pos, Comparable<?> key) {
+    public TickData(double pos, Comparable<?> key, String keyLabel) {
         this.pos = pos;
         this.key = key;
+        this.keyLabel = keyLabel;
         this.dataValue = Double.NaN;
         this.vertexIndex = -1;
         this.anchorPt = null;
     }
     
     /**
-     * Creates a new instance.
+     * Creates a new instance.  This constructor is used for numerical axes.
      * 
      * @param pos  the position along the axis as a percentage of the range.
      * @param dataValue  the data value.
@@ -58,20 +67,24 @@ public class TickData {
         this.pos = pos;
         this.dataValue = dataValue;
         this.key = null;
+        this.keyLabel = null;
         this.vertexIndex = -1;
         this.anchorPt = null;
     }
     
     /**
-     * Creates a new instance.
+     * Creates a new instance by copying an existing instance but altering 
+     * the vertex index.
      * 
-     * @param source  a source to copy.
+     * @param source  a source to copy (<code>null</code> not permitted).
      * @param vertexIndex  the vertex index.
      */
     public TickData(TickData source, int vertexIndex) {
+        ArgChecks.nullNotPermitted(source, "source");
         this.pos = source.pos;
         this.dataValue = source.dataValue;
         this.key = source.key;
+        this.keyLabel = source.keyLabel;
         this.anchorPt = source.anchorPt;
         this.vertexIndex = vertexIndex;
     }
@@ -94,6 +107,17 @@ public class TickData {
      */
     public Comparable<?> getKey() {
         return this.key;
+    }
+    
+    /**
+     * Returns the key label.
+     * 
+     * @return The key label (possibly <code>null</code>).
+     * 
+     * @since 1.2
+     */
+    public String getKeyLabel() {
+        return this.keyLabel;
     }
     
     /**

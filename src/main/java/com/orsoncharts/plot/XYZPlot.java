@@ -32,6 +32,8 @@ import com.orsoncharts.renderer.xyz.XYZRenderer;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.World;
+import com.orsoncharts.label.StandardXYZLabelGenerator;
+import com.orsoncharts.label.XYZLabelGenerator;
 import com.orsoncharts.legend.LegendItemInfo;
 import com.orsoncharts.legend.StandardLegendItemInfo;
 import com.orsoncharts.renderer.ComposeType;
@@ -92,6 +94,9 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
 
     /** The stroke for the z-axis gridlines. */
     private transient Stroke gridlineStrokeZ;
+
+    /** The legend label generator. */
+    private XYZLabelGenerator legendLabelGenerator;
     
     /**
      * Creates a new plot with the specified axes.
@@ -133,6 +138,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
         this.gridlinesVisibleZ = true;
         this.gridlinePaintZ = Color.WHITE;
         this.gridlineStrokeZ = DEFAULT_GRIDLINE_STROKE;
+        this.legendLabelGenerator = new StandardXYZLabelGenerator();
     }
     
     /**
@@ -450,6 +456,32 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
     }
 
     /**
+     * Returns the legend label generator.  The default value is a default
+     * instance of {@link StandardXYZLabelGenerator}.
+     * 
+     * @return The legend label generator (never <code>null</code>).
+     * 
+     * @since 1.2
+     */
+    public XYZLabelGenerator getLegendLabelGenerator() {
+        return this.legendLabelGenerator;
+    }
+    
+    /**
+     * Sets the legend label generator and sends a {@link Plot3DChangeEvent}
+     * to all registered listeners.
+     * 
+     * @param generator  the generator (<code>null</code> not permitted). 
+     * 
+     * @since 1.2
+     */
+    public void setLegendLabelGenerator(XYZLabelGenerator generator) {
+        ArgChecks.nullNotPermitted(generator, "generator");
+        this.legendLabelGenerator = generator;
+        fireChangeEvent();
+    }
+    
+    /**
      * Returns a list containing legend item info, typically one item for
      * each series in the chart.  This is intended for use in the construction
      * of a chart legend.
@@ -461,10 +493,11 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
         List<LegendItemInfo> result = new ArrayList<LegendItemInfo>();
         List<Comparable<?>> keys = this.dataset.getSeriesKeys();
         for (Comparable<?> key : keys) {
+            String label = this.legendLabelGenerator.generateSeriesLabel(
+                    this.dataset, key);
             int series = this.dataset.getSeriesIndex(key);
             Color color = this.renderer.getColorSource().getLegendColor(series);
-            LegendItemInfo info = new StandardLegendItemInfo(key, 
-                    key.toString(), color);
+            LegendItemInfo info = new StandardLegendItemInfo(key, label, color);
             result.add(info);
         }
         return result;
@@ -505,6 +538,13 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
         }
     }
 
+    /**
+     * Tests this plot instance for equality with an arbitrary object.
+     * 
+     * @param obj  the object (<code>null</code> permitted).
+     * 
+     * @return A boolean. 
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
@@ -545,6 +585,9 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
             return false;
         }
         if (!this.gridlineStrokeZ.equals(that.gridlineStrokeZ)) {
+            return false;
+        }
+        if (!this.legendLabelGenerator.equals(that.legendLabelGenerator)) {
             return false;
         }
         return super.equals(obj);
