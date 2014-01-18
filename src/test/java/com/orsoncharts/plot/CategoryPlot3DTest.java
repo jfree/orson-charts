@@ -38,12 +38,14 @@ public class CategoryPlot3DTest {
         StandardCategoryDataset3D d1 = new StandardCategoryDataset3D();
         BarRenderer3D r1 = new BarRenderer3D();
         CategoryPlot3D p1 = new CategoryPlot3D(d1, r1, 
-                new StandardCategoryAxis3D("R"), new StandardCategoryAxis3D("C"), 
+                new StandardCategoryAxis3D("R"), 
+                new StandardCategoryAxis3D("C"), 
                 new NumberAxis3D("N"));
         StandardCategoryDataset3D d2 = new StandardCategoryDataset3D();
         BarRenderer3D r2 = new BarRenderer3D();
-        CategoryPlot3D p2 = new CategoryPlot3D(d1, r1, 
-                new StandardCategoryAxis3D("R"), new StandardCategoryAxis3D("C"), 
+        CategoryPlot3D p2 = new CategoryPlot3D(d2, r2, 
+                new StandardCategoryAxis3D("R"), 
+                new StandardCategoryAxis3D("C"), 
                 new NumberAxis3D("N"));
         assertTrue(p1.equals(p2));
         assertFalse(p1.equals(null));
