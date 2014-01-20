@@ -6,12 +6,14 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
 package com.orsoncharts;
 
+import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Graphics2D;
 import java.awt.Paint;
 import java.awt.geom.Rectangle2D;
@@ -24,8 +26,6 @@ import com.orsoncharts.util.Fit2D;
 import com.orsoncharts.util.ObjectUtils;
 import com.orsoncharts.util.Scale2D;
 import com.orsoncharts.util.SerialUtils;
-import java.awt.Dimension;
-import java.awt.Image;
 
 /**
  * A {@link RectanglePainter} that fills the rectangle with a 
@@ -44,7 +44,7 @@ public class StandardRectanglePainter implements RectanglePainter,
     /** A background image for the chart, if any. */
     private transient Image image;
     
-    private Fit2D fit;
+    private Fit2D imageFit;
     
     /**
      * Creates a new painter that will fill a rectangle with the specified
@@ -68,9 +68,9 @@ public class StandardRectanglePainter implements RectanglePainter,
         ArgChecks.nullNotPermitted(paint, "paint");
         this.paint = paint;
         this.image = image;
-        this.fit = new Fit2D(TitleAnchor.TOP_CENTER, Scale2D.SCALE_BOTH);
+        this.imageFit = new Fit2D(TitleAnchor.TOP_CENTER, Scale2D.SCALE_BOTH);
         if (imageFit != null) {
-            this.fit = imageFit;
+            this.imageFit = imageFit;
         }
     }
 
@@ -98,7 +98,7 @@ public class StandardRectanglePainter implements RectanglePainter,
      * @return The image fit specification. 
      */
     public Fit2D getImageFit() {
-        return this.fit;
+        return this.imageFit;
     }
     
     /**
@@ -115,7 +115,8 @@ public class StandardRectanglePainter implements RectanglePainter,
         if (this.image != null) {
             int w = this.image.getWidth(null);
             int h = this.image.getHeight(null);
-            Rectangle2D imageBounds = this.fit.fit(new Dimension(w, h), bounds);
+            Rectangle2D imageBounds = this.imageFit.fit(new Dimension(w, h), 
+                    bounds);
             g2.drawImage(this.image, (int) imageBounds.getX(), 
                     (int) imageBounds.getY(), (int) imageBounds.getWidth(),
                     (int) imageBounds.getHeight(), null);
