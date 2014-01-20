@@ -6,7 +6,7 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of thIS source file is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
