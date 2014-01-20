@@ -41,21 +41,37 @@ import javax.swing.JPanel;
 import com.orsoncharts.ChartPanel3D;
 
 /**
- *
- * @author dgilbert
+ * The base class for panels created by demo applications.  Some demos will 
+ * subclass to add extra controls in addition to the main {@link ChartPanel3D}.
  */
 public class DemoPanel extends JPanel {
     
     private ChartPanel3D chartPanel;
     
+    /**
+     * Creates a new instance.
+     * 
+     * @param layout  the layout manager. 
+     */
     public DemoPanel(LayoutManager layout) {
         super(layout);
     }
     
+    /**
+     * Returns the {@link ChartPanel3D} from the demo panel.
+     * 
+     * @return The {@link ChartPanel3D}. 
+     */
     public ChartPanel3D getChartPanel() {
         return this.chartPanel;
     }
     
+    /**
+     * Sets the {@link ChartPanel3D} for this demo panel.  This can be
+     * accessed by code that wants to do something to the chart.
+     * 
+     * @param panel  the panel. 
+     */
     public void setChartPanel(ChartPanel3D panel) {
         this.chartPanel = panel;
     }
