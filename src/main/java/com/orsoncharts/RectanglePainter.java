@@ -6,7 +6,7 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
@@ -23,6 +23,7 @@ import java.awt.geom.Rectangle2D;
  * designed to be <code>Serializable</code> and immutable.  Immutability is 
  * desirable because painters are assigned to {@link Chart3D} instances, and 
  * there is no change notification if the painter can be modified directly.
+ * In addition, a single painter can be shared amongst multiple charts.
  */
 public interface RectanglePainter {
     
