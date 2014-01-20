@@ -6,7 +6,7 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
@@ -78,7 +78,7 @@ public class TitleUtils {
      * 
      * @return A composite title. 
      */
-    public static TableElement createTitle(String title, String subtitle, 
+    public static TableElement createTitle(String title, String subtitle,
             Anchor2D anchor) {
         HAlign alignment = HAlign.LEFT;
         if (anchor.getRefPt().isHorizontalCenter()) {
@@ -101,7 +101,7 @@ public class TitleUtils {
      * @param alignment  the horizontal alignment (<code>null</code> not 
      *     permitted).
      * 
-     * @return A composite title. 
+     * @return A chart title (never <code>null</code>). 
      */
     public static TableElement createTitle(String title, Font titleFont,
             String subtitle, Font subtitleFont, HAlign alignment) {
@@ -109,14 +109,19 @@ public class TitleUtils {
         TextElement t = new TextElement(title, titleFont);
         t.setHorizontalAligment(alignment);
         t.setForegroundPaint(DEFAULT_TITLE_PAINT);
+        t.setTag("CHART_TITLE");
         if (subtitle == null) {
             return t;
         }
+        if (subtitleFont == null) {
+            throw new IllegalArgumentException(
+                    "A subtitleFont is required when there is a subtitle.");
+        }
         GridElement compositeTitle = new GridElement();
-        Font stf = subtitleFont != null ? subtitleFont : DEFAULT_SUBTITLE_FONT;
-        TextElement st = new TextElement(subtitle, stf);
+        TextElement st = new TextElement(subtitle, subtitleFont);
         st.setHorizontalAligment(alignment);
         st.setForegroundPaint(DEFAULT_TITLE_PAINT);
+        st.setTag("CHART_SUBTITLE");
         compositeTitle.setElement(t, "R1", "C1");
         compositeTitle.setElement(st, "R2", "C1");
         return compositeTitle;

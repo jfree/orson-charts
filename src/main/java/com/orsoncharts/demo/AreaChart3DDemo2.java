@@ -38,13 +38,12 @@ package com.orsoncharts.demo;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Font;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import com.orsoncharts.Colors;
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
+import com.orsoncharts.Colors;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.category.StandardCategoryDataset3D;
 import com.orsoncharts.data.DefaultKeyedValues;
@@ -52,7 +51,6 @@ import com.orsoncharts.graphics3d.ViewPoint3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.category.AreaRenderer3D;
-import com.orsoncharts.renderer.category.StandardCategoryColorSource;
 
 /**
  * A demo of a 3D area chart.
@@ -87,14 +85,11 @@ public class AreaChart3DDemo2 extends JFrame {
         chart.setChartBoxColor(new Color(255, 255, 255, 128));
         chart.setViewPoint(ViewPoint3D.createAboveLeftViewPoint(40));
         
-        chart.getLegendBuilder().setItemFont(new Font("Dialog", 
-                Font.ITALIC, 12));
         CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
         plot.getRowAxis().setVisible(false);
         AreaRenderer3D renderer = (AreaRenderer3D) plot.getRenderer();
         renderer.setBaseColor(Color.GRAY);
-        renderer.setColorSource(new StandardCategoryColorSource(
-                Colors.getColors1()));
+        renderer.setColors(Colors.getSAPMultiColor());
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
         content.setChartPanel(chartPanel);
         content.add(new DisplayPanel3D(chartPanel));

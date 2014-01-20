@@ -49,7 +49,6 @@ import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.category.StackedBarRenderer3D;
-import com.orsoncharts.renderer.category.StandardCategoryColorSource;
 
 /**
  * A demo of a 3D stacked bar chart.
@@ -88,8 +87,7 @@ public class StackedBarChart3DDemo2 extends JFrame {
         StackedBarRenderer3D renderer 
                 = (StackedBarRenderer3D) plot.getRenderer();
         renderer.setBarZWidth(0.3);
-        renderer.setColorSource(new StandardCategoryColorSource(
-                Colors.getColors1()));
+        renderer.setColors(Colors.createBlueOceanColors());
         chart.getViewPoint().moveUpDown(Math.PI / 30);
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
         content.setChartPanel(chartPanel);

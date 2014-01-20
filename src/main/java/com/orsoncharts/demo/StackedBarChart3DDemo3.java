@@ -44,11 +44,14 @@ import javax.swing.JPanel;
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
+import com.orsoncharts.Colors;
 import com.orsoncharts.RectanglePainter;
 import com.orsoncharts.StandardRectanglePainter;
+import com.orsoncharts.axis.StandardCategoryAxis3D;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.category.StandardCategoryDataset3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
+import com.orsoncharts.label.StandardCategoryLabelGenerator;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.category.StackedBarRenderer3D;
 import com.orsoncharts.util.Fit2D;
@@ -94,8 +97,20 @@ public class StackedBarChart3DDemo3 extends JFrame {
         chart.setBackground(background);
         chart.setChartBoxColor(new Color(255, 255, 255, 155));
         CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
+        plot.setLegendLabelGenerator(new StandardCategoryLabelGenerator(
+                StandardCategoryLabelGenerator.TOTAL_TEMPLATE));
+        StandardCategoryAxis3D rowAxis 
+                = (StandardCategoryAxis3D) plot.getRowAxis();
+        rowAxis.setTickLabelGenerator(new StandardCategoryLabelGenerator(
+                StandardCategoryLabelGenerator.TOTAL_TEMPLATE));
+
+        StandardCategoryAxis3D columnAxis 
+                = (StandardCategoryAxis3D) plot.getColumnAxis();
+        columnAxis.setTickLabelGenerator(new StandardCategoryLabelGenerator(
+                StandardCategoryLabelGenerator.TOTAL_TEMPLATE));
         StackedBarRenderer3D renderer = (StackedBarRenderer3D) plot.getRenderer();
-        renderer.setColors(new Color(50, 200, 50), new Color(200, 50, 50));
+        renderer.setColors(Colors.createIceCubeColors());
+        
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
         content.setChartPanel(chartPanel);
         chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);

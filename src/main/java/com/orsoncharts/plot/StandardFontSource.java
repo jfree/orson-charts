@@ -6,7 +6,7 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
@@ -103,6 +103,22 @@ public final class StandardFontSource implements FontSource, Serializable {
         }
     }
     
+    /**
+     * Clears existing font settings and sets the default font to the 
+     * supplied value.  This method is used by the framework and is not
+     * normally called by client code.
+     * 
+     * @param font  the font (<code>null</code> not permitted).
+     * 
+     * @since 1.2
+     */
+    @Override
+    public void style(Font font) {
+        ArgChecks.nullNotPermitted(font, "font");
+        this.defaultFont = font;
+        this.fonts.clear();
+    }
+
     /**
      * Tests this paint source for equality with an arbitrary object.
      * 

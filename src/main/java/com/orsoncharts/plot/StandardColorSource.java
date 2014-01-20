@@ -6,7 +6,7 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
@@ -103,6 +103,21 @@ public final class StandardColorSource implements ColorSource,
         }
     }
     
+    /**
+     * Clears existing color settings and sets the default colors to the 
+     * supplied value.  This method is used by the framework and is not
+     * normally called by client code.
+     * 
+     * @param colors  the colors (<code>null</code> not permitted).
+     * 
+     * @since 1.2
+     */
+    @Override
+    public void style(Color... colors) {
+        this.standardColors = colors;
+        this.colors.clear();
+    }
+
     /**
      * Tests this paint source for equality with an arbitrary object.
      * 

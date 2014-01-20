@@ -6,13 +6,14 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
 package com.orsoncharts.renderer;
 
 import com.orsoncharts.Chart3D;
+import com.orsoncharts.ChartElement;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.plot.XYZPlot;
 
@@ -32,7 +33,7 @@ import com.orsoncharts.plot.XYZPlot;
  * requirement (if you never use serialization, it won't matter if you 
  * implement a renderer that does not support it).
  */
-public interface Renderer3D {
+public interface Renderer3D extends ChartElement {
     
     /**
      * Registers a listener to receive notification of changes to the

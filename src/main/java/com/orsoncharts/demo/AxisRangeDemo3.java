@@ -38,7 +38,6 @@ package com.orsoncharts.demo;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.FlowLayout;
 import java.awt.LayoutManager;
 import javax.swing.JLabel;
@@ -125,9 +124,6 @@ public class AxisRangeDemo3 extends JFrame {
                 "Category", "Value");
         chart.setChartBoxColor(new Color(255, 255, 255, 128));
         chart.setViewPoint(ViewPoint3D.createAboveLeftViewPoint(40));
-        
-        chart.getLegendBuilder().setItemFont(new Font("Dialog", 
-                Font.ITALIC, 12));
         CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
         plot.getValueAxis().setRange(-500, 500);
         plot.getRowAxis().setVisible(false);

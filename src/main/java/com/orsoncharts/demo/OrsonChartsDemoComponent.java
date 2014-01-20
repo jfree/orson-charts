@@ -58,6 +58,7 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
+import com.orsoncharts.style.ChartStyle;
 
 /**
  * A component that fits inside a tab and contains a JTree to select individual
@@ -86,10 +87,31 @@ public class OrsonChartsDemoComponent extends JPanel
      * section of the right-hand split pane.
      */
     private JTextPane chartDescriptionPane;
-        
+    
+    /** 
+     * The chart style (if non-<code>null</code> this will be applied to 
+     * new charts). 
+     */
+    private ChartStyle style;
+    
+    /**
+     * Creates a new instance.
+     */
     public OrsonChartsDemoComponent() {
         super(new BorderLayout());
+        this.style = null;
         add(createContent());
+    }
+    
+    public ChartStyle getChartStyle() {
+        if (this.style == null) {
+            return null;
+        }
+        return this.style.clone();
+    }
+    
+    public void setChartStyle(ChartStyle style) {
+        this.style = style;    
     }
     
     /**
@@ -240,7 +262,7 @@ public class OrsonChartsDemoComponent extends JPanel
                 BorderFactory.createLineBorder(Color.DARK_GRAY));
         
         this.chartContainer = new JPanel(new BorderLayout());
-        JPanel chartPanel = AreaChart3DDemo1.createDemoPanel();
+        DemoPanel chartPanel = AreaChart3DDemo1.createDemoPanel();
         chartPanel.setBorder(b);
         this.chartContainer.add(chartPanel);
         splitter.add(this.chartContainer);

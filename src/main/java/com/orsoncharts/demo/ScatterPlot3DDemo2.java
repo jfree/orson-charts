@@ -37,6 +37,7 @@
 package com.orsoncharts.demo;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -85,6 +86,7 @@ public class ScatterPlot3DDemo2 extends JFrame {
         plot.setDimensions(new Dimension3D(10.0, 4.0, 10.0));
         ScatterXYZRenderer renderer = (ScatterXYZRenderer) plot.getRenderer();
         renderer.setSize(0.05);
+        renderer.setColors(Color.RED);
         chart.setViewPoint(ViewPoint3D.createAboveLeftViewPoint(40));
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
         content.setChartPanel(chartPanel);

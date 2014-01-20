@@ -6,7 +6,7 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
@@ -21,6 +21,7 @@ import com.orsoncharts.data.Dataset3DChangeEvent;
 import com.orsoncharts.data.Dataset3DChangeListener;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.Chart3D;
+import com.orsoncharts.ChartElementVisitor;
 
 /**
  * A base class that can be used to create classes that implement 
@@ -41,6 +42,9 @@ import com.orsoncharts.Chart3D;
 public abstract class AbstractPlot3D implements Plot3D, 
         Dataset3DChangeListener, Serializable {
   
+    /** The chart that this plot is assigned to, if any. */
+    private Chart3D chart;
+    
     /** 
      * The plot dimensions in 3D space.  By default, this is auto-adjusted
      * according to the dataset, but the user can override this.
@@ -67,12 +71,35 @@ public abstract class AbstractPlot3D implements Plot3D,
      * Default constructor.
      */
     protected AbstractPlot3D() {
+        this.chart = null;
         this.dimensions = new Dimension3D(1.0, 1.0, 1.0);
         this.autoAdjustDimensions = true;
         this.listenerList = new EventListenerList();
         this.notify = true;
     }
-  
+    /**
+     * Returns the chart that the plot is assigned to, if any.
+     * 
+     * @return The chart (possibly <code>null</code>).
+     * 
+     * @since 1.2
+     */
+    @Override
+    public Chart3D getChart() {
+        return this.chart;    
+    } 
+    
+    /**
+     * Sets the chart that the plot is assigned to.
+     * 
+     * @param chart  the chart (<code>null</code> permitted). 
+     * 
+     * @since 1.2
+     */
+    public void setChart(Chart3D chart) {
+        this.chart = chart;
+    }
+    
     /**
      * Returns the dimensions of the box in 3D space into which the plot will 
      * be composed.  The dimension can change according to the shape of the 
@@ -99,6 +126,16 @@ public abstract class AbstractPlot3D implements Plot3D,
         return this.autoAdjustDimensions;    
     }
 
+    /**
+     * Accepts a {@link ChartElementVisitor}.  This is part of
+     * a general purpose mechanism for traversing the chart
+     * structure, you won't normally call this method directly.
+     * 
+     * @param visitor  the visitor (never <code>null</code>). 
+     */
+    @Override
+    public abstract void receive(ChartElementVisitor visitor);
+    
     /**
      * Tests this plot for equality with an arbitrary object.
      * 

@@ -6,12 +6,13 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
 package com.orsoncharts.table;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.geom.Dimension2D;
@@ -29,6 +30,8 @@ import com.orsoncharts.data.DefaultKeyedValues2D;
 public class GridElement extends AbstractTableElement implements TableElement,
         Serializable {
 
+    private static final Color TRANSPARENT_COLOR = new Color(0, 0, 0, 0);
+    
     /** Storage for the cell elements. */
     private DefaultKeyedValues2D<TableElement> elements;
     
@@ -36,7 +39,8 @@ public class GridElement extends AbstractTableElement implements TableElement,
      * Creates a new empty grid.
      */
     public GridElement() {
-        this.elements = new DefaultKeyedValues2D<TableElement>();  
+        this.elements = new DefaultKeyedValues2D<TableElement>();
+        setBackgroundPaint(TRANSPARENT_COLOR);
     }
     
     /**
@@ -50,6 +54,26 @@ public class GridElement extends AbstractTableElement implements TableElement,
             Comparable<?> columnKey) {
         // defer argument checking
         this.elements.setValue(element, rowKey, columnKey);
+    }
+    
+    /**
+     * Receives a visitor.  The implementation ensures that the visitor
+     * visits all the elements in the grid.
+     * 
+     * @param visitor  the visitor (<code>null</code> not permitted).
+     * 
+     * @since 1.2
+     */
+    @Override
+    public void receive(TableElementVisitor visitor) {
+        for (int x = 0; x < this.elements.getXCount(); x++) {
+            for (int y = 0; y < this.elements.getYCount(); y++) {
+                TableElement element = this.elements.getValue(x, y);
+                if (element != null) {
+                    element.receive(visitor);
+                }
+            }
+        }
     }
     
     /**
@@ -147,6 +171,8 @@ public class GridElement extends AbstractTableElement implements TableElement,
      */
     @Override
     public void draw(Graphics2D g2, Rectangle2D bounds) {
+        g2.setPaint(getBackgroundPaint());
+        g2.fill(bounds);
         List<Rectangle2D> positions = layoutElements(g2, bounds, null);
         for (int r = 0; r < this.elements.getXCount(); r++) {
             for (int c = 0; c < this.elements.getYCount(); c++) {

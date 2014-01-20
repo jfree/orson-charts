@@ -36,10 +36,10 @@
 
 package com.orsoncharts.demo;
 
-import com.orsoncharts.data.AbstractDataset3D;
-import com.orsoncharts.data.xyz.XYZDataset;
 import java.util.ArrayList;
 import java.util.List;
+import com.orsoncharts.data.AbstractDataset3D;
+import com.orsoncharts.data.xyz.XYZDataset;
 
 /**
  * A sample {@link XYZDataset} implementation.  This is used for some 

@@ -6,7 +6,7 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
@@ -53,7 +53,7 @@ public class StandardCategoryLabelGenerator implements CategoryLabelGenerator,
 
     /**
      * The default template string (used in the default constructor, it is
-     * equivalent to {@link #PERCENT_TEMPLATE}).
+     * equivalent to {@link #KEY_ONLY_TEMPLATE}).
      * 
      * @since 1.2
      */
@@ -86,7 +86,7 @@ public class StandardCategoryLabelGenerator implements CategoryLabelGenerator,
      * Generates the label for one series in a category chart.
      * 
      * @param dataset  the dataset (<code>null</code> not permitted).
-     * @param key  the key (<code>null</code> not permitted).
+     * @param seriesKey  the key (<code>null</code> not permitted).
      * 
      * @return The label (never <code>null</code> for this implementation). 
      */

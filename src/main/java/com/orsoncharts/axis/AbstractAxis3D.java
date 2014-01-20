@@ -6,7 +6,7 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
@@ -15,13 +15,13 @@ package com.orsoncharts.axis;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Paint;
 import java.awt.Stroke;
 import java.io.Serializable;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import javax.swing.event.EventListenerList;
+import com.orsoncharts.ChartElementVisitor;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.ObjectUtils;
 import com.orsoncharts.util.SerialUtils;
@@ -33,6 +33,54 @@ import com.orsoncharts.util.SerialUtils;
  */
 public abstract class AbstractAxis3D implements Axis3D, Serializable {
     
+    /** 
+     * The default axis label font (in most circumstances this will be
+     * overridden by the chart style).
+     * 
+     * @since 1.2
+     */
+    public static final Font DEFAULT_LABEL_FONT = new Font("Dialog", Font.BOLD, 
+            12);
+    
+    /** 
+     * The default axis label color (in most circumstances this will be
+     * overridden by the chart style).
+     * 
+     * @since 1.2
+     */
+    public static final Color DEFAULT_LABEL_COLOR = Color.BLACK;
+    
+    /** 
+     * The default tick label font (in most circumstances this will be
+     * overridden by the chart style).
+     * 
+     * @since 1.2
+     */
+    public static final Font DEFAULT_TICK_LABEL_FONT = new Font("Dialog", 
+            Font.PLAIN, 12);
+
+    /** 
+     * The default tick label color (in most circumstances this will be
+     * overridden by the chart style).
+     * 
+     * @since 1.2
+     */
+    public static final Color DEFAULT_TICK_LABEL_COLOR = Color.BLACK;
+    
+    /** 
+     * The default stroke for the axis line.
+     * 
+     * @since 1.2
+     */
+    public static final Stroke DEFAULT_LINE_STROKE = new BasicStroke(0f);
+    
+    /**
+     * The default color for the axis line.
+     * 
+     * @since 1.2
+     */
+    public static final Color DEFAULT_LINE_COLOR = Color.GRAY;
+    
     /** The axis label (if <code>null</code>, no label is displayed). */
     private String label;
   
@@ -40,8 +88,8 @@ public abstract class AbstractAxis3D implements Axis3D, Serializable {
     private Font labelFont;
     
     /** The color used to draw the axis label (never <code>null</code>). */
-    private transient Paint labelPaint;
- 
+    private Color labelColor;
+    
     /** The stroke used to draw the axis line. */
     private transient Stroke lineStroke;
 
@@ -55,7 +103,7 @@ public abstract class AbstractAxis3D implements Axis3D, Serializable {
     private Font tickLabelFont;
     
     /** The tick label paint (never <code>null</code>). */
-    private transient Paint tickLabelPaint;
+    private Color tickLabelColor;
 
     /** Storage for registered change listeners. */
     private transient EventListenerList listenerList;
@@ -68,13 +116,13 @@ public abstract class AbstractAxis3D implements Axis3D, Serializable {
      */
     public AbstractAxis3D(String label) {
         this.label = label;
-        this.labelFont = new Font("SansSerif", Font.BOLD, 12);
-        this.labelPaint = Color.BLACK;
-        this.lineStroke = new BasicStroke(1.0f);
-        this.lineColor = Color.GRAY;
+        this.labelFont = DEFAULT_LABEL_FONT;
+        this.labelColor = DEFAULT_LABEL_COLOR;
+        this.lineStroke = DEFAULT_LINE_STROKE;
+        this.lineColor = DEFAULT_LINE_COLOR;
         this.tickLabelsVisible = true;
-        this.tickLabelFont = new Font("SansSerif", Font.PLAIN, 12);
-        this.tickLabelPaint = Color.BLACK;
+        this.tickLabelFont = DEFAULT_TICK_LABEL_FONT;
+        this.tickLabelColor = DEFAULT_TICK_LABEL_COLOR;
         this.listenerList = new EventListenerList();
     }
 
@@ -124,24 +172,26 @@ public abstract class AbstractAxis3D implements Axis3D, Serializable {
     }
 
     /**
-     * Returns the paint used for the label.  The default value is 
+     * Returns the color used for the label.  The default value is 
      * <code>Color.BLACK</code>.
      * 
      * @return The label paint (never <code>null</code>). 
      */
-    public Paint getLabelPaint() {
-        return this.labelPaint;
+    @Override
+    public Color getLabelColor() {
+        return this.labelColor;
     }
     
     /**
-     * Sets the paint used to draw the axis label and sends a 
+     * Sets the color used to draw the axis label and sends a 
      * {@link Axis3DChangeEvent} to all registered listeners.
      * 
-     * @param paint  the paint (<code>null</code> not permitted). 
+     * @param color  the color (<code>null</code> not permitted). 
      */
-    public void setLabelPaint(Paint paint) {
-        ArgChecks.nullNotPermitted(paint, "paint");
-        this.labelPaint = paint;
+    @Override
+    public void setLabelColor(Color color) {
+        ArgChecks.nullNotPermitted(color, "color");
+        this.labelColor = color;
         fireChangeEvent();
     }
     
@@ -237,22 +287,37 @@ public abstract class AbstractAxis3D implements Axis3D, Serializable {
      * 
      * @return The foreground color (never <code>null</code>). 
      */
-    public Paint getTickLabelPaint() {
-        return this.tickLabelPaint;
+    @Override
+    public Color getTickLabelColor() {
+        return this.tickLabelColor;
     }
     
     /**
      * Sets the foreground color for the tick labels and sends an 
      * {@link Axis3DChangeEvent} to all registered listeners.
      * 
-     * @param paint  the paint (<code>null</code> not permitted).
+     * @param color  the color (<code>null</code> not permitted).
      */
-    public void setTickLabelPaint(Paint paint) {
-        ArgChecks.nullNotPermitted(paint, "paint");
-        this.tickLabelPaint = paint;
+    @Override
+    public void setTickLabelColor(Color color) {
+        ArgChecks.nullNotPermitted(color, "color");
+        this.tickLabelColor = color;
         fireChangeEvent();
     }
 
+    /**
+     * Receives a {@link ChartElementVisitor}.  This method is part of a general
+     * mechanism for traversing the chart structure and performing operations
+     * on each element in the chart.  You will not normally call this method
+     * directly.
+     * 
+     * @param visitor  the visitor (<code>null</code> not permitted).
+     * 
+     * @since 1.2
+     */
+    @Override
+    public abstract void receive(ChartElementVisitor visitor);
+    
     /**
      * Tests this instance for equality with an arbitrary object.
      * 
@@ -275,7 +340,7 @@ public abstract class AbstractAxis3D implements Axis3D, Serializable {
         if (!this.labelFont.equals(that.labelFont)) {
             return false;
         }
-        if (!ObjectUtils.equalsPaint(this.labelPaint, that.labelPaint)) {
+        if (!this.labelColor.equals(that.labelColor)) {
             return false;
         }
         if (!this.lineStroke.equals(that.lineStroke)) {
@@ -290,18 +355,28 @@ public abstract class AbstractAxis3D implements Axis3D, Serializable {
         if (!this.tickLabelFont.equals(that.tickLabelFont)) {
             return false;
         }
-        if (!ObjectUtils.equalsPaint(this.tickLabelPaint, 
-                that.tickLabelPaint)) {
+        if (!this.tickLabelColor.equals(that.tickLabelColor)) {
             return false;
         }
         return true;
     }
     
+    /**
+     * Registers a listener so that it will receive axis change events.
+     * 
+     * @param listener  the listener (<code>null</code> not permitted). 
+     */
     @Override
     public void addChangeListener(Axis3DChangeListener listener) {
         this.listenerList.add(Axis3DChangeListener.class, listener);   
     }
   
+    /**
+     * Deregisters a listener so that it will no longer receive axis
+     * change events.
+     * 
+     * @param listener  the listener (<code>null</code> not permitted). 
+     */
     @Override
     public void removeChangeListener(Axis3DChangeListener listener) {
         this.listenerList.remove(Axis3DChangeListener.class, listener);  
@@ -337,8 +412,6 @@ public abstract class AbstractAxis3D implements Axis3D, Serializable {
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
-        SerialUtils.writePaint(this.labelPaint, stream);
-        SerialUtils.writePaint(this.tickLabelPaint, stream);
         SerialUtils.writeStroke(this.lineStroke, stream);
     }
 
@@ -353,8 +426,6 @@ public abstract class AbstractAxis3D implements Axis3D, Serializable {
     private void readObject(ObjectInputStream stream)
         throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
-        this.labelPaint = SerialUtils.readPaint(stream);
-        this.tickLabelPaint = SerialUtils.readPaint(stream);
         this.lineStroke = SerialUtils.readStroke(stream);
     }
 }

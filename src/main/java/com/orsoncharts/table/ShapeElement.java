@@ -6,7 +6,7 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
@@ -45,7 +45,6 @@ public class ShapeElement extends AbstractTableElement
         super();
         this.shape = shape;
         setForegroundPaint(fillPaint);
-        //setBackgroundPaint(new Color(0, 0, 0, 0)); // transparent
     }
 
     @Override
@@ -87,6 +86,18 @@ public class ShapeElement extends AbstractTableElement
         g2.setPaint(getForegroundPaint());
         g2.fill(shape);
         g2.setTransform(saved);
+    }
+    
+    /**
+     * Receives a visitor.
+     * 
+     * @param visitor  the visitor (<code>null</code> not permitted).
+     * 
+     * @since 1.2
+     */
+    @Override
+    public void receive(TableElementVisitor visitor) {
+        visitor.visit(this);
     }
     
 }

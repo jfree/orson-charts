@@ -6,7 +6,7 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
@@ -84,6 +84,32 @@ public final class StandardCategoryColorSource
     @Override
     public Color getLegendColor(int series) {
         return this.colors[series % this.colors.length];
+    }
+    
+    /**
+     * Restyles the source using the specified colors.  Refer to the 
+     * implementing class to confirm the precise behaviour (typically all 
+     * existing color settings are cleared and the specified colors are 
+     * installed as the new defaults).
+     * 
+     * @param colors  the colors.
+     * 
+     * @since 1.2
+     */
+    @Override
+    public void style(Color... colors) {
+        ArgChecks.nullNotPermitted(colors, "colors");
+        if (colors.length == 0) {
+            throw new IllegalArgumentException(
+                    "Zero length array not permitted.");
+        }
+        for (int i = 0; i < colors.length; i++) {
+            if (colors[i] == null) {
+                throw new IllegalArgumentException(
+                        "Null array entries not permitted.");
+            }
+        }
+        this.colors = colors.clone();
     }
     
     /**

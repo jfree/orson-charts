@@ -6,7 +6,7 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
@@ -33,6 +33,7 @@ import com.orsoncharts.util.Orientation;
 import com.orsoncharts.util.TextAnchor;
 import com.orsoncharts.util.TextUtils;
 import com.orsoncharts.Range;
+import com.orsoncharts.table.TableElementVisitor;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.Fit2D;
 
@@ -135,6 +136,20 @@ public class ColorScaleElement extends AbstractTableElement
         return this.font;
     }
     
+    /**
+     * Receives a visitor.  This is part of a general mechanism to perform
+     * operations on an arbitrary hierarchy of table elements.  You will not 
+     * normally call this method directly.
+     * 
+     * @param visitor  the visitor (<code>null</code> not permitted). 
+     * 
+     * @since 1.2
+     */
+    @Override
+    public void receive(TableElementVisitor visitor) {
+        visitor.visit(this);
+    }
+
     /**
      * Returns the preferred size for this element.
      * 

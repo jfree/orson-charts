@@ -6,7 +6,7 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
@@ -14,6 +14,7 @@ package com.orsoncharts.renderer;
 
 import javax.swing.event.EventListenerList;
 
+import com.orsoncharts.ChartElementVisitor;
 import com.orsoncharts.plot.Plot3DChangeListener;
 
 /**
@@ -67,6 +68,21 @@ public abstract class AbstractRenderer3D implements Renderer3D {
         }
     }
     
+    /**
+     * Receives a {@link ChartElementVisitor}.  This is part of a general 
+     * purpose mechanism for traversing the chart structure and performing 
+     * operations on the elements in the structure.  You won't normally call
+     * this method directly.
+     * 
+     * @param visitor  the visitor (<code>null</code> not permitted).
+     * 
+     * @since 1.2
+     */
+    @Override
+    public void receive(ChartElementVisitor visitor) {
+        visitor.visit(this);
+    }
+
     /**
      * Registers an object for notification of changes to the renderer.
      *

@@ -17,6 +17,7 @@ import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.legend.LegendItemInfo;
 import com.orsoncharts.Chart3D;
+import com.orsoncharts.ChartElement;
 
 /**
  * A plot for a {@link Chart3D}.  In Orson Charts, the <code>Chart3D</code> is
@@ -25,8 +26,27 @@ import com.orsoncharts.Chart3D;
  * implementations include {@link PiePlot3D}, {@link CategoryPlot3D} and 
  * {@link XYZPlot}.
  */
-public interface Plot3D {
+public interface Plot3D extends ChartElement {
 
+    /**
+     * Returns the chart that the plot is assigned to, if any.
+     * 
+     * @return The chart (possibly <code>null</code>).
+     * 
+     * @since 1.2
+     */
+    Chart3D getChart();
+    
+    /**
+     * Sets the chart that the plot is assigned to.  This method is intended
+     * for use by the framework, you should not need to call it yourself.
+     * 
+     * @param chart  the chart (<code>null</code> permitted).
+     * 
+     * @since 1.2
+     */
+    void setChart(Chart3D chart);
+    
     /**
      * Returns the dimensions for the plot in the 3D world in which it will 
      * be composed.

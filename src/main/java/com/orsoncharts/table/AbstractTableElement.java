@@ -6,7 +6,7 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
@@ -28,6 +28,10 @@ import com.orsoncharts.util.RefPt2D;
  */
 public abstract class AbstractTableElement {
     
+    /** The default background paint. */
+    private static final Color DEFAULT_BACKGROUND_PAINT 
+            = new Color(255, 255, 255, 127);
+    
     /** The reference point used to align the element when rendering. */
     private RefPt2D refPt;
     
@@ -40,6 +44,9 @@ public abstract class AbstractTableElement {
     /** The background paint (this can be <code>null</code>). */
     private Paint backgroundPaint;
     
+    /** A tag that can be used to identify the class of element. */
+    private String tag;
+    
     /**
      * Creates a new instance.
      */
@@ -47,7 +54,8 @@ public abstract class AbstractTableElement {
         this.refPt = RefPt2D.CENTER;
         this.insets = new Insets(2, 2, 2, 2);
         this.foregroundPaint = Color.BLACK;
-        this.backgroundPaint = new Color(255, 255, 255, 127);
+        this.backgroundPaint = DEFAULT_BACKGROUND_PAINT;
+        this.tag = "";
     }
 
     /**
@@ -131,6 +139,29 @@ public abstract class AbstractTableElement {
     public void setBackgroundPaint(Paint paint) {
         ArgChecks.nullNotPermitted(paint, "paint");
         this.backgroundPaint = paint;
+    }
+    
+    /**
+     * Returns the tag for this element.  The default value is an empty string.
+     * 
+     * @return The tag (never <code>null</code>). 
+     * 
+     * @since 1.2
+     */
+    public String getTag() {
+        return this.tag;
+    }
+    
+    /**
+     * Sets the tag.
+     * 
+     * @param tag  the tag (<code>null</code> not permitted).
+     * 
+     * @since 1.2
+     */
+    public void setTag(String tag) {
+        ArgChecks.nullNotPermitted(tag, "tag");
+        this.tag = tag;
     }
     
     /**

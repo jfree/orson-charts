@@ -6,7 +6,7 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
@@ -45,6 +45,18 @@ public interface CategoryColorSource {
      * @return The color. 
      */
     Color getLegendColor(int series);
-    
+
+    /**
+     * Restyles the source using the specified colors.  Refer to the 
+     * implementing class to confirm the precise behaviour (typically all 
+     * existing color settings are cleared and the specified colors are 
+     * installed as the new defaults).
+     * 
+     * @param colors  the colors.
+     * 
+     * @since 1.2
+     */
+    void style(Color... colors);
+
 }
 

@@ -6,7 +6,7 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
@@ -40,7 +40,7 @@ public class TextElement extends AbstractTableElement
      * 
      * @since 1.1
      */
-    public static final Font DEFAULT_FONT = new Font(Font.DIALOG, Font.PLAIN, 
+    public static final Font DEFAULT_FONT = new Font("Dialog", Font.PLAIN, 
             12);
     
     /** The text (never <code>null</code>). */
@@ -179,6 +179,18 @@ public class TextElement extends AbstractTableElement
         List<Rectangle2D> result = new ArrayList<Rectangle2D>(1);        
         result.add(new Rectangle2D.Double(x, y, w, h));
         return result;
+    }
+    
+    /**
+     * Receives a visitor.
+     * 
+     * @param visitor  the visitor (<code>null</code> not permitted).
+     * 
+     * @since 1.2
+     */
+    @Override
+    public void receive(TableElementVisitor visitor) {
+        visitor.visit(this);
     }
 
     /**

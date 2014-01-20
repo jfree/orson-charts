@@ -38,7 +38,6 @@ package com.orsoncharts.demo;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Font;
 import javax.swing.JFrame;
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
@@ -82,8 +81,6 @@ public class AreaChart3DDemo1 extends JFrame {
                 "Large companies in the IT industry", dataset, "Company", 
                 "Quarter", "Value");
         chart.setChartBoxColor(new Color(255, 255, 255, 128));
-        chart.getLegendBuilder().setItemFont(new Font("Dialog", Font.ITALIC, 
-                12));
         CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
         plot.getRowAxis().setVisible(false);
         AreaRenderer3D renderer = (AreaRenderer3D) plot.getRenderer();

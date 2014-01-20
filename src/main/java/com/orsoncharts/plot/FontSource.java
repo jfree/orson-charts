@@ -6,7 +6,7 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
@@ -38,5 +38,17 @@ public interface FontSource {
      * @param font  the font (<code>null</code> not permitted).
      */
     void setFont(Comparable<?> key, Font font);
+    
+    /**
+     * Restyles the source using the specified font.  Refer to the implementing
+     * class to confirm the precise behaviour (typically all existing font
+     * settings are cleared and this font is installed as the new default
+     * section label font).
+     * 
+     * @param font  the font (<code>null</code> not permitted). 
+     * 
+     * @since 1.2
+     */
+    void style(Font font);
  
 }

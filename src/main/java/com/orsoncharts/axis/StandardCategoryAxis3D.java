@@ -6,7 +6,7 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
@@ -35,7 +35,7 @@ import com.orsoncharts.label.CategoryLabelGenerator;
 import com.orsoncharts.label.StandardCategoryLabelGenerator;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.plot.CategoryPlot3D;
-import com.orsoncharts.renderer.category.AreaRenderer3D;
+import com.orsoncharts.ChartElementVisitor;
 import com.orsoncharts.util.ObjectUtils;
 import com.orsoncharts.util.SerialUtils;
 
@@ -547,7 +547,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
                     textAnchor = TextAnchor.CENTER_RIGHT;   
                 }
                 g2.setFont(getTickLabelFont());
-                g2.setPaint(getTickLabelPaint());
+                g2.setPaint(getTickLabelColor());
                 String tickLabel = t.getKeyLabel();
                 maxTickLabelWidth = Math.max(maxTickLabelWidth, 
                         g2.getFontMetrics().stringWidth(tickLabel));
@@ -560,7 +560,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
         // draw the axis label if there is one
         if (getLabel() != null) {
             g2.setFont(getLabelFont());
-            g2.setPaint(getLabelPaint());
+            g2.setPaint(getLabelColor());
             Line2D labelPosLine = Utils2D.createPerpendicularLine(axisLine, 0.5, 
                     this.tickMarkLength + this.tickLabelOffset 
                     + maxTickLabelWidth + 10.0, 
@@ -629,6 +629,21 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
             result.add(new TickData(pos, key, label));
         }
         return result;
+    }
+
+    /**
+     * Receives a {@link ChartElementVisitor}.  This method is part of a general
+     * mechanism for traversing the chart structure and performing operations
+     * on each element in the chart.  You will not normally call this method
+     * directly.
+     * 
+     * @param visitor  the visitor (<code>null</code> not permitted).
+     * 
+     * @since 1.2
+     */
+    @Override
+    public void receive(ChartElementVisitor visitor) {
+        visitor.visit(this);
     }
 
     /**

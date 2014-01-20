@@ -6,22 +6,24 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
 package com.orsoncharts.axis;
 
-import java.util.List;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.awt.Font;
+import java.util.List;
+import com.orsoncharts.ChartElement;
 import com.orsoncharts.Range;
 
 /**
  * An interface that must be supported by axes for 3D plots.
  */
-public interface Axis3D {
+public interface Axis3D extends ChartElement {
 
     /**
      * Returns the font that is used to display the main axis label.
@@ -39,6 +41,25 @@ public interface Axis3D {
     void setLabelFont(Font font);
     
     /**
+     * Returns the color used to draw the axis label.
+     * 
+     * @return The color (never <code>null</code>).
+     * 
+     * @since 1.2
+     */
+    Color getLabelColor();
+    
+    /**
+     * Sets the color used to draw the axis label and sends an 
+     * {@link Axis3DChangeEvent} to all registered listeners.
+     * 
+     * @param color  the color (<code>null</code> not permitted). 
+     * 
+     * @since 1.2
+     */
+    void setLabelColor(Color color);
+    
+    /**
      * Returns the font that is used to display the tick labels.
      * 
      * @return The font (never <code>null</code>). 
@@ -53,6 +74,25 @@ public interface Axis3D {
      */
     void setTickLabelFont(Font font);
     
+    /**
+     * Returns the color used to draw the axis tick labels.
+     * 
+     * @return The color (never <code>null</code>). 
+     * 
+     * @since 1.2
+     */
+    Color getTickLabelColor();
+    
+    /**
+     * Sets the color used to draw the axis tick labels and sends an 
+     * {@link Axis3DChangeEvent} to all registered listeners.
+     * 
+     * @param color  the color (<code>null</code> not permitted). 
+     * 
+     * @since 1.2
+     */
+    void setTickLabelColor(Color color);
+
     /**
      * Returns the axis range.
      * 

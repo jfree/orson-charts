@@ -6,14 +6,14 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
 package com.orsoncharts.legend;
 
+import java.awt.Color;
 import java.awt.Paint;
-import java.awt.geom.Rectangle2D;
 import java.awt.Font;
 import java.awt.Shape;
 import java.util.List;
@@ -22,6 +22,7 @@ import com.orsoncharts.plot.Plot3D;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.plot.PiePlot3D;
 import com.orsoncharts.plot.XYZPlot;
+import com.orsoncharts.style.ChartStyle;
 import com.orsoncharts.table.ContainerElement;
 import com.orsoncharts.table.FlowElement;
 import com.orsoncharts.table.GridElement;
@@ -47,26 +48,8 @@ import com.orsoncharts.util.Orientation;
 public final class StandardLegendBuilder implements LegendBuilder, 
         Serializable {
 
-    /** The default header font. */
-    public static final Font DEFAULT_HEADER_FONT = new Font("Dialog", Font.BOLD,
-            14);
-    
-    /** The default footer font. */
-    public static final Font DEFAULT_FOOTER_FONT = new Font("Dialog", 
-            Font.PLAIN, 10);
-    
-    /** The default font for legend items. */
-    public static final Font DEFAULT_ITEM_FONT = new Font("Dialog", Font.PLAIN,
-            12);
-    
-    private static final Shape DEFAULT_LEGEND_SHAPE 
-            = new Rectangle2D.Double(-6, -4, 12, 8);
-
     /** An optional header/title for the legend (can be <code>null</code>). */
     private String header;
-    
-    /** The header font (never <code>null</code>). */
-    private Font headerFont;
     
     /** The header alignment (never <code>null</code>). */
     private HAlign headerAlignment;
@@ -74,14 +57,8 @@ public final class StandardLegendBuilder implements LegendBuilder,
     /** An optional footer for the legend (can be <code>null</code>). */
     private String footer;
     
-    /** The footer font (never <code>null</code>). */    
-    private Font footerFont;
-    
     /** The footer alignment (never <code>null</code>). */
     private HAlign footerAlignment;
-    
-    /** The font used for legend items. */
-    private Font itemFont;
 
     /** 
      * The row alignment (if <code>null</code>, the row alignment will be
@@ -111,12 +88,9 @@ public final class StandardLegendBuilder implements LegendBuilder,
      */
     public StandardLegendBuilder(String header, String footer) {
         this.header = header;
-        this.headerFont = DEFAULT_HEADER_FONT;
         this.headerAlignment = HAlign.LEFT;
         this.footer = footer;
-        this.footerFont = DEFAULT_FOOTER_FONT;
         this.footerAlignment = HAlign.RIGHT;
-        this.itemFont = DEFAULT_ITEM_FONT;
         this.rowAlignment = null;
         this.columnAlignment = null;
     }
@@ -138,26 +112,7 @@ public final class StandardLegendBuilder implements LegendBuilder,
     public void setHeader(String header) {
         this.header = header;
     }
-    
-    /**
-     * Returns the header font.
-     * 
-     * @return The header font (never <code>null</code>). 
-     */
-    public Font getHeaderFont() {
-        return this.headerFont;
-    }
-    
-    /**
-     * Sets the header font.
-     * 
-     * @param font  the header font (<code>null</code> not permitted). 
-     */
-    public void setHeaderFont(Font font) {
-        ArgChecks.nullNotPermitted(font, "font");
-        this.headerFont = font;
-    }
-    
+
     /**
      * Returns the header alignment.
      * 
@@ -196,25 +151,6 @@ public final class StandardLegendBuilder implements LegendBuilder,
     }
     
     /**
-     * Returns the footer font.
-     * 
-     * @return The footer font (never <code>null</code>). 
-     */
-    public Font getFooterFont() {
-        return this.footerFont;
-    }
-    
-    /**
-     * Sets the footer font.
-     * 
-     * @param font  the footer font (<code>null</code> not permitted). 
-     */
-    public void setFooterFont(Font font) {
-        ArgChecks.nullNotPermitted(font, "font");
-        this.footerFont = font;
-    }
-    
-    /**
      * Returns the footer alignment.
      * 
      * @return The footer alignment (never <code>null</code>).
@@ -231,28 +167,6 @@ public final class StandardLegendBuilder implements LegendBuilder,
     public void setFooterAlignment(HAlign align) {
         ArgChecks.nullNotPermitted(align, "align");
         this.footerAlignment = align;
-    }
-    
-    /**
-     * Returns the font used for each item within the legend (the default value
-     * is {@link #DEFAULT_ITEM_FONT}).
-     * 
-     * @return The item font (never <code>null</code>).
-     */
-    @Override
-    public Font getItemFont() {
-        return this.itemFont;
-    }
-    
-    /**
-     * Sets the font used for each item within the legend.
-     * 
-     * @param font  the font (<code>null</code> not permitted). 
-     */
-    @Override
-    public void setItemFont(Font font) {
-        ArgChecks.nullNotPermitted(font, "font");
-        this.itemFont = font;
     }
     
     /**
@@ -320,25 +234,33 @@ public final class StandardLegendBuilder implements LegendBuilder,
      * @param plot  the plot (<code>null</code> not permitted).
      * @param anchor  the anchor (<code>null</code> not permitted).
      * @param orientation  the orientation (<code>null</code> not permitted).
+     * @param style  the chart style (<code>null</code> not permitted).
      * 
-     * @return The legend. 
+     * @return The legend.
+     * 
+     * @since 1.2
      */
     @Override
     public TableElement createLegend(Plot3D plot, Anchor2D anchor, 
-            Orientation orientation) {
+            Orientation orientation, ChartStyle style) {
+        
         TableElement legend = createSimpleLegend(plot.getLegendInfo(), anchor,
-                orientation);
+                orientation, style);
         if (this.header != null || this.footer != null) {
             GridElement compositeLegend = new GridElement();
             if (header != null) {
-                TextElement he = new TextElement(this.header, this.headerFont);
+                TextElement he = new TextElement(this.header, 
+                        style.getLegendHeaderFont());
                 he.setHorizontalAligment(this.headerAlignment);
+                he.setBackgroundPaint(style.getLegendHeaderBackgroundColor());
                 compositeLegend.setElement(he, "R0", "C1");                
             }
             compositeLegend.setElement(legend, "R1", "C1");
             if (this.footer != null) {
-                TextElement fe = new TextElement(this.footer, this.footerFont);
+                TextElement fe = new TextElement(this.footer, 
+                        style.getLegendFooterFont());
                 fe.setHorizontalAligment(this.footerAlignment);
+                fe.setBackgroundPaint(style.getLegendFooterBackgroundColor());
                 compositeLegend.setElement(fe, "R2", "C1");
             }
             return compositeLegend;
@@ -355,10 +277,10 @@ public final class StandardLegendBuilder implements LegendBuilder,
      * @param anchor  the anchor point (<code>null</code> not permitted).
      * @param orientation  the orientation (<code>null</code> not permitted).
      * 
-     * @return The simple legend. 
+     * @return The simple legend.
      */
     private TableElement createSimpleLegend(List<LegendItemInfo> items,
-            Anchor2D anchor, Orientation orientation) {
+            Anchor2D anchor, Orientation orientation, ChartStyle style) {
         ArgChecks.nullNotPermitted(items, "items");
         ArgChecks.nullNotPermitted(orientation, "orientation");
         ContainerElement legend;
@@ -375,10 +297,12 @@ public final class StandardLegendBuilder implements LegendBuilder,
         for (LegendItemInfo item : items) {
             Shape shape = item.getShape();
             if (shape == null) {
-                shape = DEFAULT_LEGEND_SHAPE;
+                shape = style.getLegendItemShape();
             }
-            legend.addElement(createLegendItem(item.getLabel(), this.itemFont,
-                    shape, item.getPaint()));
+            legend.addElement(createLegendItem(item.getLabel(), 
+                    style.getLegendItemFont(), style.getLegendItemColor(), 
+                    shape, item.getPaint(), 
+                    style.getLegendItemBackgroundColor()));
         }
         return legend;
     }
@@ -429,18 +353,22 @@ public final class StandardLegendBuilder implements LegendBuilder,
      * 
      * @param text  the legend item text (<code>null</code> not permitted).
      * @param font  the font (<code>null</code> not permitted).
+     * @param textcolor  the text color (<code>null</code> not permitted).
      * @param shape  the shape (<code>null</code> not permitted).
-     * @param color  the color (<code>null</code> not permitted).
+     * @param shapeColor  the shape color (<code>null</code> not permitted).
+     * @param background  the background color (<code>null</code> not 
+     *     permitted).
      * 
      * @return A legend item (never <code>null</code>). 
      */
-    private TableElement createLegendItem(String text, Font font, Shape shape, 
-            Paint color) {
+    private TableElement createLegendItem(String text, Font font, 
+            Color textColor, Shape shape, Paint shapeColor, Color background) {
         // defer argument checks...
-        ShapeElement se = new ShapeElement(shape, color);
-        //se.setBackgroundPaint(new Color(0, 0, 0, 0));
+        ShapeElement se = new ShapeElement(shape, shapeColor);
+        se.setBackgroundPaint(background);
         TextElement te = new TextElement(text, font);
-        //te.setBackgroundPaint(new Color(0, 0, 0, 0));
+        te.setForegroundPaint(textColor);
+        te.setBackgroundPaint(background);
         GridElement ge = new GridElement();
         ge.setElement(se, "R1", "C1");
         ge.setElement(te, "R1", "C2");
@@ -469,22 +397,23 @@ public final class StandardLegendBuilder implements LegendBuilder,
         if (this.headerAlignment != that.headerAlignment) {
             return false;
         }
-        if (!this.headerFont.equals(that.headerFont)) {
-            return false;
-        }        
+//        if (!this.headerFont.equals(that.headerFont)) {
+//            return false;
+//        }        
         if (!ObjectUtils.equals(this.footer, that.footer)) {
             return false;
         }
         if (this.footerAlignment != that.footerAlignment) {
             return false;
         }
-        if (!this.footerFont.equals(that.footerFont)) {
-            return false;
-        }
-        if (!this.itemFont.equals(that.itemFont)) {
-            return false;
-        }
+//        if (!this.footerFont.equals(that.footerFont)) {
+//            return false;
+//        }
+//        if (!this.itemFont.equals(that.itemFont)) {
+//            return false;
+//        }
         return true;
     }
+
 
 }

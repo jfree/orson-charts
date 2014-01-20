@@ -64,6 +64,10 @@ import com.orsoncharts.util.TextAnchor;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.legend.LegendBuilder;
 import com.orsoncharts.legend.StandardLegendBuilder;
+import com.orsoncharts.style.ChartStyle;
+import com.orsoncharts.style.ChartStyleChangeEvent;
+import com.orsoncharts.style.ChartStyleChangeListener;
+import com.orsoncharts.style.ChartStyler;
 import com.orsoncharts.table.GridElement;
 import com.orsoncharts.table.HAlign;
 import com.orsoncharts.util.ObjectUtils;
@@ -106,7 +110,8 @@ import com.orsoncharts.util.Orientation;
  * @see Chart3DFactory
  * @see ChartPanel3D
  */
-public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
+public class Chart3D implements Drawable3D, ChartElement, 
+        Plot3DChangeListener, ChartStyleChangeListener, Serializable {
     
     /** 
      * The default projection distance. 
@@ -170,8 +175,17 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
      */
     private transient RenderingHints renderingHints;
 
+    /** 
+     * The chart style.
+     * 
+     * @since 1.2
+     */
+    private ChartStyle style;
+    
     /**
-     * Creates a 3D chart for the specified plot.
+     * Creates a 3D chart for the specified plot using the default chart
+     * style.  Note that a plot instance should be used in one chart instance
+     * only.
      * 
      * @param title  the chart title (<code>null</code> permitted).
      * @param subtitle  the chart subtitle (<code>null</code> permitted).
@@ -180,7 +194,24 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
      * @see Chart3DFactory
      */
     public Chart3D(String title, String subtitle, Plot3D plot) {
+        this(title, subtitle, plot, Chart3DFactory.getDefaultChartStyle());
+    }
+    
+    /**
+     * Creates a 3D chart for the specified plot using the supplied style.
+     * 
+     * @param title  the chart title (<code>null</code> permitted).
+     * @param subtitle  the chart subtitle (<code>null</code> permitted).
+     * @param plot  the plot (<code>null</code> not permitted).
+     * @param style  the chart style (<code>null</code> not permitted).
+     * 
+     * @since 1.2
+     */
+    public Chart3D(String title, String subtitle, Plot3D plot, 
+            ChartStyle style) {
         ArgChecks.nullNotPermitted(plot, "plot");
+        ArgChecks.nullNotPermitted(style, "style");
+        plot.setChart(this);
         this.background = new StandardRectanglePainter(Color.WHITE);
         if (title != null) {
             this.title = TitleUtils.createTitle(title, subtitle);
@@ -195,7 +226,7 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
         float distance = (float) dim.getDiagonalLength() * 3.0f;
         this.viewPoint = ViewPoint3D.createAboveViewPoint(distance);
         this.projDist = DEFAULT_PROJ_DIST;
-        this.chartBoxColor = Color.WHITE;
+        this.chartBoxColor = new Color(255, 255, 255, 100);
         this.translate2D = new Offset2D();
         this.renderingHints = new RenderingHints(
                 RenderingHints.KEY_ANTIALIASING,
@@ -204,6 +235,9 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
                 RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         this.notify = true;
         this.listenerList = new EventListenerList();
+        this.style = style;
+        this.style.addChangeListener(this);
+        receive(new ChartStyler(this.style));
     }
 
     /**
@@ -259,7 +293,7 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
         if (title == null) {
             setTitle((TableElement) null);
         } else {
-            setTitle(title, TitleUtils.DEFAULT_TITLE_FONT, 
+            setTitle(title, this.style.getTitleFont(), 
                     TitleUtils.DEFAULT_TITLE_PAINT);
         }
     }
@@ -614,6 +648,32 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
     }
  
     /**
+     * Returns the chart style.
+     * 
+     * @return The chart style (never <code>null</code>).
+     * 
+     * @since 1.2
+     */
+    public ChartStyle getStyle() {
+        return this.style;
+    }
+    
+    /**
+     * Sets the chart style.
+     * 
+     * @param style  the chart style (<code>null</code> not permitted).
+     * 
+     * @since 1.2
+     */
+    public void setStyle(ChartStyle style) {
+        ArgChecks.nullNotPermitted(style, "style");
+        this.style.removeChangeListener(this);
+        this.style = style;
+        this.style.addChangeListener(this);
+        receive(new ChartStyler(this.style));
+    }
+
+    /**
      * Creates a world containing the chart and the supplied chart box.
      * 
      * @param chartBox  the chart box (<code>null</code> permitted).
@@ -729,12 +789,15 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
         // generate and draw the legend...
         if (this.legendBuilder != null) {
             TableElement legend = this.legendBuilder.createLegend(this.plot,
-                    this.legendAnchor, this.legendOrientation);
+                    this.legendAnchor, this.legendOrientation, this.style);
             if (legend != null) {
                 if (true) { // eval
                     GridElement legend2 = new GridElement();
                     legend2.setElement(legend, "R1", "C1");
-                    TextElement te = new TextElement("Orson Charts (evaluation) (c) 2013, 2014, by Object Refinery Limited", new Font("Dialog", Font.PLAIN, 10));
+                    TextElement te = new TextElement("Orson Charts (evaluation) (c) 2013, 2014, by Object Refinery Limited", 
+                            this.style.getLegendFooterFont());
+                    te.setForegroundPaint(this.style.getLegendFooterColor());
+                    te.setBackgroundPaint(this.style.getLegendFooterBackgroundColor());
                     te.setHorizontalAligment(HAlign.RIGHT);
                     legend2.setElement(te, "R2", "C1");
                     legend = legend2;         
@@ -1345,6 +1408,19 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
     }
 
     /**
+     * Receives a visitor.
+     * 
+     * @param visitor 
+     * 
+     * @since 1.2
+     */
+    @Override
+    public final void receive(ChartElementVisitor visitor) {
+        this.plot.receive(visitor);
+        visitor.visit(this);
+    }
+
+    /**
      * Tests this chart for equality with an arbitrary object.
      * 
      * @param obj  the object (<code>null</code> not permitted).
@@ -1489,6 +1565,15 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
         notifyListeners(new Chart3DChangeEvent(event, this));
     }
 
+    @Override
+    public void styleChanged(ChartStyleChangeEvent event) {
+        ChartStyler styler = new ChartStyler(event.getChartStyle());
+        receive(styler);
+        // create a visitor that will visit all chart components and apply the
+        // style
+        notifyListeners(new Chart3DChangeEvent(event, this));
+    }
+    
     /**
      * Registers a listener to receive notification of changes to the chart.
      * 
@@ -1541,7 +1626,7 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
 
     /**
      * Sets a flag that controls whether or not listeners receive
-     * {@link Plot3DChangeEvent} notifications.
+     * {@link Chart3DChangeEvent} notifications.
      *
      * @param notify  a boolean.
      *
@@ -1585,4 +1670,5 @@ public class Chart3D implements Drawable3D, Plot3DChangeListener, Serializable {
                 RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
                 
     }
+
 }

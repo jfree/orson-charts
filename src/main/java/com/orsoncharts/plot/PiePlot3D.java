@@ -6,7 +6,7 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
@@ -17,6 +17,7 @@ import java.awt.Font;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import com.orsoncharts.Chart3D;
 import com.orsoncharts.data.PieDataset3D;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.graphics3d.Dimension3D;
@@ -26,6 +27,7 @@ import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.legend.LegendItemInfo;
 import com.orsoncharts.legend.StandardLegendItemInfo;
 import com.orsoncharts.Chart3DFactory;
+import com.orsoncharts.ChartElementVisitor;
 import com.orsoncharts.data.DataUtils;
 import com.orsoncharts.label.PieLabelGenerator;
 import com.orsoncharts.label.StandardPieLabelGenerator;
@@ -45,7 +47,7 @@ import com.orsoncharts.label.StandardPieLabelGenerator;
  * instances of this class. 
  */
 public class PiePlot3D extends AbstractPlot3D implements Serializable {
-
+    
     /** The default font for section labels on the chart. */
     public static final Font DEFAULT_SECTION_LABEL_FONT 
             = new Font("Dialog", Font.PLAIN, 14);
@@ -185,6 +187,20 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
         ArgChecks.nullNotPermitted(source, "source");
         this.sectionColorSource = source;
         fireChangeEvent();
+    }
+    
+    /**
+     * Sets a new color source for the plot using the specified colors and
+     * sends a {@link Plot3DChangeEvent} to all registered listeners. This 
+     * is a convenience method that is equivalent to 
+     * <code>setSectionColorSource(new StandardColorSource(colors))</code>.
+     * 
+     * @param colors  one or more colors (<code>null</code> not permitted).
+     * 
+     * @since 1.2
+     */
+    public void setSectionColors(Color... colors) {
+        setSectionColorSource(new StandardColorSource(colors));
     }
 
     /**
@@ -409,7 +425,21 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
         }
         return result;
     }
-  
+
+    /**
+     * Receives a visitor.  This is a general purpose mechanism, but the main
+     * use is to apply chart style changes across all the elements of a 
+     * chart.
+     * 
+     * @param visitor  the visitor (<code>null</code> not permitted).
+     * 
+     * @since 1.2
+     */
+    @Override
+    public void receive(ChartElementVisitor visitor) { 
+        visitor.visit(this);
+    }
+
     /**
      * Tests this plot for equality with an arbitrary object.  Note that the
      * plot's dataset is NOT considered in the equality test.

@@ -38,7 +38,6 @@ package com.orsoncharts.demo;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Font;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import com.orsoncharts.ChartPanel3D;
@@ -80,12 +79,7 @@ public class LineChart3DDemo2 extends JFrame {
         Chart3D chart = Chart3DFactory.createLineChart("Quarterly Profits", 
                 "Large Banks in USA", dataset, null, "Quarter", "$ millions");
         chart.setChartBoxColor(new Color(255, 255, 255, 128));
-        chart.getLegendBuilder().setItemFont(new Font("Dialog", 
-                Font.ITALIC, 12));
         chart.setLegendAnchor(LegendAnchor.TOP_RIGHT);
-//        CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
-//        LineRenderer3D renderer = (LineRenderer3D) plot.getRenderer();
-//        renderer.setLineHeight(0.05);
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
         content.setChartPanel(chartPanel);
         content.add(new DisplayPanel3D(chartPanel));

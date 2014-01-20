@@ -6,7 +6,7 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.orsoncharts.util.TextUtils;
 import com.orsoncharts.util.TextAnchor;
+import com.orsoncharts.ChartElementVisitor;
 import com.orsoncharts.Range;
 import com.orsoncharts.graphics3d.Utils2D;
 import com.orsoncharts.util.ArgChecks;
@@ -711,7 +712,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
                     textAnchor = TextAnchor.CENTER_RIGHT;
                 } 
                 g2.setFont(getTickLabelFont());
-                g2.setPaint(getTickLabelPaint());
+                g2.setPaint(getTickLabelColor());
                 String tickLabel = this.tickLabelFormatter.format(
                         t.getDataValue());
                 maxTickLabelWidth = Math.max(maxTickLabelWidth, 
@@ -725,7 +726,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
         // draw the axis label (if any)...
         if (getLabel() != null) {
             g2.setFont(getLabelFont());
-            g2.setPaint(getLabelPaint());
+            g2.setPaint(getLabelColor());
             Line2D labelPosLine = Utils2D.createPerpendicularLine(axisLine, 0.5, 
                     this.tickMarkLength + this.tickLabelOffset 
                     + maxTickLabelWidth + 10.0, 
@@ -827,6 +828,21 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
             }
         }
         return result;
+    }
+
+    /**
+     * Receives a {@link ChartElementVisitor}.  This method is part of a general
+     * mechanism for traversing the chart structure and performing operations
+     * on each element in the chart.  You will not normally call this method
+     * directly.
+     * 
+     * @param visitor  the visitor (<code>null</code> not permitted).
+     * 
+     * @since 1.2
+     */
+    @Override
+    public void receive(ChartElementVisitor visitor) {
+        visitor.visit(this);
     }
 
     /**

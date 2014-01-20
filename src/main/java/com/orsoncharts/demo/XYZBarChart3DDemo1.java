@@ -48,8 +48,6 @@ import com.orsoncharts.data.xyz.XYZSeries;
 import com.orsoncharts.data.xyz.XYZSeriesCollection;
 import com.orsoncharts.graphics3d.ViewPoint3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
-import com.orsoncharts.legend.LegendAnchor;
-import com.orsoncharts.util.Orientation;
 
 /**
  * A demo of a 3D bar chart.
@@ -81,8 +79,6 @@ public class XYZBarChart3DDemo1 extends JFrame {
         Chart3D chart = Chart3DFactory.createXYZBarChart("XYZBarChart3DDemo1", 
                 "Chart created with Orson Charts", dataset, "X", "Value", "Z");
         chart.setViewPoint(ViewPoint3D.createAboveRightViewPoint(40));
-        chart.setLegendPosition(LegendAnchor.CENTER_RIGHT, 
-                Orientation.VERTICAL);
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
         content.setChartPanel(chartPanel);
         chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);

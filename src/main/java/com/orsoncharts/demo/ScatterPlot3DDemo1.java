@@ -43,12 +43,14 @@ import javax.swing.JPanel;
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
+import com.orsoncharts.Colors;
 import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.data.xyz.XYZSeries;
 import com.orsoncharts.data.xyz.XYZSeriesCollection;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.ViewPoint3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
+import com.orsoncharts.label.StandardXYZLabelGenerator;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.renderer.xyz.ScatterXYZRenderer;
 
@@ -83,8 +85,11 @@ public class ScatterPlot3DDemo1 extends JFrame {
                 "Chart created with Orson Charts", dataset, "X", "Y", "Z");
         XYZPlot plot = (XYZPlot) chart.getPlot();
         plot.setDimensions(new Dimension3D(10.0, 4.0, 4.0));
+        plot.setLegendLabelGenerator(new StandardXYZLabelGenerator(
+                StandardXYZLabelGenerator.COUNT_TEMPLATE));
         ScatterXYZRenderer renderer = (ScatterXYZRenderer) plot.getRenderer();
         renderer.setSize(0.15);
+        renderer.setColors(Colors.createIntenseColors());
         chart.setViewPoint(ViewPoint3D.createAboveLeftViewPoint(40));
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
         content.setChartPanel(chartPanel);

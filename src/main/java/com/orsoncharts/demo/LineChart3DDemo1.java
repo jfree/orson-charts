@@ -53,7 +53,6 @@ import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.ViewPoint3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.plot.CategoryPlot3D;
-import com.orsoncharts.renderer.category.StandardCategoryColorSource;
 
 /**
  * A demo of a 3D line chart.
@@ -91,8 +90,7 @@ public class LineChart3DDemo1 extends JFrame {
         plot.getRowAxis().setVisible(false);
         NumberAxis3D valueAxis = (NumberAxis3D) plot.getValueAxis();
         valueAxis.setTickSelector(new NumberTickSelector(true));
-        plot.getRenderer().setColorSource(new StandardCategoryColorSource(
-                Colors.getColors1()));
+        plot.getRenderer().setColors(Colors.createFancyDarkColors());
         chart.setViewPoint(ViewPoint3D.createAboveViewPoint(30));
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
         content.setChartPanel(chartPanel);

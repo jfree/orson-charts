@@ -6,7 +6,7 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
@@ -34,6 +34,9 @@ import com.orsoncharts.renderer.category.LineRenderer3D;
 import com.orsoncharts.renderer.category.StackedBarRenderer3D;
 import com.orsoncharts.renderer.xyz.ScatterXYZRenderer;
 import com.orsoncharts.renderer.xyz.SurfaceRenderer;
+import com.orsoncharts.style.ChartStyle;
+import com.orsoncharts.style.StandardChartStyle;
+import com.orsoncharts.util.ArgChecks;
 
 /**
  * Utility methods for constructing common chart types.  Charts can be 
@@ -47,6 +50,37 @@ public class Chart3DFactory {
      */
     private Chart3DFactory() {
         // no need to instantiate this ever
+    }
+    
+    /** The chart style that will be used when creating a new chart. */
+    static ChartStyle defaultStyle = new StandardChartStyle();
+    
+    /**
+     * Returns a new instance of the default chart style.  A chart style 
+     * instance should not be used with more than one chart, because the
+     * style object has a listener mechanism that it uses to notify the
+     * chart that is using the style.  You can always clone an existing 
+     * instance if you want to apply the same style attributes to multiple
+     * charts.
+     * 
+     * @return The default chart style (never <code>null</code>).
+     * 
+     * @since 1.2
+     */
+    public static ChartStyle getDefaultChartStyle() {
+        return defaultStyle.clone();
+    }
+    
+    /**
+     * Sets the style that will be used when creating new charts.
+     * 
+     * @param style  the style (<code>null</code> not permitted).
+     * 
+     * @since 1.2
+     */
+    public static void setDefaultChartStyle(ChartStyle style) {
+        ArgChecks.nullNotPermitted(style, "style");
+        defaultStyle = style.clone();    
     }
     
     /**
@@ -177,11 +211,10 @@ public class Chart3DFactory {
      */
     public static Chart3D createAreaChart(String title, String subtitle,
             CategoryDataset3D dataset, String rowAxisLabel, 
-            String columnAxisLabel, String valueAxisLabel) {
-        
+            String columnAxisLabel, String valueAxisLabel) {     
         CategoryAxis3D rowAxis = new StandardCategoryAxis3D(rowAxisLabel);
-        StandardCategoryAxis3D columnAxis 
-                = new StandardCategoryAxis3D(columnAxisLabel);
+        StandardCategoryAxis3D columnAxis = new StandardCategoryAxis3D(
+                columnAxisLabel);
         columnAxis.setFirstCategoryHalfWidth(true);
         columnAxis.setLastCategoryHalfWidth(true);
         ValueAxis3D valueAxis = new NumberAxis3D(valueAxisLabel, 

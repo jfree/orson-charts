@@ -6,7 +6,7 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
@@ -119,7 +119,7 @@ public class FlowElement extends AbstractTableElement
     public List<TableElement> getElements() {
         return new ArrayList<TableElement>(this.elements);
     }
-    
+
     /**
      * Adds a sub-element to the list.
      * 
@@ -129,6 +129,21 @@ public class FlowElement extends AbstractTableElement
     public void addElement(TableElement element) {
         ArgChecks.nullNotPermitted(element, "element");
         this.elements.add(element);
+    }
+
+    /**
+     * Receives a visitor.  The implementation ensures that the vistor visits
+     * all the elements belonging to the flow.
+     * 
+     * @param visitor  the visitor (<code>null</code> not permitted).
+     * 
+     * @since 1.2
+     */
+    @Override
+    public void receive(TableElementVisitor visitor) {
+        for (TableElement element : elements) {
+            element.receive(visitor);
+        }
     }
     
     /**

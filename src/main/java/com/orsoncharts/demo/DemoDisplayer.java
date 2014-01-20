@@ -43,6 +43,8 @@ import java.lang.reflect.Method;
 import java.net.URL;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import com.orsoncharts.Chart3D;
+import com.orsoncharts.ChartPanel3D;
 
 public class DemoDisplayer implements Runnable {
 
@@ -78,7 +80,12 @@ public class DemoDisplayer implements Runnable {
             this.demoComp.getChartContainer().validate();
             if (panel instanceof DemoPanel) {
                 DemoPanel demoPanel = (DemoPanel) panel;
-                demoPanel.getChartPanel().zoomToFit();
+                ChartPanel3D chartPanel = demoPanel.getChartPanel();
+                if (demoComp.getChartStyle() != null) {
+                    Chart3D chart = (Chart3D) chartPanel.getDrawable();
+                    chart.setStyle(demoComp.getChartStyle());
+                }
+                chartPanel.zoomToFit();
             }
             String f = this.demoDescription.getFileName();
             String f2 = f.substring(0, f.indexOf('.')) + ".html";

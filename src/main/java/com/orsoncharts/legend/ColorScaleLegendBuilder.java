@@ -6,13 +6,12 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
 package com.orsoncharts.legend;
 
-import java.awt.Font;
 import java.io.Serializable;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.plot.Plot3D;
@@ -24,9 +23,9 @@ import com.orsoncharts.renderer.category.CategoryRenderer3D;
 import com.orsoncharts.renderer.xyz.XYZRenderer;
 import com.orsoncharts.table.TableElement;
 import com.orsoncharts.util.Anchor2D;
-import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.Orientation;
 import com.orsoncharts.Chart3D;
+import com.orsoncharts.style.ChartStyle;
 
 /**
  * A legend builder that creates a legend representing a {@link ColorScale}.
@@ -39,19 +38,12 @@ import com.orsoncharts.Chart3D;
  * @since 1.1
  */
 public class ColorScaleLegendBuilder implements LegendBuilder, Serializable {
-
-    /** The default font for legend items. */
-    public static final Font DEFAULT_ITEM_FONT = new Font("Dialog", Font.PLAIN,
-            10);
     
     /** The width of the bar showing the color scale (in Java2D units). */
     private double barWidth;
     
     /** The length of the bar showing the color scale (in Java2D units). */
     private double barLength;
-    
-    /** The item font. */
-    private Font itemFont;
     
     /** 
      * A flag to determine whether or not FixedColorScale is ignored (defaults 
@@ -63,7 +55,6 @@ public class ColorScaleLegendBuilder implements LegendBuilder, Serializable {
      * Creates a new instance.
      */
     public ColorScaleLegendBuilder() {
-        this.itemFont = DEFAULT_ITEM_FONT;
         this.barWidth = 16.0;
         this.barLength = 140.0;
         this.ignoreFixedColorScale = true;
@@ -106,27 +97,6 @@ public class ColorScaleLegendBuilder implements LegendBuilder, Serializable {
     }
     
     /**
-     * Returns the item font.
-     * 
-     * @return The item font (never <code>null</code>). 
-     */
-    @Override
-    public Font getItemFont() {
-        return this.itemFont;
-    }
-
-    /**
-     * Sets the font used to show the value labels along the color scale.
-     * 
-     * @param font  the font (<code>null</code> not permitted). 
-     */
-    @Override
-    public void setItemFont(Font font) {
-        ArgChecks.nullNotPermitted(font, "font");
-        this.itemFont = font;
-    }
-    
-    /**
      * Returns the flag that controls whether or not a {@link FixedColorScale}
      * will be ignored for the purposes of generating a legend.
      * 
@@ -155,12 +125,13 @@ public class ColorScaleLegendBuilder implements LegendBuilder, Serializable {
      * @param plot  the plot (<code>null</code> not permitted).
      * @param anchor  the anchor (<code>null</code> not permitted).
      * @param orientation  the orientation (<code>null</code> not permitted).
+     * @param style  the chart style (<code>null</code> not permitted).
      * 
      * @return A color scale legend (possibly <code>null</code>). 
      */
     @Override
     public TableElement createLegend(Plot3D plot, Anchor2D anchor,
-            Orientation orientation) {
+            Orientation orientation, ChartStyle style) {
         ColorScaleRenderer renderer = null;
         if (plot instanceof CategoryPlot3D) {
             CategoryRenderer3D r = ((CategoryPlot3D) plot).getRenderer();
@@ -184,14 +155,16 @@ public class ColorScaleLegendBuilder implements LegendBuilder, Serializable {
                 && renderer.getColorScale() instanceof FixedColorScale) {
             return null;
         }
-        return createColorScaleLegend(renderer, orientation, anchor);  
+        return createColorScaleLegend(renderer, orientation, anchor, style);  
     }
 
     private TableElement createColorScaleLegend(ColorScaleRenderer r, 
-            Orientation orientation, Anchor2D anchor) {
+            Orientation orientation, Anchor2D anchor, ChartStyle style) {
         ColorScale scale = r.getColorScale();
         ColorScaleElement element = new ColorScaleElement(scale, orientation, 
-                this.barWidth, this.barLength, this.itemFont);
+                this.barWidth, this.barLength, style.getLegendItemFont());
+        element.setForegroundPaint(style.getLegendItemColor());
+        element.setBackgroundPaint(style.getLegendItemBackgroundColor());
         element.setRefPoint(anchor.getRefPt());
         return element;
     }
@@ -216,9 +189,6 @@ public class ColorScaleLegendBuilder implements LegendBuilder, Serializable {
             return false;
         }
         if (this.barLength != that.barLength) {
-            return false;
-        }
-        if (!this.itemFont.equals(that.itemFont)) {
             return false;
         }
         return true;

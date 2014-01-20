@@ -36,6 +36,7 @@
 
 package com.orsoncharts.demo;
 
+import static com.orsoncharts.label.StandardPieLabelGenerator.PERCENT_TEMPLATE;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -43,17 +44,17 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import com.orsoncharts.Colors;
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
+import com.orsoncharts.Colors;
 import com.orsoncharts.TitleAnchor;
 import com.orsoncharts.TitleUtils;
 import com.orsoncharts.data.StandardPieDataset3D;
 import com.orsoncharts.data.PieDataset3D;
 import com.orsoncharts.plot.PiePlot3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
-import com.orsoncharts.plot.StandardColorSource;
+import com.orsoncharts.label.StandardPieLabelGenerator;
 
 /**
  * A test app.
@@ -88,14 +89,16 @@ public class PieChart3DDemo2 extends JFrame {
     public static JPanel createDemoPanel() {
         DemoPanel content = new DemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
-        final Chart3D chart = Chart3DFactory.createPieChart("PieChart3DDemo2", 
+        final Chart3D chart = Chart3DFactory.createPieChart("", 
                 "www.object-refinery.com", createDataset());
-        chart.setTitle(TitleUtils.createTitle("PieChart3DDemo2", 
-                "For more info see: http://www.object-refinery.com", 
+        chart.setTitle(TitleUtils.createTitle("Orson Charts 3D", 
+                "For more info see: http://www.object-refinery.com/orsoncharts/", 
                 TitleAnchor.TOP_LEFT));
         chart.setTitleAnchor(TitleAnchor.TOP_LEFT);
         PiePlot3D plot = (PiePlot3D) chart.getPlot();
-        plot.setSectionColorSource(new StandardColorSource(Colors.getDesignSeedsShells()));
+        plot.setLegendLabelGenerator(new StandardPieLabelGenerator(PERCENT_TEMPLATE));
+        plot.setSectionLabelGenerator(new StandardPieLabelGenerator(PERCENT_TEMPLATE));
+        plot.setSectionColors(Colors.createFancyLightColors());
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
         chartPanel.setMargin(0.15);
         content.setChartPanel(chartPanel);

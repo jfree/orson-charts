@@ -6,7 +6,7 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
@@ -22,6 +22,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import com.orsoncharts.ChartElementVisitor;
 import com.orsoncharts.axis.Axis3DChangeEvent;
 import com.orsoncharts.axis.Axis3DChangeListener;
 import com.orsoncharts.axis.ValueAxis3D;
@@ -536,6 +537,24 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
             throw new IllegalStateException("ComposeType not expected: " 
                     + this.renderer.getComposeType());
         }
+    }
+
+    /**
+     * Receives a visitor.  This is a general purpose mechanism, but the main
+     * use is to apply chart style changes across all the elements of a 
+     * chart.
+     * 
+     * @param visitor  the visitor (<code>null</code> not permitted).
+     * 
+     * @since 1.2
+     */
+    @Override
+    public void receive(ChartElementVisitor visitor) {
+        this.xAxis.receive(visitor);
+        this.yAxis.receive(visitor);
+        this.zAxis.receive(visitor);
+        this.renderer.receive(visitor);
+        visitor.visit(this);
     }
 
     /**

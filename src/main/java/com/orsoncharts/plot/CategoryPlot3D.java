@@ -23,6 +23,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import com.orsoncharts.Chart3D;
+import com.orsoncharts.ChartElementVisitor;
 import com.orsoncharts.axis.Axis3DChangeEvent;
 import com.orsoncharts.axis.Axis3DChangeListener;
 import com.orsoncharts.axis.CategoryAxis3D;
@@ -561,6 +562,24 @@ public class CategoryPlot3D extends AbstractPlot3D
         }
     }
     
+    /**
+     * Accepts a visitor.  This is a general purpose mechanism, but the main
+     * use is to apply chart style changes across all the elements of a 
+     * chart.
+     * 
+     * @param visitor  the visitor (<code>null</code> not permitted).
+     * 
+     * @since 1.2
+     */
+    @Override 
+    public void receive(ChartElementVisitor visitor) {
+        this.columnAxis.receive(visitor);
+        this.rowAxis.receive(visitor);
+        this.valueAxis.receive(visitor);
+        this.renderer.receive(visitor);
+        visitor.visit(this);
+    }
+
     /**
      * Tests this plot for equality with an arbitrary object.
      * 

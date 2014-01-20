@@ -6,12 +6,13 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
 package com.orsoncharts.renderer.category;
 
+import java.awt.Color;
 import com.orsoncharts.Range;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.Values3D;
@@ -58,6 +59,15 @@ public interface CategoryRenderer3D extends Renderer3D {
      * @param source  the color source (<code>null</code> not permitted).
      */
     void setColorSource(CategoryColorSource source);
+    
+    /**
+     * Sets the colors for the renderer.
+     * 
+     * @param colors  the colors. 
+     * 
+     * @since 1.2
+     */
+    void setColors(Color... colors);
     
     /**
      * Returns the range that should be used on the value axis to display all 

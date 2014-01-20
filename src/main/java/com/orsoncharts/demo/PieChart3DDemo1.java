@@ -36,8 +36,6 @@
 
 package com.orsoncharts.demo;
 
-import static com.orsoncharts.label.StandardPieLabelGenerator.PERCENT_TEMPLATE;
-
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
@@ -50,9 +48,7 @@ import com.orsoncharts.TitleAnchor;
 import com.orsoncharts.data.StandardPieDataset3D;
 import com.orsoncharts.data.PieDataset3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
-import com.orsoncharts.label.StandardPieLabelGenerator;
 import com.orsoncharts.legend.LegendAnchor;
-import com.orsoncharts.plot.PiePlot3D;
 import com.orsoncharts.util.Orientation;
 
 /**
@@ -87,9 +83,6 @@ public class PieChart3DDemo1 extends JFrame {
         chart.setTitleAnchor(TitleAnchor.TOP_LEFT);
         chart.setLegendPosition(LegendAnchor.BOTTOM_CENTER,
                 Orientation.HORIZONTAL);
-        PiePlot3D plot = (PiePlot3D) chart.getPlot();
-        plot.setSectionLabelGenerator(new StandardPieLabelGenerator(
-                PERCENT_TEMPLATE));
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
         chartPanel.setMargin(0.05);
         content.setChartPanel(chartPanel);

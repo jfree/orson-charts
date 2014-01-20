@@ -6,15 +6,15 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
 package com.orsoncharts.legend;
 
-import java.awt.Font;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.plot.Plot3D;
+import com.orsoncharts.style.ChartStyle;
 import com.orsoncharts.table.TableElement;
 import com.orsoncharts.util.Anchor2D;
 import com.orsoncharts.util.Orientation;
@@ -43,26 +43,13 @@ public interface LegendBuilder {
      * @param anchor  the anchor (<code>null</code> not permitted).
      * @param orientation  the legend orientation (<code>null</code> not 
      *         permitted).
+     * @param style  the style (<code>null</code> not permitted).
      * 
      * @return A legend (possibly <code>null</code>).
      * 
-     * @since 1.1
+     * @since 1.2
      */
     TableElement createLegend(Plot3D plot, Anchor2D anchor, 
-            Orientation orientation);
-
-    /**
-     * Returns the font used for each item within the legend.
-     * 
-     * @return The font (never <code>null</code>). 
-     */
-    Font getItemFont();
-    
-    /**
-     * Sets the font used for each item within the legend.
-     * 
-     * @param font  the font (<code>null</code> not permitted). 
-     */
-    void setItemFont(Font font);
+            Orientation orientation, ChartStyle style);
 
 }

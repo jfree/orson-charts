@@ -6,7 +6,7 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
@@ -25,9 +25,9 @@ import com.orsoncharts.util.ArgChecks;
 public class World {
 
     /** The sunlight vector. */
-    private double sunX = -1 / (Math.sqrt(3));
-    private double sunY = this.sunX;
-    private double sunZ = -this.sunY;
+    private double sunX;
+    private double sunY;
+    private double sunZ;
 
     /** The objects. */
     private List<Object3D> objects;
@@ -37,6 +37,7 @@ public class World {
      */
     public World() {
         this.objects = new java.util.ArrayList<Object3D>();
+        setSunSource(new Point3D(2, -1, 10));
     }
 
   
@@ -65,6 +66,33 @@ public class World {
      */
     public double getSunZ() {
         return this.sunZ;
+    }
+    
+    /**
+     * Sets the light source point.
+     * 
+     * @param x  the x-coordinate.
+     * @param y  the y-coordinate.
+     * @param z  the z-coordinate.
+     * 
+     * @since 1.2
+     */
+    public final void setSunSource(double x, double y, double z) {
+        setSunSource(new Point3D(x, y, z));
+    }
+    
+    /**
+     * Sets the light source point.
+     * 
+     * @param p  the point.
+     * 
+     * @since 1.2
+     */
+    public final void setSunSource(Point3D p) {
+        Point3D normal = Utils3D.normalise(p);
+        this.sunX = normal.getX();
+        this.sunY = normal.getY();
+        this.sunZ = normal.getZ();
     }
     
     /**
@@ -158,6 +186,17 @@ public class World {
             result.addAll(object.getFaces());
         }
         return result;
+    }
+    
+    /**
+     * Returns the list of objects in the world.
+     * 
+     * @return The list of objects.
+     * 
+     * @since 1.2
+     */
+    public List<Object3D> getObjects() {
+        return this.objects;
     }
 
 }

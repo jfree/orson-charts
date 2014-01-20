@@ -6,12 +6,13 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
 package com.orsoncharts.renderer.xyz;
 
+import java.awt.Color;
 import com.orsoncharts.Range;
 import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.plot.XYZPlot;
@@ -49,6 +50,25 @@ public interface XYZRenderer extends Renderer3D {
      * @return The paint source (never <code>null</code>). 
      */
     XYZColorSource getColorSource();
+
+    /**
+     * Sets the color source for the renderer and sends a 
+     * {@link Renderer3DChangeEvent} to all registered listeners.
+     * 
+     * @param source  the color source (<code>null</code> not permitted).
+     * 
+     * @since 1.2
+     */
+    void setColorSource(XYZColorSource source);
+
+    /**
+     * Sets the colors for the renderer.
+     * 
+     * @param colors  the colors. 
+     * 
+     * @since 1.2
+     */
+    void setColors(Color... colors);
 
     /**
      * Returns the range that should be set on the x-axis in order for this 

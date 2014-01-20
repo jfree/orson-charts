@@ -36,17 +36,23 @@
 
 package com.orsoncharts.demo;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
+import com.orsoncharts.Colors;
+import com.orsoncharts.axis.NumberAxis3D;
+import com.orsoncharts.axis.StandardCategoryAxis3D;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.category.StandardCategoryDataset3D;
 import com.orsoncharts.data.DefaultKeyedValues;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.legend.LegendAnchor;
+import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.util.Orientation;
 
 /**
@@ -82,7 +88,18 @@ public class BarChart3DDemo2 extends JFrame {
                 null, null, "Temp °C");
         chart.setLegendPosition(LegendAnchor.BOTTOM_RIGHT, Orientation.VERTICAL);
         chart.getViewPoint().panLeftRight(-Math.PI / 60);
+       //chart.setChartBoxColor(new Color(100, 100, 150, 50));
+        CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
+        StandardCategoryAxis3D xAxis = (StandardCategoryAxis3D) plot.getColumnAxis();
+        NumberAxis3D yAxis = (NumberAxis3D) plot.getValueAxis();
+        StandardCategoryAxis3D zAxis = (StandardCategoryAxis3D) plot.getRowAxis();
+        plot.setGridlineStrokeForValues(new BasicStroke(0.0f));
+        xAxis.setLineColor(new Color(0, 0, 0, 0));
+        yAxis.setLineColor(new Color(0, 0, 0, 0));
+        zAxis.setLineColor(new Color(0, 0, 0, 0));
+        plot.getRenderer().setColors(Colors.createPastelColors());
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
+        //chart.setBackground(new StandardRectanglePainter(Color.BLACK));
         content.setChartPanel(chartPanel);
         content.add(new DisplayPanel3D(chartPanel));
         chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);

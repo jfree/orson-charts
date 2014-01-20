@@ -6,7 +6,7 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
@@ -33,6 +33,7 @@ import com.orsoncharts.util.RefPt2D;
  * simultaneously.
  * 
  */
+
 public interface TableElement {
     
     /**
@@ -92,5 +93,14 @@ public interface TableElement {
      * @param bounds  the bounds (<code>null</code> not permitted).
      */
     void draw(Graphics2D g2, Rectangle2D bounds);
+    
+    /**
+     * Receives a {@link TableElementVisitor}.
+     * 
+     * @param visitor  the visitor (<code>null</code> not permitted).
+     * 
+     * @since 1.2
+     */
+    void receive(TableElementVisitor visitor);
     
 }
