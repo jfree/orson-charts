@@ -6,7 +6,7 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of thIS source file is prohibited.
  * 
  */
 
@@ -30,6 +30,21 @@ public class Utils3D {
      */
     public static double length(Point3D v) {
         return Math.sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+    }
+    
+    /**
+     * Returns a new vector that is the normalised form of the specified 
+     * vector.
+     * 
+     * @param v  the vector (<code>null</code> not permitted).
+     * 
+     * @return The normalised form of the specified vector.
+     * 
+     * @since 1.2
+     */
+    public static Point3D normalise(Point3D v) {
+        double length = length(v);
+        return new Point3D(v.x / length, v.y / length, v.z / length);
     }
     
     /**
