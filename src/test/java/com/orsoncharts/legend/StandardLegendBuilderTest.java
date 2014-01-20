@@ -15,7 +15,6 @@ package com.orsoncharts.legend;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.awt.Font;
 
 import org.junit.Test;
 
@@ -42,11 +41,6 @@ public class StandardLegendBuilderTest {
         lb2.setHeader("XYZ");
         assertTrue(lb1.equals(lb2));
 
-        lb1.setHeaderFont(new Font("Dialog", Font.PLAIN, 5));
-        assertFalse(lb1.equals(lb2));
-        lb2.setHeaderFont(new Font("Dialog", Font.PLAIN, 5));
-        assertTrue(lb1.equals(lb2));
-
         lb1.setHeaderAlignment(HAlign.CENTER);
         assertFalse(lb1.equals(lb2));
         lb2.setHeaderAlignment(HAlign.CENTER);
@@ -57,20 +51,11 @@ public class StandardLegendBuilderTest {
         lb2.setFooter("ABC");
         assertTrue(lb1.equals(lb2));
 
-        lb1.setFooterFont(new Font("Dialog", Font.PLAIN, 7));
-        assertFalse(lb1.equals(lb2));
-        lb2.setFooterFont(new Font("Dialog", Font.PLAIN, 7));
-        assertTrue(lb1.equals(lb2));
-
         lb1.setFooterAlignment(HAlign.CENTER);
         assertFalse(lb1.equals(lb2));
         lb2.setFooterAlignment(HAlign.CENTER);
         assertTrue(lb1.equals(lb2));
         
-        lb1.setItemFont(new Font("Dialog", Font.PLAIN, 4));
-        assertFalse(lb1.equals(lb2));
-        lb2.setItemFont(new Font("Dialog", Font.PLAIN, 4));
-        assertTrue(lb1.equals(lb2));
     }
     
     /**

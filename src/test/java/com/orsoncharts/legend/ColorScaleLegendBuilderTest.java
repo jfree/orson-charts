@@ -15,7 +15,6 @@ package com.orsoncharts.legend;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.awt.Font;
 
 import org.junit.Test;
 
@@ -46,10 +45,6 @@ public class ColorScaleLegendBuilderTest {
         lb2.setBarLength(321);
         assertTrue(lb1.equals(lb2));
 
-        lb1.setItemFont(new Font("Dialog", Font.PLAIN, 4));
-        assertFalse(lb1.equals(lb2));
-        lb2.setItemFont(new Font("Dialog", Font.PLAIN, 4));
-        assertTrue(lb1.equals(lb2));
     }
     
     /**

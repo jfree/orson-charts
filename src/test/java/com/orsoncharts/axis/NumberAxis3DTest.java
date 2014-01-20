@@ -249,8 +249,7 @@ public class NumberAxis3DTest implements Axis3DChangeListener {
         NumberAxis3D axis2 = (NumberAxis3D) TestUtils.serialized(axis1);
         assertTrue(axis1.equals(axis2));
         
-        axis1.setLabelPaint(new GradientPaint(1f, 2f, Color.RED, 3f, 4f, 
-                Color.BLUE));
+        axis1.setLabelColor(Color.CYAN);
         axis2 = (NumberAxis3D) TestUtils.serialized(axis1);
         assertTrue(axis1.equals(axis2));
         

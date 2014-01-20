@@ -54,10 +54,10 @@ public class StandardCategoryAxis3DTest {
         axis2.setLabelFont(new Font("Dialog", Font.PLAIN, 2));
         assertTrue(axis1.equals(axis2));
         
-        // label paint
-        axis1.setLabelPaint(Color.RED);
+        // label color
+        axis1.setLabelColor(Color.RED);
         assertFalse(axis1.equals(axis2));
-        axis2.setLabelPaint(Color.RED);
+        axis2.setLabelColor(Color.RED);
         assertTrue(axis1.equals(axis2));
         
         // line stroke
@@ -84,14 +84,10 @@ public class StandardCategoryAxis3DTest {
         axis2.setTickLabelFont(new Font("Dialog", Font.PLAIN, 5));
         assertTrue(axis1.equals(axis2));
         
-        // tick label paint
-        GradientPaint gp1 = new GradientPaint(1f, 2f, Color.RED, 3f, 4f, 
-                Color.CYAN);
-        GradientPaint gp2 = new GradientPaint(1f, 2f, Color.RED, 3f, 4f, 
-                Color.CYAN);
-        axis1.setTickLabelPaint(gp1);
+        // tick label color
+        axis1.setTickLabelColor(Color.GREEN);
         assertFalse(axis1.equals(axis2));
-        axis2.setTickLabelPaint(gp2);
+        axis2.setTickLabelColor(Color.GREEN);
         assertTrue(axis1.equals(axis2));
 
         // axis visible
