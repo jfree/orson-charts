@@ -369,7 +369,7 @@ public class DataUtils {
             if (v > 0.0) {
                 pos = pos + v;
             } else if (v < 0.0) {
-                neg = neg - v;
+                neg = neg + v;
             }
         }
         return new double[] { neg, pos };
