@@ -64,6 +64,7 @@ public class DataUtilsTest {
         assertEquals(14.0, DataUtils.total(dataset, "S1"), EPSILON);
     }
     
+    @Test
     public void testStackSubTotal() {
         DefaultKeyedValues3D<Number> data = new DefaultKeyedValues3D<Number>();
         double[] result = DataUtils.stackSubTotal(data, 0.0, 0, 0, 0);
