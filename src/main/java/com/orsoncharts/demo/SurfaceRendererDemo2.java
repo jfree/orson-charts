@@ -80,12 +80,10 @@ public class SurfaceRendererDemo2 extends JFrame {
         DemoPanel content = new DemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         Function3D function = new Function3D() {
-
             @Override
             public double getValue(double x, double z) {
                 return Math.sin(x * x + z * z);
             }
-            
         };
         
         Chart3D chart = Chart3DFactory.createSurfaceChart(
@@ -100,12 +98,9 @@ public class SurfaceRendererDemo2 extends JFrame {
         zAxis.setRange(-2, 2);
         SurfaceRenderer renderer = (SurfaceRenderer) plot.getRenderer();
         renderer.setColorScale(new RainbowScale(new Range(-1.0, 1.0)));
-        renderer.setXSamples(50);
-        renderer.setZSamples(50);
         renderer.setDrawFaceOutlines(false);
         chart.setLegendPosition(LegendAnchor.BOTTOM_RIGHT, 
                 Orientation.VERTICAL);
-        //chart.setAntiAlias(false);
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
         chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         content.setChartPanel(chartPanel);
