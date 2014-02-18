@@ -6,7 +6,7 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
@@ -157,7 +157,7 @@ public class Face {
     public float calculateAverageZValue(Point3D[] points) {
         float total = 0.0f;
         for (int i = 0; i < this.vertices.length; i++) {
-            total = total + (float)points[this.vertices[i] + this.offset].z;
+            total = total + (float) points[this.vertices[i] + this.offset].z;
         }
         return total / this.vertices.length;
     }
