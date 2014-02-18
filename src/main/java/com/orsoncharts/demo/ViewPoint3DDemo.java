@@ -86,7 +86,6 @@ public class ViewPoint3DDemo extends JFrame {
         world.add(Object3D.createCube(1.0, 0, 0, 0, Color.BLUE));
         ViewPoint3D vp = new ViewPoint3D(new Point3D(10, 10, 10), 0);
         xlist = addRing(true, world, new Point3D(0, 5, 0), Point3D.UNIT_X, Color.GREEN);
-//        ylist = addRing(true, world, new Point3D(5, 5, 5), vp.getVerticalRotationAxis(), Color.CYAN);
         ylist = addRing(true, world, new Point3D(0, 0, 5), Point3D.UNIT_Y, Color.ORANGE);
         zlist = addRing(true, world, new Point3D(0, 5, 0), Point3D.UNIT_Z, Color.RED);
         DefaultDrawable3D drawable = new DefaultDrawable3D(world);
