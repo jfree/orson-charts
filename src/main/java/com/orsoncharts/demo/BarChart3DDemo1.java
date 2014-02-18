@@ -108,6 +108,32 @@ public class BarChart3DDemo1 extends JFrame {
     private static CategoryDataset3D createDataset() {    
         StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
                 
+        DefaultKeyedValues s4 = new DefaultKeyedValues();
+        s4.put("Q1/11", 0.264746);
+        s4.put("Q2/11", 0.281320);
+        s4.put("Q3/11", 0.290026);
+        s4.put("Q4/11", 0.297011);
+        s4.put("Q1/12", 0.314731);
+        s4.put("Q2/12", 0.322595);
+        s4.put("Q3/12", 0.343606);
+        s4.put("Q4/12", 0.347884);
+        s4.put("Q1/13", 0.363259);
+        s4.put("Q2/13", 0.374423);
+        dataset.addSeriesAsRow("Redhat", s4);
+
+        DefaultKeyedValues s5 = new DefaultKeyedValues();
+        s5.put("Q1/11", 8.181);
+        s5.put("Q2/11", 8.792);
+        s5.put("Q3/11", 9.039);
+        s5.put("Q4/11", 10.916);
+        s5.put("Q1/12", 8.181);
+        s5.put("Q2/12", 9.094);
+        s5.put("Q3/12", 8.958);
+        s5.put("Q4/12", 10.947);
+        s5.put("Q1/13", 8.372);
+        s5.put("Q2/13", 9.275);
+        dataset.addSeriesAsRow("Oracle", s5);
+
         DefaultKeyedValues s1 = new DefaultKeyedValues();
         s1.put("Q1/11", 8.58);
         s1.put("Q2/11", 9.03);
@@ -146,7 +172,7 @@ public class BarChart3DDemo1 extends JFrame {
         s3.put("Q1/13", 43.6);
         s3.put("Q2/13", 35.323);
         dataset.addSeriesAsRow("Apple", s3);
-
+        
         return dataset;
     }
 
