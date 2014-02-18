@@ -120,7 +120,7 @@ public class World {
      */
     public void add(Object3D object) {
         // defer argument checking
-        this.add(DEFAULT_PARTITION_KEY, object);
+        add(DEFAULT_PARTITION_KEY, object);
     }
 
     /**
