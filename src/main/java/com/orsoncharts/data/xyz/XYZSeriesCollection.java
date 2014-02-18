@@ -91,6 +91,40 @@ public class XYZSeriesCollection extends AbstractDataset3D
         }
         this.series.add(series);
     }
+    
+    /**
+     * Returns the series with the specified index.
+     * 
+     * @param index  the series index.
+     * 
+     * @return The series.
+     * 
+     * @since 1.2
+     */
+    public XYZSeries getSeries(int index) {
+        ArgChecks.checkArrayBounds(index, "index", this.series.size());
+        return this.series.get(index);
+    }
+    
+    /**
+     * Returns the series with the specified key, or <code>null</code> if 
+     * there is no such series.
+     * 
+     * @param key  the key (<code>null</code> not permitted).
+     * 
+     * @return The series. 
+     * 
+     * @since 1.2
+     */
+    public XYZSeries getSeries(Comparable<?> key) {
+        ArgChecks.nullNotPermitted(key, "key");
+        for (XYZSeries s : this.series) {
+            if (s.getKey().equals(key)) {
+                return s;
+            }
+        }
+        return null;
+    }
 
     /**
      * Returns the number of items in the specified series.
