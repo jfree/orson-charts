@@ -6,7 +6,7 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
@@ -113,7 +113,7 @@ public class AbstractXYZRenderer extends AbstractRenderer3D {
     public void setColorSource(XYZColorSource colorSource) {
         ArgChecks.nullNotPermitted(colorSource, "colorSource");
         this.colorSource = colorSource;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
   
     

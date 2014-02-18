@@ -6,7 +6,7 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
@@ -72,7 +72,7 @@ public class ScatterXYZRenderer extends AbstractXYZRenderer
     public void setSize(double size) {
         ArgChecks.positiveRequired(size, "size");
         this.size = size;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
     
     /**

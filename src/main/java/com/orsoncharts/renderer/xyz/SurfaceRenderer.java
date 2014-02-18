@@ -6,7 +6,7 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
@@ -109,7 +109,7 @@ public class SurfaceRenderer extends AbstractXYZRenderer implements XYZRenderer,
      */
     public void setXSamples(int count) {
         this.xSamples = count;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
     
     /**
@@ -172,7 +172,7 @@ public class SurfaceRenderer extends AbstractXYZRenderer implements XYZRenderer,
     public void setColorScale(ColorScale colorScale) {
         ArgChecks.nullNotPermitted(colorScale, "colorScale");
         this.colorScale = colorScale;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
     
     /**
@@ -199,7 +199,7 @@ public class SurfaceRenderer extends AbstractXYZRenderer implements XYZRenderer,
      */
     public void setDrawFaceOutlines(boolean draw) {
         this.drawFaceOutlines = draw;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
     
     /**
@@ -518,17 +518,17 @@ public class SurfaceRenderer extends AbstractXYZRenderer implements XYZRenderer,
     }
 
     /**
-     * Returns the current range for the x-axis - the method is overridden 
+     * Returns the current range for the z-axis - the method is overridden 
      * because this renderer does not use a dataset (it samples and plots a
      * function directly).
      * 
      * @param dataset  the dataset (ignored).
      * 
-     * @return The x-range (never <code>null</code>). 
+     * @return The z-range (never <code>null</code>). 
      */
     @Override
     public Range findZRange(XYZDataset dataset) {
-        return getPlot().getXAxis().getRange();
+        return getPlot().getZAxis().getRange();
     }
 
     /**

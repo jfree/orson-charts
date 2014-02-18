@@ -6,7 +6,7 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
@@ -97,7 +97,7 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer,
      */
     public void setBase(double base) {
         this.base = base;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
     
     /**
@@ -118,7 +118,7 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer,
      */
     public void setBarXWidth(double width) {
         this.barXWidth = width;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
 
     /**
@@ -139,7 +139,7 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer,
      */
     public void setBarZWidth(double width) {
         this.barZWidth = width;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
  
     /**
@@ -172,7 +172,7 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer,
      */
     public void setBaseColorSource(XYZColorSource source) {
         this.baseColorSource = source;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
     
     /**
@@ -201,7 +201,7 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer,
      */
     public void setTopColorSource(XYZColorSource source) {
         this.topColorSource = source;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
 
     /**

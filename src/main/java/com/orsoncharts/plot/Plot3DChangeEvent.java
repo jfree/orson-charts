@@ -28,6 +28,9 @@ public class Plot3DChangeEvent extends EventObject {
 
     /** The plot. */
     private Plot3D plot;
+    
+    /** Does the plot change require the world to be updated? */
+    private boolean requiresWorldUpdate;
   
     /**
      * Creates a new event.  The <code>source</code> of the event can be
@@ -36,11 +39,15 @@ public class Plot3DChangeEvent extends EventObject {
      * 
      * @param source  the event source (<code>null</code> not permitted).
      * @param plot  the plot (<code>null</code> not permitted).
+     * @param requiresWorldUpdate  a flag that indicates whether or not the 
+     *     world requires updating because of this change.
      */
-    public Plot3DChangeEvent(Object source, Plot3D plot) {
+    public Plot3DChangeEvent(Object source, Plot3D plot, 
+            boolean requiresWorldUpdate) {
         super(source);
         ArgChecks.nullNotPermitted(plot, "plot");
         this.plot = plot;
+        this.requiresWorldUpdate = requiresWorldUpdate;
     }
  
     /**
@@ -51,4 +58,17 @@ public class Plot3DChangeEvent extends EventObject {
     public Plot3D getPlot() {
         return this.plot;
     }
+    
+    /**
+     * Returns the flag indicating whether or not this change event
+     * requires the world to be updated/recreated.
+     * 
+     * @return A boolean.
+     * 
+     * @since 1.2
+     */
+    public boolean requiresWorldUpdate() {
+        return this.requiresWorldUpdate;
+    }
+    
 }

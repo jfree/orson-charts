@@ -174,7 +174,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
     @Override
     public void setVisible(boolean visible) {
         this.visible = visible;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
     
     /**
@@ -205,7 +205,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
         }
         this.range = range;
         this.autoAdjustRange = false;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
     
     /**
@@ -240,7 +240,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
      */
     public void setAutoAdjustRange(boolean autoAdjust) {
         this.autoAdjustRange = autoAdjust;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
     
     /**
@@ -267,7 +267,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
      */
     public void setLowerMargin(double margin) {
         this.lowerMargin = margin;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
     
     /**
@@ -294,7 +294,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
      */
     public void setUpperMargin(double margin) {
         this.upperMargin = margin;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
     
     /**
@@ -317,7 +317,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
      */
     public void setAutoRangeIncludeZero(boolean include) {
         this.autoRangeIncludesZero = include;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
     
     /**
@@ -343,7 +343,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
      */
     public void setAutoRangeStickyZero(boolean sticky) {
         this.autoRangeStickyZero = sticky;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
     
     /**
@@ -371,7 +371,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
      */
     public void setDefaultAutoRange(Range range) {
         this.defaultAutoRange = range;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
   
     /**
@@ -397,7 +397,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
      */
     public void setTickSelector(TickSelector selector) {
         this.tickSelector = selector;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
     
     /**
@@ -417,7 +417,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
      */
     public void setTickSize(double tickSize) {
         this.tickSize = tickSize;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
     
     /**
@@ -439,7 +439,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
     public void setTickLabelFormatter(Format formatter) {
         ArgChecks.nullNotPermitted(formatter, "formatter");
         this.tickLabelFormatter = formatter;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
     
     /**
@@ -462,7 +462,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
      */
     public void setTickLabelFactor(double factor) {
         this.tickLabelFactor = factor;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
     
     /**
@@ -504,7 +504,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
      */
     public void setTickMarkLength(double length) {
         this.tickMarkLength = length;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
 
     /**
@@ -526,7 +526,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
     public void setTickMarkStroke(Stroke stroke) {
         ArgChecks.nullNotPermitted(stroke, "stroke");
         this.tickMarkStroke = stroke;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
     
     /**
@@ -548,7 +548,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
     public void setTickMarkPaint(Paint paint) {
         ArgChecks.nullNotPermitted(paint, "paint");
         this.tickMarkPaint = paint;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
 
     /**

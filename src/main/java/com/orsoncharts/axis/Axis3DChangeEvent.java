@@ -6,7 +6,7 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source files is prohibited.
  * 
  */
 
@@ -26,13 +26,21 @@ public class Axis3DChangeEvent extends EventObject {
     /** The axis associated with this event. */
     private Axis3D axis;
   
+    /** 
+     * A flag indicating whether or not the change requires the 3D world to 
+     * be updated.
+     */
+    private boolean requiresWorldUpdate;
+    
     /**
      * Creates a new event.
      * 
-     * @param axis  the axis (<code>null</code> not permitted). 
+     * @param axis  the axis (<code>null</code> not permitted).
+     * @param requiresWorldUpdate  a flag indicating whether or not this change
+     *     requires the 3D world to be updated.
      */
-    public Axis3DChangeEvent(Axis3D axis) {
-        this(axis, axis);
+    public Axis3DChangeEvent(Axis3D axis, boolean requiresWorldUpdate) {
+        this(axis, axis, requiresWorldUpdate);
     }
     
     /**
@@ -40,11 +48,15 @@ public class Axis3DChangeEvent extends EventObject {
      * 
      * @param source  the event source.
      * @param axis  the axis (<code>null</code> not permitted).
+     * @param requiresWorldUpdate  a flag indicating whether or not this change
+     *     requires the 3D world to be updated.
      */
-    public Axis3DChangeEvent(Object source, Axis3D axis) {
+    public Axis3DChangeEvent(Object source, Axis3D axis, 
+            boolean requiresWorldUpdate) {
         super(source);
         ArgChecks.nullNotPermitted(axis, "axis");
         this.axis = axis;
+        this.requiresWorldUpdate = requiresWorldUpdate;
     }
   
     /**
@@ -56,4 +68,15 @@ public class Axis3DChangeEvent extends EventObject {
         return this.axis;
     }
 
+    /**
+     * Returns the flag that indicates whether or not this change will require
+     * the 3D world to be updated.
+     * 
+     * @return A boolean.
+     * 
+     * @since 1.2
+     */
+    public boolean requiresWorldUpdate() {
+        return this.requiresWorldUpdate;
+    }
 }

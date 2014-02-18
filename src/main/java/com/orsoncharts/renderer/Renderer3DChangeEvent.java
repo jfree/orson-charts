@@ -6,7 +6,7 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
@@ -24,15 +24,20 @@ import java.util.EventObject;
 public class Renderer3DChangeEvent extends EventObject {
 
     private Renderer3D renderer;
+    
+    private boolean requiresWorldUpdate;
   
     /**
      * Creates a new change event.
      * 
      * @param renderer  the renderer that changed (<code>null</code> not 
      *         permitted). 
+     * @param requiresWorldUpdate  a flag indicating whether or not the change
+     *     requires the 3D world to be updated.
      */
-    public Renderer3DChangeEvent(Renderer3D renderer) {
-        this(renderer, renderer);
+    public Renderer3DChangeEvent(Renderer3D renderer, 
+            boolean requiresWorldUpdate) {
+        this(renderer, renderer, requiresWorldUpdate);
     }
   
     /**
@@ -40,10 +45,14 @@ public class Renderer3DChangeEvent extends EventObject {
      * 
      * @param source  the source.
      * @param renderer  the renderer.
+     * @param requiresWorldUpdate  a flag indicating whether or not the change
+     *     requires the 3D world to be updated.
      */
-    public Renderer3DChangeEvent(Object source, Renderer3D renderer) {
+    public Renderer3DChangeEvent(Object source, Renderer3D renderer,
+            boolean requiresWorldUpdate) {
         super(source);
         this.renderer = renderer;
+        this.requiresWorldUpdate = requiresWorldUpdate;
     }
  
     /**
@@ -54,4 +63,17 @@ public class Renderer3DChangeEvent extends EventObject {
     public Renderer3D getRenderer() {
         return this.renderer;
     }
+
+    /**
+     * Returns the flag that indicates whether or not this change will require
+     * the 3D world to be updated.
+     * 
+     * @return A boolean.
+     * 
+     * @since 1.2
+     */
+    public boolean requiresWorldUpdate() {
+        return this.requiresWorldUpdate;
+    }
+
 }

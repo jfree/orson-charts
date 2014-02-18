@@ -6,7 +6,7 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
@@ -169,7 +169,7 @@ public class CategoryPlot3D extends AbstractPlot3D
         ArgChecks.nullNotPermitted(dimensions, "dimensions");
         this.dimensions = dimensions;
         this.autoAdjustDimensions = false;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
 
     /**
@@ -192,7 +192,7 @@ public class CategoryPlot3D extends AbstractPlot3D
         this.dataset.removeChangeListener(this);
         this.dataset = dataset;
         this.dataset.addChangeListener(this);
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
     
     /**
@@ -217,7 +217,7 @@ public class CategoryPlot3D extends AbstractPlot3D
         this.renderer.addChangeListener(this);
         // a new renderer might mean the axis range needs changing...
         this.valueAxis.configureAsValueAxis(this);
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
     
     /**
@@ -240,7 +240,7 @@ public class CategoryPlot3D extends AbstractPlot3D
         this.rowAxis.removeChangeListener(this);
         this.rowAxis = axis;
         this.rowAxis.addChangeListener(this);
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
     
     /**
@@ -267,7 +267,7 @@ public class CategoryPlot3D extends AbstractPlot3D
         this.columnAxis.removeChangeListener(this);
         this.columnAxis = axis;
         this.columnAxis.addChangeListener(this);
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
     
     /**
@@ -290,7 +290,7 @@ public class CategoryPlot3D extends AbstractPlot3D
         this.valueAxis.removeChangeListener(this);
         this.valueAxis = axis;
         this.valueAxis.addChangeListener(this);
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
     
     /**
@@ -313,7 +313,7 @@ public class CategoryPlot3D extends AbstractPlot3D
      */
     public void setGridlinesVisibleForRows(boolean visible) {
         this.gridlinesVisibleForRows = visible;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
 
     /**
@@ -335,7 +335,7 @@ public class CategoryPlot3D extends AbstractPlot3D
     public void setGridlinePaintForRows(Paint paint) {
         ArgChecks.nullNotPermitted(paint, "paint");
         this.gridlinePaintForRows = paint;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
 
     /**
@@ -359,7 +359,7 @@ public class CategoryPlot3D extends AbstractPlot3D
     public void setGridlineStrokeForRows(Stroke stroke) {
         ArgChecks.nullNotPermitted(stroke, "stroke");
         this.gridlineStrokeForRows = stroke;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
 
     /**
@@ -382,7 +382,7 @@ public class CategoryPlot3D extends AbstractPlot3D
      */
     public void setGridlinesVisibleForColumns(boolean visible) {
         this.gridlinesVisibleForColumns = visible;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
     
     /**
@@ -404,7 +404,7 @@ public class CategoryPlot3D extends AbstractPlot3D
      */
     public void setGridlinesVisibleForValues(boolean visible) {
         this.gridlinesVisibleForValues = visible;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
 
     /**
@@ -426,7 +426,7 @@ public class CategoryPlot3D extends AbstractPlot3D
     public void setGridlinePaintForValues(Paint paint) {
         ArgChecks.nullNotPermitted(paint, "paint");
         this.gridlinePaintForValues = paint;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
 
     /**
@@ -450,7 +450,7 @@ public class CategoryPlot3D extends AbstractPlot3D
     public void setGridlineStrokeForValues(Stroke stroke) {
         ArgChecks.nullNotPermitted(stroke, "stroke");
         this.gridlineStrokeForValues = stroke;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
     
     /**
@@ -473,7 +473,7 @@ public class CategoryPlot3D extends AbstractPlot3D
     public void setGridlinePaintForColumns(Paint paint) {
         ArgChecks.nullNotPermitted(paint, "paint");
         this.gridlinePaintForColumns = paint;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
 
     /**
@@ -497,7 +497,7 @@ public class CategoryPlot3D extends AbstractPlot3D
     public void setGridlineStrokeForColumns(Stroke stroke) {
         ArgChecks.nullNotPermitted(stroke, "stroke");
         this.gridlineStrokeForColumns = stroke;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
 
     /**
@@ -522,7 +522,7 @@ public class CategoryPlot3D extends AbstractPlot3D
     public void setLegendLabelGenerator(CategoryLabelGenerator generator) {
         ArgChecks.nullNotPermitted(generator, "generator");
         this.legendLabelGenerator = generator;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
     
     /**
@@ -673,7 +673,7 @@ public class CategoryPlot3D extends AbstractPlot3D
     public void axisChanged(Axis3DChangeEvent event) {
         // for now we just fire a plot change event which will flow up the
         // chain and eventually trigger a chart repaint
-        fireChangeEvent();
+        fireChangeEvent(event.requiresWorldUpdate());
     }
 
     /**
@@ -685,7 +685,7 @@ public class CategoryPlot3D extends AbstractPlot3D
     public void rendererChanged(Renderer3DChangeEvent event) {
         // for now we just fire a plot change event which will flow up the
         // chain and eventually trigger a chart repaint
-        fireChangeEvent();
+        fireChangeEvent(event.requiresWorldUpdate());
     }
     
     /**

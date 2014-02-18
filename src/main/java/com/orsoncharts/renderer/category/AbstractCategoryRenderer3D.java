@@ -6,7 +6,7 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
@@ -88,7 +88,7 @@ public abstract class AbstractCategoryRenderer3D extends AbstractRenderer3D
     public void setColorSource(CategoryColorSource colorSource) {
         ArgChecks.nullNotPermitted(colorSource, "colorSource");
         this.colorSource = colorSource;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
     
     /**
@@ -101,6 +101,7 @@ public abstract class AbstractCategoryRenderer3D extends AbstractRenderer3D
      * 
      * @since 1.1
      */
+    @Override
     public void setColors(Color... colors) {
         setColorSource(new StandardCategoryColorSource(colors));
     }

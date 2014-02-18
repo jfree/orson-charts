@@ -144,7 +144,7 @@ public abstract class AbstractAxis3D implements Axis3D, Serializable {
      */
     public void setLabel(String label) {
         this.label = label;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
 
     /**
@@ -168,7 +168,7 @@ public abstract class AbstractAxis3D implements Axis3D, Serializable {
     public void setLabelFont(Font font) {
         ArgChecks.nullNotPermitted(font, "font");
         this.labelFont = font;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
 
     /**
@@ -192,7 +192,7 @@ public abstract class AbstractAxis3D implements Axis3D, Serializable {
     public void setLabelColor(Color color) {
         ArgChecks.nullNotPermitted(color, "color");
         this.labelColor = color;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
     
     /**
@@ -213,7 +213,7 @@ public abstract class AbstractAxis3D implements Axis3D, Serializable {
     public void setLineStroke(Stroke stroke) {
         ArgChecks.nullNotPermitted(stroke, "stroke");
         this.lineStroke = stroke;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
 
     /**
@@ -234,7 +234,7 @@ public abstract class AbstractAxis3D implements Axis3D, Serializable {
     public void setLineColor(Color color) {
         ArgChecks.nullNotPermitted(color, "color");
         this.lineColor = color;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
 
     /**
@@ -255,7 +255,7 @@ public abstract class AbstractAxis3D implements Axis3D, Serializable {
      */
     public void setTickLabelsVisible(boolean visible) {
         this.tickLabelsVisible = visible;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
     
     /**
@@ -278,7 +278,7 @@ public abstract class AbstractAxis3D implements Axis3D, Serializable {
     public void setTickLabelFont(Font font) {
         ArgChecks.nullNotPermitted(font, "font");
         this.tickLabelFont = font;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
     
     /**
@@ -302,7 +302,7 @@ public abstract class AbstractAxis3D implements Axis3D, Serializable {
     public void setTickLabelColor(Color color) {
         ArgChecks.nullNotPermitted(color, "color");
         this.tickLabelColor = color;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
 
     /**
@@ -398,9 +398,12 @@ public abstract class AbstractAxis3D implements Axis3D, Serializable {
   
     /**
      * Sends a {@link Axis3DChangeEvent} to all registered listeners.
+     * 
+     * @param requiresWorldUpdate   a flag indicating whether or not this change
+     *     requires the 3D world to be updated.
      */
-    protected void fireChangeEvent() {
-        notifyListeners(new Axis3DChangeEvent(this));
+    protected void fireChangeEvent(boolean requiresWorldUpdate) {
+        notifyListeners(new Axis3DChangeEvent(this, requiresWorldUpdate));
     }
 
     /**

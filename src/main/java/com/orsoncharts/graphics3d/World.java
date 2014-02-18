@@ -13,30 +13,48 @@
 package com.orsoncharts.graphics3d;
 
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import com.orsoncharts.util.ArgChecks;
 
 /**
  * A world is a model containing a collection of objects in 3D space and a 
  * direction vector for the sunlight.  A viewing point ({@link ViewPoint3D}) is 
- * specified externally.
+ * specified externally.  Objects in the world are assigned to a partition, 
+ * providing the ability to group objects.
  */
 public class World {
 
+    /** 
+     * The default partition key.  All objects in the world are added with
+     * a partition key.  There always exists at least one partition (the 
+     * default partition).
+     * 
+     * @since 1.2
+     */
+    public static final String DEFAULT_PARTITION_KEY = "default";
+    
     /** The sunlight vector. */
     private double sunX;
     private double sunY;
     private double sunZ;
 
-    /** The objects. */
-    private List<Object3D> objects;
-
+    /** 
+     * Storage for the objects in the world.  A map is used to store
+     * one or more lists of objects (the partitioning is useful so
+     * that updates can be made to subsets of the world).
+     */
+    private Map<String, List<Object3D>> objects;
+    
     /**
      * Creates a new empty world.
      */
     public World() {
-        this.objects = new java.util.ArrayList<Object3D>();
+        this.objects = new java.util.TreeMap<String, List<Object3D>>();
+        this.objects.put(DEFAULT_PARTITION_KEY, new ArrayList<Object3D>());
         setSunSource(new Point3D(2, -1, 10));
     }
 
@@ -96,17 +114,37 @@ public class World {
     }
     
     /**
-     * Adds an object to the world.
+     * Adds an object to the world in the default partition.
      *
      * @param object  the object (<code>null</code> not permitted).
      */
     public void add(Object3D object) {
-        ArgChecks.nullNotPermitted(object, "object");
-        this.objects.add(object);
+        // defer argument checking
+        this.add(DEFAULT_PARTITION_KEY, object);
     }
 
     /**
-     * Adds a collection of objects to the world.
+     * Adds an object to a specific partition.
+     * 
+     * @param partition  the partition (<code>null</code> not permitted).
+     * @param object  the object (<code>null</code> not permitted).
+     * 
+     * @since 1.2
+     */
+    public void add(String partition, Object3D object) {
+        ArgChecks.nullNotPermitted(partition, "partition");
+        ArgChecks.nullNotPermitted(object, "object");
+        List<Object3D> list = this.objects.get(partition);
+        if (list == null) {
+            list = new ArrayList<Object3D>();
+            this.objects.put(partition, list);
+        }
+        list.add(object);
+    }
+    
+    /**
+     * Adds a collection of objects to the world (in the default
+     * partition).
      * 
      * @param objects  the objects (<code>null</code> not permitted). 
      */
@@ -118,14 +156,29 @@ public class World {
     }
 
     /**
+     * Clears any objects belonging to the specified partition.
+     * 
+     * @param partitionKey  the partition key (<code>null</code> not permitted).
+     * 
+     * @since 1.2
+     */
+    public void clear(String partitionKey) {
+        ArgChecks.nullNotPermitted(partitionKey, "partitionKey");
+        this.objects.put(partitionKey, null);
+    }
+    
+    /**
      * Returns the total number of vertices for all objects in this world.
      *
      * @return The total number of vertices.
      */
     public int getVertexCount() {
         int count = 0;
-        for (Object3D object: this.objects) {
-            count += object.getVertexCount();
+        for (Entry<String, List<Object3D>> entry : this.objects.entrySet()) {
+            List<Object3D> objs = entry.getValue();    
+            for (Object3D object: objs) {
+                count += object.getVertexCount();
+            }
         }
         return count;
     }
@@ -141,10 +194,13 @@ public class World {
     public Point3D[] calculateEyeCoordinates(ViewPoint3D vp) {
         Point3D[] result = new Point3D[getVertexCount()];
         int index = 0;
-        for (Object3D object : this.objects) {
-            Point3D[] vertices = object.calculateEyeCoordinates(vp);
-            System.arraycopy(vertices, 0, result, index, vertices.length);
-            index = index + vertices.length;
+        for (Entry<String, List<Object3D>> entry : this.objects.entrySet()) {
+            List<Object3D> objs = entry.getValue();    
+            for (Object3D object : objs) {
+                Point3D[] vertices = object.calculateEyeCoordinates(vp);
+                System.arraycopy(vertices, 0, result, index, vertices.length);
+                index = index + vertices.length;
+            }
         }
         return result;
     }
@@ -161,10 +217,13 @@ public class World {
     public Point2D[] calculateProjectedPoints(ViewPoint3D vp, double d) {
         Point2D[] result = new Point2D[getVertexCount()];
         int index = 0;
-        for (Object3D object : this.objects) {
-            Point2D[] pts = object.calculateProjectedPoints(vp, d);
-            System.arraycopy(pts, 0, result, index, pts.length);
-            index = index + pts.length;
+        for (Entry<String, List<Object3D>> entry : this.objects.entrySet()) {
+            List<Object3D> objs = entry.getValue();    
+            for (Object3D object : objs) {
+                Point2D[] pts = object.calculateProjectedPoints(vp, d);
+                System.arraycopy(pts, 0, result, index, pts.length);
+                index = index + pts.length;
+            }
         }
         return result;
     }
@@ -178,12 +237,15 @@ public class World {
     public List<Face> getFaces() {
         List<Face> result = new java.util.ArrayList<Face>();
         int offset = 0;
-        for (Object3D object : this.objects) {
-            for (Face f : object.getFaces()) {
-                f.setOffset(offset);
+        for (Entry<String, List<Object3D>> entry : this.objects.entrySet()) {
+            List<Object3D> objs = entry.getValue();    
+            for (Object3D object : objs) {
+                for (Face f : object.getFaces()) {
+                    f.setOffset(offset);
+                }
+                offset += object.getVertexCount();
+                result.addAll(object.getFaces());
             }
-            offset += object.getVertexCount();
-            result.addAll(object.getFaces());
         }
         return result;
     }
@@ -196,7 +258,12 @@ public class World {
      * @since 1.2
      */
     public List<Object3D> getObjects() {
-        return this.objects;
+        List<Object3D> result = new ArrayList<Object3D>();
+        for (Entry<String, List<Object3D>> entry : this.objects.entrySet()) {
+            List<Object3D> objs = entry.getValue();    
+            result.addAll(objs);
+        }
+        return result;
     }
 
 }

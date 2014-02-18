@@ -182,7 +182,7 @@ public abstract class AbstractPlot3D implements Plot3D,
         this.notify = notify;
         // if the flag is being set to true, there may be queued up changes...
         if (notify) {
-            fireChangeEvent();
+            fireChangeEvent(true);
         }
     }
     
@@ -231,9 +231,11 @@ public abstract class AbstractPlot3D implements Plot3D,
 
     /**
      * Sends a {@link Plot3DChangeEvent} to all registered listeners.
+     * 
+     * @param requiresWorldUpdate  requires the world to be updated?
      */
-    protected void fireChangeEvent() {
-        notifyListeners(new Plot3DChangeEvent(this, this));
+    protected void fireChangeEvent(boolean requiresWorldUpdate) {
+        notifyListeners(new Plot3DChangeEvent(this, this, requiresWorldUpdate));
     }
 
     /**
@@ -244,7 +246,7 @@ public abstract class AbstractPlot3D implements Plot3D,
      */
     @Override
     public void datasetChanged(Dataset3DChangeEvent event) {
-        notifyListeners(new Plot3DChangeEvent(event, this));
+        notifyListeners(new Plot3DChangeEvent(event, this, true));
     }
     
     /**

@@ -6,7 +6,7 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
@@ -92,7 +92,7 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
      */
     public void setLineWidth(double width) {
         this.lineWidth = width;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
 
     /**
@@ -113,7 +113,7 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
      */
     public void setLineHeight(double height) {
         this.lineHeight = height;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
 
     
@@ -137,7 +137,7 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
      */
     public void setClipColorSource(CategoryColorSource source) {
         this.clipColorSource = source;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
     
     /**

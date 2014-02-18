@@ -6,7 +6,7 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
@@ -90,7 +90,7 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
      */
     public void setBase(double base) {
         this.base = base;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
     
     /**
@@ -116,7 +116,7 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
      */
     public void setBaseColor(Color color) {
         this.baseColor = color;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
     
     /**
@@ -137,7 +137,7 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
      */
     public void setDepth(double depth) {
         this.depth = depth;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
 
     /**

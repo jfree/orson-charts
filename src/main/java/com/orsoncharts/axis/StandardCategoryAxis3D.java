@@ -153,7 +153,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     @Override
     public void setVisible(boolean visible) {
         this.visible = visible;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
 
     /**
@@ -190,7 +190,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     public void setRange(Range range) {
         ArgChecks.nullNotPermitted(range, "range");
         this.range = range;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
     
     /**
@@ -211,7 +211,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      */
     public void setLowerMargin(double margin) {
         this.lowerMargin = margin;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
     
     /**
@@ -232,7 +232,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      */
     public void setUpperMargin(double margin) {
         this.upperMargin = margin;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
     
     /**
@@ -260,7 +260,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      */
     public void setFirstCategoryHalfWidth(boolean half) {
         this.firstCategoryHalfWidth = half;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
     
     /**
@@ -288,7 +288,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      */
     public void setLastCategoryHalfWidth(boolean half) {
         this.lastCategoryHalfWidth = half;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
 
     /**
@@ -311,7 +311,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      */
     public void setTickMarkLength(double length) {
         this.tickMarkLength = length;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
     
     /**
@@ -333,7 +333,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     public void setTickMarkPaint(Paint paint) {
         ArgChecks.nullNotPermitted(paint, "paint");
         this.tickMarkPaint = paint;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
     
     /**
@@ -355,7 +355,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     public void setTickMarkStroke(Stroke stroke) {
         ArgChecks.nullNotPermitted(stroke, "stroke");
         this.tickMarkStroke = stroke;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
     
     /**
@@ -383,7 +383,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     public void setTickLabelGenerator(CategoryLabelGenerator generator) {
         ArgChecks.nullNotPermitted(generator, "generator");
         this.tickLabelGenerator = generator;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
     
     /**
@@ -405,7 +405,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      */
     public void setTickLabelOffset(double offset) {
         this.tickLabelOffset = offset;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
  
     /**

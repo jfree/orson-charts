@@ -125,7 +125,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
         this.dataset.removeChangeListener(this);
         this.dataset = dataset;
         this.dataset.addChangeListener(this);
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
 
     /**
@@ -145,7 +145,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
      */
     public void setRadius(double radius) {
         this.radius = radius;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
   
     /**
@@ -165,7 +165,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
      */
     public void setDepth(double depth) {
         this.depth = depth;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
     
     /**
@@ -186,7 +186,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
     public void setSectionColorSource(ColorSource source) {
         ArgChecks.nullNotPermitted(source, "source");
         this.sectionColorSource = source;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
     
     /**
@@ -226,7 +226,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
     public void setSectionLabelGenerator(PieLabelGenerator generator) {
         ArgChecks.nullNotPermitted(generator, "generator");
         this.sectionLabelGenerator = generator;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
     
     /**
@@ -248,7 +248,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
     public void setSectionLabelFontSource(FontSource source) {
         ArgChecks.nullNotPermitted(source, "source");
         this.sectionLabelFontSource = source;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
 
     /**
@@ -275,7 +275,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
     public void setSectionLabelColorSource(ColorSource source) {
         ArgChecks.nullNotPermitted(source, "source");
         this.sectionLabelColorSource = source;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
     
     /**
@@ -302,7 +302,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
     public void setLegendLabelGenerator(PieLabelGenerator generator) {
         ArgChecks.nullNotPermitted(generator, "generator");
         this.legendLabelGenerator = generator;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
 
     /**
@@ -337,7 +337,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
      */
     public void setSegmentCount(int count) {
         this.segments = count;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
     
     /**

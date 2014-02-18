@@ -151,7 +151,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
     public void setDimensions(Dimension3D dim) {
         ArgChecks.nullNotPermitted(dim, "dim");
         this.dimensions = dim;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
 
     /**
@@ -174,7 +174,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
         this.dataset.removeChangeListener(this);
         this.dataset = dataset;
         this.dataset.addChangeListener(this);
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
 
     /**
@@ -195,7 +195,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
     public void setXAxis(ValueAxis3D xAxis) {
         ArgChecks.nullNotPermitted(xAxis, "xAxis");
         this.xAxis = xAxis;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
 
     /**
@@ -216,7 +216,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
     public void setYAxis(ValueAxis3D yAxis) {
         ArgChecks.nullNotPermitted(yAxis, "yAxis");
         this.yAxis = yAxis;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
     
     /**
@@ -237,7 +237,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
     public void setZAxis(ValueAxis3D zAxis) {
         ArgChecks.nullNotPermitted(zAxis, "zAxis");
         this.zAxis = zAxis;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
     
     /**
@@ -261,7 +261,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
         this.renderer = renderer;
         this.renderer.setPlot(this);
         this.renderer.addChangeListener(this);
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
 
     /**
@@ -283,7 +283,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
      */
     public void setGridlinesVisibleX(boolean visible) {
         this.gridlinesVisibleX = visible;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
     
     /**
@@ -304,7 +304,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
     public void setGridlinePaintX(Paint paint) {
         ArgChecks.nullNotPermitted(paint, "paint");
         this.gridlinePaintX = paint;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
     
     /**
@@ -325,7 +325,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
     public void setGridlineStrokeX(Stroke stroke) {
         ArgChecks.nullNotPermitted(stroke, "stroke");
         this.gridlineStrokeX = stroke;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
 
     /**
@@ -347,7 +347,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
      */
     public void setGridlinesVisibleY(boolean visible) {
         this.gridlinesVisibleY = visible;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
 
     /**
@@ -368,7 +368,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
     public void setGridlinePaintY(Paint paint) {
         ArgChecks.nullNotPermitted(paint, "paint");
         this.gridlinePaintY = paint;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
 
     /**
@@ -389,7 +389,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
     public void setGridlineStrokeY(Stroke stroke) {
         ArgChecks.nullNotPermitted(stroke, "stroke");
         this.gridlineStrokeY = stroke;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
 
     /**
@@ -411,7 +411,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
      */
     public void setGridlinesVisibleZ(boolean visible) {
         this.gridlinesVisibleZ = visible;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
     
     /**
@@ -432,7 +432,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
     public void setGridlinePaintZ(Paint paint) {
         ArgChecks.nullNotPermitted(paint, "paint");
         this.gridlinePaintZ = paint;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
 
     /**
@@ -453,7 +453,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
     public void setGridlineStrokeZ(Stroke stroke) {
         ArgChecks.nullNotPermitted(stroke, "stroke");
         this.gridlineStrokeZ = stroke;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
 
     /**
@@ -479,7 +479,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
     public void setLegendLabelGenerator(XYZLabelGenerator generator) {
         ArgChecks.nullNotPermitted(generator, "generator");
         this.legendLabelGenerator = generator;
-        fireChangeEvent();
+        fireChangeEvent(false);
     }
     
     /**
@@ -623,7 +623,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
     @Override
     public void axisChanged(Axis3DChangeEvent event) {
         this.yAxis.configureAsYAxis(this);
-        fireChangeEvent();
+        fireChangeEvent(event.requiresWorldUpdate());
     }
 
     /**
@@ -636,7 +636,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
      */
     @Override
     public void rendererChanged(Renderer3DChangeEvent event) {
-        fireChangeEvent();
+        fireChangeEvent(event.requiresWorldUpdate());
     }
 
     /**

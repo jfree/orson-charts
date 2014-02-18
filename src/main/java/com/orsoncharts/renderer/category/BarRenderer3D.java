@@ -6,7 +6,7 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
@@ -107,7 +107,7 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
      */
     public void setBase(double base) {
         this.base = base;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
     
     /**
@@ -130,7 +130,7 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
      */
     public void setBarXWidth(double barXWidth) {
         this.barXWidth = barXWidth;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
 
     /**
@@ -151,7 +151,7 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
      */
     public void setBarZWidth(double barZWidth) {
         this.barZWidth = barZWidth;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
     
     /**
@@ -184,7 +184,7 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
      */
     public void setBaseColorSource(CategoryColorSource source) {
         this.baseColorSource = source;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
     
     /**
@@ -213,7 +213,7 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
      */
     public void setTopColorSource(CategoryColorSource source) {
         this.topColorSource = source;
-        fireChangeEvent();
+        fireChangeEvent(true);
     }
 
     /**

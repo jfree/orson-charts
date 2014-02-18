@@ -6,7 +6,7 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
@@ -54,14 +54,7 @@ import com.orsoncharts.plot.Plot3DChangeEvent;
 import com.orsoncharts.plot.Plot3DChangeListener;
 import com.orsoncharts.plot.Plot3D;
 import com.orsoncharts.plot.XYZPlot;
-import com.orsoncharts.table.TextElement;
-import com.orsoncharts.table.TableElement;
-import com.orsoncharts.util.Anchor2D;
 import com.orsoncharts.graphics3d.Offset2D;
-import com.orsoncharts.util.RefPt2D;
-import com.orsoncharts.util.TextUtils;
-import com.orsoncharts.util.TextAnchor;
-import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.legend.LegendBuilder;
 import com.orsoncharts.legend.StandardLegendBuilder;
 import com.orsoncharts.style.ChartStyle;
@@ -70,8 +63,15 @@ import com.orsoncharts.style.ChartStyleChangeListener;
 import com.orsoncharts.style.ChartStyler;
 import com.orsoncharts.table.GridElement;
 import com.orsoncharts.table.HAlign;
+import com.orsoncharts.table.TableElement;
+import com.orsoncharts.table.TextElement;
+import com.orsoncharts.util.Anchor2D;
+import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.ObjectUtils;
 import com.orsoncharts.util.Orientation;
+import com.orsoncharts.util.RefPt2D;
+import com.orsoncharts.util.TextUtils;
+import com.orsoncharts.util.TextAnchor;
 
 /**
  * A chart object for 3D charts (this is the umbrella object that manages all
@@ -181,6 +181,9 @@ public class Chart3D implements Drawable3D, ChartElement,
      * @since 1.2
      */
     private ChartStyle style;
+    
+    /** A 3D model of the world (represents the chart). */
+    private World world;
     
     /**
      * Creates a 3D chart for the specified plot using the default chart
@@ -671,6 +674,7 @@ public class Chart3D implements Drawable3D, ChartElement,
         this.style = style;
         this.style.addChangeListener(this);
         receive(new ChartStyler(this.style));
+        this.world = null;
     }
 
     /**
@@ -679,16 +683,16 @@ public class Chart3D implements Drawable3D, ChartElement,
      * @param chartBox  the chart box (<code>null</code> permitted).
      */
     private World createWorld(ChartBox3D chartBox) {
-        World world = new World();      
+        World result = new World();      
         Dimension3D dim = this.plot.getDimensions();
         double w = dim.getWidth();
         double h = dim.getHeight();
         double d = dim.getDepth();
         if (chartBox != null) {
-            world.add(chartBox.getObject3D());
+            result.add("chartbox", chartBox.getObject3D());
         }
-        this.plot.compose(world, -w / 2, -h / 2, -d / 2);
-        return world;
+        this.plot.compose(result, -w / 2, -h / 2, -d / 2);
+        return result;
     }
     
     /**
@@ -715,7 +719,12 @@ public class Chart3D implements Drawable3D, ChartElement,
             chartBox = new ChartBox3D(w, h, depth, -w / 2, -h / 2, -depth / 2, 
                     this.chartBoxColor, xTicks, yTicks, zTicks);
         }
-        World world = createWorld(chartBox);
+        if (this.world == null) {
+            this.world = createWorld(chartBox);
+        } else if (chartBox != null) {
+            this.world.clear("chartbox");
+            this.world.add("chartbox", chartBox.getObject3D());
+        }
         if (this.background != null) {
             this.background.fill(g2, bounds);
         }
@@ -1408,14 +1417,15 @@ public class Chart3D implements Drawable3D, ChartElement,
     }
 
     /**
-     * Receives a visitor.
+     * Receives a visitor.  The visitor is first directed to the plot, then
+     * the visit is completed for the chart.
      * 
      * @param visitor 
      * 
      * @since 1.2
      */
     @Override
-    public final void receive(ChartElementVisitor visitor) {
+    public void receive(ChartElementVisitor visitor) {
         this.plot.receive(visitor);
         visitor.visit(this);
     }
@@ -1562,6 +1572,9 @@ public class Chart3D implements Drawable3D, ChartElement,
      */
     @Override
     public void plotChanged(Plot3DChangeEvent event) {
+        if (event.requiresWorldUpdate()) {
+            this.world = null;
+        }
         notifyListeners(new Chart3DChangeEvent(event, this));
     }
 

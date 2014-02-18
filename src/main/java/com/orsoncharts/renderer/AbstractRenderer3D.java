@@ -15,7 +15,6 @@ package com.orsoncharts.renderer;
 import javax.swing.event.EventListenerList;
 
 import com.orsoncharts.ChartElementVisitor;
-import com.orsoncharts.plot.Plot3DChangeListener;
 
 /**
  * A base class for 3D renderers.
@@ -64,7 +63,7 @@ public abstract class AbstractRenderer3D implements Renderer3D {
         this.notify = notify;
         // if the flag is being set to true, there may be queued up changes...
         if (notify) {
-            fireChangeEvent();
+            fireChangeEvent(true);
         }
     }
     
@@ -120,17 +119,21 @@ public abstract class AbstractRenderer3D implements Renderer3D {
         }
         Object[] listeners = this.listenerList.getListenerList();
         for (int i = listeners.length - 2; i >= 0; i -= 2) {
-            if (listeners[i] == Plot3DChangeListener.class) { 
-                ((Renderer3DChangeListener) listeners[i + 1]).rendererChanged(event);
+            if (listeners[i] == Renderer3DChangeListener.class) { 
+                ((Renderer3DChangeListener) listeners[i + 1]).rendererChanged(
+                        event);
             }
         }
     }
 
     /**
      * Sends a {@link Renderer3DChangeEvent} to all registered listeners.
+     * 
+     * @param requiresWorldUpdate  a flag indicating whether or not the change
+     *     requires the 3D world to be updated.
      */
-    protected void fireChangeEvent() {
-        notifyListeners(new Renderer3DChangeEvent(this));
+    protected void fireChangeEvent(boolean requiresWorldUpdate) {
+        notifyListeners(new Renderer3DChangeEvent(this, requiresWorldUpdate));
     }
 
     /**
