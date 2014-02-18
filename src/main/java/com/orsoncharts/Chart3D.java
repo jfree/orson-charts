@@ -731,8 +731,8 @@ public class Chart3D implements Drawable3D, ChartElement,
         AffineTransform saved = g2.getTransform();
         g2.translate(bounds.getWidth() / 2.0 + this.translate2D.getDX(), 
                 bounds.getHeight() / 2.0 + this.translate2D.getDY());
-        Point3D[] eyePts = world.calculateEyeCoordinates(this.viewPoint);
-        Point2D[] pts = world.calculateProjectedPoints(this.viewPoint, 
+        Point3D[] eyePts = this.world.calculateEyeCoordinates(this.viewPoint);
+        Point2D[] pts = this.world.calculateProjectedPoints(this.viewPoint, 
                 this.projDist);
         
         // sort faces by z-order
