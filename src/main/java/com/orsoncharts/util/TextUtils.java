@@ -172,8 +172,8 @@ public class TextUtils {
         result[0] = xAdj;
         result[1] = yAdj;
         return result;
-
     }
+    
     /**
      * Returns the bounds for the specified text.  The supplied text is
      * assumed to be on a single line (no carriage return or newline 
