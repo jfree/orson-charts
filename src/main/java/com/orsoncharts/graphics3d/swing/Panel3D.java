@@ -38,6 +38,7 @@ import com.orsoncharts.graphics3d.Drawable3D;
 import com.orsoncharts.graphics3d.Offset2D;
 import com.orsoncharts.graphics3d.ViewPoint3D;
 import com.orsoncharts.graphics3d.Dimension3D;
+import com.orsoncharts.util.ExportFormats;
 
 /**
  * A panel that displays a set of 3D objects from a particular viewing point.
@@ -390,23 +391,6 @@ public class Panel3D extends JPanel implements MouseListener,
     }
     
     /**
-     * Returns <code>true</code> if OrsonPDF is on the classpath, and 
-     * <code>false</code> otherwise.  The OrsonPDF library can be found at
-     * http://www.object-refinery.com/pdf/
-     * 
-     * @return A boolean.
-     */
-    boolean isOrsonPDFAvailable() {
-        Class pdfDocumentClass = null;
-        try {
-            pdfDocumentClass = Class.forName("com.orsonpdf.PDFDocument");
-        } catch (ClassNotFoundException e) {
-            // pdfDocument class will be null so the function will return false
-        }
-        return (pdfDocumentClass != null);
-    }
-    
-    /**
      * Writes the current content to the specified file in PDF format.  This 
      * will only work when the OrsonPDF library is found on the classpath.
      * Reflection is used to ensure there is no compile-time dependency on
@@ -417,7 +401,7 @@ public class Panel3D extends JPanel implements MouseListener,
      * @param h  the chart height.
      */
     void writeAsPDF(File file, int w, int h) {
-        if (!isOrsonPDFAvailable()) {
+        if (!ExportFormats.isOrsonPDFAvailable()) {
             throw new IllegalStateException(
                     "OrsonPDF is not present on the classpath.");
         }
@@ -450,24 +434,7 @@ public class Panel3D extends JPanel implements MouseListener,
             throw new RuntimeException(ex);
         }
     }
-    
-    /**
-     * Returns <code>true</code> if JFreeSVG is on the classpath, and 
-     * <code>false</code> otherwise.  The JFreeSVG library can be found at
-     * http://www.jfree.org/jfreesvg/
-     * 
-     * @return A boolean.
-     */
-    boolean isJFreeSVGAvailable() {
-        Class svgClass = null;
-        try {
-            svgClass = Class.forName("org.jfree.graphics2d.svg.SVGGraphics2D");
-        } catch (ClassNotFoundException e) {
-            // svgClass will be null so the function will return false
-        }
-        return (svgClass != null);
-    }
-    
+       
     /**
      * Writes the current content to the specified file in SVG format.  This 
      * will only work when the JFreeSVG library is found on the classpath.
@@ -479,7 +446,7 @@ public class Panel3D extends JPanel implements MouseListener,
      * @param h  the chart height.
      */
     void writeAsSVG(File file, int w, int h) {
-        if (!isJFreeSVGAvailable()) {
+        if (!ExportFormats.isJFreeSVGAvailable()) {
             throw new IllegalStateException(
                     "JFreeSVG is not present on the classpath.");
         }

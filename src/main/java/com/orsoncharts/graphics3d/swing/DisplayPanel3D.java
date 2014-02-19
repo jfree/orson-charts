@@ -27,6 +27,9 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JToolBar;
 import javax.swing.JMenu;
+import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.util.ExportFormat;
+import com.orsoncharts.util.ExportFormats;
 
 /**
  * A panel for displaying 3D content, with a toolbar and popup menu to control 
@@ -97,7 +100,7 @@ public class DisplayPanel3D extends JPanel implements MouseListener {
             add(tb, BorderLayout.EAST);
         }
         if (popupMenu) {
-            this.popup = createPopupMenu();
+            this.popup = createPopupMenu(ExportFormat.values());
         }
         this.content.addMouseListener(this);
     }
@@ -111,6 +114,20 @@ public class DisplayPanel3D extends JPanel implements MouseListener {
         return this.content;
     }
   
+    /**
+     * Sets the list of export formats that will be shown in the popup menu.
+     * If you provide an empty list, there will be no export submenu in the 
+     * popup menu.
+     * 
+     * @param formats  the list of formats (<code>null</code> not permitted). 
+     * 
+     * @since 1.2
+     */
+    public void setExportFormats(ExportFormat... formats) {
+        // defer argument checking
+        this.popup = createPopupMenu(formats);
+    }
+    
     /**
      * Creates the toolbar used to control zooming etc.
      * 
@@ -155,28 +172,52 @@ public class DisplayPanel3D extends JPanel implements MouseListener {
         return tb;   
     }
     
-    private JPopupMenu createPopupMenu() {
+    /**
+     * Creates a popup menu containing zooming items plus, if exportFormats
+     * is not empty, a submenu of export items.
+     * 
+     * @param exportFormats  an ordered list of export formats to add to the
+     *     submenu (<code>null</code> not permitted).
+     * 
+     * @return A popup menu.
+     */
+    private JPopupMenu createPopupMenu(ExportFormat... exportFormats) {
+        ArgChecks.nullNotPermitted(exportFormats, "exportFormats");
         JPopupMenu popupMenu = new JPopupMenu();
         popupMenu.add(new JMenuItem(new ZoomInAction(this.content, false)));
         popupMenu.add(new JMenuItem(new ZoomOutAction(this.content, false)));
         popupMenu.add(new JMenuItem(new ZoomToFitAction(this.content, false)));
-        popupMenu.addSeparator();
-        JMenu exportSubMenu = new JMenu("Export as");
-        JMenuItem pngItem = new JMenuItem(new ExportToPNGAction(this.content));
-        exportSubMenu.add(pngItem);
-            
-        if (this.content.isOrsonPDFAvailable()) {
-            JMenuItem pdfItem = new JMenuItem(new ExportToPDFAction(
-                    this.content));
-            exportSubMenu.add(pdfItem);
-        }
         
-        if (this.content.isJFreeSVGAvailable()) {
-            JMenuItem svgItem = new JMenuItem(new ExportToSVGAction(
-                    this.content));
-            exportSubMenu.add(svgItem);
+        if (exportFormats.length > 0) {
+            JMenu exportSubMenu = new JMenu("Export as");
+            for (ExportFormat f : exportFormats) {
+                if (f.equals(ExportFormat.PNG)) {
+                    JMenuItem pngItem = new JMenuItem(new ExportToPNGAction(
+                            this.content));
+                    exportSubMenu.add(pngItem);                    
+                } else if (f.equals(ExportFormat.JPEG)) {
+                    JMenuItem jpgItem = new JMenuItem(new ExportToJPEGAction(
+                            this.content));
+                    exportSubMenu.add(jpgItem);                    
+                } else if (f.equals(ExportFormat.PDF)) {
+                    if (ExportFormats.isOrsonPDFAvailable()) {
+                        JMenuItem pdfItem = new JMenuItem(new ExportToPDFAction(
+                                this.content));
+                        exportSubMenu.add(pdfItem);
+                    }
+                } else if (f.equals(ExportFormat.SVG)) {
+                    if (ExportFormats.isJFreeSVGAvailable()) {
+                        JMenuItem svgItem = new JMenuItem(new ExportToSVGAction(
+                                this.content));
+                        exportSubMenu.add(svgItem);
+                    }
+                }
+            }
+            if (exportSubMenu.getItemCount() > 0) {
+                popupMenu.addSeparator();
+                popupMenu.add(exportSubMenu);           
+            }
         }
-        popupMenu.add(exportSubMenu);
         return popupMenu;
     }
     
