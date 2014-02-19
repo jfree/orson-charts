@@ -1,7 +1,7 @@
 Orson Charts
 ============
 
-(C)opyright 2013, by Object Refinery Limited
+(C)opyright 2013, 2014, by Object Refinery Limited
 
 
 Overview
@@ -16,6 +16,8 @@ Orson Charts is a 3D chart library for the Java(tm) platform that can generate a
 - a clean and well-documented API with a high degree of chart configurability.
 
 Orson Charts is very easy to use, and includes comprehensive Javadocs.  Licenses can be purchased from Object Refinery Limited.  The license permits royalty-free redistribution of the Orson Charts runtime jar file.
+
+Orson Charts is also available for Android and for HTML5 (Javascript).
 
 
 Evaluation Version
@@ -43,6 +45,19 @@ If you have any questions, don't hesitate to send a mail to info@object-refinery
 
 History
 -------
+
+??-Feb-2014 : Version 1.2
+- added theme support, with several built-in themes;
+- added label generators for pie section labels and category axis labels;
+- added export to JPEG, plus options to configure the available export types;
+- made projection distance configurable in chart viewer;
+- optimized rendering code to reduce memory usage;
+- added series accessors for XYZSeriesCollection;
+- put in place localisation mechanism;
+- fixed issue with StackedBarRenderer and negative values;
+- various other bug fixes.
+
+
 23-Dec-2013 : Version 1.1
 
 - added surface plots (via the new SurfaceRenderer class and Chart3DFactory.createSurfaceChart());
