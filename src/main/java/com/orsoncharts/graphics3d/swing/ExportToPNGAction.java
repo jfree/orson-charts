@@ -23,6 +23,7 @@ import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import com.orsoncharts.Resources;
 import com.orsoncharts.util.ArgChecks;
 
 /**
@@ -39,7 +40,7 @@ public class ExportToPNGAction extends AbstractAction {
      * @param panel  the panel (<code>null</code> not permitted).
      */
     public ExportToPNGAction(Panel3D panel) {
-        super("PNG...");
+        super(Resources.localString("PNG_MENU_LABEL"));
         ArgChecks.nullNotPermitted(panel, "panel");
         this.panel = panel;
     }
@@ -53,7 +54,7 @@ public class ExportToPNGAction extends AbstractAction {
     public void actionPerformed(ActionEvent e) {
         JFileChooser fileChooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                    "PNG Image Files", "png");
+            Resources.localString("PNG_FILE_FILTER_DESCRIPTION"), "png");
         fileChooser.addChoosableFileFilter(filter);
         fileChooser.setFileFilter(filter);
 

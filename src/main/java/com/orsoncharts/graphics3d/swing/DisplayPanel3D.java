@@ -27,6 +27,7 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JToolBar;
 import javax.swing.JMenu;
+import com.orsoncharts.Resources;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.ExportFormat;
 import com.orsoncharts.util.ExportFormats;
@@ -189,7 +190,7 @@ public class DisplayPanel3D extends JPanel implements MouseListener {
         popupMenu.add(new JMenuItem(new ZoomToFitAction(this.content, false)));
         
         if (exportFormats.length > 0) {
-            JMenu exportSubMenu = new JMenu("Export as");
+            JMenu exportSubMenu = new JMenu(Resources.localString("EXPORT_AS"));
             for (ExportFormat f : exportFormats) {
                 if (f.equals(ExportFormat.PNG)) {
                     JMenuItem pngItem = new JMenuItem(new ExportToPNGAction(

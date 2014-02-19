@@ -12,6 +12,7 @@
 
 package com.orsoncharts.graphics3d.swing;
 
+import com.orsoncharts.Resources;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -36,10 +37,10 @@ public class ZoomToFitAction extends AbstractAction {
         ArgChecks.nullNotPermitted(panel, "panel");
         this.panel = panel;
         if (!fontAwesome) {
-            putValue(Action.NAME, "Zoom To Fit");
+            putValue(Action.NAME, Resources.localString("ZOOM_TO_FIT"));
         }
         putValue(Action.ACTION_COMMAND_KEY, "ZOOM_TO_FIT");
-        putValue(Action.SHORT_DESCRIPTION, "Zoom to fit");
+        putValue(Action.SHORT_DESCRIPTION, Resources.localString("ZOOM_TO_FIT"));
     }
 
     /**

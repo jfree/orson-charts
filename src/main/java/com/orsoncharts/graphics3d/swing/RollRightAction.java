@@ -12,10 +12,11 @@
 
 package com.orsoncharts.graphics3d.swing;
 
-import com.orsoncharts.util.ArgChecks;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import com.orsoncharts.Resources;
+import com.orsoncharts.util.ArgChecks;
 
 /**
  * An action that handles rolling the 3D view clockwise around an
@@ -34,7 +35,8 @@ public class RollRightAction extends AbstractAction {
         super("\uF064");
         ArgChecks.nullNotPermitted(panel, "panel");
         this.panel = panel;
-        putValue(Action.SHORT_DESCRIPTION, "Roll clockwise");
+        putValue(Action.SHORT_DESCRIPTION, 
+                Resources.localString("ROLL_RIGHT_ACTION_SHORT_DESCRIPTION"));
     }
 
     /**

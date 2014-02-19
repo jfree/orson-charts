@@ -12,6 +12,7 @@
 
 package com.orsoncharts.graphics3d.swing;
 
+import com.orsoncharts.Resources;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import com.orsoncharts.util.ArgChecks;
@@ -33,7 +34,8 @@ public class DownAction extends AbstractAction {
         super("\uF063");
         ArgChecks.nullNotPermitted(panel, "panel");
         this.panel = panel;
-        putValue(Action.SHORT_DESCRIPTION, "Rotate down");
+        putValue(Action.SHORT_DESCRIPTION, 
+                Resources.localString("DOWN_ACTION_SHORT_DESCRIPTION"));
     }
 
     @Override

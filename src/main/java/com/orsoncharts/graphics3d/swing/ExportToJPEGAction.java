@@ -12,6 +12,7 @@
 
 package com.orsoncharts.graphics3d.swing;
 
+import com.orsoncharts.Resources;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -41,7 +42,7 @@ public class ExportToJPEGAction extends AbstractAction {
      * @param panel  the panel (<code>null</code> not permitted).
      */
     public ExportToJPEGAction(Panel3D panel) {
-        super("JPEG...");
+        super(Resources.localString("JPG_MENU_LABEL"));
         ArgChecks.nullNotPermitted(panel, "panel");
         this.panel = panel;
     }
@@ -55,7 +56,7 @@ public class ExportToJPEGAction extends AbstractAction {
     public void actionPerformed(ActionEvent e) {
         JFileChooser fileChooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                    "JPEG Image Files", "jpg");
+                Resources.localString("JPG_FILE_FILTER_DESCRIPTION"), "jpg");
         fileChooser.addChoosableFileFilter(filter);
         fileChooser.setFileFilter(filter);
 

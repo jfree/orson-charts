@@ -12,10 +12,11 @@
 
 package com.orsoncharts.graphics3d.swing;
 
-import com.orsoncharts.util.ArgChecks;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import com.orsoncharts.Resources;
+import com.orsoncharts.util.ArgChecks;
 
 /**
  * An action that handles rotating the 3D view towards the left of the screen.
@@ -35,7 +36,8 @@ public class LeftAction extends AbstractAction {
         super("\uF060");
         ArgChecks.nullNotPermitted(panel, "panel");
         this.panel = panel;
-        putValue(Action.SHORT_DESCRIPTION, "Rotate to the left");
+        putValue(Action.SHORT_DESCRIPTION, 
+                Resources.localString("LEFT_ACTION_SHORT_DESCRIPTION"));
     }
 
     @Override

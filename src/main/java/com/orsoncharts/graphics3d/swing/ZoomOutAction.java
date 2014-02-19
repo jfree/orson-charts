@@ -15,6 +15,7 @@ package com.orsoncharts.graphics3d.swing;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import com.orsoncharts.Resources;
 import com.orsoncharts.graphics3d.ViewPoint3D;
 
 /**
@@ -36,10 +37,10 @@ public class ZoomOutAction extends AbstractAction {
         super("\uf010");
         this.panel = panel;
         if (!fontAwesome) {
-            putValue(Action.NAME, "Zoom Out");
+            putValue(Action.NAME, Resources.localString("ZOOM_OUT"));
         }
         putValue(Action.ACTION_COMMAND_KEY, "ZOOM_OUT");
-        putValue(Action.SHORT_DESCRIPTION, "Zoom out");
+        putValue(Action.SHORT_DESCRIPTION, Resources.localString("ZOOM_OUT"));
     }
 
     /**

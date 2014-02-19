@@ -17,6 +17,7 @@ import java.io.File;
 import javax.swing.AbstractAction;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import com.orsoncharts.Resources;
 import com.orsoncharts.util.ArgChecks;
 
 /**
@@ -35,7 +36,7 @@ public class ExportToPDFAction extends AbstractAction {
      *     not permitted). 
      */
     public ExportToPDFAction(Panel3D panel) {
-        super("PDF...");
+        super(Resources.localString("PDF_MENU_LABEL"));
         ArgChecks.nullNotPermitted(panel, NAME);
         this.panel = panel;
     }
@@ -49,7 +50,7 @@ public class ExportToPDFAction extends AbstractAction {
     public void actionPerformed(ActionEvent e) {
         JFileChooser fileChooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                    "PDF Files", "pdf");
+                Resources.localString("PDF_FILE_FILTER_DESCRIPTION"), "pdf");
         fileChooser.addChoosableFileFilter(filter);
         fileChooser.setFileFilter(filter);
 

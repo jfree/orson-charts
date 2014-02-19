@@ -20,6 +20,7 @@ import javax.swing.AbstractAction;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import com.orsoncharts.Resources;
 import com.orsoncharts.util.ArgChecks;
 
 /**
@@ -38,7 +39,7 @@ public class ExportToSVGAction extends AbstractAction {
      *     not permitted). 
      */
     public ExportToSVGAction(Panel3D panel) {
-        super("SVG...");
+        super(Resources.localString("SVG_MENU_LABEL"));
         ArgChecks.nullNotPermitted(panel, NAME);
         this.panel = panel;
     }
@@ -52,7 +53,7 @@ public class ExportToSVGAction extends AbstractAction {
     public void actionPerformed(ActionEvent e) {
         JFileChooser fileChooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                    "SVG Files", "svg");
+                Resources.localString("SVG_FILE_FILTER_DESCRIPTION"), "svg");
         fileChooser.addChoosableFileFilter(filter);
         fileChooser.setFileFilter(filter);
 

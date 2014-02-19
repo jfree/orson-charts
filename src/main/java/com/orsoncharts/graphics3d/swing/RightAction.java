@@ -12,10 +12,11 @@
 
 package com.orsoncharts.graphics3d.swing;
 
-import com.orsoncharts.util.ArgChecks;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import com.orsoncharts.Resources;
+import com.orsoncharts.util.ArgChecks;
 
 /**
  * An action that handles rotating the 3D view towards the right of the screen.
@@ -35,7 +36,8 @@ public class RightAction extends AbstractAction {
         super("\uF061");
         ArgChecks.nullNotPermitted(panel, "panel");
         this.panel = panel;
-        putValue(Action.SHORT_DESCRIPTION, "Rotate to the right");
+        putValue(Action.SHORT_DESCRIPTION, 
+                Resources.localString("RIGHT_ACTION_SHORT_DESCRIPTION"));
     }
 
     @Override

@@ -15,6 +15,7 @@ package com.orsoncharts.graphics3d.swing;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import com.orsoncharts.Resources;
 import com.orsoncharts.graphics3d.ViewPoint3D;
 import com.orsoncharts.util.ArgChecks;
 
@@ -38,10 +39,10 @@ public class ZoomInAction extends AbstractAction {
         ArgChecks.nullNotPermitted(panel, "panel");
         this.panel = panel;
         if (!fontAwesome) {
-            putValue(Action.NAME, "Zoom In");
+            putValue(Action.NAME, Resources.localString("ZOOM_IN"));
         }
         putValue(Action.ACTION_COMMAND_KEY, "ZOOM_IN");
-        putValue(Action.SHORT_DESCRIPTION, "Zoom in");
+        putValue(Action.SHORT_DESCRIPTION, Resources.localString("ZOOM_IN"));
     }
 
     /**
