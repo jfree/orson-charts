@@ -192,11 +192,11 @@ public final class Anchor2D implements Serializable {
             x = rect.getMaxX() - this.offset.getDX();
         }
         if (this.refPt.isTop()) {
-            y = rect.getMinY();
+            y = rect.getMinY() + this.offset.getDY();
         } else if (this.refPt.isVerticalCenter()) {
             y = rect.getCenterY();
         } else if (this.refPt.isBottom()) {
-            y = rect.getMaxY();
+            y = rect.getMaxY() - this.offset.getDY();
         }
         return new Point2D.Double(x, y);
     }

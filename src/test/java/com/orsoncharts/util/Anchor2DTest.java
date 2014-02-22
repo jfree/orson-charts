@@ -12,11 +12,13 @@
 
 package com.orsoncharts.util;
 
-import com.orsoncharts.TestUtils;
-import com.orsoncharts.graphics3d.Offset2D;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
+import java.awt.Rectangle;
+import java.awt.geom.Point2D;
+import com.orsoncharts.TestUtils;
+import com.orsoncharts.graphics3d.Offset2D;
 
 import org.junit.Test;
 
@@ -24,6 +26,15 @@ import org.junit.Test;
  * Some checks for the {@link Anchor2D} class.
  */
 public class Anchor2DTest {
+    
+    private static final double EPSILON = 0.00000001;
+    @Test
+    public void testGeneral() {
+        Anchor2D anchor = new Anchor2D(RefPt2D.BOTTOM_LEFT, 
+                new Offset2D(5.0, 10.0));
+        Point2D pt = anchor.getAnchorPoint(new Rectangle(10, 20, 30, 40));
+        assertEquals(new Point2D.Double(15, 50), pt);
+    }
     
     /**
      * Checks for the equals() method.
