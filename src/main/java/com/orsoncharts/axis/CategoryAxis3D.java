@@ -14,6 +14,8 @@ package com.orsoncharts.axis;
 
 import java.util.List;
 import com.orsoncharts.data.category.CategoryDataset3D;
+import com.orsoncharts.marker.CategoryMarker;
+import com.orsoncharts.marker.MarkerData;
 import com.orsoncharts.plot.CategoryPlot3D;
 
 /**
@@ -99,4 +101,22 @@ public interface CategoryAxis3D extends Axis3D {
      */
     List<TickData> generateTickDataForColumns(CategoryDataset3D dataset);
 
+    /** 
+     * Returns a list of marker data instances for the markers that fall
+     * within the current axis range.
+     * 
+     * @return A list of marker data. 
+     */
+    List<MarkerData> generateMarkerData();
+    
+    /**
+     * Returns the marker with the specified key, if there is one.
+     * 
+     * @param key  the key (<code>null</code> not permitted).
+     * 
+     * @return The marker (possibly <code>null</code>). 
+     * 
+     * @since 1.2
+     */
+    CategoryMarker getMarker(String key);
 }

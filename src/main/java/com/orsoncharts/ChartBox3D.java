@@ -20,6 +20,8 @@ import com.orsoncharts.graphics3d.Face;
 import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.Point3D;
 import com.orsoncharts.axis.TickData;
+import com.orsoncharts.marker.MarkerData;
+import com.orsoncharts.marker.MarkerDataType;
 import com.orsoncharts.util.ArgChecks;
 
 /**
@@ -49,10 +51,20 @@ public class ChartBox3D {
      * Tick info for the z-axis (or row axis). 
      */
     private List<TickData> zTicks;
+    
+    /** 
+     * Incoming data for x-axis markers.  New instances are created and
+     * assigned to chart box faces to track vertices.
+     */
+    private List<MarkerData> xMarkers;
+    
+    /** Required data for y-axis markers. */
+    private List<MarkerData> yMarkers;
+    
+    /** Required data for z-axis markers. */
+    private List<MarkerData> zMarkers;
 
     private Color color;
-    
-    private Object3D object3D;
 
     private CBFace faceA;
     private CBFace faceB;
@@ -76,41 +88,8 @@ public class ChartBox3D {
      *     not permitted).
      */
     public ChartBox3D(double xLength, double yLength, double zLength, 
-            double xOffset, double yOffset,
-            double zOffset, Color color) {
-        this(xLength, yLength, zLength, xOffset, yOffset, zOffset, color,
-                new ArrayList<TickData>(0), new ArrayList<TickData>(0), 
-                new ArrayList<TickData>(0));
-    }
-    
-    /**
-     * Creates a new chart box with the specified attributes.
-     * 
-     * @param xLength  the length of the box along the x-axis.
-     * @param yLength  the length of the box along the y-axis.
-     * @param zLength  the length of the box along the z-axis.
-     * @param xOffset  the x-offset.
-     * @param yOffset  the y-offset.
-     * @param zOffset  the z-offset
-     * @param color  the color for the sides of the box (<code>null</code>
-     *     not permitted).
-     * @param xTicks  tick data for the x-axis (<code>null</code> not 
-     *     permitted).
-     * @param yTicks  tick data for the y-axis (<code>null</code> not 
-     *     permitted).
-     * @param zTicks  tick data for the z-axis (<code>null</code> not 
-     *     permitted).
-     * 
-     * @since 1.1
-     */
-    public ChartBox3D(double xLength, double yLength, double zLength, 
-            double xOffset, double yOffset, double zOffset, Color color, 
-            List<TickData> xTicks, List<TickData> yTicks, 
-            List<TickData> zTicks) {
+            double xOffset, double yOffset, double zOffset, Color color) {
         ArgChecks.nullNotPermitted(color, "color");
-        ArgChecks.nullNotPermitted(xTicks, "xTicks");
-        ArgChecks.nullNotPermitted(yTicks, "yTicks");
-        ArgChecks.nullNotPermitted(zTicks, "zTicks");
         this.xLength = xLength;
         this.yLength = yLength;
         this.zLength = zLength;
@@ -118,23 +97,144 @@ public class ChartBox3D {
         this.yOffset = yOffset;
         this.zOffset = zOffset;
         this.color = color;
-        this.xTicks = xTicks;
-        this.yTicks = yTicks;
-        this.zTicks = zTicks;
-        this.object3D = createObject3D();
+        this.xTicks = new ArrayList<TickData>(0);
+        this.yTicks = new ArrayList<TickData>(0);
+        this.zTicks = new ArrayList<TickData>(0);
+        this.xMarkers = new ArrayList<MarkerData>(0);
+        this.yMarkers = new ArrayList<MarkerData>(0);
+        this.zMarkers = new ArrayList<MarkerData>(0);
     }
 
     /**
-     * Returns the 3D object for the chart box.  This includes vertices for
-     * the tick marks specified in the constructor, if any.  Individual
-     * faces for the box are returned by the methods {@link #faceA()}, 
-     * {@link #faceB()}, {@link #faceC()},  {@link #faceD()},  {@link #faceE()},
-     * and {@link #faceF()}. 
      * 
-     * @return The 3D object for the chart box. 
+     * @return
+     * 
+     * @since 1.2
      */
-    public Object3D getObject3D() {
-        return this.object3D;
+    public List<TickData> getXTicks() {
+        return this.xTicks;
+    }
+    
+    /**
+     * 
+     * @param ticks
+     * 
+     * @since 1.2
+     */
+    public void setXTicks(List<TickData> ticks) {
+        ArgChecks.nullNotPermitted(ticks, "ticks");
+        this.xTicks = ticks;
+    }
+    
+    /**
+     * 
+     * @return
+     * 
+     * @since 1.2
+     */
+    public List<TickData> getYTicks() {
+        return this.yTicks;
+    }
+    
+    /**
+     * 
+     * @param ticks
+     * 
+     * @since 1.2
+     */
+    public void setYTicks(List<TickData> ticks) {
+        ArgChecks.nullNotPermitted(ticks, "ticks");
+        this.yTicks = ticks;
+    }
+    
+    /**
+     * 
+     * @return
+     * 
+     * @since 1.2
+     */
+    public List<TickData> getZTicks() {
+        return this.zTicks;
+    }
+    
+    /**
+     * 
+     * @param ticks
+     * 
+     * @since 1.2
+     */
+    public void setZTicks(List<TickData> ticks) {
+        ArgChecks.nullNotPermitted(ticks, "ticks");
+        this.zTicks = ticks;
+    }
+    
+    /**
+     * Returns the marker data for the x-axis markers, if any.
+     * 
+     * @return The marker data for the x-axis markers (possibly empty but 
+     *     never <code>null</code>).
+     * 
+     * @since 1.2
+     */
+    public List<MarkerData> getXMarkers() {
+        return this.xMarkers;
+    }
+ 
+    /**
+     * 
+     * @param markers
+     * 
+     * @since 1.2
+     */
+    public void setXMarkers(List<MarkerData> markers) {
+        ArgChecks.nullNotPermitted(markers, "markers");
+        this.xMarkers = markers;
+    }
+ 
+    /**
+     * Returns the marker data for the y-axis markers, if any.
+     * 
+     * @return The marker data for the y-axis markers (possibly empty but 
+     *     never <code>null</code>).
+     * 
+     * @since 1.2
+     */
+    public List<MarkerData> getYMarkers() {
+        return this.yMarkers;
+    }
+
+    /**
+     * 
+     * @param markers
+     * 
+     * @since 1.2
+     */
+    public void setYMarkers(List<MarkerData> markers) {
+        ArgChecks.nullNotPermitted(markers, "markers");
+        this.yMarkers = markers;
+    }
+ 
+    /**
+     * Returns the marker data for the z-axis markers, if any.
+     * 
+     * @return The marker data for the z-axis markers (possibly empty but 
+     *     never <code>null</code>).
+     * 
+     * @since 1.2
+     */
+    public List<MarkerData> getZMarkers() {
+        return this.zMarkers;
+    }
+
+    /**
+     * 
+     * @param markers
+     * 
+     * @since 1.2
+     */
+    public void setZMarkers(List<MarkerData> markers) {
+        ArgChecks.nullNotPermitted(markers, "markers");
+        this.zMarkers = markers;
     }
 
     /**
@@ -194,11 +294,11 @@ public class ChartBox3D {
     /**
      * Creates an {@link Object3D} that contains the six faces for the 
      * chart box, plus the vertices for the tick marks along the edges of
-     * each face.  This method is called from the constructor.
+     * each face.
      * 
      * @return A 3D object. 
      */
-    private Object3D createObject3D() {
+    public Object3D createObject3D() {
         Object3D box = new Object3D();
         Point3D v0 = new Point3D(xOffset, yOffset, zOffset);
         Point3D v1 = new Point3D(xLength + xOffset, yOffset, zOffset);
@@ -270,6 +370,7 @@ public class ChartBox3D {
             base += 4;
         }
 
+        // add vertices for the z-grid lines (ACEF)
         for (TickData t : this.zTicks) {
             double zz = this.zOffset + this.zLength * t.getPos();
             box.addVertex(xOffset, yOffset, zz);
@@ -287,7 +388,154 @@ public class ChartBox3D {
             base += 4;
         }
         
+        // add vertices for the x-markers
+        for (MarkerData m : this.xMarkers) {
+            if (m.getType().equals(MarkerDataType.VALUE)) {
+                double xpos = this.xOffset + xLength * m.getValueLine().getPos();
+                addXMarker(box, m, xpos, base);
+                base += 4;
+            } else if (m.getType().equals(MarkerDataType.RANGE)) {
+                double startX = this.xOffset + xLength * m.getStartLine().getPos();
+                double endX = this.xOffset + xLength * m.getEndLine().getPos();
+                addXRangeMarker(box, m, startX, endX, base);
+                base += 8;
+            }
+        }
+        
+        // add vertices for the y-markers
+        for (MarkerData m : this.yMarkers) {
+            if (m.getType().equals(MarkerDataType.VALUE)) {
+                double ypos = this.yOffset + yLength * m.getValueLine().getPos();
+                addYMarker(box, m, ypos, base);
+                base += 4;
+            } else if (m.getType().equals(MarkerDataType.RANGE)) {
+                double startY = this.yOffset + yLength * m.getStartLine().getPos();
+                double endY = this.yOffset + yLength * m.getEndLine().getPos();
+                addYRangeMarker(box, m, startY, endY, base);
+                base += 8;
+            }
+        }
+        
+        // add vertices for the z-markers
+        for (MarkerData m : this.zMarkers) {
+            if (m.getType().equals(MarkerDataType.VALUE)) {
+                double zpos = this.zOffset + zLength * m.getValueLine().getPos();
+                addZMarker(box, m, zpos, base);
+                base += 4;
+            } else if (m.getType().equals(MarkerDataType.RANGE)) {
+                double startZ = this.zOffset + zLength * m.getStartLine().getPos();
+                double endZ = this.zOffset + zLength * m.getEndLine().getPos();
+                addZRangeMarker(box, m, startZ, endZ, base);
+                base += 8;
+            }            
+        }
+        
         return box;
+    }
+
+    private void addXMarker(Object3D box, MarkerData m, double x, int base) {
+        box.addVertex(x, yOffset, zOffset);
+        box.addVertex(x, yOffset, zOffset + zLength);
+        box.addVertex(x, yOffset + yLength,  zOffset + zLength);
+        box.addVertex(x, yOffset + yLength, zOffset);
+        MarkerData md0 = new MarkerData(m, base, base + 1); // A
+        MarkerData md1 = new MarkerData(m, base + 1, base + 2); // D 
+        MarkerData md2 = new MarkerData(m, base + 2, base + 3); // C
+        MarkerData md3 = new MarkerData(m, base + 3, base);  // B
+        this.faceA.addXMarker(md0);
+        this.faceD.addXMarker(md1);
+        this.faceC.addXMarker(md2);
+        this.faceB.addXMarker(md3);
+    }
+    
+    private void addXRangeMarker(Object3D box, MarkerData m, double startX,
+            double endX, int base) {
+        box.addVertex(startX, yOffset, zOffset);
+        box.addVertex(startX, yOffset, zOffset + zLength);
+        box.addVertex(startX, yOffset + yLength,  zOffset + zLength);
+        box.addVertex(startX, yOffset + yLength, zOffset);
+        box.addVertex(endX, yOffset, zOffset);
+        box.addVertex(endX, yOffset, zOffset + zLength);
+        box.addVertex(endX, yOffset + yLength,  zOffset + zLength);
+        box.addVertex(endX, yOffset + yLength, zOffset);
+        MarkerData md0 = new MarkerData(m, base, base + 1, base + 4, base + 5); // A
+        MarkerData md1 = new MarkerData(m, base + 1, base + 2, base + 5, base + 6); // D 
+        MarkerData md2 = new MarkerData(m, base + 2, base + 3, base + 6, base + 7); // C
+        MarkerData md3 = new MarkerData(m, base + 3, base, base + 7, base + 4);  // B
+        this.faceA.addXMarker(md0);
+        this.faceD.addXMarker(md1);
+        this.faceC.addXMarker(md2);
+        this.faceB.addXMarker(md3);        
+    }
+    
+    private void addYMarker(Object3D box, MarkerData m, double y, int base) {
+        box.addVertex(xOffset, y, zOffset);
+        box.addVertex(xOffset, y, zOffset + zLength);
+        box.addVertex(xOffset + xLength, y,  zOffset + zLength);
+        box.addVertex(xOffset + xLength, y, zOffset);
+        MarkerData md0 = new MarkerData(m, base, base + 1); // E
+        MarkerData md1 = new MarkerData(m, base + 1, base + 2); // D 
+        MarkerData md2 = new MarkerData(m, base + 2, base + 3); // F
+        MarkerData md3 = new MarkerData(m, base + 3, base);  // B
+        this.faceE.addYMarker(md0);
+        this.faceD.addYMarker(md1);
+        this.faceF.addYMarker(md2);
+        this.faceB.addYMarker(md3);
+    }
+
+    private void addYRangeMarker(Object3D box, MarkerData m, double startY,
+            double endY, int base) {
+        box.addVertex(xOffset, startY, zOffset);
+        box.addVertex(xOffset, startY, zOffset + zLength);
+        box.addVertex(xOffset + xLength, startY,  zOffset + zLength);
+        box.addVertex(xOffset + xLength, startY, zOffset);
+        box.addVertex(xOffset, endY, zOffset);
+        box.addVertex(xOffset, endY, zOffset + zLength);
+        box.addVertex(xOffset + xLength, endY,  zOffset + zLength);
+        box.addVertex(xOffset + xLength, endY, zOffset);
+        MarkerData md0 = new MarkerData(m, base, base + 1, base + 4, base + 5); // E
+        MarkerData md1 = new MarkerData(m, base + 1, base + 2, base + 5, base + 6); // D 
+        MarkerData md2 = new MarkerData(m, base + 2, base + 3, base + 6, base + 7); // F
+        MarkerData md3 = new MarkerData(m, base + 3, base, base + 7, base + 4);  // B
+        this.faceE.addYMarker(md0);
+        this.faceD.addYMarker(md1);
+        this.faceF.addYMarker(md2);
+        this.faceB.addYMarker(md3);        
+    }
+
+    private void addZMarker(Object3D box, MarkerData m, double z, int base) {
+        box.addVertex(xOffset, yOffset, z);  // A
+        box.addVertex(xOffset + xLength, yOffset, z);
+        box.addVertex(xOffset + xLength, yOffset + yLength,  z);
+        box.addVertex(xOffset, yOffset + yLength, z);
+        MarkerData md0 = new MarkerData(m, base, base + 1); // A
+        MarkerData md1 = new MarkerData(m, base + 1, base + 2); // F 
+        MarkerData md2 = new MarkerData(m, base + 2, base + 3); // C
+        MarkerData md3 = new MarkerData(m, base + 3, base);  // E
+        this.faceA.addZMarker(md0);
+        this.faceF.addZMarker(md1);
+        this.faceC.addZMarker(md2);
+        this.faceE.addZMarker(md3);
+    }
+
+    private void addZRangeMarker(Object3D box, MarkerData m, double startZ, 
+            double endZ, int base) {
+        box.addVertex(xOffset, yOffset, startZ);  // A
+        box.addVertex(xOffset + xLength, yOffset, startZ);
+        box.addVertex(xOffset + xLength, yOffset + yLength,  startZ);
+        box.addVertex(xOffset, yOffset + yLength, startZ);
+        box.addVertex(xOffset, yOffset, endZ);  // A
+        box.addVertex(xOffset + xLength, yOffset, endZ);
+        box.addVertex(xOffset + xLength, yOffset + yLength, endZ);
+        box.addVertex(xOffset, yOffset + yLength, endZ);
+        MarkerData md0 = new MarkerData(m, base, base + 1, base + 4, base + 5); // A
+        MarkerData md1 = new MarkerData(m, base + 1, base + 2, base + 5, base + 6); // F 
+        MarkerData md2 = new MarkerData(m, base + 2, base + 3, base + 6, base + 7); // C
+        MarkerData md3 = new MarkerData(m, base + 3, base, base + 7, base + 4);  // E
+        this.faceA.addZMarker(md0);
+        this.faceF.addZMarker(md1);
+        this.faceC.addZMarker(md2);
+        this.faceE.addZMarker(md3);
     }
 
     /**
@@ -316,6 +564,12 @@ public class ChartBox3D {
         /** Info about the z-axis ticks on edge B. */
         private List<TickData> zTicksB;
         
+        private List<MarkerData> xMarkers;
+        
+        private List<MarkerData> yMarkers;
+        
+        private List<MarkerData> zMarkers;
+        
         /**
          * Creates a new face for a {@link ChartBox3D}.
          * 
@@ -330,6 +584,9 @@ public class ChartBox3D {
             this.yTicksB = new ArrayList<TickData>();
             this.zTicksA = new ArrayList<TickData>();
             this.zTicksB = new ArrayList<TickData>();
+            this.xMarkers = new ArrayList<MarkerData>();
+            this.yMarkers = new ArrayList<MarkerData>();
+            this.zMarkers = new ArrayList<MarkerData>();
         }
         
         /**
@@ -425,6 +682,30 @@ public class ChartBox3D {
          */
         public List<TickData> getZTicksB() {
             return this.zTicksB;
+        }
+        
+        public void addXMarker(MarkerData marker) {
+            this.xMarkers.add(marker);
+        }
+        
+        public List<MarkerData> getXMarkers() {
+            return this.xMarkers;
+        }
+        
+        public void addYMarker(MarkerData marker) {
+            this.yMarkers.add(marker);
+        }
+        
+        public List<MarkerData> getYMarkers() {
+            return this.yMarkers;
+        }
+        
+        public void addZMarker(MarkerData marker) {
+            this.zMarkers.add(marker);
+        }
+        
+        public List<MarkerData> getZMarkers() {
+            return this.zMarkers;
         }
         
         /**

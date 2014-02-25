@@ -17,6 +17,8 @@ import java.awt.geom.Point2D;
 import java.util.List;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.plot.XYZPlot;
+import com.orsoncharts.marker.MarkerData;
+import com.orsoncharts.marker.ValueMarker;
 
 /**
  * An axis that displays a range of continuous values.  These can be used
@@ -91,5 +93,24 @@ public interface ValueAxis3D extends Axis3D {
      * @return A list of tick data. 
      */
     List<TickData> generateTickData(double tickUnit);
+    
+    /** 
+     * Returns a list of marker data instances for the markers that fall
+     * within the current axis range.
+     * 
+     * @return A list of marker data. 
+     */
+    List<MarkerData> generateMarkerData();
+    
+    /**
+     * Returns the marker with the specified key, if there is one.
+     * 
+     * @param key  the key (<code>null</code> not permitted).
+     * 
+     * @return The marker (possibly <code>null</code>). 
+     * 
+     * @since 1.2
+     */
+    ValueMarker getMarker(String key);
 
 }

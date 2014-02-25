@@ -25,6 +25,8 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import com.orsoncharts.util.TextUtils;
 import com.orsoncharts.util.TextAnchor;
@@ -36,6 +38,10 @@ import com.orsoncharts.label.StandardCategoryLabelGenerator;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.ChartElementVisitor;
+import com.orsoncharts.marker.CategoryMarker;
+import com.orsoncharts.marker.MarkerData;
+import com.orsoncharts.marker.MarkerDataType;
+import com.orsoncharts.marker.ValueMarker;
 import com.orsoncharts.util.ObjectUtils;
 import com.orsoncharts.util.SerialUtils;
 
@@ -101,6 +107,8 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      */
     private double tickLabelOffset;
  
+    private Map<String, CategoryMarker> markers;
+    
     /**
      * Default constructor.
      */
@@ -127,6 +135,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
         this.tickMarkStroke = new BasicStroke(0.5f);
         this.tickLabelGenerator = new StandardCategoryLabelGenerator();
         this.tickLabelOffset = 5.0;
+        this.markers = new LinkedHashMap<String, CategoryMarker>();
     }
     
     /**
@@ -409,6 +418,53 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     }
  
     /**
+     * Returns the marker with the specified key, if there is one.
+     * 
+     * @param key  the key (<code>null</code> not permitted).
+     * 
+     * @return The marker (possibly <code>null</code>). 
+     * 
+     * @since 1.2
+     */
+    @Override
+    public CategoryMarker getMarker(String key) {
+        return this.markers.get(key);
+    }
+
+    /**
+     * Sets the marker for the specified key and sends a change event to 
+     * all registered listeners.  If there is an existing marker it is replaced
+     * (the axis will no longer listen for change events on the previous 
+     * marker).
+     * 
+     * @param key  the key that identifies the marker (<code>null</code> not 
+     *         permitted).
+     * @param marker  the marker (<code>null</code> permitted).
+     * 
+     * @since 1.2
+     */
+    public void setMarker(String key, CategoryMarker marker) {
+        CategoryMarker existing = this.markers.get(key);
+        if (existing != null) {
+            existing.removeChangeListener(this);
+        }
+        this.markers.put(key, marker);
+        marker.addChangeListener(this);
+        fireChangeEvent(false);
+    } 
+
+    /**
+     * Returns a new map containing the markers assigned to this axis.
+     * 
+     * @return A map. 
+     * 
+     * @since 1.2
+     */
+    public Map<String, ValueMarker> getMarkers() {
+        return new LinkedHashMap(this.markers);    
+    }
+    
+    /**
      * Returns the width of a single category in the units of the axis
      * range.
      * 
@@ -627,6 +683,32 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
             String label = this.tickLabelGenerator.generateColumnLabel(dataset, 
                     key);
             result.add(new TickData(pos, key, label));
+        }
+        return result;
+    }
+
+    /**
+     * Generates and returns a list of marker data items for the axis.
+     * @return 
+     */
+    @Override
+    public List<MarkerData> generateMarkerData() {
+        List<MarkerData> result = new ArrayList<MarkerData>();
+        for (Map.Entry<String, CategoryMarker> entry : this.markers.entrySet()) {
+            CategoryMarker cm = entry.getValue();
+            MarkerData markerData;
+            if (cm.getType().equals(MarkerDataType.VALUE)) {
+                double pos = getCategoryValue(cm.getCategory());
+                markerData = new MarkerData(entry.getKey(), pos);
+            } else if (cm.getType().equals(MarkerDataType.RANGE)) {
+                double pos = getCategoryValue(cm.getCategory());
+                double width = getCategoryWidth();                
+                markerData = new MarkerData(entry.getKey(), pos - width / 2, 
+                        pos + width / 2);
+            } else {
+                throw new RuntimeException("Unrecognised marker.");
+            }
+            result.add(markerData);
         }
         return result;
     }

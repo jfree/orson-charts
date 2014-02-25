@@ -27,16 +27,23 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import com.orsoncharts.util.TextUtils;
 import com.orsoncharts.util.TextAnchor;
 import com.orsoncharts.ChartElementVisitor;
 import com.orsoncharts.Range;
 import com.orsoncharts.graphics3d.Utils2D;
+import com.orsoncharts.marker.MarkerData;
+import com.orsoncharts.marker.NumberMarker;
+import com.orsoncharts.marker.RangeMarker;
+import com.orsoncharts.marker.ValueMarker;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.util.ObjectUtils;
 import com.orsoncharts.util.SerialUtils;
+import java.util.LinkedHashMap;
+import java.util.Map.Entry;
 
 /**
  * A numerical axis for use with 3D plots (implements {@link ValueAxis3D}).
@@ -115,6 +122,9 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
     /** The tick mark paint (never <code>null</code>). */
     private transient Paint tickMarkPaint;
     
+    /** Storage for value markers for the axis (empty by default). */
+    private Map<String, ValueMarker> valueMarkers;
+    
     /**
      * Creates a new axis with the specified label and default attributes.
      * 
@@ -148,6 +158,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
         this.tickMarkLength = 3.0;
         this.tickMarkStroke = new BasicStroke(0.5f);
         this.tickMarkPaint = Color.GRAY;
+        this.valueMarkers = new LinkedHashMap<String, ValueMarker>();
     }
   
     /**
@@ -552,6 +563,53 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
     }
 
     /**
+     * Returns the marker with the specified key, if there is one.
+     * 
+     * @param key  the key (<code>null</code> not permitted).
+     * 
+     * @return The marker (possibly <code>null</code>). 
+     * 
+     * @since 1.2
+     */
+    @Override
+    public ValueMarker getMarker(String key) {
+        return this.valueMarkers.get(key);
+    }
+
+    /**
+     * Sets the marker for the specified key and sends a change event to 
+     * all registered listeners.  If there is an existing marker it is replaced
+     * (the axis will no longer listen for change events on the previous 
+     * marker).
+     * 
+     * @param key  the key that identifies the marker (<code>null</code> not 
+     *         permitted).
+     * @param marker  the marker (<code>null</code> permitted).
+     * 
+     * @since 1.2
+     */
+    public void setMarker(String key, ValueMarker marker) {
+        ValueMarker existing = this.valueMarkers.get(key);
+        if (existing != null) {
+            existing.removeChangeListener(this);
+        }
+        this.valueMarkers.put(key, marker);
+        marker.addChangeListener(this);
+        fireChangeEvent(false);
+    } 
+
+    /**
+     * Returns a new map containing the markers assigned to this axis.
+     * 
+     * @return A map. 
+     * 
+     * @since 1.2
+     */
+    public Map<String, ValueMarker> getMarkers() {
+        return new LinkedHashMap(this.valueMarkers);    
+    }
+    
+    /**
      * Adjusts the range by adding the lower and upper margins and taking into
      * account any other settings.
      * 
@@ -825,6 +883,34 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
             while (x <= this.range.getMax()) {
                 result.add(new TickData(this.range.percent(x), x));
                 x += tickUnit;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Generates and returns a list of marker data items for the axis.
+     * @return 
+     */
+    @Override
+    public List<MarkerData> generateMarkerData() {
+        List<MarkerData> result = new ArrayList<MarkerData>();
+        for (Entry<String, ValueMarker> entry : this.valueMarkers.entrySet()) {
+            ValueMarker vm = entry.getValue();
+            if (this.range.intersects(vm.getRange())) {
+                MarkerData markerData;
+                if (vm instanceof NumberMarker) {
+                    markerData = new MarkerData(entry.getKey(), 
+                            this.range.percent(((NumberMarker) vm).getValue()));
+                } else if (vm instanceof RangeMarker) {
+                    RangeMarker rm = (RangeMarker) vm;
+                    double startPos = this.range.percent(this.range.peggedValue(rm.getStart().getValue()));
+                    double endPos = this.range.percent(this.range.peggedValue(rm.getEnd().getValue()));
+                    markerData = new MarkerData(entry.getKey(), startPos, endPos);
+                } else {
+                    throw new RuntimeException("Unrecognised marker.");
+                }
+                result.add(markerData);
             }
         }
         return result;

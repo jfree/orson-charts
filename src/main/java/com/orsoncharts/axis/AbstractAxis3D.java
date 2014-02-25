@@ -22,6 +22,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import javax.swing.event.EventListenerList;
 import com.orsoncharts.ChartElementVisitor;
+import com.orsoncharts.marker.MarkerChangeEvent;
+import com.orsoncharts.marker.MarkerChangeListener;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.ObjectUtils;
 import com.orsoncharts.util.SerialUtils;
@@ -31,7 +33,8 @@ import com.orsoncharts.util.SerialUtils;
  * This class implements the core axis attributes as well as the change 
  * listener mechanism required to enable automatic repainting of charts.
  */
-public abstract class AbstractAxis3D implements Axis3D, Serializable {
+public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener, 
+        Serializable {
     
     /** 
      * The default axis label font (in most circumstances this will be
@@ -407,6 +410,21 @@ public abstract class AbstractAxis3D implements Axis3D, Serializable {
     }
 
     /**
+     * Receives notification of a change to a marker managed by this axis - the
+     * response is to fire a change event for the axis (to eventually trigger
+     * a repaint of the chart).  Marker changes don't require the world model
+     * to be updated.
+     * 
+     * @param event  the event.
+     * 
+     * @since 1.2
+     */
+    @Override
+    public void markerChanged(MarkerChangeEvent event) {
+        fireChangeEvent(false);
+    }
+    
+    /**
      * Provides serialization support.
      *
      * @param stream  the output stream.
@@ -431,4 +449,5 @@ public abstract class AbstractAxis3D implements Axis3D, Serializable {
         stream.defaultReadObject();
         this.lineStroke = SerialUtils.readStroke(stream);
     }
+ 
 }

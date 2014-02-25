@@ -13,6 +13,7 @@
 package com.orsoncharts;
 
 import java.io.Serializable;
+import com.orsoncharts.util.ArgChecks;
 
 /**
  * Represents a range of data values (instances are immutable).
@@ -114,6 +115,21 @@ public class Range implements Serializable {
             return false;
         }
         return true;
+    }
+    
+    /**
+     * Returns <code>true</code> if this range intersects with
+     * the specified range.
+     * 
+     * @param range  the range (<code>null</code> not permitted).
+     * 
+     * @return A boolean.
+     * 
+     * @since 1.2
+     */
+    public boolean intersects(Range range) {
+        ArgChecks.nullNotPermitted(range, "range");
+        return intersects(range.getMin(), range.getMax());
     }
     
     /**

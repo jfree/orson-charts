@@ -57,6 +57,8 @@ import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.graphics3d.Offset2D;
 import com.orsoncharts.legend.LegendBuilder;
 import com.orsoncharts.legend.StandardLegendBuilder;
+import com.orsoncharts.marker.Marker;
+import com.orsoncharts.marker.MarkerData;
 import com.orsoncharts.style.ChartStyle;
 import com.orsoncharts.style.ChartStyleChangeEvent;
 import com.orsoncharts.style.ChartStyleChangeListener;
@@ -689,7 +691,7 @@ public class Chart3D implements Drawable3D, ChartElement,
         double h = dim.getHeight();
         double d = dim.getDepth();
         if (chartBox != null) {
-            result.add("chartbox", chartBox.getObject3D());
+            result.add("chartbox", chartBox.createObject3D());
         }
         this.plot.compose(result, -w / 2, -h / 2, -d / 2);
         return result;
@@ -713,17 +715,20 @@ public class Chart3D implements Drawable3D, ChartElement,
         if (this.plot instanceof XYZPlot 
                 || this.plot instanceof CategoryPlot3D) {
             double[] tickUnits = findAxisTickUnits(g2, w, h, depth);
-            List<TickData> xTicks = fetchXTickData(this.plot, tickUnits[0]);
-            List<TickData> yTicks = fetchYTickData(this.plot, tickUnits[1]);
-            List<TickData> zTicks = fetchZTickData(this.plot, tickUnits[2]);
             chartBox = new ChartBox3D(w, h, depth, -w / 2, -h / 2, -depth / 2, 
-                    this.chartBoxColor, xTicks, yTicks, zTicks);
+                    this.chartBoxColor);
+            chartBox.setXTicks(fetchXTickData(this.plot, tickUnits[0]));
+            chartBox.setYTicks(fetchYTickData(this.plot, tickUnits[1]));
+            chartBox.setZTicks(fetchZTickData(this.plot, tickUnits[2]));
+            chartBox.setXMarkers(fetchXMarkerData(this.plot));
+            chartBox.setYMarkers(fetchYMarkerData(this.plot));
+            chartBox.setZMarkers(fetchZMarkerData(this.plot));
         }
         if (this.world == null) {
             this.world = createWorld(chartBox);
         } else if (chartBox != null) {
             this.world.clear("chartbox");
-            this.world.add("chartbox", chartBox.getObject3D());
+            this.world.add("chartbox", chartBox.createObject3D());
         }
         if (this.background != null) {
             this.background.fill(g2, bounds);
@@ -777,6 +782,7 @@ public class Chart3D implements Drawable3D, ChartElement,
                     Stroke savedStroke = g2.getStroke();
                     CBFace cbf = (CBFace) f;
                     drawGridlines(g2, cbf, pts);
+                    drawMarkers(g2, cbf, pts);
                     g2.setStroke(savedStroke);
                 }
             } 
@@ -900,7 +906,91 @@ public class Chart3D implements Drawable3D, ChartElement,
         return Collections.emptyList(); 
     }
     
-    /**
+    private List<MarkerData> fetchXMarkerData(Plot3D plot) {
+        if (plot instanceof CategoryPlot3D) {
+            return ((CategoryPlot3D) plot).getColumnAxis().generateMarkerData();
+        }
+        if (plot instanceof XYZPlot) {
+             return ((XYZPlot) plot).getXAxis().generateMarkerData();
+        }
+        return new ArrayList<MarkerData>(0);    
+    }
+    
+    private List<MarkerData> fetchYMarkerData(Plot3D plot) {
+        if (plot instanceof CategoryPlot3D) {
+            return ((CategoryPlot3D) plot).getValueAxis().generateMarkerData();
+        }
+        if (plot instanceof XYZPlot) {
+             return ((XYZPlot) plot).getYAxis().generateMarkerData();
+        }
+        return new ArrayList<MarkerData>(0);    
+    }
+    
+    private List<MarkerData> fetchZMarkerData(Plot3D plot) {
+        if (plot instanceof CategoryPlot3D) {
+            return ((CategoryPlot3D) plot).getRowAxis().generateMarkerData();
+        }
+        if (plot instanceof XYZPlot) {
+             return ((XYZPlot) plot).getZAxis().generateMarkerData();
+        }
+        return new ArrayList<MarkerData>(0);    
+    }
+    
+    private Marker fetchXMarker(Plot3D plot, String key) {
+        if (plot instanceof CategoryPlot3D) {
+            return ((CategoryPlot3D) plot).getColumnAxis().getMarker(key);
+        } else if (plot instanceof XYZPlot) {
+            return ((XYZPlot) plot).getXAxis().getMarker(key);
+        };
+        return null;
+    }
+    
+    private Marker fetchYMarker(Plot3D plot, String key) {
+        if (plot instanceof CategoryPlot3D) {
+            return ((CategoryPlot3D) plot).getValueAxis().getMarker(key);
+        } else if (plot instanceof XYZPlot) {
+            return ((XYZPlot) plot).getYAxis().getMarker(key);
+        };
+        return null;
+    }
+
+    private Marker fetchZMarker(Plot3D plot, String key) {
+        if (plot instanceof CategoryPlot3D) {
+            return ((CategoryPlot3D) plot).getRowAxis().getMarker(key);
+        } else if (plot instanceof XYZPlot) {
+            return ((XYZPlot) plot).getZAxis().getMarker(key);
+        };
+        return null;
+    }
+
+    private void drawMarkers(Graphics2D g2, CBFace face, Point2D[] pts) {
+        // x markers
+        List<MarkerData> xmarkers = face.getXMarkers();
+        for (MarkerData m : xmarkers) {
+            m.updateProjection(pts);
+            Marker marker = fetchXMarker(this.plot, m.getMarkerKey());
+            marker.draw(g2, m);
+        }
+        
+        // y markers
+        List<MarkerData> ymarkers = face.getYMarkers();
+        for (MarkerData m : ymarkers) {
+            m.updateProjection(pts);
+            Marker marker = fetchYMarker(this.plot, m.getMarkerKey());
+            marker.draw(g2, m);                
+        }
+        
+        // z markers
+        List<MarkerData> zmarkers = face.getZMarkers();
+        for (MarkerData m : zmarkers) {
+            m.updateProjection(pts);
+            Marker marker = fetchZMarker(this.plot, m.getMarkerKey());
+            marker.draw(g2, m);
+        }
+        
+    }
+    
+     /**
      * Draw the gridlines for one chart box face.
      * 
      * @param g2  the graphics target.
@@ -1187,7 +1277,7 @@ public class Chart3D implements Drawable3D, ChartElement,
         World tempWorld = new World();
         ChartBox3D chartBox = new ChartBox3D(w, h, depth, -w / 2.0, -h / 2.0, 
                 -depth / 2.0, Color.WHITE);
-        tempWorld.add(chartBox.getObject3D());
+        tempWorld.add(chartBox.createObject3D());
         Point2D[] axisPts2D = tempWorld.calculateProjectedPoints(
                 this.viewPoint, this.projDist);
 
