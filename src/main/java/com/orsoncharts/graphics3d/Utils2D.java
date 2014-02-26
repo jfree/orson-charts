@@ -169,5 +169,18 @@ public class Utils2D {
         double dy = line.getY2() - line.getY1();
         return Math.atan2(dy, dx);
     }
+    
+    /**
+     * Returns the length of the line.
+     * 
+     * @param line  the line (<code>null</code> not permitted).
+     * 
+     * @return The length of the line.
+     */
+    public static double length(Line2D line) {
+        double dx = line.getX2() - line.getX1();
+        double dy = line.getY2() - line.getY1();
+        return Math.sqrt(dx * dx + dy * dy);
+    }
 
 }
