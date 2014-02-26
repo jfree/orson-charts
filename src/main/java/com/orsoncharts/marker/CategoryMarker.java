@@ -12,11 +12,13 @@
 
 package com.orsoncharts.marker;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
-import java.awt.Paint;
 import java.awt.Stroke;
 import java.awt.geom.Line2D;
 import java.awt.geom.Path2D;
+import com.orsoncharts.util.Anchor2D;
 import com.orsoncharts.util.ArgChecks;
 
 /**
@@ -36,16 +38,26 @@ public class CategoryMarker extends AbstractMarker {
      */
     CategoryMarkerType type;
     
-    /** The stroke for the marker line. */
-    private Stroke stroke;
+    /** The label for the marker (optional). */
+    private String label;
     
-    /** The paint for the marker line. */
-    private Paint paint;
+    /** The font for the label. */
+    private Font font;
     
-    /** The fill paint used when drawing a band for the marker. */
-    private Paint fillPaint;
+    /** The color for the label. */
+    private Color labelColor;
     
-    // TODO: labels
+    /** The anchor for the label. */
+    private Anchor2D labelAnchor;
+    
+    /** The stroke for the marker line(s). */
+    private Stroke lineStroke;
+    
+    /** The color for the marker line. */
+    private Color lineColor;
+    
+    /** The fill color used when drawing a band for the marker. */
+    private Color fillColor;
     
     /**
      * Creates a marker for the specified category. 
@@ -55,9 +67,9 @@ public class CategoryMarker extends AbstractMarker {
         ArgChecks.nullNotPermitted(category, "category");
         this.category = category;
         this.type = CategoryMarkerType.BAND;
-        this.stroke = DEFAULT_LINE_STROKE;
-        this.paint = DEFAULT_MARKER_PAINT;
-        this.fillPaint = DEFAULT_FILL_PAINT;
+        this.lineStroke = DEFAULT_LINE_STROKE;
+        this.lineColor = DEFAULT_LINE_COLOR;
+        this.fillColor = DEFAULT_FILL_COLOR;
     }
     
     /**
@@ -104,18 +116,169 @@ public class CategoryMarker extends AbstractMarker {
     }
     
     /**
+     * Returns the label for the marker (if this is <code>null</code> then no
+     * label is displayed).
+     * 
+     * @return The label (possibly <code>null</code>). 
+     */
+    public String getLabel() {
+        return this.label;
+    }
+    
+    /**
+     * Sets the label and sends a change event to all registered listeners.
+     * 
+     * @param label  the label (<code>null</code> permitted).
+     */
+    public void setLabel(String label) {
+        this.label = label;
+        fireChangeEvent();
+    }
+    
+    /**
+     * Returns the font for the label.  The default value is 
+     * {@link Marker#DEFAULT_MARKER_FONT}.
+     * 
+     * @return The font (never <code>null</code>). 
+     */
+    public Font getFont() {
+        return this.font;
+    }
+    
+    /**
+     * Sets the font for the marker label and sends a change event to all 
+     * registered listeners.
+     * 
+     * @param font  the font (<code>null</code> not permitted). 
+     */
+    public void setFont(Font font) {
+        ArgChecks.nullNotPermitted(font, "font");
+        this.font = font;
+        fireChangeEvent();
+    }
+    
+    /**
+     * Returns the label color.  The default value is 
+     * {@link Marker#DEFAULT_LABEL_COLOR}.
+     * 
+     * @return The label color (never <code>null</code>).
+     */
+    public Color getLabelColor() {
+        return this.labelColor;
+    }
+    
+    /**
+     * Sets the label color and sends a change event to all registered
+     * listeners.
+     * 
+     * @param color  the color (<code>null</code> not permitted). 
+     */
+    public void setLabelColor(Color color) {
+        ArgChecks.nullNotPermitted(color, "color");
+        this.labelColor = color;
+        fireChangeEvent();
+    }
+    
+    /**
+     * Returns the anchor for the label.  The default value is 
+     * {@link Anchor2D#CENTER}.
+     * 
+     * @return The anchor for the label. 
+     */
+    public Anchor2D getLabelAnchor() {
+        return this.labelAnchor;
+    }
+    
+    /**
+     * Sets the anchor for the label and sends a change event to all registered
+     * listeners.
+     * 
+     * @param anchor  the anchor (<code>null</code> not permitted). 
+     */
+    public void setLabelAnchor(Anchor2D anchor) {
+        ArgChecks.nullNotPermitted(anchor, "anchor");
+        this.labelAnchor = anchor;
+        fireChangeEvent();
+    }
+
+    /**
+     * Returns the line color for the marker.
+     * 
+     * @return The line color (never <code>null</code>). 
+     */
+    public Color getLineColor() {
+        return this.lineColor;
+    }
+    
+    /**
+     * Sets the line color for the marker and sends a change event to all 
+     * registered listeners.
+     * 
+     * @param color  the color (<code>null</code> not permitted).
+     */
+    public void setLineColor(Color color) {
+        ArgChecks.nullNotPermitted(color, "color");
+        this.lineColor = color;
+        fireChangeEvent();
+    }
+    
+    /**
+     * Returns the line stroke.  The default value is 
+     * {@link Marker#DEFAULT_LINE_STROKE}.
+     * 
+     * @return The line stroke (never <code>null</code>).
+     */
+    public Stroke getLineStroke() {
+        return this.lineStroke;
+    }
+    
+    /**
+     * Sets the line stroke and sends a change event to all registered 
+     * listeners.
+     * 
+     * @param stroke  the stroke (<code>null</code> not permitted). 
+     */
+    public void setLineStroke(Stroke stroke) {
+        ArgChecks.nullNotPermitted(stroke, "stroke");
+        this.lineStroke = stroke;
+        fireChangeEvent();
+    }
+    
+    /**
+     * Returns the color used to fill the marker band.
+     * 
+     * @return The color (never <code>null</code>). 
+     */
+    public Color getFillColor() {
+        return this.fillColor;
+    }
+    
+    /**
+     * Sets the color used to fill the marker band and sends a change event
+     * to all registered listeners.
+     * 
+     * @param color  the color (<code>null</code> not permitted). 
+     */
+    public void setFillColor(Color color) {
+        ArgChecks.nullNotPermitted(color, "color");
+        this.fillColor = color;
+        fireChangeEvent();
+    }
+    
+    /**
      * Handles drawing of the marker.  This method is called by the library,
      * you won't normally call it directly.
      * 
      * @param g2  the graphics device (<code>null</code> not permitted).
      * @param markerData   the marker data (<code>null</code> not permitted).
+     * @param reverse  a flag to indicate reverse orientation.
      */
     @Override
-    public void draw(Graphics2D g2, MarkerData markerData) {
+    public void draw(Graphics2D g2, MarkerData markerData, boolean reverse) {
         if (markerData.getType().equals(MarkerDataType.VALUE)) {
             MarkerLine ml = markerData.getValueLine();
-            g2.setPaint(this.paint);
-            g2.setStroke(this.stroke);
+            g2.setPaint(this.lineColor);
+            g2.setStroke(this.lineStroke);
             Line2D l = new Line2D.Double(ml.getStartPoint(), ml.getEndPoint());
             g2.draw(l);
         } else if (markerData.getType().equals(MarkerDataType.RANGE)) {
@@ -130,7 +293,7 @@ public class CategoryMarker extends AbstractMarker {
             path.lineTo(l2.getX2(), l2.getY2());
             path.lineTo(l2.getX1(), l2.getY1());
             path.closePath();
-            g2.setPaint(this.fillPaint);
+            g2.setPaint(this.fillColor);
             g2.fill(path);
         }
     }

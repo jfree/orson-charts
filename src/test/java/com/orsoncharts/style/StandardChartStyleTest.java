@@ -62,6 +62,11 @@ public class StandardChartStyleTest {
         s1.setLegendFooterFont(new Font(Font.MONOSPACED, Font.ITALIC, 5));
         s1.setLegendFooterColor(Color.BLUE);
         s1.setLegendFooterBackgroundColor(Color.BLACK);
+        s1.setMarkerLabelFont(new Font(Font.SERIF, Font.PLAIN, 4));
+        s1.setMarkerLabelColor(Color.PINK);
+        s1.setMarkerLineStroke(new BasicStroke(0.123f));
+        s1.setMarkerLineColor(Color.WHITE);
+        s1.setMarkerFillColor(Color.CYAN);
         
         StandardChartStyle s2 = new StandardChartStyle(s1);
         assertEquals(new StandardRectanglePainter(Color.RED), 
@@ -106,6 +111,12 @@ public class StandardChartStyleTest {
                 s2.getLegendFooterFont());
         assertEquals(Color.BLUE, s2.getLegendFooterColor());
         assertEquals(Color.BLACK, s2.getLegendFooterBackgroundColor());
+        assertEquals(new Font(Font.SERIF, Font.PLAIN, 4), 
+                s2.getMarkerLabelFont());
+        assertEquals(Color.PINK, s2.getMarkerLabelColor());
+        assertEquals(new BasicStroke(0.123f), s2.getMarkerLineStroke());
+        assertEquals(Color.WHITE, s2.getMarkerLineColor());
+        assertEquals(Color.CYAN, s2.getMarkerFillColor());
     } 
     
     @Test
@@ -251,6 +262,36 @@ public class StandardChartStyleTest {
         s1.setLegendFooterFont(new Font("Dialog", Font.BOLD, 99));
         assertFalse(s1.equals(s2));        
         s2.setLegendFooterFont(new Font("Dialog", Font.BOLD, 99));
+        assertTrue(s1.equals(s2));
+        
+        // markerLabelFont
+        s1.setMarkerLabelFont(new Font(Font.SERIF, Font.PLAIN, 8));
+        assertFalse(s1.equals(s2));        
+        s2.setMarkerLabelFont(new Font(Font.SERIF, Font.PLAIN, 8));
+        assertTrue(s1.equals(s2));
+        
+        // markerLabelColor
+        s1.setMarkerLabelColor(Color.MAGENTA);
+        assertFalse(s1.equals(s2));        
+        s2.setMarkerLabelColor(Color.MAGENTA);
+        assertTrue(s1.equals(s2));
+        
+        // markerLineStroke
+        s1.setMarkerLineStroke(new BasicStroke(0.123f));
+        assertFalse(s1.equals(s2));        
+        s2.setMarkerLineStroke(new BasicStroke(0.123f));
+        assertTrue(s1.equals(s2));
+                
+        // markerLineColor
+        s1.setMarkerLineColor(Color.BLUE);
+        assertFalse(s1.equals(s2));        
+        s2.setMarkerLineColor(Color.BLUE);
+        assertTrue(s1.equals(s2));
+        
+        // markerFillColor
+        s1.setMarkerFillColor(Color.ORANGE);
+        assertFalse(s1.equals(s2));        
+        s2.setMarkerFillColor(Color.ORANGE);
         assertTrue(s1.equals(s2));
     }
     

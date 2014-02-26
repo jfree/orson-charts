@@ -33,7 +33,7 @@ import java.util.Collections;
 import java.util.List;
 import javax.swing.event.EventListenerList;
 
-import com.orsoncharts.ChartBox3D.CBFace;
+import com.orsoncharts.ChartBox3D.ChartBoxFace;
 import com.orsoncharts.axis.Axis3D;
 import com.orsoncharts.axis.TickData;
 import com.orsoncharts.axis.ValueAxis3D;
@@ -777,10 +777,11 @@ public class Chart3D implements Drawable3D, ChartElement,
                     }
                 }
                 
-                if (f instanceof CBFace && (this.plot instanceof CategoryPlot3D 
+                if (f instanceof ChartBoxFace 
+                        && (this.plot instanceof CategoryPlot3D 
                         || this.plot instanceof XYZPlot)) {
                     Stroke savedStroke = g2.getStroke();
-                    CBFace cbf = (CBFace) f;
+                    ChartBoxFace cbf = (ChartBoxFace) f;
                     drawGridlines(g2, cbf, pts);
                     drawMarkers(g2, cbf, pts);
                     g2.setStroke(savedStroke);
@@ -906,6 +907,14 @@ public class Chart3D implements Drawable3D, ChartElement,
         return Collections.emptyList(); 
     }
     
+    /**
+     * Fetches marker data for the plot's x-axis.
+     * 
+     * @param plot  the plot (<code>null</code> not permitted).
+     * 
+     * @return A list of marker data items (possibly empty but never 
+     *     <code>null</code>).
+     */
     private List<MarkerData> fetchXMarkerData(Plot3D plot) {
         if (plot instanceof CategoryPlot3D) {
             return ((CategoryPlot3D) plot).getColumnAxis().generateMarkerData();
@@ -916,6 +925,14 @@ public class Chart3D implements Drawable3D, ChartElement,
         return new ArrayList<MarkerData>(0);    
     }
     
+    /**
+     * Fetches marker data for the plot's x-axis.
+     * 
+     * @param plot  the plot (<code>null</code> not permitted).
+     * 
+     * @return A list of marker data items (possibly empty but never 
+     *     <code>null</code>).
+     */
     private List<MarkerData> fetchYMarkerData(Plot3D plot) {
         if (plot instanceof CategoryPlot3D) {
             return ((CategoryPlot3D) plot).getValueAxis().generateMarkerData();
@@ -926,6 +943,14 @@ public class Chart3D implements Drawable3D, ChartElement,
         return new ArrayList<MarkerData>(0);    
     }
     
+    /**
+     * Fetches marker data for the plot's x-axis.
+     * 
+     * @param plot  the plot (<code>null</code> not permitted).
+     * 
+     * @return A list of marker data items (possibly empty but never 
+     *     <code>null</code>).
+     */
     private List<MarkerData> fetchZMarkerData(Plot3D plot) {
         if (plot instanceof CategoryPlot3D) {
             return ((CategoryPlot3D) plot).getRowAxis().generateMarkerData();
@@ -936,68 +961,15 @@ public class Chart3D implements Drawable3D, ChartElement,
         return new ArrayList<MarkerData>(0);    
     }
     
-    private Marker fetchXMarker(Plot3D plot, String key) {
-        if (plot instanceof CategoryPlot3D) {
-            return ((CategoryPlot3D) plot).getColumnAxis().getMarker(key);
-        } else if (plot instanceof XYZPlot) {
-            return ((XYZPlot) plot).getXAxis().getMarker(key);
-        };
-        return null;
-    }
-    
-    private Marker fetchYMarker(Plot3D plot, String key) {
-        if (plot instanceof CategoryPlot3D) {
-            return ((CategoryPlot3D) plot).getValueAxis().getMarker(key);
-        } else if (plot instanceof XYZPlot) {
-            return ((XYZPlot) plot).getYAxis().getMarker(key);
-        };
-        return null;
-    }
-
-    private Marker fetchZMarker(Plot3D plot, String key) {
-        if (plot instanceof CategoryPlot3D) {
-            return ((CategoryPlot3D) plot).getRowAxis().getMarker(key);
-        } else if (plot instanceof XYZPlot) {
-            return ((XYZPlot) plot).getZAxis().getMarker(key);
-        };
-        return null;
-    }
-
-    private void drawMarkers(Graphics2D g2, CBFace face, Point2D[] pts) {
-        // x markers
-        List<MarkerData> xmarkers = face.getXMarkers();
-        for (MarkerData m : xmarkers) {
-            m.updateProjection(pts);
-            Marker marker = fetchXMarker(this.plot, m.getMarkerKey());
-            marker.draw(g2, m);
-        }
-        
-        // y markers
-        List<MarkerData> ymarkers = face.getYMarkers();
-        for (MarkerData m : ymarkers) {
-            m.updateProjection(pts);
-            Marker marker = fetchYMarker(this.plot, m.getMarkerKey());
-            marker.draw(g2, m);                
-        }
-        
-        // z markers
-        List<MarkerData> zmarkers = face.getZMarkers();
-        for (MarkerData m : zmarkers) {
-            m.updateProjection(pts);
-            Marker marker = fetchZMarker(this.plot, m.getMarkerKey());
-            marker.draw(g2, m);
-        }
-        
-    }
-    
-     /**
+    /**
      * Draw the gridlines for one chart box face.
      * 
      * @param g2  the graphics target.
      * @param face  the face.
      * @param pts  the projection points.
      */
-    private void drawGridlines(Graphics2D g2, CBFace face, Point2D[] pts) {
+    private void drawGridlines(Graphics2D g2, ChartBoxFace face, 
+            Point2D[] pts) {
         if (isGridlinesVisibleForX(this.plot)) {
             g2.setPaint(fetchGridlinePaintX(this.plot));
             g2.setStroke(fetchGridlineStrokeX(this.plot));
@@ -1504,6 +1476,95 @@ public class Chart3D implements Drawable3D, ChartElement,
                 zAxis.draw(g2, v3, v4, v6, true, ticks);
             }
         }
+    }
+
+    /**
+     * Draws the markers for one face on a chart box.  The <code>pts</code>
+     * array contains all the projected points for all the vertices in the
+     * world...the chart box face references the required points by index.
+     * 
+     * @param g2  the graphics target (<code>null</code> not permitted).
+     * @param face  the face of the chart box (<code>null</code> not permitted).
+     * @param pts  the projected points for the whole world.
+     */
+    private void drawMarkers(Graphics2D g2, ChartBoxFace face, Point2D[] pts) {
+        // x markers
+        List<MarkerData> xmarkers = face.getXMarkers();
+        for (MarkerData m : xmarkers) {
+            m.updateProjection(pts);
+            Marker marker = fetchXMarker(this.plot, m.getMarkerKey());
+            marker.draw(g2, m, true);
+        }
+        
+        // y markers
+        List<MarkerData> ymarkers = face.getYMarkers();
+        for (MarkerData m : ymarkers) {
+            m.updateProjection(pts);
+            Marker marker = fetchYMarker(this.plot, m.getMarkerKey());
+            marker.draw(g2, m, false);                
+        }
+        
+        // z markers
+        List<MarkerData> zmarkers = face.getZMarkers();
+        for (MarkerData m : zmarkers) {
+            m.updateProjection(pts);
+            Marker marker = fetchZMarker(this.plot, m.getMarkerKey());
+            marker.draw(g2, m, false);
+        }
+    }
+    
+    /**
+     * Returns the marker from the plot's x-axis that has the specified key,
+     * or <code>null</code> if there is no marker with that key.
+     * 
+     * @param plot  the plot (<code>null</code> not permitted).
+     * @param key  the marker key (<code>null</code> not permitted).
+     * 
+     * @return The marker (possibly <code>null</code>). 
+     */
+    private Marker fetchXMarker(Plot3D plot, String key) {
+        if (plot instanceof CategoryPlot3D) {
+            return ((CategoryPlot3D) plot).getColumnAxis().getMarker(key);
+        } else if (plot instanceof XYZPlot) {
+            return ((XYZPlot) plot).getXAxis().getMarker(key);
+        }
+        return null;
+    }
+    
+    /**
+     * Returns the marker from the plot's y-axis that has the specified key,
+     * or <code>null</code> if there is no marker with that key.
+     * 
+     * @param plot  the plot (<code>null</code> not permitted).
+     * @param key  the marker key (<code>null</code> not permitted).
+     * 
+     * @return The marker (possibly <code>null</code>). 
+     */
+    private Marker fetchYMarker(Plot3D plot, String key) {
+        if (plot instanceof CategoryPlot3D) {
+            return ((CategoryPlot3D) plot).getValueAxis().getMarker(key);
+        } else if (plot instanceof XYZPlot) {
+            return ((XYZPlot) plot).getYAxis().getMarker(key);
+        }
+        return null;
+    }
+
+    /**
+     * Returns the marker from the plot's z-axis that has the specified key,
+     * or <code>null</code> if there is no marker with that key.
+     * 
+     * @param plot  the plot (<code>null</code> not permitted).
+     * @param key  the marker key (<code>null</code> not permitted).
+     * 
+     * @return The marker (possibly <code>null</code>). 
+     */
+    private Marker fetchZMarker(Plot3D plot, String key) {
+        if (plot instanceof CategoryPlot3D) {
+            return ((CategoryPlot3D) plot).getRowAxis().getMarker(key);
+        } else if (plot instanceof XYZPlot) {
+            return ((XYZPlot) plot).getZAxis().getMarker(key);
+        }
+        return null;
     }
 
     /**

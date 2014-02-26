@@ -900,13 +900,31 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
             if (this.range.intersects(vm.getRange())) {
                 MarkerData markerData;
                 if (vm instanceof NumberMarker) {
+                    NumberMarker nm = (NumberMarker) vm;
                     markerData = new MarkerData(entry.getKey(), 
-                            this.range.percent(((NumberMarker) vm).getValue()));
+                            this.range.percent(nm.getValue()));
+                    markerData.setLabelAnchor(nm.getLabel() != null 
+                            ? nm.getLabelAnchor() : null);
                 } else if (vm instanceof RangeMarker) {
                     RangeMarker rm = (RangeMarker) vm;
-                    double startPos = this.range.percent(this.range.peggedValue(rm.getStart().getValue()));
-                    double endPos = this.range.percent(this.range.peggedValue(rm.getEnd().getValue()));
-                    markerData = new MarkerData(entry.getKey(), startPos, endPos);
+                    double startValue = rm.getStart().getValue();
+                    boolean startPegged = false;
+                    if (!this.range.contains(startValue)) {
+                        startValue = this.range.peggedValue(startValue);
+                        startPegged = true;
+                    } 
+                    double startPos = this.range.percent(startValue);
+                    double endValue = rm.getEnd().getValue();
+                    boolean endPegged = false;
+                    if (!this.range.contains(endValue)) {
+                        endValue = this.range.peggedValue(endValue);
+                        endPegged = true;
+                    }
+                    double endPos = this.range.percent(endValue);
+                    markerData = new MarkerData(entry.getKey(), startPos, 
+                            startPegged, endPos, endPegged);
+                    markerData.setLabelAnchor(rm.getLabel() != null 
+                            ? rm.getLabelAnchor() : null);
                 } else {
                     throw new RuntimeException("Unrecognised marker.");
                 }
@@ -928,6 +946,9 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
      */
     @Override
     public void receive(ChartElementVisitor visitor) {
+        for (ValueMarker marker : this.valueMarkers.values()) {
+            marker.receive(visitor);
+        }
         visitor.visit(this);
     }
 

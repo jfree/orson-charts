@@ -22,6 +22,10 @@ import com.orsoncharts.ChartElementVisitor;
 import com.orsoncharts.axis.Axis3D;
 import com.orsoncharts.axis.CategoryAxis3D;
 import com.orsoncharts.axis.ValueAxis3D;
+import com.orsoncharts.marker.CategoryMarker;
+import com.orsoncharts.marker.Marker;
+import com.orsoncharts.marker.NumberMarker;
+import com.orsoncharts.marker.RangeMarker;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.plot.PiePlot3D;
 import com.orsoncharts.plot.Plot3D;
@@ -75,6 +79,10 @@ public class ChartStyler implements ChartElementVisitor {
         if (element instanceof Renderer3D) {
             Renderer3D renderer = (Renderer3D) element;
             styleRenderer(renderer);
+        }
+        if (element instanceof Marker) {
+            Marker marker = (Marker) element;
+            styleMarker(marker);
         }
     }
     
@@ -190,5 +198,36 @@ public class ChartStyler implements ChartElementVisitor {
     
     protected void styleXYZRenderer(XYZRenderer renderer) {
         renderer.getColorSource().style(this.style.getStandardColors());
+    }
+    
+    protected void styleMarker(Marker marker) {
+        if (marker instanceof CategoryMarker) {
+            CategoryMarker cm = (CategoryMarker) marker;
+            cm.setFont(this.style.getMarkerLabelFont());
+            cm.setLabelColor(this.style.getMarkerLabelColor());
+            cm.setLineColor(this.style.getMarkerLineColor());
+            cm.setLineStroke(this.style.getMarkerLineStroke());
+            cm.setFillColor(this.style.getMarkerFillColor());            
+        } else if (marker instanceof NumberMarker) {
+            NumberMarker nm = (NumberMarker) marker;
+            nm.setFont(this.style.getMarkerLabelFont());
+            nm.setLabelColor(this.style.getMarkerLabelColor());
+            nm.setLineColor(this.style.getMarkerLineColor());
+            nm.setLineStroke(this.style.getMarkerLineStroke());
+        } else if (marker instanceof RangeMarker) {
+            RangeMarker rm = (RangeMarker) marker;
+            rm.setFont(this.style.getMarkerLabelFont());
+            rm.setLabelColor(this.style.getMarkerLabelColor());
+            rm.setFillColor(this.style.getMarkerFillColor());
+            
+            rm.getStart().setFont(this.style.getMarkerLabelFont());
+            rm.getStart().setLabelColor(this.style.getMarkerLabelColor());
+            rm.getStart().setLineColor(this.style.getMarkerLineColor());
+            rm.getStart().setLineStroke(this.style.getMarkerLineStroke());
+            rm.getEnd().setFont(this.style.getMarkerLabelFont());
+            rm.getEnd().setLabelColor(this.style.getMarkerLabelColor());
+            rm.getEnd().setLineColor(this.style.getMarkerLineColor());
+            rm.getEnd().setLineStroke(this.style.getMarkerLineStroke());   
+        }
     }
 }

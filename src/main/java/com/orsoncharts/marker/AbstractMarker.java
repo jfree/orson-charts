@@ -12,8 +12,12 @@
 
 package com.orsoncharts.marker;
 
-import com.orsoncharts.Chart3DChangeListener;
 import javax.swing.event.EventListenerList;
+import com.orsoncharts.Chart3DChangeListener;
+import com.orsoncharts.ChartElementVisitor;
+import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.util.RefPt2D;
+import com.orsoncharts.util.TextAnchor;
 
 /**
  * A base class for implementing markers (includes the event notification 
@@ -33,6 +37,18 @@ public abstract class AbstractMarker implements Marker {
         this.listenerList = new EventListenerList();
     }
 
+    /**
+     * Receives a visitor.
+     * 
+     * @param visitor 
+     * 
+     * @since 1.2
+     */
+    @Override
+    public void receive(ChartElementVisitor visitor) {
+        visitor.visit(this);
+    }
+ 
     /**
      * Registers a listener to receive notification of changes to the marker.
      * 
@@ -67,4 +83,71 @@ public abstract class AbstractMarker implements Marker {
         }
     }
     
+    /**
+     * A utility method that returns a suitable text anchor for a given
+     * reference point. This is used for range marker label positioning.
+     * 
+     * @param refPt  the reference point (<code>null</code> not permitted).
+     * @param vflip  is the text flipped vertically?
+     * 
+     * @return A text anchor (never <code>null</code>). 
+     */
+    protected static TextAnchor deriveTextAnchor(RefPt2D refPt, boolean vflip) {
+        ArgChecks.nullNotPermitted(refPt, "refPt");
+        if (refPt.equals(RefPt2D.TOP_LEFT)) {
+            return vflip ? TextAnchor.TOP_LEFT : TextAnchor.BOTTOM_RIGHT;
+        } else if (refPt.equals(RefPt2D.TOP_CENTER)) {
+            return vflip ? TextAnchor.TOP_CENTER : TextAnchor.BOTTOM_CENTER;
+        } else if (refPt.equals(RefPt2D.TOP_RIGHT)) {
+            return vflip ? TextAnchor.TOP_RIGHT :TextAnchor.BOTTOM_LEFT;
+        } if (refPt.equals(RefPt2D.CENTER_LEFT)) {
+            return vflip ? TextAnchor.CENTER_LEFT : TextAnchor.CENTER_RIGHT;
+        } else if (refPt.equals(RefPt2D.CENTER)) {
+            return TextAnchor.CENTER;
+        } else if (refPt.equals(RefPt2D.CENTER_RIGHT)) {
+            return vflip ? TextAnchor.CENTER_RIGHT : TextAnchor.CENTER_LEFT;
+        } else if (refPt.equals(RefPt2D.BOTTOM_LEFT)) {
+            return vflip ? TextAnchor.BOTTOM_LEFT : TextAnchor.TOP_RIGHT;
+        } else if (refPt.equals(RefPt2D.BOTTOM_CENTER)) {
+            return vflip ? TextAnchor.BOTTOM_CENTER : TextAnchor.TOP_CENTER;
+        } else if (refPt.equals(RefPt2D.BOTTOM_RIGHT)) {
+            return vflip ? TextAnchor.BOTTOM_RIGHT : TextAnchor.TOP_LEFT;
+        }
+        throw new RuntimeException("Unknown refPt " + refPt);
+    }
+
+    /**
+     * A utility method that returns a suitable text anchor for a given
+     * reference point relative to a line (rather than a rectangle which is
+     * the normal case).  This is used for value marker label positioning.
+     * 
+     * @param refPt  the reference point (<code>null</code> not permitted).
+     * @param vflip  is the text flipped vertically?
+     * 
+     * @return A text anchor (never <code>null</code>). 
+     */
+    protected static TextAnchor deriveTextAnchorForLine(RefPt2D refPt, 
+            boolean vflip) {
+        if (refPt.equals(RefPt2D.TOP_LEFT)) {
+            return vflip ? TextAnchor.BOTTOM_LEFT : TextAnchor.TOP_RIGHT;
+        } else if (refPt.equals(RefPt2D.TOP_CENTER)) {
+            return vflip ? TextAnchor.BOTTOM_CENTER : TextAnchor.TOP_CENTER;
+        } else if (refPt.equals(RefPt2D.TOP_RIGHT)) {
+            return vflip ? TextAnchor.BOTTOM_RIGHT :TextAnchor.TOP_LEFT;
+        } if (refPt.equals(RefPt2D.CENTER_LEFT)) {
+            return vflip ? TextAnchor.CENTER_LEFT : TextAnchor.CENTER_RIGHT;
+        } else if (refPt.equals(RefPt2D.CENTER)) {
+            return TextAnchor.CENTER;
+        } else if (refPt.equals(RefPt2D.CENTER_RIGHT)) {
+            return vflip ? TextAnchor.CENTER_RIGHT : TextAnchor.CENTER_LEFT;
+        } else if (refPt.equals(RefPt2D.BOTTOM_LEFT)) {
+            return vflip ? TextAnchor.TOP_LEFT : TextAnchor.BOTTOM_RIGHT;
+        } else if (refPt.equals(RefPt2D.BOTTOM_CENTER)) {
+            return vflip ? TextAnchor.TOP_CENTER : TextAnchor.BOTTOM_CENTER;
+        } else if (refPt.equals(RefPt2D.BOTTOM_RIGHT)) {
+            return vflip ? TextAnchor.TOP_RIGHT : TextAnchor.BOTTOM_LEFT;
+        }
+        throw new RuntimeException("Unknown refPt " + refPt);
+    }
+
 }

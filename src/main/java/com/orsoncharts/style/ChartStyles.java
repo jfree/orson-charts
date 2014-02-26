@@ -61,6 +61,9 @@ public class ChartStyles {
         s.setLegendFooterBackgroundColor(bgcolor);
         s.setStandardColors(Colors.createBlueOceanColors());
         s.setBackgroundPainter(new StandardRectanglePainter(Color.BLACK));
+        s.setMarkerLabelColor(Color.LIGHT_GRAY);
+        s.setMarkerLineColor(Color.LIGHT_GRAY);
+        s.setMarkerFillColor(new Color(100, 100, 255, 32));
         return s;
     }
 
@@ -91,7 +94,7 @@ public class ChartStyles {
         s.setLegendHeaderFont(new Font(Font.SERIF, Font.BOLD, 16));
         s.setLegendItemFont(new Font(Font.SERIF, Font.PLAIN, 14));
         s.setLegendFooterFont(new Font(Font.SERIF, Font.ITALIC, 10));
-
+        s.setMarkerLabelFont(new Font(Font.SERIF, Font.PLAIN, 10));
         s.setStandardColors(Colors.createShadesColors());
 
         return s;

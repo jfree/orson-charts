@@ -16,24 +16,25 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
-import java.awt.Paint;
 import java.awt.Stroke;
+import com.orsoncharts.ChartElement;
 
 /**
  * A base interface for all markers.
  * 
  * @since 1.2
  */
-public interface Marker {
+public interface Marker extends ChartElement {
 
     /** The default line stroke for markers. */
-    public static final Stroke DEFAULT_LINE_STROKE = new BasicStroke(2.0f);
+    public static final Stroke DEFAULT_LINE_STROKE = new BasicStroke(2.0f, 
+            BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
 
     /** The default line color for markers. */
-    public static final Paint DEFAULT_MARKER_PAINT = Color.DARK_GRAY;
+    public static final Color DEFAULT_LINE_COLOR = Color.DARK_GRAY;
 
-    /** The default fill paint for markers. */
-    public static final Paint DEFAULT_FILL_PAINT = new Color(128, 128, 192, 64);
+    /** The default fill color for markers. */
+    public static final Color DEFAULT_FILL_COLOR = new Color(128, 128, 192, 64);
 
     /** The default font for marker labels. */
     public static final Font DEFAULT_MARKER_FONT = new Font(Font.DIALOG, 
@@ -49,8 +50,9 @@ public interface Marker {
      * @param g2  the graphics target (<code>null</code> not permitted).
      * @param markerData  transient data for the marker (<code>null</code> not 
      *     permitted).
+     * @param reverse  a flag to indicate reverse orientation.
      */
-    void draw(Graphics2D g2, MarkerData markerData);
+    void draw(Graphics2D g2, MarkerData markerData, boolean reverse);
     
     /**
      * Registers a listener to receive notification of changes to the marker.

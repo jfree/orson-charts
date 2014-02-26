@@ -12,9 +12,10 @@
 
 package com.orsoncharts.marker;
 
-import com.orsoncharts.util.ArgChecks;
 import java.awt.geom.Point2D;
 import java.util.HashMap;
+import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.util.Anchor2D;
 
 /**
  * A record holder for data relating to markers that needs to be passed
@@ -41,7 +42,8 @@ public class MarkerData {
     private HashMap<String, Object> data;
     
     /**
-     * Creates marker data for the case where there is a single line.
+     * Creates marker data for the case where there is a single line
+     * (for example, the {@link NumberMarker} class).
      * 
      * @param key  the key for the marker (<code>null</code> not permitted).
      * @param pos  the relative position along the axis (in the range 0.0 to 
@@ -52,23 +54,25 @@ public class MarkerData {
         this.markerKey = key;
         this.type = MarkerDataType.VALUE;
         this.data = new HashMap<String, Object>();
-        this.data.put("valueLine", new MarkerLine(pos));
+        this.data.put("valueLine", new MarkerLine(pos, false));
     }
     
     /**
      * Creates marker data for the case where there are two lines.
+     * (for example, the {@link RangeMarker} class).
      * 
-     * @param key
-     * @param startPos
-     * @param endPos
+     * @param key  the key (<code>null</code> not permitted).
+     * @param startPos  the relative start position.
+     * @param endPos  the relative end position.
      */
-    public MarkerData(String key, double startPos, double endPos) {
+    public MarkerData(String key, double startPos, boolean startPegged, 
+            double endPos, boolean endPegged) {
         ArgChecks.nullNotPermitted(key, "key");
         this.markerKey = key;
         this.type = MarkerDataType.RANGE;
         this.data = new HashMap<String, Object>();
-        this.data.put("startLine", new MarkerLine(startPos));
-        this.data.put("endLine", new MarkerLine(endPos));
+        this.data.put("startLine", new MarkerLine(startPos, startPegged));
+        this.data.put("endLine", new MarkerLine(endPos, endPegged));
     }
     
     /**
@@ -88,7 +92,7 @@ public class MarkerData {
         this.type = source.type;
         this.data = new HashMap<String, Object>(source.data);
         double pos = source.getValueLine().getPos();
-        MarkerLine valueLine = new MarkerLine(pos, v0, v1);
+        MarkerLine valueLine = new MarkerLine(pos, false, v0, v1);
         this.data.put("valueLine", valueLine);
     }
     
@@ -111,10 +115,12 @@ public class MarkerData {
         this.type = MarkerDataType.RANGE;
         this.data = new HashMap<String, Object>(source.data);
         double startPos = source.getStartLine().getPos();
-        MarkerLine startLine = new MarkerLine(startPos, v0, v1);
+        boolean startPegged = source.getStartLine().isPegged();
+        MarkerLine startLine = new MarkerLine(startPos, startPegged, v0, v1);
         this.data.put("startLine", startLine);
         double endPos = source.getEndLine().getPos();
-        MarkerLine endLine = new MarkerLine(endPos, v2, v3);
+        boolean endPegged = source.getEndLine().isPegged();
+        MarkerLine endLine = new MarkerLine(endPos, endPegged, v2, v3);
         this.data.put("endLine", endLine);
     }
     
@@ -165,6 +171,52 @@ public class MarkerData {
     }
     
     /**
+     * Returns the label anchor.
+     * 
+     * @return The label anchor. 
+     */
+    public Anchor2D getLabelAnchor() {
+        return (Anchor2D) this.data.get("labelAnchor");
+    }
+    
+    /**
+     * Sets the label anchor.
+     * 
+     * @param anchor  the label anchor.
+     */
+    public void setLabelAnchor(Anchor2D anchor) {
+        this.data.put("labelAnchor", anchor);
+    }
+    
+    /**
+     * Returns the label vertex index.
+     * 
+     * @return The label vertex index.
+     */
+    public int getLabelVertexIndex() {
+        Integer i = (Integer) this.data.get("labelVertexIndex");
+        return (i != null ? i.intValue() : -1);
+    }
+    
+    /**
+     * Sets the label vertex index.
+     * 
+     * @param labelVertexIndex  the label vertex index.
+     */
+    public void setLabelVertexIndex(int labelVertexIndex) {
+        this.data.put("labelVertexIndex", Integer.valueOf(labelVertexIndex));    
+    }
+    
+    /**
+     * Returns the label projection point.
+     * 
+     * @return The label projection point (possibly <code>null</code>). 
+     */
+    public Point2D getLabelPoint() {
+        return (Point2D) this.data.get("labelPoint");
+    }
+    
+    /**
      * Updates the projected points for this marker.  This needs to be done
      * before the markers can be drawn.
      * 
@@ -183,15 +235,19 @@ public class MarkerData {
             endLine.setStartPoint(pts[endLine.getV0()]);
             endLine.setEndPoint(pts[endLine.getV1()]);
         }
-        // if range then update the 2D points for the start and end lines
-        System.out.println("updateProjection...");
+        int labelVertex = getLabelVertexIndex();
+        if (labelVertex >= 0) {
+            this.data.put("labelPoint", pts[labelVertex]);
+        } else {
+            this.data.put("labelPoint", null);
+        }
     }
     
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("MarkerData[key=");
-        sb.append(this.markerKey); // TODO : fill this out
+        sb.append(this.markerKey); 
         sb.append("]");
         return sb.toString();
     }

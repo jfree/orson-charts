@@ -123,7 +123,20 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
 
     /** The default foreground color for the legend footer if there is one. */
     public static final Color DEFAULT_LEGEND_FOOTER_COLOR = Color.BLACK;
+
+    public static final Font DEFAULT_MARKER_LABEL_FONT = new Font(
+            FONT_FAMILY, Font.PLAIN, 10);
     
+    public static final Color DEFAULT_MARKER_LABEL_COLOR = Color.DARK_GRAY;
+    
+    public static final Stroke DEFAULT_MARKER_LINE_STROKE = new BasicStroke(
+            2.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
+    
+    public static final Color DEFAULT_MARKER_LINE_COLOR = Color.DARK_GRAY;
+    
+    public static final Color DEFAULT_MARKER_FILL_COLOR 
+            = new Color(127, 127, 127, 63);
+
     /** The background painter. */
     private RectanglePainter backgroundPainter;
     
@@ -214,6 +227,21 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
     /** The background color for the legend footer if there is one. */
     private Color legendFooterBackgroundColor;
 
+    /** The font used to draw marker labels. */
+    private Font markerLabelFont;
+  
+    /** The color used to draw marker labels. */
+    private Color markerLabelColor;
+    
+    /** The stroke used to draw marker lines. */
+    private transient Stroke markerLineStroke;
+    
+    /** The color used to draw marker lines. */
+    private Color markerLineColor;
+    
+    /** The color used to fill the band representing the marker range. */
+    private Color markerFillColor;
+    
     /** Storage for registered change listeners. */
     private transient EventListenerList listenerList;
 
@@ -258,6 +286,11 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
         this.legendFooterFont = DEFAULT_LEGEND_FOOTER_FONT;
         this.legendFooterColor = DEFAULT_LEGEND_FOOTER_COLOR;
         this.legendFooterBackgroundColor = DEFAULT_TEXT_BACKGROUND_COLOR;
+        this.markerLabelFont = DEFAULT_MARKER_LABEL_FONT;
+        this.markerLabelColor = DEFAULT_MARKER_LABEL_COLOR;
+        this.markerLineStroke = DEFAULT_MARKER_LINE_STROKE;
+        this.markerLineColor = DEFAULT_MARKER_LINE_COLOR;
+        this.markerFillColor = DEFAULT_MARKER_FILL_COLOR;
         this.listenerList = new EventListenerList();
         this.notify = true;
     }
@@ -303,6 +336,11 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
         this.legendFooterColor = source.getLegendFooterColor();
         this.legendFooterBackgroundColor 
                 = source.getLegendFooterBackgroundColor();
+        this.markerLabelFont = source.getMarkerLabelFont();
+        this.markerLabelColor = source.getMarkerLabelColor();
+        this.markerLineStroke = source.getMarkerLineStroke();
+        this.markerLineColor = source.getMarkerLineColor();
+        this.markerFillColor = source.getMarkerFillColor();
         this.listenerList = new EventListenerList();
         this.notify = true;        
     }
@@ -992,6 +1030,116 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
     }
     
     /**
+     * Returns the font used to draw marker labels.
+     * 
+     * @return The font used to draw marker labels (never <code>null</code>).
+     */
+    @Override
+    public Font getMarkerLabelFont() {
+        return this.markerLabelFont;
+    }
+    
+    /**
+     * Sets the marker label font and sends a change event to all registered
+     * listeners.
+     * 
+     * @param font  the font (<code>null</code> not permitted). 
+     */
+    public void setMarkerLabelFont(Font font) {
+        ArgChecks.nullNotPermitted(font, "font");
+        this.markerLabelFont = font;
+        fireChangeEvent();
+    }
+
+    /**
+     * Returns the color for the marker labels.
+     * 
+     * @return The color for the marker labels (never <code>null</code>). 
+     */
+    @Override
+    public Color getMarkerLabelColor() {
+        return this.markerLabelColor;
+    }
+    
+    /**
+     * Sets the color for the marker labels and sends a change event to all
+     * registered listeners.
+     * 
+     * @param color  the color (<code>null</code> not permitted). 
+     */
+    public void setMarkerLabelColor(Color color) {
+        ArgChecks.nullNotPermitted(color, "color");
+        this.markerLabelColor = color;
+        fireChangeEvent();
+    }
+
+    /**
+     * Returns the stroke used to draw marker lines.
+     * 
+     * @return The stroke used to draw marker lines (never <code>null</code>).
+     */
+    @Override
+    public Stroke getMarkerLineStroke() {
+        return this.markerLineStroke;
+    }
+    
+    /**
+     * Sets the stroke for the marker lines and sends a change event to all
+     * registered listeners.
+     * 
+     * @param stroke  the stroke (<code>null</code> not permitted). 
+     */
+    public void setMarkerLineStroke(Stroke stroke) {
+        ArgChecks.nullNotPermitted(stroke, "stroke");
+        this.markerLineStroke = stroke;
+        fireChangeEvent();
+    }
+
+    /**
+     * Returns the color used to draw marker lines.
+     * 
+     * @return The color used to draw marker lines (never <code>null</code>). 
+     */
+    @Override
+    public Color getMarkerLineColor() {
+        return markerLineColor;
+    }
+    
+    /**
+     * Sets the marker line color and sends a change event to all registered
+     * listeners.
+     * 
+     * @param color  the color (<code>null</code> not permitted). 
+     */
+    public void setMarkerLineColor(Color color) {
+        ArgChecks.nullNotPermitted(color, "color");
+        this.markerLineColor = color;
+        fireChangeEvent();
+    }
+
+    /**
+     * Returns the color used to fill the band representing the marker range.
+     * 
+     * @return The fill color (never <code>null</code>). 
+     */
+    @Override
+    public Color getMarkerFillColor() {
+        return markerFillColor;
+    }
+    
+    /**
+     * Sets the marker fill color and sends a change event to all registered
+     * listeners.
+     * 
+     * @param color  the color (<code>null</code> not permitted).
+     */
+    public void setMarkerFillColor(Color color) {
+        ArgChecks.nullNotPermitted(color, "color");
+        this.markerFillColor = color;
+        fireChangeEvent();
+    }
+
+    /**
      * Registers a listener to receive notification of changes to the chart.
      * When a style is added to a chart, the chart will register as a listener
      * on the style.
@@ -1195,7 +1343,22 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
         if (!this.legendFooterBackgroundColor.equals(
                 that.legendFooterBackgroundColor)) {
             return false;
-        }      
+        }
+        if (!this.markerLabelFont.equals(that.markerLabelFont)) {
+            return false;
+        }
+        if (!this.markerLabelColor.equals(that.markerLabelColor)) {
+            return false;
+        }
+        if (!this.markerLineColor.equals(that.markerLineColor)) {
+            return false;
+        }
+        if (!this.markerLineStroke.equals(that.markerLineStroke)) {
+            return false;
+        }
+        if (!this.markerFillColor.equals(that.markerFillColor)) {
+            return false;
+        }
         return true;
     }
     
@@ -1209,6 +1372,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
         SerialUtils.writeStroke(this.gridlineStroke, stream);
+        SerialUtils.writeStroke(this.markerLineStroke, stream);
     }
 
     /**
@@ -1223,5 +1387,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
         throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
         this.gridlineStroke = SerialUtils.readStroke(stream);
+        this.markerLineStroke = SerialUtils.readStroke(stream);
     }
+
 }

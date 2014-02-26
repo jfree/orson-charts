@@ -252,6 +252,41 @@ public interface ChartStyle {
     Color getLegendFooterBackgroundColor();
     
     /**
+     * Returns the font used to draw marker labels.
+     * 
+     * @return The font used to draw marker labels (never <code>null</code>).
+     */
+    Font getMarkerLabelFont();
+    
+    /**
+     * Returns the color for the marker labels.
+     * 
+     * @return The color for the marker labels (never <code>null</code>). 
+     */
+    Color getMarkerLabelColor();
+
+    /**
+     * Returns the stroke used to draw marker lines.
+     * 
+     * @return The stroke used to draw marker lines (never <code>null</code>).
+     */
+    Stroke getMarkerLineStroke();
+    
+    /**
+     * Returns the color used to draw marker lines.
+     * 
+     * @return The color used to draw marker lines (never <code>null</code>). 
+     */
+    Color getMarkerLineColor();
+    
+    /**
+     * Returns the color used to fill the band representing the marker range.
+     * 
+     * @return The fill color (never <code>null</code>). 
+     */
+    Color getMarkerFillColor();
+
+    /**
      * Returns a clone of the chart style.
      * 
      * @return A clone (never <code>null</code>). 

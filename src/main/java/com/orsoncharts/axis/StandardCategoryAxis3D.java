@@ -39,9 +39,11 @@ import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.ChartElementVisitor;
 import com.orsoncharts.marker.CategoryMarker;
+import com.orsoncharts.marker.CategoryMarkerType;
+import com.orsoncharts.marker.Marker;
 import com.orsoncharts.marker.MarkerData;
-import com.orsoncharts.marker.MarkerDataType;
 import com.orsoncharts.marker.ValueMarker;
+import com.orsoncharts.renderer.category.AreaRenderer3D;
 import com.orsoncharts.util.ObjectUtils;
 import com.orsoncharts.util.SerialUtils;
 
@@ -697,16 +699,17 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
         for (Map.Entry<String, CategoryMarker> entry : this.markers.entrySet()) {
             CategoryMarker cm = entry.getValue();
             MarkerData markerData;
-            if (cm.getType().equals(MarkerDataType.VALUE)) {
+            if (cm.getType().equals(CategoryMarkerType.LINE)) {
                 double pos = getCategoryValue(cm.getCategory());
                 markerData = new MarkerData(entry.getKey(), pos);
-            } else if (cm.getType().equals(MarkerDataType.RANGE)) {
+            } else if (cm.getType().equals(CategoryMarkerType.BAND)) {
                 double pos = getCategoryValue(cm.getCategory());
                 double width = getCategoryWidth();                
                 markerData = new MarkerData(entry.getKey(), pos - width / 2, 
-                        pos + width / 2);
+                        false, pos + width / 2, false);
             } else {
-                throw new RuntimeException("Unrecognised marker.");
+                throw new RuntimeException("Unrecognised marker: " 
+                        + cm.getType());
             }
             result.add(markerData);
         }
@@ -725,6 +728,9 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      */
     @Override
     public void receive(ChartElementVisitor visitor) {
+        for (Marker marker : this.markers.values()) {
+            marker.receive(visitor);
+        }
         visitor.visit(this);
     }
 

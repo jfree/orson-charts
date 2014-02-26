@@ -12,9 +12,10 @@
 
 package com.orsoncharts;
 
+import java.awt.Color;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
-import java.awt.Color;
 
 import com.orsoncharts.graphics3d.Face;
 import com.orsoncharts.graphics3d.Object3D;
@@ -22,6 +23,7 @@ import com.orsoncharts.graphics3d.Point3D;
 import com.orsoncharts.axis.TickData;
 import com.orsoncharts.marker.MarkerData;
 import com.orsoncharts.marker.MarkerDataType;
+import com.orsoncharts.util.Anchor2D;
 import com.orsoncharts.util.ArgChecks;
 
 /**
@@ -30,7 +32,8 @@ import com.orsoncharts.util.ArgChecks;
  * do not obscure the content of the chart (generally the back three faces 
  * will be visible and the front three faces will not be visible, although from
  * some angles four faces will be visible at one time).  There is also support 
- * provided for specifying gridlines on the visible faces.
+ * provided for specifying gridlines on the visible faces, as well as markers
+ * to label specific values and value ranges.
  */
 public class ChartBox3D {
 
@@ -66,12 +69,12 @@ public class ChartBox3D {
 
     private Color color;
 
-    private CBFace faceA;
-    private CBFace faceB;
-    private CBFace faceC;
-    private CBFace faceD;
-    private CBFace faceE;
-    private CBFace faceF;
+    private ChartBoxFace faceA;
+    private ChartBoxFace faceB;
+    private ChartBoxFace faceC;
+    private ChartBoxFace faceD;
+    private ChartBoxFace faceE;
+    private ChartBoxFace faceF;
 
     /**
      * Creates a new chart box with the specified attributes.  When drawn, only
@@ -106,8 +109,10 @@ public class ChartBox3D {
     }
 
     /**
+     * Returns the list of tick data items for the x-axis.
      * 
-     * @return
+     * @return The list of tick data items for the x-axis (possibly empty, but
+     *     never <code>null</code>).
      * 
      * @since 1.2
      */
@@ -116,8 +121,9 @@ public class ChartBox3D {
     }
     
     /**
+     * Sets the list of tick data items for the x-axis.
      * 
-     * @param ticks
+     * @param ticks  the tick data (<code>null</code> not permitted).
      * 
      * @since 1.2
      */
@@ -127,8 +133,10 @@ public class ChartBox3D {
     }
     
     /**
+     * Returns the list of tick data items for the y-axis.
      * 
-     * @return
+     * @return The list of tick data items for the y-axis (possibly empty, but
+     *     never <code>null</code>).
      * 
      * @since 1.2
      */
@@ -137,8 +145,9 @@ public class ChartBox3D {
     }
     
     /**
+     * Sets the list of tick data items for the y-axis.
      * 
-     * @param ticks
+     * @param ticks  the tick data (<code>null</code> not permitted).
      * 
      * @since 1.2
      */
@@ -148,8 +157,10 @@ public class ChartBox3D {
     }
     
     /**
+     * Returns the list of tick data items for the z-axis.
      * 
-     * @return
+     * @return The list of tick data items for the z-axis (possibly empty, but
+     *     never <code>null</code>).
      * 
      * @since 1.2
      */
@@ -158,8 +169,9 @@ public class ChartBox3D {
     }
     
     /**
+     * Sets the list of tick data items for the z-axis.
      * 
-     * @param ticks
+     * @param ticks  the tick data (<code>null</code> not permitted).
      * 
      * @since 1.2
      */
@@ -181,8 +193,10 @@ public class ChartBox3D {
     }
  
     /**
+     * Sets the list of marker data items for the x-axis.
      * 
-     * @param markers
+     * @param markers  the list of marker data items (<code>null</code> not 
+     *     permitted).
      * 
      * @since 1.2
      */
@@ -204,8 +218,10 @@ public class ChartBox3D {
     }
 
     /**
+     * Sets the list of marker data items for the y-axis.
      * 
-     * @param markers
+     * @param markers  the list of marker data items (<code>null</code> not 
+     *     permitted).
      * 
      * @since 1.2
      */
@@ -227,8 +243,10 @@ public class ChartBox3D {
     }
 
     /**
+     * Sets the list of marker data items for the x-axis.
      * 
-     * @param markers
+     * @param markers  the list of marker data items (<code>null</code> not 
+     *     permitted).
      * 
      * @since 1.2
      */
@@ -242,7 +260,7 @@ public class ChartBox3D {
      * 
      * @return Face A. 
      */
-    public CBFace faceA() {
+    public ChartBoxFace faceA() {
         return this.faceA;
     }
   
@@ -251,7 +269,7 @@ public class ChartBox3D {
      * 
      * @return Face B. 
      */
-    public CBFace faceB() {
+    public ChartBoxFace faceB() {
         return this.faceB;
     }
   
@@ -260,7 +278,7 @@ public class ChartBox3D {
      * 
      * @return Face C. 
      */
-    public CBFace faceC() {
+    public ChartBoxFace faceC() {
         return this.faceC;
     }
   
@@ -269,7 +287,7 @@ public class ChartBox3D {
      * 
      * @return Face D. 
      */
-    public CBFace faceD() {
+    public ChartBoxFace faceD() {
         return this.faceD;
     }
 
@@ -278,7 +296,7 @@ public class ChartBox3D {
      * 
      * @return Face E. 
      */
-    public CBFace faceE() {
+    public ChartBoxFace faceE() {
         return this.faceE;
     }
   
@@ -287,7 +305,7 @@ public class ChartBox3D {
      * 
      * @return Face F.
      */
-    public CBFace faceF() {
+    public ChartBoxFace faceF() {
         return this.faceF;
     }
 
@@ -320,12 +338,12 @@ public class ChartBox3D {
         box.addVertex(v6);   // 1, 0, 1
         box.addVertex(v7);   // 1, 1, 1
                 
-        this.faceA = new CBFace(new int[] {0, 5, 6, 1}, this.color);  // XZ
-        this.faceB = new CBFace(new int[] {0, 1, 2, 3}, this.color);  // XY
-        this.faceC = new CBFace(new int[] {7, 4, 3, 2}, this.color);  // XZ
-        this.faceD = new CBFace(new int[] {5, 4, 7, 6}, this.color);  // XY
-        this.faceE = new CBFace(new int[] {0, 3, 4, 5}, this.color);  // YZ
-        this.faceF = new CBFace(new int[] {6, 7, 2, 1}, this.color);  // YZ
+        this.faceA = new ChartBoxFace(new int[] {0, 5, 6, 1}, this.color); // XZ
+        this.faceB = new ChartBoxFace(new int[] {0, 1, 2, 3}, this.color); // XY
+        this.faceC = new ChartBoxFace(new int[] {7, 4, 3, 2}, this.color); // XZ
+        this.faceD = new ChartBoxFace(new int[] {5, 4, 7, 6}, this.color); // XY
+        this.faceE = new ChartBoxFace(new int[] {0, 3, 4, 5}, this.color); // YZ
+        this.faceF = new ChartBoxFace(new int[] {6, 7, 2, 1}, this.color); // YZ
         box.addFace(faceA);
         box.addFace(faceB);
         box.addFace(faceC);
@@ -391,160 +409,552 @@ public class ChartBox3D {
         // add vertices for the x-markers
         for (MarkerData m : this.xMarkers) {
             if (m.getType().equals(MarkerDataType.VALUE)) {
-                double xpos = this.xOffset + xLength * m.getValueLine().getPos();
-                addXMarker(box, m, xpos, base);
-                base += 4;
+                double xpos = this.xOffset + xLength 
+                        * m.getValueLine().getPos();
+                base += addXMarker(box, m, xpos, base);
             } else if (m.getType().equals(MarkerDataType.RANGE)) {
-                double startX = this.xOffset + xLength * m.getStartLine().getPos();
+                double startX = this.xOffset + xLength 
+                        * m.getStartLine().getPos();
                 double endX = this.xOffset + xLength * m.getEndLine().getPos();
-                addXRangeMarker(box, m, startX, endX, base);
-                base += 8;
+                base += addXRangeMarker(box, m, startX, endX, base);
             }
         }
         
         // add vertices for the y-markers
         for (MarkerData m : this.yMarkers) {
             if (m.getType().equals(MarkerDataType.VALUE)) {
-                double ypos = this.yOffset + yLength * m.getValueLine().getPos();
-                addYMarker(box, m, ypos, base);
-                base += 4;
+                double ypos = this.yOffset + yLength 
+                        * m.getValueLine().getPos();
+                base += addYMarker(box, m, ypos, base);
             } else if (m.getType().equals(MarkerDataType.RANGE)) {
-                double startY = this.yOffset + yLength * m.getStartLine().getPos();
+                double startY = this.yOffset + yLength 
+                        * m.getStartLine().getPos();
                 double endY = this.yOffset + yLength * m.getEndLine().getPos();
-                addYRangeMarker(box, m, startY, endY, base);
-                base += 8;
+                base += addYRangeMarker(box, m, startY, endY, base);
             }
         }
         
         // add vertices for the z-markers
         for (MarkerData m : this.zMarkers) {
             if (m.getType().equals(MarkerDataType.VALUE)) {
-                double zpos = this.zOffset + zLength * m.getValueLine().getPos();
-                addZMarker(box, m, zpos, base);
-                base += 4;
+                double zpos = this.zOffset + zLength 
+                        * m.getValueLine().getPos();
+                base += addZMarker(box, m, zpos, base);
             } else if (m.getType().equals(MarkerDataType.RANGE)) {
-                double startZ = this.zOffset + zLength * m.getStartLine().getPos();
+                double startZ = this.zOffset + zLength 
+                        * m.getStartLine().getPos();
                 double endZ = this.zOffset + zLength * m.getEndLine().getPos();
-                addZRangeMarker(box, m, startZ, endZ, base);
-                base += 8;
+                base += addZRangeMarker(box, m, startZ, endZ, base);
             }            
         }
         
         return box;
     }
 
-    private void addXMarker(Object3D box, MarkerData m, double x, int base) {
-        box.addVertex(x, yOffset, zOffset);
-        box.addVertex(x, yOffset, zOffset + zLength);
-        box.addVertex(x, yOffset + yLength,  zOffset + zLength);
-        box.addVertex(x, yOffset + yLength, zOffset);
+    /**
+     * Adds the vertices required for an x-marker (VALUE type), creates the 
+     * marker data records and adds them to the four faces that will be 
+     * required to draw the marker.  If there is a label for the marker, this 
+     * method will also add vertices to track the label anchor points. 
+     * 
+     * @param box  the chart box.
+     * @param m  the marker data record.
+     * @param x  the x position for the marker.
+     * @param base  the base vertex index.
+     */
+    private int addXMarker(Object3D box, MarkerData m, double x, int base) {
+        int result = 4;
+        Point3D v0 = new Point3D(x, yOffset, zOffset);
+        Point3D v1 = new Point3D(x, yOffset, zOffset + zLength);
+        Point3D v2 = new Point3D(x, yOffset + yLength,  zOffset + zLength);
+        Point3D v3 = new Point3D(x, yOffset + yLength, zOffset);
+        box.addVertex(v0);
+        box.addVertex(v1);
+        box.addVertex(v2);
+        box.addVertex(v3);
         MarkerData md0 = new MarkerData(m, base, base + 1); // A
         MarkerData md1 = new MarkerData(m, base + 1, base + 2); // D 
         MarkerData md2 = new MarkerData(m, base + 2, base + 3); // C
         MarkerData md3 = new MarkerData(m, base + 3, base);  // B
+        if (m.getLabelAnchor() != null) {
+            // add vertices for the label anchor
+            Point3D v4 = calcAnchorXY(m.getLabelAnchor(), v0, v3, xLength); // B
+            Point3D v5 = calcAnchorXY(m.getLabelAnchor(), v2, v1, xLength); // D
+            Point3D v6 = calcAnchorXZ(m.getLabelAnchor(), v1, v0, xLength); // A
+            Point3D v7 = calcAnchorXZ(m.getLabelAnchor(), v3, v2, xLength);
+            box.addVertex(v4);
+            box.addVertex(v5);
+            box.addVertex(v6);
+            box.addVertex(v7);
+            // now write back the label vertex indices to the marker data
+            md3.setLabelVertexIndex(base + 4);
+            md1.setLabelVertexIndex(base + 5);
+            md0.setLabelVertexIndex(base + 6);
+            md2.setLabelVertexIndex(base + 7);
+            result += 4;
+        }
         this.faceA.addXMarker(md0);
         this.faceD.addXMarker(md1);
         this.faceC.addXMarker(md2);
         this.faceB.addXMarker(md3);
+        return result;
     }
     
-    private void addXRangeMarker(Object3D box, MarkerData m, double startX,
+    /**
+     * Adds the vertices required for an x-marker (RANGE type), creates the 
+     * marker data records and adds them to the four faces that will be 
+     * required to draw the marker.  If there is a label for the marker, this 
+     * method will also add vertices to track the label anchor points. 
+     * 
+     * @param box  the chart box.
+     * @param m  the marker data record.
+     * @param startX  the starting x position for the marker.
+     * @param endX  the ending x position for the marker.
+     * @param base  the base vertex index.
+     */
+    private int addXRangeMarker(Object3D box, MarkerData m, double startX,
             double endX, int base) {
-        box.addVertex(startX, yOffset, zOffset);
-        box.addVertex(startX, yOffset, zOffset + zLength);
-        box.addVertex(startX, yOffset + yLength,  zOffset + zLength);
-        box.addVertex(startX, yOffset + yLength, zOffset);
-        box.addVertex(endX, yOffset, zOffset);
-        box.addVertex(endX, yOffset, zOffset + zLength);
-        box.addVertex(endX, yOffset + yLength,  zOffset + zLength);
-        box.addVertex(endX, yOffset + yLength, zOffset);
-        MarkerData md0 = new MarkerData(m, base, base + 1, base + 4, base + 5); // A
-        MarkerData md1 = new MarkerData(m, base + 1, base + 2, base + 5, base + 6); // D 
-        MarkerData md2 = new MarkerData(m, base + 2, base + 3, base + 6, base + 7); // C
-        MarkerData md3 = new MarkerData(m, base + 3, base, base + 7, base + 4);  // B
+        int result = 8; // number of vertices added
+        Point3D v0 = new Point3D(startX, yOffset, zOffset);
+        Point3D v1 = new Point3D(startX, yOffset, zOffset + zLength);
+        Point3D v2 = new Point3D(startX, yOffset + yLength,  zOffset + zLength);
+        Point3D v3 = new Point3D(startX, yOffset + yLength, zOffset);
+        Point3D v4 = new Point3D(endX, yOffset, zOffset);
+        Point3D v5 = new Point3D(endX, yOffset, zOffset + zLength);
+        Point3D v6 = new Point3D(endX, yOffset + yLength,  zOffset + zLength);
+        Point3D v7 = new Point3D(endX, yOffset + yLength, zOffset);
+        box.addVertex(v0);
+        box.addVertex(v1);
+        box.addVertex(v2);
+        box.addVertex(v3);
+        box.addVertex(v4);
+        box.addVertex(v5);
+        box.addVertex(v6);
+        box.addVertex(v7);
+        MarkerData md0 = new MarkerData(m, base, base + 1, base + 4, 
+                base + 5); // A
+        MarkerData md1 = new MarkerData(m, base + 1, base + 2, base + 5, 
+                base + 6); // D 
+        MarkerData md2 = new MarkerData(m, base + 2, base + 3, base + 6, 
+                base + 7); // C
+        MarkerData md3 = new MarkerData(m, base + 3, base + 0, base + 7, 
+                base + 4);  // B
+        if (m.getLabelAnchor() != null) {
+            // add vertices for the label anchor
+            Point3D v8 = calcRangeAnchorXY(m.getLabelAnchor(), v2, v1, v6, v5);
+            Point3D v9 = calcRangeAnchorXY(m.getLabelAnchor(), v0, v3, v4, v7); 
+            Point3D v10 = calcRangeAnchorXZ(m.getLabelAnchor(), v3, v2, v7, v6);
+            Point3D v11 = calcRangeAnchorXZ(m.getLabelAnchor(), v1, v0, v5, v4);
+            box.addVertex(v8);
+            box.addVertex(v9);
+            box.addVertex(v10);
+            box.addVertex(v11);
+            // now write back the label vertex indices to the marker data
+            md1.setLabelVertexIndex(base + 8);
+            md3.setLabelVertexIndex(base + 9);
+            md2.setLabelVertexIndex(base + 10);
+            md0.setLabelVertexIndex(base + 11);
+            result += 4;
+        }
         this.faceA.addXMarker(md0);
         this.faceD.addXMarker(md1);
         this.faceC.addXMarker(md2);
-        this.faceB.addXMarker(md3);        
+        this.faceB.addXMarker(md3);
+        return result;
     }
     
-    private void addYMarker(Object3D box, MarkerData m, double y, int base) {
-        box.addVertex(xOffset, y, zOffset);
-        box.addVertex(xOffset, y, zOffset + zLength);
-        box.addVertex(xOffset + xLength, y,  zOffset + zLength);
-        box.addVertex(xOffset + xLength, y, zOffset);
+    /**
+     * Adds the vertices required for an y-marker (VALUE type), creates the 
+     * marker data records and adds them to the four faces that will be 
+     * required to draw the marker.  If there is a label for the marker, this 
+     * method will also add vertices to track the label anchor points. 
+     * 
+     * @param box  the chart box.
+     * @param m  the marker data record.
+     * @param y  the y position for the marker.
+     * @param base  the base vertex index.
+     */
+    private int addYMarker(Object3D box, MarkerData m, double y, int base) {
+        int result = 4; // number of vertices added
+        Point3D v0 = new Point3D(xOffset, y, zOffset);
+        Point3D v1 = new Point3D(xOffset, y, zOffset + zLength);
+        Point3D v2 = new Point3D(xOffset + xLength, y,  zOffset + zLength);
+        Point3D v3 = new Point3D(xOffset + xLength, y, zOffset);
+        box.addVertex(v0);
+        box.addVertex(v1);
+        box.addVertex(v2);
+        box.addVertex(v3);
         MarkerData md0 = new MarkerData(m, base, base + 1); // E
         MarkerData md1 = new MarkerData(m, base + 1, base + 2); // D 
         MarkerData md2 = new MarkerData(m, base + 2, base + 3); // F
         MarkerData md3 = new MarkerData(m, base + 3, base);  // B
+        if (m.getLabelAnchor() != null) {
+            // add vertices for the label anchor
+            Point3D v4 = calcAnchorYX(m.getLabelAnchor(), v1, v2, yLength); // D
+            Point3D v5 = calcAnchorYX(m.getLabelAnchor(), v3, v0, yLength); // B
+            Point3D v6 = calcAnchorYZ(m.getLabelAnchor(), v0, v1, yLength); // E 
+            Point3D v7 = calcAnchorYZ(m.getLabelAnchor(), v2, v3, yLength); // F
+            box.addVertex(v4);
+            box.addVertex(v5);
+            box.addVertex(v6);
+            box.addVertex(v7);
+            // now write back the label vertex indices to the marker data
+            md1.setLabelVertexIndex(base + 4);
+            md3.setLabelVertexIndex(base + 5);
+            md0.setLabelVertexIndex(base + 6);
+            md2.setLabelVertexIndex(base + 7);
+            result += 4;
+        }
         this.faceE.addYMarker(md0);
         this.faceD.addYMarker(md1);
         this.faceF.addYMarker(md2);
         this.faceB.addYMarker(md3);
+        return result;
     }
 
-    private void addYRangeMarker(Object3D box, MarkerData m, double startY,
+    /**
+     * Adds the vertices required for an y-marker (RANGE type), creates the 
+     * marker data records and adds them to the four faces that will be 
+     * required to draw the marker.  If there is a label for the marker, this 
+     * method will also add vertices to track the label anchor points. 
+     * 
+     * @param box  the chart box.
+     * @param m  the marker data record.
+     * @param startY  the starting y position for the marker.
+     * @param endY  the ending y position for the marker.
+     * @param base  the base vertex index.
+     */
+    private int addYRangeMarker(Object3D box, MarkerData m, double startY,
             double endY, int base) {
-        box.addVertex(xOffset, startY, zOffset);
-        box.addVertex(xOffset, startY, zOffset + zLength);
-        box.addVertex(xOffset + xLength, startY,  zOffset + zLength);
-        box.addVertex(xOffset + xLength, startY, zOffset);
-        box.addVertex(xOffset, endY, zOffset);
-        box.addVertex(xOffset, endY, zOffset + zLength);
-        box.addVertex(xOffset + xLength, endY,  zOffset + zLength);
-        box.addVertex(xOffset + xLength, endY, zOffset);
-        MarkerData md0 = new MarkerData(m, base, base + 1, base + 4, base + 5); // E
-        MarkerData md1 = new MarkerData(m, base + 1, base + 2, base + 5, base + 6); // D 
-        MarkerData md2 = new MarkerData(m, base + 2, base + 3, base + 6, base + 7); // F
-        MarkerData md3 = new MarkerData(m, base + 3, base, base + 7, base + 4);  // B
+        int result = 8; // number of vertices added
+        Point3D v0 = new Point3D(xOffset, startY, zOffset);
+        Point3D v1 = new Point3D(xOffset, startY, zOffset + zLength);
+        Point3D v2 = new Point3D(xOffset + xLength, startY,  zOffset + zLength);
+        Point3D v3 = new Point3D(xOffset + xLength, startY, zOffset);
+        Point3D v4 = new Point3D(xOffset, endY, zOffset);
+        Point3D v5 = new Point3D(xOffset, endY, zOffset + zLength);
+        Point3D v6 = new Point3D(xOffset + xLength, endY,  zOffset + zLength);
+        Point3D v7 = new Point3D(xOffset + xLength, endY, zOffset);
+        box.addVertex(v0);
+        box.addVertex(v1);
+        box.addVertex(v2);
+        box.addVertex(v3);
+        box.addVertex(v4);
+        box.addVertex(v5);
+        box.addVertex(v6);
+        box.addVertex(v7);
+        MarkerData md0 = new MarkerData(m, base, base + 1, base + 4, 
+                base + 5); // E
+        MarkerData md1 = new MarkerData(m, base + 1, base + 2, base + 5, 
+                base + 6); // D 
+        MarkerData md2 = new MarkerData(m, base + 2, base + 3, base + 6, 
+                base + 7); // F
+        MarkerData md3 = new MarkerData(m, base + 3, base, base + 7, 
+                base + 4);  // B
+        if (m.getLabelAnchor() != null) {
+            // add vertices for the label anchor
+            Point3D v8 = calcRangeAnchorYX(m.getLabelAnchor(), v1, v2, v5, v6);
+            Point3D v9 = calcRangeAnchorYX(m.getLabelAnchor(), v3, v0, v7, v4);
+            Point3D v10 = calcRangeAnchorYZ(m.getLabelAnchor(), v2, v3, v6, v7);
+            Point3D v11 = calcRangeAnchorYZ(m.getLabelAnchor(), v0, v1, v4, v5);
+            box.addVertex(v8);
+            box.addVertex(v9);
+            box.addVertex(v10);
+            box.addVertex(v11);
+            // now write back the label vertex indices to the marker data
+            md1.setLabelVertexIndex(base + 8);
+            md3.setLabelVertexIndex(base + 9);
+            md2.setLabelVertexIndex(base + 10);
+            md0.setLabelVertexIndex(base + 11);
+            result += 4;
+        }        
         this.faceE.addYMarker(md0);
         this.faceD.addYMarker(md1);
         this.faceF.addYMarker(md2);
-        this.faceB.addYMarker(md3);        
+        this.faceB.addYMarker(md3);
+        return result;
     }
 
-    private void addZMarker(Object3D box, MarkerData m, double z, int base) {
-        box.addVertex(xOffset, yOffset, z);  // A
-        box.addVertex(xOffset + xLength, yOffset, z);
-        box.addVertex(xOffset + xLength, yOffset + yLength,  z);
-        box.addVertex(xOffset, yOffset + yLength, z);
+    /**
+     * Adds the vertices required for an z-marker (VALUE type), creates the 
+     * marker data records and adds them to the four faces that will be 
+     * required to draw the marker.  If there is a label for the marker, this 
+     * method will also add vertices to track the label anchor points. 
+     * 
+     * @param box  the chart box.
+     * @param m  the marker data record.
+     * @param z  the z position for the marker.
+     * @param base  the base vertex index.
+     */
+    private int addZMarker(Object3D box, MarkerData m, double z, int base) {
+        int result = 4; // number of vertices added
+        Point3D v0 = new Point3D(xOffset, yOffset, z);
+        Point3D v1 = new Point3D(xOffset + xLength, yOffset, z);
+        Point3D v2 = new Point3D(xOffset + xLength, yOffset + yLength,  z);
+        Point3D v3 = new Point3D(xOffset, yOffset + yLength, z);
+        box.addVertex(v0);  // A
+        box.addVertex(v1);
+        box.addVertex(v2);
+        box.addVertex(v3);
         MarkerData md0 = new MarkerData(m, base, base + 1); // A
         MarkerData md1 = new MarkerData(m, base + 1, base + 2); // F 
         MarkerData md2 = new MarkerData(m, base + 2, base + 3); // C
         MarkerData md3 = new MarkerData(m, base + 3, base);  // E
+        if (m.getLabelAnchor() != null) {
+            // add vertices for the label anchor
+            Point3D v4 = calcAnchorZX(m.getLabelAnchor(), v0, v1, zLength); // A 
+            Point3D v5 = calcAnchorZX(m.getLabelAnchor(), v2, v3, zLength); // C 
+            Point3D v6 = calcAnchorZY(m.getLabelAnchor(), v1, v2, zLength); // F  
+            Point3D v7 = calcAnchorZY(m.getLabelAnchor(), v3, v0, zLength); // E 
+            box.addVertex(v4);
+            box.addVertex(v5);
+            box.addVertex(v6);
+            box.addVertex(v7);
+            // now write back the label vertex indices to the marker data
+            md0.setLabelVertexIndex(base + 4);
+            md2.setLabelVertexIndex(base + 5);
+            md1.setLabelVertexIndex(base + 6);
+            md3.setLabelVertexIndex(base + 7);
+            result += 4;
+        }
         this.faceA.addZMarker(md0);
         this.faceF.addZMarker(md1);
         this.faceC.addZMarker(md2);
         this.faceE.addZMarker(md3);
+        return result;
     }
 
-    private void addZRangeMarker(Object3D box, MarkerData m, double startZ, 
+    /**
+     * Adds the vertices required for an x-marker (RANGE type), creates the 
+     * marker data records and adds them to the four faces that will be 
+     * required to draw the marker.  If there is a label for the marker, this 
+     * method will also add vertices to track the label anchor points. 
+     * 
+     * @param box  the chart box.
+     * @param m  the marker data record.
+     * @param startZ  the starting z position for the marker.
+     * @param endZ  the ending z position for the marker.
+     * @param base  the base vertex index.
+     */
+    private int addZRangeMarker(Object3D box, MarkerData m, double startZ, 
             double endZ, int base) {
-        box.addVertex(xOffset, yOffset, startZ);  // A
-        box.addVertex(xOffset + xLength, yOffset, startZ);
-        box.addVertex(xOffset + xLength, yOffset + yLength,  startZ);
-        box.addVertex(xOffset, yOffset + yLength, startZ);
-        box.addVertex(xOffset, yOffset, endZ);  // A
-        box.addVertex(xOffset + xLength, yOffset, endZ);
-        box.addVertex(xOffset + xLength, yOffset + yLength, endZ);
-        box.addVertex(xOffset, yOffset + yLength, endZ);
-        MarkerData md0 = new MarkerData(m, base, base + 1, base + 4, base + 5); // A
-        MarkerData md1 = new MarkerData(m, base + 1, base + 2, base + 5, base + 6); // F 
-        MarkerData md2 = new MarkerData(m, base + 2, base + 3, base + 6, base + 7); // C
-        MarkerData md3 = new MarkerData(m, base + 3, base, base + 7, base + 4);  // E
+        int result = 8;
+        Point3D v0 = new Point3D(xOffset, yOffset, startZ);
+        Point3D v1 = new Point3D(xOffset + xLength, yOffset, startZ);
+        Point3D v2 = new Point3D(xOffset + xLength, yOffset + yLength,  startZ);
+        Point3D v3 = new Point3D(xOffset, yOffset + yLength, startZ);
+        Point3D v4 = new Point3D(xOffset, yOffset, endZ);
+        Point3D v5 = new Point3D(xOffset + xLength, yOffset, endZ);
+        Point3D v6 = new Point3D(xOffset + xLength, yOffset + yLength, endZ);
+        Point3D v7 = new Point3D(xOffset, yOffset + yLength, endZ);
+        box.addVertex(v0);  // A
+        box.addVertex(v1);
+        box.addVertex(v2);
+        box.addVertex(v3);
+        box.addVertex(v4);  // A
+        box.addVertex(v5);
+        box.addVertex(v6);
+        box.addVertex(v7);
+        MarkerData md0 = new MarkerData(m, base, base + 1, base + 4, 
+                base + 5); // A
+        MarkerData md1 = new MarkerData(m, base + 1, base + 2, base + 5, 
+                base + 6); // F 
+        MarkerData md2 = new MarkerData(m, base + 2, base + 3, base + 6, 
+                base + 7); // C
+        MarkerData md3 = new MarkerData(m, base + 3, base, base + 7, 
+                base + 4);  // E
+        if (m.getLabelAnchor() != null) {
+            // add vertices for the label anchor
+            Point3D v8 = calcRangeAnchorZX(m.getLabelAnchor(), v0, v1, v4, v5);
+            Point3D v9 = calcRangeAnchorZX(m.getLabelAnchor(), v2, v3, v6, v7);
+            Point3D v10 = calcRangeAnchorZY(m.getLabelAnchor(), v3, v0, v7, v4);
+            Point3D v11 = calcRangeAnchorZY(m.getLabelAnchor(), v1, v2, v5, v6);
+            box.addVertex(v8);
+            box.addVertex(v9);
+            box.addVertex(v10);
+            box.addVertex(v11);
+            // now write back the label vertex indices to the marker data
+            md0.setLabelVertexIndex(base + 8);
+            md2.setLabelVertexIndex(base + 9);
+            md3.setLabelVertexIndex(base + 10);
+            md1.setLabelVertexIndex(base + 11);
+            result += 4;
+        }        
         this.faceA.addZMarker(md0);
         this.faceF.addZMarker(md1);
         this.faceC.addZMarker(md2);
         this.faceE.addZMarker(md3);
+        return result;
     }
 
+    /**
+     * Returns the horizontal offset for an anchor assuming that (a) the delta 
+     * is expressed as a percentage, and (b) the length in the offset direction 
+     * is <code>length</code>.
+     * 
+     * @param anchor  the anchor.
+     * @param length  the length.
+     * 
+     * @return The offset. 
+     */
+    private double hoffset(Anchor2D anchor, double length) {
+        double offset = 0.0;
+        if (anchor.getRefPt().isLeft()) {
+            offset = length * anchor.getOffset().getDX();
+        } else if (anchor.getRefPt().isRight()) {
+            offset = -length * anchor.getOffset().getDX();
+        }
+        return offset;
+    }
+
+    /**
+     * Returns the vertical offset for an anchor assuming that (a) the delta is
+     * expressed as a percentage, and (b) the length in the offset direction 
+     * is <code>length</code>.
+     * 
+     * @param anchor  the anchor.
+     * @param length  the length.
+     * 
+     * @return The offset. 
+     */
+    private double voffset(Anchor2D anchor, double length) {
+        double offset = 0.0;
+        if (anchor.getRefPt().isTop()) {
+            offset = length * anchor.getOffset().getDY();
+        } else if (anchor.getRefPt().isBottom()) {
+            offset = -length * anchor.getOffset().getDY();
+        }
+        return offset;
+    }
+    
+    /**
+     * Returns the horizontal position along the line based on the anchor 
+     * point.
+     * 
+     * @param anchor  the anchor (<code>null</code> not permitted).
+     * @param start  the start value.
+     * @param end  the end value.
+     * 
+     * @return The position. 
+     */
+    private double hpos(Anchor2D anchor, double start, double end) {
+        if (anchor.getRefPt().isLeft()) {
+            return start;
+        } else if (anchor.getRefPt().isRight()) {
+            return end;
+        }
+        return (start + end) / 2.0;
+    }
+    
+    // anchor for x-marker label where line runs parallel to y-axis
+    private Point3D calcAnchorXY(Anchor2D anchor, Point3D start, Point3D end, 
+            double xLength) {
+        double dx = hoffset(anchor, end.getY() - start.getY());
+        double dy = voffset(anchor, xLength);
+        double y = hpos(anchor, start.getY(), end.getY());
+        return new Point3D(start.getX() + dy, y + dx, start.getZ());
+    }
+    
+    // anchor for x-marker label where line runs parallel to z-axis
+    private Point3D calcAnchorXZ(Anchor2D anchor, Point3D start, Point3D end, 
+            double xLength) {
+        double dx = hoffset(anchor, end.getZ() - start.getZ());
+        double dy = voffset(anchor, xLength);
+        double z = hpos(anchor, start.getZ(), end.getZ());
+        return new Point3D(start.getX() + dy, start.getY(), z + dx);
+    }
+    
+    // anchor for y-marker label where line runs parallel to x-axis
+    private Point3D calcAnchorYX(Anchor2D anchor, Point3D start, Point3D end, 
+            double yLength) {
+        double dx = hoffset(anchor, end.getX() - start.getX());
+        double dy = voffset(anchor, yLength);
+        double x = hpos(anchor, start.getX(), end.getX());
+        return new Point3D(x + dx, start.getY() + dy, start.getZ());
+    }
+    
+    // anchor for y-marker label where line runs parallel to z-axis
+    private Point3D calcAnchorYZ(Anchor2D anchor, Point3D start, Point3D end, 
+            double yLength) {
+        double dx = hoffset(anchor, end.getZ() - start.getZ());
+        double dy = voffset(anchor, yLength);
+        double z = hpos(anchor, start.getZ(), end.getZ());
+        return new Point3D(start.getX(), start.getY() + dy, z + dx);
+    }
+    
+    // anchor for z-marker label where line runs parallel to x-axis
+    private Point3D calcAnchorZX(Anchor2D anchor, Point3D start, Point3D end, 
+            double zLength) {
+        double dx = hoffset(anchor, end.getX() - start.getX());
+        double dy = voffset(anchor, zLength);
+        double x = hpos(anchor, start.getX(), end.getX());
+        return new Point3D(x + dx, start.getY(), start.getZ() + dy);
+    }
+    
+    // anchor for z-marker label where line runs parallel to y-axis
+    private Point3D calcAnchorZY(Anchor2D anchor, Point3D start, Point3D end, 
+            double zLength) {
+        double dx = hoffset(anchor, end.getY() - start.getY());
+        double dy = voffset(anchor, zLength);
+        double y = hpos(anchor, start.getY(), end.getY());
+        return new Point3D(start.getX(), y + dx, start.getZ() + dy);
+    }
+ 
+    // anchor for x-marker label where band runs parallel to y-axis
+    private Point3D calcRangeAnchorXY(Anchor2D anchor, Point3D start1, 
+            Point3D end1, Point3D start2, Point3D end2) {
+        Point2D p = anchor.resolveAnchorWithPercentOffset(start1.getY(), 
+                start1.getX(), end2.getY(), end2.getX());
+        return new Point3D(p.getY(), p.getX(), end1.getZ());
+    }
+    
+    // anchor for x-marker label where line runs parallel to z-axis
+    private Point3D calcRangeAnchorXZ(Anchor2D anchor, Point3D start1, 
+            Point3D end1, Point3D start2, Point3D end2) {
+        Point2D p = anchor.resolveAnchorWithPercentOffset(start1.getZ(), 
+                start1.getX(), end2.getZ(), end2.getX());
+        return new Point3D(p.getY(), end1.getY(), p.getX());
+    }
+    
+//    // anchor for y-marker label where line runs parallel to x-axis
+    private Point3D calcRangeAnchorYX(Anchor2D anchor, Point3D start1, 
+            Point3D end1, Point3D start2, Point3D end2) {
+        Point2D p = anchor.resolveAnchorWithPercentOffset(start1.getX(), 
+                start1.getY(), end2.getX(), end2.getY());
+        return new Point3D(p.getX(), p.getY(), end1.getZ());
+    }
+    
+//    // anchor for y-marker label where line runs parallel to z-axis
+    private Point3D calcRangeAnchorYZ(Anchor2D anchor, Point3D start1, 
+            Point3D end1, Point3D start2, Point3D end2) {
+        Point2D p = anchor.resolveAnchorWithPercentOffset(start1.getZ(), 
+                start1.getY(), end2.getZ(), end2.getY());
+        return new Point3D(start1.getX(), p.getY(), p.getX());
+    }
+    
+    // anchor for z-marker label where line runs parallel to x-axis
+    private Point3D calcRangeAnchorZX(Anchor2D anchor, Point3D start1, 
+            Point3D end1, Point3D start2, Point3D end2) {
+        Point2D p = anchor.resolveAnchorWithPercentOffset(start1.getX(), 
+                start1.getZ(), end2.getX(), end2.getZ());
+        return new Point3D(p.getX(), end1.getY(), p.getY());
+    }
+    
+    // anchor for z-marker label where line runs parallel to y-axis
+    private Point3D calcRangeAnchorZY(Anchor2D anchor, Point3D start1, 
+            Point3D end1, Point3D start2, Point3D end2) {
+        Point2D p = anchor.resolveAnchorWithPercentOffset(start1.getY(), 
+                start1.getZ(), end2.getY(), end2.getZ());
+        return new Point3D(end1.getX(), p.getX(), p.getY());
+    }
+    
     /**
      * A special subclass of {@link Face} that is used by the {@link ChartBox3D} 
      * so that when faces are sorted by z-order, the chart box sides are always 
      * drawn first (furthest in the background).  Also, these faces track 
      * tick marks, values and anchor points.
      */
-    public static final class CBFace extends Face {
+    public static final class ChartBoxFace extends Face {
 
         /** Info about the x-axis ticks on edge A. */
         private List<TickData> xTicksA;
@@ -576,7 +986,7 @@ public class ChartBox3D {
          * @param vertices  the indices of the vertices.
          * @param color  the color (<code>null</code> not permitted).
          */
-        public CBFace(int[] vertices, Color color) {
+        public ChartBoxFace(int[] vertices, Color color) {
             super(vertices, color, false);
             this.xTicksA = new ArrayList<TickData>();
             this.xTicksB = new ArrayList<TickData>();

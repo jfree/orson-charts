@@ -23,6 +23,13 @@ public class MarkerLine {
     
     /** The relative position along the axis (in the range 0.0 to 1.0). */
     private double pos;
+
+    /** 
+     * A flag indicating whether or not the line is pegged at the boundary of
+     * the axis.  If the line is pegged, then it is not drawn (since it lies
+     * outside the visible range of the chart.
+     */
+    private boolean pegged;
     
     /** The vertex index for the start of the line. */
     private int v0;
@@ -41,8 +48,8 @@ public class MarkerLine {
      * 
      * @param pos  the relative position (in the range 0.0 to 1.0). 
      */
-    public MarkerLine(double pos) {
-        this(pos, -1, -1);
+    public MarkerLine(double pos, boolean pegged) {
+        this(pos, pegged, -1, -1);
     }
     
     /**
@@ -52,8 +59,9 @@ public class MarkerLine {
      * @param v0  the index of the first vertex.
      * @param v1  the index of the second vertex.
      */
-    public MarkerLine(double pos, int v0, int v1) {
+    public MarkerLine(double pos, boolean pegged, int v0, int v1) {
         this.pos = pos;
+        this.pegged = pegged;
         this.v0 = v0;
         this.v1 = v1;
         this.startPoint = null;
@@ -67,6 +75,19 @@ public class MarkerLine {
      */
     public double getPos() {
         return this.pos;
+    }
+    
+    /**
+     * Returns <code>true</code> if the line is pegged, and <code>false</code>
+     * otherwise.  This is used for range markers to indicate that the value
+     * represented by the line falls outside the current axis range, so the
+     * line has been moved to the nearest axis boundary ("pegged" to the axis
+     * range).
+     * 
+     * @return A boolean.
+     */
+    public boolean isPegged() {
+        return this.pegged;
     }
     
     /**
