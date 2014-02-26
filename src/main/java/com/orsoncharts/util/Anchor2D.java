@@ -202,6 +202,44 @@ public final class Anchor2D implements Serializable {
     }
     
     /**
+     * Resolves the anchor to a specific point relative to a rectangle defined
+     * by the points (startX, startY) and (endX, endY).
+     * 
+     * @param startX  the x-coordinate for the bottom left corner of the target 
+     *     rect.
+     * @param startY  the y-coordinate for the bottom left corner of the target 
+     *     rect.
+     * @param endX  the x-coordinate for the top right corner of the target 
+     *     rect.
+     * @param endY  the y-coordinate for the top right corner of the target
+     *     rect.
+     * 
+     * @return The resolved point.
+     * 
+     * @since 1.2
+     */
+    public Point2D resolveAnchorWithPercentOffset(double startX, double startY, 
+            double endX, double endY) {
+        double x = 0.0;
+        double y = 0.0;
+        if (this.refPt.isLeft()) {
+            x = startX + this.offset.getDX() * (endX - startX);
+        } else if (this.refPt.isHorizontalCenter()) {
+            x = (startX + endX) / 2.0;
+        } else if (this.refPt.isRight()) {
+            x = endX - this.offset.getDX() * (endX - startX);            
+        }
+        if (this.refPt.isTop()) {
+            y = endY - this.offset.getDY() * (endY - startY); 
+        } else if (this.refPt.isVerticalCenter()) {
+            y = (startY + endY) / 2.0;
+        } else if (this.refPt.isBottom()) {
+            y = startY + this.offset.getDY() * (endY - startY);
+        }
+        return new Point2D.Double(x, y);
+    }
+    
+    /**
      * Tests this instance for equality with an arbitrary object.
      * 
      * @param obj  the object (<code>null</code> not permitted).
