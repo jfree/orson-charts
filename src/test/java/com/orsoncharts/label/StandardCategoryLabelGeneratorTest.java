@@ -50,8 +50,7 @@ public class StandardCategoryLabelGeneratorTest {
         StandardCategoryLabelGenerator lg1 
                 = new StandardCategoryLabelGenerator();
         StandardCategoryLabelGenerator lg2 
-                = new StandardCategoryLabelGenerator();
-        TestUtils.serialized(lg1);
+                = (StandardCategoryLabelGenerator) TestUtils.serialized(lg1);
         assertTrue(lg1.equals(lg2));
     }
 }
