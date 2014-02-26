@@ -36,8 +36,8 @@ public interface Marker {
     public static final Paint DEFAULT_FILL_PAINT = new Color(128, 128, 192, 64);
 
     /** The default font for marker labels. */
-    public static final Font DEFAULT_MARKER_FONT = new Font(Font.DIALOG, 10, 
-            Font.PLAIN);
+    public static final Font DEFAULT_MARKER_FONT = new Font(Font.DIALOG, 
+            Font.PLAIN, 10);
     
     /** The default color for the marker labels. */
     public static final Color DEFAULT_LABEL_COLOR = Color.BLACK;
