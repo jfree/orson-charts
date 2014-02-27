@@ -18,6 +18,12 @@ import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.awt.geom.Line2D;
 import java.awt.geom.Path2D;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.Objects;
+import com.orsoncharts.util.SerialUtils;
 import com.orsoncharts.util.Anchor2D;
 import com.orsoncharts.util.ArgChecks;
 
@@ -27,7 +33,7 @@ import com.orsoncharts.util.ArgChecks;
  * 
  * @since 1.2
  */
-public class CategoryMarker extends AbstractMarker {
+public class CategoryMarker extends AbstractMarker implements Serializable {
 
     /** The category to mark. */
     Comparable category;
@@ -51,7 +57,7 @@ public class CategoryMarker extends AbstractMarker {
     private Anchor2D labelAnchor;
     
     /** The stroke for the marker line(s). */
-    private Stroke lineStroke;
+    private transient Stroke lineStroke;
     
     /** The color for the marker line. */
     private Color lineColor;
@@ -297,7 +303,77 @@ public class CategoryMarker extends AbstractMarker {
             g2.fill(path);
         }
     }
-    
-    // TODO : equals and hashcode
-    
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 73 * hash + Objects.hashCode(this.category);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final CategoryMarker other = (CategoryMarker) obj;
+        if (!Objects.equals(this.category, other.category)) {
+            return false;
+        }
+        if (this.type != other.type) {
+            return false;
+        }
+        if (!Objects.equals(this.label, other.label)) {
+            return false;
+        }
+        if (!Objects.equals(this.font, other.font)) {
+            return false;
+        }
+        if (!Objects.equals(this.labelColor, other.labelColor)) {
+            return false;
+        }
+        if (!Objects.equals(this.labelAnchor, other.labelAnchor)) {
+            return false;
+        }
+        if (!Objects.equals(this.lineStroke, other.lineStroke)) {
+            return false;
+        }
+        if (!Objects.equals(this.lineColor, other.lineColor)) {
+            return false;
+        }
+        if (!Objects.equals(this.fillColor, other.fillColor)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Provides serialization support.
+     *
+     * @param stream  the output stream.
+     *
+     * @throws IOException  if there is an I/O error.
+     */
+    private void writeObject(ObjectOutputStream stream) throws IOException {
+        stream.defaultWriteObject();
+        SerialUtils.writeStroke(this.lineStroke, stream);
+    }
+
+    /**
+     * Provides serialization support.
+     *
+     * @param stream  the input stream.
+     *
+     * @throws IOException  if there is an I/O error.
+     * @throws ClassNotFoundException  if there is a classpath problem.
+     */
+    private void readObject(ObjectInputStream stream)
+        throws IOException, ClassNotFoundException {
+        stream.defaultReadObject();
+        this.lineStroke = SerialUtils.readStroke(stream);
+    }
+   
 }
