@@ -28,6 +28,8 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.LinkedHashMap;
+import java.util.Map.Entry;
 import com.orsoncharts.util.TextUtils;
 import com.orsoncharts.util.TextAnchor;
 import com.orsoncharts.ChartElementVisitor;
@@ -42,8 +44,6 @@ import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.util.ObjectUtils;
 import com.orsoncharts.util.SerialUtils;
-import java.util.LinkedHashMap;
-import java.util.Map.Entry;
 
 /**
  * A numerical axis for use with 3D plots (implements {@link ValueAxis3D}).
@@ -890,7 +890,8 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
 
     /**
      * Generates and returns a list of marker data items for the axis.
-     * @return 
+     * 
+     * @return A list of marker data items (never <code>null</code>). 
      */
     @Override
     public List<MarkerData> generateMarkerData() {
