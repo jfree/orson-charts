@@ -25,6 +25,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Arrays;
 import javax.swing.event.EventListenerList;
+import com.orsoncharts.ChartBox3D;
 import com.orsoncharts.Colors;
 import com.orsoncharts.RectanglePainter;
 import com.orsoncharts.StandardRectanglePainter;
@@ -502,7 +503,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
     }
 
     /**
-     * Returns the color used for the {@link ChartBox} (for those charts that
+     * Returns the color used for the {@link ChartBox3D} (for those charts that
      * have one).  The default value is {@link #DEFAULT_CHARTBOX_COLOR}.
      * 
      * @return The color (never <code>null</code>). 
