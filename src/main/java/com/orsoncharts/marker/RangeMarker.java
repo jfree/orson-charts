@@ -22,7 +22,6 @@ import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 import com.orsoncharts.Range;
 import com.orsoncharts.graphics3d.Utils2D;
-import static com.orsoncharts.marker.AbstractMarker.deriveTextAnchor;
 import com.orsoncharts.util.Anchor2D;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.ObjectUtils;
@@ -88,7 +87,8 @@ public class RangeMarker extends AbstractMarker implements ValueMarker,
     
     /**
      * Returns the ending point for the range marker.
-     * @return 
+     * 
+     * @return The ending point. 
      */
     public NumberMarker getEnd() {
         return this.end;
