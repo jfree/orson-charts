@@ -66,10 +66,10 @@ public class RangeMarker extends AbstractMarker implements ValueMarker,
     public RangeMarker(double lowerBound, double upperBound) {
         super();
         this.start = new NumberMarker(lowerBound);
-        // TODO: add a listener
+        this.start.addChangeListener(this);
         this.end = new NumberMarker(upperBound);
-        // TODO: add a listener
-                this.label = null;
+        this.end.addChangeListener(this);
+        this.label = null;
         this.font = DEFAULT_MARKER_FONT;
         this.labelColor = DEFAULT_LABEL_COLOR;
         this.labelAnchor = Anchor2D.CENTER;
@@ -284,6 +284,12 @@ public class RangeMarker extends AbstractMarker implements ValueMarker,
 
     }
 
+    /**
+     * Receives notification of a change to the start or end marker for the
+     * range.
+     * 
+     * @param event  the event (<code>null</code> not permitted). 
+     */
     @Override
     public void markerChanged(MarkerChangeEvent event) {
         fireChangeEvent();
