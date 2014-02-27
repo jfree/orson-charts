@@ -704,11 +704,15 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
             if (cm.getType().equals(CategoryMarkerType.LINE)) {
                 double pos = getCategoryValue(cm.getCategory());
                 markerData = new MarkerData(entry.getKey(), pos);
+                markerData.setLabelAnchor(cm.getLabel() != null 
+                            ? cm.getLabelAnchor() : null);
             } else if (cm.getType().equals(CategoryMarkerType.BAND)) {
                 double pos = getCategoryValue(cm.getCategory());
                 double width = getCategoryWidth();                
                 markerData = new MarkerData(entry.getKey(), pos - width / 2, 
                         false, pos + width / 2, false);
+                markerData.setLabelAnchor(cm.getLabel() != null 
+                            ? cm.getLabelAnchor() : null);
             } else {
                 throw new RuntimeException("Unrecognised marker: " 
                         + cm.getType());
