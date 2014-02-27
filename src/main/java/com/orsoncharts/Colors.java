@@ -520,11 +520,13 @@ public class Colors {
     }
     
     /**
-     * Good for pie charts and bar charts, not so good for scatter plots.
+     * Returns a newly created array containing 11 colors from the the 
+     * ColorBrewer tool.  Good for pie charts and bar charts, not so good for 
+     * scatter plots.
      * 
      * http://colorbrewer2.org/?type=qualitative&scheme=Set3&n=12 
      * 
-     * @return 
+     * @return A color array.
      */
     public static Color[] getBrewerQualitativeSet3N12Colors() {
         Color[] result = new Color[12];
