@@ -26,6 +26,26 @@ import com.orsoncharts.Range;
 public interface Axis3D extends ChartElement {
 
     /**
+     * Returns the flag that determines whether or not the axis is drawn 
+     * on the chart.
+     * 
+     * @return A boolean.
+     * 
+     * @see #setVisible(boolean) 
+     */
+    public boolean isVisible();
+    
+    /**
+     * Sets the flag that determines whether or not the axis is drawn on the
+     * chart and sends an {@link Axis3DChangeEvent} to all registered listeners.
+     * 
+     * @param visible  the flag.
+     * 
+     * @see #isVisible() 
+     */
+    public void setVisible(boolean visible);
+    
+    /**
      * Returns the font that is used to display the main axis label.
      * 
      * @return The font (never <code>null</code>). 

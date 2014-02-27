@@ -16,17 +16,23 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Stroke;
+import java.awt.Graphics2D;
+import java.awt.geom.Line2D;
+import java.awt.geom.Point2D;
 import java.io.Serializable;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import javax.swing.event.EventListenerList;
 import com.orsoncharts.ChartElementVisitor;
+import com.orsoncharts.graphics3d.Utils2D;
 import com.orsoncharts.marker.MarkerChangeEvent;
 import com.orsoncharts.marker.MarkerChangeListener;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.ObjectUtils;
 import com.orsoncharts.util.SerialUtils;
+import com.orsoncharts.util.TextAnchor;
+import com.orsoncharts.util.TextUtils;
 
 /**
  * A base class that can be used to create an {@link Axis3D} implementation.
@@ -84,6 +90,9 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
      */
     public static final Color DEFAULT_LINE_COLOR = Color.GRAY;
     
+    /** A flag that determines whether or not the axis will be drawn. */
+    private boolean visible;
+    
     /** The axis label (if <code>null</code>, no label is displayed). */
     private String label;
   
@@ -118,6 +127,7 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
      * @param label  the axis label (<code>null</code> permitted). 
      */
     public AbstractAxis3D(String label) {
+        this.visible = true;
         this.label = label;
         this.labelFont = DEFAULT_LABEL_FONT;
         this.labelColor = DEFAULT_LABEL_COLOR;
@@ -129,6 +139,33 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
         this.listenerList = new EventListenerList();
     }
 
+    /**
+     * Returns the flag that determines whether or not the axis is drawn 
+     * on the chart.
+     * 
+     * @return A boolean.
+     * 
+     * @see #setVisible(boolean) 
+     */
+    @Override
+    public boolean isVisible() {
+        return this.visible;
+    }
+    
+    /**
+     * Sets the flag that determines whether or not the axis is drawn on the
+     * chart and sends an {@link Axis3DChangeEvent} to all registered listeners.
+     * 
+     * @param visible  the flag.
+     * 
+     * @see #isVisible() 
+     */
+    @Override
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+        fireChangeEvent(false);
+    }
+    
     /**
      * Returns the axis label.
      * 
@@ -322,6 +359,32 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
     public abstract void receive(ChartElementVisitor visitor);
     
     /**
+     * Draws an axis label.
+     * 
+     * @param g2  the graphics target.
+     * @param axisLine  the axis line.
+     * @param opposingPt  an opposing point.
+     * @param offset  the offset.
+     */
+    protected void drawAxisLabel(Graphics2D g2, Line2D axisLine, 
+            Point2D opposingPt, double offset) {
+        g2.setFont(getLabelFont());
+        g2.setPaint(getLabelColor());
+        Line2D labelPosLine = Utils2D.createPerpendicularLine(axisLine, 0.5, 
+                offset, opposingPt);
+        double theta = Utils2D.calculateTheta(axisLine);
+        if (theta < -Math.PI / 2.0) {
+            theta = theta + Math.PI;
+        }
+        if (theta > Math.PI / 2.0) {
+            theta = theta - Math.PI;
+        }
+        TextUtils.drawRotatedString(getLabel(), g2, 
+                (float) labelPosLine.getX2(), (float) labelPosLine.getY2(), 
+                TextAnchor.CENTER, theta, TextAnchor.CENTER);
+    }
+
+    /**
      * Tests this instance for equality with an arbitrary object.
      * 
      * @param obj  the object to test against (<code>null</code> permitted).
@@ -337,6 +400,9 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
             return false;
         }
         AbstractAxis3D that = (AbstractAxis3D) obj;
+        if (this.visible != that.visible) {
+            return false;
+        }
         if (!ObjectUtils.equals(this.label, that.label)) {
             return false;
         }

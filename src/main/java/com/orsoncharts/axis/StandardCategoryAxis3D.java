@@ -56,9 +56,6 @@ import com.orsoncharts.util.SerialUtils;
  */
 public class StandardCategoryAxis3D extends AbstractAxis3D 
         implements CategoryAxis3D, Serializable {
-
-    /** Should the axis be displayed on the chart? */
-    private boolean visible;
     
     /** The categories. */
     private List<Comparable<?>> categories;
@@ -125,7 +122,6 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      */
     public StandardCategoryAxis3D(String label) {
         super(label);
-        this.visible = true;
         this.categories = new ArrayList<Comparable<?>>();
         this.range = new Range(0.0, 1.0);
         this.lowerMargin = 0.05;
@@ -138,33 +134,6 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
         this.tickLabelGenerator = new StandardCategoryLabelGenerator();
         this.tickLabelOffset = 5.0;
         this.markers = new LinkedHashMap<String, CategoryMarker>();
-    }
-    
-    /**
-     * Returns the flag that determines whether or not the axis is drawn 
-     * on the chart.
-     * 
-     * @return A boolean.
-     * 
-     * @see #setVisible(boolean) 
-     */
-    @Override
-    public boolean isVisible() {
-        return this.visible;
-    }
-    
-    /**
-     * Sets the flag that determines whether or not the axis is drawn on the
-     * chart and sends an {@link Axis3DChangeEvent} to all registered listeners.
-     * 
-     * @param visible  the flag.
-     * 
-     * @see #isVisible() 
-     */
-    @Override
-    public void setVisible(boolean visible) {
-        this.visible = visible;
-        fireChangeEvent(false);
     }
 
     /**
@@ -617,22 +586,8 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
 
         // draw the axis label if there is one
         if (getLabel() != null) {
-            g2.setFont(getLabelFont());
-            g2.setPaint(getLabelColor());
-            Line2D labelPosLine = Utils2D.createPerpendicularLine(axisLine, 0.5, 
-                    this.tickMarkLength + this.tickLabelOffset 
-                    + maxTickLabelWidth + 10.0, 
-                    opposingPt);
-            double theta = Utils2D.calculateTheta(axisLine);
-            if (theta < -Math.PI / 2.0) {
-                theta = theta + Math.PI;
-            }
-            if (theta > Math.PI / 2.0) {
-                theta = theta - Math.PI;
-            }
-            TextUtils.drawRotatedString(getLabel(), g2, 
-                    (float) labelPosLine.getX2(), (float) labelPosLine.getY2(), 
-                    TextAnchor.CENTER, theta, TextAnchor.CENTER);
+            drawAxisLabel(g2, axisLine, opposingPt, maxTickLabelWidth 
+                    + this.tickMarkLength + this.tickLabelOffset + 10);
         }
     }
 
@@ -756,9 +711,6 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
             return false;
         }
         StandardCategoryAxis3D that = (StandardCategoryAxis3D) obj;
-        if (this.visible != that.visible) {
-            return false;
-        }
         if (this.lowerMargin != that.lowerMargin) {
             return false;
         }

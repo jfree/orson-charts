@@ -27,18 +27,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.LinkedHashMap;
-import java.util.Map.Entry;
 import com.orsoncharts.util.TextUtils;
 import com.orsoncharts.util.TextAnchor;
-import com.orsoncharts.ChartElementVisitor;
 import com.orsoncharts.Range;
 import com.orsoncharts.graphics3d.Utils2D;
-import com.orsoncharts.marker.MarkerData;
-import com.orsoncharts.marker.NumberMarker;
-import com.orsoncharts.marker.RangeMarker;
-import com.orsoncharts.marker.ValueMarker;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.plot.XYZPlot;
@@ -51,26 +43,8 @@ import com.orsoncharts.util.SerialUtils;
  * and in an {@link XYZPlot} all the axes (x, y and z) are numerical - for
  * all these cases an instance of this class can be used.
  */
-public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
+public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
         Serializable {
-
-    /** A flag that determines whether or not the axis will be drawn. */
-    private boolean visible;
-    
-    /** The axis range. */
-    private Range range;
-
-    /** 
-     * A flag that controls whether or not the axis range is automatically
-     * adjusted to display all of the data items in the dataset.
-     */
-    private boolean autoAdjustRange;
-    
-    /** The percentage margin to leave at the lower end of the axis. */
-    private double lowerMargin;
-    
-    /** The percentage margin to leave at the upper end of the axis. */
-    private double upperMargin;
 
     /** 
      * A flag indicating whether or not the auto-range calculation should
@@ -84,14 +58,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
      * <code>false</code> the margin is not changed.
      */
     private boolean autoRangeStickyZero;
-    
-    /** 
-     * The default range to apply when there is no data in the dataset and the
-     * autoAdjustRange flag is true.  A sensible default is going to depend on
-     * the context, so the user should change it as necessary.
-     */
-    private Range defaultAutoRange;
-    
+        
     /** 
      * The tick selector (if not <code>null</code>, then auto-tick selection 
      * is used). 
@@ -122,9 +89,6 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
     /** The tick mark paint (never <code>null</code>). */
     private transient Paint tickMarkPaint;
     
-    /** Storage for value markers for the axis (empty by default). */
-    private Map<String, ValueMarker> valueMarkers;
-    
     /**
      * Creates a new axis with the specified label and default attributes.
      * 
@@ -141,15 +105,9 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
      * @param range  the range (<code>null</code> not permitted).
      */
     public NumberAxis3D(String label, Range range) {
-        super(label);
-        this.visible = true;
-        this.range = range;
-        this.autoAdjustRange = true;
-        this.lowerMargin = 0.05;
-        this.upperMargin = 0.05;
+        super(label, range);
         this.autoRangeIncludesZero = false;
         this.autoRangeStickyZero = true;
-        this.defaultAutoRange = new Range(0.0, 1.0);
         this.tickSelector = new NumberTickSelector();
         this.tickLabelFactor = 1.4;
         this.tickSize = range.getLength() / 10.0;
@@ -158,156 +116,8 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
         this.tickMarkLength = 3.0;
         this.tickMarkStroke = new BasicStroke(0.5f);
         this.tickMarkPaint = Color.GRAY;
-        this.valueMarkers = new LinkedHashMap<String, ValueMarker>();
     }
-  
-    /**
-     * Returns the flag that determines whether or not the axis is drawn 
-     * on the chart.
-     * 
-     * @return A boolean.
-     * 
-     * @see #setVisible(boolean) 
-     */
-    @Override
-    public boolean isVisible() {
-        return this.visible;
-    }
-    
-    /**
-     * Sets the flag that determines whether or not the axis is drawn on the
-     * chart and sends an {@link Axis3DChangeEvent} to all registered listeners.
-     * 
-     * @param visible  the flag.
-     * 
-     * @see #isVisible() 
-     */
-    @Override
-    public void setVisible(boolean visible) {
-        this.visible = visible;
-        fireChangeEvent(false);
-    }
-    
-    /**
-     * Returns the axis range.  You can set the axis range manually or you can
-     * rely on the autoAdjustRange feature to set the axis range to match
-     * the data being plotted.
-     * 
-     * @return the axis range (never <code>null</code>).
-     */
-    @Override
-    public Range getRange() {
-        return this.range;
-    }
-  
-    /**
-     * Sets the axis range (bounds) and sends an {@link Axis3DChangeEvent} to 
-     * all registered listeners.
-     * 
-     * @param range  the new range (must have positive length and 
-     *     <code>null</code> is not permitted).
-     */
-    @Override
-    public void setRange(Range range) {
-        ArgChecks.nullNotPermitted(range, "range");
-        if (range.getLength() <= 0.0) {
-            throw new IllegalArgumentException(
-                    "Requires a range with length > 0");
-        }
-        this.range = range;
-        this.autoAdjustRange = false;
-        fireChangeEvent(true);
-    }
-    
-    /**
-     * Sets the axis range and sends an {@link Axis3DChangeEvent} to all 
-     * registered listeners.
-     * 
-     * @param min  the lower bound for the range (requires min &lt; max).
-     * @param max  the upper bound for the range (requires max &gt; min).
-     */
-    @Override
-    public void setRange(double min, double max) {
-        setRange(new Range(min, max));
-    }
-    
-    /**
-     * Returns the flag that controls whether or not the axis range is 
-     * automatically updated in response to dataset changes.  The default 
-     * value is <code>true</code>.
-     * 
-     * @return A boolean. 
-     */
-    public boolean isAutoAdjustRange() {
-        return this.autoAdjustRange;
-    }
-    
-    /**
-     * Sets the flag that controls whether or not the axis range is 
-     * automatically updated in response to dataset changes, and sends an
-     * {@link Axis3DChangeEvent} to all registered listeners.
-     * 
-     * @param autoAdjust  the new flag value. 
-     */
-    public void setAutoAdjustRange(boolean autoAdjust) {
-        this.autoAdjustRange = autoAdjust;
-        fireChangeEvent(true);
-    }
-    
-    /**
-     * Returns the size of the lower margin that is added by the auto-range
-     * calculation, as a percentage of the data range.  This margin is used to 
-     * prevent data items from being plotted right at the edges of the chart.  
-     * The default value is <code>0.05</code> (five percent).
-     * 
-     * @return The lower margin.
-     */
-    public double getLowerMargin() {
-        return this.lowerMargin;
-    }
-    
-    /**
-     * Sets the size of the lower margin that will be added by the auto-range
-     * calculation and sends an {@link Axis3DChangeEvent} to all registered
-     * listeners.
-     * 
-     * @param margin  the margin as a percentage of the data range 
-     *     (0.05 = five percent).
-     * 
-     * @see #setUpperMargin(double) 
-     */
-    public void setLowerMargin(double margin) {
-        this.lowerMargin = margin;
-        fireChangeEvent(true);
-    }
-    
-    /**
-     * Returns the size of the upper margin that is added by the auto-range
-     * calculation, as a percentage of the data range.  This margin is used to 
-     * prevent data items from being plotted right at the edges of the chart.  
-     * The default value is <code>0.05</code> (five percent).
-     * 
-     * @return The upper margin.
-     */
-    public double getUpperMargin() {
-        return this.upperMargin;
-    }
-    
-    /**
-     * Sets the size of the upper margin that will be added by the auto-range
-     * calculation and sends an {@link Axis3DChangeEvent} to all registered
-     * listeners.
-     * 
-     * @param margin  the margin as a percentage of the data range 
-     *     (0.05 = five percent).
-     * 
-     * @see #setLowerMargin(double) 
-     */
-    public void setUpperMargin(double margin) {
-        this.upperMargin = margin;
-        fireChangeEvent(true);
-    }
-    
+      
     /**
      * Returns the flag that determines whether or not the auto range 
      * mechanism should force zero to be included in the range.  The default
@@ -354,34 +164,6 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
      */
     public void setAutoRangeStickyZero(boolean sticky) {
         this.autoRangeStickyZero = sticky;
-        fireChangeEvent(true);
-    }
-    
-    /**
-     * Returns the default range used when the <code>autoAdjustRange</code>
-     * flag is <code>true</code> but the dataset contains no values.  The
-     * default range is <code>(0.0 to 1.0)</code>, depending on the context
-     * you may want to change this.
-     * 
-     * @return The default range (never <code>null</code>).
-     * 
-     * @see #setDefaultAutoRange(com.orsoncharts.Range) 
-     */
-    public Range getDefaultAutoRange() {
-        return this.defaultAutoRange;
-    }
-    
-    /**
-     * Sets the default range used  when the <code>autoAdjustRange</code>
-     * flag is <code>true</code> but the dataset contains no values, and sends
-     * an {@link Axis3DChangeEvent} to all registered listeners.
-     * 
-     * @param range  the range (<code>null</code> not permitted).
-     *
-     * @see #getDefaultAutoRange() 
-     */
-    public void setDefaultAutoRange(Range range) {
-        this.defaultAutoRange = range;
         fireChangeEvent(true);
     }
   
@@ -563,64 +345,18 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
     }
 
     /**
-     * Returns the marker with the specified key, if there is one.
-     * 
-     * @param key  the key (<code>null</code> not permitted).
-     * 
-     * @return The marker (possibly <code>null</code>). 
-     * 
-     * @since 1.2
-     */
-    @Override
-    public ValueMarker getMarker(String key) {
-        return this.valueMarkers.get(key);
-    }
-
-    /**
-     * Sets the marker for the specified key and sends a change event to 
-     * all registered listeners.  If there is an existing marker it is replaced
-     * (the axis will no longer listen for change events on the previous 
-     * marker).
-     * 
-     * @param key  the key that identifies the marker (<code>null</code> not 
-     *         permitted).
-     * @param marker  the marker (<code>null</code> permitted).
-     * 
-     * @since 1.2
-     */
-    public void setMarker(String key, ValueMarker marker) {
-        ValueMarker existing = this.valueMarkers.get(key);
-        if (existing != null) {
-            existing.removeChangeListener(this);
-        }
-        this.valueMarkers.put(key, marker);
-        marker.addChangeListener(this);
-        fireChangeEvent(false);
-    } 
-
-    /**
-     * Returns a new map containing the markers assigned to this axis.
-     * 
-     * @return A map. 
-     * 
-     * @since 1.2
-     */
-    public Map<String, ValueMarker> getMarkers() {
-        return new LinkedHashMap(this.valueMarkers);    
-    }
-    
-    /**
      * Adjusts the range by adding the lower and upper margins and taking into
-     * account any other settings.
+     * account also the 'autoRangeStickyZero' flag.
      * 
      * @param range  the range (<code>null</code> not permitted).
      * 
      * @return The adjusted range. 
      */
-    private Range adjustedDataRange(Range range) {
+    @Override
+    protected Range adjustedDataRange(Range range) {
         ArgChecks.nullNotPermitted(range, "range");
-        double lm = range.getLength() * this.lowerMargin;
-        double um = range.getLength() * this.upperMargin;
+        double lm = range.getLength() * getLowerMargin();
+        double um = range.getLength() * getUpperMargin();
         double lowerBound = range.getMin() - lm;
         double upperBound = range.getMax() + um;
         // does zero fall in the margins?
@@ -633,83 +369,6 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
             }
         }
         return new Range(lowerBound, upperBound);
-    }
-    
-    /**
-     * Configures the axis to be used as the value axis for the specified
-     * plot.  This method is used internally, you should not need to call it
-     * directly.
-     * 
-     * @param plot  the plot (<code>null</code> not permitted). 
-     */
-    @Override
-    public void configureAsValueAxis(CategoryPlot3D plot) {
-        if (this.autoAdjustRange) {
-            Range valueRange = plot.getRenderer().findValueRange(
-                    plot.getDataset());
-            if (valueRange != null) {
-                this.range = adjustedDataRange(valueRange);
-            } else {
-                this.range = this.defaultAutoRange;
-            }
-        }
-    }
-    
-    /**
-     * Configures the axis to be used as the x-axis for the specified plot.  
-     * This method is used internally, you should not need to call it
-     * directly.
-     * 
-     * @param plot  the plot (<code>null</code> not permitted). 
-     */
-    @Override
-    public void configureAsXAxis(XYZPlot plot) {
-        if (this.autoAdjustRange) {
-            Range xRange = plot.getRenderer().findXRange(plot.getDataset());
-            if (xRange != null) {
-                this.range = adjustedDataRange(xRange);
-            } else {
-                this.range = this.defaultAutoRange;
-            }
-        }
-    }
-
-    /**
-     * Configures the axis to be used as the y-axis for the specified plot.  
-     * This method is used internally, you should not need to call it
-     * directly.
-     * 
-     * @param plot  the plot (<code>null</code> not permitted). 
-     */
-    @Override
-    public void configureAsYAxis(XYZPlot plot) {
-        if (this.autoAdjustRange) {
-            Range yRange = plot.getRenderer().findYRange(plot.getDataset());
-            if (yRange != null) {
-                this.range = adjustedDataRange(yRange);
-            } else {
-                this.range = this.defaultAutoRange;
-            }
-        }
-    }
-
-    /**
-     * Configures the axis to be used as the z-axis for the specified plot.  
-     * This method is used internally, you should not need to call it
-     * directly.
-     * 
-     * @param plot  the plot (<code>null</code> not permitted). 
-     */
-    @Override
-    public void configureAsZAxis(XYZPlot plot) {
-        if (this.autoAdjustRange) {
-            Range zRange = plot.getRenderer().findZRange(plot.getDataset());
-            if (zRange != null) {
-                this.range = adjustedDataRange(zRange);
-            } else {
-                this.range = this.defaultAutoRange;
-            }
-        }
     }
     
     /**
@@ -783,26 +442,11 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
 
         // draw the axis label (if any)...
         if (getLabel() != null) {
-            g2.setFont(getLabelFont());
-            g2.setPaint(getLabelColor());
-            Line2D labelPosLine = Utils2D.createPerpendicularLine(axisLine, 0.5, 
-                    this.tickMarkLength + this.tickLabelOffset 
-                    + maxTickLabelWidth + 10.0, 
-                    opposingPt);
-            double theta = Utils2D.calculateTheta(axisLine);
-            if (theta < -Math.PI / 2.0) {
-                theta = theta + Math.PI;
-            }
-            if (theta > Math.PI / 2.0) {
-                theta = theta - Math.PI;
-            }
-            TextUtils.drawRotatedString(getLabel(), g2, 
-                    (float) labelPosLine.getX2(), 
-                    (float) labelPosLine.getY2(), TextAnchor.CENTER, theta, 
-                    TextAnchor.CENTER);
+            drawAxisLabel(g2, axisLine, opposingPt, maxTickLabelWidth 
+                    + this.tickMarkLength + this.tickLabelOffset + 10);
         }
     }
-
+    
     /**
      * Converts a data value to world coordinates, taking into account the
      * current axis range (assumes the world axis is zero-based and has the
@@ -815,7 +459,7 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
      */
     @Override
     public double translateToWorld(double value, double length) {
-        return length * (value - this.range.getMin()) / this.range.getLength();
+        return length * (value - getRange().getMin()) / getRange().getLength();
     }
   
     /**
@@ -845,14 +489,15 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
         // will be
         int maxTicks = (int) (length / (height * this.tickLabelFactor));
         if (maxTicks > 2 && this.tickSelector != null) {
-            this.tickSelector.select(this.range.getLength() / 2.0);
+            double rangeLength = getRange().getLength();
+            this.tickSelector.select(rangeLength / 2.0);
             // step through until we have too many ticks OR we run out of 
             // tick sizes
-            int tickCount = (int) (this.range.getLength() 
+            int tickCount = (int) (rangeLength 
                     / this.tickSelector.getCurrentTickSize());
             while (tickCount < maxTicks) {
                 this.tickSelector.previous();
-                tickCount = (int) (this.range.getLength() 
+                tickCount = (int) (rangeLength
                         / this.tickSelector.getCurrentTickSize());
             }
             this.tickSelector.next();
@@ -889,71 +534,6 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
     }
 
     /**
-     * Generates and returns a list of marker data items for the axis.
-     * 
-     * @return A list of marker data items (never <code>null</code>). 
-     */
-    @Override
-    public List<MarkerData> generateMarkerData() {
-        List<MarkerData> result = new ArrayList<MarkerData>();
-        for (Entry<String, ValueMarker> entry : this.valueMarkers.entrySet()) {
-            ValueMarker vm = entry.getValue();
-            if (this.range.intersects(vm.getRange())) {
-                MarkerData markerData;
-                if (vm instanceof NumberMarker) {
-                    NumberMarker nm = (NumberMarker) vm;
-                    markerData = new MarkerData(entry.getKey(), 
-                            this.range.percent(nm.getValue()));
-                    markerData.setLabelAnchor(nm.getLabel() != null 
-                            ? nm.getLabelAnchor() : null);
-                } else if (vm instanceof RangeMarker) {
-                    RangeMarker rm = (RangeMarker) vm;
-                    double startValue = rm.getStart().getValue();
-                    boolean startPegged = false;
-                    if (!this.range.contains(startValue)) {
-                        startValue = this.range.peggedValue(startValue);
-                        startPegged = true;
-                    } 
-                    double startPos = this.range.percent(startValue);
-                    double endValue = rm.getEnd().getValue();
-                    boolean endPegged = false;
-                    if (!this.range.contains(endValue)) {
-                        endValue = this.range.peggedValue(endValue);
-                        endPegged = true;
-                    }
-                    double endPos = this.range.percent(endValue);
-                    markerData = new MarkerData(entry.getKey(), startPos, 
-                            startPegged, endPos, endPegged);
-                    markerData.setLabelAnchor(rm.getLabel() != null 
-                            ? rm.getLabelAnchor() : null);
-                } else {
-                    throw new RuntimeException("Unrecognised marker.");
-                }
-                result.add(markerData);
-            }
-        }
-        return result;
-    }
-
-    /**
-     * Receives a {@link ChartElementVisitor}.  This method is part of a general
-     * mechanism for traversing the chart structure and performing operations
-     * on each element in the chart.  You will not normally call this method
-     * directly.
-     * 
-     * @param visitor  the visitor (<code>null</code> not permitted).
-     * 
-     * @since 1.2
-     */
-    @Override
-    public void receive(ChartElementVisitor visitor) {
-        for (ValueMarker marker : this.valueMarkers.values()) {
-            marker.receive(visitor);
-        }
-        visitor.visit(this);
-    }
-
-    /**
      * Tests this instance for equality with an arbitrary object.
      * 
      * @param obj  the object to test against (<code>null</code> permitted).
@@ -969,28 +549,10 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
             return false;
         }
         NumberAxis3D that = (NumberAxis3D) obj;
-        if (this.visible != that.visible) {
-            return false;
-        }
-        if (!this.range.equals(that.range)) {
-            return false;
-        }
-        if (this.autoAdjustRange != that.autoAdjustRange) {
-            return false;
-        }
-        if (this.lowerMargin != that.lowerMargin) {
-            return false;
-        }
-        if (this.upperMargin != that.upperMargin) {
-            return false;
-        }
         if (this.autoRangeIncludesZero != that.autoRangeIncludesZero) {
             return false;
         }
         if (this.autoRangeStickyZero != that.autoRangeStickyZero) {
-            return false;
-        }
-        if (!this.defaultAutoRange.equals(that.defaultAutoRange)) {
             return false;
         }
         if (this.tickSize != that.tickSize) {
@@ -1017,7 +579,6 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
         if (!this.tickMarkStroke.equals(that.tickMarkStroke)) {
             return false;
         }
-        
         return super.equals(obj);
     }
 
@@ -1029,7 +590,6 @@ public class NumberAxis3D extends AbstractAxis3D implements ValueAxis3D,
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 59 * hash + ObjectUtils.hashCode(this.range);
         hash = 59 * hash + (int) (Double.doubleToLongBits(this.tickSize) 
                 ^ (Double.doubleToLongBits(this.tickSize) >>> 32));
         hash = 59 * hash + ObjectUtils.hashCode(this.tickLabelFormatter);
