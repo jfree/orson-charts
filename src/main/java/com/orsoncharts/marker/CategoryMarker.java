@@ -18,6 +18,7 @@ import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.awt.geom.Line2D;
 import java.awt.geom.Path2D;
+import java.awt.geom.Point2D;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -73,6 +74,9 @@ public class CategoryMarker extends AbstractMarker implements Serializable {
         ArgChecks.nullNotPermitted(category, "category");
         this.category = category;
         this.type = CategoryMarkerType.BAND;
+        this.font = Marker.DEFAULT_MARKER_FONT;
+        this.labelColor = Marker.DEFAULT_LABEL_COLOR;
+        this.labelAnchor = Anchor2D.CENTER;
         this.lineStroke = DEFAULT_LINE_STROKE;
         this.lineColor = DEFAULT_LINE_COLOR;
         this.fillColor = DEFAULT_FILL_COLOR;
@@ -287,6 +291,13 @@ public class CategoryMarker extends AbstractMarker implements Serializable {
             g2.setStroke(this.lineStroke);
             Line2D l = new Line2D.Double(ml.getStartPoint(), ml.getEndPoint());
             g2.draw(l);
+            Point2D labelPoint = markerData.getLabelPoint(); 
+            if (labelPoint != null) {
+                g2.setFont(this.font);
+                g2.setColor(this.labelColor);
+                drawMarkerLabel(g2, this.label, labelPoint.getX(), 
+                        labelPoint.getY(), this.labelAnchor, l, reverse);
+            }
         } else if (markerData.getType().equals(MarkerDataType.RANGE)) {
             MarkerLine sl = markerData.getStartLine();
             Line2D l1 = new Line2D.Double(sl.getStartPoint(), sl.getEndPoint());

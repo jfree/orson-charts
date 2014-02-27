@@ -12,12 +12,19 @@
 
 package com.orsoncharts.marker;
 
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
+import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
 import javax.swing.event.EventListenerList;
 import com.orsoncharts.Chart3DChangeListener;
 import com.orsoncharts.ChartElementVisitor;
+import com.orsoncharts.graphics3d.Utils2D;
+import com.orsoncharts.util.Anchor2D;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.RefPt2D;
 import com.orsoncharts.util.TextAnchor;
+import com.orsoncharts.util.TextUtils;
 
 /**
  * A base class for implementing markers (includes the event notification 
@@ -37,6 +44,33 @@ public abstract class AbstractMarker implements Marker {
         this.listenerList = new EventListenerList();
     }
 
+    protected void drawMarkerLabel(Graphics2D g2, String label, 
+            double x, double y, Anchor2D anchor, Line2D refLine, 
+            boolean reverse) {
+        double angle = Utils2D.calculateTheta(refLine);
+        boolean vflip = false;
+        if (angle > Math.PI / 2) {
+            angle -= Math.PI;
+            vflip = true;
+        }
+        if (angle < -Math.PI / 2) {
+            angle += Math.PI;
+            vflip = true;
+        }
+        if (reverse) {
+            vflip = !vflip;
+        }
+        double lineLength = Utils2D.length(refLine);
+        FontMetrics fm = g2.getFontMetrics();
+        Rectangle2D bounds = fm.getStringBounds(label, g2);
+        if (bounds.getWidth() < lineLength) {
+            TextAnchor textAnchor = deriveTextAnchorForLine(anchor.getRefPt(), 
+                    !vflip);
+            TextUtils.drawRotatedString(label, g2, 
+                    (float) x, (float) y, textAnchor, angle, textAnchor);
+        }
+    }
+    
     /**
      * Receives a visitor.
      * 

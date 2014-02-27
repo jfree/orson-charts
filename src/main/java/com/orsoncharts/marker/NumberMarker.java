@@ -18,19 +18,15 @@ import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import com.orsoncharts.Range;
-import com.orsoncharts.graphics3d.Utils2D;
 import com.orsoncharts.util.Anchor2D;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.ObjectUtils;
 import com.orsoncharts.util.SerialUtils;
-import com.orsoncharts.util.TextAnchor;
-import com.orsoncharts.util.TextUtils;
 
 /**
  * A marker used to mark one value on an axis.
@@ -255,32 +251,12 @@ public class NumberMarker extends AbstractMarker implements ValueMarker,
         g2.setStroke(this.stroke);
         Line2D l = new Line2D.Double(line.getStartPoint(), line.getEndPoint());
         g2.draw(l);
-        double angle = Utils2D.calculateTheta(l);
-        boolean vflip = false;
-        if (angle > Math.PI / 2) {
-            angle -= Math.PI;
-            vflip = true;
-        }
-        if (angle < -Math.PI / 2) {
-            angle += Math.PI;
-            vflip = true;
-        }
-        if (reverse) {
-            vflip = !vflip;
-        }
         Point2D labelPoint = markerData.getLabelPoint(); 
         if (labelPoint != null) {
-            double lineLength = Utils2D.length(l);
-            Rectangle2D bounds = g2.getFontMetrics().getStringBounds(this.label, g2);
-            if (bounds.getWidth() < lineLength) {
-                g2.setFont(this.font);
-                g2.setPaint(this.labelColor);
-                TextAnchor textAnchor = deriveTextAnchorForLine(
-                        this.labelAnchor.getRefPt(), !vflip);
-                TextUtils.drawRotatedString(this.label, g2, 
-                        (float) labelPoint.getX(), (float) labelPoint.getY(), 
-                        textAnchor, angle, textAnchor);
-            }
+            g2.setFont(this.font);
+            g2.setColor(this.labelColor);
+            drawMarkerLabel(g2, this.label, labelPoint.getX(), 
+                    labelPoint.getY(), this.labelAnchor, l, reverse);
         }
     }
 
