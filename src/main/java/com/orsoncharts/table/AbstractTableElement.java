@@ -18,6 +18,7 @@ import java.awt.Insets;
 import java.awt.Paint;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Rectangle2D;
+import java.io.Serializable;
 import java.util.Map;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.ObjectUtils;
@@ -26,7 +27,7 @@ import com.orsoncharts.util.RefPt2D;
 /**
  * A base class that can be used to implement a {@link TableElement}.
  */
-public abstract class AbstractTableElement {
+public abstract class AbstractTableElement implements Serializable {
     
     /** The default background paint. */
     private static final Color DEFAULT_BACKGROUND_PAINT 
