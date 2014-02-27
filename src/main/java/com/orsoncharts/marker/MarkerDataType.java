@@ -13,7 +13,7 @@
 package com.orsoncharts.marker;
 
 /**
- * An enumeration of the different types of {@ link MarkerData}.
+ * An enumeration of the different types of {@link MarkerData}.
  * 
  * @since 1.2
  */
