@@ -12,6 +12,13 @@
 
 package com.orsoncharts.axis;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Paint;
+import java.awt.Stroke;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -26,6 +33,8 @@ import com.orsoncharts.marker.ValueMarker;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.util.ObjectUtils;
+import com.orsoncharts.util.SerialUtils;
 
 /**
  * A base class for implementing numerical axes.
@@ -55,6 +64,18 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
      */
     private Range defaultAutoRange;
 
+    /** The tick label offset (number of Java2D units). */
+    private double tickLabelOffset;
+    
+    /** The length of tick marks (in Java2D units).  Can be set to 0.0. */
+    private double tickMarkLength;
+    
+    /** The tick mark stroke (never <code>null</code>). */
+    private transient Stroke tickMarkStroke;
+    
+    /** The tick mark paint (never <code>null</code>). */
+    private transient Paint tickMarkPaint;
+    
     /** Storage for value markers for the axis (empty by default). */
     private Map<String, ValueMarker> valueMarkers;
     
@@ -65,6 +86,10 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
         this.lowerMargin = 0.05;
         this.upperMargin = 0.05;
         this.defaultAutoRange = new Range(0.0, 1.0);
+        this.tickLabelOffset = 5.0;
+        this.tickMarkLength = 3.0;
+        this.tickMarkStroke = new BasicStroke(0.5f);
+        this.tickMarkPaint = Color.GRAY;
         this.valueMarkers = new LinkedHashMap<String, ValueMarker>();
     }
 
@@ -95,8 +120,18 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
                     "Requires a range with length > 0");
         }
         this.range = range;
-        setAutoAdjustRange(false);
-        //fireChangeEvent(true); 
+        this.autoAdjustRange = false;
+        fireChangeEvent(true);
+    }
+    
+    /**
+     * Updates the axis range (used by the auto-range calculation) without
+     * notifying listeners.
+     * 
+     * @param range  the new range. 
+     */
+    protected void updateRange(Range range) {
+        this.range = range;        
     }
     
     /**
@@ -219,6 +254,92 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
     }
 
     /**
+     * Returns the tick label offset, the gap between the tick marks and the
+     * tick labels (in Java2D units).  The default value is <code>5.0</code>.
+     * 
+     * @return The tick label offset.
+     */
+    public double getTickLabelOffset() {
+        return this.tickLabelOffset;
+    }
+    
+    /**
+     * Sets the tick label offset and sends an {@link Axis3DChangeEvent} to
+     * all registered listeners.
+     * 
+     * @param offset  the offset.
+     */
+    public void setTickLabelOffset(double offset) {
+        this.tickLabelOffset = offset;
+    }
+    
+    /**
+     * Returns the length of the tick marks (in Java2D units).  The default
+     * value is <code>3.0</code>.
+     * 
+     * @return The length of the tick marks. 
+     */
+    public double getTickMarkLength() {
+        return this.tickMarkLength;
+    }
+    
+    /**
+     * Sets the length of the tick marks and sends an {@link Axis3DChangeEvent}
+     * to all registered listeners.  You can set this to <code>0.0</code> if
+     * you prefer no tick marks to be displayed on the axis.
+     * 
+     * @param length  the length (in Java2D units). 
+     */
+    public void setTickMarkLength(double length) {
+        this.tickMarkLength = length;
+        fireChangeEvent(false);
+    }
+
+    /**
+     * Returns the stroke used to draw the tick marks.  The default value is
+     * <code>BasicStroke(0.5f)</code>.
+     * 
+     * @return The tick mark stroke (never <code>null</code>).
+     */
+    public Stroke getTickMarkStroke() {
+        return this.tickMarkStroke;
+    }
+    
+    /**
+     * Sets the stroke used to draw the tick marks and sends an 
+     * {@link Axis3DChangeEvent} to all registered listeners.
+     * 
+     * @param stroke  the stroke (<code>null</code> not permitted). 
+     */
+    public void setTickMarkStroke(Stroke stroke) {
+        ArgChecks.nullNotPermitted(stroke, "stroke");
+        this.tickMarkStroke = stroke;
+        fireChangeEvent(false);
+    }
+    
+    /**
+     * Returns the paint used to draw the tick marks.  The default value is
+     * <code>Color.GRAY</code>.
+     * 
+     * @return The tick mark paint (never <code>null</code>). 
+     */
+    public Paint getTickMarkPaint() {
+        return this.tickMarkPaint;
+    }
+    
+    /**
+     * Sets the paint used to draw the tick marks and sends an 
+     * {@link Axis3DChangeEvent} to all registered listeners.
+     * 
+     * @param paint  the paint (<code>null</code> not permitted). 
+     */
+    public void setTickMarkPaint(Paint paint) {
+        ArgChecks.nullNotPermitted(paint, "paint");
+        this.tickMarkPaint = paint;
+        fireChangeEvent(false);
+    }
+
+    /**
      * Configures the axis to be used as the value axis for the specified
      * plot.  This method is used internally, you should not need to call it
      * directly.
@@ -231,9 +352,9 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
             Range valueRange = plot.getRenderer().findValueRange(
                     plot.getDataset());
             if (valueRange != null) {
-                this.range = adjustedDataRange(valueRange);
+                updateRange(adjustedDataRange(valueRange));
             } else {
-                this.range = this.defaultAutoRange;
+                updateRange(this.defaultAutoRange);
             }
         }
     }
@@ -250,9 +371,9 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
         if (this.autoAdjustRange) {
             Range xRange = plot.getRenderer().findXRange(plot.getDataset());
             if (xRange != null) {
-                this.range = adjustedDataRange(xRange);
+                updateRange(adjustedDataRange(xRange));
             } else {
-                this.range = this.defaultAutoRange;
+                updateRange(this.defaultAutoRange);
             }
         }
     }
@@ -269,9 +390,9 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
         if (this.autoAdjustRange) {
             Range yRange = plot.getRenderer().findYRange(plot.getDataset());
             if (yRange != null) {
-                this.range = adjustedDataRange(yRange);
+                updateRange(adjustedDataRange(yRange));
             } else {
-                this.range = this.defaultAutoRange;
+                updateRange(this.defaultAutoRange);
             }
         }
     }
@@ -288,9 +409,9 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
         if (this.autoAdjustRange) {
             Range zRange = plot.getRenderer().findZRange(plot.getDataset());
             if (zRange != null) {
-                this.range = adjustedDataRange(zRange);
+                updateRange(adjustedDataRange(zRange));
             } else {
-                this.range = this.defaultAutoRange;
+                updateRange(this.defaultAutoRange);
             }
         }
     }
@@ -303,14 +424,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
      * 
      * @return The adjusted range. 
      */
-    protected Range adjustedDataRange(Range range) {
-        ArgChecks.nullNotPermitted(range, "range");
-        double lm = range.getLength() * this.lowerMargin;
-        double um = range.getLength() * this.upperMargin;
-        double lowerBound = range.getMin() - lm;
-        double upperBound = range.getMax() + um;
-        return new Range(lowerBound, upperBound);
-    }
+    protected abstract Range adjustedDataRange(Range range);
     
     /**
      * Returns the marker with the specified key, if there is one.
@@ -449,7 +563,47 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
         if (!this.defaultAutoRange.equals(that.defaultAutoRange)) {
             return false;
         }
+        if (this.tickLabelOffset != that.tickLabelOffset) {
+            return false;
+        }
+        if (this.tickMarkLength != that.tickMarkLength) {
+            return false;
+        }
+        if (!ObjectUtils.equalsPaint(this.tickMarkPaint, that.tickMarkPaint)) {
+            return false;
+        }
+        if (!this.tickMarkStroke.equals(that.tickMarkStroke)) {
+            return false;
+        }
         return super.equals(obj);
+    }
+
+    /**
+     * Provides serialization support.
+     *
+     * @param stream  the output stream.
+     *
+     * @throws IOException  if there is an I/O error.
+     */
+    private void writeObject(ObjectOutputStream stream) throws IOException {
+        stream.defaultWriteObject();
+        SerialUtils.writePaint(this.tickMarkPaint, stream);
+        SerialUtils.writeStroke(this.tickMarkStroke, stream);
+    }
+
+    /**
+     * Provides serialization support.
+     *
+     * @param stream  the input stream.
+     *
+     * @throws IOException  if there is an I/O error.
+     * @throws ClassNotFoundException  if there is a classpath problem.
+     */
+    private void readObject(ObjectInputStream stream)
+        throws IOException, ClassNotFoundException {
+        stream.defaultReadObject();
+        this.tickMarkPaint = SerialUtils.readPaint(stream);
+        this.tickMarkStroke = SerialUtils.readStroke(stream);
     }
  
 }

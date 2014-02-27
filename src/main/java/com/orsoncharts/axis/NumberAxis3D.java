@@ -12,19 +12,12 @@
 
 package com.orsoncharts.axis;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Paint;
-import java.awt.Stroke;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.text.DecimalFormat;
 import java.text.Format;
 import java.io.Serializable;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import com.orsoncharts.util.TextUtils;
@@ -35,7 +28,6 @@ import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.util.ObjectUtils;
-import com.orsoncharts.util.SerialUtils;
 
 /**
  * A numerical axis for use with 3D plots (implements {@link ValueAxis3D}).
@@ -77,18 +69,6 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
     /** The tick label factor (defaults to 1.4). */
     private double tickLabelFactor;    
 
-    /** The tick label offset (number of Java2D units). */
-    private double tickLabelOffset;
-    
-    /** The length of tick marks (in Java2D units).  Can be set to 0.0. */
-    private double tickMarkLength;
-    
-    /** The tick mark stroke (never <code>null</code>). */
-    private transient Stroke tickMarkStroke;
-    
-    /** The tick mark paint (never <code>null</code>). */
-    private transient Paint tickMarkPaint;
-    
     /**
      * Creates a new axis with the specified label and default attributes.
      * 
@@ -112,10 +92,6 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
         this.tickLabelFactor = 1.4;
         this.tickSize = range.getLength() / 10.0;
         this.tickLabelFormatter = new DecimalFormat("0.00");
-        this.tickLabelOffset = 5.0;
-        this.tickMarkLength = 3.0;
-        this.tickMarkStroke = new BasicStroke(0.5f);
-        this.tickMarkPaint = Color.GRAY;
     }
       
     /**
@@ -259,92 +235,6 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
     }
     
     /**
-     * Returns the tick label offset, the gap between the tick marks and the
-     * tick labels (in Java2D units).  The default value is <code>5.0</code>.
-     * 
-     * @return The tick label offset.
-     */
-    public double getTickLabelOffset() {
-        return this.tickLabelOffset;
-    }
-    
-    /**
-     * Sets the tick label offset and sends an {@link Axis3DChangeEvent} to
-     * all registered listeners.
-     * 
-     * @param offset  the offset.
-     */
-    public void setTickLabelOffset(double offset) {
-        this.tickLabelOffset = offset;
-    }
-    
-    /**
-     * Returns the length of the tick marks (in Java2D units).  The default
-     * value is <code>3.0</code>.
-     * 
-     * @return The length of the tick marks. 
-     */
-    public double getTickMarkLength() {
-        return this.tickMarkLength;
-    }
-    
-    /**
-     * Sets the length of the tick marks and sends an {@link Axis3DChangeEvent}
-     * to all registered listeners.  You can set this to <code>0.0</code> if
-     * you prefer no tick marks to be displayed on the axis.
-     * 
-     * @param length  the length (in Java2D units). 
-     */
-    public void setTickMarkLength(double length) {
-        this.tickMarkLength = length;
-        fireChangeEvent(false);
-    }
-
-    /**
-     * Returns the stroke used to draw the tick marks.  The default value is
-     * <code>BasicStroke(0.5f)</code>.
-     * 
-     * @return The tick mark stroke (never <code>null</code>).
-     */
-    public Stroke getTickMarkStroke() {
-        return this.tickMarkStroke;
-    }
-    
-    /**
-     * Sets the stroke used to draw the tick marks and sends an 
-     * {@link Axis3DChangeEvent} to all registered listeners.
-     * 
-     * @param stroke  the stroke (<code>null</code> not permitted). 
-     */
-    public void setTickMarkStroke(Stroke stroke) {
-        ArgChecks.nullNotPermitted(stroke, "stroke");
-        this.tickMarkStroke = stroke;
-        fireChangeEvent(false);
-    }
-    
-    /**
-     * Returns the paint used to draw the tick marks.  The default value is
-     * <code>Color.GRAY</code>.
-     * 
-     * @return The tick mark paint (never <code>null</code>). 
-     */
-    public Paint getTickMarkPaint() {
-        return this.tickMarkPaint;
-    }
-    
-    /**
-     * Sets the paint used to draw the tick marks and sends an 
-     * {@link Axis3DChangeEvent} to all registered listeners.
-     * 
-     * @param paint  the paint (<code>null</code> not permitted). 
-     */
-    public void setTickMarkPaint(Paint paint) {
-        ArgChecks.nullNotPermitted(paint, "paint");
-        this.tickMarkPaint = paint;
-        fireChangeEvent(false);
-    }
-
-    /**
      * Adjusts the range by adding the lower and upper margins and taking into
      * account also the 'autoRangeStickyZero' flag.
      * 
@@ -399,17 +289,18 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
         
         // draw the tick marks and labels
         double maxTickLabelWidth = 0.0;
+        double tickMarkLength = getTickMarkLength();
+        double tickLabelOffset = getTickLabelOffset();
         for (TickData t : tickData) {
             Line2D perpLine = Utils2D.createPerpendicularLine(axisLine, 
-                    t.getAnchorPt(), this.tickMarkLength 
-                    + this.tickLabelOffset, opposingPt);
+                    t.getAnchorPt(), tickMarkLength + tickLabelOffset, 
+                    opposingPt);
             
-            if (this.tickMarkLength > 0.0) {
+            if (tickMarkLength > 0.0) {
                 Line2D tickLine = Utils2D.createPerpendicularLine(axisLine, 
-                       t.getAnchorPt(), this.tickMarkLength, 
-                       opposingPt);
-                g2.setPaint(this.tickMarkPaint);
-                g2.setStroke(this.tickMarkStroke);
+                       t.getAnchorPt(), tickMarkLength, opposingPt);
+                g2.setPaint(getTickMarkPaint());
+                g2.setStroke(getTickMarkStroke());
                 g2.draw(tickLine);
             }
             
@@ -443,7 +334,7 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
         // draw the axis label (if any)...
         if (getLabel() != null) {
             drawAxisLabel(g2, axisLine, opposingPt, maxTickLabelWidth 
-                    + this.tickMarkLength + this.tickLabelOffset + 10);
+                    + tickMarkLength + tickLabelOffset + 10);
         }
     }
     
@@ -567,18 +458,6 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
         if (this.tickLabelFactor != that.tickLabelFactor) {
             return false;
         }
-        if (this.tickLabelOffset != that.tickLabelOffset) {
-            return false;
-        }
-        if (this.tickMarkLength != that.tickMarkLength) {
-            return false;
-        }
-        if (!ObjectUtils.equalsPaint(this.tickMarkPaint, that.tickMarkPaint)) {
-            return false;
-        }
-        if (!this.tickMarkStroke.equals(that.tickMarkStroke)) {
-            return false;
-        }
         return super.equals(obj);
     }
 
@@ -594,34 +473,6 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
                 ^ (Double.doubleToLongBits(this.tickSize) >>> 32));
         hash = 59 * hash + ObjectUtils.hashCode(this.tickLabelFormatter);
         return hash;
-    }
-
-    /**
-     * Provides serialization support.
-     *
-     * @param stream  the output stream.
-     *
-     * @throws IOException  if there is an I/O error.
-     */
-    private void writeObject(ObjectOutputStream stream) throws IOException {
-        stream.defaultWriteObject();
-        SerialUtils.writePaint(this.tickMarkPaint, stream);
-        SerialUtils.writeStroke(this.tickMarkStroke, stream);
-    }
-
-    /**
-     * Provides serialization support.
-     *
-     * @param stream  the input stream.
-     *
-     * @throws IOException  if there is an I/O error.
-     * @throws ClassNotFoundException  if there is a classpath problem.
-     */
-    private void readObject(ObjectInputStream stream)
-        throws IOException, ClassNotFoundException {
-        stream.defaultReadObject();
-        this.tickMarkPaint = SerialUtils.readPaint(stream);
-        this.tickMarkStroke = SerialUtils.readStroke(stream);
     }
     
 }

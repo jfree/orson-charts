@@ -86,7 +86,13 @@ public interface ValueAxis3D extends Axis3D {
             Point2D opposingPt);
     
     /**
-     * Generates a list of tick data for the specified tick unit.
+     * Generates a list of tick data items for the specified tick unit.  This
+     * data will be passed to the 3D engine and will be updated with a 2D
+     * projection that can later be used to write the axis tick labels in the
+     * appropriate places.
+     * 
+     * If <code>tickUnit</code> is <code>Double.NaN</code>, then tick data is
+     * generated for just the bounds of the axis.
      * 
      * @param tickUnit  the tick unit.
      * 

@@ -289,6 +289,7 @@ public class CategoryPlot3D extends AbstractPlot3D
         ArgChecks.nullNotPermitted(axis, "axis");
         this.valueAxis.removeChangeListener(this);
         this.valueAxis = axis;
+        this.valueAxis.configureAsValueAxis(this);
         this.valueAxis.addChangeListener(this);
         fireChangeEvent(true);
     }
