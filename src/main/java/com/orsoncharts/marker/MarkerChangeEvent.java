@@ -41,7 +41,7 @@ public class MarkerChangeEvent extends EventObject {
      * Creates a new event.
      * 
      * @param source  the event source.
-     * @param axis  the axis (<code>null</code> not permitted).
+     * @param marker  the marker (<code>null</code> not permitted).
      */
     public MarkerChangeEvent(Object source, Marker marker) {
         super(source);
