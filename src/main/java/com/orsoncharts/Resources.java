@@ -12,9 +12,9 @@
 
 package com.orsoncharts;
 
-import com.orsoncharts.util.ArgChecks;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import com.orsoncharts.util.ArgChecks;
 
 /**
  * Provides centralised access to localised resources.
