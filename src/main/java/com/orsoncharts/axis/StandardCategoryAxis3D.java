@@ -691,12 +691,14 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
 
     /**
      * Generates and returns a list of marker data items for the axis.
-     * @return 
+     * 
+     * @return A list of marker data items (never <code>null</code>). 
      */
     @Override
     public List<MarkerData> generateMarkerData() {
         List<MarkerData> result = new ArrayList<MarkerData>();
-        for (Map.Entry<String, CategoryMarker> entry : this.markers.entrySet()) {
+        for (Map.Entry<String, CategoryMarker> entry 
+                : this.markers.entrySet()) {
             CategoryMarker cm = entry.getValue();
             MarkerData markerData;
             if (cm.getType().equals(CategoryMarkerType.LINE)) {
