@@ -27,7 +27,7 @@ import com.orsoncharts.ChartElement;
 public interface Marker extends ChartElement {
 
     /** The default line stroke for markers. */
-    public static final Stroke DEFAULT_LINE_STROKE = new BasicStroke(2.0f, 
+    public static final Stroke DEFAULT_LINE_STROKE = new BasicStroke(0f, 
             BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
 
     /** The default line color for markers. */

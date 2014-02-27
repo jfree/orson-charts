@@ -312,6 +312,20 @@ public class CategoryMarker extends AbstractMarker implements Serializable {
             path.closePath();
             g2.setPaint(this.fillColor);
             g2.fill(path);
+            
+            g2.setColor(this.lineColor);
+            g2.setStroke(this.lineStroke);
+            g2.draw(l1);
+            g2.draw(l2);
+            
+            Point2D labelPoint = markerData.getLabelPoint(); 
+            if (labelPoint != null) {
+                g2.setFont(this.font);
+                g2.setColor(this.labelColor);
+                drawMarkerLabel(g2, this.label, labelPoint.getX(), 
+                        labelPoint.getY(), markerData.getLabelAnchor(), l1, l2,
+                        reverse);
+            }
         }
     }
 

@@ -18,15 +18,11 @@ import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 import com.orsoncharts.Range;
-import com.orsoncharts.graphics3d.Utils2D;
 import com.orsoncharts.util.Anchor2D;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.ObjectUtils;
-import com.orsoncharts.util.TextAnchor;
-import com.orsoncharts.util.TextUtils;
 
 /**
  * A marker that marks a range of values on an axis.
@@ -243,45 +239,14 @@ public class RangeMarker extends AbstractMarker implements ValueMarker,
             g2.draw(l2);
         }
         
-        double angle;
-        if (this.labelAnchor.getRefPt().isTop()) {
-            angle = Utils2D.calculateTheta(l2);
-        } else if (this.labelAnchor.getRefPt().isBottom()) {
-            angle = Utils2D.calculateTheta(l1);
-        } else {
-            angle = (Utils2D.calculateTheta(l1) + Utils2D.calculateTheta(l2)) 
-                    / 2.0;
-        }
-        boolean vflip = false;
-        if (angle > Math.PI / 2) {
-            //angle -= Math.PI;
-            //vflip = true;
-        }
-        if (angle < -Math.PI / 2) {
-            //angle += Math.PI;
-            //vflip = true;
-        }
-        if (reverse) {
-            vflip = !vflip;
-        }
         Point2D labelPoint = markerData.getLabelPoint(); 
         if (labelPoint != null) {
             g2.setFont(this.font);
             g2.setColor(this.labelColor);
-            
-            double lineLength1 = Utils2D.length(l1);
-            double lineLength2 = Utils2D.length(l2);
-            Rectangle2D bounds = g2.getFontMetrics().getStringBounds(
-                    this.label, g2);
-            if (bounds.getWidth() < Math.min(lineLength1, lineLength2)) {
-                TextAnchor textAnchor = deriveTextAnchor(
-                       this.labelAnchor.getRefPt(), !vflip);
-                TextUtils.drawRotatedString(this.label, g2, 
-                    (float) labelPoint.getX(), (float) labelPoint.getY(), 
-                    textAnchor, angle, textAnchor);
-            }
+            drawMarkerLabel(g2, this.label, labelPoint.getX(), 
+                    labelPoint.getY(), markerData.getLabelAnchor(), l1, l2,
+                    reverse);
         }
-
     }
 
     /**

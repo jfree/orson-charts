@@ -71,6 +71,40 @@ public abstract class AbstractMarker implements Marker {
         }
     }
     
+    protected void drawMarkerLabel(Graphics2D g2, String label, 
+            double x, double y, Anchor2D anchor, Line2D refLine1, 
+            Line2D refLine2, boolean reverse) {
+        double angle;
+        if (anchor.getRefPt().isTop()) {
+            angle = Utils2D.calculateTheta(refLine2);
+        } else if (anchor.getRefPt().isBottom()) {
+            angle = Utils2D.calculateTheta(refLine1);
+        } else {
+            angle = (Utils2D.calculateTheta(refLine1) 
+                    + Utils2D.calculateTheta(refLine2)) / 2.0;
+        }
+        boolean vflip = false;
+        if (angle > Math.PI / 2) {
+            angle -= Math.PI;
+            vflip = true;
+        }
+        if (angle < -Math.PI / 2) {
+            angle += Math.PI;
+            vflip = true;
+        }
+        if (reverse) {
+            vflip = !vflip;
+        }
+        double lineLength1 = Utils2D.length(refLine1);
+        double lineLength2 = Utils2D.length(refLine2);
+        Rectangle2D bounds = g2.getFontMetrics().getStringBounds(label, g2);
+        if (bounds.getWidth() < Math.min(lineLength1, lineLength2)) {
+            TextAnchor textAnchor = deriveTextAnchor(anchor.getRefPt(), !vflip);
+            TextUtils.drawRotatedString(label, g2, (float) x, (float) y, 
+                textAnchor, angle, textAnchor);
+        }        
+    }
+ 
     /**
      * Receives a visitor.
      * 
