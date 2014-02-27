@@ -20,6 +20,7 @@ import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.renderer.ComposeType;
 import com.orsoncharts.renderer.Renderer3D;
+import com.orsoncharts.renderer.Renderer3DChangeEvent;
 
 /**
  * A renderer that can display data from an {@link XYZDataset} on an
