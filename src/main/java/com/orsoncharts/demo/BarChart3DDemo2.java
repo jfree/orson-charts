@@ -54,6 +54,7 @@ import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.legend.LegendAnchor;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.util.Orientation;
+import com.orsonpdf.PDFHints;
 
 /**
  * A demo of a 3D bar chart.
@@ -86,20 +87,27 @@ public class BarChart3DDemo2 extends JFrame {
                 "Average Maximum Temperature", 
                 "http://www.worldclimateguide.co.uk/climateguides/", dataset, 
                 null, null, "Temp °C");
-        chart.setLegendPosition(LegendAnchor.BOTTOM_RIGHT, Orientation.VERTICAL);
+        
+        // we use the following hint to render text as vector graphics
+        // rather than text when exporting to PDF...otherwise the degree
+        // symbol on the axis title does not display correctly.
+        chart.getRenderingHints().put(PDFHints.KEY_DRAW_STRING_TYPE, 
+                PDFHints.VALUE_DRAW_STRING_TYPE_VECTOR);
+        chart.setLegendPosition(LegendAnchor.BOTTOM_RIGHT, 
+                Orientation.VERTICAL);
         chart.getViewPoint().panLeftRight(-Math.PI / 60);
-       //chart.setChartBoxColor(new Color(100, 100, 150, 50));
         CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
-        StandardCategoryAxis3D xAxis = (StandardCategoryAxis3D) plot.getColumnAxis();
+        StandardCategoryAxis3D xAxis = (StandardCategoryAxis3D) 
+                plot.getColumnAxis();
         NumberAxis3D yAxis = (NumberAxis3D) plot.getValueAxis();
-        StandardCategoryAxis3D zAxis = (StandardCategoryAxis3D) plot.getRowAxis();
+        StandardCategoryAxis3D zAxis = (StandardCategoryAxis3D) 
+                plot.getRowAxis();
         plot.setGridlineStrokeForValues(new BasicStroke(0.0f));
         xAxis.setLineColor(new Color(0, 0, 0, 0));
         yAxis.setLineColor(new Color(0, 0, 0, 0));
         zAxis.setLineColor(new Color(0, 0, 0, 0));
         plot.getRenderer().setColors(Colors.createPastelColors());
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
-        //chart.setBackground(new StandardRectanglePainter(Color.BLACK));
         content.setChartPanel(chartPanel);
         content.add(new DisplayPanel3D(chartPanel));
         chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
