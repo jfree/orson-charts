@@ -742,6 +742,15 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
         if (!this.tickMarkStroke.equals(that.tickMarkStroke)) {
             return false;
         }
+        if (!this.tickLabelGenerator.equals(that.tickLabelGenerator)) {
+            return false;
+        }
+        if (this.tickLabelOffset != that.tickLabelOffset) {
+            return false;
+        }
+        if (!this.markers.equals(that.markers)) {
+            return false;
+        }
         return super.equals(obj);
     }
 
