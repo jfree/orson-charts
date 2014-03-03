@@ -289,7 +289,10 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
     
     /**
      * Sets the flag that controls whether or not the tick labels are drawn,
-     * and sends an {@link Axis3DChangeEvent} to all registered listeners.
+     * and sends a change event to all registered listeners.  You should think
+     * carefully before setting this flag to <code>false</code>, because if 
+     * the tick labels are not shown it will be hard for the reader to 
+     * understand the resulting chart.
      * 
      * @param visible  visible?
      */
