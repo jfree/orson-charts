@@ -23,6 +23,8 @@ import java.awt.GradientPaint;
 import org.junit.Test;
 
 import com.orsoncharts.TestUtils;
+import com.orsoncharts.label.StandardCategoryLabelGenerator;
+import com.orsoncharts.marker.CategoryMarker;
 
 /**
  * Tests for the {@link StandardCategoryAxis3D} class.
@@ -131,7 +133,24 @@ public class StandardCategoryAxis3DTest {
         axis1.setTickMarkStroke(new BasicStroke(1.23f));
         assertFalse(axis1.equals(axis2));
         axis2.setTickMarkStroke(new BasicStroke(1.23f));
-        assertTrue(axis1.equals(axis2));        
+        assertTrue(axis1.equals(axis2));
+        
+        axis1.setTickLabelGenerator(
+                new StandardCategoryLabelGenerator("{0} {1}"));
+        assertFalse(axis1.equals(axis2));
+        axis2.setTickLabelGenerator(
+                new StandardCategoryLabelGenerator("{0} {1}"));
+        assertTrue(axis1.equals(axis2));
+        
+        axis1.setTickLabelOffset(1.23);
+        assertFalse(axis1.equals(axis2));
+        axis2.setTickLabelOffset(1.23);
+        assertTrue(axis1.equals(axis2));
+        
+        axis1.setMarker("M1", new CategoryMarker("A"));
+        assertFalse(axis1.equals(axis2));
+        axis2.setMarker("M1", new CategoryMarker("A"));
+        assertTrue(axis1.equals(axis2));
     }
     
     /**
