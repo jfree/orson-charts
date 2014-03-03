@@ -291,20 +291,23 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
         double maxTickLabelWidth = 0.0;
         double tickMarkLength = getTickMarkLength();
         double tickLabelOffset = getTickLabelOffset();
+        g2.setPaint(getTickMarkPaint());
+        g2.setStroke(getTickMarkStroke());
         for (TickData t : tickData) {
-            Line2D perpLine = Utils2D.createPerpendicularLine(axisLine, 
-                    t.getAnchorPt(), tickMarkLength + tickLabelOffset, 
-                    opposingPt);
-            
             if (tickMarkLength > 0.0) {
                 Line2D tickLine = Utils2D.createPerpendicularLine(axisLine, 
                        t.getAnchorPt(), tickMarkLength, opposingPt);
-                g2.setPaint(getTickMarkPaint());
-                g2.setStroke(getTickMarkStroke());
                 g2.draw(tickLine);
             }
+            String tickLabel = this.tickLabelFormatter.format(t.getDataValue());
+            maxTickLabelWidth = Math.max(maxTickLabelWidth, 
+                    g2.getFontMetrics().stringWidth(tickLabel));
+        }
             
-            if (getTickLabelsVisible()) {
+        if (getTickLabelsVisible()) {
+            g2.setFont(getTickLabelFont());
+            g2.setPaint(getTickLabelColor());
+            for (TickData t : tickData) {
                 double theta = Utils2D.calculateTheta(axisLine);
                 double thetaAdj = theta + Math.PI / 2.0;
                 if (thetaAdj < -Math.PI / 2.0) {
@@ -314,17 +317,16 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
                     thetaAdj = thetaAdj - Math.PI;
                 }
 
+                Line2D perpLine = Utils2D.createPerpendicularLine(axisLine, 
+                        t.getAnchorPt(), tickMarkLength + tickLabelOffset, 
+                        opposingPt);
                 double perpTheta = Utils2D.calculateTheta(perpLine);  
                 TextAnchor textAnchor = TextAnchor.CENTER_LEFT;
                 if (Math.abs(perpTheta) > Math.PI / 2.0) {
                     textAnchor = TextAnchor.CENTER_RIGHT;
                 } 
-                g2.setFont(getTickLabelFont());
-                g2.setPaint(getTickLabelColor());
                 String tickLabel = this.tickLabelFormatter.format(
                         t.getDataValue());
-                maxTickLabelWidth = Math.max(maxTickLabelWidth, 
-                        g2.getFontMetrics().stringWidth(tickLabel));
                 TextUtils.drawRotatedString(tickLabel, g2, 
                         (float) perpLine.getX2(), (float) perpLine.getY2(), 
                         textAnchor, thetaAdj, textAnchor);
