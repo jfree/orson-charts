@@ -293,6 +293,7 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
         double tickLabelOffset = getTickLabelOffset();
         g2.setPaint(getTickMarkPaint());
         g2.setStroke(getTickMarkStroke());
+        g2.setFont(getTickLabelFont());
         for (TickData t : tickData) {
             if (tickMarkLength > 0.0) {
                 Line2D tickLine = Utils2D.createPerpendicularLine(axisLine, 
@@ -305,7 +306,6 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
         }
             
         if (getTickLabelsVisible()) {
-            g2.setFont(getTickLabelFont());
             g2.setPaint(getTickLabelColor());
             for (TickData t : tickData) {
                 double theta = Utils2D.calculateTheta(axisLine);
