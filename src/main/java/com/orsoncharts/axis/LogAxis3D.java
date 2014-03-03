@@ -393,20 +393,20 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
         double maxTickLabelWidth = 0.0;
         double tickMarkLength = getTickMarkLength();
         double tickLabelOffset = getTickLabelOffset();
+        g2.setPaint(getTickMarkPaint());
+        g2.setStroke(getTickMarkStroke());
+        g2.setFont(getTickLabelFont());
         for (TickData t : tickData) {
-            Line2D perpLine = Utils2D.createPerpendicularLine(axisLine, 
-                    t.getAnchorPt(), tickMarkLength + tickLabelOffset, 
-                    opposingPt);
-            
             if (tickMarkLength > 0.0) {
                 Line2D tickLine = Utils2D.createPerpendicularLine(axisLine, 
                        t.getAnchorPt(), tickMarkLength, opposingPt);
-                g2.setPaint(getTickMarkPaint());
-                g2.setStroke(getTickMarkStroke());
                 g2.draw(tickLine);
             }
-            
-            if (getTickLabelsVisible()) {
+        }
+        
+        if (getTickLabelsVisible()) {
+            g2.setPaint(getTickLabelColor());
+            for (TickData t : tickData) {
                 double theta = Utils2D.calculateTheta(axisLine);
                 double thetaAdj = theta + Math.PI / 2.0;
                 if (thetaAdj < -Math.PI / 2.0) {
@@ -415,28 +415,16 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
                 if (thetaAdj > Math.PI / 2.0) {
                     thetaAdj = thetaAdj - Math.PI;
                 }
-
+                Line2D perpLine = Utils2D.createPerpendicularLine(axisLine, 
+                        t.getAnchorPt(), tickMarkLength + tickLabelOffset, 
+                        opposingPt);
                 double perpTheta = Utils2D.calculateTheta(perpLine);  
                 TextAnchor textAnchor = TextAnchor.CENTER_LEFT;
                 if (Math.abs(perpTheta) > Math.PI / 2.0) {
                     textAnchor = TextAnchor.CENTER_RIGHT;
                 } 
-                g2.setFont(getTickLabelFont());
-                g2.setPaint(getTickLabelColor());
                 double logy = calculateLog(t.getDataValue());
-                
-                String baseStr = this.baseSymbol;
-                if (baseStr == null) {
-                    baseStr = this.baseFormatter.format(this.base);
-                }
-                String exponentStr = this.tickLabelFormatter.format(logy);
-                AttributedString as = new AttributedString(baseStr 
-                        + exponentStr);
-                as.addAttributes(getTickLabelFont().getAttributes(), 0, (baseStr 
-                        + exponentStr).length());
-                as.addAttribute(TextAttribute.SUPERSCRIPT, 
-                        TextAttribute.SUPERSCRIPT_SUPER, baseStr.length(), 
-                        baseStr.length() + exponentStr.length());
+                AttributedString as = createTickLabelAttributedString(logy);
                 Rectangle2D bounds = new Rectangle2D.Double();
                 TextUtils.drawRotatedString(as, g2, 
                         (float) perpLine.getX2(), (float) perpLine.getY2(), 
@@ -453,6 +441,21 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
         }
     }
 
+    private AttributedString createTickLabelAttributedString(double logy) {
+        String baseStr = this.baseSymbol;
+        if (baseStr == null) {
+            baseStr = this.baseFormatter.format(this.base);
+        }
+        String exponentStr = this.tickLabelFormatter.format(logy);
+        AttributedString as = new AttributedString(baseStr + exponentStr);
+        as.addAttributes(getTickLabelFont().getAttributes(), 0, (baseStr 
+                + exponentStr).length());
+        as.addAttribute(TextAttribute.SUPERSCRIPT, 
+                TextAttribute.SUPERSCRIPT_SUPER, baseStr.length(), 
+                baseStr.length() + exponentStr.length());
+        return as;   
+    }
+    
     /**
      * Adjusts the range by adding the lower and upper margins on the 
      * logarithmic range.
