@@ -105,6 +105,9 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      * tick marks and their associated labels.
      */
     private double tickLabelOffset;
+    
+    /** The orientation for the tick labels. */
+    private LabelOrientation tickLabelOrientation;
  
     private Map<String, CategoryMarker> markers;
     
@@ -133,6 +136,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
         this.tickMarkStroke = new BasicStroke(0.5f);
         this.tickLabelGenerator = new StandardCategoryLabelGenerator();
         this.tickLabelOffset = 5.0;
+        this.tickLabelOrientation = LabelOrientation.PERPENDICULAR;
         this.markers = new LinkedHashMap<String, CategoryMarker>();
     }
 
@@ -543,27 +547,37 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
             return;
         }
         
-        // draw the axis line
+        // draw the axis line (if you want no line, setting the line color
+        // to fully transparent will achieve this)
         g2.setStroke(getLineStroke());
         g2.setPaint(getLineColor());
         Line2D axisLine = new Line2D.Float(pt0, pt1);
         g2.draw(axisLine);
  
-        // draw the tick marks
+        // draw the tick marks - during this pass we will also find the maximum
+        // tick label width
         double maxTickLabelWidth = 0.0;
+        g2.setPaint(this.tickMarkPaint);
+        g2.setStroke(this.tickMarkStroke);
+        g2.setFont(getTickLabelFont());
         for (TickData t : tickData) {
-            Line2D perpLine = Utils2D.createPerpendicularLine(axisLine, 
-                    t.getAnchorPt(), this.tickMarkLength + this.tickLabelOffset,
-                    opposingPt);
             if (this.tickMarkLength > 0.0) {
                 Line2D tickLine = Utils2D.createPerpendicularLine(axisLine, 
                         t.getAnchorPt(), this.tickMarkLength, opposingPt);
-                g2.setPaint(this.tickMarkPaint);
-                g2.setStroke(this.tickMarkStroke);
                 g2.draw(tickLine);
             }
+            String tickLabel = t.getKeyLabel();
+            maxTickLabelWidth = Math.max(maxTickLabelWidth, 
+                    g2.getFontMetrics().stringWidth(tickLabel));
+        }
 
-            if (getTickLabelsVisible()) {
+        if (getTickLabelsVisible()) {
+            
+            g2.setPaint(getTickLabelColor());
+            for (TickData t : tickData) {
+                Line2D perpLine = Utils2D.createPerpendicularLine(axisLine, 
+                        t.getAnchorPt(), this.tickMarkLength 
+                        + this.tickLabelOffset, opposingPt);
                 double perpTheta = Utils2D.calculateTheta(perpLine);
                 TextAnchor textAnchor = TextAnchor.CENTER_LEFT;
                 if (perpTheta >= Math.PI / 2.0) {
@@ -573,16 +587,12 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
                     perpTheta = perpTheta + Math.PI;
                     textAnchor = TextAnchor.CENTER_RIGHT;   
                 }
-                g2.setFont(getTickLabelFont());
-                g2.setPaint(getTickLabelColor());
                 String tickLabel = t.getKeyLabel();
-                maxTickLabelWidth = Math.max(maxTickLabelWidth, 
-                        g2.getFontMetrics().stringWidth(tickLabel));
                 TextUtils.drawRotatedString(tickLabel, g2, 
                         (float) perpLine.getX2(), (float) perpLine.getY2(), 
                         textAnchor, perpTheta, textAnchor);
             }
-        }        
+        }
 
         // draw the axis label if there is one
         if (getLabel() != null) {
