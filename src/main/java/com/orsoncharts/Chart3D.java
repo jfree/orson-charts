@@ -170,8 +170,8 @@ public class Chart3D implements Drawable3D, ChartElement,
     private boolean notify;
 
     /**
-     * Rendering hints that will be used for chart drawing.  This should never
-     * be <code>null</code>.
+     * Rendering hints that will be used for chart drawing.  This can be
+     * empty but it should never be <code>null</code>.
      * 
      * @since 1.1
      */
@@ -600,8 +600,11 @@ public class Chart3D implements Drawable3D, ChartElement,
 
     /**
      * Sets the rendering hints for the chart.  These will be added (using the
-     * Graphics2D.addRenderingHints() method) near the start of the chart
-     * rendering.
+     * <code>Graphics2D.addRenderingHints()</code> method) near the start of 
+     * the chart rendering.  Note that calling this method will replace all
+     * existing hints assigned to the chart.  If you simply wish to add an
+     * additional hint, you can use 
+     * <code>getRenderingHints().put(key, value)</code>.
      *
      * @param hints  the rendering hints (<code>null</code> not permitted).
      *
