@@ -147,6 +147,21 @@ public class StandardCategoryAxis3DTest {
         axis2.setTickLabelOffset(1.23);
         assertTrue(axis1.equals(axis2));
         
+        axis1.setTickLabelOrientation(LabelOrientation.PARALLEL);
+        assertFalse(axis1.equals(axis2));
+        axis2.setTickLabelOrientation(LabelOrientation.PARALLEL);
+        assertTrue(axis1.equals(axis2));
+        
+        axis1.setTickLabelFactor(1.23);
+        assertFalse(axis1.equals(axis2));
+        axis2.setTickLabelFactor(1.23);
+        assertTrue(axis1.equals(axis2));
+        
+        axis1.setMaxTickLabelLevels(5);
+        assertFalse(axis1.equals(axis2));
+        axis2.setMaxTickLabelLevels(5);
+        assertTrue(axis1.equals(axis2));
+        
         axis1.setMarker("M1", new CategoryMarker("A"));
         assertFalse(axis1.equals(axis2));
         axis2.setMarker("M1", new CategoryMarker("A"));
