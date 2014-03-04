@@ -59,6 +59,13 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
      */
     public static final Color DEFAULT_LABEL_COLOR = Color.BLACK;
     
+    /**
+     * The default label offset.
+     * 
+     * @since 1.2
+     */
+    public static final double DEFAULT_LABEL_OFFSET = 10;
+
     /** 
      * The default tick label font (in most circumstances this will be
      * overridden by the chart style).
@@ -67,7 +74,7 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
      */
     public static final Font DEFAULT_TICK_LABEL_FONT = new Font("Dialog", 
             Font.PLAIN, 12);
-
+    
     /** 
      * The default tick label color (in most circumstances this will be
      * overridden by the chart style).
@@ -102,6 +109,9 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
     /** The color used to draw the axis label (never <code>null</code>). */
     private Color labelColor;
     
+    /** The offset between the tick labels and the label. */
+    private double labelOffset;
+    
     /** The stroke used to draw the axis line. */
     private transient Stroke lineStroke;
 
@@ -131,6 +141,7 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
         this.label = label;
         this.labelFont = DEFAULT_LABEL_FONT;
         this.labelColor = DEFAULT_LABEL_COLOR;
+        this.labelOffset = DEFAULT_LABEL_OFFSET;
         this.lineStroke = DEFAULT_LINE_STROKE;
         this.lineColor = DEFAULT_LINE_COLOR;
         this.tickLabelsVisible = true;
@@ -235,6 +246,30 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
         fireChangeEvent(false);
     }
     
+    /**
+     * Returns the offset between the tick labels and the axis label.
+     * 
+     * @return The offset.
+     * 
+     * @since 1.2
+     */
+    public double getLabelOffset() {
+        return this.labelOffset;
+    }
+    
+    /**
+     * Sets the offset between the tick labels and the axis label and sends
+     * a change event to all registered listeners.
+     * 
+     * @param offset  the offset.
+     * 
+     * @since 1.2
+     */
+    public void setLabelOffset(double offset) {
+        this.labelOffset = offset;
+        fireChangeEvent(false);
+    }
+
     /**
      * Returns the stroke used to draw the axis line.
      * 
