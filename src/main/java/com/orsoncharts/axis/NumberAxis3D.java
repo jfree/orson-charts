@@ -417,7 +417,8 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
         g2.setFont(getTickLabelFont()); 
         FontMetrics fm = g2.getFontMetrics(getTickLabelFont());        
         double length = pt0.distance(pt1);
-        if (getTickLabelOrientation().equals(LabelOrientation.PERPENDICULAR)) {
+        LabelOrientation orientation = getTickLabelOrientation();
+        if (orientation.equals(LabelOrientation.PERPENDICULAR)) {
             // based on the font height, we can determine roughly how many tick
             // labels will fit in the length available
             double height = fm.getHeight();
@@ -443,7 +444,7 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
             } else {
                 this.tickSize = Double.NaN;
             }
-        } else if (getTickLabelOrientation().equals(LabelOrientation.PARALLEL)) {
+        } else if (orientation.equals(LabelOrientation.PARALLEL)) {
             // choose a unit that is at least as large as the length of the axis
             this.tickSelector.select(getRange().getLength());
             boolean done = false;
@@ -457,7 +458,8 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
                     double w1 = fm.stringWidth(s1);
                     double w = Math.max(w0, w1);
                     int n = (int) (length / (w * this.getTickLabelFactor()));
-                    if (n < getRange().getLength() / tickSelector.getCurrentTickSize()) {
+                    if (n < getRange().getLength() 
+                            / tickSelector.getCurrentTickSize()) {
                         tickSelector.next();
                         done = true;
                     }
