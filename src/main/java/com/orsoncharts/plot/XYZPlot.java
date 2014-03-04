@@ -194,6 +194,9 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
      */
     public void setXAxis(ValueAxis3D xAxis) {
         ArgChecks.nullNotPermitted(xAxis, "xAxis");
+        this.xAxis.removeChangeListener(this);
+        xAxis.configureAsXAxis(this);
+        xAxis.addChangeListener(this);
         this.xAxis = xAxis;
         fireChangeEvent(true);
     }
@@ -215,6 +218,9 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
      */
     public void setYAxis(ValueAxis3D yAxis) {
         ArgChecks.nullNotPermitted(yAxis, "yAxis");
+        this.yAxis.removeChangeListener(this);
+        yAxis.configureAsYAxis(this);
+        yAxis.addChangeListener(this);
         this.yAxis = yAxis;
         fireChangeEvent(true);
     }
@@ -236,6 +242,9 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
      */
     public void setZAxis(ValueAxis3D zAxis) {
         ArgChecks.nullNotPermitted(zAxis, "zAxis");
+        this.zAxis.removeChangeListener(this);
+        zAxis.configureAsZAxis(this);
+        zAxis.addChangeListener(this);
         this.zAxis = zAxis;
         fireChangeEvent(true);
     }
