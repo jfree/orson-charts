@@ -17,6 +17,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Paint;
 import java.awt.Stroke;
+import java.awt.font.LineMetrics;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.io.IOException;
@@ -108,7 +109,21 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     
     /** The orientation for the tick labels. */
     private LabelOrientation tickLabelOrientation;
- 
+
+    /** 
+     * The maximum number of offset levels to use for tick labels on the axis. 
+     */
+    private int maxTickLabelLevels = 3;
+    
+    /**
+     * The tick label factor (used as a multiplier for the tick label width
+     * when checking for overlapping labels).  
+     */
+    private double tickLabelFactor = 1.2;
+    
+    /** 
+     * The markers for the axis (this may be empty, but not <code>null</code>). 
+     */
     private Map<String, CategoryMarker> markers;
     
     /**
@@ -137,6 +152,8 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
         this.tickLabelGenerator = new StandardCategoryLabelGenerator();
         this.tickLabelOffset = 5.0;
         this.tickLabelOrientation = LabelOrientation.PERPENDICULAR;
+        this.tickLabelFactor = 1.4;
+        this.maxTickLabelLevels = 3;
         this.markers = new LinkedHashMap<String, CategoryMarker>();
     }
 
@@ -391,7 +408,82 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
         this.tickLabelOffset = offset;
         fireChangeEvent(false);
     }
+    
+    /**
+     * Returns the orientation for the tick labels.  The default value is
+     * {@link LabelOrientation#PERPENDICULAR}.
+     * 
+     * @return The orientation for the tick labels (never <code>null</code>).
+     * 
+     * @since 1.2
+     */
+    public LabelOrientation getTickLabelOrientation() {
+        return this.tickLabelOrientation;
+    }
+    
+    /**
+     * Sets the orientation for the tick labels and sends a change event to
+     * all registered listeners.
+     * 
+     * @param orientation  the orientation (<code>null</code> not permitted).
+     * 
+     * @since 1.2
+     */
+    public void setTickLabelOrientation(LabelOrientation orientation) {
+        ArgChecks.nullNotPermitted(orientation, "orientation");
+        this.tickLabelOrientation = orientation;
+        fireChangeEvent(false);
+    }
+    
+    /**
+     * Returns the maximum number of offset levels for the category labels on 
+     * the axis.  The default value is 3.
+     * 
+     * @return The maximum number of offset levels.
+     * 
+     * @since 1.2
+     */
+    public int getMaxTickLabelLevels() {
+        return this.maxTickLabelLevels;
+    }
+    
+    /**
+     * Sets the maximum number of offset levels for the category labels on the
+     * axis and sends a change event to all registered listeners.
+     * 
+     * @param levels  the maximum number of levels.
+     * 
+     * @since 1.2
+     */
+    public void setMaxTickLabelLevels(int levels) {
+        this.maxTickLabelLevels = levels;
+        fireChangeEvent(false);
+    }
  
+    /**
+     * Returns the tick label factor.
+     * 
+     * @return The tick label factor.
+     * 
+     * @since 1.2
+     */
+    public double getTickLabelFactor() {
+        return this.tickLabelFactor;
+    }
+    
+    /**
+     * Sets the tick label factor and sends a change event to all registered 
+     * listeners.
+     * 
+     * @param factor  the new factor.
+     * 
+     * @since 1.2
+     */
+    public void setTickLabelFactor(double factor) {
+        this.tickLabelFactor = factor;
+        fireChangeEvent(false);
+    }
+    
     /**
      * Returns the marker with the specified key, if there is one.
      * 
@@ -531,13 +623,15 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      * <code>pt1</code> in Java2D space.
      * 
      * @param g2  the graphics target (<code>null</code> not permitted).
-     * @param pt0  the starting point for the axis.
-     * @param pt1  the ending point for the axis.
+     * @param pt0  the starting point for the axis (<code>null</code> not 
+     *     permitted).
+     * @param pt1  the ending point for the axis (<code>null</code> not 
+     *     permitted).
      * @param opposingPt  a point on the opposite side of the line from the 
-     *         labels.
+     *         labels (<code>null</code> not permitted).
      * @param labels  display labels?
-     * @param tickData  the tick data (contains positioning anchors calculated 
-     *     by the 3D engine).
+     * @param tickData  the tick data, contains positioning anchors calculated 
+     *     by the 3D engine (<code>null</code> not permitted).
      */
     @Override
     public void draw(Graphics2D g2, Point2D pt0, Point2D pt1, 
@@ -545,6 +639,9 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
         
         if (!isVisible()) {
             return;
+        }
+        if (pt0.equals(pt1)) { // if the axis starts and ends on the same point
+            return;            // there is nothing we can draw
         }
         
         // draw the axis line (if you want no line, setting the line color
@@ -556,10 +653,10 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
  
         // draw the tick marks - during this pass we will also find the maximum
         // tick label width
-        double maxTickLabelWidth = 0.0;
         g2.setPaint(this.tickMarkPaint);
         g2.setStroke(this.tickMarkStroke);
         g2.setFont(getTickLabelFont());
+        double maxTickLabelWidth = 0.0;
         for (TickData t : tickData) {
             if (this.tickMarkLength > 0.0) {
                 Line2D tickLine = Utils2D.createPerpendicularLine(axisLine, 
@@ -571,36 +668,105 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
                     g2.getFontMetrics().stringWidth(tickLabel));
         }
 
-        if (getTickLabelsVisible()) {
-            
+        double maxTickLabelDim = maxTickLabelWidth;
+        if (labels) {
             g2.setPaint(getTickLabelColor());
-            for (TickData t : tickData) {
-                Line2D perpLine = Utils2D.createPerpendicularLine(axisLine, 
-                        t.getAnchorPt(), this.tickMarkLength 
-                        + this.tickLabelOffset, opposingPt);
-                double perpTheta = Utils2D.calculateTheta(perpLine);
-                TextAnchor textAnchor = TextAnchor.CENTER_LEFT;
-                if (perpTheta >= Math.PI / 2.0) {
-                    perpTheta = perpTheta - Math.PI;
-                    textAnchor = TextAnchor.CENTER_RIGHT;
-                } else if (perpTheta <= -Math.PI / 2) {
-                    perpTheta = perpTheta + Math.PI;
-                    textAnchor = TextAnchor.CENTER_RIGHT;   
-                }
-                String tickLabel = t.getKeyLabel();
-                TextUtils.drawRotatedString(tickLabel, g2, 
-                        (float) perpLine.getX2(), (float) perpLine.getY2(), 
-                        textAnchor, perpTheta, textAnchor);
+            if (this.tickLabelOrientation.equals(LabelOrientation.PERPENDICULAR)) {
+                drawPerpendicularTickLabels(g2, axisLine, opposingPt, tickData);
+            } else if (this.tickLabelOrientation.equals(LabelOrientation.PARALLEL)) {
+                maxTickLabelDim = drawParallelTickLabels(g2, axisLine, opposingPt, tickData, 
+                        maxTickLabelWidth);
             }
         }
 
         // draw the axis label if there is one
         if (getLabel() != null) {
-            drawAxisLabel(g2, axisLine, opposingPt, maxTickLabelWidth 
-                    + this.tickMarkLength + this.tickLabelOffset + 10);
+            drawAxisLabel(g2, axisLine, opposingPt, maxTickLabelDim 
+                    + this.tickMarkLength + this.tickLabelOffset 
+                    + getLabelOffset());
         }
     }
-
+    
+    private double drawParallelTickLabels(Graphics2D g2, Line2D axisLine,
+            Point2D opposingPt, List<TickData> tickData, 
+            double maxTickLabelWidth) {
+        int levels = 1;
+        LineMetrics lm = g2.getFontMetrics().getLineMetrics("123", g2);
+        double height = lm.getHeight();
+        if (tickData.size() > 1) {
+        
+            // work out how many offset levels we need to display the 
+            // categories without overlapping
+            Point2D p0 = tickData.get(0).getAnchorPt();
+            Point2D pN = tickData.get(tickData.size() - 1).getAnchorPt();
+            double availableWidth = pN.distance(p0) 
+                    * tickData.size() / (tickData.size() - 1);
+            int labelsPerLevel = (int) Math.floor(availableWidth / 
+                    (maxTickLabelWidth * tickLabelFactor));
+            int levelsRequired = this.maxTickLabelLevels;
+            if (labelsPerLevel > 0) {
+                levelsRequired = this.categories.size() / labelsPerLevel + 1;
+            }
+            levels = Math.min(levelsRequired, this.maxTickLabelLevels);
+        }
+        
+        int index = 0;
+        for (TickData t : tickData) {
+            int level = index % levels;
+            double adj = height * (level + 0.5);
+            Line2D perpLine = Utils2D.createPerpendicularLine(axisLine, 
+                    t.getAnchorPt(), this.tickMarkLength 
+                    + this.tickLabelOffset + adj, opposingPt);
+            double perpTheta = Utils2D.calculateTheta(axisLine);
+            TextAnchor textAnchor = TextAnchor.CENTER;
+            if (perpTheta >= Math.PI / 2.0) {
+                perpTheta = perpTheta - Math.PI;
+                //textAnchor = TextAnchor.CENTER_RIGHT;
+            } else if (perpTheta <= -Math.PI / 2) {
+                perpTheta = perpTheta + Math.PI;
+                //textAnchor = TextAnchor.CENTER_RIGHT;   
+            }
+            String tickLabel = t.getKeyLabel();
+            TextUtils.drawRotatedString(tickLabel, g2, 
+                    (float) perpLine.getX2(), (float) perpLine.getY2(), 
+                    textAnchor, perpTheta, textAnchor);
+            index++;
+        }
+        return height * (levels + 0.5);
+    }
+    
+    /**
+     * Draws the category labels perpendicular to the axis.
+     * 
+     * @param g2  the graphics target.
+     * @param axisLine  the axis line.
+     * @param opposingPt  an opposing point (used to indicate which side the
+     *     labels will appear on).
+     * @param tickData  the tick data.
+     */
+    private void drawPerpendicularTickLabels(Graphics2D g2, Line2D axisLine,
+            Point2D opposingPt, List<TickData> tickData) {
+        
+        for (TickData t : tickData) {
+            Line2D perpLine = Utils2D.createPerpendicularLine(axisLine, 
+                    t.getAnchorPt(), this.tickMarkLength 
+                    + this.tickLabelOffset, opposingPt);
+            double perpTheta = Utils2D.calculateTheta(perpLine);
+            TextAnchor textAnchor = TextAnchor.CENTER_LEFT;
+            if (perpTheta >= Math.PI / 2.0) {
+                perpTheta = perpTheta - Math.PI;
+                textAnchor = TextAnchor.CENTER_RIGHT;
+            } else if (perpTheta <= -Math.PI / 2) {
+                perpTheta = perpTheta + Math.PI;
+                textAnchor = TextAnchor.CENTER_RIGHT;   
+            }
+            String tickLabel = t.getKeyLabel();
+            TextUtils.drawRotatedString(tickLabel, g2, 
+                    (float) perpLine.getX2(), (float) perpLine.getY2(), 
+                    textAnchor, perpTheta, textAnchor);
+        }
+    }
+    
     /**
      * Generates the tick data for the axis (assumes the axis is being used
      * as the row axis).  The dataset is passed as an argument to provide the 
@@ -746,6 +912,15 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
             return false;
         }
         if (this.tickLabelOffset != that.tickLabelOffset) {
+            return false;
+        }
+        if (!this.tickLabelOrientation.equals(that.tickLabelOrientation)) {
+            return false;
+        }
+        if (this.tickLabelFactor != that.tickLabelFactor) {
+            return false;
+        }
+        if (this.maxTickLabelLevels != that.maxTickLabelLevels) {
             return false;
         }
         if (!this.markers.equals(that.markers)) {
