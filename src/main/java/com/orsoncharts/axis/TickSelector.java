@@ -27,7 +27,7 @@ public interface TickSelector {
      * 
      * @return The standard tick unit.
      */
-    public double select(double reference);
+    double select(double reference);
     
     /**
      * Move the cursor to the next (larger) tick size, if there is one.  
@@ -37,7 +37,7 @@ public interface TickSelector {
      * 
      * @return A boolean.
      */
-    public boolean next();
+    boolean next();
     
     /**
      * Move the cursor to the previous (smaller) tick size, if there is one.  
@@ -47,14 +47,14 @@ public interface TickSelector {
      * 
      * @return A boolean.
      */
-    public boolean previous();
+    boolean previous();
     
     /**
      * Returns the tick size that the cursor is currently referencing.
      * 
      * @return The tick size. 
      */
-    public double getCurrentTickSize();
+    double getCurrentTickSize();
     
     /**
      * Returns the tick formatter associated with the tick size that the 
@@ -62,6 +62,6 @@ public interface TickSelector {
      * 
      * @return The formatter.
      */
-    public Format getCurrentTickLabelFormat();
+    Format getCurrentTickLabelFormat();
     
 }

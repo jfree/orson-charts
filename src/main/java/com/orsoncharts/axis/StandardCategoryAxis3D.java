@@ -151,7 +151,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
         this.tickMarkStroke = new BasicStroke(0.5f);
         this.tickLabelGenerator = new StandardCategoryLabelGenerator();
         this.tickLabelOffset = 5.0;
-        this.tickLabelOrientation = LabelOrientation.PERPENDICULAR;
+        this.tickLabelOrientation = LabelOrientation.PARALLEL;
         this.tickLabelFactor = 1.4;
         this.maxTickLabelLevels = 3;
         this.markers = new LinkedHashMap<String, CategoryMarker>();
@@ -411,7 +411,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     
     /**
      * Returns the orientation for the tick labels.  The default value is
-     * {@link LabelOrientation#PERPENDICULAR}.
+     * {@link LabelOrientation#PARALLEL}.
      * 
      * @return The orientation for the tick labels (never <code>null</code>).
      * 
@@ -629,13 +629,12 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      *     permitted).
      * @param opposingPt  a point on the opposite side of the line from the 
      *         labels (<code>null</code> not permitted).
-     * @param labels  display labels?
      * @param tickData  the tick data, contains positioning anchors calculated 
      *     by the 3D engine (<code>null</code> not permitted).
      */
     @Override
     public void draw(Graphics2D g2, Point2D pt0, Point2D pt1, 
-            Point2D opposingPt, boolean labels, List<TickData> tickData) {
+            Point2D opposingPt, List<TickData> tickData) {
         
         if (!isVisible()) {
             return;
@@ -669,14 +668,18 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
         }
 
         double maxTickLabelDim = maxTickLabelWidth;
-        if (labels) {
+        if (getTickLabelsVisible()) {
             g2.setPaint(getTickLabelColor());
-            if (this.tickLabelOrientation.equals(LabelOrientation.PERPENDICULAR)) {
+            if (this.tickLabelOrientation.equals(
+                    LabelOrientation.PERPENDICULAR)) {
                 drawPerpendicularTickLabels(g2, axisLine, opposingPt, tickData);
-            } else if (this.tickLabelOrientation.equals(LabelOrientation.PARALLEL)) {
-                maxTickLabelDim = drawParallelTickLabels(g2, axisLine, opposingPt, tickData, 
-                        maxTickLabelWidth);
+            } else if (this.tickLabelOrientation.equals(
+                    LabelOrientation.PARALLEL)) {
+                maxTickLabelDim = drawParallelTickLabels(g2, axisLine, 
+                        opposingPt, tickData, maxTickLabelWidth);
             }
+        } else {
+            maxTickLabelDim = 0.0;
         }
 
         // draw the axis label if there is one
@@ -717,19 +720,17 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
             Line2D perpLine = Utils2D.createPerpendicularLine(axisLine, 
                     t.getAnchorPt(), this.tickMarkLength 
                     + this.tickLabelOffset + adj, opposingPt);
-            double perpTheta = Utils2D.calculateTheta(axisLine);
+            double axisTheta = Utils2D.calculateTheta(axisLine);
             TextAnchor textAnchor = TextAnchor.CENTER;
-            if (perpTheta >= Math.PI / 2.0) {
-                perpTheta = perpTheta - Math.PI;
-                //textAnchor = TextAnchor.CENTER_RIGHT;
-            } else if (perpTheta <= -Math.PI / 2) {
-                perpTheta = perpTheta + Math.PI;
-                //textAnchor = TextAnchor.CENTER_RIGHT;   
+            if (axisTheta >= Math.PI / 2.0) {
+                axisTheta = axisTheta - Math.PI;
+            } else if (axisTheta <= -Math.PI / 2) {
+                axisTheta = axisTheta + Math.PI;  
             }
             String tickLabel = t.getKeyLabel();
             TextUtils.drawRotatedString(tickLabel, g2, 
                     (float) perpLine.getX2(), (float) perpLine.getY2(), 
-                    textAnchor, perpTheta, textAnchor);
+                    textAnchor, axisTheta, textAnchor);
             index++;
         }
         return height * (levels + 0.5);

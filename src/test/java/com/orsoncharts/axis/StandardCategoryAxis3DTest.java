@@ -147,9 +147,9 @@ public class StandardCategoryAxis3DTest {
         axis2.setTickLabelOffset(1.23);
         assertTrue(axis1.equals(axis2));
         
-        axis1.setTickLabelOrientation(LabelOrientation.PARALLEL);
+        axis1.setTickLabelOrientation(LabelOrientation.PERPENDICULAR);
         assertFalse(axis1.equals(axis2));
-        axis2.setTickLabelOrientation(LabelOrientation.PARALLEL);
+        axis2.setTickLabelOrientation(LabelOrientation.PERPENDICULAR);
         assertTrue(axis1.equals(axis2));
         
         axis1.setTickLabelFactor(1.23);

@@ -90,13 +90,13 @@ public interface ValueAxis3D extends Axis3D {
      * data will be passed to the 3D engine and will be updated with a 2D
      * projection that can later be used to write the axis tick labels in the
      * appropriate places.
-     * 
+     * <br><br>
      * If <code>tickUnit</code> is <code>Double.NaN</code>, then tick data is
      * generated for just the bounds of the axis.
      * 
      * @param tickUnit  the tick unit.
      * 
-     * @return A list of tick data. 
+     * @return A list of tick data (never <code>null</code>). 
      */
     List<TickData> generateTickData(double tickUnit);
     

@@ -13,6 +13,7 @@
 package com.orsoncharts;
 
 import com.orsoncharts.axis.CategoryAxis3D;
+import com.orsoncharts.axis.LabelOrientation;
 import com.orsoncharts.axis.StandardCategoryAxis3D;
 import com.orsoncharts.axis.NumberAxis3D;
 import com.orsoncharts.axis.ValueAxis3D;
@@ -136,10 +137,13 @@ public class Chart3DFactory {
     public static Chart3D createBarChart(String title, String subtitle,
             CategoryDataset3D dataset, String rowAxisLabel, 
             String columnAxisLabel, String valueAxisLabel) {
-        CategoryAxis3D rowAxis = new StandardCategoryAxis3D(rowAxisLabel);
+        StandardCategoryAxis3D rowAxis 
+                = new StandardCategoryAxis3D(rowAxisLabel);
+        rowAxis.setTickLabelOrientation(LabelOrientation.PERPENDICULAR);
         CategoryAxis3D columnAxis = new StandardCategoryAxis3D(columnAxisLabel);
-        ValueAxis3D valueAxis = new NumberAxis3D(valueAxisLabel, 
+        NumberAxis3D valueAxis = new NumberAxis3D(valueAxisLabel, 
                 new Range(0.0, 1.0));
+        valueAxis.setTickLabelOrientation(LabelOrientation.PERPENDICULAR);
         CategoryRenderer3D renderer = new BarRenderer3D();
         CategoryPlot3D plot = new CategoryPlot3D(dataset, renderer, 
                 rowAxis, columnAxis, valueAxis);
@@ -174,10 +178,13 @@ public class Chart3DFactory {
     public static Chart3D createStackedBarChart(String title, String subtitle,
             CategoryDataset3D dataset, String rowAxisLabel, 
             String columnAxisLabel, String valueAxisLabel) {
-        CategoryAxis3D rowAxis = new StandardCategoryAxis3D(rowAxisLabel);
+        StandardCategoryAxis3D rowAxis 
+                = new StandardCategoryAxis3D(rowAxisLabel);
+        rowAxis.setTickLabelOrientation(LabelOrientation.PERPENDICULAR);
         CategoryAxis3D columnAxis = new StandardCategoryAxis3D(columnAxisLabel);
-        ValueAxis3D valueAxis = new NumberAxis3D(valueAxisLabel, 
+        NumberAxis3D valueAxis = new NumberAxis3D(valueAxisLabel, 
                 new Range(0.0, 1.0));
+        valueAxis.setTickLabelOrientation(LabelOrientation.PERPENDICULAR);
         CategoryRenderer3D renderer = new StackedBarRenderer3D();
         CategoryPlot3D plot = new CategoryPlot3D(dataset, renderer, rowAxis, 
                 columnAxis, valueAxis);
@@ -212,13 +219,16 @@ public class Chart3DFactory {
     public static Chart3D createAreaChart(String title, String subtitle,
             CategoryDataset3D dataset, String rowAxisLabel, 
             String columnAxisLabel, String valueAxisLabel) {     
-        CategoryAxis3D rowAxis = new StandardCategoryAxis3D(rowAxisLabel);
+        StandardCategoryAxis3D rowAxis 
+                = new StandardCategoryAxis3D(rowAxisLabel);
+        rowAxis.setTickLabelOrientation(LabelOrientation.PERPENDICULAR);
         StandardCategoryAxis3D columnAxis = new StandardCategoryAxis3D(
                 columnAxisLabel);
         columnAxis.setFirstCategoryHalfWidth(true);
         columnAxis.setLastCategoryHalfWidth(true);
-        ValueAxis3D valueAxis = new NumberAxis3D(valueAxisLabel, 
+        NumberAxis3D valueAxis = new NumberAxis3D(valueAxisLabel, 
                 new Range(0.0, 1.0));
+        valueAxis.setTickLabelOrientation(LabelOrientation.PERPENDICULAR);
         CategoryRenderer3D renderer = new AreaRenderer3D();
         CategoryPlot3D plot = new CategoryPlot3D(dataset, renderer, rowAxis, 
                 columnAxis, valueAxis);
@@ -253,13 +263,16 @@ public class Chart3DFactory {
     public static Chart3D createLineChart(String title, String subtitle,
             CategoryDataset3D dataset, String rowAxisLabel, 
             String columnAxisLabel, String valueAxisLabel) {
-        CategoryAxis3D rowAxis = new StandardCategoryAxis3D(rowAxisLabel);
+        StandardCategoryAxis3D rowAxis 
+                = new StandardCategoryAxis3D(rowAxisLabel);
+        rowAxis.setTickLabelOrientation(LabelOrientation.PERPENDICULAR);
         StandardCategoryAxis3D columnAxis 
                 = new StandardCategoryAxis3D(columnAxisLabel);
         columnAxis.setFirstCategoryHalfWidth(true);
         columnAxis.setLastCategoryHalfWidth(true);
-        ValueAxis3D valueAxis = new NumberAxis3D(valueAxisLabel, 
+        NumberAxis3D valueAxis = new NumberAxis3D(valueAxisLabel, 
                 new Range(0.0, 1.0));
+        valueAxis.setTickLabelOrientation(LabelOrientation.PERPENDICULAR);
         CategoryRenderer3D renderer = new LineRenderer3D();
         CategoryPlot3D plot = new CategoryPlot3D(dataset, renderer, rowAxis, 
                 columnAxis, valueAxis);
@@ -293,9 +306,10 @@ public class Chart3DFactory {
     public static Chart3D createScatterChart(String title, String subtitle, 
             XYZDataset dataset, String xAxisLabel, String yAxisLabel, 
             String zAxisLabel) {
-        ValueAxis3D xAxis = new NumberAxis3D(xAxisLabel);
-        ValueAxis3D yAxis = new NumberAxis3D(yAxisLabel);
-        ValueAxis3D zAxis = new NumberAxis3D(zAxisLabel);
+        NumberAxis3D xAxis = new NumberAxis3D(xAxisLabel);
+        NumberAxis3D yAxis = new NumberAxis3D(yAxisLabel);
+        yAxis.setTickLabelOrientation(LabelOrientation.PERPENDICULAR);
+        NumberAxis3D zAxis = new NumberAxis3D(zAxisLabel);
         XYZRenderer renderer = new ScatterXYZRenderer();
         XYZPlot plot = new XYZPlot(dataset, renderer, xAxis, yAxis, zAxis);
         return new Chart3D(title, subtitle, plot);
@@ -325,9 +339,10 @@ public class Chart3DFactory {
     public static Chart3D createSurfaceChart(String title, String subtitle, 
             Function3D function, String xAxisLabel, String yAxisLabel, 
             String zAxisLabel) {
-        ValueAxis3D xAxis = new NumberAxis3D(xAxisLabel);
-        ValueAxis3D yAxis = new NumberAxis3D(yAxisLabel);
-        ValueAxis3D zAxis = new NumberAxis3D(zAxisLabel);
+        NumberAxis3D xAxis = new NumberAxis3D(xAxisLabel);
+        NumberAxis3D yAxis = new NumberAxis3D(yAxisLabel);
+        yAxis.setTickLabelOrientation(LabelOrientation.PERPENDICULAR);
+        NumberAxis3D zAxis = new NumberAxis3D(zAxisLabel);
         XYZRenderer renderer = new SurfaceRenderer(function);
         // we pass an empty dataset because the plot must have a non-null
         // dataset, but the renderer never looks at it...
@@ -368,7 +383,8 @@ public class Chart3DFactory {
             XYZDataset dataset, String xAxisLabel, String yAxisLabel, 
             String zAxisLabel) {
         ValueAxis3D xAxis = new NumberAxis3D(xAxisLabel);
-        ValueAxis3D yAxis = new NumberAxis3D(yAxisLabel);
+        NumberAxis3D yAxis = new NumberAxis3D(yAxisLabel);
+        yAxis.setTickLabelOrientation(LabelOrientation.PERPENDICULAR);
         ValueAxis3D zAxis = new NumberAxis3D(zAxisLabel);
         XYZRenderer renderer = new BarXYZRenderer();
         XYZPlot plot = new XYZPlot(dataset, renderer, xAxis, yAxis, zAxis);

@@ -76,6 +76,12 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
     /** The tick mark paint (never <code>null</code>). */
     private transient Paint tickMarkPaint;
     
+    /** The orientation for the tick labels. */
+    private LabelOrientation tickLabelOrientation;
+
+    /** The tick label factor (defaults to 1.4). */
+    private double tickLabelFactor;    
+
     /** Storage for value markers for the axis (empty by default). */
     private Map<String, ValueMarker> valueMarkers;
     
@@ -87,6 +93,8 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
         this.upperMargin = 0.05;
         this.defaultAutoRange = new Range(0.0, 1.0);
         this.tickLabelOffset = 5.0;
+        this.tickLabelOrientation = LabelOrientation.PARALLEL;
+        this.tickLabelFactor = 1.4;
         this.tickMarkLength = 3.0;
         this.tickMarkStroke = new BasicStroke(0.5f);
         this.tickMarkPaint = Color.GRAY;
@@ -253,6 +261,57 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
         fireChangeEvent(true);
     }
 
+    /**
+     * Returns the orientation for the tick labels.  The default value is
+     * {@link LabelOrientation#PARALLEL}. 
+     * 
+     * @return The orientation for the tick labels (never <code>null</code>).
+     * 
+     * @since 1.2
+     */
+    public LabelOrientation getTickLabelOrientation() {
+        return this.tickLabelOrientation;
+    }
+    
+    /**
+     * Sets the orientation for the tick labels and sends a change event to
+     * all registered listeners.  In general, <code>PARALLEL</code> is the
+     * best setting for X and Z axes, and <code>PERPENDICULAR</code> is the
+     * best setting for Y axes.
+     * 
+     * @param orientation  the orientation (<code>null</code> not permitted).
+     * 
+     * @since 1.2
+     */
+    public void setTickLabelOrientation(LabelOrientation orientation) {
+        ArgChecks.nullNotPermitted(orientation, "orientation");
+        this.tickLabelOrientation = orientation;
+        fireChangeEvent(false);
+    }
+    
+    /**
+     * Returns the tick label factor, a multiplier for the label height to
+     * determine the maximum number of tick labels that can be displayed.  
+     * The default value is <code>1.4</code>.
+     * 
+     * @return The tick label factor. 
+     */
+    public double getTickLabelFactor() {
+        return this.tickLabelFactor;
+    }
+    
+    /**
+     * Sets the tick label factor and sends an {@link Axis3DChangeEvent}
+     * to all registered listeners.  This should be at least 1.0, higher values
+     * will result in larger gaps between the tick marks.
+     * 
+     * @param factor  the factor. 
+     */
+    public void setTickLabelFactor(double factor) {
+        this.tickLabelFactor = factor;
+        fireChangeEvent(false);
+    }
+    
     /**
      * Returns the tick label offset, the gap between the tick marks and the
      * tick labels (in Java2D units).  The default value is <code>5.0</code>.
@@ -540,6 +599,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
         visitor.visit(this);
     }
     
+    @Override
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;
@@ -564,6 +624,12 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
             return false;
         }
         if (this.tickLabelOffset != that.tickLabelOffset) {
+            return false;
+        }
+        if (this.tickLabelFactor != that.tickLabelFactor) {
+            return false;
+        }
+        if (!this.tickLabelOrientation.equals(that.tickLabelOrientation)) {
             return false;
         }
         if (this.tickMarkLength != that.tickMarkLength) {

@@ -84,9 +84,6 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
 
     /** The tick formatter (never <code>null</code>). */
     private Format tickLabelFormatter = new DecimalFormat("0.0");
-
-    /** The tick label factor (defaults to 1.4). */
-    private double tickLabelFactor = 1.4;
     
     /**
      * Creates a new log axis with a default base of 10.0.
@@ -255,29 +252,6 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
     }
     
     /**
-     * Returns the tick label factor, a multiplier for the label height to
-     * determine the maximum number of tick labels that can be displayed.  
-     * The default value is <code>1.4</code>.
-     * 
-     * @return The tick label factor. 
-     */
-    public double getTickLabelFactor() {
-        return this.tickLabelFactor;
-    }
-    
-    /**
-     * Sets the tick label factor and sends a change event to all registered 
-     * listeners.  This should be at least 1.0, higher values will result in 
-     * larger gaps between the tick marks.
-     * 
-     * @param factor  the factor. 
-     */
-    public void setTickLabelFactor(double factor) {
-        this.tickLabelFactor = factor;
-        fireChangeEvent(false);
-    }
-    
-    /**
      * Sets the range for the axis.  This method is overridden to check that 
      * the range does not contain negative values, and to update the log values
      * for the range.
@@ -370,14 +344,12 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
      * @param endPt  the ending point.
      * @param opposingPt  an opposing point (labels will be on the other side 
      *     of the line).
-     * @param labels  a flag indicating whether or not the axis should be 
-     *     labelled.
      * @param tickData  the tick data (including anchor points calculated by
      *     the 3D engine).
      */
     @Override
     public void draw(Graphics2D g2, Point2D startPt, Point2D endPt, 
-            Point2D opposingPt, boolean labels, List<TickData> tickData) {
+            Point2D opposingPt, List<TickData> tickData) {
         
         if (!isVisible()) {
             return;
@@ -502,7 +474,7 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
         int height = g2.getFontMetrics(getTickLabelFont()).getHeight();
         // the tickLabelFactor allows some control over how dense the labels
         // will be
-        int maxTicks = (int) (length / (height * this.tickLabelFactor));
+        int maxTicks = (int) (length / (height * getTickLabelFactor()));
         if (maxTicks > 2 && this.tickSelector != null) {
             double rangeLength = this.logRange.getLength();
             this.tickSelector.select(rangeLength / 2.0);
@@ -565,8 +537,6 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
         hash = 59 * hash + (int) (Double.doubleToLongBits(this.tickSize) 
                 ^ (Double.doubleToLongBits(this.tickSize) >>> 32));
         hash = 59 * hash + ObjectUtils.hashCode(this.tickLabelFormatter);
-        hash = 59 * hash + (int) (Double.doubleToLongBits(this.tickLabelFactor) 
-                ^ (Double.doubleToLongBits(this.tickLabelFactor) >>> 32));
         return hash;
     }
 
@@ -602,10 +572,6 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
         }
         if (!ObjectUtils.equals(this.tickLabelFormatter, 
                 other.tickLabelFormatter)) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.tickLabelFactor) 
-                != Double.doubleToLongBits(other.tickLabelFactor)) {
             return false;
         }
         return super.equals(obj);

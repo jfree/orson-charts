@@ -12,6 +12,8 @@
 
 package com.orsoncharts.axis;
 
+import java.awt.FontMetrics;
+import java.awt.font.LineMetrics;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
@@ -66,9 +68,6 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
     /** The tick formatter (never <code>null</code>). */
     private Format tickLabelFormatter;
 
-    /** The tick label factor (defaults to 1.4). */
-    private double tickLabelFactor;    
-
     /**
      * Creates a new axis with the specified label and default attributes.
      * 
@@ -89,7 +88,6 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
         this.autoRangeIncludesZero = false;
         this.autoRangeStickyZero = true;
         this.tickSelector = new NumberTickSelector();
-        this.tickLabelFactor = 1.4;
         this.tickSize = range.getLength() / 10.0;
         this.tickLabelFormatter = new DecimalFormat("0.00");
     }
@@ -212,29 +210,6 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
     }
     
     /**
-     * Returns the tick label factor, a multiplier for the label height to
-     * determine the maximum number of tick labels that can be displayed.  
-     * The default value is <code>1.4</code>.
-     * 
-     * @return The tick label factor. 
-     */
-    public double getTickLabelFactor() {
-        return this.tickLabelFactor;
-    }
-    
-    /**
-     * Sets the tick label factor and sends an {@link Axis3DChangeEvent}
-     * to all registered listeners.  This should be at least 1.0, higher values
-     * will result in larger gaps between the tick marks.
-     * 
-     * @param factor  the factor. 
-     */
-    public void setTickLabelFactor(double factor) {
-        this.tickLabelFactor = factor;
-        fireChangeEvent(false);
-    }
-    
-    /**
      * Adjusts the range by adding the lower and upper margins and taking into
      * account also the 'autoRangeStickyZero' flag.
      * 
@@ -262,7 +237,7 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
     }
     
     /**
-     * Draws the axis using the supplied graphics device, with the
+     * Draws the axis to the supplied graphics target (<code>g2</code>, with the
      * specified starting and ending points for the line.  This method is used
      * internally, you should not need to call it directly.
      *
@@ -275,9 +250,12 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
      */
     @Override
     public void draw(Graphics2D g2, Point2D pt0, Point2D pt1, 
-            Point2D opposingPt, boolean labels, List<TickData> tickData) {
+            Point2D opposingPt, List<TickData> tickData) {
         
         if (!isVisible()) {
+            return;
+        }
+        if (pt0.equals(pt1)) {
             return;
         }
         
@@ -288,12 +266,18 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
         g2.draw(axisLine);
         
         // draw the tick marks and labels
-        double maxTickLabelWidth = 0.0;
+        g2.setFont(getTickLabelFont());
+        // we track the max width or height of the labels to know how far to
+        // offset the axis label when we draw it later
+        double maxTickLabelDim = 0.0;
+        if (getTickLabelOrientation().equals(LabelOrientation.PARALLEL)) {
+            LineMetrics lm = g2.getFontMetrics().getLineMetrics("123", g2);
+            maxTickLabelDim = lm.getHeight();
+        }
         double tickMarkLength = getTickMarkLength();
         double tickLabelOffset = getTickLabelOffset();
         g2.setPaint(getTickMarkPaint());
         g2.setStroke(getTickMarkStroke());
-        g2.setFont(getTickLabelFont());
         for (TickData t : tickData) {
             if (tickMarkLength > 0.0) {
                 Line2D tickLine = Utils2D.createPerpendicularLine(axisLine, 
@@ -301,43 +285,101 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
                 g2.draw(tickLine);
             }
             String tickLabel = this.tickLabelFormatter.format(t.getDataValue());
-            maxTickLabelWidth = Math.max(maxTickLabelWidth, 
-                    g2.getFontMetrics().stringWidth(tickLabel));
+            if (getTickLabelOrientation().equals(
+                    LabelOrientation.PERPENDICULAR)) {
+                maxTickLabelDim = Math.max(maxTickLabelDim, 
+                        g2.getFontMetrics().stringWidth(tickLabel));
+            }
         }
             
         if (getTickLabelsVisible()) {
             g2.setPaint(getTickLabelColor());
-            for (TickData t : tickData) {
-                double theta = Utils2D.calculateTheta(axisLine);
-                double thetaAdj = theta + Math.PI / 2.0;
-                if (thetaAdj < -Math.PI / 2.0) {
-                    thetaAdj = thetaAdj + Math.PI;
-                }
-                if (thetaAdj > Math.PI / 2.0) {
-                    thetaAdj = thetaAdj - Math.PI;
-                }
-
-                Line2D perpLine = Utils2D.createPerpendicularLine(axisLine, 
-                        t.getAnchorPt(), tickMarkLength + tickLabelOffset, 
-                        opposingPt);
-                double perpTheta = Utils2D.calculateTheta(perpLine);  
-                TextAnchor textAnchor = TextAnchor.CENTER_LEFT;
-                if (Math.abs(perpTheta) > Math.PI / 2.0) {
-                    textAnchor = TextAnchor.CENTER_RIGHT;
-                } 
-                String tickLabel = this.tickLabelFormatter.format(
-                        t.getDataValue());
-                TextUtils.drawRotatedString(tickLabel, g2, 
-                        (float) perpLine.getX2(), (float) perpLine.getY2(), 
-                        textAnchor, thetaAdj, textAnchor);
+            if (getTickLabelOrientation().equals(
+                    LabelOrientation.PERPENDICULAR)) {
+                drawPerpendicularTickLabels(g2, axisLine, opposingPt, tickData);
+            } else {
+                drawParallelTickLabels(g2, axisLine, opposingPt, tickData);
             }
+        } else {
+            maxTickLabelDim = 0.0;
         }
 
         // draw the axis label (if any)...
         if (getLabel() != null) {
-            drawAxisLabel(g2, axisLine, opposingPt, maxTickLabelWidth 
+            drawAxisLabel(g2, axisLine, opposingPt, maxTickLabelDim 
                     + tickMarkLength + tickLabelOffset + 10);
         }
+    }
+    
+    /**
+     * Draws tick labels parallel to the axis.
+     * 
+     * @param g2  the graphics target (<code>null</code> not permitted).
+     * @param axisLine  the axis line (<code>null</code> not permitted).
+     * @param opposingPt  an opposing point (to determine on which side the 
+     *     labels appear, <code>null</code> not permitted).
+     * @param tickData  the tick data (<code>null</code> not permitted).
+     */
+    private void drawParallelTickLabels(Graphics2D g2, Line2D axisLine,
+            Point2D opposingPt, List<TickData> tickData) {
+        
+        g2.setFont(getTickLabelFont());
+        double halfAscent = g2.getFontMetrics().getAscent() / 2.0;
+        for (TickData t : tickData) {
+            Line2D perpLine = Utils2D.createPerpendicularLine(axisLine, 
+                    t.getAnchorPt(), getTickMarkLength()
+                    + getTickLabelOffset() + halfAscent, opposingPt);
+            double axisTheta = Utils2D.calculateTheta(axisLine);
+            TextAnchor textAnchor = TextAnchor.CENTER;
+            if (axisTheta >= Math.PI / 2.0) {
+                axisTheta = axisTheta - Math.PI;
+            } else if (axisTheta <= -Math.PI / 2) {
+                axisTheta = axisTheta + Math.PI;  
+            }
+            String tickLabel = this.tickLabelFormatter.format(
+                    t.getDataValue());
+            TextUtils.drawRotatedString(tickLabel, g2, 
+                    (float) perpLine.getX2(), (float) perpLine.getY2(), 
+                    textAnchor, axisTheta, textAnchor);
+        }
+        
+    }
+    
+    /**
+     * Draws tick labels perpendicular to the axis.
+     * 
+     * @param g2  the graphics target (<code>null</code> not permitted).
+     * @param axisLine  the axis line (<code>null</code> not permitted).
+     * @param opposingPt  an opposing point (to determine on which side the 
+     *     labels appear, <code>null</code> not permitted).
+     * @param tickData  the tick data (<code>null</code> not permitted).
+     */
+    private void drawPerpendicularTickLabels(Graphics2D g2, Line2D axisLine,
+            Point2D opposingPt, List<TickData> tickData) {
+        for (TickData t : tickData) {
+            double theta = Utils2D.calculateTheta(axisLine);
+            double thetaAdj = theta + Math.PI / 2.0;
+            if (thetaAdj < -Math.PI / 2.0) {
+                thetaAdj = thetaAdj + Math.PI;
+            }
+            if (thetaAdj > Math.PI / 2.0) {
+                thetaAdj = thetaAdj - Math.PI;
+            }
+
+            Line2D perpLine = Utils2D.createPerpendicularLine(axisLine, 
+                    t.getAnchorPt(), getTickMarkLength() + getTickLabelOffset(), 
+                    opposingPt);
+            double perpTheta = Utils2D.calculateTheta(perpLine);  
+            TextAnchor textAnchor = TextAnchor.CENTER_LEFT;
+            if (Math.abs(perpTheta) > Math.PI / 2.0) {
+                textAnchor = TextAnchor.CENTER_RIGHT;
+            } 
+            String tickLabel = this.tickLabelFormatter.format(
+                    t.getDataValue());
+            TextUtils.drawRotatedString(tickLabel, g2, 
+                    (float) perpLine.getX2(), (float) perpLine.getY2(), 
+                    textAnchor, thetaAdj, textAnchor);
+        }   
     }
     
     /**
@@ -372,43 +414,76 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
         if (this.tickSelector == null) {
             return this.tickSize;
         }
-        
-        // based on the font height, we can determine roughly how many tick
-        // labels will fit in the length available
+        g2.setFont(getTickLabelFont()); 
+        FontMetrics fm = g2.getFontMetrics(getTickLabelFont());        
         double length = pt0.distance(pt1);
-        g2.setFont(getTickLabelFont());
-        int height = g2.getFontMetrics(getTickLabelFont()).getHeight();
-        // the tickLabelFactor allows some control over how dense the labels
-        // will be
-        int maxTicks = (int) (length / (height * this.tickLabelFactor));
-        if (maxTicks > 2 && this.tickSelector != null) {
-            double rangeLength = getRange().getLength();
-            this.tickSelector.select(rangeLength / 2.0);
-            // step through until we have too many ticks OR we run out of 
-            // tick sizes
-            int tickCount = (int) (rangeLength 
-                    / this.tickSelector.getCurrentTickSize());
-            while (tickCount < maxTicks) {
-                this.tickSelector.previous();
-                tickCount = (int) (rangeLength
+        if (getTickLabelOrientation().equals(LabelOrientation.PERPENDICULAR)) {
+            // based on the font height, we can determine roughly how many tick
+            // labels will fit in the length available
+            double height = fm.getHeight();
+            // the tickLabelFactor allows some control over how dense the labels
+            // will be
+            int maxTicks = (int) (length / (height * getTickLabelFactor()));
+            if (maxTicks > 2 && this.tickSelector != null) {
+                double rangeLength = getRange().getLength();
+                this.tickSelector.select(rangeLength / 2.0);
+                // step through until we have too many ticks OR we run out of 
+                // tick sizes
+                int tickCount = (int) (rangeLength 
                         / this.tickSelector.getCurrentTickSize());
+                while (tickCount < maxTicks) {
+                    this.tickSelector.previous();
+                    tickCount = (int) (rangeLength
+                            / this.tickSelector.getCurrentTickSize());
+                }
+                this.tickSelector.next();
+                this.tickSize = this.tickSelector.getCurrentTickSize();
+                this.tickLabelFormatter 
+                        = this.tickSelector.getCurrentTickLabelFormat();
+            } else {
+                this.tickSize = Double.NaN;
             }
-            this.tickSelector.next();
+        } else if (getTickLabelOrientation().equals(LabelOrientation.PARALLEL)) {
+            // choose a unit that is at least as large as the length of the axis
+            this.tickSelector.select(getRange().getLength());
+            boolean done = false;
+            while (!done) {
+                if (this.tickSelector.previous()) {
+                    // estimate the label widths, and do they overlap?
+                    Format f = this.tickSelector.getCurrentTickLabelFormat();
+                    String s0 = f.format(this.range.getMin());
+                    String s1 = f.format(this.range.getMax());
+                    double w0 = fm.stringWidth(s0);
+                    double w1 = fm.stringWidth(s1);
+                    double w = Math.max(w0, w1);
+                    int n = (int) (length / (w * this.getTickLabelFactor()));
+                    if (n < getRange().getLength() / tickSelector.getCurrentTickSize()) {
+                        tickSelector.next();
+                        done = true;
+                    }
+                } else {
+                    done = true;
+                }
+            }
             this.tickSize = this.tickSelector.getCurrentTickSize();
             this.tickLabelFormatter 
                     = this.tickSelector.getCurrentTickLabelFormat();
-        } else {
-            this.tickSize = Double.NaN;
         }
         return this.tickSize;
     }
 
     /**
-     * Returns a list of tick info for the specified tick unit.
+     * Generates a list of tick data items for the specified tick unit.  This
+     * data will be passed to the 3D engine and will be updated with a 2D
+     * projection that can later be used to write the axis tick labels in the
+     * appropriate places.
+     * <br><br>
+     * If <code>tickUnit</code> is <code>Double.NaN</code>, then tick data is
+     * generated for just the bounds of the axis.
      * 
      * @param tickUnit  the tick unit.
      * 
-     * @return A list of tick info. 
+     * @return A list of tick data (never <code>null</code>). 
      */
     @Override
     public List<TickData> generateTickData(double tickUnit) {
@@ -455,9 +530,6 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
             return false;
         }
         if (!this.tickLabelFormatter.equals(that.tickLabelFormatter)) {
-            return false;
-        }
-        if (this.tickLabelFactor != that.tickLabelFactor) {
             return false;
         }
         return super.equals(obj);

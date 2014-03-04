@@ -1419,64 +1419,64 @@ public class Chart3D implements Drawable3D, ChartElement,
             if (count(a, b) == 1 && longest(ab, bc, cd, da)) {
                 ticks = chartBox.faceA().getXTicksA();
                 populateAnchorPoints(ticks, pts);
-                xAxis.draw(g2, v0, v1, v7, true, ticks);
+                xAxis.draw(g2, v0, v1, v7, ticks);
             }
             if (count(b, c) == 1 && longest(bc, ab, cd, da)) {
                 ticks = chartBox.faceB().getXTicksB();
                 populateAnchorPoints(ticks, pts);
-                xAxis.draw(g2, v3, v2, v6, true, ticks);
+                xAxis.draw(g2, v3, v2, v6, ticks);
             }
             if (count(c, d) == 1 && longest(cd, ab, bc, da)) {
                 ticks = chartBox.faceC().getXTicksB();
                 populateAnchorPoints(ticks, pts);
-                xAxis.draw(g2, v4, v7, v1, true, ticks);
+                xAxis.draw(g2, v4, v7, v1, ticks);
             }
             if (count(d, a) == 1 && longest(da, ab, bc, cd)) {
                 ticks = chartBox.faceA().getXTicksB();
                 populateAnchorPoints(ticks, pts);
-                xAxis.draw(g2, v5, v6, v3, true, ticks);
+                xAxis.draw(g2, v5, v6, v3, ticks);
             }
 
             if (count(b, e) == 1 && longest(be, bf, df, de)) {
                 ticks = chartBox.faceB().getYTicksA();
                 populateAnchorPoints(ticks, pts);
-                yAxis.draw(g2, v0, v3, v7, true, ticks);
+                yAxis.draw(g2, v0, v3, v7, ticks);
             }
             if (count(b, f) == 1 && longest(bf, be, df, de)) {
                 ticks = chartBox.faceB().getYTicksB();
                 populateAnchorPoints(ticks, pts);
-                yAxis.draw(g2, v1, v2, v4, true, ticks);
+                yAxis.draw(g2, v1, v2, v4, ticks);
             }
             if (count(d, f) == 1 && longest(df, be, bf, de)) {
                 ticks = chartBox.faceD().getYTicksA();
                 populateAnchorPoints(ticks, pts);
-                yAxis.draw(g2, v6, v7, v0, true, ticks);
+                yAxis.draw(g2, v6, v7, v0, ticks);
             }
             if (count(d, e) == 1 && longest(de, be, bf, df)) {
                 ticks = chartBox.faceD().getYTicksB();
                 populateAnchorPoints(ticks, pts);
-                yAxis.draw(g2, v5, v4, v1, true, ticks);
+                yAxis.draw(g2, v5, v4, v1, ticks);
             }
 
             if (count(a, e) == 1 && longest(ae, af, cf, ce)) {
                 ticks = chartBox.faceA().getZTicksA();
                 populateAnchorPoints(ticks, pts);
-                zAxis.draw(g2, v0, v5, v2, true, ticks);
+                zAxis.draw(g2, v0, v5, v2, ticks);
             }
             if (count(a, f) == 1 && longest(af, ae, cf, ce)) {
                 ticks = chartBox.faceA().getZTicksB();
                 populateAnchorPoints(ticks, pts);
-                zAxis.draw(g2, v1, v6, v3, true, ticks);
+                zAxis.draw(g2, v1, v6, v3, ticks);
             }
             if (count(c, f) == 1 && longest(cf, ae, af, ce)) {
                 ticks = chartBox.faceC().getZTicksB();
                 populateAnchorPoints(ticks, pts);
-                zAxis.draw(g2, v2, v7, v5, true, ticks);
+                zAxis.draw(g2, v2, v7, v5, ticks);
             }
             if (count(c, e) == 1 && longest(ce, ae, af, cf)) {
                 ticks = chartBox.faceC().getZTicksA();
                 populateAnchorPoints(ticks, pts);
-                zAxis.draw(g2, v3, v4, v6, true, ticks);
+                zAxis.draw(g2, v3, v4, v6, ticks);
             }
         }
     }

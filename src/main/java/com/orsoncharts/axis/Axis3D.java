@@ -159,12 +159,11 @@ public interface Axis3D extends ChartElement {
      * @param startPt  the starting point (<code>null</code> not permitted).
      * @param endPt  the end point (<code>null</code> not permitted)
      * @param opposingPt  an opposing point (<code>null</code> not permitted).
-     * @param labels  draw labels?
      * @param tickData  info about the ticks to draw (<code>null</code> not 
      *     permitted).
      */
     void draw(Graphics2D g2, Point2D startPt, Point2D endPt, Point2D opposingPt, 
-            boolean labels, List<TickData> tickData);
+            List<TickData> tickData);
 
     /**
      * Registers a listener so that it receives notification of changes to the

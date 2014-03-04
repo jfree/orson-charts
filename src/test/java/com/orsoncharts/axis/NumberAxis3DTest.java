@@ -25,9 +25,9 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GradientPaint;
+import java.text.DecimalFormat;
 import com.orsoncharts.Range;
 import com.orsoncharts.TestUtils;
-import java.text.DecimalFormat;
 
 /**
  * Checks for the {@link NumberAxis3D} class.
@@ -201,6 +201,11 @@ public class NumberAxis3DTest implements Axis3DChangeListener {
         axis1.setTickLabelFormatter(new DecimalFormat("0.0000"));
         assertFalse(axis1.equals(axis2));
         axis2.setTickLabelFormatter(new DecimalFormat("0.0000"));
+        assertTrue(axis1.equals(axis2));
+        
+        axis1.setTickLabelOrientation(LabelOrientation.PERPENDICULAR);
+        assertFalse(axis1.equals(axis2));
+        axis2.setTickLabelOrientation(LabelOrientation.PERPENDICULAR);
         assertTrue(axis1.equals(axis2));
         
         axis1.setTickLabelFactor(1.23);
