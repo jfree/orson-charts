@@ -41,12 +41,14 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import java.net.URL;
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
 import com.orsoncharts.Colors;
 import com.orsoncharts.RectanglePainter;
 import com.orsoncharts.StandardRectanglePainter;
+import com.orsoncharts.axis.LabelOrientation;
 import com.orsoncharts.axis.StandardCategoryAxis3D;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.category.StandardCategoryDataset3D;
@@ -55,7 +57,6 @@ import com.orsoncharts.label.StandardCategoryLabelGenerator;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.category.StackedBarRenderer3D;
 import com.orsoncharts.util.Fit2D;
-import java.net.URL;
 
 /**
  * A demo of a 3D stacked bar chart.
@@ -98,7 +99,7 @@ public class StackedBarChart3DDemo3 extends JFrame {
         chart.setChartBoxColor(new Color(255, 255, 255, 155));
         CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
         plot.setLegendLabelGenerator(new StandardCategoryLabelGenerator(
-                StandardCategoryLabelGenerator.TOTAL_TEMPLATE));
+                StandardCategoryLabelGenerator.TOTAL_TEMPLATE));   
         StandardCategoryAxis3D rowAxis 
                 = (StandardCategoryAxis3D) plot.getRowAxis();
         rowAxis.setTickLabelGenerator(new StandardCategoryLabelGenerator(
@@ -108,6 +109,9 @@ public class StackedBarChart3DDemo3 extends JFrame {
                 = (StandardCategoryAxis3D) plot.getColumnAxis();
         columnAxis.setTickLabelGenerator(new StandardCategoryLabelGenerator(
                 StandardCategoryLabelGenerator.TOTAL_TEMPLATE));
+        columnAxis.setTickLabelOrientation(LabelOrientation.PARALLEL);
+        columnAxis.setMaxTickLabelLevels(2);
+
         StackedBarRenderer3D renderer = (StackedBarRenderer3D) plot.getRenderer();
         renderer.setColors(Colors.createIceCubeColors());
         
