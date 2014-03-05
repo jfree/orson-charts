@@ -152,6 +152,18 @@ public final class Point3D implements Serializable {
         return true;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 29 * hash + (int) (Double.doubleToLongBits(this.x) 
+                ^ (Double.doubleToLongBits(this.x) >>> 32));
+        hash = 29 * hash + (int) (Double.doubleToLongBits(this.y) 
+                ^ (Double.doubleToLongBits(this.y) >>> 32));
+        hash = 29 * hash + (int) (Double.doubleToLongBits(this.z) 
+                ^ (Double.doubleToLongBits(this.z) >>> 32));
+        return hash;
+    }
+
     /**
      * Returns a string representation of this instance, primarily for 
      * debugging purposes.
