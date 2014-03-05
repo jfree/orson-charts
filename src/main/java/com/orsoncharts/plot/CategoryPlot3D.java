@@ -112,6 +112,15 @@ public class CategoryPlot3D extends AbstractPlot3D
     /** The legend label generator. */
     private CategoryLabelGenerator legendLabelGenerator;
 
+    /** 
+     * A special attribute to provide control over the y-dimension for the
+     * plot when the plot dimensions are auto-calculated.  The default value
+     * is <code>null</code>.
+     * 
+     * @since 1.2
+     */
+    private Double yDimensionOverride;
+    
     /**
      * Creates a new plot.
      * 
@@ -154,6 +163,7 @@ public class CategoryPlot3D extends AbstractPlot3D
         this.gridlineStrokeForColumns = DEFAULT_GRIDLINE_STROKE;
         this.gridlineStrokeForValues = DEFAULT_GRIDLINE_STROKE;
         this.legendLabelGenerator = new StandardCategoryLabelGenerator();
+        this.yDimensionOverride = null;
     }
     
     /**
@@ -527,6 +537,35 @@ public class CategoryPlot3D extends AbstractPlot3D
     }
     
     /**
+     * Returns the y-dimension override.  The default value is
+     * <code>null</code>.
+     * 
+     * @return The y-dimension override (possibly <code>null</code>). 
+     * 
+     * @since 1.2
+     */
+    public Double getYDimensionOverride() {
+        return this.yDimensionOverride;
+    }
+    
+    /**
+     * Sets the y-dimension override and, if the autoAdjustDimensions flag is
+     * set, recalculates the dimensions and sends a change event to all 
+     * registered listeners.
+     * 
+     * @param dim  the new y-dimension override (<code>null</code> permitted).
+     * 
+     * @since 1.2
+     */
+    public void setYDimensionOverride(Double dim) {
+        this.yDimensionOverride = dim;
+        if (this.autoAdjustDimensions) {
+            this.dimensions = calculateDimensions();
+            fireChangeEvent(true);
+        }
+    }
+    
+    /**
      * Returns a list containing legend item info, typically one item for
      * each series in the chart.  This is intended for use in the construction
      * of a chart legend.
@@ -632,6 +671,10 @@ public class CategoryPlot3D extends AbstractPlot3D
         if (!this.legendLabelGenerator.equals(that.legendLabelGenerator)) {
             return false;
         }
+        if (!ObjectUtils.equals(this.yDimensionOverride, 
+                that.yDimensionOverride)) {
+            return false;
+        }
        return super.equals(obj);
     }
     
@@ -654,7 +697,13 @@ public class CategoryPlot3D extends AbstractPlot3D
     }
     
     /**
-     * Returns the dimensions that best suit the current data values.
+     * Returns the dimensions for the plot that best suit the current data 
+     * values.  The x-dimension is set to the number of columns in the 
+     * dataset and the z-dimension is set to the number of rows in the dataset.
+     * For the y-dimension, the code first checks the 
+     * <code>yDimensionOverride</code> attribute to see if a specific value is 
+     * requested...and if not, the minimum of the x and z dimensions will be
+     * used.
      * 
      * @return The dimensions (never <code>null</code>). 
      */
@@ -662,6 +711,9 @@ public class CategoryPlot3D extends AbstractPlot3D
         double depth = Math.max(1.0, this.dataset.getRowCount() + 1);
         double width = Math.max(1.0, this.dataset.getColumnCount() + 1);
         double height = Math.max(1.0, Math.min(width, depth));
+        if (this.yDimensionOverride != null) {
+            height = this.yDimensionOverride.doubleValue();
+        }
         return new Dimension3D(width, height, depth);
     }
    
