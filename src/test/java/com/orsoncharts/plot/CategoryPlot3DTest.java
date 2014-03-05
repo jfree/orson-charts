@@ -84,6 +84,11 @@ public class CategoryPlot3DTest {
         assertFalse(p1.equals(p2));
         p2.setLegendLabelGenerator(new StandardCategoryLabelGenerator("%s XX"));
         assertTrue(p1.equals(p2));
+        
+        p1.setYDimensionOverride(new Double(123));
+        assertFalse(p1.equals(p2));
+        p2.setYDimensionOverride(new Double(123));
+        assertTrue(p1.equals(p2));
     }
         
     /**
