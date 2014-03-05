@@ -96,6 +96,7 @@ public abstract class AbstractPlot3D implements Plot3D,
      * 
      * @since 1.2
      */
+    @Override
     public void setChart(Chart3D chart) {
         this.chart = chart;
     }
