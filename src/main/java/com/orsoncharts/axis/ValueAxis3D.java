@@ -28,21 +28,6 @@ import com.orsoncharts.marker.ValueMarker;
 public interface ValueAxis3D extends Axis3D {
     
     /**
-     * Returns a flag indicating whether or not the axis should be drawn.  
-     * 
-     * @return A boolean. 
-     */
-    boolean isVisible();
-    
-    /**
-     * Sets the flag that controls whether or not the axis is drawn on the 
-     * chart and sends an {@link Axis3DChangeEvent} to all registered listeners.
-     * 
-     * @param visible  the new flag value.
-     */
-    void setVisible(boolean visible);
-    
-    /**
      * Configure the axis as a value axis for the specified plot.
      * 
      * @param plot  the plot (<code>null</code> not permitted). 
