@@ -387,15 +387,15 @@ public class Object3D {
                     else {
                         sphere.addFace(new Face(new int[] {
                             (layer - 1) * n * 2 + i - 1, (layer - 1) * n * 2, 
-                            layer * n * 2, layer * n * 2 + i - 1}, extColor, false));
+                            layer * n * 2, layer * n * 2 + i - 1}, extColor, 
+                            false));
                         sphere.addFace(new Face(new int[] {
                             layer * n * 2 + i - 1, layer * n * 2, 
                             (layer - 1) * n * 2, (layer - 1) * n * 2 + i - 1}, 
-                                intColor, false));
+                            intColor, false));
                     }
                 }
             }
-            prevLayer = currLayer;
         }
         return sphere;
     }
