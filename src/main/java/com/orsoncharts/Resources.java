@@ -28,7 +28,7 @@ public class Resources {
     
     /** Localised resources. */
     private static ResourceBundle resources = ResourceBundle.getBundle(
-            "com.orsoncharts.Resources", locale);
+            "com.orsoncharts.Resources", Locale.getDefault());
     
     /**
      * Returns the locale that is being used for supplying resources.  The
