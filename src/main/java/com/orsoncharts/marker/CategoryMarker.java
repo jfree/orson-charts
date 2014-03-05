@@ -23,10 +23,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.Objects;
 import com.orsoncharts.util.SerialUtils;
 import com.orsoncharts.util.Anchor2D;
 import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.util.ObjectUtils;
 
 /**
  * A marker for a category on a CategoryAxis3D.  This marker could be used to
@@ -332,7 +332,7 @@ public class CategoryMarker extends AbstractMarker implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 73 * hash + Objects.hashCode(this.category);
+        hash = 73 * hash + ObjectUtils.hashCode(this.category);
         return hash;
     }
 
@@ -345,31 +345,31 @@ public class CategoryMarker extends AbstractMarker implements Serializable {
             return false;
         }
         final CategoryMarker other = (CategoryMarker) obj;
-        if (!Objects.equals(this.category, other.category)) {
+        if (!ObjectUtils.equals(this.category, other.category)) {
             return false;
         }
         if (this.type != other.type) {
             return false;
         }
-        if (!Objects.equals(this.label, other.label)) {
+        if (!ObjectUtils.equals(this.label, other.label)) {
             return false;
         }
-        if (!Objects.equals(this.font, other.font)) {
+        if (!ObjectUtils.equals(this.font, other.font)) {
             return false;
         }
-        if (!Objects.equals(this.labelColor, other.labelColor)) {
+        if (!ObjectUtils.equals(this.labelColor, other.labelColor)) {
             return false;
         }
-        if (!Objects.equals(this.labelAnchor, other.labelAnchor)) {
+        if (!ObjectUtils.equals(this.labelAnchor, other.labelAnchor)) {
             return false;
         }
-        if (!Objects.equals(this.lineStroke, other.lineStroke)) {
+        if (!ObjectUtils.equals(this.lineStroke, other.lineStroke)) {
             return false;
         }
-        if (!Objects.equals(this.lineColor, other.lineColor)) {
+        if (!ObjectUtils.equals(this.lineColor, other.lineColor)) {
             return false;
         }
-        if (!Objects.equals(this.fillColor, other.fillColor)) {
+        if (!ObjectUtils.equals(this.fillColor, other.fillColor)) {
             return false;
         }
         return true;
