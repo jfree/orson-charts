@@ -79,7 +79,7 @@ public class ViewPoint3DDemo extends JFrame {
      * 
      * @return A panel containing the content for the demo.
      */
-    public JPanel createDemoPanel() {
+    public final JPanel createDemoPanel() {
         JPanel content = new JPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         World world = new World();
