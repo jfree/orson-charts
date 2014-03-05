@@ -167,6 +167,23 @@ public class CategoryPlot3D extends AbstractPlot3D
     }
     
     /**
+     * Sets the flag that controls whether the plot's dimensions are 
+     * automatically calculated and, if <code>true</code>, sends a change
+     * event to all registered listeners.
+     * 
+     * @param auto  the new flag value.
+     * 
+     * @since 1.2
+     */
+    public void setAutoAdjustDimensions(boolean auto) {
+        this.autoAdjustDimensions = auto;
+        if (auto) {
+            this.dimensions = calculateDimensions();
+            fireChangeEvent(true);
+        }
+    }
+    
+    /**
      * Sets the dimensions (in 3D space) for the plot, resets the 
      * <code>autoAdjustDimensions</code> flag to <code>false</code>, and sends
      * a {@link Plot3DChangeEvent} to all registered listeners.
