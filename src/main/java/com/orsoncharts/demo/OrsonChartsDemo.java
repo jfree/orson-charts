@@ -195,7 +195,7 @@ public class OrsonChartsDemo extends JFrame implements ActionListener {
         if ("EXIT".equals(e.getActionCommand())) {
             System.exit(0);
         }
-        ChartPanel3D chartPanel = null;
+        ChartPanel3D chartPanel;
         Component c = this.demoComponent.getChartContainer().getComponent(0);
         if (c instanceof DemoPanel) {
             DemoPanel dp = (DemoPanel) c;
