@@ -49,7 +49,6 @@ import com.orsoncharts.data.DefaultKeyedValues;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.legend.LegendAnchor;
 import com.orsoncharts.plot.CategoryPlot3D;
-import com.orsoncharts.renderer.category.BarRenderer3D;
 
 /**
  * A demo of a 3D bar chart.
@@ -84,14 +83,11 @@ public class BarChart3DDemo1 extends JFrame {
                 "For some large IT companies", dataset, null, "Quarter", 
                 "$billion Revenues");
         chart.setChartBoxColor(new Color(255, 255, 255, 127));
-//        ImageIcon icon = new ImageIcon("/Users/dgilbert/Desktop/me.png"); 
-//        RectanglePainter background = new StandardRectanglePainter(Color.WHITE, icon.getImage());
-//        chart.setBackground(background);
         chart.setLegendAnchor(LegendAnchor.BOTTOM_RIGHT);
         CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
         plot.setGridlinePaintForValues(Color.BLACK);
-        BarRenderer3D renderer = (BarRenderer3D) plot.getRenderer();
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
+        chartPanel.setMargin(0.30);
         content.setChartPanel(chartPanel);
         chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         content.add(new DisplayPanel3D(chartPanel));
