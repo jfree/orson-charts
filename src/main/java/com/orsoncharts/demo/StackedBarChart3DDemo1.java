@@ -76,8 +76,7 @@ public class StackedBarChart3DDemo1 extends JFrame {
         CategoryDataset3D dataset = createDataset();
         Chart3D chart = Chart3DFactory.createStackedBarChart(
                 "Stacked Bar Chart", "Put the data source here", dataset, null, 
-                null, "Value");
-
+                null, "Value");        
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
         content.setChartPanel(chartPanel);
         chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
