@@ -102,11 +102,12 @@ public class World {
     /**
      * Sets the light source point.
      * 
-     * @param p  the point.
+     * @param p  the point (<code>null</code> not permitted).
      * 
      * @since 1.2
      */
     public final void setSunSource(Point3D p) {
+        ArgChecks.nullNotPermitted(p, "p");
         Point3D normal = Utils3D.normalise(p);
         this.sunX = normal.getX();
         this.sunY = normal.getY();
@@ -251,7 +252,8 @@ public class World {
     }
     
     /**
-     * Returns the list of objects in the world.
+     * Returns a newly created list containing all the objects in the world 
+     * model.
      * 
      * @return The list of objects.
      * 
