@@ -134,4 +134,12 @@ public final class StandardCategoryColorSource
         }
         return true;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + Arrays.deepHashCode(this.colors);
+        return hash;
+    }
+
 }
