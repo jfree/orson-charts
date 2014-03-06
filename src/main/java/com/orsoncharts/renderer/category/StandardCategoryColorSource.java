@@ -25,8 +25,8 @@ import com.orsoncharts.util.ArgChecks;
  * to change in future releases and should not be relied upon for persisting 
  * instances of this class.
  */
-public final class StandardCategoryColorSource 
-        implements CategoryColorSource, Serializable {
+public class StandardCategoryColorSource implements CategoryColorSource, 
+        Serializable {
 
     /** The sequence of color objects to use for each series. */
     private Color[] colors;
