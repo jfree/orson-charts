@@ -57,8 +57,8 @@ public class Chart3DFactory {
     static ChartStyle defaultStyle = new StandardChartStyle();
     
     /**
-     * Returns a new instance of the default chart style so that, by default,
-     * all charts will have an independent style instance.
+     * Returns a new instance of the default chart style (so that, by default,
+     * all charts will have an independent style instance).
      * 
      * @return The default chart style (never <code>null</code>).
      * 
