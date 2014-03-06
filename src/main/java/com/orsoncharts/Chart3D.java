@@ -1218,6 +1218,9 @@ public class Chart3D implements Drawable3D, ChartElement,
         Point2D[] ppts = labelOverlay.calculateProjectedPoints(
                 this.viewPoint, this.projDist);
         for (int i = 0; i < p.getDataset().getItemCount() * 2; i++) {
+            if (p.getDataset().getValue(i / 2) == null) {
+                continue;
+            }
             Face f = labelOverlay.getFaces().get(i);
             if (Utils2D.area2(ppts[f.getVertexIndex(0)], 
                     ppts[f.getVertexIndex(1)], 
