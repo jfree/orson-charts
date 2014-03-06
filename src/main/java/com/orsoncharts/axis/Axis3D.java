@@ -70,8 +70,8 @@ public interface Axis3D extends ChartElement {
     Color getLabelColor();
     
     /**
-     * Sets the color used to draw the axis label and sends an 
-     * {@link Axis3DChangeEvent} to all registered listeners.
+     * Sets the color used to draw the axis label and sends a change event to 
+     * all registered listeners.
      * 
      * @param color  the color (<code>null</code> not permitted). 
      * 
@@ -104,8 +104,8 @@ public interface Axis3D extends ChartElement {
     Color getTickLabelColor();
     
     /**
-     * Sets the color used to draw the axis tick labels and sends an 
-     * {@link Axis3DChangeEvent} to all registered listeners.
+     * Sets the color used to draw the axis tick labels and sends a change 
+     * event to all registered listeners.
      * 
      * @param color  the color (<code>null</code> not permitted). 
      * 
