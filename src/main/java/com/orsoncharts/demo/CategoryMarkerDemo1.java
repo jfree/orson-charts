@@ -40,6 +40,13 @@ import java.awt.Color;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.LayoutManager;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.ButtonGroup;
+import javax.swing.JRadioButton;
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
@@ -52,15 +59,7 @@ import com.orsoncharts.legend.LegendAnchor;
 import com.orsoncharts.marker.CategoryMarker;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.category.CategoryRenderer3D;
-import com.orsoncharts.renderer.category.StandardCategoryColorSource;
 import com.orsoncharts.style.ChartStyler;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.LayoutManager;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.ButtonGroup;
-import javax.swing.JRadioButton;
 
 /**
  * A demo showing category markers on a 3D bar chart.
@@ -68,12 +67,6 @@ import javax.swing.JRadioButton;
 public class CategoryMarkerDemo1 extends JFrame {
     
     static class CustomDemoPanel extends DemoPanel implements ActionListener {
-
-        private ButtonGroup companyButtonGroup;
-        private JRadioButton appleRadioButton;
-        private JRadioButton googleRadioButton;
-        private JRadioButton microsoftRadioButton;
-        private JRadioButton oracleRadioButton;
         
         public CustomDemoPanel(LayoutManager layout) {
             super(layout);
@@ -186,8 +179,8 @@ public class CategoryMarkerDemo1 extends JFrame {
             chart.setNotify(false);
             CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
             CategoryRenderer3D renderer = plot.getRenderer();
-            StandardCategoryColorSource colorSource 
-                    = (StandardCategoryColorSource) renderer.getColorSource();
+            HighlightCategoryColorSource colorSource 
+                    = (HighlightCategoryColorSource) renderer.getColorSource();
             StandardCategoryAxis3D rowAxis 
                     = (StandardCategoryAxis3D) plot.getRowAxis();
             CategoryMarker rowMarker = rowAxis.getMarker("RM1");
@@ -306,6 +299,8 @@ public class CategoryMarkerDemo1 extends JFrame {
         chart.setLegendAnchor(LegendAnchor.BOTTOM_RIGHT);
         CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
         plot.setGridlinePaintForValues(Color.BLACK);
+        CategoryRenderer3D renderer = plot.getRenderer();
+        renderer.setColorSource(new HighlightCategoryColorSource());
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
         chartPanel.setMargin(0.30);
         content.setChartPanel(chartPanel);
