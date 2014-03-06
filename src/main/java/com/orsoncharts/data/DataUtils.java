@@ -47,7 +47,8 @@ public class DataUtils {
     
     /**
      * Returns the count of the non-<code>null</code> entries in the dataset
-     * for the specified series.
+     * for the specified series.  An <code>IllegalArgumentException</code> is
+     * thrown if the <code>seriesKey</code> is not present in the data.
      * 
      * @param data  the dataset (<code>null</code> not permitted).
      * @param seriesKey  the series key (<code>null</code> not permitted).
