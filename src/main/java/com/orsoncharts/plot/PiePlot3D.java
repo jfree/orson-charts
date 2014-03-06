@@ -415,13 +415,14 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
         int count = this.dataset.getItemCount();
         for (int i = 0; i < count; i++) {
             Number n = this.dataset.getValue(i);
+            double angle = 0.0;
             if (n != null) {
-                double angle = Math.PI * 2 * (n.doubleValue() / total);
-                result.addAll(Object3D.createPieLabelMarkers(this.radius * 1.2,
-                        0.0, yOffset - this.depth * 0.05, this.depth * 1.1, r, 
-                        r + angle));
-                r = r + angle;
+                angle = Math.PI * 2 * (n.doubleValue() / total);
             }
+            result.addAll(Object3D.createPieLabelMarkers(this.radius * 1.2,
+                    0.0, yOffset - this.depth * 0.05, this.depth * 1.1, r, 
+                    r + angle));
+            r = r + angle;
         }
         return result;
     }
