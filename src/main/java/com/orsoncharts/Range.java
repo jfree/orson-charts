@@ -119,7 +119,7 @@ public class Range implements Serializable {
     
     /**
      * Returns <code>true</code> if this range intersects with
-     * the specified range.
+     * the specified range, and <code>false</code> otherwise.
      * 
      * @param range  the range (<code>null</code> not permitted).
      * 
