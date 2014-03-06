@@ -68,6 +68,8 @@ public class CategoryMarker extends AbstractMarker implements Serializable {
     
     /**
      * Creates a marker for the specified category. 
+     * 
+     * @param category  the category key (<code>null</code> not permitted).
      */
     public CategoryMarker(Comparable category) {
         super();
