@@ -159,7 +159,7 @@ public class OrsonChartsDemoComponent extends JPanel
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("Orson Charts");
         root.add(createCategoryChartsNode(root));
         root.add(createPieChartsNode());
-        root.add(createXYZChartsNode());
+        root.add(createXYZChartsNode());       
         root.add(createAxisRangeTestNode());
         return new DefaultTreeModel(root);
     }
@@ -189,6 +189,8 @@ public class OrsonChartsDemoComponent extends JPanel
                 "BarChart3DDemo1.java"));
         n.add(createNode("com.orsoncharts.demo.BarChart3DDemo2", 
                 "BarChart3DDemo2.java"));
+        n.add(createNode("com.orsoncharts.demo.CategoryMarkerDemo1", 
+                "CategoryMarkerDemo1.java"));
         n.add(createNode("com.orsoncharts.demo.LineChart3DDemo1", 
                 "LineChart3DDemo1.java"));
         n.add(createNode("com.orsoncharts.demo.LineChart3DDemo2", 
