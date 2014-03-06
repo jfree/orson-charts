@@ -77,6 +77,7 @@ public abstract class AbstractPlot3D implements Plot3D,
         this.listenerList = new EventListenerList();
         this.notify = true;
     }
+
     /**
      * Returns the chart that the plot is assigned to, if any.
      * 
