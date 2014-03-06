@@ -128,6 +128,10 @@ public class OrsonChartsDemo extends JFrame implements ActionListener {
         orson2StyleMenuItem.setActionCommand("ORSON2_STYLE");
         orson2StyleMenuItem.addActionListener(this);
 
+        JMenuItem iceCubeStyleMenuItem = new JRadioButtonMenuItem("Ice Cube Style");
+        iceCubeStyleMenuItem.setActionCommand("ICE_CUBE_STYLE");
+        iceCubeStyleMenuItem.addActionListener(this);
+        
         JMenuItem pastelStyleMenuItem = new JRadioButtonMenuItem("Pastel");
         pastelStyleMenuItem.setActionCommand("PASTEL_STYLE");
         pastelStyleMenuItem.addActionListener(this);
@@ -139,6 +143,7 @@ public class OrsonChartsDemo extends JFrame implements ActionListener {
         styleMenu.add(noStyleMenuItem);
         styleMenu.add(orson1StyleMenuItem);
         styleMenu.add(orson2StyleMenuItem);
+        styleMenu.add(iceCubeStyleMenuItem);
         styleMenu.add(pastelStyleMenuItem);
         styleMenu.add(logicalFontStyleMenuItem);
 
@@ -147,6 +152,7 @@ public class OrsonChartsDemo extends JFrame implements ActionListener {
         group.add(noStyleMenuItem);
         group.add(orson1StyleMenuItem);
         group.add(orson2StyleMenuItem);
+        group.add(iceCubeStyleMenuItem);
         group.add(pastelStyleMenuItem);
         group.add(logicalFontStyleMenuItem);
         noStyleMenuItem.setSelected(true);
@@ -213,6 +219,11 @@ public class OrsonChartsDemo extends JFrame implements ActionListener {
             if ("ORSON2_STYLE".equals(e.getActionCommand())) {
                 this.demoComponent.setChartStyle(ChartStyles.createOrson2Style());
                 chart.setStyle(ChartStyles.createOrson2Style());
+            }
+
+            if ("ICE_CUBE_STYLE".equals(e.getActionCommand())) {
+                this.demoComponent.setChartStyle(ChartStyles.createIceCubeStyle());
+                chart.setStyle(ChartStyles.createIceCubeStyle());
             }
 
             if ("PASTEL_STYLE".equals(e.getActionCommand())) {
