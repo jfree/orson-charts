@@ -33,6 +33,7 @@ import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.renderer.Renderer3D;
 import com.orsoncharts.renderer.category.CategoryRenderer3D;
 import com.orsoncharts.renderer.xyz.XYZRenderer;
+import com.orsoncharts.table.TableElement;
 import com.orsoncharts.table.TableElementStyler;
 
 /**
@@ -97,17 +98,22 @@ public class ChartStyler implements ChartElementVisitor {
         // if the chart title font changed, visit all table elements in the
         // chart title and change the font for any element that is tagged as
         // "CHART_TITLE"
-        Map<String, Font> fontChanges = new HashMap();
-        fontChanges.put("CHART_TITLE", this.style.getTitleFont());
-        fontChanges.put("CHART_SUBTITLE", this.style.getSubtitleFont());
-        Map<String, Paint> bgChanges = new HashMap<String, Paint>();
-        bgChanges.put("CHART_TITLE", this.style.getTitleBackgroundPaint());
-        bgChanges.put("CHART_SUBTITLE", this.style.getSubtitleBackgroundPaint());
-        Map<String, Paint> fgChanges = new HashMap<String, Paint>();
-        fgChanges.put("CHART_TITLE", this.style.getTitlePaint());
-        fgChanges.put("CHART_SUBTITLE", this.style.getSubtitlePaint());
-        TableElementStyler m1 = new TableElementStyler(fontChanges, fgChanges, bgChanges);
-        chart.getTitle().receive(m1);
+        TableElement chartTitle = chart.getTitle();
+        if (chartTitle != null) {
+            Map<String, Font> fontChanges = new HashMap();
+            fontChanges.put("CHART_TITLE", this.style.getTitleFont());
+            fontChanges.put("CHART_SUBTITLE", this.style.getSubtitleFont());
+            Map<String, Paint> bgChanges = new HashMap<String, Paint>();
+            bgChanges.put("CHART_TITLE", this.style.getTitleBackgroundPaint());
+            bgChanges.put("CHART_SUBTITLE", 
+                    this.style.getSubtitleBackgroundPaint());
+            Map<String, Paint> fgChanges = new HashMap<String, Paint>();
+            fgChanges.put("CHART_TITLE", this.style.getTitlePaint());
+            fgChanges.put("CHART_SUBTITLE", this.style.getSubtitlePaint());
+            TableElementStyler m1 = new TableElementStyler(fontChanges, 
+                    fgChanges, bgChanges);
+            chartTitle.receive(m1);
+        }
         chart.setChartBoxColor(this.style.getChartBoxColor());
     }
     
