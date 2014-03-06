@@ -448,7 +448,8 @@ public class Chart3D implements Drawable3D, ChartElement,
     }
     
     /**
-     * Sets the projection distance.  
+     * Sets the projection distance and sends a change event to all registered
+     * listeners.
      * 
      * @param dist  the distance.
      * 
@@ -457,6 +458,7 @@ public class Chart3D implements Drawable3D, ChartElement,
     @Override
     public void setProjDistance(double dist) {
         this.projDist = dist;
+        fireChangeEvent();
     }
 
     /**
@@ -667,7 +669,7 @@ public class Chart3D implements Drawable3D, ChartElement,
     }
     
     /**
-     * Sets the chart style.
+     * Sets (and applies) the specified chart style.
      * 
      * @param style  the chart style (<code>null</code> not permitted).
      * 
@@ -678,8 +680,9 @@ public class Chart3D implements Drawable3D, ChartElement,
         this.style.removeChangeListener(this);
         this.style = style;
         this.style.addChangeListener(this);
+        setNotify(false);
         receive(new ChartStyler(this.style));
-        this.world = null;
+        setNotify(true);
     }
 
     /**
@@ -1625,6 +1628,9 @@ public class Chart3D implements Drawable3D, ChartElement,
             return false;
         }
         if (!this.renderingHints.equals(that.renderingHints)) {
+            return false;
+        }
+        if (this.projDist != that.projDist) {
             return false;
         }
         return true;
