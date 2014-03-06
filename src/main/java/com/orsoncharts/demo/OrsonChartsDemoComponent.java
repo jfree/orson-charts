@@ -220,6 +220,8 @@ public class OrsonChartsDemoComponent extends JPanel
     
     private MutableTreeNode createXYZChartsNode() {
         DefaultMutableTreeNode n = new DefaultMutableTreeNode("XYZ Charts");
+        n.add(createNode("com.orsoncharts.demo.RangeMarkerDemo1", 
+                "RangeMarkerDemo1.java"));
         n.add(createNode("com.orsoncharts.demo.ScatterPlot3DDemo1", 
                 "ScatterPlot3DDemo1.java"));
         n.add(createNode("com.orsoncharts.demo.ScatterPlot3DDemo2", 
