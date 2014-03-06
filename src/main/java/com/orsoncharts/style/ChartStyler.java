@@ -131,8 +131,9 @@ public class ChartStyler implements ChartElementVisitor {
             
             // gridline paint and stroke for rows, columns and values
             p.setGridlinesVisibleForColumns(
-                    this.style.getXAxisGridlinesVisible());
-            p.setGridlinesVisibleForRows(this.style.getZAxisGridlinesVisible());
+                    this.style.getColumnAxisGridlinesVisible());
+            p.setGridlinesVisibleForRows(
+                    this.style.getRowAxisGridlinesVisible());
             p.setGridlinesVisibleForValues(
                     this.style.getYAxisGridlinesVisible());
             p.setGridlinePaintForRows(this.style.getGridlineColor());
@@ -141,7 +142,6 @@ public class ChartStyler implements ChartElementVisitor {
             p.setGridlineStrokeForColumns(this.style.getGridlineStroke());
             p.setGridlineStrokeForRows(this.style.getGridlineStroke());
             p.setGridlineStrokeForValues(this.style.getGridlineStroke());
-            
         }
         if (plot instanceof XYZPlot) {
             XYZPlot p = (XYZPlot) plot;

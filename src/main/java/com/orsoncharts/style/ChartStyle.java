@@ -89,6 +89,22 @@ public interface ChartStyle {
     
     /**
      * Returns the flag that controls whether or not gridlines are drawn 
+     * perpendicular to the column axis in category plots.
+     * 
+     * @return A boolean. 
+     */
+    boolean getColumnAxisGridlinesVisible();
+    
+    /**
+     * Returns the flag that controls whether or not gridlines are drawn 
+     * perpendicular to the row axis in category plots.
+     * 
+     * @return A boolean. 
+     */
+    boolean getRowAxisGridlinesVisible();
+
+    /**
+     * Returns the flag that controls whether or not gridlines are drawn 
      * perpendicular to the x-axis (or column axis).
      * 
      * @return A boolean. 

@@ -60,14 +60,20 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
     public static final Color DEFAULT_CHARTBOX_COLOR = new Color(255, 255, 255,
             100);
     
+    /** The default visibility for gridlines perpendicular to the row-axis. */
+    public static final boolean DEFAULT_ROW_GRIDLINES_VISIBLE = false;
+    
+    /** The default visibility for gridlines perpendicular to the column-axis. */
+    public static final boolean DEFAULT_COLUMN_GRIDLINES_VISIBLE = false;
+
     /** The default visibility for gridlines perpendicular to the x-axis. */
-    public static final boolean DEFAULT_X_GRIDLINES_VISIBLE = false;
+    public static final boolean DEFAULT_X_GRIDLINES_VISIBLE = true;
     
     /** The default visibility for gridlines perpendicular to the y-axis. */
     public static final boolean DEFAULT_Y_GRIDLINES_VISIBLE = true;
     
     /** The default visibility for gridlines perpendicular to the z-axis. */
-    public static final boolean DEFAULT_Z_GRIDLINES_VISIBLE = false;
+    public static final boolean DEFAULT_Z_GRIDLINES_VISIBLE = true;
     
     /** The default gridline color. */
     public static final Color DEFAULT_GRIDLINE_COLOR = Color.GRAY;
@@ -162,6 +168,12 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
     /** The color for the chart box, if there is one. */
     private Color chartBoxColor;
     
+    /** Are gridlines visible for the row-axis? */
+    private boolean rowAxisGridlinesVisible;
+    
+    /** Are gridlines visible for the column-axis? */
+    private boolean columnAxisGridlinesVisible;
+
     /** Are gridlines visible for the x-axis? */
     private boolean xAxisGridlinesVisible;
     
@@ -265,9 +277,11 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
         this.subtitleBackgroundPaint = DEFAULT_TEXT_BACKGROUND_COLOR;
         this.subtitleFont = DEFAULT_SUBTITLE_FONT;
         this.chartBoxColor = DEFAULT_CHARTBOX_COLOR;
-        this.xAxisGridlinesVisible = false;
-        this.yAxisGridlinesVisible = true;
-        this.zAxisGridlinesVisible = false;
+        this.rowAxisGridlinesVisible = DEFAULT_ROW_GRIDLINES_VISIBLE;
+        this.columnAxisGridlinesVisible = DEFAULT_COLUMN_GRIDLINES_VISIBLE;
+        this.xAxisGridlinesVisible = DEFAULT_X_GRIDLINES_VISIBLE;
+        this.yAxisGridlinesVisible = DEFAULT_Y_GRIDLINES_VISIBLE;
+        this.zAxisGridlinesVisible = DEFAULT_Z_GRIDLINES_VISIBLE;
         this.gridlineColor = DEFAULT_GRIDLINE_COLOR;
         this.gridlineStroke = DEFAULT_GRIDLINE_STROKE;
         this.sectionLabelFont = DEFAULT_SECTION_LABEL_FONT;
@@ -525,6 +539,28 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
         fireChangeEvent();
     }
     
+    /**
+     * Returns the flag that controls whether or not gridlines are drawn 
+     * perpendicular to the column axis in category plots.
+     * 
+     * @return A boolean. 
+     */
+    @Override
+    public boolean getColumnAxisGridlinesVisible() {
+        return this.columnAxisGridlinesVisible;
+    }
+    
+    /**
+     * Returns the flag that controls whether or not gridlines are drawn 
+     * perpendicular to the row axis in category plots.
+     * 
+     * @return A boolean. 
+     */
+    @Override
+    public boolean getRowAxisGridlinesVisible() {
+        return this.rowAxisGridlinesVisible;
+    }
+
     /**
      * Returns the flag that specifies whether or not gridlines are drawn for
      * the x-axis.  The default value is <code>false</code>.
@@ -1274,6 +1310,13 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
             return false;
         }
         if (!this.chartBoxColor.equals(that.chartBoxColor)) {
+            return false;
+        }
+        if (this.rowAxisGridlinesVisible!= that.rowAxisGridlinesVisible) {
+            return false;
+        }
+        if (this.columnAxisGridlinesVisible 
+                != that.columnAxisGridlinesVisible) {
             return false;
         }
         if (this.xAxisGridlinesVisible != that.xAxisGridlinesVisible) {
