@@ -60,16 +60,27 @@ public class RangeMarker extends AbstractMarker implements ValueMarker,
      * @param upperBound  the upper bound.
      */
     public RangeMarker(double lowerBound, double upperBound) {
-        super();
+        this(lowerBound, upperBound, null);
+    }
+    
+    /**
+     * Creates a new range marker for the given bounds.
+     * 
+     * @param lowerBound  the lower bound.
+     * @param upperBound  the upper bound.
+     * @param label  the label (<code>null</code> permitted).
+     */
+    public RangeMarker(double lowerBound, double upperBound, String label) {
+             super();
         this.start = new NumberMarker(lowerBound);
         this.start.addChangeListener(this);
         this.end = new NumberMarker(upperBound);
         this.end.addChangeListener(this);
-        this.label = null;
+        this.label = label;
         this.font = DEFAULT_MARKER_FONT;
         this.labelColor = DEFAULT_LABEL_COLOR;
         this.labelAnchor = Anchor2D.CENTER;
-        this.fillColor = DEFAULT_FILL_COLOR;
+        this.fillColor = DEFAULT_FILL_COLOR;   
     }
     
     /**
