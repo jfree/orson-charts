@@ -11,7 +11,9 @@ Orson Charts is a 3D chart library for the Java(tm) platform that can generate a
 - multiple chart types: pie charts, bar charts (regular and stacked), line charts, area charts, scatter charts and surface plots;
 - a mouse-enabled chart viewer provides 360 degree rotation and zooming for precise end-user view control;
 - flexible data sources;
+- regular and logarithmic axis scales;
 - auto-adaptive axis labeling;
+- value and range marker annotations
 - support for PDF, SVG and PNG export of charts for reporting;
 - a clean and well-documented API with a high degree of chart configurability.
 
@@ -46,14 +48,18 @@ If you have any questions, don't hesitate to send a mail to info@object-refinery
 History
 -------
 
-??-Feb-2014 : Version 1.2
+??-Mar-2014 : Version 1.2
+- added value and range markers for numerical axes, and category markers for category axes;
+- added a tickLabelOrientation attribute for axes so that tick labels can be drawn either perpendicular or parallel to the axis line;
+- added a logarithmic axis;
 - added theme support, with several built-in themes;
 - added label generators for pie section labels and category axis labels;
 - added export to JPEG, plus options to configure the available export types;
-- made projection distance configurable in chart viewer;
+- made projection distance configurable in the chart viewer;
 - optimized rendering code to reduce memory usage;
 - added series accessors for XYZSeriesCollection;
-- put in place localisation mechanism;
+- added yDimensionOverride attribute for CategoryPlot3D;
+- put in place localisation mechanism, and added German and Italian localisations;
 - fixed issue with StackedBarRenderer and negative values;
 - various other bug fixes.
 
