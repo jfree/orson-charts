@@ -189,7 +189,7 @@ public class Chart3D implements Drawable3D, ChartElement,
     
     /**
      * Creates a 3D chart for the specified plot using the default chart
-     * style.  Note that a plot instance should be used in one chart instance
+     * style.  Note that a plot instance must be used in one chart instance
      * only.
      * 
      * @param title  the chart title (<code>null</code> permitted).
@@ -1803,6 +1803,7 @@ public class Chart3D implements Drawable3D, ChartElement,
         this.notify = notify;
         // if the flag is being set to true, there may be queued up changes...
         if (notify) {
+            this.world = null;
             fireChangeEvent();
         }
     }
