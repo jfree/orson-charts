@@ -15,7 +15,6 @@ package com.orsoncharts.table;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Insets;
-import java.awt.Paint;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
@@ -29,8 +28,8 @@ import com.orsoncharts.util.RefPt2D;
  */
 public abstract class AbstractTableElement implements Serializable {
     
-    /** The default background paint. */
-    private static final Color DEFAULT_BACKGROUND_PAINT 
+    /** The default background color. */
+    private static final Color DEFAULT_BACKGROUND_COLOR 
             = new Color(255, 255, 255, 127);
     
     /** The reference point used to align the element when rendering. */
@@ -39,11 +38,8 @@ public abstract class AbstractTableElement implements Serializable {
     /** The insets. */
     private Insets insets;
     
-    /** The foreground paint. */
-    private Paint foregroundPaint;
-    
     /** The background paint (this can be <code>null</code>). */
-    private Paint backgroundPaint;
+    private RectanglePainter background;
     
     /** A tag that can be used to identify the class of element. */
     private String tag;
@@ -54,8 +50,8 @@ public abstract class AbstractTableElement implements Serializable {
     public AbstractTableElement() {
         this.refPt = RefPt2D.CENTER;
         this.insets = new Insets(2, 2, 2, 2);
-        this.foregroundPaint = Color.BLACK;
-        this.backgroundPaint = DEFAULT_BACKGROUND_PAINT;
+        this.background = new StandardRectanglePainter(
+                DEFAULT_BACKGROUND_COLOR);
         this.tag = "";
     }
 
@@ -103,43 +99,40 @@ public abstract class AbstractTableElement implements Serializable {
         ArgChecks.nullNotPermitted(insets, "insets");
         this.insets = insets;
     }
-    
-    /**
-     * Returns the foreground paint.  The default value is <code>BLACK</code>.
-     * 
-     * @return The foreground paint (never <code>null</code>). 
-     */
-    public Paint getForegroundPaint() {
-        return this.foregroundPaint;
-    }
 
     /**
-     * Sets the foreground paint.
+     * Returns the background painter for the element.
      * 
-     * @param paint  the paint (<code>null</code> not permitted). 
+     * @return The background painter (possibly <code>null</code>). 
      */
-    public void setForegroundPaint(Paint paint) {
-        ArgChecks.nullNotPermitted(paint, "paint");
-        this.foregroundPaint = paint;
+    public RectanglePainter getBackground() {
+        return this.background;
     }
     
     /**
-     * Returns the background paint.  The default value is <code>WHITE</code>.
+     * Sets the background for the element.
      * 
-     * @return The background paint (never <code>null</code>). 
+     * @param background  the new background (<code>null</code> permitted).
      */
-    public Paint getBackgroundPaint() {
-        return this.backgroundPaint;
+    public void setBackground(RectanglePainter background) {
+        this.background = background;
     }
-
+    
     /**
-     * Sets the background paint.
+     * Sets the background painter to fill the element with the specified 
+     * color.  If the color is <code>null</code>, the background painter will
+     * be set to <code>null</code>.
      * 
-     * @param paint  the paint (<code>null</code> not permitted). 
+     * @param color  the color (<code>null</code> permitted). 
+     * 
+     * @since 1.2
      */
-    public void setBackgroundPaint(Paint paint) {
-        ArgChecks.nullNotPermitted(paint, "paint");
-        this.backgroundPaint = paint;
+    public void setBackgroundColor(Color color) {
+        if (color != null) {
+            this.background = new StandardRectanglePainter(color);
+        } else {
+            this.background = null;
+        }
     }
     
     /**
@@ -208,12 +201,7 @@ public abstract class AbstractTableElement implements Serializable {
         if (!this.insets.equals(that.insets)) {
             return false;
         }
-        if (!ObjectUtils.equalsPaint(this.backgroundPaint, 
-                that.backgroundPaint)) {
-            return false;
-        }
-        if (!ObjectUtils.equalsPaint(this.foregroundPaint, 
-                that.foregroundPaint)) {
+        if (!ObjectUtils.equals(this.background, that.background)) {
             return false;
         }
         return true;

@@ -15,7 +15,6 @@ package com.orsoncharts.style;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Paint;
 import java.awt.Stroke;
 import java.awt.Shape;
 import java.awt.geom.Rectangle2D;
@@ -150,20 +149,20 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
     /** The chart title font. */
     private Font titleFont;
     
-    /** The foreground paint for the chart title. */
-    private Paint titlePaint;
+    /** The foreground color for the chart title. */
+    private Color titleColor;
     
-    /** The background paint for the chart title. */
-    private Paint titleBackgroundPaint;
+    /** The background color for the chart title. */
+    private Color titleBackgroundColor;
 
     /** The chart subtitle font. */
     private Font subtitleFont;
     
-    /** The foreground paint for the chart subtitle. */
-    private Paint subtitlePaint;
+    /** The foreground color for the chart subtitle. */
+    private Color subtitleColor;
     
-    /** The background paint for the chart subtitle. */
-    private Paint subtitleBackgroundPaint;
+    /** The background color for the chart subtitle. */
+    private Color subtitleBackgroundColor;
     
     /** The color for the chart box, if there is one. */
     private Color chartBoxColor;
@@ -271,10 +270,10 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
     public StandardChartStyle() {
         this.backgroundPainter = new StandardRectanglePainter(Color.WHITE);
         this.titleFont = DEFAULT_TITLE_FONT;
-        this.titlePaint = Color.BLACK;
-        this.titleBackgroundPaint = DEFAULT_TEXT_BACKGROUND_COLOR;
-        this.subtitlePaint = Color.BLACK;
-        this.subtitleBackgroundPaint = DEFAULT_TEXT_BACKGROUND_COLOR;
+        this.titleColor = Color.BLACK;
+        this.titleBackgroundColor = DEFAULT_TEXT_BACKGROUND_COLOR;
+        this.subtitleColor = Color.BLACK;
+        this.subtitleBackgroundColor = DEFAULT_TEXT_BACKGROUND_COLOR;
         this.subtitleFont = DEFAULT_SUBTITLE_FONT;
         this.chartBoxColor = DEFAULT_CHARTBOX_COLOR;
         this.rowAxisGridlinesVisible = DEFAULT_ROW_GRIDLINES_VISIBLE;
@@ -321,11 +320,11 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
         ArgChecks.nullNotPermitted(source, "source");
         this.backgroundPainter = source.getBackgroundPainter();
         this.titleFont = source.getTitleFont();
-        this.titlePaint = source.getTitlePaint();
-        this.titleBackgroundPaint = source.getTitleBackgroundPaint();
+        this.titleColor = source.getTitleColor();
+        this.titleBackgroundColor = source.getTitleBackgroundColor();
         this.subtitleFont = source.getSubtitleFont();
-        this.subtitlePaint = source.getSubtitlePaint();
-        this.subtitleBackgroundPaint = source.getSubtitleBackgroundPaint();
+        this.subtitleColor = source.getSubtitleColor();
+        this.subtitleBackgroundColor = source.getSubtitleBackgroundColor();
         this.chartBoxColor = source.getChartBoxColor();
         this.xAxisGridlinesVisible = source.getXAxisGridlinesVisible();
         this.yAxisGridlinesVisible = source.getYAxisGridlinesVisible();
@@ -405,45 +404,45 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
     }
     
     /**
-     * Returns the title paint.  The default value is {@link Color#BLACK}.
+     * Returns the title color.  The default value is {@link Color#BLACK}.
      * 
-     * @return The title paint (never <code>null</code>). 
+     * @return The title color (never <code>null</code>). 
      */
     @Override
-    public Paint getTitlePaint() {
-        return this.titlePaint;
+    public Color getTitleColor() {
+        return this.titleColor;
     }
     
     /**
-     * Sets the foreground paint for the chart title and sends a 
-     * {@link ChartStyleChangeEvent} to all registered listeners.
+     * Sets the foreground color for the chart title and sends a 
+     * change event to all registered listeners.
      * 
-     * @param paint  the paint (<code>null</code> not permitted).
+     * @param color  the color (<code>null</code> not permitted).
      */
-    public void setTitlePaint(Paint paint) {
-        this.titlePaint = paint;
+    public void setTitleColor(Color color) {
+        this.titleColor = color;
         fireChangeEvent();
     }
     
     /**
-     * Returns the background paint for the title.  The default value is
+     * Returns the background color for the title.  The default value is
      * {@link #DEFAULT_TEXT_BACKGROUND_COLOR}.
      * 
-     * @return The background paint (never <code>null</code>). 
+     * @return The background color (never <code>null</code>). 
      */
     @Override
-    public Paint getTitleBackgroundPaint() {
-        return this.titleBackgroundPaint;
+    public Color getTitleBackgroundColor() {
+        return this.titleBackgroundColor;
     }
     
     /**
-     * Sets the background paint for the title and sends a 
-     * {@link ChartStyleChangeEvent} to all registered listeners.
+     * Sets the background color for the title and sends a 
+     * change event to all registered listeners.
      * 
-     * @param paint  the paint (<code>null</code> not permitted). 
+     * @param color  the color (<code>null</code> not permitted). 
      */
-    public void setTitleBackgroundPaint(Paint paint) {
-        this.titleBackgroundPaint = paint;
+    public void setTitleBackgroundColor(Color color) {
+        this.titleBackgroundColor = color;
         fireChangeEvent();
     }
     
@@ -471,48 +470,48 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
     }
    
     /**
-     * Returns the paint for the chart subtitle.  The default value is 
+     * Returns the color for the chart subtitle.  The default value is 
      * {@link Color#BLACK}.
      * 
-     * @return The paint (never <code>null</code>).
+     * @return The color (never <code>null</code>).
      */
     @Override
-    public Paint getSubtitlePaint() {
-        return this.subtitlePaint;
+    public Color getSubtitleColor() {
+        return this.subtitleColor;
     }
     
     /**
-     * Sets the paint for the chart subtitle and sends a 
-     * {@link ChartStyleChangeEvent} to all registered listeners.
+     * Sets the color for the chart subtitle and sends a 
+     * change event to all registered listeners.
      * 
-     * @param paint  the paint (<code>null</code> not permitted). 
+     * @param color  the color (<code>null</code> not permitted). 
      */
-    public void setSubtitlePaint(Paint paint) {
-        ArgChecks.nullNotPermitted(paint, "paint");
-        this.subtitlePaint = paint;
+    public void setSubtitleColor(Color color) {
+        ArgChecks.nullNotPermitted(color, "color");
+        this.subtitleColor = color;
         fireChangeEvent();
     }
     
     /**
-     * Returns the background paint for the chart subtitle.  The default value
+     * Returns the background color for the chart subtitle.  The default value
      * is {@link #DEFAULT_TEXT_BACKGROUND_COLOR}.
      * 
-     * @return The background paint (never <code>null</code>). 
+     * @return The background color (never <code>null</code>). 
      */
     @Override
-    public Paint getSubtitleBackgroundPaint() {
-        return this.subtitleBackgroundPaint;
+    public Color getSubtitleBackgroundColor() {
+        return this.subtitleBackgroundColor;
     }
     
     /**
-     * Sets the background paint for the chart subtitle and sends a 
-     * {@link ChartStyleChangeEvent} to all registered listeners.
+     * Sets the background color for the chart subtitle and sends a 
+     * change event to all registered listeners.
      * 
-     * @param paint  the paint (<code>null</code> not permitted). 
+     * @param color  the color (<code>null</code> not permitted). 
      */
-    public void setSubtitleBackgroundPaint(Paint paint) {
-        ArgChecks.nullNotPermitted(paint, "paint");
-        this.subtitleBackgroundPaint = paint;
+    public void setSubtitleBackgroundColor(Color color) {
+        ArgChecks.nullNotPermitted(color, "color");
+        this.subtitleBackgroundColor = color;
         fireChangeEvent();
     }
 
@@ -1292,21 +1291,20 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
         if (!this.titleFont.equals(that.titleFont)) {
             return false;
         }
-        if (!this.titlePaint.equals(that.titlePaint)) {
+        if (!this.titleColor.equals(that.titleColor)) {
             return false;
         }
-        if (!this.titleBackgroundPaint.equals(that.titleBackgroundPaint)) {
+        if (!this.titleBackgroundColor.equals(that.titleBackgroundColor)) {
             return false;
         }
         if (!this.subtitleFont.equals(that.subtitleFont)) {
             return false;
         }
-        if (!this.subtitlePaint.equals(
-                that.subtitlePaint)) {
+        if (!this.subtitleColor.equals(that.subtitleColor)) {
             return false;
         }
-        if (!this.subtitleBackgroundPaint.equals(
-                that.subtitleBackgroundPaint)) {
+        if (!this.subtitleBackgroundColor.equals(
+                that.subtitleBackgroundColor)) {
             return false;
         }
         if (!this.chartBoxColor.equals(that.chartBoxColor)) {

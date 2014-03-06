@@ -12,8 +12,8 @@
 
 package com.orsoncharts.table;
 
+import java.awt.Color;
 import java.awt.Font;
-import java.awt.Paint;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,9 +26,9 @@ public class TableElementStyler implements TableElementVisitor {
 
     private Map<String, Font> fontChanges;
     
-    private Map<String, Paint> foregroundPaintChanges;
+    private Map<String, Color> foregroundColorChanges;
     
-    private Map<String, Paint> backgroundPaintChanges;
+    private Map<String, Color> backgroundColorChanges;
     
     /**
      * Creates a new styler.
@@ -38,10 +38,10 @@ public class TableElementStyler implements TableElementVisitor {
      * @param bgChanges 
      */
     public TableElementStyler(Map<String, Font> fontChanges, 
-            Map<String, Paint> fgChanges, Map<String, Paint> bgChanges) {
+            Map<String, Color> fgChanges, Map<String, Color> bgChanges) {
         this.fontChanges = new HashMap(fontChanges);
-        this.foregroundPaintChanges = fgChanges;
-        this.backgroundPaintChanges = bgChanges;
+        this.foregroundColorChanges = fgChanges;
+        this.backgroundColorChanges = bgChanges;
     }
     
     @Override
@@ -52,13 +52,13 @@ public class TableElementStyler implements TableElementVisitor {
             if (f != null) {
                 te.setFont(f);
             }
-            Paint bg = this.backgroundPaintChanges.get(te.getTag());
+            Color bg = this.backgroundColorChanges.get(te.getTag());
             if (bg != null) {
-                te.setBackgroundPaint(bg);
+                te.setBackgroundColor(bg);
             }
-            Paint fg = this.foregroundPaintChanges.get(te.getTag());
+            Color fg = this.foregroundColorChanges.get(te.getTag());
             if (fg != null) {
-                te.setForegroundPaint(fg);
+                te.setColor(fg);
             }
         }
     }

@@ -301,7 +301,7 @@ public class Chart3D implements Drawable3D, ChartElement,
             setTitle((TableElement) null);
         } else {
             setTitle(title, this.style.getTitleFont(), 
-                    TitleUtils.DEFAULT_TITLE_PAINT);
+                    TitleUtils.DEFAULT_TITLE_COLOR);
         }
     }
     
@@ -312,15 +312,15 @@ public class Chart3D implements Drawable3D, ChartElement,
      * 
      * @param title  the title (<code>null</code> not permitted). 
      * @param font  the font (<code>null</code> not permitted).
-     * @param paint  the foreground paint (<code>null</code> not permitted).
+     * @param color  the foreground color (<code>null</code> not permitted).
      */
-    public void setTitle(String title, Font font, Paint paint) {
+    public void setTitle(String title, Font font, Color color) {
         // defer 'title' null check
         ArgChecks.nullNotPermitted(font, "font");
-        ArgChecks.nullNotPermitted(paint, "paint");
+        ArgChecks.nullNotPermitted(color, "color");
         TextElement te = new TextElement(title);
         te.setFont(font);
-        te.setForegroundPaint(paint);
+        te.setColor(color);
         setTitle(te);
     }
     
@@ -820,8 +820,8 @@ public class Chart3D implements Drawable3D, ChartElement,
                     legend2.setElement(legend, "R1", "C1");
                     TextElement te = new TextElement("Orson Charts (evaluation) (c) 2013, 2014, by Object Refinery Limited", 
                             this.style.getLegendFooterFont());
-                    te.setForegroundPaint(this.style.getLegendFooterColor());
-                    te.setBackgroundPaint(this.style.getLegendFooterBackgroundColor());
+                    te.setColor(this.style.getLegendFooterColor());
+                    te.setBackgroundColor(this.style.getLegendFooterBackgroundColor());
                     te.setHorizontalAligment(HAlign.RIGHT);
                     legend2.setElement(te, "R2", "C1");
                     legend = legend2;         

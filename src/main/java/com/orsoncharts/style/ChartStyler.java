@@ -12,8 +12,8 @@
 
 package com.orsoncharts.style;
 
+import java.awt.Color;
 import java.awt.Font;
-import java.awt.Paint;
 import java.util.HashMap;
 import java.util.Map;
 import com.orsoncharts.Chart3D;
@@ -103,13 +103,13 @@ public class ChartStyler implements ChartElementVisitor {
             Map<String, Font> fontChanges = new HashMap();
             fontChanges.put("CHART_TITLE", this.style.getTitleFont());
             fontChanges.put("CHART_SUBTITLE", this.style.getSubtitleFont());
-            Map<String, Paint> bgChanges = new HashMap<String, Paint>();
-            bgChanges.put("CHART_TITLE", this.style.getTitleBackgroundPaint());
+            Map<String, Color> bgChanges = new HashMap<String, Color>();
+            bgChanges.put("CHART_TITLE", this.style.getTitleBackgroundColor());
             bgChanges.put("CHART_SUBTITLE", 
-                    this.style.getSubtitleBackgroundPaint());
-            Map<String, Paint> fgChanges = new HashMap<String, Paint>();
-            fgChanges.put("CHART_TITLE", this.style.getTitlePaint());
-            fgChanges.put("CHART_SUBTITLE", this.style.getSubtitlePaint());
+                    this.style.getSubtitleBackgroundColor());
+            Map<String, Color> fgChanges = new HashMap<String, Color>();
+            fgChanges.put("CHART_TITLE", this.style.getTitleColor());
+            fgChanges.put("CHART_SUBTITLE", this.style.getSubtitleColor());
             TableElementStyler m1 = new TableElementStyler(fontChanges, 
                     fgChanges, bgChanges);
             chartTitle.receive(m1);

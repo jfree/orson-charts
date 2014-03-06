@@ -38,16 +38,16 @@ public class TextElementTest {
         t2.setInsets(new Insets(1, 2, 3, 4));
         assertTrue(t1.equals(t2));
         
-        // background paint
-        t1.setBackgroundPaint(Color.GREEN);
+        // background color
+        t1.setBackgroundColor(Color.GREEN);
         assertFalse(t1.equals(t2));
-        t2.setBackgroundPaint(Color.GREEN);
+        t2.setBackgroundColor(Color.GREEN);
         assertTrue(t1.equals(t2));
         
-        // foreground paint
-        t1.setForegroundPaint(Color.MAGENTA);
+        // color
+        t1.setColor(Color.MAGENTA);
         assertFalse(t1.equals(t2));
-        t2.setForegroundPaint(Color.MAGENTA);
+        t2.setColor(Color.MAGENTA);
         assertTrue(t1.equals(t2));
 
         t1.setFont(new Font("Dialog", Font.PLAIN, 2));

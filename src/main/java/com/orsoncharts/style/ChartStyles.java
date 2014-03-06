@@ -45,10 +45,10 @@ public class ChartStyles {
     public static ChartStyle createOrson2Style() {
         StandardChartStyle s = new StandardChartStyle();
         Color bgcolor = new Color(50, 50, 50, 150);
-        s.setTitlePaint(Color.LIGHT_GRAY);
-        s.setTitleBackgroundPaint(bgcolor);
-        s.setSubtitlePaint(Color.LIGHT_GRAY);
-        s.setSubtitleBackgroundPaint(bgcolor);
+        s.setTitleColor(Color.LIGHT_GRAY);
+        s.setTitleBackgroundColor(bgcolor);
+        s.setSubtitleColor(Color.LIGHT_GRAY);
+        s.setSubtitleBackgroundColor(bgcolor);
         s.setChartBoxColor(new Color(200, 200, 255, 50));
         s.setSectionLabelColor(Color.LIGHT_GRAY);
         s.setAxisLabelColor(Color.LIGHT_GRAY);

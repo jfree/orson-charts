@@ -18,6 +18,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Insets;
 import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
@@ -63,6 +64,9 @@ public class ColorScaleElement extends AbstractTableElement
     /** The font for the text labels. */
     private Font font;
     
+    /** The text color. */
+    private Color textColor;
+    
     /** The number formatter. */
     private NumberFormat formatter;
     
@@ -75,9 +79,12 @@ public class ColorScaleElement extends AbstractTableElement
      * @param barWidth  the bar width (in Java2D units).
      * @param barLength  the bar length (in Java2D units).
      * @param font  the font (<code>null</code> not permitted).
+     * @param textColor  the text color (<code>null</code> not permitted).
+     * 
+     * @since 1.2
      */
     public ColorScaleElement(ColorScale scale, Orientation orientation, 
-            double barWidth, double barLength, Font font) {
+            double barWidth, double barLength, Font font, Color textColor) {
         super();
         ArgChecks.nullNotPermitted(scale, "scale");
         ArgChecks.nullNotPermitted(orientation, "orientation");
@@ -88,6 +95,7 @@ public class ColorScaleElement extends AbstractTableElement
         this.barLength = barLength;
         this.textOffset = 2;
         this.font = font;
+        this.textColor = textColor;
         this.formatter = new DecimalFormat("0.00");
     }
     
@@ -134,6 +142,15 @@ public class ColorScaleElement extends AbstractTableElement
      */
     public Font getFont() {
         return this.font;
+    }
+    
+    /**
+     * Returns the text color.
+     * 
+     * @return The text color (never <code>null</code>). 
+     */
+    public Color getTextColor() {
+        return this.textColor;
     }
     
     /**
@@ -228,11 +245,9 @@ public class ColorScaleElement extends AbstractTableElement
         List<Rectangle2D> layoutInfo = layoutElements(g2, bounds, null);
         Rectangle2D dest = layoutInfo.get(0);
         
-        if (getBackgroundPaint() != null) {
-            g2.setPaint(getBackgroundPaint());
-            g2.fill(dest);
+        if (getBackground() != null) {
+            getBackground().fill(g2, dest);
         }
-        g2.setPaint(getForegroundPaint());
         g2.setFont(this.font);
         FontMetrics fm = g2.getFontMetrics();
         Range r = this.scale.getRange();
@@ -252,7 +267,7 @@ public class ColorScaleElement extends AbstractTableElement
             drawHorizontalScale(this.scale, g2, new Rectangle2D.Double(
                     (int) x0, (int) y0, (int) (x1 - x0), (int) this.barWidth));
             // fill the bar with the color scale
-            g2.setPaint(getForegroundPaint());
+            g2.setPaint(this.textColor);
             TextUtils.drawAlignedString(minStr, g2, (float) x0, 
                     (float) (y1 + this.textOffset), TextAnchor.TOP_CENTER);
             TextUtils.drawAlignedString(maxStr, g2, (float) x1, 
@@ -270,7 +285,7 @@ public class ColorScaleElement extends AbstractTableElement
             
             drawVerticalScale(this.scale, g2, new Rectangle2D.Double(
                     (int) x0, (int) y0, (int) (x1 - x0), (int) this.barLength));
-            g2.setPaint(getForegroundPaint());
+            g2.setPaint(this.textColor);
             TextUtils.drawAlignedString(minStr, g2, 
                     (float) (x1 + this.textOffset), (float) y1, 
                     TextAnchor.HALF_ASCENT_LEFT);

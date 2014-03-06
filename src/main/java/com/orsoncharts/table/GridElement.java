@@ -40,7 +40,7 @@ public class GridElement extends AbstractTableElement implements TableElement,
      */
     public GridElement() {
         this.elements = new DefaultKeyedValues2D<TableElement>();
-        setBackgroundPaint(TRANSPARENT_COLOR);
+        setBackgroundColor(TRANSPARENT_COLOR);
     }
     
     /**
@@ -171,8 +171,9 @@ public class GridElement extends AbstractTableElement implements TableElement,
      */
     @Override
     public void draw(Graphics2D g2, Rectangle2D bounds) {
-        g2.setPaint(getBackgroundPaint());
-        g2.fill(bounds);
+        if (getBackground() != null) {
+            getBackground().fill(g2, bounds);
+        }
         List<Rectangle2D> positions = layoutElements(g2, bounds, null);
         for (int r = 0; r < this.elements.getXCount(); r++) {
             for (int c = 0; c < this.elements.getYCount(); c++) {

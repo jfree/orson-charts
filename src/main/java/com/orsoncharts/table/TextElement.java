@@ -12,6 +12,7 @@
 
 package com.orsoncharts.table;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Insets;
@@ -49,6 +50,9 @@ public class TextElement extends AbstractTableElement
     /** The font (never <code>null</code>). */
     private Font font;
     
+    /** The color for the text (never <code>null</code>). */
+    private Color color;
+    
     /** The horizontal alignment (never <code>null</code>). */
     private HAlign alignment;
    
@@ -74,6 +78,7 @@ public class TextElement extends AbstractTableElement
         ArgChecks.nullNotPermitted(font, "font");
         this.text = text;
         this.font = font;
+        this.color = Color.BLACK;
         this.alignment = HAlign.LEFT;
     }
     
@@ -94,6 +99,15 @@ public class TextElement extends AbstractTableElement
     public void setFont(Font font) {
         ArgChecks.nullNotPermitted(font, "font");
         this.font = font;
+    }
+    
+    public Color getColor() {
+        return this.color;
+    }
+    
+    public void setColor(Color color) {
+        ArgChecks.nullNotPermitted(color, "color");
+        this.color = color;
     }
     
     /**
@@ -204,11 +218,10 @@ public class TextElement extends AbstractTableElement
         
         List<Rectangle2D> layout = layoutElements(g2, bounds, null);
         Rectangle2D textBounds = layout.get(0);
-        if (getBackgroundPaint() != null) {
-            g2.setPaint(getBackgroundPaint());
-            g2.fill(textBounds);
+        if (getBackground() != null) {
+            getBackground().fill(g2, textBounds);
         }
-        g2.setPaint(getForegroundPaint());
+        g2.setPaint(this.color);
         g2.setFont(this.font);
         Insets insets = getInsets();
         TextUtils.drawAlignedString(this.text, g2, 
@@ -236,6 +249,9 @@ public class TextElement extends AbstractTableElement
             return false;
         }
         if (!this.font.equals(that.font)) {
+            return false;
+        }
+        if (!this.color.equals(that.color)) {
             return false;
         }
         if (this.alignment != that.alignment) {

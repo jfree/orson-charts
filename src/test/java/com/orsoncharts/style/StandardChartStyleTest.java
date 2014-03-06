@@ -34,11 +34,11 @@ public class StandardChartStyleTest {
         StandardChartStyle s1 = new StandardChartStyle();
         s1.setBackgroundPainter(new StandardRectanglePainter(Color.RED));
         s1.setTitleFont(new Font(Font.SERIF, Font.PLAIN, 2));
-        s1.setTitlePaint(Color.CYAN);
-        s1.setTitleBackgroundPaint(Color.YELLOW);
+        s1.setTitleColor(Color.CYAN);
+        s1.setTitleBackgroundColor(Color.YELLOW);
         s1.setSubtitleFont(new Font(Font.DIALOG, Font.PLAIN, 7));
-        s1.setSubtitlePaint(Color.MAGENTA);
-        s1.setSubtitleBackgroundPaint(Color.PINK);
+        s1.setSubtitleColor(Color.MAGENTA);
+        s1.setSubtitleBackgroundColor(Color.PINK);
         s1.setChartBoxColor(Color.GREEN);
         s1.setXAxisGridlinesVisible(!s1.getXAxisGridlinesVisible());
         s1.setYAxisGridlinesVisible(!s1.getYAxisGridlinesVisible());
@@ -72,12 +72,12 @@ public class StandardChartStyleTest {
         assertEquals(new StandardRectanglePainter(Color.RED), 
                 s2.getBackgroundPainter());
         assertEquals(new Font(Font.SERIF, Font.PLAIN, 2), s2.getTitleFont());
-        assertEquals(Color.CYAN, s2.getTitlePaint());
-        assertEquals(Color.YELLOW, s2.getTitleBackgroundPaint());
+        assertEquals(Color.CYAN, s2.getTitleColor());
+        assertEquals(Color.YELLOW, s2.getTitleBackgroundColor());
         assertEquals(new Font(Font.DIALOG, Font.PLAIN, 7), 
                 s2.getSubtitleFont());
-        assertEquals(Color.MAGENTA, s2.getSubtitlePaint());
-        assertEquals(Color.PINK, s2.getSubtitleBackgroundPaint());
+        assertEquals(Color.MAGENTA, s2.getSubtitleColor());
+        assertEquals(Color.PINK, s2.getSubtitleBackgroundColor());
         assertEquals(Color.GREEN, s2.getChartBoxColor());
         assertEquals(s1.getXAxisGridlinesVisible(), 
                 s2.getXAxisGridlinesVisible());
@@ -138,16 +138,16 @@ public class StandardChartStyleTest {
         s2.setTitleFont(new Font("Dialog", Font.PLAIN, 23));
         assertTrue(s1.equals(s2));
         
-        // titlePaint
-        s1.setTitlePaint(Color.GREEN);
+        // titleColor
+        s1.setTitleColor(Color.GREEN);
         assertFalse(s1.equals(s2));        
-        s2.setTitlePaint(Color.GREEN);
+        s2.setTitleColor(Color.GREEN);
         assertTrue(s1.equals(s2));
         
-        // titleBackgroundPaint
-        s1.setTitleBackgroundPaint(Color.RED);
+        // titleBackgroundColor
+        s1.setTitleBackgroundColor(Color.RED);
         assertFalse(s1.equals(s2));        
-        s2.setTitleBackgroundPaint(Color.RED);
+        s2.setTitleBackgroundColor(Color.RED);
         assertTrue(s1.equals(s2));
         
         // subtitleFont
@@ -156,16 +156,16 @@ public class StandardChartStyleTest {
         s2.setSubtitleFont(new Font("Dialog", Font.PLAIN, 27));
         assertTrue(s1.equals(s2));
         
-        // subtitleForegroundPaint
-        s1.setSubtitlePaint(Color.CYAN);
+        // subtitleColor
+        s1.setSubtitleColor(Color.CYAN);
         assertFalse(s1.equals(s2));        
-        s2.setSubtitlePaint(Color.CYAN);
+        s2.setSubtitleColor(Color.CYAN);
         assertTrue(s1.equals(s2));
         
-        // subtitleBackgroundPaint
-        s1.setSubtitleBackgroundPaint(Color.YELLOW);
+        // subtitleBackgroundColor
+        s1.setSubtitleBackgroundColor(Color.YELLOW);
         assertFalse(s1.equals(s2));        
-        s2.setSubtitleBackgroundPaint(Color.YELLOW);
+        s2.setSubtitleBackgroundColor(Color.YELLOW);
         assertTrue(s1.equals(s2));
         
         // chartBoxColor

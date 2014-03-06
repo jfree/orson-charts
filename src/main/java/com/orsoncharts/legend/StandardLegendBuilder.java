@@ -13,7 +13,6 @@
 package com.orsoncharts.legend;
 
 import java.awt.Color;
-import java.awt.Paint;
 import java.awt.Font;
 import java.awt.Shape;
 import java.util.List;
@@ -252,7 +251,7 @@ public final class StandardLegendBuilder implements LegendBuilder,
                 TextElement he = new TextElement(this.header, 
                         style.getLegendHeaderFont());
                 he.setHorizontalAligment(this.headerAlignment);
-                he.setBackgroundPaint(style.getLegendHeaderBackgroundColor());
+                he.setBackgroundColor(style.getLegendHeaderBackgroundColor());
                 compositeLegend.setElement(he, "R0", "C1");                
             }
             compositeLegend.setElement(legend, "R1", "C1");
@@ -260,7 +259,7 @@ public final class StandardLegendBuilder implements LegendBuilder,
                 TextElement fe = new TextElement(this.footer, 
                         style.getLegendFooterFont());
                 fe.setHorizontalAligment(this.footerAlignment);
-                fe.setBackgroundPaint(style.getLegendFooterBackgroundColor());
+                fe.setBackgroundColor(style.getLegendFooterBackgroundColor());
                 compositeLegend.setElement(fe, "R2", "C1");
             }
             return compositeLegend;
@@ -301,7 +300,7 @@ public final class StandardLegendBuilder implements LegendBuilder,
             }
             legend.addElement(createLegendItem(item.getLabel(), 
                     style.getLegendItemFont(), style.getLegendItemColor(), 
-                    shape, item.getPaint(), 
+                    shape, item.getColor(), 
                     style.getLegendItemBackgroundColor()));
         }
         return legend;
@@ -362,13 +361,13 @@ public final class StandardLegendBuilder implements LegendBuilder,
      * @return A legend item (never <code>null</code>). 
      */
     private TableElement createLegendItem(String text, Font font, 
-            Color textColor, Shape shape, Paint shapeColor, Color background) {
+            Color textColor, Shape shape, Color shapeColor, Color background) {
         // defer argument checks...
         ShapeElement se = new ShapeElement(shape, shapeColor);
-        se.setBackgroundPaint(background);
+        se.setBackgroundColor(background);
         TextElement te = new TextElement(text, font);
-        te.setForegroundPaint(textColor);
-        te.setBackgroundPaint(background);
+        te.setColor(textColor);
+        te.setBackgroundColor(background);
         GridElement ge = new GridElement();
         ge.setElement(se, "R1", "C1");
         ge.setElement(te, "R1", "C2");

@@ -12,9 +12,9 @@
 
 package com.orsoncharts.table;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Insets;
-import java.awt.Paint;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Dimension2D;
@@ -22,6 +22,7 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import com.orsoncharts.util.ArgChecks;
 
 /**
  * A table element that displays a shape.
@@ -35,18 +36,45 @@ public class ShapeElement extends AbstractTableElement
      */
     private Shape shape;
     
+    private Color fillColor;
+    
     /**
      * Creates a new shape element.
      * 
      * @param shape  the shape (<code>null</code> not permitted).
-     * @param fillPaint  the fill paint (<code>null</code> not permitted).
+     * @param fillColor  the fill color (<code>null</code> not permitted).
      */
-    public ShapeElement(Shape shape, Paint fillPaint) {
+    public ShapeElement(Shape shape, Color fillColor) {
         super();
+        ArgChecks.nullNotPermitted(shape, "shape");
+        ArgChecks.nullNotPermitted(fillColor, "fillColor");
         this.shape = shape;
-        setForegroundPaint(fillPaint);
+        this.fillColor = fillColor;
     }
 
+    /**
+     * Returns the fill color.
+     * 
+     * @return The fill color.
+     * 
+     * @since 1.2
+     */
+    public Color getFillColor() {
+        return this.fillColor;
+    }
+    
+    /**
+     * Sets the fill color.
+     * 
+     * @param color  the fill color (<code>null</code> not permitted).
+     * 
+     * @since 1.2
+     */
+    public void setFillColor(Color color) {
+        ArgChecks.nullNotPermitted(color, "color");
+        this.fillColor = color;
+    }
+    
     @Override
     public Dimension2D preferredSize(Graphics2D g2, Rectangle2D bounds, 
             Map<String, Object> constraints) {
@@ -77,13 +105,12 @@ public class ShapeElement extends AbstractTableElement
     @Override
     public void draw(Graphics2D g2, Rectangle2D bounds) {
         AffineTransform saved = g2.getTransform();
-        Paint background = getBackgroundPaint();
+        RectanglePainter background = getBackground();
         if (background != null) {
-            g2.setPaint(getBackgroundPaint());
-            g2.fill(bounds);
+            background.fill(g2, bounds);
         }
         g2.translate(bounds.getCenterX(), bounds.getCenterY());
-        g2.setPaint(getForegroundPaint());
+        g2.setPaint(this.fillColor);
         g2.fill(shape);
         g2.setTransform(saved);
     }

@@ -162,9 +162,9 @@ public class ColorScaleLegendBuilder implements LegendBuilder, Serializable {
             Orientation orientation, Anchor2D anchor, ChartStyle style) {
         ColorScale scale = r.getColorScale();
         ColorScaleElement element = new ColorScaleElement(scale, orientation, 
-                this.barWidth, this.barLength, style.getLegendItemFont());
-        element.setForegroundPaint(style.getLegendItemColor());
-        element.setBackgroundPaint(style.getLegendItemBackgroundColor());
+                this.barWidth, this.barLength, style.getLegendItemFont(),
+                style.getLegendItemColor());
+        element.setBackgroundColor(style.getLegendItemBackgroundColor());
         element.setRefPoint(anchor.getRefPt());
         return element;
     }

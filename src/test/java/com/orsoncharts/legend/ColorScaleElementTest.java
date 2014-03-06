@@ -30,56 +30,56 @@ public class ColorScaleElementTest {
     public void testEquals() {
         ColorScaleElement cs1 = new ColorScaleElement(
                 new FixedColorScale(Color.BLUE), Orientation.HORIZONTAL, 1.0, 
-                2.0, new Font(Font.SERIF, Font.PLAIN, 10));
+                2.0, new Font(Font.SERIF, Font.PLAIN, 10), Color.BLACK);
         ColorScaleElement cs2 = new ColorScaleElement(
                 new FixedColorScale(Color.BLUE), Orientation.HORIZONTAL, 1.0, 
-                2.0, new Font(Font.SERIF, Font.PLAIN, 10));
+                2.0, new Font(Font.SERIF, Font.PLAIN, 10), Color.BLACK);
         assertTrue(cs1.equals(cs2));
         assertFalse(cs1.equals(null));
         
         cs1 = new ColorScaleElement(
                 new FixedColorScale(Color.RED), Orientation.HORIZONTAL, 1.0, 
-                2.0, new Font(Font.SERIF, Font.PLAIN, 10));
+                2.0, new Font(Font.SERIF, Font.PLAIN, 10), Color.BLACK);
         assertFalse(cs1.equals(cs2));
         cs2 = new ColorScaleElement(
                 new FixedColorScale(Color.RED), Orientation.HORIZONTAL, 1.0, 
-                2.0, new Font(Font.SERIF, Font.PLAIN, 10));
+                2.0, new Font(Font.SERIF, Font.PLAIN, 10), Color.BLACK);
         assertTrue(cs1.equals(cs2));
         
         cs1 = new ColorScaleElement(
                 new FixedColorScale(Color.RED), Orientation.VERTICAL, 1.0, 
-                2.0, new Font(Font.SERIF, Font.PLAIN, 10));
+                2.0, new Font(Font.SERIF, Font.PLAIN, 10), Color.BLACK);
         assertFalse(cs1.equals(cs2));
         cs2 = new ColorScaleElement(
                 new FixedColorScale(Color.RED), Orientation.VERTICAL, 1.0, 
-                2.0, new Font(Font.SERIF, Font.PLAIN, 10));
+                2.0, new Font(Font.SERIF, Font.PLAIN, 10), Color.BLACK);
         assertTrue(cs1.equals(cs2));
 
         cs1 = new ColorScaleElement(
                 new FixedColorScale(Color.RED), Orientation.VERTICAL, 1.1, 
-                2.0, new Font(Font.SERIF, Font.PLAIN, 10));
+                2.0, new Font(Font.SERIF, Font.PLAIN, 10), Color.BLACK);
         assertFalse(cs1.equals(cs2));
         cs2 = new ColorScaleElement(
                 new FixedColorScale(Color.RED), Orientation.VERTICAL, 1.1, 
-                2.0, new Font(Font.SERIF, Font.PLAIN, 10));
+                2.0, new Font(Font.SERIF, Font.PLAIN, 10), Color.BLACK);
         assertTrue(cs1.equals(cs2));
 
         cs1 = new ColorScaleElement(
                 new FixedColorScale(Color.RED), Orientation.VERTICAL, 1.1, 
-                2.2, new Font(Font.SERIF, Font.PLAIN, 10));
+                2.2, new Font(Font.SERIF, Font.PLAIN, 10), Color.BLACK);
         assertFalse(cs1.equals(cs2));
         cs2 = new ColorScaleElement(
                 new FixedColorScale(Color.RED), Orientation.VERTICAL, 1.1, 
-                2.2, new Font(Font.SERIF, Font.PLAIN, 10));
+                2.2, new Font(Font.SERIF, Font.PLAIN, 10), Color.BLACK);
         assertTrue(cs1.equals(cs2));
 
         cs1 = new ColorScaleElement(
                 new FixedColorScale(Color.RED), Orientation.VERTICAL, 1.1, 
-                2.2, new Font(Font.SERIF, Font.PLAIN, 22));
+                2.2, new Font(Font.SERIF, Font.PLAIN, 22), Color.BLACK);
         assertFalse(cs1.equals(cs2));
         cs2 = new ColorScaleElement(
                 new FixedColorScale(Color.RED), Orientation.VERTICAL, 1.1, 
-                2.2, new Font(Font.SERIF, Font.PLAIN, 22));
+                2.2, new Font(Font.SERIF, Font.PLAIN, 22), Color.BLACK);
         assertTrue(cs1.equals(cs2));
     }
     
@@ -87,7 +87,7 @@ public class ColorScaleElementTest {
     public void testSerialization() {
         ColorScaleElement cs1 = new ColorScaleElement(
                 new FixedColorScale(Color.BLUE), Orientation.HORIZONTAL, 1.0, 
-                2.0, new Font(Font.SERIF, Font.PLAIN, 10));
+                2.0, new Font(Font.SERIF, Font.PLAIN, 10), Color.BLACK);
         ColorScaleElement cs2 = (ColorScaleElement) TestUtils.serialized(cs1);
         assertTrue(cs1.equals(cs2));
     }

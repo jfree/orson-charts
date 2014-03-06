@@ -12,9 +12,9 @@
 
 package com.orsoncharts.legend;
 
-import java.awt.Paint;
 import java.awt.Shape;
 import java.util.Map;
+import java.awt.Color;
 import com.orsoncharts.plot.Plot3D;
 
 /**
@@ -59,11 +59,11 @@ public interface LegendItemInfo {
     Shape getShape();
 
     /**
-     * Returns the paint used to represent a series.
+     * Returns the color used to represent a series.
      * 
-     * @return The paint (never <code>null</code>).
+     * @return The color (never <code>null</code>).
      */
-    Paint getPaint();
+    Color getColor();
     
     /**
      * A map containing other properties for the legend item.  Not currently

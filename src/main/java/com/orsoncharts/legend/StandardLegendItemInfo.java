@@ -12,10 +12,10 @@
 
 package com.orsoncharts.legend;
 
-import java.awt.Paint;
 import java.awt.Shape;
 import java.util.HashMap;
 import java.util.Map;
+import java.awt.Color;
 import com.orsoncharts.util.ArgChecks;
 
 /**
@@ -33,7 +33,7 @@ public class StandardLegendItemInfo implements LegendItemInfo {
     private String description;
     
     /** The color to represent this legend item. */
-    private Paint paint;
+    private Color color;
     
     /** The shape to represent this legend item. */
     private Shape shape;
@@ -46,11 +46,11 @@ public class StandardLegendItemInfo implements LegendItemInfo {
      * 
      * @param seriesKey  the series key (<code>null</code> not permitted).
      * @param label  the label (<code>null</code> not permitted).
-     * @param paint  the paint (<code>null</code> not permitted).
+     * @param color  the color (<code>null</code> not permitted).
      */
     public StandardLegendItemInfo(Comparable<?> seriesKey, String label, 
-            Paint paint) {
-        this(seriesKey, label, null, paint, null);
+            Color color) {
+        this(seriesKey, label, null, color, null);
     }
     
     /**
@@ -59,18 +59,18 @@ public class StandardLegendItemInfo implements LegendItemInfo {
      * @param seriesKey  the series key (<code>null</code> not permitted).
      * @param label  the label (<code>null</code> not permitted).
      * @param description  the description (<code>null</code> permitted).
-     * @param paint  the paint (<code>null</code> not permitted).
+     * @param color  the color (<code>null</code> not permitted).
      * @param shape the shape (<code>null</code> permitted).
      */
     public StandardLegendItemInfo(Comparable<?> seriesKey, String label, 
-            String description, Paint paint, Shape shape) {
+            String description, Color color, Shape shape) {
         ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
         ArgChecks.nullNotPermitted(label, "label");
-        ArgChecks.nullNotPermitted(paint, "paint");
+        ArgChecks.nullNotPermitted(color, "color");
         this.seriesKey = seriesKey;  
         this.label = label;
         this.description = description;
-        this.paint = paint;
+        this.color = color;
         this.shape = shape;
         this.properties = new HashMap<Comparable, Object>();
     }
@@ -116,13 +116,13 @@ public class StandardLegendItemInfo implements LegendItemInfo {
     }
 
     /**
-     * Returns the paint for the legend item.
+     * Returns the color for the legend item.
      * 
-     * @return The paint (never <code>null</code>). 
+     * @return The color (never <code>null</code>). 
      */
     @Override
-    public Paint getPaint() {
-        return this.paint;    
+    public Color getColor() {
+        return this.color;    
     }
 
     /**

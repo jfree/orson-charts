@@ -14,7 +14,6 @@ package com.orsoncharts.style;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Paint;
 import java.awt.Shape;
 import java.awt.Stroke;
 import com.orsoncharts.Chart3D;
@@ -45,19 +44,19 @@ public interface ChartStyle {
     Font getTitleFont();
     
     /**
-     * Returns the foreground paint for the chart title.
+     * Returns the foreground color for the chart title.
      * 
-     * @return The foreground paint (never <code>null</code>). 
+     * @return The foreground color (never <code>null</code>). 
      */
-    Paint getTitlePaint();
+    Color getTitleColor();
     
     /**
-     * Returns the background paint for the chart title.
+     * Returns the background color for the chart title.
      * 
-     * @return The background paint for the chart title (never 
-     *         <code>null</code>).
+     * @return The background color for the chart title (never 
+     *     <code>null</code>).
      */
-    Paint getTitleBackgroundPaint();
+    Color getTitleBackgroundColor();
     
     /**
      * Returns the subtitle font. 
@@ -67,18 +66,18 @@ public interface ChartStyle {
     Font getSubtitleFont();
 
     /**
-     * Returns the foreground paint for the chart subtitle.
+     * Returns the foreground color for the chart subtitle.
      * 
-     * @return The foreground paint (never <code>null</code>). 
+     * @return The foreground color (never <code>null</code>). 
      */
-    Paint getSubtitlePaint();
+    Color getSubtitleColor();
     
     /**
-     * Returns the background paint for the chart subtitle.
+     * Returns the background color for the chart subtitle.
      * 
-     * @return The background paint (never <code>null</code>). 
+     * @return The background color (never <code>null</code>). 
      */
-    Paint getSubtitleBackgroundPaint();
+    Color getSubtitleBackgroundColor();
     
     /**
      * Returns the color for the chart box, if any.

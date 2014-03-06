@@ -13,7 +13,6 @@
 package com.orsoncharts;
 
 import java.awt.Color;
-import java.awt.Paint;
 import java.awt.Font;
 import com.orsoncharts.table.GridElement;
 import com.orsoncharts.table.HAlign;
@@ -30,8 +29,8 @@ public class TitleUtils {
     public static final Font DEFAULT_TITLE_FONT = new Font("Dialog", Font.BOLD, 
             20);
     
-    /** The default foreground paint for titles. */
-    public static final Paint DEFAULT_TITLE_PAINT = Color.BLACK;
+    /** The default foreground color for titles. */
+    public static final Color DEFAULT_TITLE_COLOR = Color.BLACK;
     
     /** The default sub-title font. */
     public static final Font DEFAULT_SUBTITLE_FONT = new Font("Dialog", 
@@ -108,7 +107,7 @@ public class TitleUtils {
         
         TextElement t = new TextElement(title, titleFont);
         t.setHorizontalAligment(alignment);
-        t.setForegroundPaint(DEFAULT_TITLE_PAINT);
+        t.setColor(DEFAULT_TITLE_COLOR);
         t.setTag("CHART_TITLE");
         if (subtitle == null) {
             return t;
@@ -120,7 +119,7 @@ public class TitleUtils {
         GridElement compositeTitle = new GridElement();
         TextElement st = new TextElement(subtitle, subtitleFont);
         st.setHorizontalAligment(alignment);
-        st.setForegroundPaint(DEFAULT_TITLE_PAINT);
+        st.setColor(DEFAULT_TITLE_COLOR);
         st.setTag("CHART_SUBTITLE");
         compositeTitle.setElement(t, "R1", "C1");
         compositeTitle.setElement(st, "R2", "C1");
