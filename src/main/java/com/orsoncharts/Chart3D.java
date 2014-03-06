@@ -67,6 +67,8 @@ import com.orsoncharts.table.GridElement;
 import com.orsoncharts.table.HAlign;
 import com.orsoncharts.table.TableElement;
 import com.orsoncharts.table.TextElement;
+import com.orsoncharts.table.StandardRectanglePainter;
+import com.orsoncharts.table.RectanglePainter;
 import com.orsoncharts.util.Anchor2D;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.ObjectUtils;

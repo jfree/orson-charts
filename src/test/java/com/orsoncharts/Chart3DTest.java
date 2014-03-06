@@ -30,7 +30,9 @@ import com.orsoncharts.data.xyz.XYZSeries;
 import com.orsoncharts.data.xyz.XYZSeriesCollection;
 import com.orsoncharts.legend.LegendAnchor;
 import com.orsoncharts.legend.StandardLegendBuilder;
+import com.orsoncharts.style.ChartStyles;
 import com.orsoncharts.util.Orientation;
+import com.orsoncharts.table.StandardRectanglePainter;
 
 /**
  * Tests for the {@link Chart3D} class.
@@ -103,6 +105,18 @@ public class Chart3DTest {
         c1.setChartBoxColor(Color.CYAN);
         assertFalse(c1.equals(c2));
         c2.setChartBoxColor(Color.CYAN);
+        assertTrue(c1.equals(c2));
+        
+        // projDist
+        c1.setProjDistance(123);
+        assertFalse(c1.equals(c2));
+        c2.setProjDistance(123);
+        assertTrue(c1.equals(c2));
+        
+        // style
+        c1.setStyle(ChartStyles.createIceCubeStyle());
+        assertFalse(c1.equals(c2));
+        c2.setStyle(ChartStyles.createIceCubeStyle());
         assertTrue(c1.equals(c2));
     }
     
