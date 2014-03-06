@@ -38,25 +38,65 @@ package com.orsoncharts.demo;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-
+import java.awt.FlowLayout;
+import java.awt.LayoutManager;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
-import com.orsoncharts.data.function.Function3D;
+import com.orsoncharts.axis.LabelOrientation;
+import com.orsoncharts.axis.LogAxis3D;
+import com.orsoncharts.axis.NumberAxis3D;
 import com.orsoncharts.data.xyz.XYZDataset;
-import com.orsoncharts.data.xyz.XYZDatasetUtils;
+import com.orsoncharts.data.xyz.XYZSeries;
+import com.orsoncharts.data.xyz.XYZSeriesCollection;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.ViewPoint3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.renderer.xyz.ScatterXYZRenderer;
+import com.orsoncharts.style.ChartStyler;
 
 /**
  * A demonstration of a scatter plot in 3D.
  */
 public class ScatterPlot3DDemo2 extends JFrame {
+
+    static class CustomDemoPanel extends DemoPanel implements ActionListener {
+        
+        private JCheckBox checkBox;
+        
+        public CustomDemoPanel(LayoutManager layout) {
+            super(layout);
+            this.checkBox = new JCheckBox("Logarithmic Scale");
+            this.checkBox.setSelected(true);
+            this.checkBox.addActionListener(this);
+            JPanel controlPanel = new JPanel(new FlowLayout());
+            controlPanel.add(this.checkBox);
+            add(controlPanel, BorderLayout.SOUTH);
+        }    
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Chart3D chart = (Chart3D) getChartPanel().getDrawable();
+            XYZPlot plot = (XYZPlot) chart.getPlot();
+            if (this.checkBox.isSelected()) {
+                LogAxis3D logAxis = new LogAxis3D("Y (logarithmic scale)");
+                logAxis.setTickLabelOrientation(LabelOrientation.PERPENDICULAR);
+                logAxis.receive(new ChartStyler(chart.getStyle()));
+                plot.setYAxis(logAxis);
+            } else {
+                NumberAxis3D yAxis = new NumberAxis3D("Y");
+                yAxis.setTickLabelOrientation(LabelOrientation.PERPENDICULAR);
+                yAxis.receive(new ChartStyler(chart.getStyle()));
+                plot.setYAxis(yAxis);
+            }
+        }
+    }
 
     /**
      * Creates a new test app.
@@ -77,16 +117,19 @@ public class ScatterPlot3DDemo2 extends JFrame {
      * @return A panel containing the content for the demo.
      */
     public static JPanel createDemoPanel() {
-        DemoPanel content = new DemoPanel(new BorderLayout());
+        DemoPanel content = new CustomDemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         XYZDataset dataset = createDataset();
         Chart3D chart = Chart3DFactory.createScatterChart("ScatterPlot3DDemo2", 
                 "Chart created with Orson Charts", dataset, "X", "Y", "Z");
         XYZPlot plot = (XYZPlot) chart.getPlot();
-        plot.setDimensions(new Dimension3D(10.0, 4.0, 10.0));
         ScatterXYZRenderer renderer = (ScatterXYZRenderer) plot.getRenderer();
-        renderer.setSize(0.05);
-        renderer.setColors(Color.RED);
+        plot.setDimensions(new Dimension3D(10, 6, 10));
+        renderer.setSize(0.1);
+        renderer.setColors(new Color(255, 128, 128), new Color(128, 255, 128));
+        LogAxis3D yAxis = new LogAxis3D("Y (log scale)");
+        yAxis.setTickLabelOrientation(LabelOrientation.PERPENDICULAR);
+        plot.setYAxis(yAxis);
         chart.setViewPoint(ViewPoint3D.createAboveLeftViewPoint(40));
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
         content.setChartPanel(chartPanel);
@@ -103,15 +146,19 @@ public class ScatterPlot3DDemo2 extends JFrame {
      * @return A sample dataset.
      */
     private static XYZDataset createDataset() {
-        Function3D f = new Function3D() {
-            @Override
-            public double getValue(double x, double z) {
-                return Math.cos(x) * Math.sin(z);
-            }
-        };
-        
-        XYZDataset dataset = XYZDatasetUtils.sampleFunction(f, 
-                "y = cos(x) * sin(z)", 0, Math.PI * 2, 50, 0, Math.PI * 2, 50);
+        XYZSeries s1 = new XYZSeries("S1");
+        for (int i = 0; i < 1000; i++) {
+            s1.add(Math.random() * 100, Math.pow(10, Math.random() * 5), 
+                    Math.random() * 100);
+        }
+        XYZSeries s2 = new XYZSeries("S2");
+        for (int i = 0; i < 1000; i++) {
+            s2.add(Math.random() * 100, Math.random() * 100000, 
+                    Math.random() * 100);
+        }
+        XYZSeriesCollection dataset = new XYZSeriesCollection();
+        dataset.add(s1);
+        dataset.add(s2);
         return dataset;
     }
    
