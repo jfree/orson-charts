@@ -396,24 +396,14 @@ public final class StandardLegendBuilder implements LegendBuilder,
         }
         if (this.headerAlignment != that.headerAlignment) {
             return false;
-        }
-//        if (!this.headerFont.equals(that.headerFont)) {
-//            return false;
-//        }        
+        }     
         if (!ObjectUtils.equals(this.footer, that.footer)) {
             return false;
         }
         if (this.footerAlignment != that.footerAlignment) {
             return false;
         }
-//        if (!this.footerFont.equals(that.footerFont)) {
-//            return false;
-//        }
-//        if (!this.itemFont.equals(that.itemFont)) {
-//            return false;
-//        }
         return true;
     }
-
 
 }
