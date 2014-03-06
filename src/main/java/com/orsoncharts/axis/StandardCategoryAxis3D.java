@@ -516,7 +516,9 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
             existing.removeChangeListener(this);
         }
         this.markers.put(key, marker);
-        marker.addChangeListener(this);
+        if (marker != null) {
+            marker.addChangeListener(this);
+        }
         fireChangeEvent(false);
     } 
 
@@ -733,7 +735,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
                     textAnchor, axisTheta, textAnchor);
             index++;
         }
-        return height * (levels + 0.5);
+        return height * levels;
     }
     
     /**
@@ -832,6 +834,9 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
         for (Map.Entry<String, CategoryMarker> entry 
                 : this.markers.entrySet()) {
             CategoryMarker cm = entry.getValue();
+            if (cm == null) {
+                continue;
+            }
             MarkerData markerData;
             if (cm.getType().equals(CategoryMarkerType.LINE)) {
                 double pos = getCategoryValue(cm.getCategory());
