@@ -275,7 +275,8 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
      * the range does not contain negative values, and to update the log values
      * for the range.
      * 
-     * @param range  the range (<code>null</code> not permitted). 
+     * @param min  the lower bound for the range. 
+     * @param max  the upper bound for the range. 
      */
     @Override
     public void setRange(double min, double max) {
