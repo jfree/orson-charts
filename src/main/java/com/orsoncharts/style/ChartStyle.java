@@ -29,8 +29,6 @@ import com.orsoncharts.RectanglePainter;
  * @since 1.2
  */
 public interface ChartStyle {
-
-    //boolean isModified(String name);
     
     /**
      * Returns the painter that fills the background for the chart.
