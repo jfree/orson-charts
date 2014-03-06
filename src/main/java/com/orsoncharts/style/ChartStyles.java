@@ -79,8 +79,21 @@ public class ChartStyles {
     }
     
     /**
+     * Creates and returns a new instance of the "Pastel" chart style.
+     * 
+     * @return A chart style (never <code>null</code>). 
+     */
+    public static ChartStyle createIceCubeStyle() {
+        StandardChartStyle s = new StandardChartStyle();
+        s.setStandardColors(Colors.createIceCubeColors());
+        s.setBackgroundPainter(new StandardRectanglePainter(Color.WHITE));
+        return s;
+    }
+    
+    /**
      * Creates and returns a new instance of the "Logical Font" chart style.
-     * This style uses the Java logical fonts.
+     * This style uses the Java logical fonts, but is otherwise the same as
+     * the "Orson 1" chart style.
      * 
      * @return A chart style (never <code>null</code>). 
      */
@@ -95,8 +108,7 @@ public class ChartStyles {
         s.setLegendItemFont(new Font(Font.SERIF, Font.PLAIN, 14));
         s.setLegendFooterFont(new Font(Font.SERIF, Font.ITALIC, 10));
         s.setMarkerLabelFont(new Font(Font.SERIF, Font.PLAIN, 10));
-        s.setStandardColors(Colors.createShadesColors());
-
+        s.setStandardColors(Colors.createFancyLightColors());
         return s;
     }
 
