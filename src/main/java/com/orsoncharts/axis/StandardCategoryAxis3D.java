@@ -374,8 +374,8 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     }
     
     /**
-     * Sets the tick label generator for the axis and sends an 
-     * {@link Axis3DChangeEvent} to all registered listeners.
+     * Sets the tick label generator for the axis and sends a change event to 
+     * all registered listeners.
      * 
      * @param generator  the generator (<code>null</code> not permitted).
      * 
@@ -461,7 +461,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     }
  
     /**
-     * Returns the tick label factor.
+     * Returns the tick label factor.  The default value is <code>1.4</code>.
      * 
      * @return The tick label factor.
      * 
@@ -473,9 +473,9 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     
     /**
      * Sets the tick label factor and sends a change event to all registered 
-     * listeners.
+     * listeners.  
      * 
-     * @param factor  the new factor.
+     * @param factor  the new factor (should be at least 1.0).
      * 
      * @since 1.2
      */
@@ -523,7 +523,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     } 
 
     /**
-     * Returns a new map containing the markers assigned to this axis.
+     * Returns a new map containing the markers that are assigned to this axis.
      * 
      * @return A map. 
      * 
