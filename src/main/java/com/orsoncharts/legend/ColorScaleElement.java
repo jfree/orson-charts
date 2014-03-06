@@ -317,4 +317,30 @@ public class ColorScaleElement extends AbstractTableElement
         }    
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof ColorScaleElement)) {
+            return false;
+        }
+        ColorScaleElement that = (ColorScaleElement) obj;
+        if (!this.scale.equals(that.scale)) {
+            return false;
+        }
+        if (!this.orientation.equals(that.orientation)) {
+            return false;
+        }
+        if (this.barLength != that.barLength) {
+            return false;
+        }
+        if (this.barWidth != that.barWidth) {
+            return false;
+        }
+        if (!this.font.equals(that.font)) {
+            return false;
+        }
+        return super.equals(obj);
+    }
 }
