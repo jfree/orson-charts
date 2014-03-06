@@ -27,6 +27,45 @@ public class DataUtilsTest {
     private static final double EPSILON = 0.0000001;
     
     @Test
+    public void testCount() {
+        DefaultKeyedValues3D dataset = new DefaultKeyedValues3D();
+        dataset.setValue(1.0, "S1", "R1", "C1");
+        assertEquals(1, DataUtils.count(dataset, "S1"));
+        dataset.setValue(2.0, "S1", "R2", "C1");
+        assertEquals(2, DataUtils.count(dataset, "S1"));
+        dataset.setValue(null, "S1", "R2", "C1");
+        assertEquals(1, DataUtils.count(dataset, "S1"));
+        dataset.setValue(null, "S1", "R1", "C1");
+        assertEquals(0, DataUtils.count(dataset, "S1"));
+    }
+    
+    @Test
+    public void testCountForRow() {
+        DefaultKeyedValues3D dataset = new DefaultKeyedValues3D();
+        dataset.setValue(1.0, "S1", "R1", "C1");
+        assertEquals(1, DataUtils.countForRow(dataset, "R1"));
+        dataset.setValue(2.0, "S2", "R1", "C1");
+        assertEquals(2, DataUtils.countForRow(dataset, "R1"));
+        dataset.setValue(null, "S2", "R1", "C1");
+        assertEquals(1, DataUtils.countForRow(dataset, "R1"));
+        dataset.setValue(null, "S1", "R1", "C1");
+        assertEquals(0, DataUtils.countForRow(dataset, "R1"));
+    }
+    
+    @Test
+    public void testCountForColumn() {
+        DefaultKeyedValues3D dataset = new DefaultKeyedValues3D();
+        dataset.setValue(1.0, "S1", "R1", "C1");
+        assertEquals(1, DataUtils.countForColumn(dataset, "C1"));
+        dataset.setValue(2.0, "S1", "R2", "C1");
+        assertEquals(2, DataUtils.countForColumn(dataset, "C1"));
+        dataset.setValue(null, "S1", "R2", "C1");
+        assertEquals(1, DataUtils.countForColumn(dataset, "C1"));
+        dataset.setValue(null, "S1", "R1", "C1");
+        assertEquals(0, DataUtils.countForColumn(dataset, "C1"));
+    }
+    
+    @Test
     public void testTotal() {
         DefaultKeyedValues values = new DefaultKeyedValues();
         assertEquals(0.0, DataUtils.total(values), EPSILON);

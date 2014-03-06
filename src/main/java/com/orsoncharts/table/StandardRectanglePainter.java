@@ -10,8 +10,9 @@
  * 
  */
 
-package com.orsoncharts;
+package com.orsoncharts.table;
 
+import com.orsoncharts.util.Anchor2D;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Graphics2D;
@@ -68,7 +69,7 @@ public class StandardRectanglePainter implements RectanglePainter,
         ArgChecks.nullNotPermitted(paint, "paint");
         this.paint = paint;
         this.image = image;
-        this.imageFit = new Fit2D(TitleAnchor.TOP_CENTER, Scale2D.SCALE_BOTH);
+        this.imageFit = new Fit2D(Anchor2D.TOP_CENTER, Scale2D.SCALE_BOTH);
         if (imageFit != null) {
             this.imageFit = imageFit;
         }

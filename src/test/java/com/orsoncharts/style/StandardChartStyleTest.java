@@ -21,7 +21,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Rectangle;
 import org.junit.Test;
-import com.orsoncharts.StandardRectanglePainter;
+import com.orsoncharts.table.StandardRectanglePainter;
 import com.orsoncharts.TestUtils;
 
 /**
@@ -300,6 +300,8 @@ public class StandardChartStyleTest {
         StandardChartStyle s1 = new StandardChartStyle();
         StandardChartStyle s2 = (StandardChartStyle) TestUtils.serialized(s1);
         assertTrue(s1.equals(s2));
+        
+        
     }
 
 }

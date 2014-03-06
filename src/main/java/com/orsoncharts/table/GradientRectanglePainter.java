@@ -10,8 +10,9 @@
  * 
  */
 
-package com.orsoncharts;
+package com.orsoncharts.table;
 
+import com.orsoncharts.TitleAnchor;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics2D;

@@ -18,7 +18,7 @@ import java.awt.Paint;
 import java.awt.Shape;
 import java.awt.Stroke;
 import com.orsoncharts.Chart3D;
-import com.orsoncharts.RectanglePainter;
+import com.orsoncharts.table.RectanglePainter;
 
 /**
  * A chart style provides styling attributes for a chart.  To apply a style

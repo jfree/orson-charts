@@ -15,7 +15,6 @@ package com.orsoncharts.legend;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-
 import org.junit.Test;
 
 import com.orsoncharts.TestUtils;
@@ -55,7 +54,6 @@ public class StandardLegendBuilderTest {
         assertFalse(lb1.equals(lb2));
         lb2.setFooterAlignment(HAlign.CENTER);
         assertTrue(lb1.equals(lb2));
-        
     }
     
     /**

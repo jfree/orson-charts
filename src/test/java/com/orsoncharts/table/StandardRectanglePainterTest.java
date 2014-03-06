@@ -10,7 +10,7 @@
  * 
  */
 
-package com.orsoncharts;
+package com.orsoncharts.table;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -20,6 +20,7 @@ import org.junit.Test;
 
 import java.awt.Color;
 import java.awt.GradientPaint;
+import com.orsoncharts.TestUtils;
 
 /**
  * Tests for the {@link StandardRectanglePainter} class.

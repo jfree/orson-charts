@@ -10,7 +10,7 @@
  * 
  */
 
-package com.orsoncharts;
+package com.orsoncharts.table;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;

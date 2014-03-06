@@ -15,7 +15,7 @@ package com.orsoncharts.style;
 import java.awt.Color;
 import java.awt.Font;
 import com.orsoncharts.Colors;
-import com.orsoncharts.StandardRectanglePainter;
+import com.orsoncharts.table.StandardRectanglePainter;
 
 /**
  * Some predefined chart styles.

@@ -182,6 +182,10 @@ public class StandardCategoryAxis3DTest {
                 Color.BLACK));
         axis2 = (StandardCategoryAxis3D) TestUtils.serialized(axis1);
         assertTrue(axis1.equals(axis2));
+        
+        axis1.setMarker("M1", new CategoryMarker("C1"));
+        axis2 = (StandardCategoryAxis3D) TestUtils.serialized(axis1);
+        assertTrue(axis1.equals(axis2));
     }
 
 }
