@@ -57,12 +57,8 @@ public class Chart3DFactory {
     static ChartStyle defaultStyle = new StandardChartStyle();
     
     /**
-     * Returns a new instance of the default chart style.  A chart style 
-     * instance should not be used with more than one chart, because the
-     * style object has a listener mechanism that it uses to notify the
-     * chart that is using the style.  You can always clone an existing 
-     * instance if you want to apply the same style attributes to multiple
-     * charts.
+     * Returns a new instance of the default chart style so that, by default,
+     * all charts will have an independent style instance.
      * 
      * @return The default chart style (never <code>null</code>).
      * 
