@@ -76,6 +76,7 @@ public class CategoryMarkerDemo1 extends JFrame {
             ButtonGroup cGroup = new ButtonGroup();
             
             JRadioButton appleRB = new JRadioButton("Apple");
+            appleRB.setSelected(true);
             appleRB.setActionCommand("APPLE");
             appleRB.addActionListener(this);
             cGroup.add(appleRB);
@@ -139,6 +140,7 @@ public class CategoryMarkerDemo1 extends JFrame {
             panel2.add(q312);
 
             JRadioButton q412 = new JRadioButton("Q4/12");
+            q412.setSelected(true);
             q412.setActionCommand("Q412");
             q412.addActionListener(this);
             qGroup.add(q412);
@@ -299,10 +301,20 @@ public class CategoryMarkerDemo1 extends JFrame {
         chart.setLegendAnchor(LegendAnchor.BOTTOM_RIGHT);
         CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
         plot.setGridlinePaintForValues(Color.BLACK);
+        StandardCategoryAxis3D rowAxis = (StandardCategoryAxis3D) plot.getRowAxis();
+        rowAxis.setMarker("RM1", new CategoryMarker("Apple"));
+        StandardCategoryAxis3D columnAxis = (StandardCategoryAxis3D) plot.getColumnAxis();
+        columnAxis.setMarker("CM1", new CategoryMarker("Q4/12"));
         CategoryRenderer3D renderer = plot.getRenderer();
-        renderer.setColorSource(new HighlightCategoryColorSource());
+        HighlightCategoryColorSource colorSource = new HighlightCategoryColorSource();
+        colorSource.setHighlightRowIndex(3);
+        colorSource.setHighlightColumnIndex(6);
+        renderer.setColorSource(colorSource);
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
         chartPanel.setMargin(0.30);
+        chartPanel.getViewPoint().panLeftRight(-0.30);
+        chartPanel.getViewPoint().moveUpDown(-0.12);
+        chartPanel.getViewPoint().roll(-Math.PI / 60);
         content.setChartPanel(chartPanel);
         chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         content.add(new DisplayPanel3D(chartPanel));
