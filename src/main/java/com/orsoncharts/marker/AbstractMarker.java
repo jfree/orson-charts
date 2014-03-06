@@ -44,6 +44,18 @@ public abstract class AbstractMarker implements Marker {
         this.listenerList = new EventListenerList();
     }
 
+    /**
+     * Draws a marker label.
+     * 
+     * @param g2  the graphics target (<code>null</code> not permitted).
+     * @param label  the label.
+     * @param x  the x-coordinate for the anchor point.
+     * @param y  the y-cpordinate for the anchor point.
+     * @param anchor  the label anchor (<code>null</code> not permitted).
+     * @param refLine  a reference line that is used to determine the rotation 
+     *     angle for the label (<code>null</code> not permitted).
+     * @param reverse  a flag to indicate reverse orientation.
+     */
     protected void drawMarkerLabel(Graphics2D g2, String label, 
             double x, double y, Anchor2D anchor, Line2D refLine, 
             boolean reverse) {
@@ -71,6 +83,20 @@ public abstract class AbstractMarker implements Marker {
         }
     }
     
+    /**
+     * Draws a marker label.
+     * 
+     * @param g2  the graphics target (<code>null</code> not permitted).
+     * @param label  the label.
+     * @param x  the x-coordinate for the anchor point.
+     * @param y  the y-cpordinate for the anchor point.
+     * @param anchor  the label anchor (<code>null</code> not permitted).
+     * @param refLine1  a reference line that is used to determine the rotation 
+     *     angle for the label (<code>null</code> not permitted).
+     * @param refLine2  a reference line that is used to determine the rotation 
+     *     angle for the label (<code>null</code> not permitted).
+     * @param reverse  a flag to indicate reverse orientation.
+     */
     protected void drawMarkerLabel(Graphics2D g2, String label, 
             double x, double y, Anchor2D anchor, Line2D refLine1, 
             Line2D refLine2, boolean reverse) {
