@@ -47,6 +47,8 @@ public class MarkerLine {
      * Creates a new marker line.
      * 
      * @param pos  the relative position (in the range 0.0 to 1.0). 
+     * @param pegged  a flag indicating whether or not the line has been
+     *     pegged to the end of the range.
      */
     public MarkerLine(double pos, boolean pegged) {
         this(pos, pegged, -1, -1);
@@ -56,6 +58,8 @@ public class MarkerLine {
      * Creates a new marker line with vertex indices.
      * 
      * @param pos  the relative position (in the range 0.0 to 1.0). 
+     * @param pegged  a flag indicating whether or not the line has been
+     *     pegged to the end of the range.
      * @param v0  the index of the first vertex.
      * @param v1  the index of the second vertex.
      */
