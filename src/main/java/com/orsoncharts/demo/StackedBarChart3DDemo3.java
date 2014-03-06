@@ -116,6 +116,7 @@ public class StackedBarChart3DDemo3 extends JFrame {
         renderer.setColors(Colors.createIceCubeColors());
         
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
+        chartPanel.setMargin(0.33);
         content.setChartPanel(chartPanel);
         chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         content.add(new DisplayPanel3D(chartPanel));
