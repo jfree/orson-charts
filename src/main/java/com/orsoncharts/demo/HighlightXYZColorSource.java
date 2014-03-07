@@ -44,10 +44,6 @@ import com.orsoncharts.renderer.xyz.XYZColorSource;
 
 /**
  * A custom implementation of the {@link XYZColorSource} interface.
- * <br><br>
- * NOTE: This class is serializable, but the serialization format is subject 
- * to change in future releases and should not be relied upon for persisting 
- * instances of this class.
  */
 public class HighlightXYZColorSource extends StandardXYZColorSource {
     
