@@ -478,8 +478,8 @@ public class Chart3D implements Drawable3D, ChartElement,
     }
     
     /**
-     * Sets the world offset and sends a {@link Chart3DChangeEvent} to all 
-     * registered listeners.
+     * Sets the offset in 2D-space for the rendering of the chart and sends a
+     * change event to all registered listeners.
      * 
      * @param offset  the new offset (<code>null</code> not permitted).
      */
@@ -505,9 +505,9 @@ public class Chart3D implements Drawable3D, ChartElement,
     }
     
     /**
-     * Sets the legend builder and sends a {@link Chart3DChangeEvent} to all
-     * registered listeners.  When the legend builder is <code>null</code>, no
-     * legend will be displayed on the chart.
+     * Sets the legend builder and sends a change event to all registered 
+     * listeners.  When the legend builder is <code>null</code>, no legend 
+     * will be displayed on the chart.
      * 
      * @param legendBuilder  the legend builder (<code>null</code> permitted).
      * 
