@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import com.orsoncharts.axis.CategoryAxis3D;
 import com.orsoncharts.util.SerialUtils;
 import com.orsoncharts.util.Anchor2D;
 import com.orsoncharts.util.ArgChecks;
