@@ -29,8 +29,11 @@ import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.ObjectUtils;
 
 /**
- * A marker for a category on a CategoryAxis3D.  This marker could be used to
- * highlight one selected category.
+ * A marker for a category on a {@link CategoryAxis3D}.  This marker could be 
+ * used to highlight one selected category.
+ * <br><br>
+ * For an example, please refer to the demo 
+ * <code>CategoryMarkerDemo1.java</code>.
  * 
  * @since 1.2
  */

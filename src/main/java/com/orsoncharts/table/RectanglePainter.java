@@ -14,6 +14,7 @@ package com.orsoncharts.table;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
+import com.orsoncharts.Chart3D;
 
 /**
  * An object that can paint a rectangular region with a color, gradient, image

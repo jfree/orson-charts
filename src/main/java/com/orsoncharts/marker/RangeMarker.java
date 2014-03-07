@@ -26,6 +26,8 @@ import com.orsoncharts.util.ObjectUtils;
 
 /**
  * A marker that marks a range of values on an axis.
+ * <br><br>
+ * For an example, please refer to the demo <code>RangeMarkerDemo1.java</code>.
  * 
  * @since 1.2
  */

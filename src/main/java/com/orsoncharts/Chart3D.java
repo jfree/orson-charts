@@ -63,6 +63,7 @@ import com.orsoncharts.style.ChartStyle;
 import com.orsoncharts.style.ChartStyleChangeEvent;
 import com.orsoncharts.style.ChartStyleChangeListener;
 import com.orsoncharts.style.ChartStyler;
+import com.orsoncharts.table.GradientRectanglePainter;
 import com.orsoncharts.table.GridElement;
 import com.orsoncharts.table.HAlign;
 import com.orsoncharts.table.TableElement;
@@ -255,7 +256,7 @@ public class Chart3D implements Drawable3D, ChartElement,
      * 
      * @return The background painter (possibly <code>null</code>).
      * 
-     * @see #setBackground(com.orsoncharts.RectanglePainter) 
+     * @see #setBackground(com.orsoncharts.table.RectanglePainter) 
      */
     public RectanglePainter getBackground() {
         return this.background;
