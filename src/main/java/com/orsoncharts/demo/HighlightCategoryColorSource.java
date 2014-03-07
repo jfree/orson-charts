@@ -37,23 +37,15 @@
 package com.orsoncharts.demo;
 
 import java.awt.Color;
-import java.util.Arrays;
 import com.orsoncharts.Colors;
 import com.orsoncharts.renderer.category.CategoryColorSource;
 import com.orsoncharts.renderer.category.StandardCategoryColorSource;
 import com.orsoncharts.util.ArgChecks;
 
 /**
- * A standard implementation of the {@link CategoryColorSource} interface.
- * <br><br>
- * NOTE: This class is serializable, but the serialization format is subject 
- * to change in future releases and should not be relied upon for persisting 
- * instances of this class.
+ * A custom implementation of the {@link CategoryColorSource} interface.
  */
 public class HighlightCategoryColorSource extends StandardCategoryColorSource {
-
-    /** The sequence of color objects to use for each series. */
-    private Color[] colors;
     
     /** The row index of an item to highlight. */
     private int highlightRowIndex;
@@ -196,13 +188,6 @@ public class HighlightCategoryColorSource extends StandardCategoryColorSource {
             return false;
         }
         return super.equals(obj);
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 97 * hash + Arrays.deepHashCode(this.colors);
-        return hash;
     }
 
 }
