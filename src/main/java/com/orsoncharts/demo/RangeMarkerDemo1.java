@@ -36,33 +36,72 @@
 
 package com.orsoncharts.demo;
 
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.LayoutManager;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JCheckBox;
 import java.awt.BorderLayout;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
-import com.orsoncharts.Colors;
 import com.orsoncharts.axis.NumberAxis3D;
 import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.data.xyz.XYZSeries;
 import com.orsoncharts.data.xyz.XYZSeriesCollection;
-import static com.orsoncharts.demo.ScatterPlot3DDemo1.createDemoPanel;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.ViewPoint3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.marker.RangeMarker;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.renderer.xyz.ScatterXYZRenderer;
+import com.orsoncharts.renderer.xyz.StandardXYZColorSource;
 import com.orsoncharts.style.ChartStyler;
+import com.orsoncharts.style.ChartStyles;
 import com.orsoncharts.util.Anchor2D;
-import java.awt.Color;
 
 /**
  * A demonstration of range markers on the axes.
  */
 public class RangeMarkerDemo1 extends JFrame {
+
+    static class CustomDemoPanel extends DemoPanel implements ActionListener {
+        
+        private JCheckBox checkBox;
+        
+        public CustomDemoPanel(LayoutManager layout) {
+            super(layout);
+            this.checkBox = new JCheckBox("Highlight items within range intersection");
+            this.checkBox.setSelected(true);
+            this.checkBox.addActionListener(this);
+            JPanel controlPanel = new JPanel(new FlowLayout());
+            controlPanel.add(this.checkBox);
+            add(controlPanel, BorderLayout.SOUTH);
+        }    
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Chart3D chart = (Chart3D) getChartPanel().getDrawable();
+            XYZPlot plot = (XYZPlot) chart.getPlot();
+            RangeMarker xm = (RangeMarker) plot.getXAxis().getMarker("X1");
+            RangeMarker ym = (RangeMarker) plot.getYAxis().getMarker("Y1");
+            RangeMarker zm = (RangeMarker) plot.getZAxis().getMarker("Z1");
+            if (this.checkBox.isSelected()) {
+                HighlightXYZColorSource colorSource 
+                        = new HighlightXYZColorSource(plot.getDataset(), 
+                        Color.RED, xm.getRange(), ym.getRange(), zm.getRange(), 
+                        chart.getStyle().getStandardColors());
+                plot.getRenderer().setColorSource(colorSource);
+            } else {
+                StandardXYZColorSource colorSource = new StandardXYZColorSource(
+                        chart.getStyle().getStandardColors());
+                plot.getRenderer().setColorSource(colorSource);                
+            }
+        }
+    }
 
     /**
      * Creates a new test app.
@@ -83,35 +122,41 @@ public class RangeMarkerDemo1 extends JFrame {
      * @return A panel containing the content for the demo.
      */
     public static JPanel createDemoPanel() {
-        DemoPanel content = new DemoPanel(new BorderLayout());
+        DemoPanel content = new CustomDemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         XYZDataset dataset = createDataset();
         Chart3D chart = Chart3DFactory.createScatterChart("RangeMarkerDemo1", 
                 null, dataset, "X", "Y", "Z");
+        chart.setStyle(ChartStyles.createOrson1Style());
+        
         XYZPlot plot = (XYZPlot) chart.getPlot();
         plot.setDimensions(new Dimension3D(10.0, 6.0, 10.0));
 
         ChartStyler styler = new ChartStyler(chart.getStyle());
         NumberAxis3D xAxis = (NumberAxis3D) plot.getXAxis();
-        RangeMarker xMarker1 = new RangeMarker(60, 70, "X: 60 to 70");
+        RangeMarker xMarker1 = new RangeMarker(60, 90, "X: 60 to 90");
         xMarker1.receive(styler);
         xMarker1.setFillColor(new Color(128, 128, 255, 128));
+        xMarker1.setLabelAnchor(Anchor2D.BOTTOM_LEFT);
         xAxis.setMarker("X1", xMarker1);
         NumberAxis3D yAxis = (NumberAxis3D) plot.getYAxis();
-        RangeMarker yMarker1 = new RangeMarker(0.002, 0.004, "Y Range");
-        yMarker1.setLabelAnchor(Anchor2D.TOP_RIGHT);
+        RangeMarker yMarker1 = new RangeMarker(0.002, 0.006, "Y: 0.002 to 0.006");
         yMarker1.receive(styler);
         yMarker1.setFillColor(new Color(128, 255, 128, 128));
         yAxis.setMarker("Y1", yMarker1);
         NumberAxis3D zAxis = (NumberAxis3D) plot.getZAxis();
-        RangeMarker zMarker1 = new RangeMarker(20, 40, "Z Range");
-        zMarker1.setLabelAnchor(Anchor2D.TOP_RIGHT);
+        RangeMarker zMarker1 = new RangeMarker(20, 60, "Z: 20 to 60");
+        zMarker1.setLabelAnchor(Anchor2D.TOP_LEFT);
         zMarker1.receive(styler);
         zMarker1.setFillColor(new Color(255, 128, 128, 128));
         zAxis.setMarker("Z1", zMarker1);
         ScatterXYZRenderer renderer = (ScatterXYZRenderer) plot.getRenderer();
         renderer.setSize(0.15);
-        renderer.setColors(Colors.createIntenseColors());
+        HighlightXYZColorSource colorSource = new HighlightXYZColorSource(
+                plot.getDataset(), Color.RED, xMarker1.getRange(), 
+                yMarker1.getRange(), zMarker1.getRange(), 
+                chart.getStyle().getStandardColors());
+        renderer.setColorSource(colorSource);
         chart.setViewPoint(ViewPoint3D.createAboveLeftViewPoint(40));
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
         content.setChartPanel(chartPanel);
