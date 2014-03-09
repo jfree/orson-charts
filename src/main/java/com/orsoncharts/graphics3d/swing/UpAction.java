@@ -14,13 +14,20 @@ package com.orsoncharts.graphics3d.swing;
 
 import com.orsoncharts.Resources;
 import com.orsoncharts.util.ArgChecks;
+
 import java.awt.event.ActionEvent;
+
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 
 /**
  * An action that handles rotating the 3D view towards the top of the screen.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  */
+@SuppressWarnings("serial")
 public class UpAction extends AbstractAction {
 
     /** The panel containing the 3D content. */

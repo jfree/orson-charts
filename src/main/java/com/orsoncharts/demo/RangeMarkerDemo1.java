@@ -41,10 +41,14 @@ import java.awt.FlowLayout;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JCheckBox;
+
 import java.awt.BorderLayout;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
@@ -66,6 +70,7 @@ import com.orsoncharts.util.Anchor2D;
 /**
  * A demonstration of range markers on the axes.
  */
+@SuppressWarnings("serial")
 public class RangeMarkerDemo1 extends JFrame {
 
     static class CustomDemoPanel extends DemoPanel implements ActionListener {

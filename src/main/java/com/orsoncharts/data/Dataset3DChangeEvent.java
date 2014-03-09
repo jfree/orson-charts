@@ -19,7 +19,12 @@ import java.util.EventObject;
  * {@link Dataset3DChangeListener} interface can register with a dataset to
  * receive notification of change events.  By default, the plot classes in
  * Orson Charts register with their dataset to monitor dataset changes.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  */
+@SuppressWarnings("serial")
 public class Dataset3DChangeEvent extends EventObject {
 
     private Object dataset;

@@ -16,6 +16,7 @@ import java.awt.Color;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.orsoncharts.Range;
 import com.orsoncharts.axis.ValueAxis3D;
 import com.orsoncharts.data.function.Function3D;
@@ -44,9 +45,14 @@ import com.orsoncharts.util.ArgChecks;
  * to <code>false</code> (the default is <code>true</code>) but this may 
  * cause slight rendering artifacts if anti-aliasing is on (note that switching
  * off anti-aliasing as well also improves rendering performance).
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class.
  * 
  * @since 1.1
  */
+@SuppressWarnings("serial")
 public class SurfaceRenderer extends AbstractXYZRenderer implements XYZRenderer,
         ColorScaleRenderer, Serializable {
     

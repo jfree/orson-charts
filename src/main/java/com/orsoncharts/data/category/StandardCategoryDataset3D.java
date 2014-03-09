@@ -14,6 +14,7 @@ package com.orsoncharts.data.category;
 
 import java.util.List;
 import java.io.Serializable;
+
 import com.orsoncharts.data.AbstractDataset3D;
 import com.orsoncharts.data.DefaultKeyedValues3D;
 import com.orsoncharts.data.KeyedValues;
@@ -27,10 +28,11 @@ import com.orsoncharts.util.ArgChecks;
  * to change in future releases and should not be relied upon for persisting 
  * instances of this class.
  */
+@SuppressWarnings("serial")
 public final class StandardCategoryDataset3D extends AbstractDataset3D  
         implements CategoryDataset3D, Serializable {
-  
-    /**
+
+	/**
      * Storage for the data.
      */
     private DefaultKeyedValues3D<Number> data;
@@ -39,7 +41,7 @@ public final class StandardCategoryDataset3D extends AbstractDataset3D
      * Creates a new (empty) dataset.
      */
     public StandardCategoryDataset3D() {
-        this.data = new DefaultKeyedValues3D();  
+        this.data = new DefaultKeyedValues3D<Number>();  
     }
 
     /**

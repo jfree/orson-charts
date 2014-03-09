@@ -13,6 +13,7 @@
 package com.orsoncharts;
 
 import java.io.Serializable;
+
 import com.orsoncharts.util.ArgChecks;
 
 /**
@@ -22,6 +23,7 @@ import com.orsoncharts.util.ArgChecks;
  * to change in future releases and should not be relied upon for persisting 
  * instances of this class. 
  */
+@SuppressWarnings("serial")
 public class Range implements Serializable {
 
     /** The lower bound of the range. */

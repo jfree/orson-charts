@@ -13,15 +13,22 @@
 package com.orsoncharts.graphics3d.swing;
 
 import java.awt.event.ActionEvent;
+
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+
 import com.orsoncharts.Resources;
 import com.orsoncharts.graphics3d.ViewPoint3D;
 import com.orsoncharts.util.ArgChecks;
 
 /**
  * An action that performs a zoom-in operation.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  */
+@SuppressWarnings("serial")
 public class ZoomInAction extends AbstractAction {
 
     /** The panel that the action applies to. */

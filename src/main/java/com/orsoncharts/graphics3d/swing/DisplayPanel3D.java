@@ -21,12 +21,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JToolBar;
 import javax.swing.JMenu;
+
 import com.orsoncharts.Resources;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.ExportFormat;
@@ -35,7 +37,12 @@ import com.orsoncharts.util.ExportFormats;
 /**
  * A panel for displaying 3D content, with a toolbar and popup menu to control 
  * the view.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  */
+@SuppressWarnings("serial")
 public class DisplayPanel3D extends JPanel implements MouseListener {
   
     private static final int FONT_SIZE = 22;

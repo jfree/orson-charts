@@ -37,6 +37,7 @@
 package com.orsoncharts.demo;
 
 import java.awt.Color;
+
 import com.orsoncharts.Colors;
 import com.orsoncharts.renderer.category.CategoryColorSource;
 import com.orsoncharts.renderer.category.StandardCategoryColorSource;
@@ -45,6 +46,7 @@ import com.orsoncharts.util.ArgChecks;
 /**
  * A custom implementation of the {@link CategoryColorSource} interface.
  */
+@SuppressWarnings("serial")
 public class HighlightCategoryColorSource extends StandardCategoryColorSource {
     
     /** The row index of an item to highlight. */

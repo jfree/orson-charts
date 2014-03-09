@@ -13,13 +13,19 @@
 package com.orsoncharts.data;
 
 import java.io.Serializable;
+
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.ObjectUtils;
 
 /**
  * A data item where a key is associated with a value (typically numerical).
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  */
-public final class DefaultKeyedValue<T> implements KeyedValue, Serializable {
+@SuppressWarnings("serial")
+public final class DefaultKeyedValue<T> implements KeyedValue<T>, Serializable {
 
     /** The key. */
     private Comparable<?> key;
@@ -83,7 +89,7 @@ public final class DefaultKeyedValue<T> implements KeyedValue, Serializable {
         if (!(obj instanceof DefaultKeyedValue)) {
             return false;
         }
-        DefaultKeyedValue that = (DefaultKeyedValue) obj;
+        DefaultKeyedValue<?> that = (DefaultKeyedValue<?>) obj;
         if (!this.key.equals(that.key)) {
             return false;
         }

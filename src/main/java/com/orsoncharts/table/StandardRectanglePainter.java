@@ -13,6 +13,7 @@
 package com.orsoncharts.table;
 
 import com.orsoncharts.util.Anchor2D;
+
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Graphics2D;
@@ -22,6 +23,7 @@ import java.io.Serializable;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.Fit2D;
 import com.orsoncharts.util.ObjectUtils;
@@ -35,7 +37,12 @@ import com.orsoncharts.util.SerialUtils;
  * Note that it is possible to use gradient paint with this painter, but it is
  * usually better to use {@link GradientRectanglePainter} since it provides
  * options to transform the gradient to fit the chart background size.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class.
  */
+@SuppressWarnings("serial")
 public class StandardRectanglePainter implements RectanglePainter, 
         Serializable {
     

@@ -27,9 +27,14 @@ import com.orsoncharts.util.ArgChecks;
  * in the resulting label: (1) the key for the series, (2) the count for the 
  * number of items in the series (as an <code>Integer</code>) and (3) the total 
  * of the non-<code>NaN</code> values in the series (as a <code>Double</code>).
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  * 
  * @since 1.2
  */
+@SuppressWarnings("serial")
 public class StandardXYZLabelGenerator implements XYZLabelGenerator, 
         Serializable {
 
@@ -96,7 +101,9 @@ public class StandardXYZLabelGenerator implements XYZLabelGenerator,
         int count = dataset.getItemCount(dataset.getSeriesIndex(seriesKey));
         double total = DataUtils.total(dataset, seriesKey);
         formatter.format(this.template, seriesKey, count, total);
-        return formatter.toString();
+        String result = formatter.toString();
+        formatter.close();
+        return result;
     }
 
     /**

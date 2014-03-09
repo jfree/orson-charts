@@ -22,11 +22,17 @@ import java.util.Map;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.Insets;
+
 import com.orsoncharts.data.DefaultKeyedValues2D;
 
 /**
  * A table element that contains a grid of elements.  
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class.
  */
+@SuppressWarnings("serial")
 public class GridElement extends AbstractTableElement implements TableElement,
         Serializable {
 

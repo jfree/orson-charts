@@ -37,6 +37,7 @@
 package com.orsoncharts.demo;
 
 import java.awt.Color;
+
 import com.orsoncharts.Range;
 import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.renderer.xyz.StandardXYZColorSource;
@@ -45,6 +46,7 @@ import com.orsoncharts.renderer.xyz.XYZColorSource;
 /**
  * A custom implementation of the {@link XYZColorSource} interface.
  */
+@SuppressWarnings("serial")
 public class HighlightXYZColorSource extends StandardXYZColorSource {
     
     private XYZDataset dataset;

@@ -17,7 +17,12 @@ import java.io.Serializable;
 /**
  * A point in 3D space (this class is also used to represent vectors in 3D
  * space).  Instances of this class are immutable.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  */
+@SuppressWarnings("serial")
 public final class Point3D implements Serializable {
 
     /** The origin <code>(0, 0, 0)</code>. */

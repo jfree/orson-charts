@@ -15,13 +15,19 @@ package com.orsoncharts.data.xyz;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.Serializable;
+
 import com.orsoncharts.util.ArgChecks;
 
 /**
  * A data series containing a sequence of <code>(x, y, z)</code> data items.  
  * The series has a key to identify it, and can be added to an 
  * {@link XYZSeriesCollection} to create a dataset.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  */
+@SuppressWarnings("serial")
 public class XYZSeries implements Serializable {
 
     /** The series key (never <code>null</code>). */

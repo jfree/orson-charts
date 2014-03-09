@@ -38,10 +38,13 @@ package com.orsoncharts.demo;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
 import java.net.URL;
+
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
@@ -61,6 +64,7 @@ import com.orsoncharts.util.Fit2D;
 /**
  * A demo of a 3D stacked bar chart.
  */
+@SuppressWarnings("serial")
 public class StackedBarChart3DDemo3 extends JFrame {
 
     /**

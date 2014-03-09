@@ -14,6 +14,7 @@ package com.orsoncharts.plot;
 
 import java.awt.Font;
 import java.io.Serializable;
+
 import com.orsoncharts.data.DefaultKeyedValues;
 import com.orsoncharts.util.ArgChecks;
 
@@ -24,6 +25,7 @@ import com.orsoncharts.util.ArgChecks;
  * to change in future releases and should not be relied upon for persisting 
  * instances of this class.
  */
+@SuppressWarnings("serial")
 public final class StandardFontSource implements FontSource, Serializable {
 
     private static Font DEFAULT_FONT = new Font("Dialog", Font.PLAIN, 12);

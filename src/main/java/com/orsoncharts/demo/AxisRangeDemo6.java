@@ -40,6 +40,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
@@ -49,9 +50,11 @@ import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.ViewPoint3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.plot.XYZPlot;
+
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.LayoutManager;
+
 import javax.swing.JLabel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
@@ -60,6 +63,7 @@ import javax.swing.event.ChangeListener;
 /**
  * A demonstration of a scatter plot in 3D.
  */
+@SuppressWarnings("serial")
 public class AxisRangeDemo6 extends JFrame {
 
     static class CustomDemoPanel extends DemoPanel implements ChangeListener {

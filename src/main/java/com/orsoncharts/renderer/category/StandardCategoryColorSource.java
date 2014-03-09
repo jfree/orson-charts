@@ -15,6 +15,7 @@ package com.orsoncharts.renderer.category;
 import java.awt.Color;
 import java.io.Serializable;
 import java.util.Arrays;
+
 import com.orsoncharts.Colors;
 import com.orsoncharts.util.ArgChecks;
 
@@ -25,6 +26,7 @@ import com.orsoncharts.util.ArgChecks;
  * to change in future releases and should not be relied upon for persisting 
  * instances of this class.
  */
+@SuppressWarnings("serial")
 public class StandardCategoryColorSource implements CategoryColorSource, 
         Serializable {
 

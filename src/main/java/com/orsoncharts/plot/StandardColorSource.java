@@ -15,6 +15,7 @@ package com.orsoncharts.plot;
 import java.awt.Color;
 import java.io.Serializable;
 import java.util.Arrays;
+
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.data.DefaultKeyedValues;
 import com.orsoncharts.Colors;
@@ -26,6 +27,7 @@ import com.orsoncharts.Colors;
  * to change in future releases and should not be relied upon for persisting 
  * instances of this class.
  */
+@SuppressWarnings("serial")
 public final class StandardColorSource implements ColorSource, 
         Serializable {
 

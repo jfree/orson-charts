@@ -39,8 +39,10 @@ package com.orsoncharts.demo;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.BorderLayout;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
@@ -59,9 +61,10 @@ import com.orsonpdf.PDFHints;
 /**
  * A demo of a 3D bar chart.
  */
+@SuppressWarnings("serial")
 public class BarChart3DDemo2 extends JFrame {
 
-    /**
+	/**
      * Creates a new test app.
      *
      * @param title  the frame title.
@@ -124,7 +127,7 @@ public class BarChart3DDemo2 extends JFrame {
     private static CategoryDataset3D createDataset() {    
         StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
                 
-        DefaultKeyedValues s3 = new DefaultKeyedValues();
+        DefaultKeyedValues<Number> s3 = new DefaultKeyedValues<Number>();
         s3.put("Jan", 7);
         s3.put("Feb", 7);
         s3.put("Mar", 10);
@@ -139,7 +142,7 @@ public class BarChart3DDemo2 extends JFrame {
         s3.put("Dec", 8);
         dataset.addSeriesAsRow("London", s3);
 
-        DefaultKeyedValues s1 = new DefaultKeyedValues();
+        DefaultKeyedValues<Number> s1 = new DefaultKeyedValues<Number>();
         s1.put("Jan", 3);
         s1.put("Feb", 5);
         s1.put("Mar", 9);
@@ -154,7 +157,7 @@ public class BarChart3DDemo2 extends JFrame {
         s1.put("Dec", 4);
         dataset.addSeriesAsRow("Geneva", s1);
         
-        DefaultKeyedValues s2 = new DefaultKeyedValues();
+        DefaultKeyedValues<Number> s2 = new DefaultKeyedValues<Number>();
         s2.put("Jan", 9);
         s2.put("Feb", 11);
         s2.put("Mar", 13);
@@ -169,7 +172,7 @@ public class BarChart3DDemo2 extends JFrame {
         s2.put("Dec", 9);
         dataset.addSeriesAsRow("Bergerac", s2);
 
-        DefaultKeyedValues s4 = new DefaultKeyedValues();
+        DefaultKeyedValues<Number> s4 = new DefaultKeyedValues<Number>();
         s4.put("Jan", 22);
         s4.put("Feb", 22);
         s4.put("Mar", 20);
@@ -184,7 +187,7 @@ public class BarChart3DDemo2 extends JFrame {
         s4.put("Dec", 21);
         dataset.addSeriesAsRow("Christchurch", s4);
 
-        DefaultKeyedValues s5 = new DefaultKeyedValues();
+        DefaultKeyedValues<Number> s5 = new DefaultKeyedValues<Number>();
         s5.put("Jan", 20);
         s5.put("Feb", 20);
         s5.put("Mar", 19);

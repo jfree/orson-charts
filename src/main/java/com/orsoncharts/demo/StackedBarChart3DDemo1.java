@@ -37,11 +37,13 @@
 package com.orsoncharts.demo;
 
 import java.awt.BorderLayout;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import com.orsoncharts.ChartPanel3D;
+
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
+import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.data.DefaultKeyedValues;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.category.StandardCategoryDataset3D;
@@ -50,9 +52,10 @@ import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 /**
  * A demo of a 3D stacked bar chart.
  */
+@SuppressWarnings("serial")
 public class StackedBarChart3DDemo1 extends JFrame {
 
-    /**
+	/**
      * Creates a new test app.
      *
      * @param title  the frame title.
@@ -96,42 +99,42 @@ public class StackedBarChart3DDemo1 extends JFrame {
         
         StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
 
-        DefaultKeyedValues s1 = new DefaultKeyedValues();
-        s1.put("A", 4);
-        s1.put("B", 2);
-        s1.put("C", 3);
-        s1.put("D", 5);
-        s1.put("E", 2);
-        s1.put("F", 1);
-        DefaultKeyedValues s2 = new DefaultKeyedValues();
-        s2.put("A", 1);
-        s2.put("B", 2);
-        s2.put("C", 3);
-        s2.put("D", 2);
-        s2.put("E", 3);
-        s2.put("F", 1);
-        DefaultKeyedValues s3 = new DefaultKeyedValues();
-        s3.put("A", 6);
-        s3.put("B", 6);
-        s3.put("C", 6);
-        s3.put("D", 4);
-        s3.put("E", 4);
-        s3.put("F", 4);
-        DefaultKeyedValues s4 = new DefaultKeyedValues();
-        s4.put("A", 9);
-        s4.put("B", 8);
-        s4.put("C", 7);
-        s4.put("D", 6);
-        s4.put("D", 3);
-        s4.put("E", 4);
-        s4.put("F", 6);
-        DefaultKeyedValues s5 = new DefaultKeyedValues();
-        s5.put("A", 9);
-        s5.put("B", 8);
-        s5.put("C", 7);
-        s5.put("D", 6);
-        s5.put("E", 7);
-        s5.put("F", 9);
+        DefaultKeyedValues<Double> s1 = new DefaultKeyedValues<Double>();
+        s1.put("A", 4.0);
+        s1.put("B", 2.0);
+        s1.put("C", 3.0);
+        s1.put("D", 5.0);
+        s1.put("E", 2.0);
+        s1.put("F", 1.0);
+        DefaultKeyedValues<Double> s2 = new DefaultKeyedValues<Double>();
+        s2.put("A", 1.0);
+        s2.put("B", 2.0);
+        s2.put("C", 3.0);
+        s2.put("D", 2.0);
+        s2.put("E", 3.0);
+        s2.put("F", 1.0);
+        DefaultKeyedValues<Double> s3 = new DefaultKeyedValues<Double>();
+        s3.put("A", 6.0);
+        s3.put("B", 6.0);
+        s3.put("C", 6.0);
+        s3.put("D", 4.0);
+        s3.put("E", 4.0);
+        s3.put("F", 4.0);
+        DefaultKeyedValues<Double> s4 = new DefaultKeyedValues<Double>();
+        s4.put("A", 9.0);
+        s4.put("B", 8.0);
+        s4.put("C", 7.0);
+        s4.put("D", 6.0);
+        s4.put("D", 3.0);
+        s4.put("E", 4.0);
+        s4.put("F", 6.0);
+        DefaultKeyedValues<Double> s5 = new DefaultKeyedValues<Double>();
+        s5.put("A", 9.0);
+        s5.put("B", 8.0);
+        s5.put("C", 7.0);
+        s5.put("D", 6.0);
+        s5.put("E", 7.0);
+        s5.put("F", 9.0);
 
         dataset.addSeriesAsRow("Series 1", "Row 1", s1);
         dataset.addSeriesAsRow("Series 2", "Row 2", s2);

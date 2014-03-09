@@ -20,7 +20,12 @@ import com.orsoncharts.plot.PiePlot3D;
 
 /**
  * A dataset that can be used with a {@link PiePlot3D}.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  */
+@SuppressWarnings("serial")
 public final class StandardPieDataset3D extends AbstractDataset3D 
         implements PieDataset3D, Serializable {
 

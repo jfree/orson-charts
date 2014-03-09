@@ -38,15 +38,19 @@ package com.orsoncharts.demo;
 
 import java.awt.Color;
 import java.awt.BorderLayout;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.ButtonGroup;
 import javax.swing.JRadioButton;
+
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
@@ -64,6 +68,7 @@ import com.orsoncharts.style.ChartStyler;
 /**
  * A demo showing category markers on a 3D bar chart.
  */
+@SuppressWarnings("serial")
 public class CategoryMarkerDemo1 extends JFrame {
     
     static class CustomDemoPanel extends DemoPanel implements ActionListener {
@@ -344,7 +349,7 @@ public class CategoryMarkerDemo1 extends JFrame {
         //s0.put("Q2/13", 0.374423);
         //dataset.addSeriesAsRow("Redhat", s0);
 
-        DefaultKeyedValues s1 = new DefaultKeyedValues();
+        DefaultKeyedValues<Double> s1 = new DefaultKeyedValues<Double>();
         s1.put("Q2/11", 8.181);
         s1.put("Q3/11", 8.792);
         s1.put("Q4/11", 9.039);
@@ -357,7 +362,7 @@ public class CategoryMarkerDemo1 extends JFrame {
         s1.put("Q3/13", 9.275);
         dataset.addSeriesAsRow("Oracle", s1);
 
-        DefaultKeyedValues s2 = new DefaultKeyedValues();
+        DefaultKeyedValues<Double> s2 = new DefaultKeyedValues<Double>();
         s2.put("Q2/11", 9.03);
         s2.put("Q3/11", 9.72);
         s2.put("Q4/11", 10.58);
@@ -371,7 +376,7 @@ public class CategoryMarkerDemo1 extends JFrame {
         s2.put("Q4/13", 16.858);
         dataset.addSeriesAsRow("Google", s2);
         
-        DefaultKeyedValues s3 = new DefaultKeyedValues();
+        DefaultKeyedValues<Double> s3 = new DefaultKeyedValues<Double>();
         s3.put("Q2/11", 17.37);
         s3.put("Q3/11", 17.37);
         s3.put("Q4/11", 20.89);
@@ -385,7 +390,7 @@ public class CategoryMarkerDemo1 extends JFrame {
         s3.put("Q4/13", 24.519);
         dataset.addSeriesAsRow("Microsoft", s3);
         
-        DefaultKeyedValues s4 = new DefaultKeyedValues();
+        DefaultKeyedValues<Double> s4 = new DefaultKeyedValues<Double>();
         s4.put("Q2/11", 28.57);
         s4.put("Q3/11", 28.27);
         s4.put("Q4/11", 46.33);

@@ -14,6 +14,7 @@ package com.orsoncharts.renderer.xyz;
 
 import java.awt.Color;
 import java.io.Serializable;
+
 import com.orsoncharts.Colors;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.ObjectUtils;
@@ -25,6 +26,7 @@ import com.orsoncharts.util.ObjectUtils;
  * to change in future releases and should not be relied upon for persisting 
  * instances of this class.
  */
+@SuppressWarnings("serial")
 public class StandardXYZColorSource implements XYZColorSource, Serializable {
 
     /** The sequence of color objects to use for each series. */

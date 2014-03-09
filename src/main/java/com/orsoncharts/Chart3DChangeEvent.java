@@ -13,6 +13,7 @@
 package com.orsoncharts;
 
 import java.util.EventObject;
+
 import com.orsoncharts.util.ArgChecks;
 
 /**
@@ -20,7 +21,12 @@ import com.orsoncharts.util.ArgChecks;
  * this indicates that the chart needs to be redrawn.  Any object that 
  * implements the {@link Chart3DChangeListener} interface can register
  * with a chart to receive change event notification.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class.
  */
+@SuppressWarnings("serial")
 public class Chart3DChangeEvent extends EventObject {
 
     private Chart3D chart;

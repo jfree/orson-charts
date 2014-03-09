@@ -63,8 +63,6 @@ public class ChartStyler implements ChartElementVisitor {
      */
     @Override
     public void visit(ChartElement element) {
-        // this instanceof checking seems bad, come back to see
-        // what we're doing wrong...FIXME
         if (element instanceof Chart3D) {
             Chart3D chart = (Chart3D) element;
             styleChart(chart);
@@ -100,7 +98,7 @@ public class ChartStyler implements ChartElementVisitor {
         // "CHART_TITLE"
         TableElement chartTitle = chart.getTitle();
         if (chartTitle != null) {
-            Map<String, Font> fontChanges = new HashMap();
+            Map<String, Font> fontChanges = new HashMap<String, Font>();
             fontChanges.put("CHART_TITLE", this.style.getTitleFont());
             fontChanges.put("CHART_SUBTITLE", this.style.getSubtitleFont());
             Map<String, Color> bgChanges = new HashMap<String, Color>();

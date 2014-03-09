@@ -13,14 +13,23 @@
 package com.orsoncharts.graphics3d.swing;
 
 import com.orsoncharts.Resources;
+
 import java.awt.event.ActionEvent;
+
 import javax.swing.AbstractAction;
+
 import com.orsoncharts.util.ArgChecks;
+
 import javax.swing.Action;
 
 /**
  * An action that handles rotating the 3D view towards the bottom of the screen.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  */
+@SuppressWarnings("serial")
 public class DownAction extends AbstractAction {
 
     private Panel3D panel;

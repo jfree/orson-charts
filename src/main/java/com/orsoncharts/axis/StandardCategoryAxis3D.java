@@ -25,28 +25,27 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
-import com.orsoncharts.util.TextUtils;
-import com.orsoncharts.util.TextAnchor;
+import com.orsoncharts.ChartElementVisitor;
 import com.orsoncharts.Range;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.graphics3d.Utils2D;
 import com.orsoncharts.label.CategoryLabelGenerator;
 import com.orsoncharts.label.StandardCategoryLabelGenerator;
-import com.orsoncharts.util.ArgChecks;
-import com.orsoncharts.plot.CategoryPlot3D;
-import com.orsoncharts.ChartElementVisitor;
 import com.orsoncharts.marker.CategoryMarker;
 import com.orsoncharts.marker.CategoryMarkerType;
 import com.orsoncharts.marker.Marker;
 import com.orsoncharts.marker.MarkerData;
-import com.orsoncharts.marker.ValueMarker;
+import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.category.AreaRenderer3D;
+import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.ObjectUtils;
 import com.orsoncharts.util.SerialUtils;
+import com.orsoncharts.util.TextAnchor;
+import com.orsoncharts.util.TextUtils;
 
 /**
  * An axis that displays categories.
@@ -55,6 +54,7 @@ import com.orsoncharts.util.SerialUtils;
  * to change in future releases and should not be relied upon for persisting 
  * instances of this class. 
  */
+@SuppressWarnings("serial")
 public class StandardCategoryAxis3D extends AbstractAxis3D 
         implements CategoryAxis3D, Serializable {
     
@@ -529,8 +529,8 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      * 
      * @since 1.2
      */
-    public Map<String, ValueMarker> getMarkers() {
-        return new LinkedHashMap(this.markers);    
+    public Map<String, CategoryMarker> getMarkers() {
+        return new LinkedHashMap<String, CategoryMarker>(this.markers);    
     }
     
     /**

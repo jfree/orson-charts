@@ -37,8 +37,10 @@
 package com.orsoncharts.demo;
 
 import java.awt.BorderLayout;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
@@ -57,6 +59,7 @@ import com.orsoncharts.plot.CategoryPlot3D;
 /**
  * A demo of a 3D line chart.
  */
+@SuppressWarnings("serial")
 public class LineChart3DDemo1 extends JFrame {
 
     /**
@@ -115,8 +118,8 @@ public class LineChart3DDemo1 extends JFrame {
         return dataset;
     }
 
-    private static KeyedValues createChromeData() {
-        DefaultKeyedValues series = new DefaultKeyedValues();
+    private static KeyedValues<Double> createChromeData() {
+        DefaultKeyedValues<Double> series = new DefaultKeyedValues<Double>();
         series.put("Jan-12", 0.2840);
         series.put("Feb-12", 0.2984);
         series.put("Mar-12", 0.3087);
@@ -139,8 +142,8 @@ public class LineChart3DDemo1 extends JFrame {
         return series;
     }
 
-    private static KeyedValues createFirefoxData() {
-        DefaultKeyedValues series = new DefaultKeyedValues();
+    private static KeyedValues<Double> createFirefoxData() {
+        DefaultKeyedValues<Double> series = new DefaultKeyedValues<Double>();
         series.put("Jan-12", 0.2478);
         series.put("Feb-12", 0.2488);
         series.put("Mar-12", 0.2498);
@@ -162,8 +165,8 @@ public class LineChart3DDemo1 extends JFrame {
         return series;
     }
 
-    private static KeyedValues createInternetExplorerData() {
-        DefaultKeyedValues series = new DefaultKeyedValues();
+    private static KeyedValues<Double> createInternetExplorerData() {
+        DefaultKeyedValues<Double> series = new DefaultKeyedValues<Double>();
         series.put("Jan-12", 0.3745);
         series.put("Feb-12", 0.3575);
         series.put("Mar-12", 0.3481);
@@ -185,8 +188,8 @@ public class LineChart3DDemo1 extends JFrame {
         return series;
     }
 //
-    private static KeyedValues createSafariData() {
-        DefaultKeyedValues series = new DefaultKeyedValues();
+    private static KeyedValues<Double> createSafariData() {
+        DefaultKeyedValues<Double> series = new DefaultKeyedValues<Double>();
         series.put("Jan-12", 0.0662);
         series.put("Feb-12", 0.0677);
         series.put("Mar-12", 0.0672);

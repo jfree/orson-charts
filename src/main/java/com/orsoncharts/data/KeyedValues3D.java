@@ -19,7 +19,7 @@ import java.util.List;
  * identified by three keys (the <code>seriesKey</code>, <code>rowKey</code> 
  * and <code>columnKey</code>).  
  */
-public interface KeyedValues3D<T> extends Values3D {
+public interface KeyedValues3D<T> extends Values3D<T> {
 
     /**
      * Returns a list of the series keys for the dataset.  Modifying this

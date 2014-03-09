@@ -19,6 +19,7 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 import java.io.Serializable;
+
 import com.orsoncharts.Range;
 import com.orsoncharts.util.Anchor2D;
 import com.orsoncharts.util.ArgChecks;
@@ -28,9 +29,14 @@ import com.orsoncharts.util.ObjectUtils;
  * A marker that marks a range of values on an axis.
  * <br><br>
  * For an example, please refer to the demo <code>RangeMarkerDemo1.java</code>.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  * 
  * @since 1.2
  */
+@SuppressWarnings("serial")
 public class RangeMarker extends AbstractMarker implements ValueMarker, 
         MarkerChangeListener, Serializable {
     

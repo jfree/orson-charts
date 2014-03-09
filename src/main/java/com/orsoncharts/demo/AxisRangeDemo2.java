@@ -40,12 +40,14 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.LayoutManager;
+
 import javax.swing.JLabel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
@@ -60,6 +62,7 @@ import com.orsoncharts.plot.CategoryPlot3D;
 /**
  * A test for changes to the value axis range on a bar chart.
  */
+@SuppressWarnings("serial")
 public class AxisRangeDemo2 extends JFrame {
 
     static class CustomDemoPanel extends DemoPanel implements ChangeListener {
@@ -146,28 +149,28 @@ public class AxisRangeDemo2 extends JFrame {
 
         StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
         
-        DefaultKeyedValues s0 = new DefaultKeyedValues();
+        DefaultKeyedValues<Number> s0 = new DefaultKeyedValues<Number>();
         s0.put("A", -500);
         s0.put("B", -200);
         s0.put("C", -400);
         s0.put("D", -150);
         dataset.addSeriesAsRow("All Negative", s0);
         
-        DefaultKeyedValues s1 = new DefaultKeyedValues();
+        DefaultKeyedValues<Number> s1 = new DefaultKeyedValues<Number>();
         s1.put("A", -500);
         s1.put("B", 500);
         s1.put("C", 0);
         s1.put("D", -150);
         dataset.addSeriesAsRow("Alternating 1", s1);
 
-        DefaultKeyedValues s2 = new DefaultKeyedValues();
+        DefaultKeyedValues<Number> s2 = new DefaultKeyedValues<Number>();
         s2.put("A", 500);
         s2.put("B", -500);
         s2.put("C", 0);
         s2.put("D", 150);
         dataset.addSeriesAsRow("Alternating 2", s2);
 
-        DefaultKeyedValues s3 = new DefaultKeyedValues();
+        DefaultKeyedValues<Number> s3 = new DefaultKeyedValues<Number>();
         s3.put("A", 500);
         s3.put("B", 200);
         s3.put("C", 400);

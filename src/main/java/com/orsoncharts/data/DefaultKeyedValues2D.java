@@ -15,12 +15,18 @@ package com.orsoncharts.data;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.orsoncharts.util.ArgChecks;
 
 /**
  * A two dimensional grid of (typically numerical) data that is accessible by 
  * row and column keys.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  */
+@SuppressWarnings("serial")
 public final class DefaultKeyedValues2D<T> implements KeyedValues2D<T>, 
         Serializable {
 
@@ -54,7 +60,7 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D<T>,
         this.xKeys = new ArrayList<Comparable<?>>(xKeys);
         this.yKeys = new ArrayList<Comparable<?>>(yKeys);
         this.data = new ArrayList<DefaultKeyedValues<T>>();    
-        for (Comparable<?> c : xKeys) {
+        for (int i = 0; i < xKeys.size(); i++) {
             this.data.add(new DefaultKeyedValues<T>(yKeys));
         }
     }

@@ -22,15 +22,15 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.ChartElementVisitor;
 import com.orsoncharts.axis.Axis3DChangeEvent;
 import com.orsoncharts.axis.Axis3DChangeListener;
 import com.orsoncharts.axis.CategoryAxis3D;
-import com.orsoncharts.data.category.CategoryDataset3D;
-import com.orsoncharts.data.Dataset3DChangeEvent;
-import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.axis.ValueAxis3D;
+import com.orsoncharts.data.Dataset3DChangeEvent;
+import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.label.CategoryLabelGenerator;
@@ -40,6 +40,7 @@ import com.orsoncharts.legend.StandardLegendItemInfo;
 import com.orsoncharts.renderer.Renderer3DChangeEvent;
 import com.orsoncharts.renderer.Renderer3DChangeListener;
 import com.orsoncharts.renderer.category.CategoryRenderer3D;
+import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.ObjectUtils;
 import com.orsoncharts.util.SerialUtils;
 
@@ -59,6 +60,7 @@ import com.orsoncharts.util.SerialUtils;
  * to change in future releases and should not be relied upon for persisting 
  * instances of this class. 
  */
+@SuppressWarnings("serial")
 public class CategoryPlot3D extends AbstractPlot3D 
         implements Axis3DChangeListener, Renderer3DChangeListener, 
         Serializable {

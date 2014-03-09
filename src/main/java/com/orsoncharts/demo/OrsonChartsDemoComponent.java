@@ -41,6 +41,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.io.IOException;
 import java.net.URL;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -58,6 +59,7 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
+
 import com.orsoncharts.style.ChartStyle;
 
 /**
@@ -67,6 +69,7 @@ import com.orsoncharts.style.ChartStyle;
  * so it can be instantiated and embedded wherever (such as in the JFreeChart
  * demo application).
  */
+@SuppressWarnings("serial")
 public class OrsonChartsDemoComponent extends JPanel 
         implements TreeSelectionListener {
     

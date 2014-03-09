@@ -38,7 +38,9 @@ package com.orsoncharts.demo;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+
 import javax.swing.JFrame;
+
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
@@ -52,6 +54,7 @@ import com.orsoncharts.renderer.category.AreaRenderer3D;
 /**
  * A demo of a 3D area chart.
  */
+@SuppressWarnings("serial")
 public class AreaChart3DDemo1 extends JFrame {
 
     /**
@@ -102,7 +105,7 @@ public class AreaChart3DDemo1 extends JFrame {
     private static CategoryDataset3D createDataset() {    
         StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
                 
-        DefaultKeyedValues s1 = new DefaultKeyedValues();
+        DefaultKeyedValues<Double> s1 = new DefaultKeyedValues<Double>();
         s1.put("Q1/11", 8.58);
         s1.put("Q2/11", 9.03);
         s1.put("Q3/11", 9.72);
@@ -115,7 +118,7 @@ public class AreaChart3DDemo1 extends JFrame {
         s1.put("Q2/13", 14.105);
         dataset.addSeriesAsRow("Google", s1);
         
-        DefaultKeyedValues s2 = new DefaultKeyedValues();
+        DefaultKeyedValues<Double> s2 = new DefaultKeyedValues<Double>();
         s2.put("Q1/11", 16.43);
         s2.put("Q2/11", 17.37);
         s2.put("Q3/11", 17.37);
@@ -128,7 +131,7 @@ public class AreaChart3DDemo1 extends JFrame {
         s2.put("Q2/13", 19.896);
         dataset.addSeriesAsRow("Microsoft", s2);
         
-        DefaultKeyedValues s3 = new DefaultKeyedValues();
+        DefaultKeyedValues<Double> s3 = new DefaultKeyedValues<Double>();
         s3.put("Q1/11", 24.67);
         s3.put("Q2/11", 28.57);
         s3.put("Q3/11", 28.27);

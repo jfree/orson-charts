@@ -23,7 +23,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Arrays;
+
 import javax.swing.event.EventListenerList;
+
 import com.orsoncharts.ChartBox3D;
 import com.orsoncharts.Colors;
 import com.orsoncharts.table.RectanglePainter;
@@ -33,13 +35,33 @@ import com.orsoncharts.util.SerialUtils;
 
 /**
  * A standard implementation of the {@link ChartStyle} interface.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class.
  * 
  * @since 1.2
  */
+@SuppressWarnings("serial")
 public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
 
-    private static final String FONT_FAMILY = "MgOpenCosmetica";
+    /** The first font family to try (usually found on Windows). */
+    private static final String FONT_FAMILY_1 = "Palatino Linotype";
 
+    /** The second font family to try (usually found on MacOSX). */
+    private static final String FONT_FAMILY_2 = "Palatino";
+    
+    private static Font createFont(int style, int size) {
+        Font f = new Font(FONT_FAMILY_1, style, size);
+        if ("Dialog".equals(f.getFamily())) {
+            f = new Font(FONT_FAMILY_2, style, size);
+            if ("Dialog".equals(f.getFamily())) {
+                f = new Font(Font.SERIF, style, size);
+            }
+        }
+        return f;
+    }
+    
     /**
      * The default background color for the title and subtitle, and legend
      * header and footer. 
@@ -48,12 +70,10 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
             = new Color(255, 255, 255, 100);
 
     /** The default title font. */
-    public static final Font DEFAULT_TITLE_FONT = new Font(
-            FONT_FAMILY, Font.PLAIN, 32);
+    public static final Font DEFAULT_TITLE_FONT = createFont(Font.PLAIN, 32);
     
     /** The default subtitle font. */
-    public static final Font DEFAULT_SUBTITLE_FONT = new Font(
-            FONT_FAMILY, Font.PLAIN, 18);
+    public static final Font DEFAULT_SUBTITLE_FONT = createFont(Font.PLAIN, 18);
  
     /** The default chartbox color. */
     public static final Color DEFAULT_CHARTBOX_COLOR = new Color(255, 255, 255,
@@ -81,29 +101,29 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
     public static final Stroke DEFAULT_GRIDLINE_STROKE = new BasicStroke(0f);
     
     /** The default font for pie section labels. */
-    public static final Font DEFAULT_SECTION_LABEL_FONT = new Font(
-            FONT_FAMILY, Font.PLAIN, 14);
+    public static final Font DEFAULT_SECTION_LABEL_FONT = createFont(
+            Font.PLAIN, 14);
     
     /** The default color for pie section labels. */
     public static final Color DEFAULT_SECTION_LABEL_COLOR = Color.BLACK;
 
     /** The default font for axis labels. */
-    public static final Font DEFAULT_AXIS_LABEL_FONT = new Font(
-            FONT_FAMILY, Font.BOLD, 12);
+    public static final Font DEFAULT_AXIS_LABEL_FONT = createFont(Font.BOLD, 
+            12);
     
     /** The default foreground color for axis labels. */
     public static final Color DEFAULT_AXIS_LABEL_COLOR = Color.BLACK;
 
     /** The default font for axis tick labels. */
-    public static final Font DEFAULT_AXIS_TICK_LABEL_FONT = new Font(
-            FONT_FAMILY, Font.PLAIN, 12);
+    public static final Font DEFAULT_AXIS_TICK_LABEL_FONT = createFont(
+            Font.PLAIN, 12);
 
     /** The default foreground color for axis tick labels. */
     public static final Color DEFAULT_AXIS_TICK_LABEL_COLOR = Color.BLACK;
 
     /** The default font for legend headers. */
-    public static final Font DEFAULT_LEGEND_HEADER_FONT = new Font(
-            FONT_FAMILY, Font.BOLD, 14);
+    public static final Font DEFAULT_LEGEND_HEADER_FONT = createFont(
+            Font.BOLD, 14);
     
     /** The default foreground color for the legend header if there is one. */
     public static final Color DEFAULT_LEGEND_HEADER_COLOR = Color.BLACK;
@@ -113,8 +133,8 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
             = new Rectangle2D.Double(-6, -4, 12, 8);
 
     /** The default font for legend item text. */
-    public static final Font DEFAULT_LEGEND_ITEM_FONT = new Font(
-            FONT_FAMILY, Font.PLAIN, 12);
+    public static final Font DEFAULT_LEGEND_ITEM_FONT = createFont(
+            Font.PLAIN, 12);
 
     /** The default legend item color. */
     public static final Color DEFAULT_LEGEND_ITEM_COLOR = Color.BLACK;
@@ -124,14 +144,14 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
             = new Color(255, 255, 255, 100);
 
     /** The default font for legend footers. */
-    public static final Font DEFAULT_LEGEND_FOOTER_FONT = new Font(
-            FONT_FAMILY, Font.PLAIN, 10);
+    public static final Font DEFAULT_LEGEND_FOOTER_FONT = createFont(
+            Font.PLAIN, 10);
 
     /** The default foreground color for the legend footer if there is one. */
     public static final Color DEFAULT_LEGEND_FOOTER_COLOR = Color.BLACK;
 
-    public static final Font DEFAULT_MARKER_LABEL_FONT = new Font(
-            FONT_FAMILY, Font.PLAIN, 10);
+    public static final Font DEFAULT_MARKER_LABEL_FONT = createFont(
+            Font.PLAIN, 10);
     
     public static final Color DEFAULT_MARKER_LABEL_COLOR = Color.DARK_GRAY;
     

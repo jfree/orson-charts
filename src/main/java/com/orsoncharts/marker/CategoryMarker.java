@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+
 import com.orsoncharts.axis.CategoryAxis3D;
 import com.orsoncharts.util.SerialUtils;
 import com.orsoncharts.util.Anchor2D;
@@ -35,13 +36,18 @@ import com.orsoncharts.util.ObjectUtils;
  * <br><br>
  * For an example, please refer to the demo 
  * <code>CategoryMarkerDemo1.java</code>.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  * 
  * @since 1.2
  */
+@SuppressWarnings("serial")
 public class CategoryMarker extends AbstractMarker implements Serializable {
 
-    /** The category to mark. */
-    Comparable category;
+	/** The category to mark. */
+    Comparable<?> category;
 
     /** 
      * The marker type (used to indicate whether the marker is represented by
@@ -75,7 +81,7 @@ public class CategoryMarker extends AbstractMarker implements Serializable {
      * 
      * @param category  the category key (<code>null</code> not permitted).
      */
-    public CategoryMarker(Comparable category) {
+    public CategoryMarker(Comparable<?> category) {
         super();
         ArgChecks.nullNotPermitted(category, "category");
         this.category = category;
@@ -93,7 +99,7 @@ public class CategoryMarker extends AbstractMarker implements Serializable {
      * 
      * @return The category (never <code>null</code>). 
      */
-    public Comparable getCategory() {
+    public Comparable<?> getCategory() {
         return this.category;
     }
     
@@ -103,7 +109,7 @@ public class CategoryMarker extends AbstractMarker implements Serializable {
      * 
      * @param category  the new category (<code>null</code> not permitted). 
      */
-    public void setCategory(Comparable category) {
+    public void setCategory(Comparable<?> category) {
         ArgChecks.nullNotPermitted(category, "category");
         this.category = category;
         fireChangeEvent();

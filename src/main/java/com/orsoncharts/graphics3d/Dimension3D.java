@@ -17,7 +17,12 @@ import java.io.Serializable;
 /**
  * A dimension in 3D (width, height and depth).  Instances of this class
  * are immutable.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  */
+@SuppressWarnings("serial")
 public final class Dimension3D implements Serializable {
   
     /** The width. */

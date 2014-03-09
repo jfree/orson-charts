@@ -13,6 +13,7 @@
 package com.orsoncharts.plot;
 
 import java.util.EventObject;
+
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.data.Dataset3DChangeEvent;
 import com.orsoncharts.util.ArgChecks;
@@ -23,7 +24,12 @@ import com.orsoncharts.util.ArgChecks;
  * plot to receive change notifications.  By default, the {@link Chart3D}
  * object will register with the plot it manages to monitor changes to the plot
  * and its subcomponents.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  */
+@SuppressWarnings("serial")
 public class Plot3DChangeEvent extends EventObject {
 
     /** The plot. */

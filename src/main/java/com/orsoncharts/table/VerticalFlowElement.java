@@ -21,15 +21,21 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.Fit2D;
 
 /**
  * A table element that displays a list of sub-elements in a vertical flow 
  * layout.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class.
  * 
  * @since 1.1
  */
+@SuppressWarnings("serial")
 public class VerticalFlowElement extends AbstractTableElement 
         implements ContainerElement, Serializable {
 

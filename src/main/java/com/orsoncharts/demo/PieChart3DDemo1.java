@@ -54,6 +54,7 @@ import com.orsoncharts.util.Orientation;
 /**
  * A demo showing a simple pie chart in 3D.
  */
+@SuppressWarnings("serial")
 public class PieChart3DDemo1 extends JFrame {
 
     /**

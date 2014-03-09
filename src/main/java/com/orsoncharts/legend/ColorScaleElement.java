@@ -26,6 +26,7 @@ import java.util.Map;
 import java.awt.FontMetrics;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+
 import com.orsoncharts.renderer.ColorScale;
 import com.orsoncharts.table.AbstractTableElement;
 import com.orsoncharts.table.ElementDimension;
@@ -40,9 +41,14 @@ import com.orsoncharts.util.Fit2D;
 
 /**
  * A {@link TableElement} that displays a {@link ColorScale}.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  * 
  * @since 1.1
  */
+@SuppressWarnings("serial")
 public class ColorScaleElement extends AbstractTableElement 
         implements TableElement {
 

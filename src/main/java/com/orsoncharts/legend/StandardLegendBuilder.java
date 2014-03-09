@@ -17,6 +17,7 @@ import java.awt.Font;
 import java.awt.Shape;
 import java.util.List;
 import java.io.Serializable;
+
 import com.orsoncharts.plot.Plot3D;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.plot.PiePlot3D;
@@ -44,6 +45,7 @@ import com.orsoncharts.util.Orientation;
  * to change in future releases and should not be relied upon for persisting 
  * instances of this class.
  */
+@SuppressWarnings("serial")
 public final class StandardLegendBuilder implements LegendBuilder, 
         Serializable {
 

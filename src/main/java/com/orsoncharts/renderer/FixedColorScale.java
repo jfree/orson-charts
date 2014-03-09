@@ -14,6 +14,7 @@ package com.orsoncharts.renderer;
 
 import java.awt.Color;
 import java.io.Serializable;
+
 import com.orsoncharts.Range;
 import com.orsoncharts.renderer.xyz.SurfaceRenderer;
 import com.orsoncharts.util.ArgChecks;
@@ -22,9 +23,14 @@ import com.orsoncharts.util.ArgChecks;
  * A {@link ColorScale} that returns the same color for every value on the
  * scale.  This is used by the {@link SurfaceRenderer} when there is no need 
  * to represent different value levels by color.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  * 
  * @since 1.1
  */
+@SuppressWarnings("serial")
 public class FixedColorScale implements ColorScale, Serializable {
     
     /** The fixed color. */

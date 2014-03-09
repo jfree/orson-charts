@@ -43,6 +43,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URL;
+
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JComponent;
@@ -58,6 +59,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.JTextPane;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
+
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.style.ChartStyles;
@@ -66,6 +68,7 @@ import com.orsoncharts.style.ChartStyles;
  * A demo application for Orson Charts.  This aggregates all the individual
  * demos which can also be run independently.
  */
+@SuppressWarnings("serial")
 public class OrsonChartsDemo extends JFrame implements ActionListener {
     
     /** Default size for the content panel in the demo applications. */

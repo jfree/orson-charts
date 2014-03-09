@@ -20,7 +20,12 @@ import java.util.EventObject;
  * can register with a renderer to receive change event notifications.  By 
  * default, the plot classes register with the renderer they manage in order
  * to monitor changes to the renderer.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  */
+@SuppressWarnings("serial")
 public class Renderer3DChangeEvent extends EventObject {
 
     private Renderer3D renderer;

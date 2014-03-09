@@ -15,6 +15,7 @@ package com.orsoncharts.util;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
+
 import com.orsoncharts.TitleAnchor;
 import com.orsoncharts.graphics3d.Offset2D;
 import com.orsoncharts.legend.LegendAnchor;
@@ -32,6 +33,7 @@ import com.orsoncharts.legend.LegendAnchor;
  * to change in future releases and should not be relied upon for persisting 
  * instances of this class.
  */
+@SuppressWarnings("serial")
 public final class Anchor2D implements Serializable {
 
     /** 

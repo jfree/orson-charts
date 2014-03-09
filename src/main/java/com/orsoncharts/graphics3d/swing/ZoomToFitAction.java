@@ -13,14 +13,22 @@
 package com.orsoncharts.graphics3d.swing;
 
 import com.orsoncharts.Resources;
+
 import java.awt.event.ActionEvent;
+
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+
 import com.orsoncharts.util.ArgChecks;
 
 /**
  * An action that performs a zoom-to-fit operation.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  */
+@SuppressWarnings("serial")
 public class ZoomToFitAction extends AbstractAction {
 
     /** The panel that the action applies to. */

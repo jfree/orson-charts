@@ -35,7 +35,12 @@ import com.orsoncharts.Chart3DFactory;
  * <br><br> 
  * There is a factory method to create a chart using this renderer - see
  * {@link Chart3DFactory#createStackedBarChart(String, String, CategoryDataset3D, String, String, String)}.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class.
  */
+@SuppressWarnings("serial")
 public class StackedBarRenderer3D extends BarRenderer3D {
 
     /**
@@ -56,7 +61,7 @@ public class StackedBarRenderer3D extends BarRenderer3D {
      * @return The range (possibly <code>null</code>) 
      */
     @Override
-    public Range findValueRange(Values3D data) {
+    public Range findValueRange(Values3D<? extends Number> data) {
         return DataUtils.findStackedValueRange(data);
     }
     

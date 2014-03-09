@@ -14,6 +14,7 @@ package com.orsoncharts.renderer.xyz;
 
 import java.awt.Color;
 import java.io.Serializable;
+
 import com.orsoncharts.Chart3DFactory;
 import com.orsoncharts.axis.Axis3D;
 import com.orsoncharts.data.xyz.XYZDataset;
@@ -37,7 +38,12 @@ import com.orsoncharts.util.ArgChecks;
  * TIP: to create a chart using this renderer, you can use the
  * {@link Chart3DFactory#createScatterChart(String, String, XYZDataset, String, String, String)}
  * method.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class.
  */
+@SuppressWarnings("serial")
 public class ScatterXYZRenderer extends AbstractXYZRenderer 
         implements XYZRenderer, Serializable {
 

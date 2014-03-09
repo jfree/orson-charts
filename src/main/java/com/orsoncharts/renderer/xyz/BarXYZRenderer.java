@@ -14,6 +14,7 @@ package com.orsoncharts.renderer.xyz;
 
 import java.awt.Color;
 import java.io.Serializable;
+
 import com.orsoncharts.axis.Axis3D;
 import com.orsoncharts.Range;
 import com.orsoncharts.data.DataUtils;
@@ -39,6 +40,7 @@ import com.orsoncharts.util.ObjectUtils;
  * to change in future releases and should not be relied upon for persisting 
  * instances of this class.
  */
+@SuppressWarnings("serial")
 public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer,
         Serializable {
  

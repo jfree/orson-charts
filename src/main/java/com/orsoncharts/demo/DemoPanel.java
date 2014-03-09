@@ -37,13 +37,16 @@
 package com.orsoncharts.demo;
 
 import java.awt.LayoutManager;
+
 import javax.swing.JPanel;
+
 import com.orsoncharts.ChartPanel3D;
 
 /**
  * The base class for panels created by demo applications.  Some demos will 
  * subclass to add extra controls in addition to the main {@link ChartPanel3D}.
  */
+@SuppressWarnings("serial")
 public class DemoPanel extends JPanel {
     
     private ChartPanel3D chartPanel;

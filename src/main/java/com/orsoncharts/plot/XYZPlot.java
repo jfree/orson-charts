@@ -22,6 +22,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.orsoncharts.ChartElementVisitor;
 import com.orsoncharts.axis.Axis3DChangeEvent;
 import com.orsoncharts.axis.Axis3DChangeListener;
@@ -46,7 +47,12 @@ import com.orsoncharts.util.SerialUtils;
 /**
  * A 3D plot with three numerical axes that displays data from an
  * {@link XYZDataset}.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  */
+@SuppressWarnings("serial")
 public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener, 
         Axis3DChangeListener, Renderer3DChangeListener, Serializable {
 

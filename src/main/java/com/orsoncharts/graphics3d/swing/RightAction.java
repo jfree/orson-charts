@@ -13,16 +13,23 @@
 package com.orsoncharts.graphics3d.swing;
 
 import java.awt.event.ActionEvent;
+
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+
 import com.orsoncharts.Resources;
 import com.orsoncharts.util.ArgChecks;
 
 /**
  * An action that handles rotating the 3D view towards the right of the screen.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  * 
  * @see LeftAction
  */
+@SuppressWarnings("serial")
 public class RightAction extends AbstractAction {
 
     private Panel3D panel;

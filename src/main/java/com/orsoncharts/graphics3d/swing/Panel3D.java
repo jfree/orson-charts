@@ -44,7 +44,12 @@ import com.orsoncharts.util.ExportFormats;
  * A panel that displays a set of 3D objects from a particular viewing point.
  * The view point is maintained by the {@link Drawable3D} but the panel
  * provides convenience methods to get/set it.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  */
+@SuppressWarnings("serial")
 public class Panel3D extends JPanel implements MouseListener, 
         MouseMotionListener, MouseWheelListener {
   
@@ -407,7 +412,7 @@ public class Panel3D extends JPanel implements MouseListener,
         }
         ArgChecks.nullNotPermitted(file, "file");
         try {
-            Class pdfDocClass = Class.forName("com.orsonpdf.PDFDocument");
+            Class<?> pdfDocClass = Class.forName("com.orsonpdf.PDFDocument");
             Object pdfDoc = pdfDocClass.newInstance();
             Method m = pdfDocClass.getMethod("createPage", Rectangle2D.class);
             Rectangle2D rect = new Rectangle(w, h);
@@ -452,13 +457,13 @@ public class Panel3D extends JPanel implements MouseListener,
         }
         ArgChecks.nullNotPermitted(file, "file");
         try {
-            Class svg2Class = Class.forName(
+            Class<?> svg2Class = Class.forName(
                     "org.jfree.graphics2d.svg.SVGGraphics2D");
-            Constructor c1 = svg2Class.getConstructor(int.class, int.class);
+            Constructor<?> c1 = svg2Class.getConstructor(int.class, int.class);
             Graphics2D svg2 = (Graphics2D) c1.newInstance(w, h);
             Rectangle2D drawArea = new Rectangle2D.Double(0, 0, w, h);
             this.drawable.draw(svg2, drawArea);
-            Class svgUtilsClass = Class.forName(
+            Class<?> svgUtilsClass = Class.forName(
                     "org.jfree.graphics2d.svg.SVGUtils");
             Method m1 = svg2Class.getMethod("getSVGElement", (Class[]) null);
             String element = (String) m1.invoke(svg2, (Object[]) null);

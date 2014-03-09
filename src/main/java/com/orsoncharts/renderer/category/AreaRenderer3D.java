@@ -14,6 +14,7 @@ package com.orsoncharts.renderer.category;
 
 import java.awt.Color;
 import java.io.Serializable;
+
 import com.orsoncharts.axis.Axis3D;
 import com.orsoncharts.axis.CategoryAxis3D;
 import com.orsoncharts.Chart3DFactory;
@@ -48,6 +49,7 @@ import com.orsoncharts.util.ObjectUtils;
  * to change in future releases and should not be relied upon for persisting 
  * instances of this class.
  */
+@SuppressWarnings("serial")
 public class AreaRenderer3D extends AbstractCategoryRenderer3D 
         implements Serializable {
     
@@ -151,7 +153,7 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
      * @return The range. 
      */
     @Override
-    public Range findValueRange(Values3D data) {
+    public Range findValueRange(Values3D<? extends Number> data) {
         return DataUtils.findValueRange(data, this.base);
     }
 

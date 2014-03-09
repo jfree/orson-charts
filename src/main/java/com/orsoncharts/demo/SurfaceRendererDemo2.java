@@ -37,8 +37,10 @@
 package com.orsoncharts.demo;
 
 import java.awt.BorderLayout;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
@@ -56,6 +58,7 @@ import com.orsoncharts.util.Orientation;
 /**
  * A demo of a surface chart.
  */
+@SuppressWarnings("serial")
 public class SurfaceRendererDemo2 extends JFrame {
 
     /**

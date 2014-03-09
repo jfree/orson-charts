@@ -14,6 +14,7 @@ package com.orsoncharts.label;
 
 import java.io.Serializable;
 import java.util.Formatter;
+
 import com.orsoncharts.data.DataUtils;
 import com.orsoncharts.data.PieDataset3D;
 import com.orsoncharts.util.ArgChecks;
@@ -26,9 +27,14 @@ import com.orsoncharts.util.ArgChecks;
  * <code>Double</code>, possibly <code>null</code>) and (3) the calculated 
  * percentage value (as a <code>Double</code>, <code>Double.NaN</code> if the 
  * value is <code>null</code>).
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  * 
  * @since 1.2
  */
+@SuppressWarnings("serial")
 public class StandardPieLabelGenerator implements PieLabelGenerator,
         Serializable {
 
@@ -123,7 +129,9 @@ public class StandardPieLabelGenerator implements PieLabelGenerator,
             percent = Double.valueOf(100.0 * value.doubleValue() / total);
         }
         formatter.format(this.template, key, value, percent);
-        return formatter.toString();
+        String result = formatter.toString();
+        formatter.close();
+        return result;
     }
     
     /**

@@ -15,15 +15,17 @@ package com.orsoncharts.axis;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Stroke;
 import java.awt.Graphics2D;
+import java.awt.Stroke;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
-import java.io.Serializable;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
 import javax.swing.event.EventListenerList;
+
 import com.orsoncharts.ChartElementVisitor;
 import com.orsoncharts.graphics3d.Utils2D;
 import com.orsoncharts.marker.MarkerChangeEvent;
@@ -38,7 +40,12 @@ import com.orsoncharts.util.TextUtils;
  * A base class that can be used to create an {@link Axis3D} implementation.
  * This class implements the core axis attributes as well as the change 
  * listener mechanism required to enable automatic repainting of charts.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  */
+@SuppressWarnings("serial")
 public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener, 
         Serializable {
     

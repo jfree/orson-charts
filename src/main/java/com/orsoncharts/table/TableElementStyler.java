@@ -39,7 +39,7 @@ public class TableElementStyler implements TableElementVisitor {
      */
     public TableElementStyler(Map<String, Font> fontChanges, 
             Map<String, Color> fgChanges, Map<String, Color> bgChanges) {
-        this.fontChanges = new HashMap(fontChanges);
+        this.fontChanges = new HashMap<String, Font>(fontChanges);
         this.foregroundColorChanges = fgChanges;
         this.backgroundColorChanges = bgChanges;
     }

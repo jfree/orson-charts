@@ -17,7 +17,12 @@ import java.io.Serializable;
 /**
  * An offset <code>(dx, dy)</code> in two dimensional space.  Instances of 
  * this class are immutable.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  */
+@SuppressWarnings("serial")
 public final class Offset2D implements Serializable {
     
     /** Zero offset. */

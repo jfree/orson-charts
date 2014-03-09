@@ -50,6 +50,7 @@ import com.orsoncharts.util.ObjectUtils;
  * to change in future releases and should not be relied upon for persisting 
  * instances of this class.
  */
+@SuppressWarnings("serial")
 public class LineRenderer3D extends AbstractCategoryRenderer3D 
         implements Serializable {
 

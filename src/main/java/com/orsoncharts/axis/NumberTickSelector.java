@@ -19,7 +19,12 @@ import java.text.Format;
 /**
  * A {@link TickSelector} implementation that selects tick units in multiples 
  * of 1, 2 and 5.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  */
+@SuppressWarnings("serial")
 public class NumberTickSelector implements TickSelector, Serializable {
 
     private int power = 0;

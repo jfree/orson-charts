@@ -22,6 +22,7 @@ import java.text.Format;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.orsoncharts.util.TextUtils;
 import com.orsoncharts.util.TextAnchor;
 import com.orsoncharts.Range;
@@ -36,7 +37,12 @@ import com.orsoncharts.util.ObjectUtils;
  * In a {@link CategoryPlot3D} the value axis (the vertical one) is numerical, 
  * and in an {@link XYZPlot} all the axes (x, y and z) are numerical - for
  * all these cases an instance of this class can be used.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  */
+@SuppressWarnings("serial")
 public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
         Serializable {
 

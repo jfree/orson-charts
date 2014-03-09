@@ -71,6 +71,6 @@ public interface LegendItemInfo {
      * 
      * @return A map (never <code>null</code>). 
      */
-    Map<Comparable, Object> getProperties();
+    Map<Comparable<?>, Object> getProperties();
     
 }

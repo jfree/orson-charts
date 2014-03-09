@@ -24,8 +24,10 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
 import com.orsoncharts.ChartElementVisitor;
 import com.orsoncharts.Range;
+import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.marker.MarkerData;
 import com.orsoncharts.marker.NumberMarker;
 import com.orsoncharts.marker.RangeMarker;
@@ -38,7 +40,12 @@ import com.orsoncharts.util.SerialUtils;
 
 /**
  * A base class for implementing numerical axes.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  */
+@SuppressWarnings("serial")
 public abstract class AbstractValueAxis3D extends AbstractAxis3D 
         implements ValueAxis3D, Serializable{
 
@@ -408,8 +415,8 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
     @Override
     public void configureAsValueAxis(CategoryPlot3D plot) {
         if (this.autoAdjustRange) {
-            Range valueRange = plot.getRenderer().findValueRange(
-                    plot.getDataset());
+        	CategoryDataset3D dataset = plot.getDataset();
+            Range valueRange = plot.getRenderer().findValueRange(dataset);
             if (valueRange != null) {
                 updateRange(adjustedDataRange(valueRange));
             } else {
@@ -529,7 +536,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
      * @since 1.2
      */
     public Map<String, ValueMarker> getMarkers() {
-        return new LinkedHashMap(this.valueMarkers);    
+        return new LinkedHashMap<String, ValueMarker>(this.valueMarkers);    
     }
 
     /**

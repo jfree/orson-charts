@@ -13,15 +13,21 @@
 package com.orsoncharts.renderer;
 
 import java.io.Serializable;
+
 import com.orsoncharts.Range;
 import com.orsoncharts.util.ArgChecks;
 
 /**
  * An abstract class from which a {@link ColorScale} implementation can be
  * derived.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  * 
  * @since 1.1
  */
+@SuppressWarnings("serial")
 public abstract class AbstractColorScale implements Serializable {
     
     /** The data value range for the scale. */

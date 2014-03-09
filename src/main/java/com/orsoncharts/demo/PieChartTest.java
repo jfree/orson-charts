@@ -41,27 +41,28 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
-import com.orsoncharts.data.xyz.XYZDataset;
-import com.orsoncharts.data.xyz.XYZSeries;
-import com.orsoncharts.data.xyz.XYZSeriesCollection;
-import com.orsoncharts.graphics3d.ViewPoint3D;
+import com.orsoncharts.ChartPanel3D;
+import com.orsoncharts.TitleAnchor;
+import com.orsoncharts.data.PieDataset3D;
+import com.orsoncharts.data.StandardPieDataset3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
+import com.orsoncharts.legend.LegendAnchor;
+import com.orsoncharts.util.Orientation;
 
 /**
- * A demo of a 3D bar chart.
+ * A demo showing a simple pie chart in 3D.
  */
 @SuppressWarnings("serial")
-public class XYZBarChart3DDemo1 extends JFrame {
+public class PieChartTest extends JFrame {
 
     /**
      * Creates a new test app.
      *
      * @param title  the frame title.
      */
-    public XYZBarChart3DDemo1(String title) {
+    public PieChartTest(String title) {
         super(title);
         addWindowListener(new ExitOnClose());
         getContentPane().add(createDemoPanel());
@@ -77,17 +78,20 @@ public class XYZBarChart3DDemo1 extends JFrame {
     public static JPanel createDemoPanel() {
         DemoPanel content = new DemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
-        XYZDataset dataset = createDataset();
-        Chart3D chart = Chart3DFactory.createXYZBarChart("XYZBarChart3DDemo1", 
-                "Chart created with Orson Charts", dataset, "X", "Value", "Z");
-        chart.setViewPoint(ViewPoint3D.createAboveRightViewPoint(40));
+        Chart3D chart = Chart3DFactory.createPieChart(
+                "New Zealand Exports 2012", 
+                "http://www.stats.govt.nz/browse_for_stats/snapshots-of-nz/nz-in-profile-2013.aspx", createDataset());
+        chart.setTitleAnchor(TitleAnchor.TOP_LEFT);
+        chart.setLegendPosition(LegendAnchor.BOTTOM_CENTER,
+                Orientation.HORIZONTAL);
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
+        chartPanel.setMargin(0.05);
         content.setChartPanel(chartPanel);
-        chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         content.add(new DisplayPanel3D(chartPanel));
+        chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         return content;
     }
-  
+
     /**
      * Creates a sample dataset (hard-coded for the purpose of keeping the
      * demo self-contained - in practice you would normally read your data
@@ -95,29 +99,23 @@ public class XYZBarChart3DDemo1 extends JFrame {
      * 
      * @return A sample dataset.
      */
-    private static XYZDataset createDataset() {
-        XYZSeries series1 = new XYZSeries("Series 1");
-        series1.add(1.0, 5.0, 1.0);
-        XYZSeries series2 = new XYZSeries("Series 2");
-        series2.add(2.0, 8.0, 2.0);
-        XYZSeries series3 = new XYZSeries("Series 3");
-        series3.add(1.0, 10.0, 2.0);
-        XYZSeriesCollection dataset = new XYZSeriesCollection();
-        dataset.add(series1);
-        dataset.add(series2);
-        dataset.add(series3);
-        return dataset;
+    static PieDataset3D createDataset() {
+        StandardPieDataset3D dataset = new StandardPieDataset3D();
+        dataset.add("Milk Products", 11625);
+        dataset.add("Test", null);
+        return dataset; 
     }
-
+    
     /**
      * Starting point for the app.
      *
      * @param args  command line arguments (ignored).
      */
     public static void main(String[] args) {
-        XYZBarChart3DDemo1 app = new XYZBarChart3DDemo1(
-                "OrsonCharts: XYZBarChart3DDemo1.java");
+        PieChartTest app = new PieChartTest(
+                "OrsonCharts: PieChart3DDemo1.java");
         app.pack();
         app.setVisible(true);
     }
+
 }

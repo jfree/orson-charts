@@ -13,7 +13,6 @@
 package com.orsoncharts.marker;
 
 import com.orsoncharts.Range;
-import com.orsoncharts.axis.ValueAxis3D;
 
 /**
  * A marker that can be used to mark a value or range of values on a 

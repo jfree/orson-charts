@@ -19,7 +19,12 @@ import java.io.Serializable;
  * {@link Point3D} instances).  This file is derived from code published in 
  * "Computer Graphics for Java Programmers (Second Edition)" by Leen Ammeraal 
  * and Kang Zhang.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  */
+@SuppressWarnings("serial")
 public class Rotate3D implements Serializable {
 
     /** The first point defining the axis of rotation. */

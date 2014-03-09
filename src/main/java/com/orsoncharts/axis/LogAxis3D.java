@@ -12,19 +12,20 @@
 
 package com.orsoncharts.axis;
 
-import java.awt.font.TextAttribute;
-import java.awt.geom.Rectangle2D;
-import java.awt.Graphics2D;
 import java.awt.FontMetrics;
+import java.awt.Graphics2D;
+import java.awt.font.TextAttribute;
 import java.awt.font.TextLayout;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.text.AttributedString;
 import java.text.DecimalFormat;
 import java.text.Format;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.orsoncharts.Range;
 import com.orsoncharts.graphics3d.Utils2D;
 import com.orsoncharts.util.ArgChecks;
@@ -34,9 +35,14 @@ import com.orsoncharts.util.TextUtils;
 
 /**
  * A numerical axis with a logarithmic scale.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  * 
  * @since 1.2
  */
+@SuppressWarnings("serial")
 public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
     
     /** The default value for the smallest value attribute. */

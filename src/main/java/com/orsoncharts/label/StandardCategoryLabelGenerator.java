@@ -14,6 +14,7 @@ package com.orsoncharts.label;
 
 import java.io.Serializable;
 import java.util.Formatter;
+
 import com.orsoncharts.data.DataUtils;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.util.ArgChecks;
@@ -26,9 +27,14 @@ import com.orsoncharts.util.ArgChecks;
  * non-<code>null</code> items in the series, row or column (as an 
  * <code>Integer</code>) and (3) the total of the non-<code>null</code> values 
  * (as a <code>Double</code>).
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  * 
  * @since 1.2
  */
+@SuppressWarnings("serial")
 public class StandardCategoryLabelGenerator implements CategoryLabelGenerator,
         Serializable {
 
@@ -99,7 +105,9 @@ public class StandardCategoryLabelGenerator implements CategoryLabelGenerator,
         int count = DataUtils.count(dataset, seriesKey);
         double total = DataUtils.total(dataset, seriesKey);
         formatter.format(this.template, seriesKey, count, total);
-        return formatter.toString();
+        String result = formatter.toString();
+        formatter.close();
+        return result;
     }
     
     /**
@@ -119,7 +127,9 @@ public class StandardCategoryLabelGenerator implements CategoryLabelGenerator,
         int count = DataUtils.countForRow(dataset, rowKey);
         double total = DataUtils.totalForRow(dataset, rowKey);
         formatter.format(this.template, rowKey, count, total);
-        return formatter.toString();
+        String result = formatter.toString();
+        formatter.close();
+        return result;
     }
     
     /**
@@ -139,7 +149,9 @@ public class StandardCategoryLabelGenerator implements CategoryLabelGenerator,
         int count = DataUtils.countForColumn(dataset, columnKey);
         double total = DataUtils.totalForColumn(dataset, columnKey);
         formatter.format(this.template, columnKey, count, total);
-        return formatter.toString();
+        String result = formatter.toString();
+        formatter.close();
+        return result;
     }
 
     /**

@@ -18,9 +18,14 @@ import com.orsoncharts.util.ArgChecks;
 
 /**
  * An event that signals a change to a {@link ChartStyle}.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class.
  * 
  * @since 1.2
  */
+@SuppressWarnings("serial")
 public class ChartStyleChangeEvent extends EventObject {
 
     private ChartStyle style;

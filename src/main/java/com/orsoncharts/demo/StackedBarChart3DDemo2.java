@@ -37,8 +37,10 @@
 package com.orsoncharts.demo;
 
 import java.awt.BorderLayout;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
@@ -53,6 +55,7 @@ import com.orsoncharts.renderer.category.StackedBarRenderer3D;
 /**
  * A demo of a 3D stacked bar chart.
  */
+@SuppressWarnings("serial")
 public class StackedBarChart3DDemo2 extends JFrame {
 
     /**

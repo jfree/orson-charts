@@ -38,8 +38,10 @@ package com.orsoncharts.demo;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
@@ -55,6 +57,7 @@ import com.orsoncharts.renderer.category.AreaRenderer3D;
 /**
  * A demo of a 3D area chart.
  */
+@SuppressWarnings("serial")
 public class AreaChart3DDemo2 extends JFrame {
 
     /**
@@ -107,7 +110,7 @@ public class AreaChart3DDemo2 extends JFrame {
     private static CategoryDataset3D createDataset() {    
         StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
                 
-        DefaultKeyedValues s1 = new DefaultKeyedValues();
+        DefaultKeyedValues<Number> s1 = new DefaultKeyedValues<Number>();
         s1.put("A", -1);
         s1.put("B", -4);
         s1.put("C", -9);
@@ -120,7 +123,7 @@ public class AreaChart3DDemo2 extends JFrame {
         s1.put("J", -1);
         dataset.addSeriesAsRow("Series 1", s1);
         
-        DefaultKeyedValues s2 = new DefaultKeyedValues();
+        DefaultKeyedValues<Number> s2 = new DefaultKeyedValues<Number>();
         s2.put("A", 1);
         s2.put("B", 12);
         s2.put("C", 14);
@@ -133,7 +136,7 @@ public class AreaChart3DDemo2 extends JFrame {
         s2.put("J", 4);
         dataset.addSeriesAsRow("Series 2", s2);
         
-        DefaultKeyedValues s3 = new DefaultKeyedValues();
+        DefaultKeyedValues<Number> s3 = new DefaultKeyedValues<Number>();
         s3.put("A", 5);
         s3.put("B", 13);
         s3.put("C", 19);
@@ -146,7 +149,7 @@ public class AreaChart3DDemo2 extends JFrame {
         s3.put("J", -20);
         dataset.addSeriesAsRow("Series 3", s3);
 
-        DefaultKeyedValues s4 = new DefaultKeyedValues();
+        DefaultKeyedValues<Number> s4 = new DefaultKeyedValues<Number>();
         s4.put("A", 5);
         s4.put("B", 18);
         s4.put("C", 20);

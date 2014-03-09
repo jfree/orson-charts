@@ -69,7 +69,7 @@ public class DemoDisplayer implements Runnable {
     @Override
     public void run() {
         try {
-            Class c = Class.forName(this.demoDescription.getClassName());
+            Class<?> c = Class.forName(this.demoDescription.getClassName());
             Method m = c.getDeclaredMethod("createDemoPanel", (Class[]) null);
             JPanel panel = (JPanel) m.invoke(null, (Object[]) null);
             panel.setBorder(BorderFactory.createCompoundBorder(

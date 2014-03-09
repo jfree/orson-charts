@@ -13,6 +13,7 @@
 package com.orsoncharts.graphics3d.swing;
 
 import com.orsoncharts.Resources;
+
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -20,17 +21,24 @@ import java.awt.geom.Dimension2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+
 import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
 import com.orsoncharts.util.ArgChecks;
 
 /**
  * An action that handles saving the content of a panel to a JPEG image.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  * 
  * @since 1.2
  */
+@SuppressWarnings("serial")
 public class ExportToJPEGAction extends AbstractAction {
 
     /** The panel to which this action applies. */

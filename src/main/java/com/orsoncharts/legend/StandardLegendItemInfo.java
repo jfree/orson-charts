@@ -39,7 +39,7 @@ public class StandardLegendItemInfo implements LegendItemInfo {
     private Shape shape;
     
     /** Storage for other properties. */
-    private Map<Comparable, Object> properties;
+    private Map<Comparable<?>, Object> properties;
     
     /**
      * Creates a new instance.
@@ -72,7 +72,7 @@ public class StandardLegendItemInfo implements LegendItemInfo {
         this.description = description;
         this.color = color;
         this.shape = shape;
-        this.properties = new HashMap<Comparable, Object>();
+        this.properties = new HashMap<Comparable<?>, Object>();
     }
     
     /**
@@ -131,7 +131,7 @@ public class StandardLegendItemInfo implements LegendItemInfo {
      * @return The properties for the legend item. 
      */
     @Override
-    public Map<Comparable, Object> getProperties() {
+    public Map<Comparable<?>, Object> getProperties() {
         return this.properties;
     }
     

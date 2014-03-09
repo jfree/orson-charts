@@ -31,6 +31,7 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import javax.swing.event.EventListenerList;
 
 import com.orsoncharts.ChartBox3D.ChartBoxFace;
@@ -115,6 +116,7 @@ import com.orsoncharts.util.TextAnchor;
  * @see Chart3DFactory
  * @see ChartPanel3D
  */
+@SuppressWarnings("serial")
 public class Chart3D implements Drawable3D, ChartElement, 
         Plot3DChangeListener, ChartStyleChangeListener, Serializable {
     

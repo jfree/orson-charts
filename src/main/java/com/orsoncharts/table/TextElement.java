@@ -22,6 +22,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.TextAnchor;
 import com.orsoncharts.util.TextUtils;
@@ -33,6 +34,7 @@ import com.orsoncharts.util.TextUtils;
  * to change in future releases and should not be relied upon for persisting 
  * instances of this class.
  */
+@SuppressWarnings("serial")
 public class TextElement extends AbstractTableElement 
         implements TableElement, Serializable {
 

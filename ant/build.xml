@@ -64,6 +64,8 @@
         <!-- copy across Font Awesome -->
         <copy file="${basedir}/src/main/java/com/orsoncharts/graphics3d/swing/fontawesome-webfont.ttf" tofile="${basedir}/build/com/orsoncharts/graphics3d/swing/fontawesome-webfont.ttf" />
         <copy file="${basedir}/src/main/java/com/orsoncharts/Resources.properties" tofile="${basedir}/build/com/orsoncharts/Resources.properties" />
+        <copy file="${basedir}/src/main/java/com/orsoncharts/Resources_de.properties" tofile="${basedir}/build/com/orsoncharts/Resources_de.properties" />
+        <copy file="${basedir}/src/main/java/com/orsoncharts/Resources_it.properties" tofile="${basedir}/build/com/orsoncharts/Resources_it.properties" />
  
         <!-- make the jar -->
         <jar jarfile="${basedir}/lib/${orsoncharts.name}-${orsoncharts.version}.jar"

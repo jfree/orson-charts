@@ -49,7 +49,7 @@ public class SerialUtils {
         Paint result = null;
         boolean isNull = stream.readBoolean();
         if (!isNull) {
-            Class c = (Class) stream.readObject();
+            Class<?> c = (Class<?>) stream.readObject();
             if (Serializable.class.isAssignableFrom(c)) {
                 result = (Paint) stream.readObject();
             } else if (c.equals(GradientPaint.class)) {
@@ -117,7 +117,7 @@ public class SerialUtils {
         Stroke result = null;
         boolean isNull = stream.readBoolean();
         if (!isNull) {
-            Class c = (Class) stream.readObject();
+            Class<?> c = (Class<?>) stream.readObject();
             if (c.equals(BasicStroke.class)) {
                 float width = stream.readFloat();
                 int cap = stream.readInt();

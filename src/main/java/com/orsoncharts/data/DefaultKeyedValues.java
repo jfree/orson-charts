@@ -15,13 +15,19 @@ package com.orsoncharts.data;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.orsoncharts.util.ArgChecks;
 
 /**
  * A list of <code>(key, value)</code> pairs.
  * <br><br>
  * This is the basic structure of the data required for a pie chart.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  */
+@SuppressWarnings("serial")
 public final class DefaultKeyedValues<T> implements KeyedValues<T>, 
         Serializable {
 

@@ -40,8 +40,10 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
 import com.orsoncharts.graphics3d.DefaultDrawable3D;
 import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.Point3D;
@@ -54,6 +56,7 @@ import com.orsoncharts.graphics3d.swing.Panel3D;
 /**
  * A demo of the viewing point.
  */
+@SuppressWarnings("serial")
 public class ViewPoint3DDemo extends JFrame {
 
     List<Point3D> xlist;

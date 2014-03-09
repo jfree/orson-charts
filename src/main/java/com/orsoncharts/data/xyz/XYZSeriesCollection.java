@@ -15,6 +15,7 @@ package com.orsoncharts.data.xyz;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.data.AbstractDataset3D;
 import com.orsoncharts.plot.XYZPlot;
@@ -24,7 +25,12 @@ import com.orsoncharts.renderer.xyz.XYZRenderer;
  * A collection of {@link XYZSeries} objects (implements the {@link XYZDataset}
  * interface so that it can be used as a source of data for an 
  * {@link XYZRenderer} on an {@link XYZPlot}).
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  */
+@SuppressWarnings("serial")
 public class XYZSeriesCollection extends AbstractDataset3D 
         implements XYZDataset, Serializable {
 

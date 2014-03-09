@@ -17,7 +17,12 @@ import java.io.Serializable;
 /**
  * Represents a single <code>(x, y, z)</code> data item, which can be added to 
  * a {@link XYZSeries}.  Instances of this class are immutable.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  */
+@SuppressWarnings("serial")
 public class XYZDataItem implements Serializable {
 
     /** The x-value. */

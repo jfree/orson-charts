@@ -19,13 +19,19 @@ import java.awt.geom.Dimension2D;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 import java.util.Map;
+
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.ObjectUtils;
 import com.orsoncharts.util.RefPt2D;
 
 /**
  * A base class that can be used to implement a {@link TableElement}.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class.
  */
+@SuppressWarnings("serial")
 public abstract class AbstractTableElement implements Serializable {
     
     /** The default background color. */

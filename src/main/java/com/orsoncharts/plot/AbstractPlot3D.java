@@ -15,6 +15,7 @@ package com.orsoncharts.plot;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
+
 import javax.swing.event.EventListenerList;
 
 import com.orsoncharts.data.Dataset3DChangeEvent;
@@ -38,7 +39,12 @@ import com.orsoncharts.ChartElementVisitor;
  * and whenever a dataset change notification is received, the plot will 
  * pass on a {@link Plot3DChangeEvent} to all *its* listeners.  If the plot 
  * has axes, then the same approach is used to listen for changes to the axes.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  */
+@SuppressWarnings("serial")
 public abstract class AbstractPlot3D implements Plot3D, 
         Dataset3DChangeListener, Serializable {
   

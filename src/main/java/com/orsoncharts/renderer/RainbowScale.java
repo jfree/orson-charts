@@ -13,15 +13,21 @@
 package com.orsoncharts.renderer;
 
 import java.awt.Color;
+
 import com.orsoncharts.Range;
 import com.orsoncharts.util.ArgChecks;
 
 /**
  * A color scale that returns all the colors of the rainbow.  Instances of 
  * this class are immutable and serializable.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  * 
  * @since 1.1
  */
+@SuppressWarnings("serial")
 public class RainbowScale extends AbstractColorScale implements ColorScale {
     
     /** 

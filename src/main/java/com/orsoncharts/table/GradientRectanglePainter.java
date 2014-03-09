@@ -13,6 +13,7 @@
 package com.orsoncharts.table;
 
 import com.orsoncharts.TitleAnchor;
+
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics2D;
@@ -20,6 +21,7 @@ import java.awt.Paint;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
+
 import com.orsoncharts.util.Anchor2D;
 import com.orsoncharts.util.ArgChecks;
 
@@ -27,7 +29,12 @@ import com.orsoncharts.util.ArgChecks;
  * A {@link RectanglePainter} that can fill a rectangle with a gradient (the
  * gradient is generated using anchor points to fit any size rectangle on 
  * demand).  Instances of this class are immutable.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class.
  */
+@SuppressWarnings("serial")
 public final class GradientRectanglePainter implements RectanglePainter, 
         Serializable {
 

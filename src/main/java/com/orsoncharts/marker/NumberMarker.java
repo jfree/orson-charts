@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+
 import com.orsoncharts.Range;
 import com.orsoncharts.util.Anchor2D;
 import com.orsoncharts.util.ArgChecks;
@@ -30,9 +31,14 @@ import com.orsoncharts.util.SerialUtils;
 
 /**
  * A marker used to mark one value on an axis.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  * 
  * @since 1.2
  */
+@SuppressWarnings("serial")
 public class NumberMarker extends AbstractMarker implements ValueMarker,
         Serializable {
 

@@ -17,6 +17,7 @@ import java.awt.Font;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.data.PieDataset3D;
 import com.orsoncharts.util.ArgChecks;
@@ -46,6 +47,7 @@ import com.orsoncharts.label.StandardPieLabelGenerator;
  * to change in future releases and should not be relied upon for persisting 
  * instances of this class. 
  */
+@SuppressWarnings("serial")
 public class PiePlot3D extends AbstractPlot3D implements Serializable {
     
     /** The default font for section labels on the chart. */

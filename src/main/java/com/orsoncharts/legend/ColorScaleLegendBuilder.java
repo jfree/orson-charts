@@ -13,6 +13,7 @@
 package com.orsoncharts.legend;
 
 import java.io.Serializable;
+
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.plot.Plot3D;
 import com.orsoncharts.plot.XYZPlot;
@@ -34,9 +35,14 @@ import com.orsoncharts.style.ChartStyle;
  * <br><br>
  * The orientation and anchor point for the legend are properties of the 
  * {@link Chart3D} class.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  * 
  * @since 1.1
  */
+@SuppressWarnings("serial")
 public class ColorScaleLegendBuilder implements LegendBuilder, Serializable {
     
     /** The width of the bar showing the color scale (in Java2D units). */

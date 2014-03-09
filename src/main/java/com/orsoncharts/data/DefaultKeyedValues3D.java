@@ -15,12 +15,18 @@ package com.orsoncharts.data;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.orsoncharts.util.ArgChecks;
 
 /**
  * A three dimensional table of numerical values, implementing the 
  * {@link KeyedValues3D} interface.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class. 
  */
+@SuppressWarnings("serial")
 public final class DefaultKeyedValues3D<V> implements KeyedValues3D<V>, 
         Serializable {
 
@@ -221,7 +227,7 @@ public final class DefaultKeyedValues3D<V> implements KeyedValues3D<V>,
             this.seriesKeys.add(seriesKey);
             this.rowKeys.add(rowKey);
             this.columnKeys.add(columnKey);
-            DefaultKeyedValues2D d = new DefaultKeyedValues2D();
+            DefaultKeyedValues2D<V> d = new DefaultKeyedValues2D<V>();
             d.setValue(n, rowKey, columnKey);
             this.data.add(d);
         }
@@ -236,16 +242,16 @@ public final class DefaultKeyedValues3D<V> implements KeyedValues3D<V>,
             this.columnKeys.add(columnKey);
         }
         if (rowIndex < 0 || columnIndex < 0) {
-            for (DefaultKeyedValues2D d : this.data) {
+            for (DefaultKeyedValues2D<V> d : this.data) {
                 d.setValue(null, rowKey, columnKey);
             } 
         } 
         if (seriesIndex >= 0) {
-            DefaultKeyedValues2D d = this.data.get(seriesIndex);
+            DefaultKeyedValues2D<V> d = this.data.get(seriesIndex);
             d.setValue(n, rowKey, columnKey);
         } else {
             this.seriesKeys.add(seriesKey);
-            DefaultKeyedValues2D d = new DefaultKeyedValues2D(this.rowKeys, 
+            DefaultKeyedValues2D<V> d = new DefaultKeyedValues2D<V>(this.rowKeys, 
                     this.columnKeys);
             d.setValue(n, rowKey, columnKey);
             this.data.add(d);
@@ -264,10 +270,10 @@ public final class DefaultKeyedValues3D<V> implements KeyedValues3D<V>,
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof DefaultKeyedValues3D)) {
+        if (!(obj instanceof DefaultKeyedValues3D<?>)) {
             return false;
         }
-        DefaultKeyedValues3D that = (DefaultKeyedValues3D) obj;
+        DefaultKeyedValues3D<?> that = (DefaultKeyedValues3D<?>) obj;
         if (!this.seriesKeys.equals(that.seriesKeys)) {
             return false;
         }

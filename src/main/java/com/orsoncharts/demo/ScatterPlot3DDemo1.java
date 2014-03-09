@@ -40,6 +40,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
@@ -57,6 +58,7 @@ import com.orsoncharts.renderer.xyz.ScatterXYZRenderer;
 /**
  * A demonstration of a scatter plot in 3D.
  */
+@SuppressWarnings("serial")
 public class ScatterPlot3DDemo1 extends JFrame {
 
     /**

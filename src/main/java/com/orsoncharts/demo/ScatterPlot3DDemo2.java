@@ -42,9 +42,11 @@ import java.awt.FlowLayout;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
 import com.orsoncharts.ChartPanel3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
@@ -64,6 +66,7 @@ import com.orsoncharts.style.ChartStyler;
 /**
  * A demonstration of a scatter plot in 3D.
  */
+@SuppressWarnings("serial")
 public class ScatterPlot3DDemo2 extends JFrame {
 
     static class CustomDemoPanel extends DemoPanel implements ActionListener {

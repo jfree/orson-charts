@@ -16,6 +16,7 @@ import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
+
 import com.orsoncharts.TitleAnchor;
 
 /**
@@ -25,7 +26,12 @@ import com.orsoncharts.TitleAnchor;
  * <br><br>
  * One application for this is to specify how the background image for a chart 
  * should be aligned and scaled.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class.
  */
+@SuppressWarnings("serial")
 public class Fit2D implements Serializable {
 
     /** 

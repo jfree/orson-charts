@@ -29,7 +29,7 @@ public class ExportFormats {
      * @since 1.2
      */
     public static boolean isJFreeSVGAvailable() {
-        Class svgClass = null;
+        Class<?> svgClass = null;
         try {
             svgClass = Class.forName("org.jfree.graphics2d.svg.SVGGraphics2D");
         } catch (ClassNotFoundException e) {
@@ -46,7 +46,7 @@ public class ExportFormats {
      * @return A boolean.
      */
     public static boolean isOrsonPDFAvailable() {
-        Class pdfDocumentClass = null;
+        Class<?> pdfDocumentClass = null;
         try {
             pdfDocumentClass = Class.forName("com.orsonpdf.PDFDocument");
         } catch (ClassNotFoundException e) {

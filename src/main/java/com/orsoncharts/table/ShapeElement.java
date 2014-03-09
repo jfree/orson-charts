@@ -22,11 +22,17 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 import com.orsoncharts.util.ArgChecks;
 
 /**
  * A table element that displays a shape.
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class.
  */
+@SuppressWarnings("serial")
 public class ShapeElement extends AbstractTableElement 
         implements TableElement {
 

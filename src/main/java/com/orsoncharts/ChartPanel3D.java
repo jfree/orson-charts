@@ -14,6 +14,7 @@ package com.orsoncharts;
 
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+
 import com.orsoncharts.graphics3d.swing.Panel3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 
@@ -25,7 +26,12 @@ import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
  * This panel will display the chart in a Swing user interface, but does not
  * include additional features such as the view toolbar and popup menu (these
  * are provided by the {@link DisplayPanel3D} class).
+ * <br><br>
+ * NOTE: This class is serializable, but the serialization format is subject 
+ * to change in future releases and should not be relied upon for persisting 
+ * instances of this class.
  */
+@SuppressWarnings("serial")
 public class ChartPanel3D extends Panel3D implements Chart3DChangeListener, 
         ComponentListener {
 
