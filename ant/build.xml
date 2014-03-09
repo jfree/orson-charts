@@ -15,12 +15,12 @@
         <tstamp />
         <property name="eval" value="wtf" />
         <property name="orsoncharts.name" value="orsoncharts" />
-        <property name="orsoncharts.version" value="1.2-eval" />
+        <property name="orsoncharts.version" value="1.2" />
         <property name="jfreesvg.name" value="jfreesvg" />
         <property name="jfreesvg.version" value="1.7" />
         <property name="jfreesvg.jar" value="${basedir}/lib/${jfreesvg.name}-${jfreesvg.version}.jar"/>
         <property name="orsonpdf.name" value="orsonpdf" />
-        <property name="orsonpdf.version" value="1.5-eval" />
+        <property name="orsonpdf.version" value="1.5" />
         <property name="orsonpdf.jar" value="${basedir}/lib/${orsonpdf.name}-${orsonpdf.version}.jar"/>
         <property name="builddir" value="${basedir}/build" />
         <property name="junit.jar" value="${basedir}/lib/junit-4.11.jar"/>
