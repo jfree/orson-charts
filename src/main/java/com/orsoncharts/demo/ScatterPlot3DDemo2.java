@@ -124,7 +124,7 @@ public class ScatterPlot3DDemo2 extends JFrame {
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         XYZDataset dataset = createDataset();
         Chart3D chart = Chart3DFactory.createScatterChart("ScatterPlot3DDemo2", 
-                "Chart created with Orson Charts", dataset, "X", "Y", "Z");
+                null, dataset, "X", "Y", "Z");
         XYZPlot plot = (XYZPlot) chart.getPlot();
         ScatterXYZRenderer renderer = (ScatterXYZRenderer) plot.getRenderer();
         plot.setDimensions(new Dimension3D(10, 6, 10));
@@ -132,6 +132,7 @@ public class ScatterPlot3DDemo2 extends JFrame {
         renderer.setColors(new Color(255, 128, 128), new Color(128, 255, 128));
         LogAxis3D yAxis = new LogAxis3D("Y (log scale)");
         yAxis.setTickLabelOrientation(LabelOrientation.PERPENDICULAR);
+        yAxis.receive(new ChartStyler(chart.getStyle()));
         plot.setYAxis(yAxis);
         chart.setViewPoint(ViewPoint3D.createAboveLeftViewPoint(40));
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
