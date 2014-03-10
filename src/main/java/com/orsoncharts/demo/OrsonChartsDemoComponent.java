@@ -73,6 +73,8 @@ import com.orsoncharts.style.ChartStyle;
 public class OrsonChartsDemoComponent extends JPanel 
         implements TreeSelectionListener {
     
+    private static final String PREFIX = "com.orsoncharts.demo.";
+    
     /** 
      * The path to the default demo chart.  This gets used to ensure the
      * JTree is open at the initial demo selection.
@@ -159,7 +161,8 @@ public class OrsonChartsDemoComponent extends JPanel
      * @return A TreeModel.
      */
     private TreeModel createTreeModel() {
-        DefaultMutableTreeNode root = new DefaultMutableTreeNode("Orson Charts");
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode(
+                "Orson Charts");
         root.add(createCategoryChartsNode(root));
         root.add(createPieChartsNode());
         root.add(createXYZChartsNode());       
@@ -181,28 +184,27 @@ public class OrsonChartsDemoComponent extends JPanel
     private MutableTreeNode createCategoryChartsNode(DefaultMutableTreeNode r) {
         DefaultMutableTreeNode n = new DefaultMutableTreeNode(
                 "Category Charts");
-        MutableTreeNode defaultNode = createNode(
-                "com.orsoncharts.demo.AreaChart3DDemo1", 
+        MutableTreeNode defaultNode = createNode(PREFIX + "AreaChart3DDemo1", 
                 "AreaChart3DDemo1.java");
         this.defaultChartPath = new TreePath(new Object[] {r, n, defaultNode});
         n.add(defaultNode);
-        n.add(createNode("com.orsoncharts.demo.AreaChart3DDemo2", 
+        n.add(createNode(PREFIX + "AreaChart3DDemo2", 
                 "AreaChart3DDemo2.java"));
-        n.add(createNode("com.orsoncharts.demo.BarChart3DDemo1", 
+        n.add(createNode(PREFIX + "BarChart3DDemo1", 
                 "BarChart3DDemo1.java"));
-        n.add(createNode("com.orsoncharts.demo.BarChart3DDemo2", 
+        n.add(createNode(PREFIX + "BarChart3DDemo2", 
                 "BarChart3DDemo2.java"));
-        n.add(createNode("com.orsoncharts.demo.CategoryMarkerDemo1", 
+        n.add(createNode(PREFIX + "CategoryMarkerDemo1", 
                 "CategoryMarkerDemo1.java"));
-        n.add(createNode("com.orsoncharts.demo.LineChart3DDemo1", 
+        n.add(createNode(PREFIX + "LineChart3DDemo1", 
                 "LineChart3DDemo1.java"));
-        n.add(createNode("com.orsoncharts.demo.LineChart3DDemo2", 
+        n.add(createNode(PREFIX + "LineChart3DDemo2", 
                 "LineChart3DDemo2.java"));
-        n.add(createNode("com.orsoncharts.demo.StackedBarChart3DDemo1", 
+        n.add(createNode(PREFIX + "StackedBarChart3DDemo1", 
                 "StackedBarChart3DDemo1.java"));
-        n.add(createNode("com.orsoncharts.demo.StackedBarChart3DDemo2", 
+        n.add(createNode(PREFIX + "StackedBarChart3DDemo2", 
                 "StackedBarChart3DDemo2.java"));
-        n.add(createNode("com.orsoncharts.demo.StackedBarChart3DDemo3", 
+        n.add(createNode(PREFIX + "StackedBarChart3DDemo3", 
                 "StackedBarChart3DDemo3.java"));
         return n;
     }
@@ -214,44 +216,38 @@ public class OrsonChartsDemoComponent extends JPanel
      */
     private MutableTreeNode createPieChartsNode() {
         DefaultMutableTreeNode n = new DefaultMutableTreeNode("Pie Charts");
-        n.add(createNode("com.orsoncharts.demo.PieChart3DDemo1", 
+        n.add(createNode(PREFIX + "PieChart3DDemo1", 
                 "PieChart3DDemo1.java"));
-        n.add(createNode("com.orsoncharts.demo.PieChart3DDemo2", 
+        n.add(createNode(PREFIX + "PieChart3DDemo2", 
                 "PieChart3DDemo2.java"));
         return n;        
     }
     
     private MutableTreeNode createXYZChartsNode() {
         DefaultMutableTreeNode n = new DefaultMutableTreeNode("XYZ Charts");
-        n.add(createNode("com.orsoncharts.demo.RangeMarkerDemo1", 
-                "RangeMarkerDemo1.java"));
-        n.add(createNode("com.orsoncharts.demo.ScatterPlot3DDemo1", 
+        n.add(createNode(PREFIX + "RangeMarkerDemo1", "RangeMarkerDemo1.java"));
+        n.add(createNode(PREFIX + "ScatterPlot3DDemo1", 
                 "ScatterPlot3DDemo1.java"));
-        n.add(createNode("com.orsoncharts.demo.ScatterPlot3DDemo2", 
+        n.add(createNode(PREFIX + "ScatterPlot3DDemo2",  
                 "ScatterPlot3DDemo2.java"));
-        n.add(createNode("com.orsoncharts.demo.SurfaceRendererDemo1", 
+        n.add(createNode(PREFIX + "SurfaceRendererDemo1", 
                 "SurfaceRendererDemo1.java"));
-        n.add(createNode("com.orsoncharts.demo.SurfaceRendererDemo2", 
+        n.add(createNode(PREFIX + "SurfaceRendererDemo2", 
                 "SurfaceRendererDemo2.java"));
-        n.add(createNode("com.orsoncharts.demo.XYZBarChart3DDemo1", 
+        n.add(createNode(PREFIX + "XYZBarChart3DDemo1", 
                 "XYZBarChart3DDemo1.java"));
         return n;        
     }
     
     private MutableTreeNode createAxisRangeTestNode() {
-        DefaultMutableTreeNode n = new DefaultMutableTreeNode("Axis Range Tests");
-        n.add(createNode("com.orsoncharts.demo.AxisRangeDemo1", 
-                "AxisRangeDemo1.java"));
-        n.add(createNode("com.orsoncharts.demo.AxisRangeDemo2", 
-                "AxisRangeDemo2.java"));
-        n.add(createNode("com.orsoncharts.demo.AxisRangeDemo3", 
-                "AxisRangeDemo3.java"));
-        n.add(createNode("com.orsoncharts.demo.AxisRangeDemo4", 
-                "AxisRangeDemo4.java"));
-        n.add(createNode("com.orsoncharts.demo.AxisRangeDemo5", 
-                "AxisRangeDemo5.java"));
-        n.add(createNode("com.orsoncharts.demo.AxisRangeDemo6", 
-                "AxisRangeDemo6.java"));
+        DefaultMutableTreeNode n = new DefaultMutableTreeNode(
+                "Axis Range Tests");
+        n.add(createNode(PREFIX + "AxisRangeDemo1", "AxisRangeDemo1.java"));
+        n.add(createNode(PREFIX + "AxisRangeDemo2", "AxisRangeDemo2.java"));
+        n.add(createNode(PREFIX + "AxisRangeDemo3", "AxisRangeDemo3.java"));
+        n.add(createNode(PREFIX + "AxisRangeDemo4", "AxisRangeDemo4.java"));
+        n.add(createNode(PREFIX + "AxisRangeDemo5", "AxisRangeDemo5.java"));
+        n.add(createNode(PREFIX + "AxisRangeDemo6", "AxisRangeDemo6.java"));
         return n;                
     }
     
@@ -280,7 +276,8 @@ public class OrsonChartsDemoComponent extends JPanel
         this.chartDescriptionPane = new JTextPane();
         this.chartDescriptionPane.setPreferredSize(new Dimension(400, 200));
         this.chartDescriptionPane.setEditable(false);
-        this.chartDescriptionPane.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+        this.chartDescriptionPane.setBorder(
+                BorderFactory.createEmptyBorder(2, 2, 2, 2));
         this.chartDescriptionPane.setText("No chart description available.");
         lowerPanel.add(this.chartDescriptionPane);
         splitter.add(lowerPanel);
@@ -302,7 +299,8 @@ public class OrsonChartsDemoComponent extends JPanel
                 this.chartContainer.removeAll();
                 this.chartContainer.add(createNoDemoSelectedPanel());
                 this.chartContainer.validate();
-                URL descriptionURL = OrsonChartsDemo.class.getResource("select.html");
+                URL descriptionURL = OrsonChartsDemo.class.getResource(
+                        "select.html");
                 if (descriptionURL != null) {
                     try {
                         this.chartDescriptionPane.setPage(descriptionURL);
@@ -314,7 +312,6 @@ public class OrsonChartsDemoComponent extends JPanel
                 }
             }
         }
-
     }
 
     private JComponent createNoDemoSelectedPanel() {
