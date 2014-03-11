@@ -23,6 +23,7 @@ import com.orsoncharts.data.Dataset3DChangeListener;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.ChartElementVisitor;
+import com.orsoncharts.data.ItemKey;
 
 /**
  * A base class that can be used to create classes that implement 
@@ -133,6 +134,19 @@ public abstract class AbstractPlot3D implements Plot3D,
     public boolean isAutoAdjustDimensions() {
         return this.autoAdjustDimensions;    
     }
+
+    /**
+     * Returns the tool tip text for the specified data item, or 
+     * <code>null</code> if no tool tip is required.
+     * 
+     * @param itemKey  the item key (<code>null</code> not permitted).
+     * 
+     * @return The tool tip text (possibly <code>null</code>).
+     * 
+     * @since 1.3
+     */
+    @Override
+    public abstract String generateToolTipText(ItemKey itemKey);
 
     /**
      * Accepts a {@link ChartElementVisitor}.  This is part of
@@ -271,4 +285,5 @@ public abstract class AbstractPlot3D implements Plot3D,
         // recreate an empty listener list
         this.listenerList = new EventListenerList();
     }
+
 }

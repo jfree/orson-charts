@@ -40,6 +40,17 @@ public interface XYZDataset extends Dataset3D {
     List<Comparable<?>> getSeriesKeys();
     
     /**
+     * Returns the key for the specified series.
+     * 
+     * @param index  the series index.
+     * 
+     * @return The series key.
+     * 
+     * @since 1.3
+     */
+    Comparable<?> getSeriesKey(int index);
+    
+    /**
      * Returns the index of the specified series key, or <code>-1</code> if
      * the key is not found.
      * 

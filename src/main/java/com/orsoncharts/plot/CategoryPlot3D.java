@@ -30,11 +30,15 @@ import com.orsoncharts.axis.Axis3DChangeListener;
 import com.orsoncharts.axis.CategoryAxis3D;
 import com.orsoncharts.axis.ValueAxis3D;
 import com.orsoncharts.data.Dataset3DChangeEvent;
+import com.orsoncharts.data.ItemKey;
+import com.orsoncharts.data.Values3DItemKey;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.label.CategoryLabelGenerator;
+import com.orsoncharts.label.CategoryToolTipGenerator;
 import com.orsoncharts.label.StandardCategoryLabelGenerator;
+import com.orsoncharts.label.StandardCategoryToolTipGenerator;
 import com.orsoncharts.legend.LegendItemInfo;
 import com.orsoncharts.legend.StandardLegendItemInfo;
 import com.orsoncharts.renderer.Renderer3DChangeEvent;
@@ -123,6 +127,13 @@ public class CategoryPlot3D extends AbstractPlot3D
      */
     private Double yDimensionOverride;
     
+    /** 
+     * The tool tip generator (if null there will be no tool tips).
+     * 
+     * @since 1.3
+     */
+    private CategoryToolTipGenerator toolTipGenerator;
+    
     /**
      * Creates a new plot.
      * 
@@ -166,6 +177,7 @@ public class CategoryPlot3D extends AbstractPlot3D
         this.gridlineStrokeForValues = DEFAULT_GRIDLINE_STROKE;
         this.legendLabelGenerator = new StandardCategoryLabelGenerator();
         this.yDimensionOverride = null;
+        this.toolTipGenerator = new StandardCategoryToolTipGenerator();
     }
     
     /**
@@ -585,6 +597,30 @@ public class CategoryPlot3D extends AbstractPlot3D
     }
     
     /**
+     * Returns the tool tip generator.
+     * 
+     * @return The tool tip generator (possibly <code>null</code>).
+     * 
+     * @since 1.3
+     */
+    public CategoryToolTipGenerator getToolTipGenerator() {
+        return this.toolTipGenerator;
+    }
+    
+    /**
+     * Sets the tool tip generator and sends a change event to all registered
+     * listeners.
+     * 
+     * @param generator  the new generator (<code>null</code> permitted).
+     * 
+     * @since 1.3
+     */
+    public void setToolTipGenerator(CategoryToolTipGenerator generator) {
+        this.toolTipGenerator = generator;
+        fireChangeEvent(false);
+    }
+    
+    /**
      * Returns a list containing legend item info, typically one item for
      * each series in the chart.  This is intended for use in the construction
      * of a chart legend.
@@ -621,6 +657,17 @@ public class CategoryPlot3D extends AbstractPlot3D
         }
     }
     
+    @Override
+    public String generateToolTipText(ItemKey itemKey) {
+        if (!(itemKey instanceof Values3DItemKey)) {
+            throw new IllegalArgumentException(
+                    "The itemKey must be a Values3DItemKey instance.");
+        }
+        Values3DItemKey vik = (Values3DItemKey) itemKey;
+        return this.toolTipGenerator.generateToolTipText(dataset, 
+                vik.getSeriesKey(), vik.getRowKey(), vik.getColumnKey());
+    }
+
     /**
      * Accepts a visitor.  This is a general purpose mechanism, but the main
      * use is to apply chart style changes across all the elements of a 
@@ -692,6 +739,9 @@ public class CategoryPlot3D extends AbstractPlot3D
         }
         if (!ObjectUtils.equals(this.yDimensionOverride, 
                 that.yDimensionOverride)) {
+            return false;
+        }
+        if (!ObjectUtils.equals(this.toolTipGenerator, that.toolTipGenerator)) {
             return false;
         }
        return super.equals(obj);

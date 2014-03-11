@@ -53,6 +53,7 @@ import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.category.StandardCategoryDataset3D;
 import com.orsoncharts.data.DefaultKeyedValues;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
+import com.orsoncharts.label.StandardCategoryToolTipGenerator;
 import com.orsoncharts.legend.LegendAnchor;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.util.Orientation;
@@ -110,6 +111,8 @@ public class BarChart3DDemo2 extends JFrame {
         yAxis.setLineColor(new Color(0, 0, 0, 0));
         zAxis.setLineColor(new Color(0, 0, 0, 0));
         plot.getRenderer().setColors(Colors.createPastelColors());
+        plot.setToolTipGenerator(new StandardCategoryToolTipGenerator(
+                "%2$s (%3$s) = %4$s degrees"));
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
         content.setChartPanel(chartPanel);
         content.add(new DisplayPanel3D(chartPanel));

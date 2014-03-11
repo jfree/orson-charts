@@ -21,7 +21,7 @@ import java.awt.Font;
 import java.awt.Paint;
 import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.GeneralPath;
+import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Rectangle2D;
@@ -56,6 +56,7 @@ import com.orsoncharts.plot.Plot3DChangeListener;
 import com.orsoncharts.plot.Plot3D;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.graphics3d.Offset2D;
+import com.orsoncharts.graphics3d.RenderingInfo;
 import com.orsoncharts.legend.LegendBuilder;
 import com.orsoncharts.legend.StandardLegendBuilder;
 import com.orsoncharts.marker.Marker;
@@ -714,7 +715,7 @@ public class Chart3D implements Drawable3D, ChartElement,
      * @param g2  the output target. 
      */
     @Override
-    public void draw(Graphics2D g2, Rectangle2D bounds) {
+    public RenderingInfo draw(Graphics2D g2, Rectangle2D bounds) {
         g2.addRenderingHints(this.renderingHints);
         g2.setStroke(new BasicStroke(1.5f, BasicStroke.CAP_ROUND, 
                 BasicStroke.JOIN_ROUND, 1f));
@@ -745,8 +746,9 @@ public class Chart3D implements Drawable3D, ChartElement,
             this.background.fill(g2, bounds);
         }
         AffineTransform saved = g2.getTransform();
-        g2.translate(bounds.getWidth() / 2.0 + this.translate2D.getDX(), 
-                bounds.getHeight() / 2.0 + this.translate2D.getDY());
+        double dx = bounds.getWidth() / 2.0 + this.translate2D.getDX();
+        double dy = bounds.getHeight() / 2.0 + this.translate2D.getDY();
+        g2.translate(dx, dy);
         Point3D[] eyePts = this.world.calculateEyeCoordinates(this.viewPoint);
         Point2D[] pts = this.world.calculateProjectedPoints(this.viewPoint, 
                 this.projDist);
@@ -767,18 +769,7 @@ public class Chart3D implements Drawable3D, ChartElement,
                     pts[f.getVertexIndex(1)], pts[f.getVertexIndex(2)]) > 0) {
                 Color c = f.getColor();
                 if (c != null) {
-                    GeneralPath p = new GeneralPath();
-                    for (int v = 0; v < f.getVertexCount(); v++) {
-                        if (v == 0) {
-                            p.moveTo(pts[f.getVertexIndex(v)].getX(),
-                                    pts[f.getVertexIndex(v)].getY());
-                        }
-                        else {
-                            p.lineTo(pts[f.getVertexIndex(v)].getX(),
-                                    pts[f.getVertexIndex(v)].getY());
-                        }
-                    }
-                    p.closePath();
+                    Path2D p = f.createPath(pts);
                     g2.setPaint(new Color((int) (c.getRed() * shade),
                         (int) (c.getGreen() * shade),
                         (int) (c.getBlue() * shade), c.getAlpha()));
@@ -844,6 +835,8 @@ public class Chart3D implements Drawable3D, ChartElement,
             this.title.draw(g2, titleArea);
         }
 
+        RenderingInfo info = new RenderingInfo(facesInPaintOrder, pts, dx, dy);
+        return info;
     }
     
     /**

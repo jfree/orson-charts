@@ -6,7 +6,7 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
@@ -143,14 +143,16 @@ public class DefaultDrawable3D implements Drawable3D {
      * @param bounds  the bounds.
      */
     @Override
-    public void draw(Graphics2D g2, Rectangle2D bounds) {
+    public RenderingInfo draw(Graphics2D g2, Rectangle2D bounds) {
         ArgChecks.nullNotPermitted(g2, "g2");
         g2.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_ROUND,
                 BasicStroke.JOIN_ROUND));
         g2.setPaint(Color.WHITE);
         g2.fill(bounds);
         AffineTransform saved = g2.getTransform();
-        g2.translate(bounds.getWidth() / 2, bounds.getHeight() / 2);
+        double dx = bounds.getWidth() / 2;
+        double dy = bounds.getHeight() / 2;
+        g2.translate(dx, dy);
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
@@ -193,7 +195,9 @@ public class DefaultDrawable3D implements Drawable3D {
                 }
             } 
         }
-        g2.setTransform(saved);      
+        g2.setTransform(saved);
+        RenderingInfo info = new RenderingInfo(facesInPaintOrder, pts, dx, dy);
+        return info;
     }
     
 }

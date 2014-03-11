@@ -30,6 +30,8 @@ import com.orsoncharts.legend.StandardLegendItemInfo;
 import com.orsoncharts.Chart3DFactory;
 import com.orsoncharts.ChartElementVisitor;
 import com.orsoncharts.data.DataUtils;
+import com.orsoncharts.data.ItemKey;
+import com.orsoncharts.data.ValuesItemKey;
 import com.orsoncharts.label.PieLabelGenerator;
 import com.orsoncharts.label.StandardPieLabelGenerator;
 
@@ -82,6 +84,11 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
     private PieLabelGenerator legendLabelGenerator;
     
     /** 
+     * The tool tip generator (can be null, in which case there will be no
+     * tool tips. */
+    private PieLabelGenerator toolTipGenerator;
+    
+    /** 
      * The number of segments used to render 360 degrees of the pie.  A higher
      * number will give better output but slower performance.
      */
@@ -105,6 +112,8 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
                 DEFAULT_SECTION_LABEL_FONT);
         this.sectionLabelColorSource = new StandardColorSource(Color.BLACK);
         this.legendLabelGenerator = new StandardPieLabelGenerator();
+        this.toolTipGenerator = new StandardPieLabelGenerator(
+                StandardPieLabelGenerator.PERCENT_TEMPLATE_2DP);
     }
 
     /**
@@ -306,6 +315,30 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
         this.legendLabelGenerator = generator;
         fireChangeEvent(false);
     }
+    
+    /**
+     * Returns the tool tip generator.
+     * 
+     * @return The tool tip generator (possibly <code>null</code>).
+     * 
+     * @since 1.3
+     */
+    public PieLabelGenerator getToolTipGenerator() {
+        return this.toolTipGenerator;
+    }
+    
+    /**
+     * Sets the tool tip generator and sends a change event to all registered
+     * listeners.
+     * 
+     * @param generator  the generator (<code>null</code> permitted).
+     * 
+     * @since 1.3
+     */
+    public void setToolTipGenerator(PieLabelGenerator generator) {
+        this.toolTipGenerator = generator;
+        fireChangeEvent(false);
+    }
 
     /**
      * Returns the dimensions for the plot.  For the pie chart, it is more 
@@ -380,13 +413,17 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
         double r = 0.0;
         int count = this.dataset.getItemCount();
         for (int i = 0; i < count; i++) {
+            Comparable<?> key = this.dataset.getKey(i);
             Number n = this.dataset.getValue(i);
             if (n != null) {
                 double angle = Math.PI * 2 * (n.doubleValue() / total);
                 Color c = this.sectionColorSource.getColor(
                         this.dataset.getKey(i));
-                world.add(Object3D.createPieSegment(this.radius, 0.0, yOffset, 
-                        this.depth, r, r + angle, Math.PI / this.segments, c));
+                Object3D segment = Object3D.createPieSegment(this.radius, 0.0, 
+                        yOffset, this.depth, r, r + angle, 
+                        Math.PI / this.segments, c);
+                segment.setProperty(Object3D.ITEM_KEY, new ValuesItemKey(key));
+                world.add(segment);
                 r = r + angle;
             }
         }
@@ -427,6 +464,16 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
             r = r + angle;
         }
         return result;
+    }
+
+    @Override
+    public String generateToolTipText(ItemKey itemKey) {
+        if (!(itemKey instanceof ValuesItemKey)) {
+            throw new IllegalArgumentException(
+                    "The itemKey must be a ValuesItemKey instance.");
+        }
+        ValuesItemKey vik = (ValuesItemKey) itemKey;
+        return this.toolTipGenerator.generateLabel(this.dataset, vik.getKey());
     }
 
     /**

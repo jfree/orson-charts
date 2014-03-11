@@ -13,6 +13,7 @@
 package com.orsoncharts.graphics3d;
 
 import java.awt.Color;
+import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 
 import com.orsoncharts.util.ArgChecks;
@@ -51,6 +52,17 @@ public class Face {
         this.offset = 0;
     }
 
+    /**
+     * Returns the object that owns this face (as passed to the constructor).
+     * 
+     * @return The owner (never <code>null</code>).
+     * 
+     * @since 1.3
+     */
+    public Object3D getOwner() {
+        return this.owner;
+    }
+    
     /**
      * Returns the offset to add to the vertex indices.
      *
@@ -183,6 +195,30 @@ public class Face {
                 projPts[getVertexIndex(1)], projPts[getVertexIndex(2)]) > 0;  
     }
 
+    /**
+     * Creates and returns a path for the outline of this face.
+     * 
+     * @param pts  the projected points for the world (<code>null</code> not 
+     *     permitted).
+     * 
+     * @return A path.
+     * 
+     * @since 1.3
+     */
+    public Path2D createPath(Point2D[] pts) {
+        Path2D path = new Path2D.Float();
+        for (int v = 0; v < getVertexCount(); v++) {
+            Point2D pt = pts[getVertexIndex(v)];
+            if (v == 0) {
+                path.moveTo(pt.getX(), pt.getY());
+            } else {
+                path.lineTo(pt.getX(), pt.getY());
+            }
+        }
+        path.closePath();
+        return path;
+    }
+    
     /**
      * Returns a string representation of this instance, primarily for
      * debugging purposes.

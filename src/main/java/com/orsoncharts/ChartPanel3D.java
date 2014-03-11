@@ -14,7 +14,11 @@ package com.orsoncharts;
 
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.awt.event.MouseEvent;
 
+import com.orsoncharts.data.ItemKey;
+import com.orsoncharts.graphics3d.Object3D;
+import com.orsoncharts.graphics3d.RenderingInfo;
 import com.orsoncharts.graphics3d.swing.Panel3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 
@@ -54,6 +58,7 @@ public class ChartPanel3D extends Panel3D implements Chart3DChangeListener,
         this.chart.addChangeListener(this);
         this.addComponentListener(this);
         this.autoFitOnPanelResize = false;
+        registerForTooltips();
     }
 
     /**
@@ -87,6 +92,22 @@ public class ChartPanel3D extends Panel3D implements Chart3DChangeListener,
     @Override
     public void componentHidden(ComponentEvent e) {
         // do nothing
+    }
+
+    @Override
+    public String getToolTipText(MouseEvent e) {
+        RenderingInfo info = getRenderingInfo();
+        if (info == null) {
+            return null;
+        }
+        Object3D object = info.fetchObjectAt(e.getX(), e.getY());
+        if (object != null) {
+            ItemKey key = (ItemKey) object.getProperty(Object3D.ITEM_KEY);
+            if (key != null) {
+                return chart.getPlot().generateToolTipText(key);
+            }
+        }
+        return null;
     }
 
 }

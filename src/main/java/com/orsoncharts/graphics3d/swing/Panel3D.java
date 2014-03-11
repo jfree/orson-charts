@@ -32,12 +32,14 @@ import java.lang.reflect.Method;
 import java.awt.Rectangle;
 
 import javax.swing.JPanel;
+import javax.swing.ToolTipManager;
 
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.graphics3d.Drawable3D;
 import com.orsoncharts.graphics3d.Offset2D;
 import com.orsoncharts.graphics3d.ViewPoint3D;
 import com.orsoncharts.graphics3d.Dimension3D;
+import com.orsoncharts.graphics3d.RenderingInfo;
 import com.orsoncharts.util.ExportFormats;
 
 /**
@@ -95,6 +97,8 @@ public class Panel3D extends JPanel implements MouseListener,
      * operation.
      */
     private Offset2D offsetAtMousePressed;
+    
+    private RenderingInfo renderingInfo;
     
     /**
      * Creates a new panel with the specified {@link Drawable3D} to
@@ -251,6 +255,16 @@ public class Panel3D extends JPanel implements MouseListener,
     }
     
     /**
+     * Returns the rendering info from the previous call to
+     * draw().
+     * 
+     * @return The rendering info (possibly <code>null</code>).
+     */
+    protected RenderingInfo getRenderingInfo() {
+        return this.renderingInfo;
+    }
+    
+    /**
      * Rotates the view point around from left to right by the specified
      * angle and repaints the 3D scene.  The direction relative to the
      * world coordinates depends on the orientation of the view point.
@@ -303,10 +317,30 @@ public class Panel3D extends JPanel implements MouseListener,
         AffineTransform saved = g2.getTransform();
         Dimension size = getSize();
         Rectangle drawArea = new Rectangle(size.width, size.height);
-        this.drawable.draw(g2, drawArea);
+        this.renderingInfo = this.drawable.draw(g2, drawArea);
         g2.setTransform(saved);
     }
   
+    /**
+     * Registers this component with the tool tip manager.
+     * 
+     * @since 1.3
+     */
+    public void registerForTooltips() {
+        ToolTipManager.sharedInstance().registerComponent(this);
+    }
+    
+    /**
+     * Unregisters this component with the tool tip manager.
+     * 
+     * @since 1.3
+     */
+    public void unregisterForTooltips() {
+        ToolTipManager.sharedInstance().unregisterComponent(this);
+    }
+    
+    
+    
     /* (non-Javadoc)
      * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
      */

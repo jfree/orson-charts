@@ -83,6 +83,20 @@ public class XYZSeriesCollection extends AbstractDataset3D
         }
         return result;
     }
+    
+    /**
+     * Returns the key for the specified series.
+     * 
+     * @param seriesIndex  the series index.
+     * 
+     * @return The series key.
+     * 
+     * @since 1.3
+     */
+    @Override
+    public Comparable<?> getSeriesKey(int seriesIndex) {
+        return getSeries(seriesIndex).getKey();
+    }
 
     /**
      * Adds a series to the collection (note that the series key must be

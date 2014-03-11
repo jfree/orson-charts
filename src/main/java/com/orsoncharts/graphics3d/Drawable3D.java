@@ -90,7 +90,9 @@ public interface Drawable3D {
      * 
      * @param g2  the graphics target (<code>null</code> not permitted).
      * @param bounds  the bounds (<code>null</code> not permitted).
+     * 
+     * @return Information about the rendering.
      */
-    void draw(Graphics2D g2, Rectangle2D bounds);
+    RenderingInfo draw(Graphics2D g2, Rectangle2D bounds);
     
 }

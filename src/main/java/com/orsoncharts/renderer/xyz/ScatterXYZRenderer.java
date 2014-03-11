@@ -18,6 +18,7 @@ import java.io.Serializable;
 import com.orsoncharts.Chart3DFactory;
 import com.orsoncharts.axis.Axis3D;
 import com.orsoncharts.data.xyz.XYZDataset;
+import com.orsoncharts.data.xyz.XYZItemKey;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.Object3D;
@@ -128,6 +129,8 @@ public class ScatterXYZRenderer extends AbstractXYZRenderer
         Object3D cube = Object3D.createBox((xmax + xmin) / 2.0 + xOffset, xmax - xmin,
                 (ymax + ymin) / 2.0 + yOffset, ymax - ymin,
                 (zmax + zmin) / 2.0 + zOffset, zmax - zmin, color);
+        Comparable<?> seriesKey = dataset.getSeriesKey(series);
+        cube.setProperty(Object3D.ITEM_KEY, new XYZItemKey(seriesKey, item));
         world.add(cube);
     }
 

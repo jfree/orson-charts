@@ -29,13 +29,17 @@ import com.orsoncharts.axis.Axis3DChangeListener;
 import com.orsoncharts.axis.ValueAxis3D;
 import com.orsoncharts.data.Dataset3DChangeEvent;
 import com.orsoncharts.data.Dataset3DChangeListener;
+import com.orsoncharts.data.ItemKey;
 import com.orsoncharts.data.xyz.XYZDataset;
+import com.orsoncharts.data.xyz.XYZItemKey;
 import com.orsoncharts.renderer.xyz.XYZRenderer;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.label.StandardXYZLabelGenerator;
+import com.orsoncharts.label.StandardXYZToolTipGenerator;
 import com.orsoncharts.label.XYZLabelGenerator;
+import com.orsoncharts.label.XYZToolTipGenerator;
 import com.orsoncharts.legend.LegendItemInfo;
 import com.orsoncharts.legend.StandardLegendItemInfo;
 import com.orsoncharts.renderer.ComposeType;
@@ -105,6 +109,9 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
     /** The legend label generator. */
     private XYZLabelGenerator legendLabelGenerator;
     
+    /** The tool tip generator (if null there will be no tooltips). */
+    private XYZToolTipGenerator toolTipGenerator;
+    
     /**
      * Creates a new plot with the specified axes.
      * 
@@ -146,6 +153,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
         this.gridlinePaintZ = Color.WHITE;
         this.gridlineStrokeZ = DEFAULT_GRIDLINE_STROKE;
         this.legendLabelGenerator = new StandardXYZLabelGenerator();
+        this.toolTipGenerator = new StandardXYZToolTipGenerator();
     }
     
     /**
@@ -554,6 +562,20 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
         }
     }
 
+    @Override
+    public String generateToolTipText(ItemKey itemKey) {
+        if (!(itemKey instanceof XYZItemKey)) {
+            throw new IllegalArgumentException(
+                    "The itemKey must be a XYZItemKey instance.");
+        }
+        if (this.toolTipGenerator == null) {
+            return null;
+        }
+        XYZItemKey k = (XYZItemKey) itemKey;
+        return this.toolTipGenerator.generateToolTipText(dataset, 
+                k.getSeriesKey(), k.getItemIndex());
+    }
+
     /**
      * Receives a visitor.  This is a general purpose mechanism, but the main
      * use is to apply chart style changes across all the elements of a 
@@ -706,5 +728,5 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
         this.gridlineStrokeY = SerialUtils.readStroke(stream);
         this.gridlineStrokeZ = SerialUtils.readStroke(stream);
     }
-    
+
 }

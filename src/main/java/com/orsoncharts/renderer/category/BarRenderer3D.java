@@ -27,6 +27,7 @@ import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.Renderer3DChangeEvent;
 import com.orsoncharts.Chart3DFactory;
+import com.orsoncharts.data.Values3DItemKey;
 import com.orsoncharts.util.ObjectUtils;
 
 /**
@@ -284,6 +285,10 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
             World world, Dimension3D dimensions, double xOffset, 
             double yOffset, double zOffset) {
 
+        Comparable<?> seriesKey = dataset.getSeriesKey(series);
+        Comparable<?> rowKey = dataset.getRowKey(row);
+        Comparable<?> columnKey = dataset.getColumnKey(column);
+        
         double vlow = Math.min(barBase, value);
         double vhigh = Math.max(barBase, value);
 
@@ -300,8 +305,6 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
         double vtop = range.peggedValue(vhigh);
         boolean inverted = barBase > value;
         
-        Comparable<?> rowKey = dataset.getRowKey(row);
-        Comparable<?> columnKey = dataset.getColumnKey(column);
         double rowValue = rowAxis.getCategoryValue(rowKey);
         double columnValue = columnAxis.getCategoryValue(columnKey);
 
@@ -337,9 +340,12 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
         Object3D bar = Object3D.createBar(xxw, xzw, xx + xOffset, 
                 yy + yOffset, zz + zOffset, basew + yOffset, color, baseColor, 
                 topColor, inverted);
+        Values3DItemKey itemKey = new Values3DItemKey(seriesKey, rowKey, 
+                columnKey);
+        bar.setProperty(Object3D.ITEM_KEY, itemKey);
         world.add(bar);
     }
-
+    
     /**
      * Tests this renderer for equality with an arbitrary object.
      * 

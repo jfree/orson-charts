@@ -18,6 +18,7 @@ import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.legend.LegendItemInfo;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.ChartElement;
+import com.orsoncharts.data.ItemKey;
 
 /**
  * A plot for a {@link Chart3D}.  In Orson Charts, the <code>Chart3D</code> is
@@ -78,6 +79,18 @@ public interface Plot3D extends ChartElement {
      * @return A list containing legend item info (never <code>null</code>).
      */
     List<LegendItemInfo> getLegendInfo();
+    
+    /**
+     * Returns the tool tip text for the specified data item, or 
+     * <code>null</code> if no tool tip is required.
+     * 
+     * @param itemKey  the item key (<code>null</code> not permitted).
+     * 
+     * @return The tool tip text (possibly <code>null</code>).
+     * 
+     * @since 1.3
+     */
+    String generateToolTipText(ItemKey itemKey);
     
     /**
      * Registers a listener to receive notification of changes to the plot.

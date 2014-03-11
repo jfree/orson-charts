@@ -30,6 +30,13 @@ import com.orsoncharts.util.ArgChecks;
  */
 public class Object3D {
 
+    /**
+     * The key for storing item keys as property values.
+     * 
+     * @since 1.3
+     */
+    public static final String ITEM_KEY = "key";
+
     /** 
      * A prefix used for setting color properties for an object.
      * 
