@@ -36,7 +36,7 @@ public interface ColorScale {
      * 
      * @param value  the value.
      * 
-     * @return The color.
+     * @return The color (never <code>null</code>).
      */
     Color valueToColor(double value);
 
