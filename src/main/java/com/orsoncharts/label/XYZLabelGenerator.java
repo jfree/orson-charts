@@ -15,9 +15,9 @@ package com.orsoncharts.label;
 import com.orsoncharts.data.xyz.XYZDataset;
 
 /**
- * A label generator for category charts, used to create labels for the axes 
- * and for the chart legend.  The ({@link StandardCategoryLabelGenerator}) class
- * provides the default implementation.
+ * A label generator for XYZ charts, used to create labels for the chart 
+ * legend.  The ({@link StandardXYZLabelGenerator}) class provides the default 
+ * implementation.
  * 
  * @since 1.2
  */
