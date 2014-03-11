@@ -23,39 +23,32 @@ import com.orsoncharts.util.ArgChecks;
  */
 public class Face {
 
+    /** The object that the face belongs to. */
+    private Object3D owner;
+    
     /** The offset into the global list of vertices. */
     private int offset;
 
     /** The indices of the vertices representing this face. */
     private int[] vertices;
 
-    /** The color of the face. */
-    private Color color;
-    
-    /** 
-     * A flag that controls whether or not an outline will be drawn for the 
-     * face.  For pie charts and area charts, setting this to <code>true</code>
-     * helps to remove gaps in the rendering, which results in better looking
-     * charts.
-     */
-    private boolean outline;
-
     /**
      * Creates a new face.
      *
+     * @param owner  the object that owns the face (<code>null</code> not 
+     *     permitted).
      * @param vertices  the indices of the vertices.
-     * @param color  the face color (<code>null</code> not permitted).
-     * @param outline  outline?
+     * 
+     * @since 1.3
      */
-    public Face(int[] vertices, Color color, boolean outline) {
+    public Face(Object3D owner, int[] vertices) {
         if (vertices.length < 3) {
             throw new IllegalArgumentException("Faces must have at least 3 vertices.");
         }
-        ArgChecks.nullNotPermitted(color, "color");
+        ArgChecks.nullNotPermitted(owner, "owner");
+        this.owner = owner;
         this.vertices = vertices;
         this.offset = 0;
-        this.color = color;
-        this.outline = outline;
     }
 
     /**
@@ -77,16 +70,6 @@ public class Face {
     }
 
     /**
-     * Returns the face color.  When rendering, a different shade will be used
-     * to simulate lighting.
-     *  
-     * @return The color (never <code>null</code>).
-     */
-    public Color getColor() {
-        return this.color;
-    }
-
-    /**
      * Returns the number of vertices in this face.
      *
      * @return The number of vertices in this face.
@@ -105,15 +88,40 @@ public class Face {
     public int getVertexIndex(int i) {
         return this.vertices[i] + this.offset;
     }
-
+    
     /**
-     * Returns the flag that controls whether or not the face should be 
-     * drawn as well as filled when rendered.
+     * A convenience method that looks up and returns the color for this face 
+     * (obtained by querying the object that owns the face).  The color is 
+     * not stored as an attribute of the face, because typically an object
+     * has many faces that are all the same color.
+     * 
+     * @return The color (never <code>null</code>).
+     */
+    public Color getColor() {
+        return this.owner.getColor(this);
+    }
+    
+    /**
+     * Returns <code>true</code> if an outline should be drawn for this face,
+     * and <code>false</code> otherwise.  The value is obtained by querying
+     * the object that owns the face.
      * 
      * @return A boolean. 
      */
     public boolean getOutline() {
-        return this.outline;
+        return this.owner.getOutline(this);
+    }
+    
+    /**
+     * Returns the tag for this face (always <code>null</code> for this class,
+     * subclasses may override).
+     * 
+     * @return <code>null</code>.
+     * 
+     * @since 1.3
+     */
+    public String getTag() {
+        return null;
     }
     
     /**

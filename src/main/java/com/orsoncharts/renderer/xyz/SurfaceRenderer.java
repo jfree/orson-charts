@@ -261,7 +261,7 @@ public class SurfaceRenderer extends AbstractXYZRenderer implements XYZRenderer,
                 double wz1 = zAxis.translateToWorld(z1, zlen) + zOffset;
 
                 Color color = this.colorScale.valueToColor(ymm);
-                Object3D obj = new Object3D();
+                Object3D obj = new Object3D(color, this.drawFaceOutlines);
                 List<Point3D> pts1 = facePoints1(wx0, wx1, wz0, wz1, wy00, wy01, 
                         wy11, yRange);
                 int count1 = pts1.size();
@@ -269,14 +269,11 @@ public class SurfaceRenderer extends AbstractXYZRenderer implements XYZRenderer,
                     obj.addVertex(pt);
                 }
                 if (count1 == 3) {
-                    obj.addDoubleSidedFace(new int[] {0, 1, 2}, color, 
-                            this.drawFaceOutlines);
+                    obj.addDoubleSidedFace(new int[] {0, 1, 2});
                 } else if (count1 == 4) {
-                    obj.addDoubleSidedFace(new int[] {0, 1, 2, 3}, color, 
-                            this.drawFaceOutlines);
+                    obj.addDoubleSidedFace(new int[] {0, 1, 2, 3});
                 } else if (count1 == 5) {
-                    obj.addDoubleSidedFace(new int[] {0, 1, 2, 3, 4}, color, 
-                            this.drawFaceOutlines);
+                    obj.addDoubleSidedFace(new int[] {0, 1, 2, 3, 4});
                 }
                 List<Point3D> pts2 = facePoints2(wx0, wx1, wz0, wz1, wy00, wy11,
                         wy10, yRange);
@@ -286,14 +283,13 @@ public class SurfaceRenderer extends AbstractXYZRenderer implements XYZRenderer,
                 }
                 if (count2 == 3) {
                     obj.addDoubleSidedFace(new int[] {count1, count1 + 1, 
-                        count1 + 2}, color, this.drawFaceOutlines);
+                        count1 + 2});
                 } else if (count2 == 4) {
                     obj.addDoubleSidedFace(new int[] {count1, count1 + 1, 
-                        count1 + 2, count1 + 3}, color, this.drawFaceOutlines);
+                        count1 + 2, count1 + 3});
                 } else if (count2 == 5) {
                     obj.addDoubleSidedFace(new int[] {count1, count1 + 1, 
-                        count1 + 2, count1 + 3, count1 + 4}, color, 
-                        this.drawFaceOutlines);                    
+                        count1 + 2, count1 + 3, count1 + 4});                    
                 }
                 world.add(obj);
             }

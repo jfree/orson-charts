@@ -215,7 +215,6 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
             // create a line shape - this is complex because of the polygon
             // clipping that is necessary when the axis range is limited
             // there might be a more elegant way to do it of course
-            Object3D obj = new Object3D();
             if (this.lineHeight > 0.0) {
                 double hdelta = this.lineHeight / 2.0;
                 double y0b = y0 - hdelta;
@@ -254,15 +253,15 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
                     world.add(seg);
                 }
             } else {
-                // ribbon
+                Object3D obj = new Object3D(color, true);
                 obj.addVertex(x0, y0, z0 - wdelta);
                 obj.addVertex(x0, y0, z0 + wdelta);
                 obj.addVertex(x1, y1, z0 + wdelta);
                 obj.addVertex(x1, y1, z0 - wdelta);
-                obj.addFace(new int[] {0, 1, 2, 3}, color, true);
-                obj.addFace(new int[] {3, 2, 1, 0}, color, true);
+                obj.addFace(new int[] {0, 1, 2, 3});
+                obj.addFace(new int[] {3, 2, 1, 0});
+                world.add(obj);
             }
-            world.add(obj);
         } 
     }
 
@@ -331,23 +330,25 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
         if (y1t > wmax) {
             if (y1b >= wmin) {
                 // create a triangle with the top and right
-                Object3D seg = new Object3D();
+                Object3D seg = new Object3D(color, true);
+                seg.setProperty(Object3D.COLOR_PREFIX + "clip", clipColor);
                 seg.addVertex(xpts[2], wmax, zf);
                 seg.addVertex(xpts[2], wmax, zb);
                 seg.addVertex(x1, wmax, zf);
                 seg.addVertex(x1, wmax, zb);
                 seg.addVertex(x1, y1b, zf);
                 seg.addVertex(x1, y1b, zb);
-                seg.addFace(new int[] {0, 2, 4}, color, true); // front
-                seg.addFace(new int[] {1, 5, 3}, color, true); // rear
-                seg.addFace(new int[] {0, 1, 3, 2}, clipColor, true); // clip top
-                seg.addFace(new int[] {4, 5, 1, 0}, color, true); // bottom
+                seg.addFace(new int[] {0, 2, 4}); // front
+                seg.addFace(new int[] {1, 5, 3}); // rear
+                seg.addFace(new int[] {0, 1, 3, 2}, "clip"); // clip top
+                seg.addFace(new int[] {4, 5, 1, 0}); // bottom
                 if (closingFace) {
-                    seg.addFace(new int[] {2, 3, 5, 4}, color, true);
+                    seg.addFace(new int[] {2, 3, 5, 4});
                 }
                 return seg;
             } else {
-                Object3D seg = new Object3D();
+                Object3D seg = new Object3D(color, true);
+                seg.setProperty(Object3D.COLOR_PREFIX + "clip", clipColor);
                 seg.addVertex(xpts[2], wmax, zf);
                 seg.addVertex(xpts[2], wmax, zb);
                 seg.addVertex(x1, wmax, zf);
@@ -356,19 +357,20 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
                 seg.addVertex(x1, wmin, zb);
                 seg.addVertex(xpts[0], wmin, zf);
                 seg.addVertex(xpts[0], wmin, zb);
-                seg.addFace(new int[] {0, 2, 4, 6}, color, true); // front
-                seg.addFace(new int[] {1, 7, 5, 3}, color, true); // rear
-                seg.addFace(new int[] {0, 1, 3, 2}, clipColor, true); // clip top
-                seg.addFace(new int[] {4, 5, 7, 6}, clipColor, true); // clip bottom
-                seg.addFace(new int[] {6, 7, 1, 0}, color, true); // bottom
+                seg.addFace(new int[] {0, 2, 4, 6}); // front
+                seg.addFace(new int[] {1, 7, 5, 3}); // rear
+                seg.addFace(new int[] {0, 1, 3, 2}); // clip top
+                seg.addFace(new int[] {4, 5, 7, 6}, "clip"); // clip bottom
+                seg.addFace(new int[] {6, 7, 1, 0}); // bottom
                 if (closingFace) {
-                    seg.addFace(new int[] {2, 3, 5, 4}, color, true);
+                    seg.addFace(new int[] {2, 3, 5, 4});
                 }
                 return seg;
             }
         } else if (y1t >= wmin) {
             if (y1b >= wmin) {
-                Object3D seg = new Object3D();
+                Object3D seg = new Object3D(color, true);
+                seg.setProperty(Object3D.COLOR_PREFIX + "clip", clipColor);
                 seg.addVertex(xpts[2], wmax, zf);
                 seg.addVertex(xpts[2], wmax, zb);
                 seg.addVertex(xpts[3], wmax, zf);
@@ -377,17 +379,18 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
                 seg.addVertex(x1, y1t, zb);
                 seg.addVertex(x1, y1b, zf);
                 seg.addVertex(x1, y1b, zb);
-                seg.addFace(new int[] {0, 2, 4, 6}, color, true); // front
-                seg.addFace(new int[] {1, 7, 5, 3}, color, true); // rear
-                seg.addFace(new int[] {0, 1, 3, 2}, clipColor, true); // clip top
-                seg.addFace(new int[] {2, 3, 5, 4}, color, true); // top
-                seg.addFace(new int[] {6, 7, 1, 0}, color, true); // bottom
+                seg.addFace(new int[] {0, 2, 4, 6}); // front
+                seg.addFace(new int[] {1, 7, 5, 3}); // rear
+                seg.addFace(new int[] {0, 1, 3, 2}, "clip"); // clip top
+                seg.addFace(new int[] {2, 3, 5, 4}); // top
+                seg.addFace(new int[] {6, 7, 1, 0}); // bottom
                 if (closingFace) {
-                    seg.addFace(new int[] {4, 5, 7, 6}, color, true);
+                    seg.addFace(new int[] {4, 5, 7, 6});
                 }
                 return seg;
             } else {
-                Object3D seg = new Object3D();
+                Object3D seg = new Object3D(color, true);
+                seg.setProperty(Object3D.COLOR_PREFIX + "clip", clipColor);
                 seg.addVertex(xpts[2], wmax, zf);
                 seg.addVertex(xpts[2], wmax, zb);
                 seg.addVertex(xpts[3], wmax, zf);
@@ -398,20 +401,21 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
                 seg.addVertex(x1, wmin, zb);
                 seg.addVertex(xpts[0], wmin, zf);
                 seg.addVertex(xpts[0], wmin, zb);
-                seg.addFace(new int[] {0, 2, 4, 6, 8}, color, true); // front
-                seg.addFace(new int[] {1, 9, 7, 5, 3}, color, true); // rear
-                seg.addFace(new int[] {2, 3, 5, 4}, color, true);
-                seg.addFace(new int[] {0, 1, 3, 2}, clipColor, true); // clip top
-                seg.addFace(new int[] {6, 7, 9, 8}, clipColor, true); // clip bottom
-                seg.addFace(new int[] {8, 9, 1, 0}, color, true);
+                seg.addFace(new int[] {0, 2, 4, 6, 8}); // front
+                seg.addFace(new int[] {1, 9, 7, 5, 3}); // rear
+                seg.addFace(new int[] {2, 3, 5, 4});
+                seg.addFace(new int[] {0, 1, 3, 2}, "clip"); // clip top
+                seg.addFace(new int[] {6, 7, 9, 8}, "clip"); // clip bottom
+                seg.addFace(new int[] {8, 9, 1, 0});
                 // there is no opening face in this case
                 if (closingFace) {
-                    seg.addFace(new int[] {4, 5, 7, 6}, color, true);
+                    seg.addFace(new int[] {4, 5, 7, 6});
                 }
                 return seg;
             }
         } else {
-            Object3D seg = new Object3D();
+            Object3D seg = new Object3D(color, true);
+            seg.setProperty(Object3D.COLOR_PREFIX + "clip", clipColor);
             seg.addVertex(xpts[2], wmax, zf);
             seg.addVertex(xpts[2], wmax, zb);
             seg.addVertex(xpts[3], wmax, zf);
@@ -420,12 +424,12 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
             seg.addVertex(xpts[1], wmin, zb);
             seg.addVertex(xpts[0], wmin, zf);
             seg.addVertex(xpts[0], wmin, zb);
-            seg.addFace(new int[] {0, 2, 4, 6}, color, true); // front
-            seg.addFace(new int[] {1, 7, 5, 3}, color, true); // rear
-            seg.addFace(new int[] {4, 2, 3, 5}, color, true); // top
-            seg.addFace(new int[] {0, 6, 7, 1}, color, true); // bottom
-            seg.addFace(new int[] {0, 1, 3, 2}, clipColor, true); // clip top
-            seg.addFace(new int[] {4, 5, 7, 6}, clipColor, true); // clip bottom
+            seg.addFace(new int[] {0, 2, 4, 6}); // front
+            seg.addFace(new int[] {1, 7, 5, 3}); // rear
+            seg.addFace(new int[] {4, 2, 3, 5}); // top
+            seg.addFace(new int[] {0, 6, 7, 1}); // bottom
+            seg.addFace(new int[] {0, 1, 3, 2}, "clip"); // clip top
+            seg.addFace(new int[] {4, 5, 7, 6}, "clip"); // clip bottom
             // there are no opening or closing faces in this case
             return seg;
         }
@@ -459,26 +463,28 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
             boolean openingFace, boolean closingFace) {
         
         if (y1b >= wmax) {
-            Object3D seg = new Object3D();
+            Object3D seg = new Object3D(color, true);
+            seg.setProperty(Object3D.COLOR_PREFIX + "clip", clipColor);
             seg.addVertex(x0, y0b, zf);
             seg.addVertex(x0, y0b, zb);
             seg.addVertex(x0, wmax, zf);
             seg.addVertex(x0, wmax, zb);
             seg.addVertex(xpts[2], wmax, zf);
             seg.addVertex(xpts[2], wmax, zb);
-            seg.addFace(new int[] {0, 2, 4}, color, true); // front
-            seg.addFace(new int[] {1, 5, 3}, color, true);  // rear
-            seg.addFace(new int[] {0, 4, 5, 1}, color, true); // bottom
-            seg.addFace(new int[] {2, 3, 5, 4}, clipColor, true); // clip top
+            seg.addFace(new int[] {0, 2, 4}); // front
+            seg.addFace(new int[] {1, 5, 3});  // rear
+            seg.addFace(new int[] {0, 4, 5, 1}); // bottom
+            seg.addFace(new int[] {2, 3, 5, 4}, "clip"); // clip top
             if (openingFace) {
-                seg.addFace(new int[] {0, 1, 3, 2}, color, true); 
+                seg.addFace(new int[] {0, 1, 3, 2}); 
             }
             // there is no closing face in this case
             return seg; 
         }
         if (y1t > wmax) {
             if (y1b >= wmin) {
-                Object3D seg = new Object3D();
+                Object3D seg = new Object3D(color, true);
+                seg.setProperty(Object3D.COLOR_PREFIX + "clip", clipColor);
                 seg.addVertex(x0, y0b, zf);
                 seg.addVertex(x0, y0b, zb);
                 seg.addVertex(x0, wmax, zf);
@@ -487,19 +493,20 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
                 seg.addVertex(x1, wmax, zb);
                 seg.addVertex(x1, y1b, zf);
                 seg.addVertex(x1, y1b, zb);
-                seg.addFace(new int[] {0, 2, 4, 6}, color, true);  // front
-                seg.addFace(new int[] {1, 7, 5, 3}, color, true); // rear
-                seg.addFace(new int[] {2, 3, 5, 4}, clipColor, true); // clip top
-                seg.addFace(new int[] {0, 6, 7, 1}, color, true); // bottom
+                seg.addFace(new int[] {0, 2, 4, 6});  // front
+                seg.addFace(new int[] {1, 7, 5, 3}); // rear
+                seg.addFace(new int[] {2, 3, 5, 4}, "clip"); // clip top
+                seg.addFace(new int[] {0, 6, 7, 1}); // bottom
                 if (openingFace) {
-                    seg.addFace(new int[] {0, 1, 3, 2}, color, true);
+                    seg.addFace(new int[] {0, 1, 3, 2});
                 }
                 if (closingFace) {
-                    seg.addFace(new int[] {4, 5, 7, 6}, color, true);
+                    seg.addFace(new int[] {4, 5, 7, 6});
                 }
                 return seg;
             } else {
-                Object3D seg = new Object3D();
+                Object3D seg = new Object3D(color, true);
+                seg.setProperty(Object3D.COLOR_PREFIX + "clip", clipColor);
                 seg.addVertex(x0, y0b, zf);
                 seg.addVertex(x0, y0b, zb);
                 seg.addVertex(x0, wmax, zf);
@@ -510,23 +517,24 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
                 seg.addVertex(x1, wmin, zb);
                 seg.addVertex(xpts[0], wmin, zf);
                 seg.addVertex(xpts[0], wmin, zb);
-                seg.addFace(new int[] {0, 2, 4, 6, 8}, color, true);  // front
-                seg.addFace(new int[] {1, 9, 7, 5, 3}, color, true); // rear
-                seg.addFace(new int[] {2, 3, 5, 4}, clipColor, true); // clip top
-                seg.addFace(new int[] {8, 6, 7, 9}, clipColor, true); // clip bottom
-                seg.addFace(new int[] {0, 8, 9, 1}, color, true);
+                seg.addFace(new int[] {0, 2, 4, 6, 8});  // front
+                seg.addFace(new int[] {1, 9, 7, 5, 3}); // rear
+                seg.addFace(new int[] {2, 3, 5, 4}, "clip"); // clip top
+                seg.addFace(new int[] {8, 6, 7, 9}, "clip"); // clip bottom
+                seg.addFace(new int[] {0, 8, 9, 1});
                 if (openingFace) {
-                    seg.addFace(new int[] {0, 1, 3, 2}, color, true);
+                    seg.addFace(new int[] {0, 1, 3, 2});
                 }
                 if (closingFace) {
-                    seg.addFace(new int[] {4, 5, 7, 6}, color, true);
+                    seg.addFace(new int[] {4, 5, 7, 6});
                 }
                 return seg;
             }
         }
         if (y1t > wmin) {
             if (y1b >= wmin) {
-                Object3D seg = new Object3D();
+                Object3D seg = new Object3D(color, true);
+                seg.setProperty(Object3D.COLOR_PREFIX + "clip", clipColor);
                 seg.addVertex(x0, y0b, zf);
                 seg.addVertex(x0, y0b, zb);
                 seg.addVertex(x0, wmax, zf);
@@ -537,20 +545,21 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
                 seg.addVertex(x1, y1t, zb);
                 seg.addVertex(x1, y1b, zf);
                 seg.addVertex(x1, y1b, zb);
-                seg.addFace(new int[] {0, 2, 4, 6, 8}, color, true); // front
-                seg.addFace(new int[] {1, 9, 7, 5, 3}, color, true); // rear
-                seg.addFace(new int[] {2, 3, 5, 4}, clipColor, true); // clip top
-                seg.addFace(new int[] {4, 5, 7, 6}, color, true); // top
-                seg.addFace(new int[] {0, 8, 9, 1}, color, true); // bottom
+                seg.addFace(new int[] {0, 2, 4, 6, 8}); // front
+                seg.addFace(new int[] {1, 9, 7, 5, 3}); // rear
+                seg.addFace(new int[] {2, 3, 5, 4}, "clip"); // clip top
+                seg.addFace(new int[] {4, 5, 7, 6}); // top
+                seg.addFace(new int[] {0, 8, 9, 1}); // bottom
                 if (openingFace) {
-                    seg.addFace(new int[] {0, 1, 3, 2}, color, true);
+                    seg.addFace(new int[] {0, 1, 3, 2});
                 }
                 if (closingFace) {
-                    seg.addFace(new int[] {6, 7, 9, 8}, color, true);
+                    seg.addFace(new int[] {6, 7, 9, 8});
                 }
                 return seg;
             } else {
-                Object3D seg = new Object3D();
+                Object3D seg = new Object3D(color, true);
+                seg.setProperty(Object3D.COLOR_PREFIX + "clip", clipColor);
                 seg.addVertex(x0, y0b, zf);
                 seg.addVertex(x0, y0b, zb);
                 seg.addVertex(x0, wmax, zf);
@@ -563,22 +572,23 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
                 seg.addVertex(x1, wmin, zb);
                 seg.addVertex(xpts[0], wmin, zf);
                 seg.addVertex(xpts[0], wmin, zb);
-                seg.addFace(new int[] {0, 2, 4, 6, 8, 10}, color, true); // front
-                seg.addFace(new int[] {1, 11, 9, 7, 5, 3}, color, true); // rear
-                seg.addFace(new int[] {2, 3, 5, 4}, clipColor, true); // clip top
-                seg.addFace(new int[] {4, 5, 7, 6}, color, true); // top
-                seg.addFace(new int[] {8, 9, 11, 10}, clipColor, true); // clip bottom
-                seg.addFace(new int[] {10, 11, 1, 0}, color, true); // bottom
+                seg.addFace(new int[] {0, 2, 4, 6, 8, 10}); // front
+                seg.addFace(new int[] {1, 11, 9, 7, 5, 3}); // rear
+                seg.addFace(new int[] {2, 3, 5, 4}, "clip"); // clip top
+                seg.addFace(new int[] {4, 5, 7, 6}); // top
+                seg.addFace(new int[] {8, 9, 11, 10}, "clip"); // clip bottom
+                seg.addFace(new int[] {10, 11, 1, 0}); // bottom
                 if (openingFace) {
-                    seg.addFace(new int[] {0, 1, 3, 2}, color, true);
+                    seg.addFace(new int[] {0, 1, 3, 2});
                 }
                 if (closingFace) {
-                    seg.addFace(new int[] {6, 7, 9, 8}, color, true);                    
+                    seg.addFace(new int[] {6, 7, 9, 8});
                 }
                 return seg;
             }
         }
-        Object3D seg = new Object3D();
+        Object3D seg = new Object3D(color, true);
+        seg.setProperty(Object3D.COLOR_PREFIX + "clip", clipColor);
         seg.addVertex(x0, y0b, zf);
         seg.addVertex(x0, y0b, zb);
         seg.addVertex(x0, wmax, zf);
@@ -589,14 +599,14 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
         seg.addVertex(xpts[1], wmin, zb);
         seg.addVertex(xpts[0], wmin, zf);
         seg.addVertex(xpts[0], wmin, zb);
-        seg.addFace(new int[] {0, 2, 4, 6, 8}, color, true); // front
-        seg.addFace(new int[] {1, 9, 7, 5, 3}, color, true); // rear
-        seg.addFace(new int[] {2, 3, 5, 4}, clipColor, true); // clip top
-        seg.addFace(new int[] {4, 5, 7, 6}, color, true); // top
-        seg.addFace(new int[] {6, 7, 9, 8}, clipColor, true); // clip bottom
-        seg.addFace(new int[] {8, 9, 1, 0}, color, true); // bottom
+        seg.addFace(new int[] {0, 2, 4, 6, 8}); // front
+        seg.addFace(new int[] {1, 9, 7, 5, 3}); // rear
+        seg.addFace(new int[] {2, 3, 5, 4}, "clip"); // clip top
+        seg.addFace(new int[] {4, 5, 7, 6}); // top
+        seg.addFace(new int[] {6, 7, 9, 8}, "clip"); // clip bottom
+        seg.addFace(new int[] {8, 9, 1, 0}); // bottom
         if (openingFace) {
-            seg.addFace(new int[] {0, 1, 3, 2}, color, true);
+            seg.addFace(new int[] {0, 1, 3, 2});
         }
         // there is no closing face in this case
         return seg;
@@ -631,13 +641,14 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
 
         // the first 4 vertices and the opening face are common to all 
         // segments in this case
-        Object3D seg = new Object3D();
+        Object3D seg = new Object3D(color, true);
+        seg.setProperty(Object3D.COLOR_PREFIX + "clip", clipColor);
         seg.addVertex(x0, wmin, zf);
         seg.addVertex(x0, wmin, zb);
         seg.addVertex(x0, wmax, zf);
         seg.addVertex(x0, wmax, zb);
         if (openingFace) {
-            seg.addFace(new int[] {0, 1, 3, 2}, color, true);
+            seg.addFace(new int[] {0, 1, 3, 2});
         }
         
         if (y1b >= wmax) {
@@ -645,11 +656,11 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
             seg.addVertex(xpts[2], wmax, zb);
             seg.addVertex(xpts[0], wmin, zf);
             seg.addVertex(xpts[0], wmin, zb);
-            seg.addFace(new int[] {0, 2, 4, 6}, color, true); // front
-            seg.addFace(new int[] {1, 7, 5, 3}, color, true); // rear
-            seg.addFace(new int[] {2, 3, 5, 4}, clipColor, true); // clip top
-            seg.addFace(new int[] {4, 5, 7, 6}, color, true); // bottom
-            seg.addFace(new int[] {7, 1, 0, 6}, clipColor, true); // bottom clip
+            seg.addFace(new int[] {0, 2, 4, 6}); // front
+            seg.addFace(new int[] {1, 7, 5, 3}); // rear
+            seg.addFace(new int[] {2, 3, 5, 4}, "clip"); // clip top
+            seg.addFace(new int[] {4, 5, 7, 6}); // bottom
+            seg.addFace(new int[] {7, 1, 0, 6}, "clip"); // bottom clip
             return seg;
         }
         if (y1t > wmax) {
@@ -660,13 +671,13 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
                 seg.addVertex(x1, y1b, zb);
                 seg.addVertex(xpts[0], wmin, zf);
                 seg.addVertex(xpts[0], wmin, zb);
-                seg.addFace(new int[] {0, 2, 4, 6, 8}, color, true); // front
-                seg.addFace(new int[] {1, 9, 7, 5, 3}, color, true); // rear
-                seg.addFace(new int[] {2, 3, 5, 4}, clipColor, true); // top clip
-                seg.addFace(new int[] {6, 7, 9, 8}, color, true); // bottom
-                seg.addFace(new int[] {8, 9, 1, 0}, clipColor, true); // clip bottom
+                seg.addFace(new int[] {0, 2, 4, 6, 8}); // front
+                seg.addFace(new int[] {1, 9, 7, 5, 3}); // rear
+                seg.addFace(new int[] {2, 3, 5, 4}, "clip"); // top clip
+                seg.addFace(new int[] {6, 7, 9, 8}); // bottom
+                seg.addFace(new int[] {8, 9, 1, 0}, "clip"); // clip bottom
                 if (closingFace) {
-                    seg.addFace(new int[] {4, 5, 7, 6}, color, true);
+                    seg.addFace(new int[] {4, 5, 7, 6});
                 }
                 return seg;
             } else {
@@ -674,11 +685,11 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
                 seg.addVertex(x1, wmax, zb);
                 seg.addVertex(x1, wmin, zf);
                 seg.addVertex(x1, wmin, zb);
-                seg.addFace(new int[] {0, 2, 4, 6}, color, true); // front
-                seg.addFace(new int[] {1, 7, 5, 3}, color, true); // rear
-                seg.addFace(new int[] {2, 3, 5, 4}, clipColor, true); // clip top
-                seg.addFace(new int[] {4, 5, 7, 6}, color, true); // bottom
-                seg.addFace(new int[] {7, 1, 0, 6}, clipColor, true); // bottom clip
+                seg.addFace(new int[] {0, 2, 4, 6}); // front
+                seg.addFace(new int[] {1, 7, 5, 3}); // rear
+                seg.addFace(new int[] {2, 3, 5, 4}, "clip"); // clip top
+                seg.addFace(new int[] {4, 5, 7, 6}); // bottom
+                seg.addFace(new int[] {7, 1, 0, 6}, "clip"); // bottom clip
                 return seg;
             }
         }
@@ -693,13 +704,13 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
                 seg.addVertex(x1, y1t, zb);
                 seg.addVertex(x1, wmin, zf);
                 seg.addVertex(x1, wmin, zb);
-                seg.addFace(new int[] {0, 2, 4, 6, 8}, color, true); // front
-                seg.addFace(new int[] {1, 9, 7, 5, 3}, color, true); // rear
-                seg.addFace(new int[] {2, 3, 5, 4}, clipColor, true); // clip top
-                seg.addFace(new int[] {4, 5, 7, 6}, color, true); // top
-                seg.addFace(new int[] {9, 1, 0, 8}, clipColor, true); // clip bottom
+                seg.addFace(new int[] {0, 2, 4, 6, 8}); // front
+                seg.addFace(new int[] {1, 9, 7, 5, 3}); // rear
+                seg.addFace(new int[] {2, 3, 5, 4}, "clip"); // clip top
+                seg.addFace(new int[] {4, 5, 7, 6}); // top
+                seg.addFace(new int[] {9, 1, 0, 8}, "clip"); // clip bottom
                 if (closingFace) {
-                    seg.addFace(new int[] {6, 7, 9, 8}, color, true);
+                    seg.addFace(new int[] {6, 7, 9, 8});
                 }
                 return seg; 
             }
@@ -708,11 +719,11 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
         seg.addVertex(xpts[3], wmax, zb);
         seg.addVertex(xpts[1], wmin, zf);
         seg.addVertex(xpts[1], wmin, zb);
-        seg.addFace(new int[] {0, 2, 4, 6}, color, true); // front
-        seg.addFace(new int[] {1, 7, 5, 3}, color, true); // rear
-        seg.addFace(new int[] {2, 3, 5, 4}, clipColor, true); // clip top
-        seg.addFace(new int[] {4, 5, 7, 6}, color, true); // top
-        seg.addFace(new int[] {6, 7, 1, 0}, clipColor, true); // clip bottom
+        seg.addFace(new int[] {0, 2, 4, 6}); // front
+        seg.addFace(new int[] {1, 7, 5, 3}); // rear
+        seg.addFace(new int[] {2, 3, 5, 4}, "clip"); // clip top
+        seg.addFace(new int[] {4, 5, 7, 6}); // top
+        seg.addFace(new int[] {6, 7, 1, 0}, "clip"); // clip bottom
         return seg;
     }
     
@@ -743,7 +754,8 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
             double wmax, double zf, double zb, Color color, Color clipColor, 
             boolean openingFace, boolean closingFace) {
 
-        Object3D seg = new Object3D();
+        Object3D seg = new Object3D(color, true);
+        seg.setProperty(Object3D.COLOR_PREFIX + "clip", clipColor);
         seg.addVertex(x0, y0b, zf);
         seg.addVertex(x0, y0b, zb);
         seg.addVertex(x0, y0t, zf);
@@ -753,13 +765,13 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
             seg.addVertex(xpts[3], wmax, zb);
             seg.addVertex(xpts[2], wmax, zf);
             seg.addVertex(xpts[2], wmax, zb);
-            seg.addFace(new int[] {0, 2, 4, 6}, color, true);  // front
-            seg.addFace(new int[] {1, 7, 5, 3}, color, true);  // rear
-            seg.addFace(new int[] {2, 3, 5, 4}, color, true);  // top
-            seg.addFace(new int[] {4, 5, 7, 6}, clipColor, true); // clip top
-            seg.addFace(new int[] {0, 6, 7, 1}, color, true); // bottom
+            seg.addFace(new int[] {0, 2, 4, 6});  // front
+            seg.addFace(new int[] {1, 7, 5, 3});  // rear
+            seg.addFace(new int[] {2, 3, 5, 4});  // top
+            seg.addFace(new int[] {4, 5, 7, 6}, "clip"); // clip top
+            seg.addFace(new int[] {0, 6, 7, 1}); // bottom
             if (openingFace) {
-                seg.addFace(new int[] {0, 1, 3, 2}, color, true);
+                seg.addFace(new int[] {0, 1, 3, 2});
             }
             // there is no closing face in this case
             return seg;
@@ -772,16 +784,16 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
                 seg.addVertex(x1, wmax, zb);
                 seg.addVertex(x1, y1b, zf);
                 seg.addVertex(x1, y1b, zb);
-                seg.addFace(new int[] {0, 2, 4, 6, 8}, color, true); // front
-                seg.addFace(new int[] {1, 9, 7, 5, 3}, color, true); // rear
-                seg.addFace(new int[] {2, 3, 5, 4}, color, true); // top
-                seg.addFace(new int[] {4, 5, 7, 6}, clipColor, true); // clip top
-                seg.addFace(new int[] {0, 8, 9, 1}, color, true);
+                seg.addFace(new int[] {0, 2, 4, 6, 8}); // front
+                seg.addFace(new int[] {1, 9, 7, 5, 3}); // rear
+                seg.addFace(new int[] {2, 3, 5, 4}); // top
+                seg.addFace(new int[] {4, 5, 7, 6}, "clip"); // clip top
+                seg.addFace(new int[] {0, 8, 9, 1});
                 if (openingFace) {
-                    seg.addFace(new int[] {0, 1, 3, 2}, color, true);
+                    seg.addFace(new int[] {0, 1, 3, 2});
                 }
                 if (closingFace) {
-                    seg.addFace(new int[] {6, 7, 9, 8}, color, true);
+                    seg.addFace(new int[] {6, 7, 9, 8});
                 }
                 return seg;  
             } else {
@@ -795,15 +807,15 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
                 seg.addVertex(x1, y1t, zb);
                 seg.addVertex(x1, y1b, zf);
                 seg.addVertex(x1, y1b, zb);
-                seg.addFace(new int[] {0, 2, 4, 6}, color, true);  // front
-                seg.addFace(new int[] {1, 7, 5, 3}, color, true);  // rear
-                seg.addFace(new int[] {2, 3, 5, 4}, color, true);  // top
-                seg.addFace(new int[] {0, 6, 7, 1}, color, true);  // bottom
+                seg.addFace(new int[] {0, 2, 4, 6});  // front
+                seg.addFace(new int[] {1, 7, 5, 3});  // rear
+                seg.addFace(new int[] {2, 3, 5, 4});  // top
+                seg.addFace(new int[] {0, 6, 7, 1});  // bottom
                 if (openingFace) {
-                    seg.addFace(new int[] {0, 1, 3, 2}, color, true);
+                    seg.addFace(new int[] {0, 1, 3, 2});
                 }
                 if (closingFace) {
-                    seg.addFace(new int[] {4, 5, 7, 6}, color, true);
+                    seg.addFace(new int[] {4, 5, 7, 6});
                 }
                 return seg;
             } else {
@@ -813,16 +825,16 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
                 seg.addVertex(x1, wmin, zb);
                 seg.addVertex(xpts[0], wmin, zf);
                 seg.addVertex(xpts[0], wmin, zb);
-                seg.addFace(new int[] {0, 2, 4, 6, 8}, color, true); // front
-                seg.addFace(new int[] {1, 9, 7, 5, 3}, color, true); // rear
-                seg.addFace(new int[] {2, 3, 5, 4}, color, true); // top
-                seg.addFace(new int[] {0, 8, 9, 1}, color, true);  // bottom
-                seg.addFace(new int[] {6, 7, 9, 8}, clipColor, true); // clip bottom
+                seg.addFace(new int[] {0, 2, 4, 6, 8}); // front
+                seg.addFace(new int[] {1, 9, 7, 5, 3}); // rear
+                seg.addFace(new int[] {2, 3, 5, 4}); // top
+                seg.addFace(new int[] {0, 8, 9, 1});  // bottom
+                seg.addFace(new int[] {6, 7, 9, 8}, "clip"); // clip bottom
                 if (openingFace) {
-                    seg.addFace(new int[] {0, 1, 3, 2}, color, true);
+                    seg.addFace(new int[] {0, 1, 3, 2});
                 }
                 if (closingFace) {
-                    seg.addFace(new int[] {4, 5, 7, 6}, color, true);
+                    seg.addFace(new int[] {4, 5, 7, 6});
                 }
                 return seg;
             }
@@ -831,13 +843,13 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
             seg.addVertex(xpts[1], wmin, zb);
             seg.addVertex(xpts[0], wmin, zf);
             seg.addVertex(xpts[0], wmin, zb);
-            seg.addFace(new int[] {0, 2, 4, 6}, color, true); // front
-            seg.addFace(new int[] {1, 7, 5, 3}, color, true); // rear
-            seg.addFace(new int[] {2, 3, 5, 4}, color, true); // top
-            seg.addFace(new int[] {0, 6, 7, 1}, color, true); // bottom
-            seg.addFace(new int[] {4, 5, 7, 6}, clipColor, true); // clip bottom
+            seg.addFace(new int[] {0, 2, 4, 6}); // front
+            seg.addFace(new int[] {1, 7, 5, 3}); // rear
+            seg.addFace(new int[] {2, 3, 5, 4}); // top
+            seg.addFace(new int[] {0, 6, 7, 1}); // bottom
+            seg.addFace(new int[] {4, 5, 7, 6}, "clip"); // clip bottom
             if (openingFace) {
-                seg.addFace(new int[] {0, 1, 3, 2}, color, true);
+                seg.addFace(new int[] {0, 1, 3, 2});
             }
             // there is no closing face in this case
             return seg;
@@ -871,7 +883,8 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
             double wmax, double zf, double zb, Color color, Color clipColor, 
             boolean openingFace, boolean closingFace) {
         if (y1b > wmax) {
-            Object3D seg = new Object3D();
+            Object3D seg = new Object3D(color, true);
+            seg.setProperty(Object3D.COLOR_PREFIX + "clip", clipColor);
             seg.addVertex(x0, wmin, zf);
             seg.addVertex(x0, wmin, zb);
             seg.addVertex(x0, y0t, zf);
@@ -882,20 +895,21 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
             seg.addVertex(xpts[2], wmax, zb);
             seg.addVertex(xpts[0], wmin, zf);
             seg.addVertex(xpts[0], wmin, zb);
-            seg.addFace(new int[] {0, 2, 4, 6, 8}, color, true); // front
-            seg.addFace(new int[] {1, 9, 7, 5, 3}, color, true); // rear
-            seg.addFace(new int[] {2, 3, 5, 4}, color, true); // top
-            seg.addFace(new int[] {4, 5, 7, 6}, clipColor, true); // clip top
-            seg.addFace(new int[] {6, 7, 9, 8}, color, true); // bottom
-            seg.addFace(new int[] {0, 8, 9, 1}, clipColor, true); // clip bottom
+            seg.addFace(new int[] {0, 2, 4, 6, 8}); // front
+            seg.addFace(new int[] {1, 9, 7, 5, 3}); // rear
+            seg.addFace(new int[] {2, 3, 5, 4}); // top
+            seg.addFace(new int[] {4, 5, 7, 6}, "clip"); // clip top
+            seg.addFace(new int[] {6, 7, 9, 8}); // bottom
+            seg.addFace(new int[] {0, 8, 9, 1}, "clip"); // clip bottom
             if (openingFace) {
-                seg.addFace(new int[] {0, 1, 3, 2}, color, true);
+                seg.addFace(new int[] {0, 1, 3, 2});
             }
             return seg;
         }
         if (y1t > wmax) {
             if (y1b >= wmin) {
-                Object3D seg = new Object3D();
+                Object3D seg = new Object3D(color, true);
+                seg.setProperty(Object3D.COLOR_PREFIX + "clip", clipColor);
                 seg.addVertex(x0, wmin, zf);
                 seg.addVertex(x0, wmin, zb);
                 seg.addVertex(x0, y0t, zf);
@@ -908,21 +922,22 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
                 seg.addVertex(x1, y1b, zb);
                 seg.addVertex(xpts[0], wmin, zf);
                 seg.addVertex(xpts[0], wmin, zb);
-                seg.addFace(new int[] {0, 2, 4, 6, 8, 10}, color, true); // front
-                seg.addFace(new int[] {1, 11, 9, 7, 5, 3}, color, true); // rear
-                seg.addFace(new int[] {2, 3, 5, 4}, color, true); // top
-                seg.addFace(new int[] {5, 7, 6, 4}, clipColor, true); // clip top
-                seg.addFace(new int[] {8, 9, 11, 10}, color, true); // bottom
-                seg.addFace(new int[] {1, 0, 10, 11}, clipColor, true);
+                seg.addFace(new int[] {0, 2, 4, 6, 8, 10}); // front
+                seg.addFace(new int[] {1, 11, 9, 7, 5, 3}); // rear
+                seg.addFace(new int[] {2, 3, 5, 4}); // top
+                seg.addFace(new int[] {5, 7, 6, 4}, "clip"); // clip top
+                seg.addFace(new int[] {8, 9, 11, 10}); // bottom
+                seg.addFace(new int[] {1, 0, 10, 11}, "clip");
                 if (openingFace) {
-                    seg.addFace(new int[] {0, 1, 3, 2}, color, true); 
+                    seg.addFace(new int[] {0, 1, 3, 2}); 
                 }
                 if (closingFace) {
-                    seg.addFace(new int[] {6, 7, 9, 8}, color, true); 
+                    seg.addFace(new int[] {6, 7, 9, 8}); 
                 }
                 return seg;
             } else {
-                Object3D seg = new Object3D();
+                Object3D seg = new Object3D(color, true);
+                seg.setProperty(Object3D.COLOR_PREFIX + "clip", clipColor);
                 seg.addVertex(x0, wmin, zf);
                 seg.addVertex(x0, wmin, zb);
                 seg.addVertex(x0, y0t, zf);
@@ -933,23 +948,24 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
                 seg.addVertex(x1, wmax, zb);
                 seg.addVertex(x1, wmin, zf);
                 seg.addVertex(x1, wmin, zb);
-                seg.addFace(new int[] {0, 2, 4, 6, 8}, color, true); // front
-                seg.addFace(new int[] {1, 9, 7, 5, 3}, color, true); // rear
-                seg.addFace(new int[] {2, 3, 5, 4}, color, true); // top
-                seg.addFace(new int[] {5, 7, 6, 4}, clipColor, true); // clip top
-                seg.addFace(new int[] {0, 8, 9, 1}, clipColor, true); // clip bottom
+                seg.addFace(new int[] {0, 2, 4, 6, 8}); // front
+                seg.addFace(new int[] {1, 9, 7, 5, 3}); // rear
+                seg.addFace(new int[] {2, 3, 5, 4}); // top
+                seg.addFace(new int[] {5, 7, 6, 4}, "clip"); // clip top
+                seg.addFace(new int[] {0, 8, 9, 1}, "clip"); // clip bottom
                 if (openingFace) {
-                    seg.addFace(new int[] {0, 1, 3, 2}, color, true); 
+                    seg.addFace(new int[] {0, 1, 3, 2}); 
                 }
                 if (closingFace) {
-                    seg.addFace(new int[] {6, 7, 9, 8}, color, true); 
+                    seg.addFace(new int[] {6, 7, 9, 8}); 
                 }
                 return seg;  
             }
         }
         if (y1t > wmin) {
             if (y1b >= wmin) {
-                Object3D seg = new Object3D();
+                Object3D seg = new Object3D(color, true);
+                seg.setProperty(Object3D.COLOR_PREFIX + "clip", clipColor);
                 seg.addVertex(x0, wmin, zf);
                 seg.addVertex(x0, wmin, zb);
                 seg.addVertex(x0, y0t, zf);
@@ -960,20 +976,21 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
                 seg.addVertex(x1, y1b, zb);
                 seg.addVertex(xpts[0], wmin, zf);
                 seg.addVertex(xpts[0], wmin, zb);
-                seg.addFace(new int[] {0, 2, 4, 6, 8}, color, true); // front
-                seg.addFace(new int[] {1, 9, 7, 5, 3}, color, true); // rear
-                seg.addFace(new int[] {2, 3, 5, 4}, color, true); // top
-                seg.addFace(new int[] {6, 7, 9, 8}, color, true); // bottom
-                seg.addFace(new int[] {0, 8, 9, 1}, clipColor, true); // clip bottom
+                seg.addFace(new int[] {0, 2, 4, 6, 8}); // front
+                seg.addFace(new int[] {1, 9, 7, 5, 3}); // rear
+                seg.addFace(new int[] {2, 3, 5, 4}); // top
+                seg.addFace(new int[] {6, 7, 9, 8}); // bottom
+                seg.addFace(new int[] {0, 8, 9, 1}, "clip"); // clip bottom
                 if (openingFace) {
-                    seg.addFace(new int[] {0, 1, 3, 2}, color, true);
+                    seg.addFace(new int[] {0, 1, 3, 2});
                 }
                 if (closingFace) {
-                    seg.addFace(new int[] {4, 5, 7, 6}, color, true);
+                    seg.addFace(new int[] {4, 5, 7, 6});
                 }
                 return seg;
             } else {
-                Object3D seg = new Object3D();
+                Object3D seg = new Object3D(color, true);
+                seg.setProperty(Object3D.COLOR_PREFIX + "clip", clipColor);
                 seg.addVertex(x0, wmin, zf);
                 seg.addVertex(x0, wmin, zb);
                 seg.addVertex(x0, y0t, zf);
@@ -982,32 +999,33 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
                 seg.addVertex(x1, y1t, zb);
                 seg.addVertex(x1, wmin, zf);
                 seg.addVertex(x1, wmin, zb);
-                seg.addFace(new int[] {0, 2, 4, 6}, color, true); // front
-                seg.addFace(new int[] {1, 7, 5, 3}, color, true); // rear
-                seg.addFace(new int[] {2, 3, 5, 4}, color, true); // top
-                seg.addFace(new int[] {0, 6, 7, 1}, clipColor, true); // clip bottom
+                seg.addFace(new int[] {0, 2, 4, 6}); // front
+                seg.addFace(new int[] {1, 7, 5, 3}); // rear
+                seg.addFace(new int[] {2, 3, 5, 4}); // top
+                seg.addFace(new int[] {0, 6, 7, 1}, "clip"); // clip bottom
                 if (openingFace) {
-                    seg.addFace(new int[] {0, 1, 3, 2}, color, true);
+                    seg.addFace(new int[] {0, 1, 3, 2});
                 }
                 if (closingFace) {
-                    seg.addFace(new int[] {4, 5, 7, 6}, color, true);
+                    seg.addFace(new int[] {4, 5, 7, 6});
                 }
                 return seg;
             }
         }
-        Object3D seg = new Object3D();
+        Object3D seg = new Object3D(color, true);
+        seg.setProperty(Object3D.COLOR_PREFIX + "clip", clipColor);
         seg.addVertex(x0, wmin, zf);
         seg.addVertex(x0, wmin, zb);
         seg.addVertex(x0, y0t, zf);
         seg.addVertex(x0, y0t, zb);
         seg.addVertex(xpts[1], wmin, zf);
         seg.addVertex(xpts[1], wmin, zb);
-        seg.addFace(new int[] {0, 2, 4}, color, true); // front
-        seg.addFace(new int[] {1, 5, 3}, color, true); // rear
-        seg.addFace(new int[] {2, 3, 5, 4}, color, true); // top
-        seg.addFace(new int[] {0, 4, 5, 1}, clipColor, true); // clip bottom
+        seg.addFace(new int[] {0, 2, 4}); // front
+        seg.addFace(new int[] {1, 5, 3}); // rear
+        seg.addFace(new int[] {2, 3, 5, 4}); // top
+        seg.addFace(new int[] {0, 4, 5, 1}, "clip"); // clip bottom
         if (openingFace) {
-            seg.addFace(new int[] {0, 1, 3, 2}, color, true);
+            seg.addFace(new int[] {0, 1, 3, 2});
         }
         // there is no closing face in this case
         return seg;
@@ -1042,7 +1060,8 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
             boolean openingFace, boolean closingFace) {
 
         if (y1b > wmax) {
-            Object3D seg = new Object3D();
+            Object3D seg = new Object3D(color, true);
+            seg.setProperty(Object3D.COLOR_PREFIX + "clip", clipColor);
             seg.addVertex(xpts[1], wmin, zf);
             seg.addVertex(xpts[1], wmin, zb);
             seg.addVertex(xpts[3], wmax, zf);
@@ -1051,18 +1070,19 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
             seg.addVertex(xpts[2], wmax, zb);
             seg.addVertex(xpts[0], wmin, zf);
             seg.addVertex(xpts[0], wmin, zb);
-            seg.addFace(new int[] {0, 2, 4, 6}, color, true); // front
-            seg.addFace(new int[] {1, 7, 5, 3}, color, true); // rear
-            seg.addFace(new int[] {0, 1, 3, 2}, color, true); // top
-            seg.addFace(new int[] {2, 3, 5, 4}, clipColor, true); // clip top
-            seg.addFace(new int[] {4, 5, 7, 6}, color, true); // bottom
-            seg.addFace(new int[] {0, 6, 7, 1}, clipColor, true); // clip bottom
+            seg.addFace(new int[] {0, 2, 4, 6}); // front
+            seg.addFace(new int[] {1, 7, 5, 3}); // rear
+            seg.addFace(new int[] {0, 1, 3, 2}); // top
+            seg.addFace(new int[] {2, 3, 5, 4}, "clip"); // clip top
+            seg.addFace(new int[] {4, 5, 7, 6}); // bottom
+            seg.addFace(new int[] {0, 6, 7, 1}, "clip"); // clip bottom
             // there are no opening and closing faces for this case
             return seg;
         }
         if (y1t > wmax) {
             if (y1b > wmin) {
-                Object3D seg = new Object3D();
+                Object3D seg = new Object3D(color, true);
+                seg.setProperty(Object3D.COLOR_PREFIX + "clip", clipColor);
                 seg.addVertex(xpts[1], wmin, zf);
                 seg.addVertex(xpts[1], wmin, zb);
                 seg.addVertex(xpts[3], wmax, zf);
@@ -1073,19 +1093,20 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
                 seg.addVertex(x1, y1b, zb);
                 seg.addVertex(xpts[0], wmin, zf);
                 seg.addVertex(xpts[0], wmin, zb);
-                seg.addFace(new int[] {0, 2, 4, 6, 8}, color, true); // front
-                seg.addFace(new int[] {1, 9, 7, 5, 3}, color, true); // rear
-                seg.addFace(new int[] {2, 3, 5, 4}, clipColor, true); //clip top
-                seg.addFace(new int[] {0, 1, 3, 2}, color, true); // top
-                seg.addFace(new int[] {0, 8, 9, 1}, clipColor, true); // clip bottom
-                seg.addFace(new int[] {6, 7, 9, 8}, color, true); // bottom
+                seg.addFace(new int[] {0, 2, 4, 6, 8}); // front
+                seg.addFace(new int[] {1, 9, 7, 5, 3}); // rear
+                seg.addFace(new int[] {2, 3, 5, 4}); //clip top
+                seg.addFace(new int[] {0, 1, 3, 2}); // top
+                seg.addFace(new int[] {0, 8, 9, 1}, "clip"); // clip bottom
+                seg.addFace(new int[] {6, 7, 9, 8}); // bottom
                 // there is no opening face in this case
                 if (closingFace) {
-                    seg.addFace(new int[] {4, 5, 7, 6}, color, true);
+                    seg.addFace(new int[] {4, 5, 7, 6});
                 }
                 return seg;
             } else {
-                Object3D seg = new Object3D();
+                Object3D seg = new Object3D(color, true);
+                seg.setProperty(Object3D.COLOR_PREFIX + "clip", clipColor);
                 seg.addVertex(xpts[1], wmin, zf);
                 seg.addVertex(xpts[1], wmin, zb);
                 seg.addVertex(xpts[3], wmax, zf);
@@ -1094,20 +1115,21 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
                 seg.addVertex(x1, wmax, zb);
                 seg.addVertex(x1, wmin, zf);
                 seg.addVertex(x1, wmin, zb);
-                seg.addFace(new int[] {0, 2, 4, 6}, color, true); // front
-                seg.addFace(new int[] {1, 7, 5, 3}, color, true); // rear
-                seg.addFace(new int[] {0, 1, 3, 2}, color, true); // top
-                seg.addFace(new int[] {2, 3, 5, 4}, clipColor, true); // clip top
-                seg.addFace(new int[] {6, 7, 1, 0}, clipColor, true); // clip bottom
+                seg.addFace(new int[] {0, 2, 4, 6}); // front
+                seg.addFace(new int[] {1, 7, 5, 3}); // rear
+                seg.addFace(new int[] {0, 1, 3, 2}); // top
+                seg.addFace(new int[] {2, 3, 5, 4}, "clip"); // clip top
+                seg.addFace(new int[] {6, 7, 1, 0}, "clip"); // clip bottom
                 if (closingFace) {
-                    seg.addFace(new int[] {4, 5, 7, 6}, color, true);
+                    seg.addFace(new int[] {4, 5, 7, 6});
                 }
                 return seg;
             }
         }
         if (y1t > wmin) {
             if (y1b >= wmin) {
-                Object3D seg = new Object3D();
+                Object3D seg = new Object3D(color, true);
+                seg.setProperty(Object3D.COLOR_PREFIX + "clip", clipColor);
                 seg.addVertex(xpts[1], wmin, zf);
                 seg.addVertex(xpts[1], wmin, zb);
                 seg.addVertex(x1, y1t, zf);
@@ -1116,30 +1138,31 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
                 seg.addVertex(x1, y1b, zb);
                 seg.addVertex(xpts[0], wmin, zf);
                 seg.addVertex(xpts[0], wmin, zb);                
-                seg.addFace(new int[] {0, 2, 4, 6}, color, true); // front
-                seg.addFace(new int[] {1, 7, 5, 3}, color, true); // rear
-                seg.addFace(new int[] {0, 1, 3, 2}, color, true); // top
-                seg.addFace(new int[] {4, 5, 7, 6}, color, true); // bottom
-                seg.addFace(new int[] {0, 6, 7, 1}, clipColor, true); // clip bottom
+                seg.addFace(new int[] {0, 2, 4, 6}); // front
+                seg.addFace(new int[] {1, 7, 5, 3}); // rear
+                seg.addFace(new int[] {0, 1, 3, 2}); // top
+                seg.addFace(new int[] {4, 5, 7, 6}); // bottom
+                seg.addFace(new int[] {0, 6, 7, 1}, "clip"); // clip bottom
                 if (closingFace) {
-                    seg.addFace(new int[] {2, 3, 5, 4}, color, true);
+                    seg.addFace(new int[] {2, 3, 5, 4});
                 }
                 return seg;
             } else {
-                Object3D seg = new Object3D();
+                Object3D seg = new Object3D(color, true);
+                seg.setProperty(Object3D.COLOR_PREFIX + "clip", clipColor);
                 seg.addVertex(xpts[1], wmin, zf);
                 seg.addVertex(xpts[1], wmin, zb);
                 seg.addVertex(x1, y1t, zf);
                 seg.addVertex(x1, y1t, zb);
                 seg.addVertex(x1, wmin, zf);
                 seg.addVertex(x1, wmin, zb);
-                seg.addFace(new int[] {0, 2, 4}, color, true); // front
-                seg.addFace(new int[] {1, 5, 3}, color, true); // rear
-                seg.addFace(new int[] {0, 1, 3, 2}, color, true); // top
-                seg.addFace(new int[] {0, 4, 5, 1}, clipColor, true); // clip bottom
+                seg.addFace(new int[] {0, 2, 4}); // front
+                seg.addFace(new int[] {1, 5, 3}); // rear
+                seg.addFace(new int[] {0, 1, 3, 2}); // top
+                seg.addFace(new int[] {0, 4, 5, 1}, "clip"); // clip bottom
                 // there is no opening face in this case
                 if (closingFace) {
-                    seg.addFace(new int[] {2, 3, 5, 4}, color, true);
+                    seg.addFace(new int[] {2, 3, 5, 4});
                 }
                 return seg;
             }

@@ -402,7 +402,7 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
      * Creates a 3D object to represent a positive "area", taking into account
      * that the visible range can be restricted.
      * 
-     * @param color
+     * @param color  the color (<code>null</code> not permitted).
      * @param wx0
      * @param wy0
      * @param wx1
@@ -443,7 +443,7 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
         double delta = this.depth / 2.0;
                         
         // create an area shape
-        Object3D obj = new Object3D();
+        Object3D obj = new Object3D(color, true);
         obj.addVertex(wx00, wbb, wz - delta);
         obj.addVertex(wx00, wbb, wz + delta);
         boolean leftSide = false;
@@ -467,52 +467,52 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
         int vertices = obj.getVertexCount();
         
         if (vertices == 10) {
-            obj.addFace(new int[] {0, 2, 4, 6, 8}, color, true);  // front
-            obj.addFace(new int[] {1, 9, 7, 5, 3}, color, true);  // rear
-            obj.addFace(new int[] {0, 8, 9, 1}, color, true);  // base
-            obj.addFace(new int[] {2, 3, 5, 4}, color, true); // top 1
-            obj.addFace(new int[] {4, 5, 7, 6}, color, true);  // top 2
+            obj.addFace(new int[] {0, 2, 4, 6, 8});  // front
+            obj.addFace(new int[] {1, 9, 7, 5, 3});  // rear
+            obj.addFace(new int[] {0, 8, 9, 1});  // base
+            obj.addFace(new int[] {2, 3, 5, 4}); // top 1
+            obj.addFace(new int[] {4, 5, 7, 6});  // top 2
             if (openingFace) {
-                obj.addFace(new int[] {0, 1, 3, 2}, color, true);
+                obj.addFace(new int[] {0, 1, 3, 2});
             }
             if (closingFace) {
-                obj.addFace(new int[] {6, 7, 9, 8}, color, true);
+                obj.addFace(new int[] {6, 7, 9, 8});
             }
         } else if (vertices == 8) {
-            obj.addFace(new int[] {0, 2, 4, 6}, color, true);  // front
-            obj.addFace(new int[] {7, 5, 3, 1}, color, true);  // rear
+            obj.addFace(new int[] {0, 2, 4, 6});  // front
+            obj.addFace(new int[] {7, 5, 3, 1});  // rear
             if (!leftSide) {
-                obj.addFace(new int[] {0, 1, 3, 2}, color, true);  // top left
+                obj.addFace(new int[] {0, 1, 3, 2});  // top left
             }
-            obj.addFace(new int[] {2, 3, 5, 4}, color, true);  // top 1
+            obj.addFace(new int[] {2, 3, 5, 4});  // top 1
             if (!rightSide) {
-                obj.addFace(new int[] {4, 5, 7, 6}, color, true); // top 2 
+                obj.addFace(new int[] {4, 5, 7, 6}); // top 2 
             }
-            obj.addFace(new int[] {1, 0, 6, 7}, color, true); // base
+            obj.addFace(new int[] {1, 0, 6, 7}); // base
             if (openingFace) {
-                obj.addFace(new int[] {0, 1, 3, 2}, color, true);
+                obj.addFace(new int[] {0, 1, 3, 2});
             }
             if (closingFace) {
-                obj.addFace(new int[] {4, 5, 7, 6}, color, true);
+                obj.addFace(new int[] {4, 5, 7, 6});
             }
         } else if (vertices == 6) {
-            obj.addFace(new int[] {0, 2, 4}, color, true); // front
-            obj.addFace(new int[] {5, 3, 1}, color, true); // rear
+            obj.addFace(new int[] {0, 2, 4}); // front
+            obj.addFace(new int[] {5, 3, 1}); // rear
             if (leftSide) {
-                obj.addFace(new int[] {3, 5, 4, 2}, color, true); // top            
+                obj.addFace(new int[] {3, 5, 4, 2}); // top            
                 if (openingFace) {
-                    obj.addFace(new int[] {0, 1, 3, 2}, color, true);
+                    obj.addFace(new int[] {0, 1, 3, 2});
                 }
             } else {
-                obj.addFace(new int[] {0, 1, 3, 2}, color, true); // top
+                obj.addFace(new int[] {0, 1, 3, 2}); // top
                 if (closingFace) {
-                    obj.addFace(new int[] {2, 3, 5, 4}, color, true);
+                    obj.addFace(new int[] {2, 3, 5, 4});
                 }
             }
-            obj.addFace(new int[] {0, 4, 5, 1}, color, true); // base            
+            obj.addFace(new int[] {0, 4, 5, 1}); // base            
         } else {
-            obj.addFace(new int[] {0, 1, 3, 2}, color, true);
-            obj.addFace(new int[] {2, 3, 1, 0}, color, true);
+            obj.addFace(new int[] {0, 1, 3, 2});
+            obj.addFace(new int[] {2, 3, 1, 0});
         }
         return obj;
     }
@@ -545,7 +545,7 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
         double delta = this.depth / 2.0;
 
         // create an area shape
-        Object3D obj = new Object3D();
+        Object3D obj = new Object3D(color, true);
         obj.addVertex(wx00, wbb, wz - delta);
         obj.addVertex(wx00, wbb, wz + delta);
         boolean leftSide = false;
@@ -567,52 +567,52 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
         }
         int vertices = obj.getVertexCount();
         if (vertices == 10) {
-            obj.addFace(new int[] {8, 6, 4, 2, 0}, color, true);  // front
-            obj.addFace(new int[] {1, 3, 5, 7, 9}, color, true);  // rear
-            obj.addFace(new int[] {1, 9, 8, 0}, color, true);  // base
-            obj.addFace(new int[] {4, 5, 3, 2}, color, true); // top 1
-            obj.addFace(new int[] {6, 7, 5, 4}, color, true);  // top 2
+            obj.addFace(new int[] {8, 6, 4, 2, 0});  // front
+            obj.addFace(new int[] {1, 3, 5, 7, 9});  // rear
+            obj.addFace(new int[] {1, 9, 8, 0});  // base
+            obj.addFace(new int[] {4, 5, 3, 2}); // top 1
+            obj.addFace(new int[] {6, 7, 5, 4});  // top 2
             if (openingFace) {
-                obj.addFace(new int[] {2, 3, 1, 0}, color, true);
+                obj.addFace(new int[] {2, 3, 1, 0});
             }
             if (closingFace) {
-                obj.addFace(new int[] {8, 9, 7, 6}, color, true);
-            }            
+                obj.addFace(new int[] {8, 9, 7, 6});
+            }
         } else if (vertices == 8) {
-            obj.addFace(new int[] {2, 0, 6, 4}, color, true);  // front
-            obj.addFace(new int[] {1, 3, 5, 7}, color, true);  // rear
-            obj.addFace(new int[] {0, 1, 7, 6}, color, true);  // base
+            obj.addFace(new int[] {2, 0, 6, 4});  // front
+            obj.addFace(new int[] {1, 3, 5, 7});  // rear
+            obj.addFace(new int[] {0, 1, 7, 6});  // base
             if (!leftSide) {
-                obj.addFace(new int[] {2, 3, 1, 0}, color, true);            
+                obj.addFace(new int[] {2, 3, 1, 0});            
             }
-            obj.addFace(new int[] {3, 2, 4, 5}, color, true);  // negative top
+            obj.addFace(new int[] {3, 2, 4, 5});  // negative top
             if (!rightSide) {
-                obj.addFace(new int[] {6, 7, 5, 4}, color, true);  
+                obj.addFace(new int[] {6, 7, 5, 4});
             }
             if (openingFace) {
-                obj.addFace(new int[] {1, 0, 2, 3}, color, true);
+                obj.addFace(new int[] {1, 0, 2, 3});
             }
             if (closingFace) {
-                obj.addFace(new int[] {5, 4, 6, 7}, color, true);
+                obj.addFace(new int[] {5, 4, 6, 7});
             }
         } else if (vertices == 6) {
-            obj.addFace(new int[] {4, 2, 0}, color, true);  // front  
-            obj.addFace(new int[] {1, 3, 5}, color, true);  // rear
+            obj.addFace(new int[] {4, 2, 0});  // front  
+            obj.addFace(new int[] {1, 3, 5});  // rear
             if (leftSide) {
-                obj.addFace(new int[] {4, 5, 3, 2}, color, true);  // negative top
+                obj.addFace(new int[] {4, 5, 3, 2});  // negative top
                 if (openingFace) {
-                    obj.addFace(new int[] {1, 0, 2, 3}, color, true);
+                    obj.addFace(new int[] {1, 0, 2, 3});
                 }
             } else {
-                obj.addFace(new int[] {2, 3, 1, 0}, color, true); // negative top               
+                obj.addFace(new int[] {2, 3, 1, 0}); // negative top               
                 if (closingFace) {
-                    obj.addFace(new int[] {3, 2, 4, 5}, color, true);
+                    obj.addFace(new int[] {3, 2, 4, 5});
                 }
             }
-            obj.addFace(new int[] {0, 1, 5, 4}, color, true);  // base
+            obj.addFace(new int[] {0, 1, 5, 4});  // base
         } else {
-            obj.addFace(new int[] {0, 1, 3, 2}, color, true);
-            obj.addFace(new int[] {2, 3, 1, 0}, color, true);
+            obj.addFace(new int[] {0, 1, 3, 2});
+            obj.addFace(new int[] {2, 3, 1, 0});
         }
         return obj;
     }

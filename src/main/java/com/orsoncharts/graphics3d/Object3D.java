@@ -15,33 +15,161 @@ package com.orsoncharts.graphics3d;
 import java.awt.Color;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import com.orsoncharts.util.ArgChecks;
 
 /**
  * An object defined in 3D space by (a) a list of coordinates, and (b) a list
  * of faces.  This class has methods to calculate projected points in 2D when
- * a {@link ViewPoint3D} is specified.
+ * a {@link ViewPoint3D} is provided.
  * <br><br>
  * This class also contains a collection of static methods for constructing
  * common 3D objects.
  */
 public class Object3D {
 
+    /** 
+     * A prefix used for setting color properties for an object.
+     * 
+     * @since 1.3
+     */
+    public static final String COLOR_PREFIX = "color/";
+    
     /** World coordinates. */
     private List<Point3D> vertices;
 
     /** Faces for the object, specified by indices to the world coords. */
     private List<Face> faces;
+    
+    /** The primary color for the object. */
+    private Color color;
+    
+    /** 
+     * A flag that indicates whether or not faces for this object have their
+     * outlines drawn (that is, the shape is filled then drawn versus just 
+     * filled only).
+     */
+    private boolean outline;
  
     /**
-     * Creates a new object, initially with no vertices or faces.
+     * A map containing properties for the object.  If there are no properties
+     * defined, then we leave this as <code>null</code>.
      */
-    public Object3D() {
+    private Map<String, Object> properties;
+    
+    /**
+     * Creates a new object, initially with no vertices or faces.
+     * 
+     * @param color  the default face color (<code>null</code> not permitted).
+     * 
+     * @since 1.3
+     */
+    public Object3D(Color color) {
+        this(color, false);
+    }
+    
+    /**
+     * Creates a new object, initially with no vertices or faces.
+     * 
+     * @param color  the default face color (<code>null</code> not permitted).
+     * @param outline  the default flag that determines whether face outlines
+     *     are drawn.
+     * 
+     * @since 1.3
+     */
+    public Object3D(Color color, boolean outline) {
+        ArgChecks.nullNotPermitted(color, "color");
+        this.color = color;
+        this.outline = outline;
         this.vertices = new java.util.ArrayList<Point3D>();
         this.faces = new java.util.ArrayList<Face>();
     }
 
+    /**
+     * Returns the default face color as specified in the constructor.
+     * 
+     * @return The color (never <code>null</code>).
+     * 
+     * @since 1.3
+     */
+    public Color getColor() {
+        return this.color;
+    }
+    
+    /**
+     * Returns the value of the property with the specified key, or 
+     * <code>null</code> if there is no property defined for that key.
+     * 
+     * @param key  the property key (<code>null</code> not permitted).
+     * 
+     * @return The value (possibly <code>null</code>).
+     * 
+     * @since 1.3
+     */
+    public Object getProperty(String key) {
+        ArgChecks.nullNotPermitted(key, "key");
+        if (this.properties == null) {
+            return null;
+        } else {
+            return this.properties.get(key);
+        }
+    }
+
+    /**
+     * Sets the value of a property, overwriting any existing value.
+     * 
+     * @param key  the key (<code>null</code> not permitted).
+     * @param value  the value (<code>null</code> permitted).
+     * 
+     * @since 1.3
+     */
+    public void setProperty(String key, Object value) {
+        ArgChecks.nullNotPermitted(key, "key");
+        if (this.properties == null) {
+            this.properties = new HashMap<String, Object>();
+        }
+        this.properties.put(key, value);
+    }
+    
+    /**
+     * Returns the color for a specific face.  If the face has a tag, then
+     * this method will look for a property with the key COLOR_PREFIX + tag
+     * and return that color, otherwise it returns the default color for the
+     * object.
+     * 
+     * @param face  the face (<code>null</code> not permitted).
+     * 
+     * @return The color for the specified face (never <code>null</code>).
+     * 
+     * @since 1.3
+     */
+    public Color getColor(Face face) {
+        if (face.getTag() != null) {
+            // see if there is a custom color defined for the tag
+            Object obj = getProperty(COLOR_PREFIX + face.getTag());
+            if (obj != null) {
+                return (Color) obj;
+            }
+        }
+        return this.color;
+    }
+    
+    /**
+     * Returns <code>true</code> if an outline should be drawn for the 
+     * specified face, and <code>false</code> otherwise.
+     * 
+     * @param face  the face (<code>null</code> not permitted).
+     * 
+     * @return A boolean.
+     * 
+     * @since 1.3
+     */
+    public boolean getOutline(Face face) {
+        return this.outline;
+    }
+    
     /**
      * Returns the number of vertices for this object.
      *
@@ -82,16 +210,27 @@ public class Object3D {
     }
 
     /**
-     * Adds a face for the given vertices (specified by index value) and 
-     * color.
+     * Adds a face for the given vertices (specified by index value).
      * 
      * @param vertices  the vertices (all should lie in a plane).
-     * @param color  the color (<code>null</code> not permitted).
-     * @param outline  draw the face outline.
+     * 
+     * @since 1.3
      */
-    public void addFace(int[] vertices, Color color, boolean outline) {
+    public void addFace(int[] vertices) {
         // defer the arg checks...
-        addFace(new Face(vertices, color, outline));
+        addFace(new Face(this, vertices));
+    }
+    
+    /**
+     * Adds a tagged face for the given vertices (specified by index value).
+     * 
+     * @param vertices  the vertices (all should lie in a plane).
+     * @param tag  the tag (<code>null</code> not permitted).
+     * 
+     * @since 1.3
+     */
+    public void addFace(int[] vertices, String tag) {
+        addFace(new TaggedFace(this, vertices, tag));
     }
     
     /**
@@ -99,18 +238,15 @@ public class Object3D {
      * value) and color.
      * 
      * @param vertices  the vertices (all should lie in a plane).
-     * @param color  the color (<code>null</code> not permitted).
-     * @param outline  draw face outlines.
      * 
-     * @since 1.1
+     * @since 1.3
      */
-    public void addDoubleSidedFace(int[] vertices, Color color, 
-            boolean outline) {
-        addFace(new DoubleSidedFace(vertices, color, outline));
+    public void addDoubleSidedFace(int[] vertices) {
+        addFace(new DoubleSidedFace(this, vertices));
     }
     
     /**
-     * Adds a face.
+     * Adds a face for this object.
      *
      * @param face  the face (<code>null</code> not permitted).
      */
@@ -120,9 +256,10 @@ public class Object3D {
     }
 
     /**
-     * Returns the faces.  Note that the list returned is a direct reference
-     * to the internal storage for this <code>Object3D</code> instance, so
-     * callers should take care not to modify this list unintentionally.
+     * Returns the faces for this object.  Note that the list returned is a 
+     * direct reference to the internal storage for this <code>Object3D</code> 
+     * instance, so callers should take care not to modify this list 
+     * unintentionally.
      *
      * @return The faces.
      */
@@ -184,16 +321,16 @@ public class Object3D {
     public static Object3D createYSheet(double size, double x, double y, 
             double z, Color color, boolean invert) {
         ArgChecks.nullNotPermitted(color, "color");
-        Object3D sheet = new Object3D();
+        Object3D sheet = new Object3D(color);
         double delta = size / 2.0;
         sheet.addVertex(new Point3D(x + delta, y, z - delta));
         sheet.addVertex(new Point3D(x + delta, y, z + delta));
         sheet.addVertex(new Point3D(x - delta, y, z + delta));
         sheet.addVertex(new Point3D(x - delta, y, z - delta));
         if (invert) {
-            sheet.addFace(new Face(new int[] {3, 2, 1, 0}, color, false));   
+            sheet.addFace(new Face(sheet, new int[] {3, 2, 1, 0}));   
         } else {
-            sheet.addFace(new Face(new int[] {0, 1, 2, 3}, color, false));
+            sheet.addFace(new Face(sheet, new int[] {0, 1, 2, 3}));
         }
         return sheet;
     }
@@ -211,34 +348,35 @@ public class Object3D {
      */
     public static Object3D createZSheet(double size, double x, double y, 
             double z, Color color) {
-        Object3D sheet = new Object3D();
+        Object3D sheet = new Object3D(color);
         double delta = size / 2.0;
         sheet.addVertex(new Point3D(x + delta, y - delta, z));
         sheet.addVertex(new Point3D(x + delta, y + delta, z));
         sheet.addVertex(new Point3D(x - delta, y + delta, z));
         sheet.addVertex(new Point3D(x - delta, y - delta, z));
-        sheet.addFace(new Face(new int[] {0, 1, 2, 3}, color, false));
+        sheet.addFace(new Face(sheet, new int[] {0, 1, 2, 3}));
         return sheet;
     }
 
     /**  
-     * Creates a cube.
+     * Creates a cube centered on <code>(x, y, z)</code> with the specified 
+     * <code>size</code>.
      *
      * @param size  the size.
-     * @param xOffset  the x-offset.
-     * @param yOffset  the y-offset.
-     * @param zOffset  the z-offset.
-     * @param color  the color.
+     * @param x  the x-offset.
+     * @param y  the y-offset.
+     * @param z  the z-offset.
+     * @param color  the color (<code>null</code> not permitted).
      *
-     * @return The object.
+     * @return The cube (never <code>null</code>).
      */
-    public static Object3D createCube(double size, double xOffset, 
-            double yOffset, double zOffset, Color color) {
-        return createBox(xOffset, size, yOffset, size, zOffset, size, color);
+    public static Object3D createCube(double size, double x, 
+            double y, double z, Color color) {
+        return createBox(x, size, y, size, z, size, color);
     }
 
     /**  
-     * Creates a box.
+     * Creates a box centered on (x, y, z) with the specified dimensions.  
      *
      * @param x  the x-coordinate.
      * @param xdim  the length of the box in the x-dimension.
@@ -246,14 +384,17 @@ public class Object3D {
      * @param ydim  the length of the box in the y-dimension.
      * @param z  the z-coordinate.
      * @param zdim  the length of the box in the y-dimension.
-     * @param color  the color.
+     * @param color  the color (<code>null</code> not permitted).
      *
-     * @return The box.
+     * @return The box (never <code>null</code>).
+     * 
+     * @see #createCube(double, double, double, double, java.awt.Color) 
      */
     public static Object3D createBox(double x, double xdim, 
             double y, double ydim, double z, double zdim, 
             Color color) {
-        Object3D box = new Object3D();
+        ArgChecks.nullNotPermitted(color, "color");
+        Object3D box = new Object3D(color);
         double xdelta = xdim / 2.0;
         double ydelta = ydim / 2.0;
         double zdelta = zdim / 2.0;
@@ -265,12 +406,12 @@ public class Object3D {
         box.addVertex(new Point3D(x + xdelta, y + ydelta, z - zdelta));
         box.addVertex(new Point3D(x + xdelta, y + ydelta, z + zdelta));
         box.addVertex(new Point3D(x - xdelta, y + ydelta, z + zdelta));
-        box.addFace(new Face(new int[] {4, 5, 1, 0}, color, false));
-        box.addFace(new Face(new int[] {5, 6, 2, 1}, color, false));
-        box.addFace(new Face(new int[] {6, 7, 3, 2}, color, false));
-        box.addFace(new Face(new int[] {3, 7, 4, 0}, color, false));
-        box.addFace(new Face(new int[] {7, 6, 5, 4}, color, false));
-        box.addFace(new Face(new int[] {0, 1, 2, 3}, color, false));
+        box.addFace(new Face(box, new int[] {4, 5, 1, 0}));
+        box.addFace(new Face(box, new int[] {5, 6, 2, 1}));
+        box.addFace(new Face(box, new int[] {6, 7, 3, 2}));
+        box.addFace(new Face(box, new int[] {3, 7, 4, 0}));
+        box.addFace(new Face(box, new int[] {7, 6, 5, 4}));
+        box.addFace(new Face(box, new int[] {0, 1, 2, 3}));
         return box;
     }
 
@@ -287,7 +428,8 @@ public class Object3D {
      */
     public static Object3D createTetrahedron(double size, double xOffset,
             double yOffset, double zOffset, Color color) {
-        Object3D tetra = new Object3D();
+        ArgChecks.nullNotPermitted(color, "color");
+        Object3D tetra = new Object3D(color);
         tetra.addVertex(new Point3D(size + xOffset, -size + yOffset, 
                 -size + zOffset));
         tetra.addVertex(new Point3D(-size + xOffset, size + yOffset, 
@@ -296,10 +438,10 @@ public class Object3D {
                 size + zOffset));
         tetra.addVertex(new Point3D(-size + xOffset, -size + yOffset, 
                 size + zOffset));
-        tetra.addFace(new Face(new int[] {0, 1, 2}, color, false));
-        tetra.addFace(new Face(new int[] {1, 3, 2}, color, false));
-        tetra.addFace(new Face(new int[] {0, 3, 1}, color, false));
-        tetra.addFace(new Face(new int[] {0, 2, 3}, color, false));
+        tetra.addFace(new Face(tetra, new int[] {0, 1, 2}));
+        tetra.addFace(new Face(tetra, new int[] {1, 3, 2}));
+        tetra.addFace(new Face(tetra, new int[] {0, 3, 1}));
+        tetra.addFace(new Face(tetra, new int[] {0, 2, 3}));
         return tetra;
     }
 
@@ -316,7 +458,8 @@ public class Object3D {
      */
     public static Object3D createOctahedron(double size, double xOffset,
             double yOffset, double zOffset, Color color) {
-        Object3D octa = new Object3D();
+        ArgChecks.nullNotPermitted(color, "color");
+        Object3D octa = new Object3D(color);
         octa.addVertex(new Point3D(size + xOffset, 0 + yOffset, 0 + zOffset));
         octa.addVertex(new Point3D(0 + xOffset, size + yOffset, 0 + zOffset));
         octa.addVertex(new Point3D(-size + xOffset, 0 + yOffset, 0 + zOffset));
@@ -324,14 +467,14 @@ public class Object3D {
         octa.addVertex(new Point3D(0 + xOffset, 0 + yOffset, -size + zOffset));
         octa.addVertex(new Point3D(0 + xOffset, 0 + yOffset, size + zOffset));
 
-        octa.addFace(new Face(new int[] {0, 1, 5}, color, false));
-        octa.addFace(new Face(new int[] {1, 2, 5}, color, false));
-        octa.addFace(new Face(new int[] {2, 3, 5}, color, false));
-        octa.addFace(new Face(new int[] {3, 0, 5}, color, false));
-        octa.addFace(new Face(new int[] {1, 0, 4}, color, false));
-        octa.addFace(new Face(new int[] {2, 1, 4}, color, false));
-        octa.addFace(new Face(new int[] {3, 2, 4}, color, false));
-        octa.addFace(new Face(new int[] {0, 3, 4}, color, false));
+        octa.addFace(new Face(octa, new int[] {0, 1, 5}));
+        octa.addFace(new Face(octa, new int[] {1, 2, 5}));
+        octa.addFace(new Face(octa, new int[] {2, 3, 5}));
+        octa.addFace(new Face(octa, new int[] {3, 0, 5}));
+        octa.addFace(new Face(octa, new int[] {1, 0, 4}));
+        octa.addFace(new Face(octa, new int[] {2, 1, 4}));
+        octa.addFace(new Face(octa, new int[] {3, 2, 4}));
+        octa.addFace(new Face(octa, new int[] {0, 3, 4}));
         return octa;
     }
 
@@ -350,7 +493,8 @@ public class Object3D {
      */
     public static Object3D createSphere(double radius, int n,
             double x, double y, double z, Color extColor, Color intColor) {
-        Object3D sphere = new Object3D();
+        Object3D sphere = new Object3D(extColor);
+        sphere.setProperty(COLOR_PREFIX + "interior", intColor);
         double theta = Math.PI / n;
         Point3D[] prevLayer = new Point3D[n * 2 + 1];
         for (int i = 0; i <= n * 2; i++) {
@@ -374,25 +518,25 @@ public class Object3D {
                 }
                 if (i > 0 && layer > 1) {
                     if (i != n * 2) {
-                        Face f = new Face(new int[] {
+                        Face f = new Face(sphere, new int[] {
                             (layer - 1) * n * 2 + i - 1, 
                             (layer - 1) * n * 2 + i, layer * n * 2 + i, 
-                            layer * n * 2 + i - 1}, extColor, false);
+                            layer * n * 2 + i - 1});
                         sphere.addFace(f);
-                        f = new Face(new int[] {layer * n * 2 + i - 1, 
-                            layer * n * 2 + i, (layer - 1) * n * 2 + i, 
-                            (layer - 1) * n * 2 + i - 1}, intColor, false);
+                        f = new TaggedFace(sphere, new int[] {
+                            layer * n * 2 + i - 1, layer * n * 2 + i, 
+                            (layer - 1) * n * 2 + i, 
+                            (layer - 1) * n * 2 + i - 1}, "interior");
                         sphere.addFace(f);
                     }
                     else {
-                        sphere.addFace(new Face(new int[] {
+                        sphere.addFace(new Face(sphere, new int[] {
                             (layer - 1) * n * 2 + i - 1, (layer - 1) * n * 2, 
-                            layer * n * 2, layer * n * 2 + i - 1}, extColor, 
-                            false));
-                        sphere.addFace(new Face(new int[] {
+                            layer * n * 2, layer * n * 2 + i - 1}));
+                        sphere.addFace(new TaggedFace(sphere, new int[] {
                             layer * n * 2 + i - 1, layer * n * 2, 
                             (layer - 1) * n * 2, (layer - 1) * n * 2 + i - 1}, 
-                            intColor, false));
+                            "interior"));
                     }
                 }
             }
@@ -410,14 +554,15 @@ public class Object3D {
      * @param angle1  the start angle (radians).
      * @param angle2  the end angle (radians).
      * @param inc  the increment.
-     * @param color  the color.
+     * @param color  the color (<code>null</code> not permitted).
      * 
      * @return  A pie segment object. 
      */
     public static Object3D createPieSegment(double radius, double explodeRadius, 
             double base, double height, double angle1, double angle2, 
             double inc, Color color) {
-        Object3D segment = new Object3D();
+        ArgChecks.nullNotPermitted(color, "color");
+        Object3D segment = new Object3D(color, true);
         double angleCentre = (angle1 + angle2) / 2.0;
         Point3D centre = new Point3D(explodeRadius * Math.cos(angleCentre), 
                 base, explodeRadius * Math.sin(angleCentre));
@@ -431,7 +576,7 @@ public class Object3D {
                 cz + radius * Math.sin(angle1));
         segment.addVertex(v0);
         segment.addVertex(v1);
-        segment.addFace(new Face(new int[] {1, 3, 2, 0}, color, false));
+        segment.addFace(new Face(segment, new int[] {1, 3, 2, 0}));
         int vc = 4; // vertex count
         double theta = angle1 + inc;
         while (theta < angle2) {
@@ -444,14 +589,14 @@ public class Object3D {
             vc = vc + 2;
 
             // outside edge
-            segment.addFace(new Face(new int[] {vc - 2, vc - 4, vc - 3, vc - 1},
-                    color, true));
+            segment.addFace(new Face(segment, 
+                    new int[] {vc - 2, vc - 4, vc - 3, vc - 1}));
 
             // top and bottom
-            segment.addFace(new Face(new int[] {0,  vc - 4, vc - 2, 0}, color, 
-                    true));
-            segment.addFace(new Face(new int[] {1,  vc - 1, vc - 3, 1}, color, 
-                    true));
+            segment.addFace(new Face(segment, 
+                    new int[] {0,  vc - 4, vc - 2, 0}));
+            segment.addFace(new Face(segment, 
+                    new int[] {1,  vc - 1, vc - 3, 1}));
             theta = theta + inc;
         }
         v0 = new Point3D(cx + radius * Math.cos(angle2), base, 
@@ -461,17 +606,15 @@ public class Object3D {
         segment.addVertex(v0);
         segment.addVertex(v1);
         vc = vc + 2;
-        segment.addFace(new Face(new int[] {vc - 2, vc - 4, vc - 3, vc - 1}, 
-                color, true));
+        segment.addFace(new Face(segment, 
+                new int[] {vc - 2, vc - 4, vc - 3, vc - 1}));
 
         // top and bottom
-        segment.addFace(new Face(new int[] {0,  vc - 4, vc - 2, 0}, color, 
-                true));
-        segment.addFace(new Face(new int[] {1,  vc - 1, vc - 3, 1}, color, 
-                true));
+        segment.addFace(new Face(segment, new int[] {0,  vc - 4, vc - 2, 0}));
+        segment.addFace(new Face(segment, new int[] {1,  vc - 1, vc - 3, 1}));
 
         // closing side
-        segment.addFace(new Face(new int[] {1, 0, vc-2, vc-1}, color, false));
+        segment.addFace(new Face(segment, new int[] {1, 0, vc-2, vc-1}));
         return segment;
     }
 
@@ -543,13 +686,13 @@ public class Object3D {
             c1 = c0;
             c0 = cc;
         }
-        if (c0 == null) {
-            c0 = barColor;
+        Object3D bar = new Object3D(barColor);
+        if (c0 != null) {
+            bar.setProperty(COLOR_PREFIX + "c0", c0);
         }
-        if (c1 == null) {
-            c1 = barColor;
+        if (c1 != null) {
+            bar.setProperty(COLOR_PREFIX + "c1", c1);
         }
-        Object3D bar = new Object3D();
         double xdelta = xWidth / 2.0;
         double zdelta = zWidth / 2.0;
         bar.addVertex(new Point3D(x - xdelta, zero, z - zdelta));
@@ -561,18 +704,27 @@ public class Object3D {
         bar.addVertex(new Point3D(x + xdelta, y, z + zdelta));
         bar.addVertex(new Point3D(x - xdelta, y, z + zdelta));
 
-        bar.addFace(new Face(new int[] {0, 1, 5, 4}, barColor, false));
-        bar.addFace(new Face(new int[] {4, 5, 1, 0}, barColor, false));
-        bar.addFace(new Face(new int[] {1, 2, 6, 5}, barColor, false));
-        bar.addFace(new Face(new int[] {5, 6, 2, 1}, barColor, false));
-        bar.addFace(new Face(new int[] {2, 3, 7, 6}, barColor, false));
-        bar.addFace(new Face(new int[] {6, 7, 3, 2}, barColor, false));
-        bar.addFace(new Face(new int[] {0, 4, 7, 3}, barColor, false));
-        bar.addFace(new Face(new int[] {3, 7, 4, 0}, barColor, false));
-        bar.addFace(new Face(new int[] {4, 5, 6, 7}, barColor, false));
-        bar.addFace(new Face(new int[] {3, 2, 1, 0}, barColor, false));
-        bar.addFace(new Face(new int[] {7, 6, 5, 4}, c1, false));
-        bar.addFace(new Face(new int[] {0, 1, 2, 3}, c0, false));
+        bar.addFace(new Face(bar, new int[] {0, 1, 5, 4}));
+        bar.addFace(new Face(bar, new int[] {4, 5, 1, 0}));
+        bar.addFace(new Face(bar, new int[] {1, 2, 6, 5}));
+        bar.addFace(new Face(bar, new int[] {5, 6, 2, 1}));
+        bar.addFace(new Face(bar, new int[] {2, 3, 7, 6}));
+        bar.addFace(new Face(bar, new int[] {6, 7, 3, 2}));
+        bar.addFace(new Face(bar, new int[] {0, 4, 7, 3}));
+        bar.addFace(new Face(bar, new int[] {3, 7, 4, 0}));
+        bar.addFace(new Face(bar, new int[] {4, 5, 6, 7}));
+        bar.addFace(new Face(bar, new int[] {3, 2, 1, 0}));
+        if (c1 != null) {
+            bar.addFace(new TaggedFace(bar, new int[] {7, 6, 5, 4}, "c1"));
+        } else {
+            bar.addFace(new Face(bar, new int[] {7, 6, 5, 4}));
+        }
+        if (c0 != null) {
+            bar.addFace(new TaggedFace(bar, new int[] {0, 1, 2, 3}, "c0"));    
+        } else {
+            bar.addFace(new Face(bar, new int[] {0, 1, 2, 3}));                
+        }
+        
         return bar;      
     }
 

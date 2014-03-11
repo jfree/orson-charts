@@ -317,7 +317,7 @@ public class ChartBox3D {
      * @return A 3D object. 
      */
     public Object3D createObject3D() {
-        Object3D box = new Object3D();
+        Object3D box = new Object3D(this.color);
         Point3D v0 = new Point3D(xOffset, yOffset, zOffset);
         Point3D v1 = new Point3D(xLength + xOffset, yOffset, zOffset);
         Point3D v2 = new Point3D(xLength + xOffset, yLength + yOffset, zOffset);
@@ -338,12 +338,12 @@ public class ChartBox3D {
         box.addVertex(v6);   // 1, 0, 1
         box.addVertex(v7);   // 1, 1, 1
                 
-        this.faceA = new ChartBoxFace(new int[] {0, 5, 6, 1}, this.color); // XZ
-        this.faceB = new ChartBoxFace(new int[] {0, 1, 2, 3}, this.color); // XY
-        this.faceC = new ChartBoxFace(new int[] {7, 4, 3, 2}, this.color); // XZ
-        this.faceD = new ChartBoxFace(new int[] {5, 4, 7, 6}, this.color); // XY
-        this.faceE = new ChartBoxFace(new int[] {0, 3, 4, 5}, this.color); // YZ
-        this.faceF = new ChartBoxFace(new int[] {6, 7, 2, 1}, this.color); // YZ
+        this.faceA = new ChartBoxFace(box, new int[] {0, 5, 6, 1}); // XZ
+        this.faceB = new ChartBoxFace(box, new int[] {0, 1, 2, 3}); // XY
+        this.faceC = new ChartBoxFace(box, new int[] {7, 4, 3, 2}); // XZ
+        this.faceD = new ChartBoxFace(box, new int[] {5, 4, 7, 6}); // XY
+        this.faceE = new ChartBoxFace(box, new int[] {0, 3, 4, 5}); // YZ
+        this.faceF = new ChartBoxFace(box, new int[] {6, 7, 2, 1}); // YZ
         box.addFace(faceA);
         box.addFace(faceB);
         box.addFace(faceC);
@@ -983,11 +983,14 @@ public class ChartBox3D {
         /**
          * Creates a new face for a {@link ChartBox3D}.
          * 
+         * @param owner  the object that the new face belongs to 
+         *         (<code>null</code> not permitted).
          * @param vertices  the indices of the vertices.
-         * @param color  the color (<code>null</code> not permitted).
+         * 
+         * @since 1.3
          */
-        public ChartBoxFace(int[] vertices, Color color) {
-            super(vertices, color, false);
+        public ChartBoxFace(Object3D owner, int[] vertices) {
+            super(owner, vertices);
             this.xTicksA = new ArrayList<TickData>();
             this.xTicksB = new ArrayList<TickData>();
             this.yTicksA = new ArrayList<TickData>();
