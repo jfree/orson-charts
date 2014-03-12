@@ -40,15 +40,25 @@ public class StandardCategoryToolTipGenerator
      * 
      * @since 1.3
      */
-    public static final String KEY_AND_VALUES_TEMPLATE = "%s %s %s = %4$.3f";
+    public static final String KEYS_AND_VALUE_TEMPLATE = "%s, %s, %s = %4$.3f";
+    
+    /**
+     * A template that shows the series key, column key and value (the row
+     * key is omitted because it is often the same as the series key).
+     * 
+     * @since 1.3
+     */
+    public static final String SERIES_AND_COLUMN_KEYS_AND_VALUE_TEMPLATE 
+            = "%1$s, %3$s = %4$.3f";
     
     /**
      * The default template string (used in the default constructor, it is
-     * equivalent to {@link #KEY_ONLY_TEMPLATE}).
+     * equivalent to {@link #SERIES_AND_COLUMN_KEYS_AND_VALUE_TEMPLATE}).
      * 
-     * @since 1.2
+     * @since 1.3
      */
-    public static final String DEFAULT_TEMPLATE = KEY_AND_VALUES_TEMPLATE;
+    public static final String DEFAULT_TEMPLATE 
+            = SERIES_AND_COLUMN_KEYS_AND_VALUE_TEMPLATE;
         
     /** The template. */
     private String template;
@@ -91,7 +101,11 @@ public class StandardCategoryToolTipGenerator
         ArgChecks.nullNotPermitted(columnKey, "columnKey");
         Formatter formatter = new Formatter(new StringBuilder());
         Number value = dataset.getValue(seriesKey, rowKey, columnKey);
-        formatter.format(this.template, seriesKey, rowKey, columnKey, value);
+        Double d = null;
+        if (value != null) {
+            d = Double.valueOf(value.doubleValue());
+        }
+        formatter.format(this.template, seriesKey, rowKey, columnKey, d);
         String result = formatter.toString();
         formatter.close();
         return result;

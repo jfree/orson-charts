@@ -20,6 +20,7 @@ import com.orsoncharts.Chart3DFactory;
 import com.orsoncharts.Range;
 import com.orsoncharts.axis.CategoryAxis3D;
 import com.orsoncharts.axis.ValueAxis3D;
+import com.orsoncharts.data.Values3DItemKey;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.Object3D;
@@ -44,7 +45,8 @@ import com.orsoncharts.util.ObjectUtils;
  * {@link Chart3D} class description for more information about world units.
  * <br><br>
  * There is a factory method to create a chart using this renderer - see
- * {@link Chart3DFactory#createLineChart(String, String, CategoryDataset3D, String, String, String)}.
+ * {@link Chart3DFactory#createLineChart(String, String, CategoryDataset3D, 
+ * String, String, String)}.
  * <br><br> 
  * NOTE: This class is serializable, but the serialization format is subject 
  * to change in future releases and should not be relied upon for persisting 
@@ -60,6 +62,13 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
     /** The line height (in world units). */
     private double lineHeight;
 
+    /** 
+     * For isolated data values this attribute controls the width (x-axis) of 
+     * the box representing the data item, it is expressed as a percentage of
+     * the category width.
+     */
+    private double isolatedItemWidthPercent;
+    
     /**
      * The color source that determines the color used to highlight clipped
      * items in the chart.
@@ -72,6 +81,7 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
     public LineRenderer3D() {
         this.lineWidth = 0.4;
         this.lineHeight = 0.2;
+        this.isolatedItemWidthPercent = 0.25;
         this.clipColorSource = new StandardCategoryColorSource(Color.RED);
     }
     
@@ -117,6 +127,30 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
         fireChangeEvent(true);
     }
 
+    /**
+     * Returns the width for isolated data items as a percentage of the
+     * category width.  The default value is 0.25 (twenty five percent).
+     * 
+     * @return The width percentage.
+     * 
+     * @since 1.3
+     */
+    public double getIsolatedItemWidthPercent() {
+        return this.isolatedItemWidthPercent;
+    }
+    
+    /**
+     * Sets the width for isolated data items as a percentage of the category
+     * width and sends a change event to all registered listeners.
+     * 
+     * @param percent  the new percentage.
+     * 
+     * @since 1.3
+     */
+    public void setIsolatedItemWidthPercent(double percent) {
+        this.isolatedItemWidthPercent = percent;
+        fireChangeEvent(true);
+    }
     
     /**
      * Returns the color source used to determine the color used to highlight
@@ -164,9 +198,14 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
         // there is a lot of brute force code underneath this compose method
         // because I haven't seen the pattern yet that will let me reduce it
         // to something more elegant...probably I'm not smart enough.
-        double value = dataset.getDoubleValue(series, row, column);
-        if (Double.isNaN(value)) {
-            return;
+        Number y = dataset.getValue(series, row, column);
+        Number yprev = null;
+        if (column > 0) {
+            yprev = dataset.getValue(series, row, column - 1);
+        }
+        Number ynext = null;
+        if (column < dataset.getColumnCount() - 1) {
+            ynext = dataset.getValue(series, row, column + 1);
         }
 
         CategoryPlot3D plot = getPlot();
@@ -175,6 +214,7 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
         ValueAxis3D valueAxis = plot.getValueAxis();
         Range r = valueAxis.getRange();
         
+        Comparable<?> seriesKey = dataset.getSeriesKey(series);
         Comparable<?> rowKey = dataset.getRowKey(row);
         Comparable<?> columnKey = dataset.getColumnKey(column);
         double rowValue = rowAxis.getCategoryValue(rowKey);
@@ -183,88 +223,172 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
         double hh = dimensions.getHeight();
         double dd = dimensions.getDepth();
 
-        // for all but the last item, we will add a segment extending from the
-        // current data value to the next data value
-        if (column < dataset.getColumnCount() - 1) {
-            double wdelta = this.lineWidth / 2.0;
-            double x0 = columnAxis.translateToWorld(columnValue, ww) + xOffset;
-            double y0 = valueAxis.translateToWorld(value, hh) + yOffset;
-            double z0 = rowAxis.translateToWorld(rowValue, dd) + zOffset;
-            double zf = z0 - wdelta;
-            double zb = z0 + wdelta;
-            double wmin = valueAxis.translateToWorld(r.getMin(), hh) + yOffset;
-            double wmax = valueAxis.translateToWorld(r.getMax(), hh) + yOffset;
-    
+        // for any data value, we'll try to create two line segments, one to
+        // the left of the value and one to the right of the value (each 
+        // halfway to the adjacent data value).  If the adjacent data values
+        // are null (or don't exist, as in the case of the first and last data
+        // items, then we can create an isolated segment to represent the data
+        // item.  The final consideration is whether the opening and closing
+        // faces of each segment are filled or not (if the segment connects to
+        // another segment, there is no need to fill the end face)
+        boolean createLeftSegment, createRightSegment, createIsolatedSegment;
+        boolean leftOpen = false;
+        boolean leftClose = false;
+        boolean rightOpen = false;
+        boolean rightClose = false;
+        if (column == 0) { // first column is a special case
+            createLeftSegment = false;  // never for first item
+            if (dataset.getColumnCount() == 1) {
+                createRightSegment = false; 
+                createIsolatedSegment = (y != null);
+            } else {
+                createRightSegment = (y != null && ynext != null);
+                rightOpen = true;
+                rightClose = false;
+                createIsolatedSegment = (y != null && ynext == null);
+            }
+        } else if (column == dataset.getColumnCount() - 1) { // last column
+            createRightSegment = false; // never for the last item
+            createLeftSegment = (y != null && yprev != null);
+            leftOpen = false;
+            leftClose = true;
+            createIsolatedSegment = (y != null && yprev == null);
+        } else { // this is the general case
+            createLeftSegment = (y != null && yprev != null);
+            leftOpen = false;
+            leftClose = (createLeftSegment && ynext == null);
+            createRightSegment = (y != null && ynext != null);
+            rightOpen = (createRightSegment && yprev == null);
+            rightClose = false;
+            createIsolatedSegment = (y != null 
+                    && yprev == null && ynext == null);
+        }
+
+        // now that we know what we have to create, we'll need some info 
+        // for the construction
+        double xw = columnAxis.translateToWorld(columnValue, ww) + xOffset;
+        double yw = Double.NaN;
+        if (y != null) {
+            yw = valueAxis.translateToWorld(y.doubleValue(), hh) + yOffset; 
+        }
+        double zw = rowAxis.translateToWorld(rowValue, dd) + zOffset;
+        double wmin = valueAxis.translateToWorld(r.getMin(), hh) + yOffset;
+        double wmax = valueAxis.translateToWorld(r.getMax(), hh) + yOffset;
+        Color color = getColorSource().getColor(series, row, column);
+        Color clipColor = color;  
+        if (getClipColorSource() != null) {
+            Color c = getClipColorSource().getColor(series, row, column);
+            if (c != null) {
+                clipColor = c;
+            }
+        }
+        Values3DItemKey itemKey = new Values3DItemKey(seriesKey, rowKey, 
+                columnKey);
+        if (createLeftSegment) {
+            Comparable<?> prevColumnKey = dataset.getColumnKey(column - 1);
+            double prevColumnValue = columnAxis.getCategoryValue(prevColumnKey);
+            double prevColumnX = columnAxis.translateToWorld(prevColumnValue, 
+                    ww) + xOffset;
+            double xl = (prevColumnX + xw) / 2.0;
+            double yprevw = valueAxis.translateToWorld(yprev.doubleValue(), hh) 
+                    + yOffset; 
+            double yl = (yprevw + yw) / 2.0;
+            Object3D left = createSegment(xl, yl, xw, yw, zw, this.lineWidth, 
+                    this.lineHeight, wmin, wmax, color, clipColor, leftOpen, 
+                    leftClose);
+            if (left != null) {
+                left.setProperty(Object3D.ITEM_KEY, itemKey);
+                world.add(left);
+            }
+        }
+        if (createRightSegment) {
             Comparable<?> nextColumnKey = dataset.getColumnKey(column + 1);
             double nextColumnValue = columnAxis.getCategoryValue(nextColumnKey);
-            double x1 = columnAxis.translateToWorld(nextColumnValue, ww) 
-                    + xOffset;
-            double value1 = dataset.getDoubleValue(series, row, column + 1);
-            double y1 = valueAxis.translateToWorld(value1, hh) + yOffset;
-            
-            Color color = getColorSource().getColor(series, row, column);
-            Color clipColor = color;  
-            if (getClipColorSource() != null) {
-                Color c = getClipColorSource().getColor(series, row, column);
-                if (c != null) {
-                    clipColor = c;
-                }
+            double nextColumnX = columnAxis.translateToWorld(nextColumnValue, 
+                    ww) + xOffset;
+            double xr = (nextColumnX + xw) / 2.0;
+            double ynextw = valueAxis.translateToWorld(ynext.doubleValue(), hh) 
+                    + yOffset; 
+            double yr = (ynextw + yw) / 2.0;
+            Object3D right = createSegment(xw, yw, xr, yr, zw, this.lineWidth, 
+                    this.lineHeight, wmin, wmax, color, clipColor, rightOpen, 
+                    rightClose);
+            if (right != null) {
+                right.setProperty(Object3D.ITEM_KEY, itemKey);
+                world.add(right);
             }
-            boolean closingFace = column == dataset.getColumnCount() - 2;
-            boolean openingFace = column == 0;
-            // create a line shape - this is complex because of the polygon
-            // clipping that is necessary when the axis range is limited
-            // there might be a more elegant way to do it of course
-            if (this.lineHeight > 0.0) {
-                double hdelta = this.lineHeight / 2.0;
-                double y0b = y0 - hdelta;
-                double y0t = y0 + hdelta;
-                double y1b = y1 - hdelta;
-                double y1t = y1 + hdelta;
-                double[] xpts = calcCrossPoints(x0, x1, y0b, y0t, y1b, y1t, 
-                        wmin, wmax);
-                Object3D seg = null;
-                if (y0b >= wmax) {  // CASE A 
-                    seg = createSegmentA(x0, x1, xpts, y0b, y0t, y1b, y1t, 
-                            wmin, wmax, zf, zb, color, clipColor, false, 
-                            closingFace);
-                } else if (y0t > wmax && y0b > wmin) {  // CASE B
-                    seg = createSegmentB(x0, x1, xpts, y0b, y0t, y1b, y1t, 
-                            wmin, wmax, zf, zb, color, clipColor, openingFace, 
-                            closingFace);
-                } else if (y0t > wmax && y0b <= wmin) {  // CASE C
-                     seg = createSegmentC(x0, x1, xpts, y0b, y0t, y1b, y1t, 
-                            wmin, wmax, zf, zb, color, clipColor, openingFace, 
-                            closingFace);
-                } else if (y0t > wmin && y0b >= wmin) { // CASE D
-                    seg = createSegmentD(x0, x1, xpts, y0b, y0t, y1b, y1t, 
-                            wmin, wmax, zf, zb, color, clipColor, openingFace, 
-                            closingFace);                    
-                } else if (y0t > wmin && y0b < wmin) { // CASE E
-                    seg = createSegmentE(x0, x1, xpts, y0b, y0t, y1b, y1t, 
-                            wmin, wmax, zf, zb, color, clipColor, openingFace, 
-                            closingFace);                    
-                } else if (y0t <= wmin) {  // CASE F
-                     seg = createSegmentF(x0, x1, xpts, y0b, y0t, y1b, y1t, 
-                            wmin, wmax, zf, zb, color, clipColor, false, 
-                            closingFace);                   
-                }
-                if (seg != null) {
-                    world.add(seg);
-                }
-            } else {
-                Object3D obj = new Object3D(color, true);
-                obj.addVertex(x0, y0, z0 - wdelta);
-                obj.addVertex(x0, y0, z0 + wdelta);
-                obj.addVertex(x1, y1, z0 + wdelta);
-                obj.addVertex(x1, y1, z0 - wdelta);
-                obj.addFace(new int[] {0, 1, 2, 3});
-                obj.addFace(new int[] {3, 2, 1, 0});
-                world.add(obj);
+        }
+        if (createIsolatedSegment) {
+            double cw = columnAxis.getCategoryWidth() 
+                    * this.isolatedItemWidthPercent;
+            double cww = columnAxis.translateToWorld(cw, ww);
+            Object3D isolated = Object3D.createBox(xw, cww, yw, this.lineHeight, 
+                    zw, this.lineWidth, color);
+            if (isolated != null) {
+                isolated.setProperty(Object3D.ITEM_KEY, itemKey);
+                world.add(isolated);
             }
-        } 
+        }
     }
 
+    /**
+     * Creates a segment of a line between (x0, y0, z) and (x1, y1, z), with
+     * the specified line width and height, taking into account the minimum
+     * and maximum world coordinates (in the y-direction, because it is assumed
+     * that we have the full x and z-range required).
+     * 
+     * @param x0
+     * @param y0
+     * @param x1
+     * @param y1
+     * @param z
+     * @param lineWidth
+     * @param lineHeight
+     * @param wmin
+     * @param wmax
+     * @param color
+     * @param clipColor
+     * @param openingFace
+     * @param closingFace
+     * 
+     * @return A 3D object that is a segment in a line.
+     */
+    private Object3D createSegment(double x0, double y0, double x1, double y1,
+            double z, double lineWidth, double lineHeight, double wmin, 
+            double wmax, Color color, Color clipColor, boolean openingFace,
+            boolean closingFace) {
+        double wdelta = lineWidth / 2.0;
+        double hdelta = lineHeight / 2.0;
+        double y0b = y0 - hdelta;
+        double y0t = y0 + hdelta;
+        double y1b = y1 - hdelta;
+        double y1t = y1 + hdelta;
+        double zf = z - wdelta;
+        double zb = z + wdelta;
+        double[] xpts = calcCrossPoints(x0, x1, y0b, y0t, y1b, y1t, wmin, wmax);
+        Object3D seg = null;
+        if (y0b >= wmax) {  // CASE A 
+            seg = createSegmentA(x0, x1, xpts, y0b, y0t, y1b, y1t, 
+            wmin, wmax, zf, zb, color, clipColor, false, closingFace);
+        } else if (y0t > wmax && y0b > wmin) {  // CASE B
+            seg = createSegmentB(x0, x1, xpts, y0b, y0t, y1b, y1t, wmin, wmax, 
+                    zf, zb, color, clipColor, openingFace, closingFace);
+        } else if (y0t > wmax && y0b <= wmin) {  // CASE C
+            seg = createSegmentC(x0, x1, xpts, y0b, y0t, y1b, y1t, wmin, wmax, 
+                    zf, zb, color, clipColor, openingFace, closingFace);
+        } else if (y0t > wmin && y0b >= wmin) { // CASE D
+            seg = createSegmentD(x0, x1, xpts, y0b, y0t, y1b, y1t, wmin, wmax, 
+                    zf, zb, color, clipColor, openingFace, closingFace);                    
+        } else if (y0t > wmin && y0b < wmin) { // CASE E
+            seg = createSegmentE(x0, x1, xpts, y0b, y0t, y1b, y1t, wmin, wmax, 
+                    zf, zb, color, clipColor, openingFace, closingFace);                    
+        } else if (y0t <= wmin) {  // CASE F
+            seg = createSegmentF(x0, x1, xpts, y0b, y0t, y1b, y1t, wmin, wmax, 
+                    zf, zb, color, clipColor, false, closingFace);                   
+        }
+        return seg;
+    }
+    
     /**
      * Calculates the four intersection points between two horizontal lines
      * (ymin and ymax) and the lines (x0, y0b, x1, y1b) and (x0, y1t, x1, y1t)
@@ -1190,6 +1314,9 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
             return false;
         }
         if (this.lineHeight != that.lineHeight) {
+            return false;
+        }
+        if (this.isolatedItemWidthPercent != that.isolatedItemWidthPercent) {
             return false;
         }
         if (!ObjectUtils.equals(this.clipColorSource, that.clipColorSource)) {

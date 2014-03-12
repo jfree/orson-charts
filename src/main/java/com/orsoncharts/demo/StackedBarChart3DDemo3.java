@@ -57,6 +57,7 @@ import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.category.StandardCategoryDataset3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.label.StandardCategoryLabelGenerator;
+import com.orsoncharts.label.StandardCategoryToolTipGenerator;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.category.StackedBarRenderer3D;
 import com.orsoncharts.util.Fit2D;
@@ -95,7 +96,8 @@ public class StackedBarChart3DDemo3 extends JFrame {
                 dataset, null, 
                 "Class", "Passengers");
 
-        URL imageURL = StackedBarChart3DDemo3.class.getResource("iStock_000003105870Small.jpg");
+        URL imageURL = StackedBarChart3DDemo3.class.getResource(
+                "iStock_000003105870Small.jpg");
         ImageIcon icon = new ImageIcon(imageURL); 
         RectanglePainter background = new StandardRectanglePainter(Color.WHITE, 
                 icon.getImage(), Fit2D.SCALE_TO_FIT_TARGET);
@@ -103,7 +105,9 @@ public class StackedBarChart3DDemo3 extends JFrame {
         chart.setChartBoxColor(new Color(255, 255, 255, 155));
         CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
         plot.setLegendLabelGenerator(new StandardCategoryLabelGenerator(
-                StandardCategoryLabelGenerator.TOTAL_TEMPLATE));   
+                StandardCategoryLabelGenerator.TOTAL_TEMPLATE));
+        plot.setToolTipGenerator(new StandardCategoryToolTipGenerator(
+                "%s, %s, %s = %4$.0f"));
         StandardCategoryAxis3D rowAxis 
                 = (StandardCategoryAxis3D) plot.getRowAxis();
         rowAxis.setTickLabelGenerator(new StandardCategoryLabelGenerator(
