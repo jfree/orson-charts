@@ -592,6 +592,9 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
         double end = this.range.getMax() - (this.upperMargin * length);
         double available = (end - start);
         double categoryCount = this.categories.size();
+        if (categoryCount == 1) {
+            return (start + end) / 2.0;
+        }
         if (this.firstCategoryHalfWidth) {
             categoryCount -= 0.5;
         }
