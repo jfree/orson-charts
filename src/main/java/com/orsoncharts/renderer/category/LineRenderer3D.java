@@ -272,8 +272,8 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
             yw = valueAxis.translateToWorld(y.doubleValue(), hh) + yOffset; 
         }
         double zw = rowAxis.translateToWorld(rowValue, dd) + zOffset;
-        double wmin = valueAxis.translateToWorld(r.getMin(), hh) + yOffset;
-        double wmax = valueAxis.translateToWorld(r.getMax(), hh) + yOffset;
+        double ywmin = valueAxis.translateToWorld(r.getMin(), hh) + yOffset;
+        double ywmax = valueAxis.translateToWorld(r.getMax(), hh) + yOffset;
         Color color = getColorSource().getColor(series, row, column);
         Color clipColor = color;  
         if (getClipColorSource() != null) {
@@ -294,7 +294,7 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
                     + yOffset; 
             double yl = (yprevw + yw) / 2.0;
             Object3D left = createSegment(xl, yl, xw, yw, zw, this.lineWidth, 
-                    this.lineHeight, wmin, wmax, color, clipColor, leftOpen, 
+                    this.lineHeight, ywmin, ywmax, color, clipColor, leftOpen, 
                     leftClose);
             if (left != null) {
                 left.setProperty(Object3D.ITEM_KEY, itemKey);
@@ -311,7 +311,7 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
                     + yOffset; 
             double yr = (ynextw + yw) / 2.0;
             Object3D right = createSegment(xw, yw, xr, yr, zw, this.lineWidth, 
-                    this.lineHeight, wmin, wmax, color, clipColor, rightOpen, 
+                    this.lineHeight, ywmin, ywmax, color, clipColor, rightOpen, 
                     rightClose);
             if (right != null) {
                 right.setProperty(Object3D.ITEM_KEY, itemKey);
@@ -337,25 +337,26 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
      * and maximum world coordinates (in the y-direction, because it is assumed
      * that we have the full x and z-range required).
      * 
-     * @param x0
-     * @param y0
-     * @param x1
-     * @param y1
-     * @param z
-     * @param lineWidth
-     * @param lineHeight
-     * @param wmin
-     * @param wmax
-     * @param color
-     * @param clipColor
-     * @param openingFace
-     * @param closingFace
+     * @param x0  the starting x-coordinate.
+     * @param y0  the starting x-coordinate.
+     * @param x1  the ending x-coordinate.
+     * @param y1  the ending y-coordinate.
+     * @param z  the z-coordinate.
+     * @param lineWidth  the line width (z-axis).
+     * @param lineHeight  the line height (y-axis).
+     * @param ymin  the lower bound for y-values.
+     * @param ymax  the upper bound for y-values.
+     * @param color  the segment color.
+     * @param clipColor  the clip color (for the faces in the segment that are
+     *     clipped against the edge of the world).
+     * @param openingFace  is an opening face required?
+     * @param closingFace  is a closing face required?
      * 
      * @return A 3D object that is a segment in a line.
      */
     private Object3D createSegment(double x0, double y0, double x1, double y1,
-            double z, double lineWidth, double lineHeight, double wmin, 
-            double wmax, Color color, Color clipColor, boolean openingFace,
+            double z, double lineWidth, double lineHeight, double ymin, 
+            double ymax, Color color, Color clipColor, boolean openingFace,
             boolean closingFace) {
         double wdelta = lineWidth / 2.0;
         double hdelta = lineHeight / 2.0;
@@ -365,25 +366,25 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
         double y1t = y1 + hdelta;
         double zf = z - wdelta;
         double zb = z + wdelta;
-        double[] xpts = calcCrossPoints(x0, x1, y0b, y0t, y1b, y1t, wmin, wmax);
+        double[] xpts = calcCrossPoints(x0, x1, y0b, y0t, y1b, y1t, ymin, ymax);
         Object3D seg = null;
-        if (y0b >= wmax) {  // CASE A 
+        if (y0b >= ymax) {  // CASE A 
             seg = createSegmentA(x0, x1, xpts, y0b, y0t, y1b, y1t, 
-            wmin, wmax, zf, zb, color, clipColor, false, closingFace);
-        } else if (y0t > wmax && y0b > wmin) {  // CASE B
-            seg = createSegmentB(x0, x1, xpts, y0b, y0t, y1b, y1t, wmin, wmax, 
+            ymin, ymax, zf, zb, color, clipColor, false, closingFace);
+        } else if (y0t > ymax && y0b > ymin) {  // CASE B
+            seg = createSegmentB(x0, x1, xpts, y0b, y0t, y1b, y1t, ymin, ymax, 
                     zf, zb, color, clipColor, openingFace, closingFace);
-        } else if (y0t > wmax && y0b <= wmin) {  // CASE C
-            seg = createSegmentC(x0, x1, xpts, y0b, y0t, y1b, y1t, wmin, wmax, 
+        } else if (y0t > ymax && y0b <= ymin) {  // CASE C
+            seg = createSegmentC(x0, x1, xpts, y0b, y0t, y1b, y1t, ymin, ymax, 
                     zf, zb, color, clipColor, openingFace, closingFace);
-        } else if (y0t > wmin && y0b >= wmin) { // CASE D
-            seg = createSegmentD(x0, x1, xpts, y0b, y0t, y1b, y1t, wmin, wmax, 
+        } else if (y0t > ymin && y0b >= ymin) { // CASE D
+            seg = createSegmentD(x0, x1, xpts, y0b, y0t, y1b, y1t, ymin, ymax, 
                     zf, zb, color, clipColor, openingFace, closingFace);                    
-        } else if (y0t > wmin && y0b < wmin) { // CASE E
-            seg = createSegmentE(x0, x1, xpts, y0b, y0t, y1b, y1t, wmin, wmax, 
+        } else if (y0t > ymin && y0b < ymin) { // CASE E
+            seg = createSegmentE(x0, x1, xpts, y0b, y0t, y1b, y1t, ymin, ymax, 
                     zf, zb, color, clipColor, openingFace, closingFace);                    
-        } else if (y0t <= wmin) {  // CASE F
-            seg = createSegmentF(x0, x1, xpts, y0b, y0t, y1b, y1t, wmin, wmax, 
+        } else if (y0t <= ymin) {  // CASE F
+            seg = createSegmentF(x0, x1, xpts, y0b, y0t, y1b, y1t, ymin, ymax, 
                     zf, zb, color, clipColor, false, closingFace);                   
         }
         return seg;
