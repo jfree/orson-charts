@@ -106,6 +106,29 @@ public class Object3D {
     }
     
     /**
+     * Returns the outline flag.
+     * 
+     * @return The outline flag.
+     * 
+     * @since 1.3
+     */
+    public boolean getOutline() {
+        return this.outline;
+    }
+    
+    /**
+     * Sets the outline flag.  This determines the default setting for whether
+     * or not the faces of this object have their outlines drawn when rendered.
+     * 
+     * @param outline  the new flag value. 
+     * 
+     * @since 1.3
+     */
+    public void setOutline(boolean outline) {
+        this.outline = outline;
+    }
+    
+    /**
      * Returns the value of the property with the specified key, or 
      * <code>null</code> if there is no property defined for that key.
      * 
