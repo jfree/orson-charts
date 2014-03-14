@@ -14,14 +14,17 @@ package com.orsoncharts.renderer.category;
 
 import java.awt.Color;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.orsoncharts.axis.Axis3D;
 import com.orsoncharts.axis.CategoryAxis3D;
 import com.orsoncharts.Chart3DFactory;
 import com.orsoncharts.Range;
+import com.orsoncharts.axis.ValueAxis3D;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.DataUtils;
 import com.orsoncharts.data.Values3D;
+import com.orsoncharts.data.Values3DItemKey;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.Utils2D;
@@ -43,7 +46,8 @@ import com.orsoncharts.util.ObjectUtils;
  * above chart).
  * <br><br>
  * There is a factory method to create a chart using this renderer - see 
- * {@link Chart3DFactory#createAreaChart(String, String, CategoryDataset3D, String, String, String)}.
+ * {@link Chart3DFactory#createAreaChart(String, String, CategoryDataset3D, 
+ * String, String, String)}.
  * <br><br>
  * NOTE: This class is serializable, but the serialization format is subject 
  * to change in future releases and should not be relied upon for persisting 
@@ -64,6 +68,25 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
     
     /** The depth of the area. */
     private double depth;
+
+    /** 
+     * For isolated data values this attribute controls the width (x-axis) of 
+     * the box representing the data item, it is expressed as a percentage of
+     * the category width.
+     */
+    private double isolatedItemWidthPercent;
+    
+    /**
+     * The color source that determines the color used to highlight clipped
+     * items in the chart.
+     */
+    private CategoryColorSource clipColorSource;
+
+    /** 
+     * A flag that controls whether or not outlines are drawn for the faces 
+     * making up the area segments. 
+     */
+    private boolean drawFaceOutlines;
     
     /**
      * Default constructor.
@@ -72,6 +95,9 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
         this.base = 0.0;
         this.baseColor = null;
         this.depth = 0.6;
+        this.isolatedItemWidthPercent = 0.25;
+        this.clipColorSource = new StandardCategoryColorSource(Color.RED);
+        this.drawFaceOutlines = true;
     }
 
     /**
@@ -85,8 +111,7 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
     }
     
     /**
-     * Sets the base value and sends a {@link Renderer3DChangeEvent} to all
-     * registered listeners.
+     * Sets the base value and sends a change event to all registered listeners.
      * 
      * @param base  the base value. 
      */
@@ -109,8 +134,8 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
     }
     
     /**
-     * Sets the color for the underside of the area polygons and sends a
-     * {@link Renderer3DChangeEvent} to all registered listeners.  If you set
+     * Sets the color for the underside of the area shapes and sends a
+     * change event to all registered listeners.  If you set
      * this to <code>null</code> the base will be painted with the regular
      * series color.
      * 
@@ -132,8 +157,8 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
     }
     
     /**
-     * Sets the depth (in 3D) and sends a {@link Renderer3DChangeEvent} to 
-     * all registered listeners.
+     * Sets the depth (in 3D) and sends a change event to all registered 
+     * listeners.
      * 
      * @param depth  the depth. 
      */
@@ -142,6 +167,66 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
         fireChangeEvent(true);
     }
 
+    /**
+     * Returns the color source used to determine the color used to highlight
+     * clipping in the chart elements.  If the source is <code>null</code>,
+     * then the regular series color is used instead.
+     * 
+     * @return The color source (possibly <code>null</code>).
+     * 
+     * @since 1.3
+     */
+    public CategoryColorSource getClipColorSource() {
+        return this.clipColorSource;
+    }
+    
+    /**
+     * Sets the color source that determines the color used to highlight
+     * clipping in the chart elements, and sends a {@link Renderer3DChangeEvent}
+     * to all registered listeners.
+     * 
+     * @param source  the source (<code>null</code> permitted). 
+     * 
+     * @since 1.3
+     */
+    public void setClipColorSource(CategoryColorSource source) {
+        this.clipColorSource = source;
+        fireChangeEvent(true);
+    }
+    
+    /**
+     * Returns the flag that controls whether or not the faces making up area
+     * segments will be drawn with outlines.  The default value is 
+     * <code>true</code>.  When anti-aliasing is on, the fill area for the 
+     * faces will have some gray shades around the edges, and these will show
+     * up on the chart as thin lines (usually not visible if you turn off
+     * anti-aliasing).  To mask this, the rendering engine can draw an outline
+     * around each face in the same color (this usually results in cleaner 
+     * output, but it is slower and can introduce some minor visual artifacts
+     * as well depending on the output target).
+     * 
+     * @return A boolean.
+     * 
+     * @since 1.3
+     */
+    public boolean getDrawFaceOutlines() {
+        return this.drawFaceOutlines;
+    }
+    
+    /**
+     * Sets the flag that controls whether or not outlines are drawn for the
+     * faces making up the area segments and sends a change event to all
+     * registered listeners.
+     * 
+     * @param outline  the new flag value.
+     * 
+     * @since 1.3
+     */
+    public void setDrawFaceOutlines(boolean outline) {
+        this.drawFaceOutlines = outline;
+        fireChangeEvent(true);
+    }
+    
     /**
      * Returns the range (for the value axis) that is required for this 
      * renderer to show all the values in the specified data set.  This method
@@ -177,50 +262,197 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
             int column, World world, Dimension3D dimensions, 
             double xOffset, double yOffset, double zOffset) {
         
-        double y0 = dataset.getDoubleValue(series, row, column);
-        if (Double.isNaN(y0)) {
-            return;
+        Number y = dataset.getValue(series, row, column);
+        Number yprev = null;
+        if (column > 0) {
+            yprev = dataset.getValue(series, row, column - 1);
         }
-        CategoryPlot3D plot = getPlot();
-        CategoryAxis3D xAxis = plot.getColumnAxis();
-        CategoryAxis3D zAxis = plot.getRowAxis();
-        Axis3D valueAxis = plot.getValueAxis();
-        
-        // for all but the last item, we add regular segments
+        Number ynext = null;
         if (column < dataset.getColumnCount() - 1) {
-            double y1 = dataset.getDoubleValue(series, row, column + 1);
-            if (Double.isNaN(y1)) {
-                return;  // we can't do anything
-            }
-            if (!valueAxis.getRange().intersects(this.base, y0) 
-                    && !valueAxis.getRange().intersects(this.base, y1)) {
-                return;
-            }
-            if (!isBaselineCrossed(y0, y1, this.base)) {
-                composeItemWithoutCrossing(y0, y1, dataset, series,
-                        row, column, world, dimensions, xOffset, yOffset, 
-                        zOffset);   
+            ynext = dataset.getValue(series, row, column + 1);
+        }
+
+        CategoryPlot3D plot = getPlot();
+        CategoryAxis3D rowAxis = plot.getRowAxis();
+        CategoryAxis3D columnAxis = plot.getColumnAxis();
+        ValueAxis3D valueAxis = plot.getValueAxis();
+        Range r = valueAxis.getRange();
+        
+        Comparable<?> seriesKey = dataset.getSeriesKey(series);
+        Comparable<?> rowKey = dataset.getRowKey(row);
+        Comparable<?> columnKey = dataset.getColumnKey(column);
+        double rowValue = rowAxis.getCategoryValue(rowKey);
+        double columnValue = columnAxis.getCategoryValue(columnKey);
+        double ww = dimensions.getWidth();
+        double hh = dimensions.getHeight();
+        double dd = dimensions.getDepth();
+
+        // for any data value, we'll try to create two area segments, one to
+        // the left of the value and one to the right of the value (each 
+        // halfway to the adjacent data value).  If the adjacent data values
+        // are null (or don't exist, as in the case of the first and last data
+        // items), then we can create an isolated segment to represent the data
+        // item.  The final consideration is whether the opening and closing
+        // faces of each segment are filled or not (if the segment connects to
+        // another segment, there is no need to fill the end face)
+        boolean createLeftSegment, createRightSegment, createIsolatedSegment;
+        boolean leftOpen = false;
+        boolean leftClose = false;
+        boolean rightOpen = false;
+        boolean rightClose = false;
+        
+        // for the first column there is no left segment, we also handle the
+        // special case where there is just one column of data in which case
+        // the renderer can only show an isolated data value
+        if (column == 0) {
+            createLeftSegment = false;  // never for first item
+            if (dataset.getColumnCount() == 1) {
+                createRightSegment = false; 
+                createIsolatedSegment = (y != null);
             } else {
-                double x0 = xAxis.getCategoryValue(dataset.getColumnKey(column));
-                double x1 = xAxis.getCategoryValue(dataset.getColumnKey(column + 1));
-                
-                double ww = dimensions.getWidth();
-                double hh = dimensions.getHeight();
-                double wx0 = xAxis.translateToWorld(x0, ww) + xOffset;
-                double wx1 = xAxis.translateToWorld(x1, ww) + xOffset;
-                double wy0 = valueAxis.translateToWorld(y0, hh) + yOffset;
-                double wy1 = valueAxis.translateToWorld(y1, hh) + yOffset;
-                double wbase = valueAxis.translateToWorld(this.base, hh) + yOffset;
-                double wz = zAxis.translateToWorld(zAxis.getCategoryValue(dataset.getRowKey(row)), dimensions.getDepth()) + zOffset;
-                double wmin = valueAxis.translateToWorld(valueAxis.getRange().getMin(), hh) + yOffset;
-                double wmax = valueAxis.translateToWorld(valueAxis.getRange().getMax(), hh) + yOffset;
-                Color color = getColorSource().getColor(series, row, column);
-                boolean openingFace = (column == 0);
-                boolean closingFace = (column == dataset.getColumnCount() - 2);
-                composeItemWithCrossing(world, wx0, wy0, wx1, wy1, wbase, wz, 
-                        new Range(wmin, wmax), color, openingFace, closingFace);
+                createRightSegment = (y != null && ynext != null);
+                rightOpen = true;
+                rightClose = false;
+                createIsolatedSegment = (y != null && ynext == null);
+            }
+        } 
+        
+        // for the last column there is no right segment
+        else if (column == dataset.getColumnCount() - 1) { // last column
+            createRightSegment = false; // never for the last item
+            createLeftSegment = (y != null && yprev != null);
+            leftOpen = false;
+            leftClose = true;
+            createIsolatedSegment = (y != null && yprev == null);
+        } 
+        
+        // for the general case we handle left and right segments or an 
+        // isolated segment if the surrounding data values are null
+        else { 
+            createLeftSegment = (y != null && yprev != null);
+            leftOpen = false;
+            leftClose = (createLeftSegment && ynext == null);
+            createRightSegment = (y != null && ynext != null);
+            rightOpen = (createRightSegment && yprev == null);
+            rightClose = false;
+            createIsolatedSegment = (y != null 
+                    && yprev == null && ynext == null);
+        }
+
+        // now that we know what we have to create, we'll need some info 
+        // for the construction...world coordinates are required
+        double xw = columnAxis.translateToWorld(columnValue, ww) + xOffset;
+        double yw = Double.NaN;
+        if (y != null) {
+            yw = valueAxis.translateToWorld(y.doubleValue(), hh) + yOffset; 
+        }
+        double zw = rowAxis.translateToWorld(rowValue, dd) + zOffset;
+        double ywmin = valueAxis.translateToWorld(r.getMin(), hh) + yOffset;
+        double ywmax = valueAxis.translateToWorld(r.getMax(), hh) + yOffset;
+        double basew = valueAxis.translateToWorld(this.base, hh) + yOffset;
+        Color color = getColorSource().getColor(series, row, column);
+        Color clipColor = color;  
+        if (getClipColorSource() != null) {
+            Color c = getClipColorSource().getColor(series, row, column);
+            if (c != null) {
+                clipColor = c;
             }
         }
+        Values3DItemKey itemKey = new Values3DItemKey(seriesKey, rowKey, 
+                columnKey);
+ 
+        if (createLeftSegment) {
+            Comparable<?> prevColumnKey = dataset.getColumnKey(column - 1);
+            double prevColumnValue = columnAxis.getCategoryValue(prevColumnKey);
+            double prevColumnX = columnAxis.translateToWorld(prevColumnValue, 
+                    ww) + xOffset;
+            double xl = (prevColumnX + xw) / 2.0;
+            assert yprev != null;  // we know this because createLeftSegment is 
+                                   // not 'true' otherwise
+            double yprevw = valueAxis.translateToWorld(yprev.doubleValue(), hh) 
+                    + yOffset; 
+            double yl = (yprevw + yw) / 2.0;
+            List<Object3D> leftObjs = createSegment(xl, yl, xw, yw, zw, 
+                    basew, ywmin, ywmax, color, this.baseColor, clipColor, 
+                    leftOpen, leftClose);
+            for (Object3D obj : leftObjs) {
+                obj.setProperty(Object3D.ITEM_KEY, itemKey);
+                obj.setOutline(this.drawFaceOutlines);
+                world.add(obj);
+            }
+        }
+
+        if (createRightSegment) {
+            Comparable<?> nextColumnKey = dataset.getColumnKey(column + 1);
+            double nextColumnValue = columnAxis.getCategoryValue(nextColumnKey);
+            double nextColumnX = columnAxis.translateToWorld(nextColumnValue, 
+                    ww) + xOffset;
+            double xr = (nextColumnX + xw) / 2.0;
+            assert ynext != null; // we know this because createRightSegment is
+                                  // not 'true' otherwise
+            double ynextw = valueAxis.translateToWorld(ynext.doubleValue(), hh) 
+                    + yOffset; 
+            double yr = (ynextw + yw) / 2.0;
+            List<Object3D> rightObjs = createSegment(xw, yw, xr, yr, zw, 
+                    basew, ywmin, ywmax, color, this.baseColor, clipColor, 
+                    rightOpen, rightClose);
+            for (Object3D obj : rightObjs) {
+                obj.setProperty(Object3D.ITEM_KEY, itemKey);
+                obj.setOutline(this.drawFaceOutlines);
+                world.add(obj);
+            }
+        }
+
+        if (createIsolatedSegment) {
+            double cw = columnAxis.getCategoryWidth() 
+                    * this.isolatedItemWidthPercent;
+            double cww = columnAxis.translateToWorld(cw, ww);
+            double h = yw - basew;
+            Object3D isolated = Object3D.createBox(xw, cww, yw - h / 2, h, 
+                    zw, this.depth, color);
+            isolated.setOutline(this.drawFaceOutlines);
+            isolated.setProperty(Object3D.ITEM_KEY, itemKey);
+            world.add(isolated);
+        }
+    }
+
+    /**
+     * Creates objects to represent the area segment between (x0, y0) and
+     * (x1, y1).
+     * 
+     * @param x0
+     * @param y0
+     * @param x1
+     * @param y1
+     * @param z
+     * @param lineWidth
+     * @param lineHeight
+     * @param ymin
+     * @param ymax
+     * @param color
+     * @param clipColor
+     * @param openingFace
+     * @param closingFace
+     * @return 
+     */
+    private List<Object3D> createSegment(double x0, double y0, double x1, 
+            double y1, double z, double base, double ymin, double ymax, 
+            Color color, Color baseColor, Color clipColor, boolean openingFace, 
+            boolean closingFace) {
+        
+        List<Object3D> result = new ArrayList<Object3D>(2);
+        // either there is a crossing or there is not
+        if (!isBaselineCrossed(y0, y1, base)) {
+            Object3D segment = createSegmentWithoutCrossing(x0, y0, x1, y1, 
+                    z, base, ymin, ymax, color, baseColor, clipColor, 
+                    openingFace, closingFace);
+            result.add(segment);
+        } else {
+            result.addAll(createSegmentWithCrossing(x0, y0, x1, y1, 
+                    z, base, ymin, ymax, color, baseColor, clipColor, 
+                    openingFace, closingFace));
+        }
+        return result;    
     }
 
     /**
@@ -240,163 +472,85 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
                 || (y0 < baseline && y1 > baseline);
     }
     
+    private Object3D createSegmentWithoutCrossing(double x0, double y0, 
+            double x1, double y1, double z, double base, double ymin, 
+            double ymax, Color color, Color baseColor, Color clipColor, 
+            boolean openingFace, boolean closingFace) {
+   
+        boolean positive = y0 > base || y1 > base;
+        if (positive) {            
+            Object3D pos = createPositiveArea(x0, y0, x1, y1, base, 
+                    z, new Range(ymin, ymax), color, openingFace, 
+                    closingFace);
+            return pos;
+        } else {
+            Object3D neg = createNegativeArea(x0, y0, x1, y1, base, z, 
+                    new Range(ymin, ymax), color, openingFace, closingFace);
+            return neg;
+        }
+    }
+    
+    private List<Object3D> createSegmentWithCrossing(double x0, double y0, 
+            double x1, double y1, double z, double base, double ymin, 
+            double ymax, Color color, Color baseColor, Color clipColor, 
+            boolean openingFace, boolean closingFace) {
+        List<Object3D> result = new ArrayList<Object3D>(2);
+        Range range = new Range(ymin, ymax);
+        // find the crossing point
+        double ydelta = Math.abs(y1 - y0);
+        double factor = 0;
+        if (ydelta != 0.0) {
+            factor = Math.abs(y0 - base) / ydelta;
+        }
+        double xcross = x0 + factor * (x1 - x0);
+        if (y0 > base) {
+            Object3D pos = createPositiveArea(x0, y0, xcross, base, base, z, 
+                    range, color, openingFace, closingFace);
+            if (pos != null) {
+                result.add(pos);
+            }
+            Object3D neg = createNegativeArea(xcross, base, x1, y1, 
+                    base, z, range, color, openingFace, closingFace);
+            if (neg != null) {
+                result.add(neg);
+            }
+        } else {
+            Object3D neg = createNegativeArea(x0, y0, xcross, base, 
+                    base, z, range, color, openingFace, closingFace);
+            if (neg != null) {
+                result.add(neg);
+            }
+            Object3D pos = createPositiveArea(xcross, base, x1, y1, base, 
+                    z, range, color, openingFace, closingFace);
+            if (pos != null) {
+                result.add(pos);
+            }
+        }
+        return result;
+    }
+    
+    /**
+     * A utility method that returns the fraction (x - x0) / (x1 - x0), which 
+     * is used for some interpolation calculations.
+     * 
+     * @param x  the x-value.
+     * @param x0  the start of a range.
+     * @param x1  the end of a range.
+     * 
+     * @return The fractional value of x along the range x0 to x1. 
+     */
     private double fraction(double x, double x0, double x1) {
-        double dist = Math.abs(x - x0);
-        double length = Math.abs(x1 - x0);
+        double dist = x - x0;
+        double length = x1 - x0;
         return dist / length;
     }
 
-    /**
-     * Handles an item where the current value and the next value are both on 
-     * the same side of the baseline (no crossing) which means we can use a
-     * single 3D object to represent the item.
-     * 
-     * @param y0
-     * @param y1
-     * @param dataset
-     * @param series
-     * @param row
-     * @param column
-     * @param world
-     * @param dimensions
-     * @param xOffset
-     * @param yOffset
-     * @param zOffset 
+    /** 
+     * A value in world units that is considered small enough to be not
+     * significant.  We use this to check if two coordinates are "more or less"
+     * the same.
      */
-    private void composeItemWithoutCrossing(double y0, double y1,
-            CategoryDataset3D dataset, int series, int row, int column, 
-            World world, Dimension3D dimensions, 
-            double xOffset, double yOffset, double zOffset) {
-
-        CategoryPlot3D plot = getPlot();
-        Color color = getColorSource().getColor(series, row, column);
-        CategoryAxis3D rowAxis = plot.getRowAxis();
-        CategoryAxis3D columnAxis = plot.getColumnAxis();
-        Axis3D valueAxis = plot.getValueAxis();
-        Comparable<?> rowKey = dataset.getRowKey(row);
-        Comparable<?> columnKey = dataset.getColumnKey(column);
-        Comparable<?> nextColumnKey = dataset.getColumnKey(column + 1);
-       
-        double x0 = columnAxis.getCategoryValue(columnKey);
-        double x1 = columnAxis.getCategoryValue(nextColumnKey);
-        Range range = valueAxis.getRange();
-        double y00 = range.peggedValue(y0);
-        double y11 = range.peggedValue(y1);
-        double ybb = range.peggedValue(this.base);
-   
-        double ww = dimensions.getWidth();
-        double hh = dimensions.getHeight();
-        boolean positive = y0 > this.base || y1 > this.base;
-        if (positive) {            
-            double x00 = x0;
-            if (y0 < range.getMin()) {
-                x00 = x0 + (x1 - x0) * fraction(y00, y0, y1);
-            }
-            double x11 = x1;
-            if (y1 < range.getMin()) {
-                x11 = x1 - (x1 - x0) * fraction(y11, y1, y0);
-            }
-            double wx00 = columnAxis.translateToWorld(x00, ww) + xOffset;
-            double wx11 = columnAxis.translateToWorld(x11, ww) + xOffset;
-            double wy0 = valueAxis.translateToWorld(y0, hh) + yOffset;
-            double wy1 = valueAxis.translateToWorld(y1, hh) + yOffset;
-            double wymin = valueAxis.translateToWorld(range.getMin(), hh) 
-                    + yOffset;
-            double wymax = valueAxis.translateToWorld(range.getMax(), hh) 
-                    + yOffset;
-            double wbase = valueAxis.translateToWorld(ybb, hh) + yOffset;
-         
-            double wz = rowAxis.translateToWorld(
-                    rowAxis.getCategoryValue(rowKey), 
-                    dimensions.getDepth()) + zOffset;
-            world.add(createPositiveArea(color, wx00, wy0, wx11, wy1, wbase, 
-                    wz, new Range(wymin, wymax), column == 0, 
-                    column == dataset.getColumnCount() - 2));
-        } else {
-            // let's do the case for negative areas
-            double x00 = x0;
-            if (y0 > range.getMax()) {
-                x00 = x0 + (x1 - x0) * fraction(y00, y0, y1);
-            }
-            double x11 = x1;
-            if (y1 > range.getMax()) {
-                x11 = x1 - (x1 - x0) * fraction(y11, y1, y0);
-            }
-        
-            double wx00 = columnAxis.translateToWorld(x00, ww) + xOffset;
-            double wx11 = columnAxis.translateToWorld(x11, ww) + xOffset;
-            double wy0 = valueAxis.translateToWorld(y0, hh) + yOffset;
-            double wy1 = valueAxis.translateToWorld(y1, hh) + yOffset;
-            double wymin = valueAxis.translateToWorld(range.getMin(), hh) 
-                    + yOffset;
-            double wymax = valueAxis.translateToWorld(range.getMax(), hh) 
-                    + yOffset;
-            double wbase = valueAxis.translateToWorld(ybb, hh) + yOffset;
-         
-            double wz = rowAxis.translateToWorld(
-                    rowAxis.getCategoryValue(rowKey), 
-                    dimensions.getDepth()) + zOffset;
-                       
-            Object3D neg = createNegativeArea(color, wx00, wy0, wx11, wy1, wbase, wz, 
-                    new Range(wymin, wymax), column == 0, 
-                    column == dataset.getColumnCount() - 2);
-            if (neg != null) {
-                world.add(neg);
-            }
-        }
-        
-    }
-        
-    
-    /**
-     * Adds two objects to the world to show an area shape where the data
-     * values cross the baseline.  All coordinates here have already been
-     * translated to world coordinates.
-     * 
-     * @param world  the world.
-     * @param wx0
-     * @param wy0
-     * @param wx1
-     * @param wy1
-     * @param wbase
-     * @param wz
-     * @param range
-     * @param color
-     * @param openingFace
-     * @param closingFace 
-     */
-    private void composeItemWithCrossing(World world, double wx0, double wy0, 
-            double wx1, double wy1, double wbase, double wz, Range range, 
-            Color color, boolean openingFace, boolean closingFace) {
-        
-        // find the crossing point
-        double ydelta = Math.abs(wy1 - wy0);
-        double factor = 0;
-        if (ydelta != 0.0) {
-            factor = Math.abs(wy0 - wbase) / ydelta;
-        }
-        double xcross = wx0 + factor * (wx1 - wx0);
-        
-        // then process a regular shape before the crossing
-        // and a regular shape after the crossing
-        if (wy0 > wbase) {
-            world.add(createPositiveArea(color, wx0, wy0, xcross, wbase, wbase, wz, 
-                    range, openingFace, closingFace));
-            Object3D neg = createNegativeArea(color, xcross, wbase, wx1, wy1, 
-                    wbase, wz, range, openingFace, closingFace); 
-            if (neg != null) {
-                world.add(neg);
-            }
-        } else {
-            Object3D neg = createNegativeArea(color, wx0, wy0, xcross, wbase, 
-                    wbase, wz, range, openingFace, closingFace);
-            if (neg != null) {
-                world.add(neg);
-            }
-            world.add(createPositiveArea(color, xcross, wbase, wx1, wy1, wbase, 
-                    wz, range, openingFace, closingFace));
-        }
-    }
+    private static final double EPSILON = 0.001;
     
     /**
      * Creates a 3D object to represent a positive "area", taking into account
@@ -415,10 +569,10 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
      * 
      * @return A 3D object or <code>null</code>. 
      */
-    private Object3D createPositiveArea(Color color, double wx0, double wy0, 
+    private Object3D createPositiveArea(double wx0, double wy0, 
             double wx1, double wy1, double wbase, double wz, Range range,
-            boolean openingFace, boolean closingFace) {
-        
+            Color color, boolean openingFace, boolean closingFace) {
+
         if (!range.intersects(wy0, wbase) && !range.intersects(wy1, wbase)) {
             return null;
         }
@@ -447,7 +601,7 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
         obj.addVertex(wx00, wbb, wz - delta);
         obj.addVertex(wx00, wbb, wz + delta);
         boolean leftSide = false;
-        if (wy00 != wbb) {
+        if (Math.abs(wy00 - wbb) > EPSILON) {
             leftSide = true;
             obj.addVertex(wx00, wy00, wz - delta);
             obj.addVertex(wx00, wy00, wz + delta);
@@ -459,7 +613,7 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
         obj.addVertex(wx11, wy11, wz - delta);
         obj.addVertex(wx11, wy11, wz + delta);
         boolean rightSide = false;
-        if (wy11 != wbb) {
+        if (Math.abs(wy11 - wbb) > EPSILON) {
             rightSide = true;
             obj.addVertex(wx11, wbb, wz - delta);
             obj.addVertex(wx11, wbb, wz + delta);
@@ -517,9 +671,26 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
         return obj;
     }
     
-    private Object3D createNegativeArea(Color color, double wx0, double wy0, 
+    /**
+     * Creates a negative area shape from (wx0, wy0) to (wx1, wy1) with the
+     * base at wbase (it is assumed that both wy0 and wy1 are less than wbase).
+     * 
+     * @param wx0
+     * @param wy0
+     * @param wx1
+     * @param wy1
+     * @param wbase
+     * @param wz
+     * @param range
+     * @param color
+     * @param openingFace
+     * @param closingFace
+     * 
+     * @return An object representing the area shape (or <code>null</code>). 
+     */
+    private Object3D createNegativeArea(double wx0, double wy0, 
             double wx1, double wy1, double wbase, double wz, Range range,
-            boolean openingFace, boolean closingFace) {
+            Color color, boolean openingFace, boolean closingFace) {
         
         if (!range.intersects(wy0, wbase) && !range.intersects(wy1, wbase)) {
             return null;
@@ -549,7 +720,7 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
         obj.addVertex(wx00, wbb, wz - delta);
         obj.addVertex(wx00, wbb, wz + delta);
         boolean leftSide = false;
-        if (wy00 != wbb) {
+        if (Math.abs(wy00 - wbb) > EPSILON) {
             leftSide = true;
             obj.addVertex(wx00, wy00, wz - delta);
             obj.addVertex(wx00, wy00, wz + delta);
@@ -561,7 +732,7 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
         obj.addVertex(wx11, wy11, wz - delta);
         obj.addVertex(wx11, wy11, wz + delta);
         boolean rightSide = false;
-        if (wy11 != wbb) {
+        if (Math.abs(wy11 - wbb) > EPSILON) {
             obj.addVertex(wx11, wbb, wz - delta);
             obj.addVertex(wx11, wbb, wz + delta);
         }
