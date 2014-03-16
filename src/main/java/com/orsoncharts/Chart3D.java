@@ -20,6 +20,7 @@ import java.awt.Graphics2D;
 import java.awt.Font;
 import java.awt.Paint;
 import java.awt.RenderingHints;
+import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
@@ -716,6 +717,8 @@ public class Chart3D implements Drawable3D, ChartElement,
      */
     @Override
     public RenderingInfo draw(Graphics2D g2, Rectangle2D bounds) {
+        Shape savedClip = g2.getClip();
+        g2.clip(bounds);
         g2.addRenderingHints(this.renderingHints);
         g2.setStroke(new BasicStroke(1.5f, BasicStroke.CAP_ROUND, 
                 BasicStroke.JOIN_ROUND, 1f));
@@ -834,7 +837,7 @@ public class Chart3D implements Drawable3D, ChartElement,
                     this.titleAnchor, bounds);
             this.title.draw(g2, titleArea);
         }
-
+        g2.setClip(savedClip);
         RenderingInfo info = new RenderingInfo(facesInPaintOrder, pts, dx, dy);
         return info;
     }
