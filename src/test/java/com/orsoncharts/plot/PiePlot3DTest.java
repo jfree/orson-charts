@@ -133,6 +133,12 @@ public class PiePlot3DTest implements Plot3DChangeListener {
         p2.setLegendLabelGenerator(new StandardPieLabelGenerator("Key: %s"));
         assertTrue(p1.equals(p2));
 
+        // tool tip generator
+        p1.setToolTipGenerator(new StandardPieLabelGenerator("Tool tip: %s"));
+        assertFalse(p1.equals(p2));
+        p2.setToolTipGenerator(new StandardPieLabelGenerator("Tool tip: %s"));
+        assertTrue(p1.equals(p2));
+
         // segments
         p1.setSegmentCount(123);
         assertFalse(p1.equals(p2));
