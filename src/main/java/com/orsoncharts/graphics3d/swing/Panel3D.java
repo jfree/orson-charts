@@ -16,7 +16,9 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Insets;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -29,7 +31,6 @@ import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.awt.Rectangle;
 
 import javax.swing.JPanel;
 import javax.swing.ToolTipManager;
@@ -316,7 +317,10 @@ public class Panel3D extends JPanel implements MouseListener,
         Graphics2D g2 = (Graphics2D) g;
         AffineTransform saved = g2.getTransform();
         Dimension size = getSize();
-        Rectangle drawArea = new Rectangle(size.width, size.height);
+        Insets insets = getInsets();
+        Rectangle drawArea = new Rectangle(insets.left, insets.top, 
+                size.width - insets.left - insets.right, 
+                size.height - insets.top - insets.bottom);
         this.renderingInfo = this.drawable.draw(g2, drawArea);
         g2.setTransform(saved);
     }
