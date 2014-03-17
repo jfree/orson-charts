@@ -12,8 +12,12 @@
 
 package com.orsoncharts.data;
 
+import java.util.List;
 import com.orsoncharts.Range;
+import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.xyz.XYZDataset;
+import com.orsoncharts.data.xyz.XYZSeries;
+import com.orsoncharts.data.xyz.XYZSeriesCollection;
 import com.orsoncharts.util.ArgChecks;
 
 /**
@@ -540,5 +544,262 @@ public class DataUtils {
             return null;
         }        
     }
- 
+
+    /**
+     * Creates an {@link XYZDataset} by extracting values from specified 
+     * rows in a {@link KeyedValues3D} instance, across all the available
+     * columns (items where any of the x, y or z values is <code>null</code> 
+     * are skipped).  The new dataset contains a copy of the data and is 
+     * completely independent of the <code>source</code> dataset.  
+     * <br><br>
+     * Note that {@link CategoryDataset3D} is an extension of 
+     * {@link KeyedValues3D} so you can use this method for any implementation
+     * of the <code>CategoryDataset3D</code> interface.
+     * 
+     * @param source  the source data (<code>null</code> not permitted).
+     * @param xRowKey  the row key for x-values (<code>null</code> not 
+     *         permitted).
+     * @param yRowKey  the row key for y-values (<code>null</code> not 
+     *         permitted).
+     * @param zRowKey  the row key for z-values (<code>null</code> not 
+     *         permitted).
+     * 
+     * @return A new dataset. 
+     * 
+     * @since 1.3
+     */
+    public static XYZDataset extractXYZDatasetFromRows(
+            KeyedValues3D<? extends Number> source,
+            Comparable<?> xRowKey, Comparable<?> yRowKey, 
+            Comparable<?> zRowKey) {
+        return extractXYZDatasetFromColumns(source, xRowKey, yRowKey, zRowKey,
+                NullConversion.SKIP, null);
+    }
+
+    /**
+     * Creates an {@link XYZDataset} by extracting values from specified 
+     * rows in a {@link KeyedValues3D} instance.  The new dataset contains 
+     * a copy of the data and is completely independent of the 
+     * <code>source</code> dataset.  Note that {@link CategoryDataset3D} is an 
+     * extension of {@link KeyedValues3D}.
+     * <br><br>
+     * Special handling is provided for items that contain <code>null</code>
+     * values.  The caller may pass in an <code>exceptions</code> list (
+     * normally empty) that will be populated with the keys of the items that
+     * receive special handling, if any.
+     * 
+     * @param source  the source data (<code>null</code> not permitted).
+     * @param xRowKey  the row key for x-values (<code>null</code> not 
+     *         permitted).
+     * @param yRowKey  the row key for y-values (<code>null</code> not 
+     *         permitted).
+     * @param zRowKey  the row key for z-values (<code>null</code> not 
+     *         permitted).
+     * @param nullConversion  specifies the treatment for <code>null</code> 
+     *         values in the dataset (<code>null</code> not permitted).
+     * @param exceptions  a list that, if not null, will be populated with 
+     *         keys for the items in the source dataset that contain 
+     *         <code>null</code> values (<code>null</code> permitted).
+     * 
+     * @return A new dataset. 
+     * 
+     * @since 1.3
+     */
+    public static XYZDataset extractXYZDatasetFromRows(
+            KeyedValues3D<? extends Number> source,
+            Comparable<?> xRowKey, Comparable<?> yRowKey, 
+            Comparable<?> zRowKey, NullConversion nullConversion, 
+            List<Values3DItemKey> exceptions) {
+
+        ArgChecks.nullNotPermitted(source, "source");
+        ArgChecks.nullNotPermitted(xRowKey, "xRowKey");
+        ArgChecks.nullNotPermitted(yRowKey, "yRowKey");
+        ArgChecks.nullNotPermitted(zRowKey, "zRowKey");
+        XYZSeriesCollection dataset = new XYZSeriesCollection();
+        for (Comparable<?> seriesKey : source.getSeriesKeys()) {
+            XYZSeries series = new XYZSeries(seriesKey);
+            for (Comparable<?> colKey : source.getColumnKeys()) {
+                Number x = source.getValue(seriesKey, xRowKey, colKey);
+                Number y = source.getValue(seriesKey, yRowKey, colKey);
+                Number z = source.getValue(seriesKey, zRowKey, colKey);
+                if (x != null && y != null && z != null) {
+                    series.add(x.doubleValue(), y.doubleValue(), 
+                            z.doubleValue());
+                } else {
+                    if (exceptions != null) {
+                        // add only one exception per data value
+                        Comparable rrKey = zRowKey;
+                        if (x == null) {
+                            rrKey = xRowKey;
+                        } else if (y == null) {
+                            rrKey = yRowKey;
+                        }
+                        exceptions.add(new Values3DItemKey(seriesKey, rrKey, 
+                                colKey));
+                    }
+                    if (nullConversion.equals(NullConversion.THROW_EXCEPTION)) {
+                        Comparable rrKey = zRowKey;
+                        if (x == null) {
+                            rrKey = yRowKey;
+                        } else if (y == null) {
+                            rrKey = yRowKey;
+                        }
+                        throw new RuntimeException("There is a null value for "
+                                + "the item [" + seriesKey +", " + rrKey + ", " 
+                                + colKey + "].");
+                    }
+                    if (nullConversion != NullConversion.SKIP) {
+                        double xx = convert(x, nullConversion);
+                        double yy = convert(y, nullConversion);
+                        double zz = convert(z, nullConversion);
+                        series.add(xx, yy, zz);
+                    }
+                }
+            }
+            dataset.add(series);
+        }
+        return dataset;
+    }
+        
+    /**
+     * Creates an {@link XYZDataset} by extracting values from specified 
+     * columns in a {@link KeyedValues3D} instance, across all the available
+     * rows (items where any of the x, y or z values is <code>null</code> are 
+     * skipped).  The new dataset contains a copy of the data and is completely
+     * independent of the <code>source</code> dataset.  
+     * <br><br>
+     * Note that {@link CategoryDataset3D} is an extension of 
+     * {@link KeyedValues3D} so you can use this method for any implementation
+     * of the <code>CategoryDataset3D</code> interface.
+     * 
+     * @param source  the source data (<code>null</code> not permitted).
+     * @param xColKey  the column key for x-values (<code>null</code> not 
+     *         permitted).
+     * @param yColKey  the column key for y-values (<code>null</code> not 
+     *         permitted).
+     * @param zColKey  the column key for z-values (<code>null</code> not 
+     *         permitted).
+     * 
+     * @return A new dataset. 
+     * 
+     * @since 1.3
+     */
+    public static XYZDataset extractXYZDatasetFromColumns(
+            KeyedValues3D<? extends Number> source,
+            Comparable<?> xColKey, Comparable<?> yColKey, 
+            Comparable<?> zColKey) {
+        return extractXYZDatasetFromColumns(source, xColKey, yColKey, zColKey,
+                NullConversion.SKIP, null);
+    }
+
+    /**
+     * Creates an {@link XYZDataset} by extracting values from specified 
+     * columns in a {@link KeyedValues3D} instance.  The new dataset contains 
+     * a copy of the data and is completely independent of the 
+     * <code>source</code> dataset.  Note that {@link CategoryDataset3D} is an 
+     * extension of {@link KeyedValues3D}.
+     * <br><br>
+     * Special handling is provided for items that contain <code>null</code>
+     * values.  The caller may pass in an <code>exceptions</code> list (
+     * normally empty) that will be populated with the keys of the items that
+     * receive special handling, if any.
+     * 
+     * @param source  the source data (<code>null</code> not permitted).
+     * @param xColKey  the column key for x-values (<code>null</code> not 
+     *         permitted).
+     * @param yColKey  the column key for y-values (<code>null</code> not 
+     *         permitted).
+     * @param zColKey  the column key for z-values (<code>null</code> not 
+     *         permitted).
+     * @param nullConversion  specifies the treatment for <code>null</code> 
+     *         values in the dataset (<code>null</code> not permitted).
+     * @param exceptions  a list that, if not null, will be populated with 
+     *         keys for the items in the source dataset that contain 
+     *         <code>null</code> values (<code>null</code> permitted).
+     * 
+     * @return A new dataset. 
+     * 
+     * @since 1.3
+     */
+    public static XYZDataset extractXYZDatasetFromColumns(
+            KeyedValues3D<? extends Number> source,
+            Comparable<?> xColKey, Comparable<?> yColKey, 
+            Comparable<?> zColKey, NullConversion nullConversion, 
+            List<Values3DItemKey> exceptions) {
+
+        ArgChecks.nullNotPermitted(source, "source");
+        ArgChecks.nullNotPermitted(xColKey, "xColKey");
+        ArgChecks.nullNotPermitted(yColKey, "yColKey");
+        ArgChecks.nullNotPermitted(zColKey, "zColKey");
+        XYZSeriesCollection dataset = new XYZSeriesCollection();
+        for (Comparable<?> seriesKey : source.getSeriesKeys()) {
+            XYZSeries series = new XYZSeries(seriesKey);
+            for (Comparable<?> rowKey : source.getRowKeys()) {
+                Number x = source.getValue(seriesKey, rowKey, xColKey);
+                Number y = source.getValue(seriesKey, rowKey, yColKey);
+                Number z = source.getValue(seriesKey, rowKey, zColKey);
+                if (x != null && y != null && z != null) {
+                    series.add(x.doubleValue(), y.doubleValue(), 
+                            z.doubleValue());
+                } else {
+                    if (exceptions != null) {
+                        // add only one key ref out of the possible 3 per item
+                        Comparable<?> ccKey = zColKey;
+                        if (x == null) {
+                            ccKey = xColKey;
+                        } else if (y == null) {
+                            ccKey = yColKey;
+                        }
+                        exceptions.add(new Values3DItemKey(seriesKey, rowKey, 
+                                ccKey));
+                    }
+                    if (nullConversion.equals(NullConversion.THROW_EXCEPTION)) {
+                        Comparable<?> ccKey = zColKey;
+                        if (x == null) {
+                            ccKey = xColKey;
+                        } else if (y == null) {
+                            ccKey = yColKey;
+                        }
+                        throw new RuntimeException("There is a null value for "
+                                + "the item [" + seriesKey +", " + rowKey + ", " 
+                                + ccKey + "].");
+                    }
+                    if (nullConversion != NullConversion.SKIP) {
+                        double xx = convert(x, nullConversion);
+                        double yy = convert(y, nullConversion);
+                        double zz = convert(z, nullConversion);
+                        series.add(xx, yy, zz);
+                    }
+                }
+            }
+            dataset.add(series);
+        }
+        return dataset;
+    }
+
+    /**
+     * Returns a double primitive for the specified number, with 
+     * <code>null</code> values returning <code>Double.NaN</code> except in the 
+     * case of <code>CONVERT_TO_ZERO</code> which returns 0.0.  Note that this 
+     * method does not throw an exception for <code>THROW_EXCEPTION</code>, it
+     * expects code higher up the call chain to handle that (because there is
+     * not enough information here to throw a useful exception).
+     * 
+     * @param n  the number (<code>null</code> permitted).
+     * @param nullConversion  the null conversion (<code>null</code> not 
+     *         permitted).
+     * 
+     * @return A double primitive. 
+     */
+    private static double convert(Number n, NullConversion nullConversion) {
+        if (n != null) {
+            return n.doubleValue();
+        } else {
+            if (nullConversion.equals(NullConversion.CONVERT_TO_ZERO)) {
+                return 0.0;
+            }
+            return Double.NaN;
+        }
+    }
+    
 }

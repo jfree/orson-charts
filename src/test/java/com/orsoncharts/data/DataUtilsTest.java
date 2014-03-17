@@ -12,6 +12,8 @@
 
 package com.orsoncharts.data;
 
+import com.orsoncharts.data.category.StandardCategoryDataset3D;
+import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.data.xyz.XYZSeries;
 import com.orsoncharts.data.xyz.XYZSeriesCollection;
 import static org.junit.Assert.assertEquals;
@@ -136,6 +138,41 @@ public class DataUtilsTest {
         assertArrayEquals(result, new double[] { -4.0, 1.0 }, EPSILON);
         result = DataUtils.stackSubTotal(data, 2.0, 3, 0, 0);
         assertArrayEquals(result, new double[] { -2.0, 3.0 }, EPSILON);
-
+    }
+    
+    @Test
+    public void checkExtractXYZDatasetFromColumns() {
+        StandardCategoryDataset3D source = new StandardCategoryDataset3D();
+        source.addValue(1.0, "S1", "R1", "C1");
+        source.addValue(2.0, "S1", "R1", "C2");
+        source.addValue(3.0, "S1", "R1", "C3");
+        source.addValue(4.0, "S1", "R2", "C1");
+        source.addValue(5.0, "S1", "R2", "C2");
+        source.addValue(6.0, "S1", "R2", "C3");
+        source.addValue(11.0, "S2", "R1", "C1");
+        source.addValue(12.0, "S2", "R1", "C2");
+        source.addValue(13.0, "S2", "R1", "C3");
+        source.addValue(14.0, "S2", "R2", "C1");
+        source.addValue(15.0, "S2", "R2", "C2");
+        source.addValue(16.0, "S2", "R2", "C3");
+        XYZDataset dataset = DataUtils.extractXYZDatasetFromColumns(source, 
+                "C3", "C1", "C2");
+        assertEquals(2, dataset.getSeriesCount());
+        assertEquals("S1", dataset.getSeriesKey(0));
+        assertEquals("S2", dataset.getSeriesKey(1));
+        assertEquals(2, dataset.getItemCount(0));
+        assertEquals(2, dataset.getItemCount(1));
+        assertEquals(3.0, dataset.getX(0, 0), EPSILON);
+        assertEquals(1.0, dataset.getY(0, 0), EPSILON);
+        assertEquals(2.0, dataset.getZ(0, 0), EPSILON);
+        assertEquals(6.0, dataset.getX(0, 1), EPSILON);
+        assertEquals(4.0, dataset.getY(0, 1), EPSILON);
+        assertEquals(5.0, dataset.getZ(0, 1), EPSILON);
+        assertEquals(13.0, dataset.getX(1, 0), EPSILON);
+        assertEquals(11.0, dataset.getY(1, 0), EPSILON);
+        assertEquals(12.0, dataset.getZ(1, 0), EPSILON);
+        assertEquals(16.0, dataset.getX(1, 1), EPSILON);
+        assertEquals(14.0, dataset.getY(1, 1), EPSILON);
+        assertEquals(15.0, dataset.getZ(1, 1), EPSILON);
     }
 }
