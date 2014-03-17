@@ -19,7 +19,19 @@ import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.plot.PiePlot3D;
 
 /**
- * A dataset that can be used with a {@link PiePlot3D}.
+ * A dataset that can be used with a {@link PiePlot3D}.  This class represents
+ * an ordered list of (key, value) items.  The keys can be any instance of
+ * {@link Comparable} (<code>String</code> is commonly used) and the values
+ * can be any {@link Number} instance (bearing in mind that the downstream 
+ * code will use the <code>toDouble()</code> method to read values) or 
+ * <code>null</code>.
+ * <br><br>
+ * This class provides an implementation of <code>KeyedValues<Number></code>,
+ * so the following useful utility methods can be used:
+ * <ul>
+ * {@link DataUtils#total(com.orsoncharts.data.Values)}
+ * {@link JSONUtils#writeKeyedValuesToJSON(com.orsoncharts.data.KeyedValues)}
+ * </ul>
  * <br><br>
  * NOTE: This class is serializable, but the serialization format is subject 
  * to change in future releases and should not be relied upon for persisting 
@@ -172,4 +184,18 @@ public final class StandardPieDataset3D extends AbstractDataset3D
         return true;
     }
 
+    /**
+     * Returns a string representation of this instance, primarily for 
+     * debugging purposes.
+     * <br><br>
+     * Implementation note: the current implementation (which is subject to 
+     * change) writes the dataset in JSON format using 
+     * {@link JSONUtils#writeKeyedValues(com.orsoncharts.data.KeyedValues)}.
+     * 
+     * @return A string. 
+     */
+    @Override
+    public String toString() {
+        return JSONUtils.writeKeyedValues(this);
+    }
 }

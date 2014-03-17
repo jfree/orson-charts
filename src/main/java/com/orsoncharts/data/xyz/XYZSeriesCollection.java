@@ -6,7 +6,7 @@
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
- * Redistribution of these source files is prohibited.
+ * Redistribution of this source file is prohibited.
  * 
  */
 
@@ -18,6 +18,7 @@ import java.util.List;
 
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.data.AbstractDataset3D;
+import com.orsoncharts.data.JSONUtils;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.renderer.xyz.XYZRenderer;
 
@@ -222,6 +223,21 @@ public class XYZSeriesCollection extends AbstractDataset3D
             return false;
         }
         return true;
+    }
+    
+    /**
+     * Returns a string representation of this instance, primarily for 
+     * debugging purposes.
+     * <br><br>
+     * Implementation note: the current implementation (which is subject to 
+     * change) writes the dataset in JSON format using 
+     * {@link JSONUtils#writeXYZDataset(com.orsoncharts.data.xyz.XYZDataset)}.
+     * 
+     * @return A string. 
+     */
+    @Override
+    public String toString() {
+        return JSONUtils.writeXYZDataset(this);
     }
 
 }

@@ -17,6 +17,7 @@ import java.io.Serializable;
 
 import com.orsoncharts.data.AbstractDataset3D;
 import com.orsoncharts.data.DefaultKeyedValues3D;
+import com.orsoncharts.data.JSONUtils;
 import com.orsoncharts.data.KeyedValues;
 import com.orsoncharts.util.ArgChecks;
 
@@ -313,5 +314,20 @@ public final class StandardCategoryDataset3D extends AbstractDataset3D
             return false;
         }
         return true;
+    }
+    
+    /**
+     * Returns a string representation of this instance, primarily for 
+     * debugging purposes.
+     * <br><br>
+     * Implementation note: the current implementation (which is subject to 
+     * change) writes the dataset in JSON format using 
+     * {@link JSONUtils#writeKeyedValues3D(com.orsoncharts.data.KeyedValues3D)}.
+     * 
+     * @return A string. 
+     */
+    @Override
+    public String toString() {
+        return JSONUtils.writeKeyedValues3D(this);
     }
 }
