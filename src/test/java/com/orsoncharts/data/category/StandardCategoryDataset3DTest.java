@@ -20,7 +20,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 /**
- * Tests for the {@link DefaultCategoryDataset3D} class.
+ * Tests for the {@link StandardCategoryDataset3D} class.
  */
 public class StandardCategoryDataset3DTest {
     
@@ -36,7 +36,7 @@ public class StandardCategoryDataset3DTest {
     }
     
     @Test
-    public void testEquals() {
+    public void checkEquals() {
         StandardCategoryDataset3D d1 = new StandardCategoryDataset3D();
         StandardCategoryDataset3D d2 = new StandardCategoryDataset3D();
         assertTrue(d1.equals(d2));
@@ -57,12 +57,44 @@ public class StandardCategoryDataset3DTest {
      * A check for serialization.
      */
     @Test
-    public void testSerializationPieChart() {
+    public void checkSerialization() {
         StandardCategoryDataset3D d1 = new StandardCategoryDataset3D();
         d1.addValue(1.0, "S1", "R1", "C1");
         StandardCategoryDataset3D d2 
                 = (StandardCategoryDataset3D) TestUtils.serialized(d1);
         assertEquals(d1, d2);
+    }
+    
+    @Test
+    public void checkToString() {
+        StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
+        assertEquals("{}", dataset.toString());
+        
+        dataset.addValue(1.0, "S1", "R1", "C1");
+        assertEquals("{\"columnKeys\": [\"C1\"], \"rowKeys\": [\"R1\"], "
+                + "\"data\": [{\"seriesKey\": \"S1\", "
+                + "\"rows\": {\"R1\": [1.0]}}]}", dataset.toString());
+        
+        dataset.addValue(2.0, "S1", "R1", "C2");
+        assertEquals("{\"columnKeys\": [\"C1\", \"C2\"], \"rowKeys\": [\"R1\"], "
+                + "\"data\": [{\"seriesKey\": \"S1\", " 
+                + "\"rows\": {\"R1\": [1.0, 2.0]}}]}",
+                dataset.toString());
+        
+        dataset.addValue(3.0, "S1", "R2", "C2");
+        assertEquals("{\"columnKeys\": [\"C1\", \"C2\"], "
+                + "\"rowKeys\": [\"R1\", \"R2\"], "
+                + "\"data\": [{\"seriesKey\": \"S1\", "
+                + "\"rows\": {\"R1\": [1.0, 2.0], \"R2\": [null, 3.0]}}]}",
+                dataset.toString());
+
+        dataset.addValue(4.0, "S2", "R2", "C2");
+        assertEquals("{\"columnKeys\": [\"C1\", \"C2\"], "
+                + "\"rowKeys\": [\"R1\", \"R2\"], "
+                + "\"data\": [{\"seriesKey\": \"S1\", " 
+                + "\"rows\": {\"R1\": [1.0, 2.0], \"R2\": [null, 3.0]}}, "
+                + "{\"seriesKey\": \"S2\", \"rows\": {\"R2\": [null, 4.0]}}]}",
+                dataset.toString());
     }
   
 }
