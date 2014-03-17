@@ -80,12 +80,13 @@ public class DemoDisplayer implements Runnable {
             this.demoComp.getChartContainer().validate();
             if (panel instanceof DemoPanel) {
                 DemoPanel demoPanel = (DemoPanel) panel;
-                ChartPanel3D chartPanel = demoPanel.getChartPanel();
-                if (demoComp.getChartStyle() != null) {
-                    Chart3D chart = (Chart3D) chartPanel.getDrawable();
-                    chart.setStyle(demoComp.getChartStyle());
+                for (ChartPanel3D cp3d : demoPanel.getChartPanels()) {
+                    if (demoComp.getChartStyle() != null) {
+                        Chart3D chart = (Chart3D) cp3d.getDrawable();
+                        chart.setStyle(demoComp.getChartStyle());
+                    }
+                    cp3d.zoomToFit(); 
                 }
-                chartPanel.zoomToFit();
             }
             String f = this.demoDescription.getFileName();
             String f2 = f.substring(0, f.indexOf('.')) + ".html";
