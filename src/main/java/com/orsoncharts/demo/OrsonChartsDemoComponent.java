@@ -230,6 +230,8 @@ public class OrsonChartsDemoComponent extends JPanel
                 "ScatterPlot3DDemo1.java"));
         n.add(createNode(PREFIX + "ScatterPlot3DDemo2",  
                 "ScatterPlot3DDemo2.java"));
+        n.add(createNode(PREFIX + "ScatterPlot3DDemo3",  
+                "ScatterPlot3DDemo3.java"));
         n.add(createNode(PREFIX + "SurfaceRendererDemo1", 
                 "SurfaceRendererDemo1.java"));
         n.add(createNode(PREFIX + "SurfaceRendererDemo2", 
