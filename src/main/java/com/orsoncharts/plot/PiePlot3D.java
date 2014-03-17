@@ -529,6 +529,9 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
         if (!this.legendLabelGenerator.equals(that.legendLabelGenerator)) {
             return false;
         }
+        if (!this.toolTipGenerator.equals(that.toolTipGenerator)) {
+            return false;
+        }
         if (this.segments != that.segments) {
             return false;
         }
