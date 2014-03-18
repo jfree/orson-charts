@@ -38,17 +38,17 @@ package com.orsoncharts.demo;
 
 import java.awt.Color;
 import java.awt.BorderLayout;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.ButtonGroup;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 import com.orsoncharts.ChartPanel3D;
@@ -58,23 +58,34 @@ import com.orsoncharts.axis.StandardCategoryAxis3D;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.category.StandardCategoryDataset3D;
 import com.orsoncharts.data.DefaultKeyedValues;
+import com.orsoncharts.data.Values3DItemKey;
+import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
+import com.orsoncharts.interaction.Chart3DMouseEvent;
+import com.orsoncharts.interaction.Chart3DMouseListener;
+import com.orsoncharts.graphics3d.RenderedElement;
 import com.orsoncharts.legend.LegendAnchor;
 import com.orsoncharts.marker.CategoryMarker;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.category.CategoryRenderer3D;
 import com.orsoncharts.style.ChartStyler;
+import javax.swing.JOptionPane;
 
 /**
- * A demo showing category markers on a 3D bar chart.
+ * A demo showing category markers on a 3D bar chart plus many elements of
+ * chart interactivity.
  */
 @SuppressWarnings("serial")
 public class CategoryMarkerDemo1 extends JFrame {
     
-    static class CustomDemoPanel extends DemoPanel implements ActionListener {
+    static class CustomDemoPanel extends DemoPanel implements ActionListener,
+            Chart3DMouseListener {
+        
+        private Map<String, JRadioButton> radioButtons;
         
         public CustomDemoPanel(LayoutManager layout) {
             super(layout);
+            this.radioButtons = new HashMap<String, JRadioButton>();
             
             JPanel controlPanel = new JPanel(new GridLayout(2, 1));
             JPanel panel1 = new JPanel(new FlowLayout());
@@ -86,24 +97,28 @@ public class CategoryMarkerDemo1 extends JFrame {
             appleRB.addActionListener(this);
             cGroup.add(appleRB);
             panel1.add(appleRB);
+            this.radioButtons.put("Apple", appleRB);
 
             JRadioButton googleRB = new JRadioButton("Google");
             googleRB.setActionCommand("GOOGLE");
             googleRB.addActionListener(this);
             cGroup.add(googleRB);
             panel1.add(googleRB);
+            this.radioButtons.put("Google", googleRB);
             
             JRadioButton microsoftRB = new JRadioButton("Microsoft");
             microsoftRB.setActionCommand("MICROSOFT");
             microsoftRB.addActionListener(this);
             cGroup.add(microsoftRB);
             panel1.add(microsoftRB);
+            this.radioButtons.put("Microsoft", microsoftRB);
             
             JRadioButton oracleRB = new JRadioButton("Oracle");
             oracleRB.setActionCommand("ORACLE");
             oracleRB.addActionListener(this);
             cGroup.add(oracleRB);
             panel1.add(oracleRB);
+            this.radioButtons.put("Oracle", oracleRB);
 
             JPanel panel2 = new JPanel(new FlowLayout());
             
@@ -113,36 +128,42 @@ public class CategoryMarkerDemo1 extends JFrame {
             q211.addActionListener(this);
             qGroup.add(q211);
             panel2.add(q211);
+            this.radioButtons.put("Q2/11", q211);
 
             JRadioButton q311 = new JRadioButton("Q3/11");
             q311.setActionCommand("Q311");
             q311.addActionListener(this);
             qGroup.add(q311);
             panel2.add(q311);
+            this.radioButtons.put("Q3/11", q311);
 
             JRadioButton q411 = new JRadioButton("Q4/11");
             q411.setActionCommand("Q411");
             q411.addActionListener(this);
             qGroup.add(q411);
             panel2.add(q411);
+            this.radioButtons.put("Q4/11", q411);
 
             JRadioButton q112 = new JRadioButton("Q1/12");
             q112.setActionCommand("Q112");
             q112.addActionListener(this);
             qGroup.add(q112);
             panel2.add(q112);
+            this.radioButtons.put("Q1/12", q112);
 
             JRadioButton q212 = new JRadioButton("Q2/12");
             q212.setActionCommand("Q212");
             q212.addActionListener(this);
             qGroup.add(q212);
             panel2.add(q212);
+            this.radioButtons.put("Q2/12", q212);
 
             JRadioButton q312 = new JRadioButton("Q3/12");
             q312.setActionCommand("Q312");
             q312.addActionListener(this);
             qGroup.add(q312);
             panel2.add(q312);
+            this.radioButtons.put("Q3/12", q312);
 
             JRadioButton q412 = new JRadioButton("Q4/12");
             q412.setSelected(true);
@@ -150,35 +171,40 @@ public class CategoryMarkerDemo1 extends JFrame {
             q412.addActionListener(this);
             qGroup.add(q412);
             panel2.add(q412);
+            this.radioButtons.put("Q4/12", q412);
 
             JRadioButton q113 = new JRadioButton("Q1/13");
             q113.setActionCommand("Q113");
             q113.addActionListener(this);
             qGroup.add(q113);
             panel2.add(q113);
+            this.radioButtons.put("Q1/13", q113);
 
             JRadioButton q213 = new JRadioButton("Q2/13");
             q213.setActionCommand("Q213");
             q213.addActionListener(this);
             qGroup.add(q213);
             panel2.add(q213);
+            this.radioButtons.put("Q2/13", q213);
 
             JRadioButton q313 = new JRadioButton("Q3/13");
             q313.setActionCommand("Q313");
             q313.addActionListener(this);
             qGroup.add(q313);
             panel2.add(q313);
+            this.radioButtons.put("Q3/13", q313);
 
             JRadioButton q413 = new JRadioButton("Q4/13");
             q413.setActionCommand("Q413");
             q413.addActionListener(this);
             qGroup.add(q413);
             panel2.add(q413);
+            this.radioButtons.put("Q4/13", q413);
 
             controlPanel.add(panel1);
             controlPanel.add(panel2);
             add(controlPanel, BorderLayout.SOUTH);
-        }    
+        }
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -275,6 +301,35 @@ public class CategoryMarkerDemo1 extends JFrame {
             }
             chart.setNotify(true);
         }
+
+        @Override
+        public void chartMouseClicked(Chart3DMouseEvent event) {
+            RenderedElement element = event.getElement();
+            if (element != null) {
+                Values3DItemKey key = (Values3DItemKey) element.getProperty(
+                        Object3D.ITEM_KEY);
+                if (key != null) {
+                    JRadioButton b1 = this.radioButtons.get(
+                            key.getRowKey().toString());
+                    if (b1 != null) {
+                        b1.doClick(0);
+                    }
+                    JRadioButton b2 = this.radioButtons.get(
+                            key.getColumnKey().toString());
+                    if (b2 != null) {
+                        b2.doClick();
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "You clicked on " 
+                            + element.toString());
+                }
+            }
+        }
+
+        @Override
+        public void chartMouseMoved(Chart3DMouseEvent event) {
+            // we'll do nothing here
+        }
     }
 
     /**
@@ -296,7 +351,7 @@ public class CategoryMarkerDemo1 extends JFrame {
      * @return A panel containing the content for the demo.
      */
     public static JPanel createDemoPanel() {
-        DemoPanel content = new CustomDemoPanel(new BorderLayout());
+        CustomDemoPanel content = new CustomDemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         CategoryDataset3D dataset = createDataset();
         Chart3D chart = Chart3DFactory.createBarChart("Quarterly Revenues", 
@@ -306,12 +361,15 @@ public class CategoryMarkerDemo1 extends JFrame {
         chart.setLegendAnchor(LegendAnchor.BOTTOM_RIGHT);
         CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
         plot.setGridlinePaintForValues(Color.BLACK);
-        StandardCategoryAxis3D rowAxis = (StandardCategoryAxis3D) plot.getRowAxis();
+        StandardCategoryAxis3D rowAxis 
+                = (StandardCategoryAxis3D) plot.getRowAxis();
         rowAxis.setMarker("RM1", new CategoryMarker("Apple"));
-        StandardCategoryAxis3D columnAxis = (StandardCategoryAxis3D) plot.getColumnAxis();
+        StandardCategoryAxis3D columnAxis 
+                = (StandardCategoryAxis3D) plot.getColumnAxis();
         columnAxis.setMarker("CM1", new CategoryMarker("Q4/12"));
         CategoryRenderer3D renderer = plot.getRenderer();
-        HighlightCategoryColorSource colorSource = new HighlightCategoryColorSource();
+        HighlightCategoryColorSource colorSource 
+                = new HighlightCategoryColorSource();
         colorSource.setHighlightRowIndex(3);
         colorSource.setHighlightColumnIndex(6);
         renderer.setColorSource(colorSource);
@@ -322,6 +380,7 @@ public class CategoryMarkerDemo1 extends JFrame {
         chartPanel.getViewPoint().roll(-Math.PI / 60);
         content.setChartPanel(chartPanel);
         chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
+        chartPanel.addChartMouseListener(content);
         content.add(new DisplayPanel3D(chartPanel));
         return content;
     }

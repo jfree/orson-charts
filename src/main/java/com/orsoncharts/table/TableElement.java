@@ -33,8 +33,15 @@ import com.orsoncharts.util.RefPt2D;
  * simultaneously.
  * 
  */
-
 public interface TableElement {
+    
+    final String CLASS = "class";
+    
+    /** 
+     * The 'bounds2d' property key.  Values for this property should be 
+     * instances of Rectangle2D. 
+     */
+    final String BOUNDS_2D = "bounds2d";
     
     /**
      * Calculates the preferred size for the element, with reference to the 
@@ -74,8 +81,8 @@ public interface TableElement {
     /**
      * Performs a layout of this table element, returning a list of bounding
      * rectangles for the element and its subelements.  This method is
-     * typically called by the {@link #draw(java.awt.Graphics2D, java.awt.geom.Rectangle2D) }
-     * method.
+     * typically called by the {@link #draw(java.awt.Graphics2D, 
+     * java.awt.geom.Rectangle2D)} method.
      * 
      * @param g2  the graphics target (<code>null</code> not permitted).
      * @param bounds  the bounds (<code>null</code> not permitted).
@@ -95,7 +102,45 @@ public interface TableElement {
     void draw(Graphics2D g2, Rectangle2D bounds);
     
     /**
-     * Receives a {@link TableElementVisitor}.
+     * Draws the element within the specified bounds.  If the 
+     * <code>recordBounds</code> flag is set, this element and each of its
+     * children will have their <code>BOUNDS_2D</code> property updated with 
+     * the current bounds.
+     * 
+     * @param g2  the graphics target (<code>null</code> not permitted).
+     * @param bounds  the bounds (<code>null</code> not permitted).
+     * @param recordBounds  record the bounds?
+     * 
+     * @since 1.3
+     */
+    void draw(Graphics2D g2, Rectangle2D bounds, boolean recordBounds);
+    
+    /**
+     * Returns the value of the property with the specified key, or 
+     * <code>null</code>.
+     * 
+     * @param key  the key (<code>null</code> not permitted).
+     * 
+     * @return The property value or <code>null</code>. 
+     * 
+     * @since 1.3
+     */
+    Object getProperty(String key);
+    
+    /**
+     * Sets the value of the property with the specified key.
+     * 
+     * @param key  the key (<code>null</code> not permitted).
+     * @param value  the value (<code>null</code> permitted).
+     * 
+     * @since 1.3
+     */
+    void setProperty(String key, Object value);
+    
+    /**
+     * Receives a {@link TableElementVisitor}.  The visitor will have its
+     * <code>visit(TableElement)</code> method called for each child element 
+     * of this table element (if it has children) and then for this element.
      * 
      * @param visitor  the visitor (<code>null</code> not permitted).
      * 

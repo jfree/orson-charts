@@ -63,8 +63,8 @@ public class GridElement extends AbstractTableElement implements TableElement,
     }
     
     /**
-     * Receives a visitor.  The implementation ensures that the visitor
-     * visits all the elements in the grid.
+     * Receives a visitor by calling the visitor's <code>visit()</code> method 
+     * for each of the children in the grid, and finally for the grid itself. 
      * 
      * @param visitor  the visitor (<code>null</code> not permitted).
      * 
@@ -80,6 +80,7 @@ public class GridElement extends AbstractTableElement implements TableElement,
                 }
             }
         }
+        visitor.visit(this);
     }
     
     /**
@@ -177,6 +178,26 @@ public class GridElement extends AbstractTableElement implements TableElement,
      */
     @Override
     public void draw(Graphics2D g2, Rectangle2D bounds) {
+        draw(g2, bounds, false);
+    }
+    
+    /**
+     * Draws the element within the specified bounds.  If the 
+     * <code>recordBounds</code> flag is set, this element and each of its
+     * children will have their <code>BOUNDS_2D</code> property updated with 
+     * the current bounds.
+     * 
+     * @param g2  the graphics target (<code>null</code> not permitted).
+     * @param bounds  the bounds (<code>null</code> not permitted).
+     * @param recordBounds  record the bounds?
+     * 
+     * @since 1.3
+     */
+    @Override
+    public void draw(Graphics2D g2, Rectangle2D bounds, boolean recordBounds) {
+        if (recordBounds) {
+            setProperty(BOUNDS_2D, bounds);
+        }
         if (getBackground() != null) {
             getBackground().fill(g2, bounds);
         }
@@ -188,9 +209,9 @@ public class GridElement extends AbstractTableElement implements TableElement,
                     continue;
                 }
                 Rectangle2D pos = positions.get(r * elements.getYCount() + c);
-                element.draw(g2, pos);
+                element.draw(g2, pos, recordBounds);
             }
-        }        
+        }
     }
     
     /**
@@ -213,6 +234,21 @@ public class GridElement extends AbstractTableElement implements TableElement,
             return false;
         }
         return true;
+    }
+ 
+    /**
+     * Returns a string representation of this element, primarily for
+     * debugging purposes.
+     * 
+     * @return A string representation of this element. 
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("GridElement[rowCount=").append(this.elements.getXCount());
+        sb.append(", columnCount=").append(this.elements.getYCount());
+        sb.append("]");
+        return sb.toString();
     }
     
 }

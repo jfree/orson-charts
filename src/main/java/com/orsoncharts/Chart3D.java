@@ -43,12 +43,12 @@ import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.DoubleSidedFace;
 import com.orsoncharts.graphics3d.Drawable3D;
 import com.orsoncharts.graphics3d.Face;
+import com.orsoncharts.graphics3d.FaceSorter;
 import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.Point3D;
 import com.orsoncharts.graphics3d.Utils2D;
 import com.orsoncharts.graphics3d.ViewPoint3D;
 import com.orsoncharts.graphics3d.World;
-import com.orsoncharts.graphics3d.ZOrderComparator;
 import com.orsoncharts.legend.LegendAnchor;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.plot.PiePlot3D;
@@ -58,7 +58,11 @@ import com.orsoncharts.plot.Plot3D;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.graphics3d.Offset2D;
 import com.orsoncharts.graphics3d.RenderingInfo;
+import com.orsoncharts.graphics3d.StandardFaceSorter;
+import com.orsoncharts.graphics3d.RenderedElement;
+import com.orsoncharts.interaction.InteractiveElementType;
 import com.orsoncharts.legend.LegendBuilder;
+import com.orsoncharts.legend.LegendRenderingInfoVisitor;
 import com.orsoncharts.legend.StandardLegendBuilder;
 import com.orsoncharts.marker.Marker;
 import com.orsoncharts.marker.MarkerData;
@@ -129,6 +133,24 @@ public class Chart3D implements Drawable3D, ChartElement,
      */
     public static final double DEFAULT_PROJ_DIST = 1500.0;
     
+    /**
+     * The key for a property that stores the interactive element type.
+     * 
+     * @since 1.3
+     */
+    public static final String INTERACTIVE_ELEMENT_TYPE 
+            = "interactive_element_type";
+    
+    /**
+     * The key for a property that stores the series key.  This is used to
+     * store the series key on the {@link TableElement} representing a legend 
+     * item, and also on a corresponding {@link RenderedElement} after
+     * chart rendering.
+     * 
+     * @since 1.3
+     */
+    public static final String SERIES_KEY = "series_key";
+    
     /** A background rectangle painter, if any. */
     private RectanglePainter background;
     
@@ -193,7 +215,10 @@ public class Chart3D implements Drawable3D, ChartElement,
     
     /** A 3D model of the world (represents the chart). */
     private World world;
-    
+
+    /** An object that sorts faces for rendering (painter's algorithm). */
+    private FaceSorter faceSorter = new StandardFaceSorter();
+
     /**
      * Creates a 3D chart for the specified plot using the default chart
      * style.  Note that a plot instance must be used in one chart instance
@@ -758,8 +783,7 @@ public class Chart3D implements Drawable3D, ChartElement,
         
         // sort faces by z-order
         List<Face> facesInPaintOrder = new ArrayList<Face>(world.getFaces());
-        Collections.sort(facesInPaintOrder, new ZOrderComparator(eyePts));
-
+        facesInPaintOrder = this.faceSorter.sort(facesInPaintOrder, eyePts);
         for (Face f : facesInPaintOrder) {
             boolean drawOutline = f.getOutline();
 
@@ -769,7 +793,7 @@ public class Chart3D implements Drawable3D, ChartElement,
             double shade = (inprod + 1) / 2.0;
             if (f instanceof DoubleSidedFace 
                     || Utils2D.area2(pts[f.getVertexIndex(0)],
-                    pts[f.getVertexIndex(1)], pts[f.getVertexIndex(2)]) > 0) {
+                    pts[f.getVertexIndex(1)], pts[f.getVertexIndex(2)]) > 0.0) {
                 Color c = f.getColor();
                 if (c != null) {
                     Path2D p = f.createPath(pts);
@@ -806,6 +830,7 @@ public class Chart3D implements Drawable3D, ChartElement,
         }    
 
         g2.setTransform(saved);
+        RenderingInfo info = new RenderingInfo(facesInPaintOrder, pts, dx, dy);
         
         // generate and draw the legend...
         if (this.legendBuilder != null) {
@@ -826,7 +851,11 @@ public class Chart3D implements Drawable3D, ChartElement,
                 Dimension2D legendSize = legend.preferredSize(g2, bounds);
                 Rectangle2D legendArea = calculateDrawArea(legendSize, 
                         this.legendAnchor, bounds);
-                legend.draw(g2, legendArea);
+                boolean recordBounds = (info != null);
+                legend.draw(g2, legendArea, recordBounds);
+                if (info != null) {
+                    legend.receive(new LegendRenderingInfoVisitor(info));
+                }
             }
         }
 
@@ -836,9 +865,14 @@ public class Chart3D implements Drawable3D, ChartElement,
             Rectangle2D titleArea = calculateDrawArea(titleSize, 
                     this.titleAnchor, bounds);
             this.title.draw(g2, titleArea);
+            if (info != null) {
+                RenderedElement titleElement = new RenderedElement(
+                        InteractiveElementType.TITLE);
+                titleElement.setProperty(RenderedElement.BOUNDS_2D, titleArea);
+                info.addElement(titleElement);
+            }
         }
         g2.setClip(savedClip);
-        RenderingInfo info = new RenderingInfo(facesInPaintOrder, pts, dx, dy);
         return info;
     }
     

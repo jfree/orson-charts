@@ -18,6 +18,7 @@ import java.awt.Shape;
 import java.util.List;
 import java.io.Serializable;
 
+import com.orsoncharts.Chart3D;
 import com.orsoncharts.plot.Plot3D;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.plot.PiePlot3D;
@@ -230,7 +231,11 @@ public final class StandardLegendBuilder implements LegendBuilder,
      * Creates and returns a legend (instance of {@link TableElement}) that
      * provides a visual key for the data series in the specified plot.  The
      * plot can be any of the built-in plot types: {@link PiePlot3D}, 
-     * {@link CategoryPlot3D} or {@link XYZPlot}.
+     * {@link CategoryPlot3D} or {@link XYZPlot}.  
+     * <br><br>
+     * Certain subelements will have the following properties set so that 
+     * downstream code is able to identify which elements relate to particular
+     * data series: CLASS : 'LegendItem', SERIES_KEY : the series key.
      * 
      * @param plot  the plot (<code>null</code> not permitted).
      * @param anchor  the anchor (<code>null</code> not permitted).
@@ -271,9 +276,11 @@ public final class StandardLegendBuilder implements LegendBuilder,
     }
     
     /**
-     * Creates a simple legend based on a horizontal flow layout of the 
-     * individual legend items.
+     * Creates a simple legend based on a flow layout of the individual legend 
+     * items.
      * 
+     * @param items  the items to be added to the legend (<code>null</code> 
+     *     not permitted).
      * @param plot  the plot (<code>null</code> not permitted).
      * @param anchor  the anchor point (<code>null</code> not permitted).
      * @param orientation  the orientation (<code>null</code> not permitted).
@@ -300,10 +307,13 @@ public final class StandardLegendBuilder implements LegendBuilder,
             if (shape == null) {
                 shape = style.getLegendItemShape();
             }
-            legend.addElement(createLegendItem(item.getLabel(), 
+            TableElement legendItem = createLegendItem(item.getLabel(), 
                     style.getLegendItemFont(), style.getLegendItemColor(), 
                     shape, item.getColor(), 
-                    style.getLegendItemBackgroundColor()));
+                    style.getLegendItemBackgroundColor());
+            legendItem.setProperty(TableElement.CLASS, "LegendItem");
+            legendItem.setProperty(Chart3D.SERIES_KEY, item.getSeriesKey());
+            legend.addElement(legendItem);
         }
         return legend;
     }

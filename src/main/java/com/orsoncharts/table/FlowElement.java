@@ -301,6 +301,27 @@ public class FlowElement extends AbstractTableElement
      */
     @Override
     public void draw(Graphics2D g2, Rectangle2D bounds) {
+        draw(g2, bounds, false);
+    }
+    
+    /**
+     * Draws the element within the specified bounds.  If the 
+     * <code>recordBounds</code> flag is set, this element and each of its
+     * children will have their <code>BOUNDS_2D</code> property updated with 
+     * the current bounds.
+     * 
+     * @param g2  the graphics target (<code>null</code> not permitted).
+     * @param bounds  the bounds (<code>null</code> not permitted).
+     * @param recordBounds  record the bounds?
+     * 
+     * @since 1.3
+     */
+    @Override
+    public void draw(Graphics2D g2, Rectangle2D bounds, boolean recordBounds) {
+        if (recordBounds) {
+            setProperty(BOUNDS_2D, bounds);
+        }
+        
         Shape savedClip = g2.getClip();
         g2.clip(bounds);
         
@@ -319,7 +340,7 @@ public class FlowElement extends AbstractTableElement
         for (int i = 0; i < this.elements.size(); i++) {
             Rectangle2D rect = layoutInfo.get(i);
             TableElement element = this.elements.get(i);
-            element.draw(g2, rect);
+            element.draw(g2, rect, recordBounds);
         }
         
         g2.setClip(savedClip);

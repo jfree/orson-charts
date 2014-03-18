@@ -217,7 +217,24 @@ public class TextElement extends AbstractTableElement
      */
     @Override
     public void draw(Graphics2D g2, Rectangle2D bounds) {
-        
+        draw(g2, bounds, false);
+    }
+    
+    /**
+     * Draws the element within the specified bounds.  If the 
+     * <code>recordBounds</code> flag is set, this element and each of its
+     * children will have their <code>BOUNDS_2D</code> property updated with 
+     * the current bounds.
+     * 
+     * @param g2  the graphics target (<code>null</code> not permitted).
+     * @param bounds  the bounds (<code>null</code> not permitted).
+     * @param recordBounds  record the bounds?
+     */
+    @Override
+    public void draw(Graphics2D g2, Rectangle2D bounds, boolean recordBounds) {
+        if (recordBounds) {
+            setProperty(BOUNDS_2D, bounds);
+        }
         List<Rectangle2D> layout = layoutElements(g2, bounds, null);
         Rectangle2D textBounds = layout.get(0);
         if (getBackground() != null) {
@@ -262,4 +279,10 @@ public class TextElement extends AbstractTableElement
         return super.equals(obj);
     }
     
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("TextElement[text=").append(this.text).append("]");
+        return sb.toString();
+    }
 }

@@ -14,10 +14,13 @@ package com.orsoncharts.graphics3d;
 
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.util.List;
+import java.util.ArrayList;
 
 /**
- * Rendering info returned from the {@link Drawable3D} draw() method.
+ * Rendering info returned from the {@link Drawable3D} <code>draw()</code> 
+ * method.
  * 
  * @since 1.3
  */
@@ -37,6 +40,12 @@ public class RenderingInfo {
     /** The y-translation. */
     public double dy;
     
+    /** 
+     * Storage for rendered elements in the model other than the 3D objects
+     * (caters for code that overlays other items such as labels).
+     */
+    List<RenderedElement> otherElements;
+    
     /**
      * Creates a new instance.
      * 
@@ -51,6 +60,7 @@ public class RenderingInfo {
         this.projPts = projPts;
         this.dx = dx;
         this.dy = dy;
+        this.otherElements = new ArrayList<RenderedElement>();
     }
     
     /**
@@ -95,7 +105,16 @@ public class RenderingInfo {
     }
     
     /**
-     * Fetches the object, if any, that is rendered at (x, y).
+     * Adds a rendered element to the rendering info.
+     * 
+     * @param element  the element (<code>null</code> not permitted). 
+     */
+    public void addElement(RenderedElement element) {
+        this.otherElements.add(element);
+    }
+    
+    /**
+     * Fetches the object, if any, that is rendered at <code>(x, y)</code>.
      * 
      * @param x  the x-coordinate.
      * @param y  the y-coordinate.
@@ -108,6 +127,40 @@ public class RenderingInfo {
             Path2D p = f.createPath(this.projPts);
             if (p.contains(x - dx, y - dy)) {
                 return f.getOwner();
+            }
+        }
+        return null;
+    }
+    
+    /**
+     * Finds the rendered element, if any, at the location <code>(x, y)</code>.
+     * The method first calls fetchObjectAt(x, y) to see if there is an
+     * object at the specified location and, if there is, returns a new
+     * RenderedElement instance for that object.  Otherwise, it searches the
+     * otherElements list to see if there is some other element (such as a
+     * title, legend, axis label or axis tick label) and returns that item.
+     * Finally, if no element is found, the method returns <code>null</code>.
+     * 
+     * @param x  the x-coordinate.
+     * @param y  the y-coordinate.
+     * 
+     * @return The interactive element or <code>null</code>.
+     */
+    public RenderedElement findElementAt(double x, double y) {
+        Object3D obj = fetchObjectAt(x, y);
+        if (obj != null) {
+            RenderedElement element = new RenderedElement("obj3d");
+            element.setProperty(Object3D.ITEM_KEY, 
+                    obj.getProperty(Object3D.ITEM_KEY));
+            return element;
+        }
+        
+        for (int i = this.otherElements.size() - 1; i >= 0; i--) {
+            RenderedElement element = this.otherElements.get(i);
+            Rectangle2D bounds = (Rectangle2D) element.getProperty(
+                    RenderedElement.BOUNDS_2D);
+            if (bounds.contains(x, y)) {
+                return element;
             }
         }
         return null;

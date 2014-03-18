@@ -18,6 +18,7 @@ import java.awt.Insets;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.orsoncharts.util.ArgChecks;
@@ -50,6 +51,9 @@ public abstract class AbstractTableElement implements Serializable {
     /** A tag that can be used to identify the class of element. */
     private String tag;
     
+    /** Stores properties for the element. */
+    private HashMap<String, Object> properties;
+    
     /**
      * Creates a new instance.
      */
@@ -59,6 +63,7 @@ public abstract class AbstractTableElement implements Serializable {
         this.background = new StandardRectanglePainter(
                 DEFAULT_BACKGROUND_COLOR);
         this.tag = "";
+        this.properties = new HashMap<String, Object>();
     }
 
     /**
@@ -162,6 +167,33 @@ public abstract class AbstractTableElement implements Serializable {
     public void setTag(String tag) {
         ArgChecks.nullNotPermitted(tag, "tag");
         this.tag = tag;
+    }
+    
+    /**
+     * Returns the value of the property with the specified key, or 
+     * <code>null</code>.
+     * 
+     * @param key  the key (<code>null</code> not permitted).
+     * 
+     * @return The property value or <code>null</code>. 
+     * 
+     * @since 1.3
+     */
+    public Object getProperty(String key) {
+        return this.properties.get(key);
+    }
+    
+    /**
+     * Sets the value of the property with the specified key.
+     * 
+     * @param key  the key (<code>null</code> not permitted).
+     * @param value  the value (<code>null</code> permitted).
+     * 
+     * @since 1.3
+     */
+    public void setProperty(String key, Object value) {
+        ArgChecks.nullNotPermitted(key, "key");
+        this.properties.put(key, value);
     }
     
     /**
