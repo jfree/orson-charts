@@ -12,15 +12,11 @@
 
 package com.orsoncharts.graphics3d.swing;
 
-import com.orsoncharts.Resources;
-
 import java.awt.event.ActionEvent;
-
 import javax.swing.AbstractAction;
-
-import com.orsoncharts.util.ArgChecks;
-
 import javax.swing.Action;
+import com.orsoncharts.Resources;
+import com.orsoncharts.util.ArgChecks;
 
 /**
  * An action that handles rotating the 3D view towards the bottom of the screen.
