@@ -12,8 +12,6 @@
 
 package com.orsoncharts.graphics3d.swing;
 
-import com.orsoncharts.Resources;
-
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -27,6 +25,7 @@ import javax.swing.AbstractAction;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import com.orsoncharts.Resources;
 import com.orsoncharts.util.ArgChecks;
 
 /**
