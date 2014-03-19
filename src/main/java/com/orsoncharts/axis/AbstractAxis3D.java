@@ -16,6 +16,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
@@ -404,15 +405,23 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
     public abstract void receive(ChartElementVisitor visitor);
     
     /**
-     * Draws an axis label.
+     * Draws the specified text as the axis label and returns a bounding 
+     * shape for the text.
      * 
-     * @param g2  the graphics target.
-     * @param axisLine  the axis line.
-     * @param opposingPt  an opposing point.
+     * @param label  the label (<code>null</code> not permitted).
+     * @param g2  the graphics target (<code>null</code> not permitted).
+     * @param axisLine  the axis line (<code>null</code> not permitted).
+     * @param opposingPt  an opposing point (<code>null</code> not permitted).
      * @param offset  the offset.
+     * 
+     * @return A bounding shape.
      */
-    protected void drawAxisLabel(Graphics2D g2, Line2D axisLine, 
-            Point2D opposingPt, double offset) {
+    protected Shape drawAxisLabel(String label, Graphics2D g2, 
+            Line2D axisLine, Point2D opposingPt, double offset) {
+        ArgChecks.nullNotPermitted(label, "label");
+        ArgChecks.nullNotPermitted(g2, "g2");
+        ArgChecks.nullNotPermitted(axisLine, "axisLine");
+        ArgChecks.nullNotPermitted(opposingPt, "opposingPt");
         g2.setFont(getLabelFont());
         g2.setPaint(getLabelColor());
         Line2D labelPosLine = Utils2D.createPerpendicularLine(axisLine, 0.5, 
@@ -424,7 +433,7 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
         if (theta > Math.PI / 2.0) {
             theta = theta - Math.PI;
         }
-        TextUtils.drawRotatedString(getLabel(), g2, 
+        return TextUtils.drawRotatedString(getLabel(), g2, 
                 (float) labelPosLine.getX2(), (float) labelPosLine.getY2(), 
                 TextAnchor.CENTER, theta, TextAnchor.CENTER);
     }

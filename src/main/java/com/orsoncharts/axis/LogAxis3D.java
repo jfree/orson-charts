@@ -14,6 +14,7 @@ package com.orsoncharts.axis;
 
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
+import java.awt.Shape;
 import java.awt.font.TextAttribute;
 import java.awt.font.TextLayout;
 import java.awt.geom.Line2D;
@@ -27,7 +28,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.orsoncharts.Range;
+import com.orsoncharts.graphics3d.RenderedElement;
+import com.orsoncharts.graphics3d.RenderingInfo;
 import com.orsoncharts.graphics3d.Utils2D;
+import com.orsoncharts.interaction.InteractiveElementType;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.ObjectUtils;
 import com.orsoncharts.util.TextAnchor;
@@ -355,10 +359,12 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
      *     of the line).
      * @param tickData  the tick data (including anchor points calculated by
      *     the 3D engine).
+     * @param info  an object to be populated with rendering info 
+     *     (<code>null</code> permitted).
      */
     @Override
     public void draw(Graphics2D g2, Point2D startPt, Point2D endPt, 
-            Point2D opposingPt, List<TickData> tickData) {
+            Point2D opposingPt, List<TickData> tickData, RenderingInfo info) {
         
         if (!isVisible()) {
             return;
@@ -400,8 +406,14 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
 
         // draw the axis label (if any)...
         if (getLabel() != null) {
-            drawAxisLabel(g2, axisLine, opposingPt, maxTickLabelDim 
-                    + tickMarkLength + tickLabelOffset + 10);
+            Shape labelBounds = drawAxisLabel(getLabel(), g2, axisLine, 
+                    opposingPt, maxTickLabelDim + tickMarkLength 
+                    + tickLabelOffset + 10);
+            if (info != null) {
+                RenderedElement labelElement = new RenderedElement(
+                        InteractiveElementType.AXIS_LABEL, labelBounds);
+                info.addElement(labelElement);
+            }
         }
     }
     
@@ -428,11 +440,11 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
             double logy = calculateLog(t.getDataValue());
             AttributedString as = createTickLabelAttributedString(logy,
                     this.tickLabelFormatter);
-            Rectangle2D bounds = new Rectangle2D.Double();
+            Rectangle2D nonRotatedBounds = new Rectangle2D.Double();
             TextUtils.drawRotatedString(as, g2, 
                     (float) perpLine.getX2(), (float) perpLine.getY2(), 
-                    textAnchor, thetaAdj, textAnchor, bounds);
-            result = Math.max(result, bounds.getWidth());
+                    textAnchor, thetaAdj, textAnchor, nonRotatedBounds);
+            result = Math.max(result, nonRotatedBounds.getWidth());
         }
         return result;
     }
@@ -457,10 +469,9 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
             double logy = calculateLog(t.getDataValue());
             AttributedString as = createTickLabelAttributedString(logy, 
                     this.tickSelector.getCurrentTickLabelFormat());
-            Rectangle2D bounds = new Rectangle2D.Double();
             TextUtils.drawRotatedString(as, g2, 
                     (float) perpLine.getX2(), (float) perpLine.getY2(), 
-                    anchor, theta, anchor, bounds);
+                    anchor, theta, anchor, null);
         }
     }
 

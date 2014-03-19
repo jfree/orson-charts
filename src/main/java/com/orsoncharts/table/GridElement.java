@@ -196,7 +196,7 @@ public class GridElement extends AbstractTableElement implements TableElement,
     @Override
     public void draw(Graphics2D g2, Rectangle2D bounds, boolean recordBounds) {
         if (recordBounds) {
-            setProperty(BOUNDS_2D, bounds);
+            setProperty(BOUNDS, bounds);
         }
         if (getBackground() != null) {
             getBackground().fill(g2, bounds);

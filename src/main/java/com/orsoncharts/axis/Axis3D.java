@@ -19,6 +19,7 @@ import java.awt.Font;
 import java.util.List;
 import com.orsoncharts.ChartElement;
 import com.orsoncharts.Range;
+import com.orsoncharts.graphics3d.RenderingInfo;
 
 /**
  * An interface that must be supported by axes for 3D plots.
@@ -161,9 +162,11 @@ public interface Axis3D extends ChartElement {
      * @param opposingPt  an opposing point (<code>null</code> not permitted).
      * @param tickData  info about the ticks to draw (<code>null</code> not 
      *     permitted).
+     * @param info  an object to be populated with rendering info 
+     *     (<code>null</code> permitted).
      */
     void draw(Graphics2D g2, Point2D startPt, Point2D endPt, Point2D opposingPt, 
-            List<TickData> tickData);
+            List<TickData> tickData, RenderingInfo info);
 
     /**
      * Registers a listener so that it receives notification of changes to the

@@ -12,6 +12,7 @@
 
 package com.orsoncharts.legend;
 
+import java.awt.geom.Rectangle2D;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.graphics3d.RenderedElement;
 import com.orsoncharts.graphics3d.RenderingInfo;
@@ -51,12 +52,12 @@ public class LegendRenderingInfoVisitor implements TableElementVisitor {
     public void visit(TableElement element) {
         String elementClass = (String) element.getProperty(TableElement.CLASS);
         if ("LegendItem".equals(elementClass)) {
+            Rectangle2D bounds 
+                    = (Rectangle2D) element.getProperty(TableElement.BOUNDS);
             RenderedElement legendItemRE = new RenderedElement(
-                    InteractiveElementType.LEGEND_ITEM);
+                    InteractiveElementType.LEGEND_ITEM, bounds);
             legendItemRE.setProperty(Chart3D.SERIES_KEY, 
                     element.getProperty(Chart3D.SERIES_KEY));
-            legendItemRE.setProperty(RenderedElement.BOUNDS_2D, 
-                    element.getProperty(TableElement.BOUNDS_2D));
             info.addElement(legendItemRE);
         }
     }

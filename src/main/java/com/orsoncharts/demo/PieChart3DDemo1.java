@@ -39,6 +39,7 @@ package com.orsoncharts.demo;
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import com.orsoncharts.ChartPanel3D;
@@ -47,7 +48,10 @@ import com.orsoncharts.Chart3DFactory;
 import com.orsoncharts.TitleAnchor;
 import com.orsoncharts.data.StandardPieDataset3D;
 import com.orsoncharts.data.PieDataset3D;
+import com.orsoncharts.graphics3d.RenderedElement;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
+import com.orsoncharts.interaction.Chart3DMouseEvent;
+import com.orsoncharts.interaction.Chart3DMouseListener;
 import com.orsoncharts.legend.LegendAnchor;
 import com.orsoncharts.util.Orientation;
 
@@ -76,7 +80,7 @@ public class PieChart3DDemo1 extends JFrame {
      * @return A panel containing the content for the demo.
      */
     public static JPanel createDemoPanel() {
-        DemoPanel content = new DemoPanel(new BorderLayout());
+        final DemoPanel content = new DemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         Chart3D chart = Chart3DFactory.createPieChart(
                 "New Zealand Exports 2012", 
@@ -86,6 +90,22 @@ public class PieChart3DDemo1 extends JFrame {
                 Orientation.HORIZONTAL);
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
         chartPanel.setMargin(0.05);
+        chartPanel.addChartMouseListener(new Chart3DMouseListener() {
+
+            @Override
+            public void chartMouseClicked(Chart3DMouseEvent event) {
+                RenderedElement element = event.getElement();
+                if (element != null) {
+                    JOptionPane.showMessageDialog(content, 
+                            Chart3D.renderedElementToString(event.getElement()));
+                }
+            }
+
+            @Override
+            public void chartMouseMoved(Chart3DMouseEvent event) {
+                
+            }
+        });
         content.setChartPanel(chartPanel);
         content.add(new DisplayPanel3D(chartPanel));
         chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);

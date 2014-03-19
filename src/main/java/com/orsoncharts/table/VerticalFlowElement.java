@@ -304,7 +304,7 @@ public class VerticalFlowElement extends AbstractTableElement
     @Override
     public void draw(Graphics2D g2, Rectangle2D bounds, boolean recordBounds) {
         if (recordBounds) {
-            setProperty(BOUNDS_2D, bounds);
+            setProperty(BOUNDS, bounds);
         }
         Shape savedClip = g2.getClip();
         g2.clip(bounds);

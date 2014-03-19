@@ -15,6 +15,7 @@ package com.orsoncharts.util;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
+import java.awt.Shape;
 import java.awt.font.FontRenderContext;
 import java.awt.font.LineMetrics;
 import java.awt.font.TextLayout;
@@ -33,7 +34,8 @@ public class TextUtils {
     
     /**
      * Draws a string such that the specified anchor point is aligned to the
-     * given <code>(x, y)</code> location.
+     * given <code>(x, y)</code> location, and returns a bounding rectangle 
+     * for the text.
      *
      * @param text  the text.
      * @param g2  the graphics device.
@@ -187,66 +189,83 @@ public class TextUtils {
      * @return The text bounds.
      */
     public static Rectangle2D getTextBounds(String text, FontMetrics fm) {
+        return getTextBounds(text, 0.0, 0.0, fm);
+    }
+    
+    /**
+     * Returns the bounds for the specified text when it is drawn with the 
+     * left-baseline aligned to the point <code>(x, y)</code>.
+     * 
+     * @param text  the text (<code>null</code> not permitted).
+     * @param x  the x-coordinate.
+     * @param y  the y-coordinate.
+     * @param fm  the font metrics (<code>null</code> not permitted).
+     * 
+     * @return The bounding rectangle (never <code>null</code>). 
+     */
+    public static Rectangle2D getTextBounds(String text, double x, double y,
+            FontMetrics fm) {
         ArgChecks.nullNotPermitted(text, "text");
         ArgChecks.nullNotPermitted(fm, "fm");
         double width = fm.stringWidth(text);
         double height = fm.getHeight();
-        return new Rectangle2D.Double(0.0, -fm.getAscent(), width, height);
+        return new Rectangle2D.Double(x, y - fm.getAscent(), width, height);
+        
     }
     
     /**
      * Draws a string that is aligned by one anchor point and rotated about
      * another anchor point.
      *
-     * @param text  the text.
-     * @param g2  the graphics device.
+     * @param text  the text (<code>null</code> not permitted).
+     * @param g2  the graphics target (<code>null</code> not permitted).
      * @param x  the x-coordinate for positioning the text.
      * @param y  the y-coordinate for positioning the text.
      * @param textAnchor  the text anchor.
      * @param angle  the rotation angle.
      * @param rotationX  the x-coordinate for the rotation anchor point.
      * @param rotationY  the y-coordinate for the rotation anchor point.
+     * 
+     * @return The text bounds (never <code>null</code>).
      */
-    public static void drawRotatedString(String text, Graphics2D g2, float x,
+    public static Shape drawRotatedString(String text, Graphics2D g2, float x,
             float y, TextAnchor textAnchor, double angle,
-            float rotationX, float rotationY) {
-
-        if (text == null || text.equals("")) {
-            return;
-        }
+            float rotationX, float rotationY, Rectangle2D bounds) {
+        ArgChecks.nullNotPermitted(text, "text");
         float[] textAdj = deriveTextBoundsAnchorOffsets(g2, text, textAnchor);
-        drawRotatedString(text, g2, x + textAdj[0], y + textAdj[1], angle,
-                rotationX, rotationY);
+        return drawRotatedString(text, g2, x + textAdj[0], y + textAdj[1], 
+                angle, rotationX, rotationY);
     }
 
     /**
      * Draws a string that is aligned by one anchor point and rotated about
-     * another anchor point.
+     * another anchor point, and returns a bounding shape for the text.
      *
-     * @param text  the text.
+     * @param text  the text (<code>null</code> not permitted).
      * @param g2  the graphics device.
      * @param x  the x-coordinate for positioning the text.
      * @param y  the y-coordinate for positioning the text.
      * @param textAnchor  the text anchor.
      * @param angle  the rotation angle (in radians).
      * @param rotationAnchor  the rotation anchor.
+     * 
+     * @return A bounding shape for the text.
      */
-    public static void drawRotatedString(String text, Graphics2D g2,
+    public static Shape drawRotatedString(String text, Graphics2D g2,
             float x, float y, TextAnchor textAnchor,
             double angle, TextAnchor rotationAnchor) {
 
-        if (text == null || text.equals("")) {
-            return;
-        }
+        ArgChecks.nullNotPermitted(text, "text");
         float[] textAdj = deriveTextBoundsAnchorOffsets(g2, text, textAnchor);
         float[] rotateAdj = deriveRotationAnchorOffsets(g2, text,
                 rotationAnchor);
-        drawRotatedString(text, g2, x + textAdj[0], y + textAdj[1],
+        return drawRotatedString(text, g2, x + textAdj[0], y + textAdj[1],
                 angle, x + textAdj[0] + rotateAdj[0],
                 y + textAdj[1] + rotateAdj[1]);
 
     }
-        /**
+
+    /**
      * A utility method that calculates the rotation anchor offsets for a
      * string.  These offsets are relative to the text starting coordinate
      * (BASELINE_LEFT).
@@ -309,15 +328,17 @@ public class TextUtils {
      * A common rotation is -Math.PI/2 which draws text 'vertically' (with the
      * top of the characters on the left).
      *
-     * @param text  the text.
-     * @param g2  the graphics device.
+     * @param text  the text (<code>null</code> not permitted)
+     * @param g2  the graphics target (<code>null</code> not permitted).
      * @param angle  the angle of the (clockwise) rotation (in radians).
      * @param x  the x-coordinate.
      * @param y  the y-coordinate.
+     * 
+     * @return The text bounds.
      */
-    public static void drawRotatedString(String text, Graphics2D g2,
+    public static Shape drawRotatedString(String text, Graphics2D g2,
             double angle, float x, float y) {
-        drawRotatedString(text, g2, x, y, angle, x, y);
+        return drawRotatedString(text, g2, x, y, angle, x, y);
     }
 
     /**
@@ -326,28 +347,30 @@ public class TextUtils {
      * A common rotation is -Math.PI/2 which draws text 'vertically' (with the
      * top of the characters on the left).
      *
-     * @param text  the text.
+     * @param text  the text (<code>null</code> not permitted)
      * @param g2  the graphics device.
      * @param textX  the x-coordinate for the text (before rotation).
      * @param textY  the y-coordinate for the text (before rotation).
      * @param angle  the angle of the (clockwise) rotation (in radians).
      * @param rotateX  the point about which the text is rotated.
      * @param rotateY  the point about which the text is rotated.
+     * 
+     * @return The bounds for the rotated text (never <code>null</code>).
      */
-    public static void drawRotatedString(String text, Graphics2D g2,
+    public static Shape drawRotatedString(String text, Graphics2D g2,
             float textX, float textY, double angle,
             float rotateX, float rotateY) {
-
-        if ((text == null) || (text.equals(""))) {
-            return;
-        }
-
+        ArgChecks.nullNotPermitted(text, "text");
         AffineTransform saved = g2.getTransform();
+        Rectangle2D rect = TextUtils.getTextBounds(text, textX, textY, 
+                g2.getFontMetrics());
         AffineTransform rotate = AffineTransform.getRotateInstance(
                 angle, rotateX, rotateY);
+        Shape bounds = rotate.createTransformedShape(rect);
         g2.transform(rotate);
         g2.drawString(text, textX, textY);
         g2.setTransform(saved);
+        return bounds;
     }
     
     /**
@@ -360,11 +383,13 @@ public class TextUtils {
      * @param x  the x-coordinate.
      * @param y  the y-coordinate.
      * 
+     * @return The text bounds (never <code>null</code>).
+     * 
      * @since 1.2
      */
-    public static void drawRotatedString(AttributedString text, Graphics2D g2, 
+    public static Shape drawRotatedString(AttributedString text, Graphics2D g2, 
             double angle, float x, float y) {
-        drawRotatedString(text, g2, x, y, angle, x, y);
+        return drawRotatedString(text, g2, x, y, angle, x, y);
     }
     
     /**
@@ -379,9 +404,11 @@ public class TextUtils {
      * @param rotateX  the x-coordinate for the rotation point.
      * @param rotateY  the y-coordinate for the rotation point.
      * 
+     * @return The text bounds (never <code>null</code>).
+     * 
      * @since 1.2
      */
-    public static void drawRotatedString(AttributedString text, Graphics2D g2, 
+    public static Shape drawRotatedString(AttributedString text, Graphics2D g2, 
             float textX, float textY, double angle, float rotateX, 
             float rotateY) {
         
@@ -392,8 +419,10 @@ public class TextUtils {
         g2.transform(rotate);
         TextLayout tl = new TextLayout(text.getIterator(),
                     g2.getFontRenderContext());
+        Rectangle2D rect = tl.getBounds();
         tl.draw(g2, textX, textY);
-        g2.setTransform(saved);        
+        g2.setTransform(saved);
+        return rotate.createTransformedShape(rect);
     }
 
     /**
@@ -408,22 +437,40 @@ public class TextUtils {
      * @param angle  the rotation angle (in radians).
      * @param rotationAnchor  the rotation anchor (<code>null</code> not 
      *     permitted).
+     * @param nonRotatedBounds  if not <code>null</code> this rectangle will 
+     *     be updated with the non-rotated bounds of the text for the caller
+     *     to use.
+     * 
+     * @return The text bounds (never <code>null</code>).
      * 
      * @since 1.2
      */
-    public static void drawRotatedString(AttributedString text, Graphics2D g2,
+    public static Shape drawRotatedString(AttributedString text, Graphics2D g2,
             float x, float y, TextAnchor textAnchor,
-            double angle, TextAnchor rotationAnchor, Rectangle2D bounds) {
+            double angle, TextAnchor rotationAnchor, 
+            Rectangle2D nonRotatedBounds) {
         ArgChecks.nullNotPermitted(text, "text");
         float[] textAdj = deriveTextBoundsAnchorOffsets(g2, text, textAnchor, 
-                bounds);
+                nonRotatedBounds);
         float[] rotateAdj = deriveRotationAnchorOffsets(g2, text, 
                 rotationAnchor);
-        drawRotatedString(text, g2, x + textAdj[0], y + textAdj[1],
+        return drawRotatedString(text, g2, x + textAdj[0], y + textAdj[1],
                 angle, x + textAdj[0] + rotateAdj[0],
                 y + textAdj[1] + rotateAdj[1]);
     }
-        
+
+    /**
+     * Calculates the x and y offsets required to align the text with the
+     * specified <code>anchor</code>.
+     * 
+     * @param g2  the graphics target (<code>null</code> not permitted).
+     * @param text  the text (<code>null</code> not permitted).
+     * @param anchor  the anchor (<code>null</code> not permitted).
+     * @param textBounds  if not <code>null</code>, this rectangle will be
+     *     updated with the bounds of the text (for the caller to use).
+     * 
+     * @return An array of two floats dx and dy.
+     */
     private static float[] deriveTextBoundsAnchorOffsets(Graphics2D g2,
             AttributedString text, TextAnchor anchor, Rectangle2D textBounds) {
 

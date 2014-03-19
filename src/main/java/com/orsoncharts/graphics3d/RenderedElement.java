@@ -12,6 +12,7 @@
 
 package com.orsoncharts.graphics3d;
 
+import java.awt.Shape;
 import java.util.HashMap;
 import java.util.Map;
 import com.orsoncharts.util.ArgChecks;
@@ -29,10 +30,9 @@ public class RenderedElement {
     public static final String TYPE = "type";
 
     /** 
-     * A key for the 'bounds2d' property (the value is a 
-     * <code>Rectangle2D</code>). 
+     * A key for the 'bounds' property (the value is a <code>Shape</code>). 
      */
-    public static final String BOUNDS_2D = "bounds2d";
+    public static final String BOUNDS = "bounds";
     
     /** Properties for the element. */
     private Map<String, Object> properties;
@@ -41,11 +41,13 @@ public class RenderedElement {
      * Creates a new interactive element with the specified type.
      * 
      * @param type  the type (<code>null</code> not permitted). 
+     * @param bounds  the bounds (<code>null</code> permitted).
      */
-    public RenderedElement(Object type) {
+    public RenderedElement(Object type, Shape bounds) {
         ArgChecks.nullNotPermitted(type, "type");
         this.properties = new HashMap<String, Object>();
         this.properties.put(TYPE, type);
+        this.properties.put(RenderedElement.BOUNDS, bounds);
     }
     
     /**

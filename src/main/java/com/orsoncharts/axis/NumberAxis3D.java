@@ -13,10 +13,11 @@
 package com.orsoncharts.axis;
 
 import java.awt.FontMetrics;
-import java.awt.font.LineMetrics;
 import java.awt.Graphics2D;
+import java.awt.Shape;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
+import java.awt.font.LineMetrics;
 import java.text.DecimalFormat;
 import java.text.Format;
 import java.io.Serializable;
@@ -26,7 +27,10 @@ import java.util.List;
 import com.orsoncharts.util.TextUtils;
 import com.orsoncharts.util.TextAnchor;
 import com.orsoncharts.Range;
+import com.orsoncharts.graphics3d.RenderedElement;
+import com.orsoncharts.graphics3d.RenderingInfo;
 import com.orsoncharts.graphics3d.Utils2D;
+import com.orsoncharts.interaction.InteractiveElementType;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.plot.XYZPlot;
@@ -253,10 +257,12 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
      * @param opposingPt  an opposing point (to determine which side of the 
      *     axis line the labels should appear, <code>null</code> not permitted).
      * @param tickData  tick details (<code>null</code> not permitted).
+     * @param info  an object to be populated with rendering info 
+     *     (<code>null</code> permitted).
      */
     @Override
     public void draw(Graphics2D g2, Point2D pt0, Point2D pt1, 
-            Point2D opposingPt, List<TickData> tickData) {
+            Point2D opposingPt, List<TickData> tickData, RenderingInfo info) {
         
         if (!isVisible()) {
             return;
@@ -312,8 +318,14 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
 
         // draw the axis label (if any)...
         if (getLabel() != null) {
-            drawAxisLabel(g2, axisLine, opposingPt, maxTickLabelDim 
-                    + tickMarkLength + tickLabelOffset + 10);
+            Shape labelBounds = drawAxisLabel(getLabel(), g2, axisLine, 
+                    opposingPt, maxTickLabelDim + tickMarkLength 
+                    + tickLabelOffset + 10);
+            if (info != null) {
+                RenderedElement labelElement = new RenderedElement(
+                        InteractiveElementType.AXIS_LABEL, labelBounds);
+                info.addOffsetElement(labelElement);
+            }
         }
     }
     

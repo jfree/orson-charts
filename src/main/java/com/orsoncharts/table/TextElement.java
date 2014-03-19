@@ -233,7 +233,7 @@ public class TextElement extends AbstractTableElement
     @Override
     public void draw(Graphics2D g2, Rectangle2D bounds, boolean recordBounds) {
         if (recordBounds) {
-            setProperty(BOUNDS_2D, bounds);
+            setProperty(BOUNDS, bounds);
         }
         List<Rectangle2D> layout = layoutElements(g2, bounds, null);
         Rectangle2D textBounds = layout.get(0);

@@ -39,6 +39,7 @@ import com.orsoncharts.ChartBox3D.ChartBoxFace;
 import com.orsoncharts.axis.Axis3D;
 import com.orsoncharts.axis.TickData;
 import com.orsoncharts.axis.ValueAxis3D;
+import com.orsoncharts.data.ItemKey;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.DoubleSidedFace;
 import com.orsoncharts.graphics3d.Drawable3D;
@@ -817,20 +818,20 @@ public class Chart3D implements Drawable3D, ChartElement,
                 }
             } 
         }
+        RenderingInfo info = new RenderingInfo(facesInPaintOrder, pts, dx, dy);
    
         // handle labels on pie plots...
         if (this.plot instanceof PiePlot3D) {
-            drawPieLabels(g2, w, h, depth);
+            drawPieLabels(g2, w, h, depth, info);
         }
 
         // handle axis labelling on non-pie plots...
         if (this.plot instanceof XYZPlot || this.plot instanceof 
                 CategoryPlot3D) {
-            drawAxes(g2, chartBox, pts);
+            drawAxes(g2, chartBox, pts, info);
         }    
 
         g2.setTransform(saved);
-        RenderingInfo info = new RenderingInfo(facesInPaintOrder, pts, dx, dy);
         
         // generate and draw the legend...
         if (this.legendBuilder != null) {
@@ -867,8 +868,7 @@ public class Chart3D implements Drawable3D, ChartElement,
             this.title.draw(g2, titleArea);
             if (info != null) {
                 RenderedElement titleElement = new RenderedElement(
-                        InteractiveElementType.TITLE);
-                titleElement.setProperty(RenderedElement.BOUNDS_2D, titleArea);
+                        InteractiveElementType.TITLE, titleArea);
                 info.addElement(titleElement);
             }
         }
@@ -1244,9 +1244,10 @@ public class Chart3D implements Drawable3D, ChartElement,
      * @param w  the width.
      * @param h  the height.
      * @param depth  the depth.
+     * @param info  the rendering info (<code>null</code> permitted).
      */
     private void drawPieLabels(Graphics2D g2, double w, double h, 
-            double depth) {
+            double depth, RenderingInfo info) {
         PiePlot3D p = (PiePlot3D) this.plot;
         World labelOverlay = new World();
         List<Object3D> objs = p.getLabelFaces(-w / 2, -h / 2, -depth / 2);
@@ -1271,9 +1272,15 @@ public class Chart3D implements Drawable3D, ChartElement,
                         ppts[f.getVertexIndex(3)]);
                 String label = p.getSectionLabelGenerator().generateLabel(
                         p.getDataset(), key);
-                TextUtils.drawAlignedString(label, g2, 
+                Rectangle2D bounds = TextUtils.drawAlignedString(label, g2, 
                         (float) pt.getX(), (float) pt.getY(), 
                         TextAnchor.CENTER);
+                if (info != null) {
+                    RenderedElement pieLabelRE = new RenderedElement(
+                            InteractiveElementType.SECTION_LABEL, bounds);
+                    pieLabelRE.setProperty("key", key);
+                    info.addOffsetElement(pieLabelRE);
+                }
             }
         }
     }
@@ -1409,7 +1416,18 @@ public class Chart3D implements Drawable3D, ChartElement,
         }    
     }
     
-    private void drawAxes(Graphics2D g2, ChartBox3D chartBox, Point2D[] pts) {
+    /**
+     * Draws the axes for a chart.
+     * 
+     * @param g2  the graphics target (<code>null</code> not permitted).
+     * @param chartBox  the chart box (this contains projected points for
+     *     the tick marks and labels)
+     * @param pts  the projected points.
+     * @param info  an object to be populated with rendering info, if it is
+     *     non-<code>null</code>.
+     */
+    private void drawAxes(Graphics2D g2, ChartBox3D chartBox, Point2D[] pts,
+            RenderingInfo info) {
 
         // vertices
         Point2D v0 = pts[0];
@@ -1460,64 +1478,64 @@ public class Chart3D implements Drawable3D, ChartElement,
             if (count(a, b) == 1 && longest(ab, bc, cd, da)) {
                 ticks = chartBox.faceA().getXTicksA();
                 populateAnchorPoints(ticks, pts);
-                xAxis.draw(g2, v0, v1, v7, ticks);
+                xAxis.draw(g2, v0, v1, v7, ticks, info);
             }
             if (count(b, c) == 1 && longest(bc, ab, cd, da)) {
                 ticks = chartBox.faceB().getXTicksB();
                 populateAnchorPoints(ticks, pts);
-                xAxis.draw(g2, v3, v2, v6, ticks);
+                xAxis.draw(g2, v3, v2, v6, ticks, info);
             }
             if (count(c, d) == 1 && longest(cd, ab, bc, da)) {
                 ticks = chartBox.faceC().getXTicksB();
                 populateAnchorPoints(ticks, pts);
-                xAxis.draw(g2, v4, v7, v1, ticks);
+                xAxis.draw(g2, v4, v7, v1, ticks, info);
             }
             if (count(d, a) == 1 && longest(da, ab, bc, cd)) {
                 ticks = chartBox.faceA().getXTicksB();
                 populateAnchorPoints(ticks, pts);
-                xAxis.draw(g2, v5, v6, v3, ticks);
+                xAxis.draw(g2, v5, v6, v3, ticks, info);
             }
 
             if (count(b, e) == 1 && longest(be, bf, df, de)) {
                 ticks = chartBox.faceB().getYTicksA();
                 populateAnchorPoints(ticks, pts);
-                yAxis.draw(g2, v0, v3, v7, ticks);
+                yAxis.draw(g2, v0, v3, v7, ticks, info);
             }
             if (count(b, f) == 1 && longest(bf, be, df, de)) {
                 ticks = chartBox.faceB().getYTicksB();
                 populateAnchorPoints(ticks, pts);
-                yAxis.draw(g2, v1, v2, v4, ticks);
+                yAxis.draw(g2, v1, v2, v4, ticks, info);
             }
             if (count(d, f) == 1 && longest(df, be, bf, de)) {
                 ticks = chartBox.faceD().getYTicksA();
                 populateAnchorPoints(ticks, pts);
-                yAxis.draw(g2, v6, v7, v0, ticks);
+                yAxis.draw(g2, v6, v7, v0, ticks, info);
             }
             if (count(d, e) == 1 && longest(de, be, bf, df)) {
                 ticks = chartBox.faceD().getYTicksB();
                 populateAnchorPoints(ticks, pts);
-                yAxis.draw(g2, v5, v4, v1, ticks);
+                yAxis.draw(g2, v5, v4, v1, ticks, info);
             }
 
             if (count(a, e) == 1 && longest(ae, af, cf, ce)) {
                 ticks = chartBox.faceA().getZTicksA();
                 populateAnchorPoints(ticks, pts);
-                zAxis.draw(g2, v0, v5, v2, ticks);
+                zAxis.draw(g2, v0, v5, v2, ticks, info);
             }
             if (count(a, f) == 1 && longest(af, ae, cf, ce)) {
                 ticks = chartBox.faceA().getZTicksB();
                 populateAnchorPoints(ticks, pts);
-                zAxis.draw(g2, v1, v6, v3, ticks);
+                zAxis.draw(g2, v1, v6, v3, ticks, info);
             }
             if (count(c, f) == 1 && longest(cf, ae, af, ce)) {
                 ticks = chartBox.faceC().getZTicksB();
                 populateAnchorPoints(ticks, pts);
-                zAxis.draw(g2, v2, v7, v5, ticks);
+                zAxis.draw(g2, v2, v7, v5, ticks, info);
             }
             if (count(c, e) == 1 && longest(ce, ae, af, cf)) {
                 ticks = chartBox.faceC().getZTicksA();
                 populateAnchorPoints(ticks, pts);
-                zAxis.draw(g2, v3, v4, v6, ticks);
+                zAxis.draw(g2, v3, v4, v6, ticks, info);
             }
         }
     }
@@ -1881,6 +1899,35 @@ public class Chart3D implements Drawable3D, ChartElement,
         this.renderingHints.put(RenderingHints.KEY_TEXT_ANTIALIASING,
                 RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
                 
+    }
+    
+    public static String renderedElementToString(RenderedElement element) {
+        
+        Object type = element.getProperty(RenderedElement.TYPE);
+        if (InteractiveElementType.SECTION_LABEL.equals(type)) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("Section label with key '");
+            Object key = element.getProperty("key");
+            sb.append(key.toString());
+            sb.append("'");
+            return sb.toString();
+        } else if (InteractiveElementType.LEGEND_ITEM.equals(type)) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("Legend item with section key '");
+            Object key = element.getProperty(Chart3D.SERIES_KEY);
+            sb.append(key);
+            sb.append("'");
+            return sb.toString();
+        } else if ("obj3d".equals(type)) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("Object representing the data item [");
+            ItemKey itemKey = (ItemKey) element.getProperty(Object3D.ITEM_KEY);
+            sb.append(itemKey.toString());
+            sb.append("]");
+            return sb.toString();
+        } else {
+            return element.toString();
+        }
     }
 
 }

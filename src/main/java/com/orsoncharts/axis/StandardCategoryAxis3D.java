@@ -16,6 +16,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Paint;
+import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.font.LineMetrics;
 import java.awt.geom.Line2D;
@@ -32,7 +33,10 @@ import java.util.Map;
 import com.orsoncharts.ChartElementVisitor;
 import com.orsoncharts.Range;
 import com.orsoncharts.data.category.CategoryDataset3D;
+import com.orsoncharts.graphics3d.RenderedElement;
+import com.orsoncharts.graphics3d.RenderingInfo;
 import com.orsoncharts.graphics3d.Utils2D;
+import com.orsoncharts.interaction.InteractiveElementType;
 import com.orsoncharts.label.CategoryLabelGenerator;
 import com.orsoncharts.label.StandardCategoryLabelGenerator;
 import com.orsoncharts.marker.CategoryMarker;
@@ -636,10 +640,12 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      *         labels (<code>null</code> not permitted).
      * @param tickData  the tick data, contains positioning anchors calculated 
      *     by the 3D engine (<code>null</code> not permitted).
+     * @param info  an object to be populated with rendering info 
+     *     (<code>null</code> permitted).
      */
     @Override
     public void draw(Graphics2D g2, Point2D pt0, Point2D pt1, 
-            Point2D opposingPt, List<TickData> tickData) {
+            Point2D opposingPt, List<TickData> tickData, RenderingInfo info) {
         
         if (!isVisible()) {
             return;
@@ -689,9 +695,14 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
 
         // draw the axis label if there is one
         if (getLabel() != null) {
-            drawAxisLabel(g2, axisLine, opposingPt, maxTickLabelDim 
-                    + this.tickMarkLength + this.tickLabelOffset 
-                    + getLabelOffset());
+            Shape labelBounds = drawAxisLabel(getLabel(), g2, axisLine, 
+                    opposingPt, maxTickLabelDim + this.tickMarkLength 
+                    + this.tickLabelOffset + getLabelOffset());
+            if (info != null) {
+                RenderedElement labelElement = new RenderedElement(
+                        InteractiveElementType.AXIS_LABEL, labelBounds);
+                info.addOffsetElement(labelElement);
+            }
         }
     }
     

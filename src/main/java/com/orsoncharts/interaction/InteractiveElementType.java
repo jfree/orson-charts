@@ -27,6 +27,9 @@ public enum InteractiveElementType {
     
     AXIS_TICK_LABEL,
     
+    /** The section label for a pie chart. */
+    SECTION_LABEL,
+    
     LEGEND,
     
     LEGEND_ITEM,

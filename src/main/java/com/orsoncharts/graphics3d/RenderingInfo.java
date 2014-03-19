@@ -12,9 +12,9 @@
 
 package com.orsoncharts.graphics3d;
 
+import java.awt.Shape;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -45,6 +45,8 @@ public class RenderingInfo {
      * (caters for code that overlays other items such as labels).
      */
     List<RenderedElement> otherElements;
+
+    List<RenderedElement> otherOffsetElements;
     
     /**
      * Creates a new instance.
@@ -61,6 +63,7 @@ public class RenderingInfo {
         this.dx = dx;
         this.dy = dy;
         this.otherElements = new ArrayList<RenderedElement>();
+        this.otherOffsetElements = new ArrayList<RenderedElement>();
     }
     
     /**
@@ -113,6 +116,10 @@ public class RenderingInfo {
         this.otherElements.add(element);
     }
     
+    public void addOffsetElement(RenderedElement element) {
+        this.otherOffsetElements.add(element);
+    }
+    
     /**
      * Fetches the object, if any, that is rendered at <code>(x, y)</code>.
      * 
@@ -147,21 +154,30 @@ public class RenderingInfo {
      * @return The interactive element or <code>null</code>.
      */
     public RenderedElement findElementAt(double x, double y) {
-        Object3D obj = fetchObjectAt(x, y);
-        if (obj != null) {
-            RenderedElement element = new RenderedElement("obj3d");
-            element.setProperty(Object3D.ITEM_KEY, 
-                    obj.getProperty(Object3D.ITEM_KEY));
-            return element;
-        }
         
+    
         for (int i = this.otherElements.size() - 1; i >= 0; i--) {
             RenderedElement element = this.otherElements.get(i);
-            Rectangle2D bounds = (Rectangle2D) element.getProperty(
-                    RenderedElement.BOUNDS_2D);
+            Shape bounds = (Shape) element.getProperty(RenderedElement.BOUNDS);
             if (bounds.contains(x, y)) {
                 return element;
             }
+        }
+        
+        for (int i = this.otherOffsetElements.size() - 1; i >= 0; i--) {
+            RenderedElement element = this.otherOffsetElements.get(i);
+            Shape bounds = (Shape) element.getProperty(RenderedElement.BOUNDS);
+            if (bounds != null && bounds.contains(x - dx, y - dy)) {
+                return element;
+            }
+        }
+
+        Object3D obj = fetchObjectAt(x, y);
+        if (obj != null) {
+            RenderedElement element = new RenderedElement("obj3d", null);
+            element.setProperty(Object3D.ITEM_KEY, 
+                    obj.getProperty(Object3D.ITEM_KEY));
+            return element;
         }
         return null;
     }

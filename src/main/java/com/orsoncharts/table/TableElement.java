@@ -38,10 +38,10 @@ public interface TableElement {
     final String CLASS = "class";
     
     /** 
-     * The 'bounds2d' property key.  Values for this property should be 
+     * The 'bounds' property key.  Values for this property should be 
      * instances of Rectangle2D. 
      */
-    final String BOUNDS_2D = "bounds2d";
+    final String BOUNDS = "bounds";
     
     /**
      * Calculates the preferred size for the element, with reference to the 

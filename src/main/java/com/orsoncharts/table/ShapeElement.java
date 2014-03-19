@@ -128,7 +128,7 @@ public class ShapeElement extends AbstractTableElement
     @Override
     public void draw(Graphics2D g2, Rectangle2D bounds, boolean recordBounds) {
         if (recordBounds) {
-            setProperty(BOUNDS_2D, bounds);
+            setProperty(BOUNDS, bounds);
         }
         AffineTransform saved = g2.getTransform();
         RectanglePainter background = getBackground();
