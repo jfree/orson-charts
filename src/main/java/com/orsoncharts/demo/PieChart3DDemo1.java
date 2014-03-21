@@ -84,7 +84,8 @@ public class PieChart3DDemo1 extends JFrame {
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         Chart3D chart = Chart3DFactory.createPieChart(
                 "New Zealand Exports 2012", 
-                "http://www.stats.govt.nz/browse_for_stats/snapshots-of-nz/nz-in-profile-2013.aspx", createDataset());
+                "http://www.stats.govt.nz/browse_for_stats/snapshots-of-nz/nz-in-profile-2013.aspx", 
+                createDataset());
         chart.setTitleAnchor(TitleAnchor.TOP_LEFT);
         chart.setLegendPosition(LegendAnchor.BOTTOM_CENTER,
                 Orientation.HORIZONTAL);
