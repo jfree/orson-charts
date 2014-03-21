@@ -32,6 +32,8 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.event.EventListenerList;
 
@@ -63,7 +65,6 @@ import com.orsoncharts.graphics3d.StandardFaceSorter;
 import com.orsoncharts.graphics3d.RenderedElement;
 import com.orsoncharts.interaction.InteractiveElementType;
 import com.orsoncharts.legend.LegendBuilder;
-import com.orsoncharts.legend.LegendRenderingInfoVisitor;
 import com.orsoncharts.legend.StandardLegendBuilder;
 import com.orsoncharts.marker.Marker;
 import com.orsoncharts.marker.MarkerData;
@@ -146,7 +147,7 @@ public class Chart3D implements Drawable3D, ChartElement,
      * The key for a property that stores the series key.  This is used to
      * store the series key on the {@link TableElement} representing a legend 
      * item, and also on a corresponding {@link RenderedElement} after
-     * chart rendering.
+     * chart rendering (in the {@link RenderingInfo}).
      * 
      * @since 1.3
      */
@@ -221,6 +222,12 @@ public class Chart3D implements Drawable3D, ChartElement,
     private FaceSorter faceSorter = new StandardFaceSorter();
 
     /**
+     * A flag that controls whether or not element hints are added to the
+     * <code>Graphics2D</code> output.
+     */
+    private boolean elementHinting;
+    
+    /**
      * Creates a 3D chart for the specified plot using the default chart
      * style.  Note that a plot instance must be used in one chart instance
      * only.
@@ -271,6 +278,7 @@ public class Chart3D implements Drawable3D, ChartElement,
                 RenderingHints.VALUE_ANTIALIAS_ON);
         this.renderingHints.put(RenderingHints.KEY_TEXT_ANTIALIASING,
                 RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+        this.elementHinting = false;
         this.notify = true;
         this.listenerList = new EventListenerList();
         this.style = style;
@@ -350,6 +358,7 @@ public class Chart3D implements Drawable3D, ChartElement,
         ArgChecks.nullNotPermitted(font, "font");
         ArgChecks.nullNotPermitted(color, "color");
         TextElement te = new TextElement(title);
+        te.setTag("CHART_TITLE");
         te.setFont(font);
         te.setColor(color);
         setTitle(te);
@@ -691,6 +700,33 @@ public class Chart3D implements Drawable3D, ChartElement,
     }
  
     /**
+     * Returns the flag that controls whether or not element hints will be
+     * added to the <code>Graphics2D</code> output when the chart is rendered.
+     * The default value is <code>false</code>.
+     * 
+     * @return A boolean.
+     * 
+     * @since 1.3
+     */
+    public boolean getElementHinting() {
+        return this.elementHinting;
+    }
+    
+    /**
+     * Sets the flag that controls whether or not element hints will be
+     * added to the <code>Graphics2D</code> output when the chart is rendered
+     * and sends a change event to all registered listeners.
+     * 
+     * @param hinting  the new flag value.
+     * 
+     * @since 1.3
+     */
+    public void setElementHinting(boolean hinting) {
+        this.elementHinting = hinting;
+        fireChangeEvent();
+    }
+    
+    /**
      * Returns the chart style.
      * 
      * @return The chart style (never <code>null</code>).
@@ -739,7 +775,9 @@ public class Chart3D implements Drawable3D, ChartElement,
     /**
      * Draws the chart to the specified output target.
      * 
-     * @param g2  the output target. 
+     * @param g2  the output target.
+     * 
+     * @return Information about the items rendered.
      */
     @Override
     public RenderingInfo draw(Graphics2D g2, Rectangle2D bounds) {
@@ -787,7 +825,6 @@ public class Chart3D implements Drawable3D, ChartElement,
         facesInPaintOrder = this.faceSorter.sort(facesInPaintOrder, eyePts);
         for (Face f : facesInPaintOrder) {
             boolean drawOutline = f.getOutline();
-
             double[] plane = f.calculateNormal(eyePts);
             double inprod = plane[0] * world.getSunX() + plane[1]
                     * world.getSunY() + plane[2] * world.getSunZ();
@@ -801,9 +838,15 @@ public class Chart3D implements Drawable3D, ChartElement,
                     g2.setPaint(new Color((int) (c.getRed() * shade),
                         (int) (c.getGreen() * shade),
                         (int) (c.getBlue() * shade), c.getAlpha()));
+                    if (this.elementHinting) {
+                        beginElementGroup(f, g2);
+                    }
                     g2.fill(p);
                     if (drawOutline) {
                         g2.draw(p);
+                    }
+                    if (this.elementHinting) {
+                        endElementGroup(f, g2);
                     }
                 }
                 
@@ -819,6 +862,8 @@ public class Chart3D implements Drawable3D, ChartElement,
             } 
         }
         RenderingInfo info = new RenderingInfo(facesInPaintOrder, pts, dx, dy);
+        OnDrawHandler onDrawHandler = new OnDrawHandler(info, 
+                this.elementHinting);
    
         // handle labels on pie plots...
         if (this.plot instanceof PiePlot3D) {
@@ -852,11 +897,7 @@ public class Chart3D implements Drawable3D, ChartElement,
                 Dimension2D legendSize = legend.preferredSize(g2, bounds);
                 Rectangle2D legendArea = calculateDrawArea(legendSize, 
                         this.legendAnchor, bounds);
-                boolean recordBounds = (info != null);
-                legend.draw(g2, legendArea, recordBounds);
-                if (info != null) {
-                    legend.receive(new LegendRenderingInfoVisitor(info));
-                }
+                legend.draw(g2, legendArea, onDrawHandler);
             }
         }
 
@@ -865,15 +906,28 @@ public class Chart3D implements Drawable3D, ChartElement,
             Dimension2D titleSize = this.title.preferredSize(g2, bounds);
             Rectangle2D titleArea = calculateDrawArea(titleSize, 
                     this.titleAnchor, bounds);
-            this.title.draw(g2, titleArea);
-            if (info != null) {
-                RenderedElement titleElement = new RenderedElement(
-                        InteractiveElementType.TITLE, titleArea);
-                info.addElement(titleElement);
-            }
+            this.title.draw(g2, titleArea, onDrawHandler);
         }
         g2.setClip(savedClip);
         return info;
+    }
+    
+    private void beginElementGroup(Face face, Graphics2D g2) {
+        Object3D owner = face.getOwner();
+        ItemKey itemKey = (ItemKey) owner.getProperty(Object3D.ITEM_KEY);
+        if (itemKey != null) {
+            Map m = new HashMap();
+            m.put("ref", itemKey.toJSONString());
+            g2.setRenderingHint(Chart3DHints.KEY_BEGIN_ELEMENT, m);
+        }
+    }
+    
+    private void endElementGroup(Face face, Graphics2D g2) {
+        Object3D owner = face.getOwner();
+        ItemKey itemKey = (ItemKey) owner.getProperty(Object3D.ITEM_KEY);
+        if (itemKey != null) {
+            g2.setRenderingHint(Chart3DHints.KEY_END_ELEMENT, Boolean.TRUE);
+        }
     }
     
     /**
@@ -1272,9 +1326,23 @@ public class Chart3D implements Drawable3D, ChartElement,
                         ppts[f.getVertexIndex(3)]);
                 String label = p.getSectionLabelGenerator().generateLabel(
                         p.getDataset(), key);
+                
+                if (this.elementHinting) {
+                    Map m = new HashMap<String, String>();
+                    m.put("ref", "{\"type\": \"sectionLabel\", \"key\": \"" 
+                            + key.toString() + "\"}");
+                    g2.setRenderingHint(Chart3DHints.KEY_BEGIN_ELEMENT, m);
+                }
+                
                 Rectangle2D bounds = TextUtils.drawAlignedString(label, g2, 
                         (float) pt.getX(), (float) pt.getY(), 
                         TextAnchor.CENTER);
+                
+                if (this.elementHinting) {
+                    g2.setRenderingHint(Chart3DHints.KEY_END_ELEMENT, 
+                            Boolean.TRUE);
+                }
+                
                 if (info != null) {
                     RenderedElement pieLabelRE = new RenderedElement(
                             InteractiveElementType.SECTION_LABEL, bounds);
@@ -1478,64 +1546,64 @@ public class Chart3D implements Drawable3D, ChartElement,
             if (count(a, b) == 1 && longest(ab, bc, cd, da)) {
                 ticks = chartBox.faceA().getXTicksA();
                 populateAnchorPoints(ticks, pts);
-                xAxis.draw(g2, v0, v1, v7, ticks, info);
+                xAxis.draw(g2, v0, v1, v7, ticks, info, this.elementHinting);
             }
             if (count(b, c) == 1 && longest(bc, ab, cd, da)) {
                 ticks = chartBox.faceB().getXTicksB();
                 populateAnchorPoints(ticks, pts);
-                xAxis.draw(g2, v3, v2, v6, ticks, info);
+                xAxis.draw(g2, v3, v2, v6, ticks, info, this.elementHinting);
             }
             if (count(c, d) == 1 && longest(cd, ab, bc, da)) {
                 ticks = chartBox.faceC().getXTicksB();
                 populateAnchorPoints(ticks, pts);
-                xAxis.draw(g2, v4, v7, v1, ticks, info);
+                xAxis.draw(g2, v4, v7, v1, ticks, info, this.elementHinting);
             }
             if (count(d, a) == 1 && longest(da, ab, bc, cd)) {
                 ticks = chartBox.faceA().getXTicksB();
                 populateAnchorPoints(ticks, pts);
-                xAxis.draw(g2, v5, v6, v3, ticks, info);
+                xAxis.draw(g2, v5, v6, v3, ticks, info, this.elementHinting);
             }
 
             if (count(b, e) == 1 && longest(be, bf, df, de)) {
                 ticks = chartBox.faceB().getYTicksA();
                 populateAnchorPoints(ticks, pts);
-                yAxis.draw(g2, v0, v3, v7, ticks, info);
+                yAxis.draw(g2, v0, v3, v7, ticks, info, this.elementHinting);
             }
             if (count(b, f) == 1 && longest(bf, be, df, de)) {
                 ticks = chartBox.faceB().getYTicksB();
                 populateAnchorPoints(ticks, pts);
-                yAxis.draw(g2, v1, v2, v4, ticks, info);
+                yAxis.draw(g2, v1, v2, v4, ticks, info, this.elementHinting);
             }
             if (count(d, f) == 1 && longest(df, be, bf, de)) {
                 ticks = chartBox.faceD().getYTicksA();
                 populateAnchorPoints(ticks, pts);
-                yAxis.draw(g2, v6, v7, v0, ticks, info);
+                yAxis.draw(g2, v6, v7, v0, ticks, info, this.elementHinting);
             }
             if (count(d, e) == 1 && longest(de, be, bf, df)) {
                 ticks = chartBox.faceD().getYTicksB();
                 populateAnchorPoints(ticks, pts);
-                yAxis.draw(g2, v5, v4, v1, ticks, info);
+                yAxis.draw(g2, v5, v4, v1, ticks, info, this.elementHinting);
             }
 
             if (count(a, e) == 1 && longest(ae, af, cf, ce)) {
                 ticks = chartBox.faceA().getZTicksA();
                 populateAnchorPoints(ticks, pts);
-                zAxis.draw(g2, v0, v5, v2, ticks, info);
+                zAxis.draw(g2, v0, v5, v2, ticks, info, this.elementHinting);
             }
             if (count(a, f) == 1 && longest(af, ae, cf, ce)) {
                 ticks = chartBox.faceA().getZTicksB();
                 populateAnchorPoints(ticks, pts);
-                zAxis.draw(g2, v1, v6, v3, ticks, info);
+                zAxis.draw(g2, v1, v6, v3, ticks, info, this.elementHinting);
             }
             if (count(c, f) == 1 && longest(cf, ae, af, ce)) {
                 ticks = chartBox.faceC().getZTicksB();
                 populateAnchorPoints(ticks, pts);
-                zAxis.draw(g2, v2, v7, v5, ticks, info);
+                zAxis.draw(g2, v2, v7, v5, ticks, info, this.elementHinting);
             }
             if (count(c, e) == 1 && longest(ce, ae, af, cf)) {
                 ticks = chartBox.faceC().getZTicksA();
                 populateAnchorPoints(ticks, pts);
-                zAxis.draw(g2, v3, v4, v6, ticks, info);
+                zAxis.draw(g2, v3, v4, v6, ticks, info, this.elementHinting);
             }
         }
     }
@@ -1918,12 +1986,33 @@ public class Chart3D implements Drawable3D, ChartElement,
             sb.append(key);
             sb.append("'");
             return sb.toString();
+        } else if(InteractiveElementType.AXIS_LABEL.equals(type)) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("Axis label with the label '");
+            sb.append(element.getProperty("label"));
+            sb.append("'");
+            return sb.toString();
+        } else if(InteractiveElementType.CATEGORY_AXIS_TICK_LABEL.equals(type)) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("Axis tick label with the label '");
+            sb.append(element.getProperty("label"));
+            sb.append("'");
+            return sb.toString();
+        } else if(InteractiveElementType.VALUE_AXIS_TICK_LABEL.equals(type)) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("Axis tick label with the value '");
+            sb.append(element.getProperty("value"));
+            sb.append("'");
+            return sb.toString();
         } else if ("obj3d".equals(type)) {
             StringBuilder sb = new StringBuilder();
-            sb.append("Object representing the data item [");
+            sb.append("An object in the 3D model");
             ItemKey itemKey = (ItemKey) element.getProperty(Object3D.ITEM_KEY);
-            sb.append(itemKey.toString());
-            sb.append("]");
+            if (itemKey != null) {
+                sb.append(" representing the data item [");
+                sb.append(itemKey.toString());
+                sb.append("]");
+            }
             return sb.toString();
         } else {
             return element.toString();

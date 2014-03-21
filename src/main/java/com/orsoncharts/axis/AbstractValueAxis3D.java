@@ -49,6 +49,9 @@ import com.orsoncharts.util.SerialUtils;
 public abstract class AbstractValueAxis3D extends AbstractAxis3D 
         implements ValueAxis3D, Serializable{
 
+    /** The type of use for which the axis has been configured. */
+    private ValueAxis3DType configuredType;
+    
     /** The axis range. */
     protected Range range;
 
@@ -94,6 +97,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
     
     public AbstractValueAxis3D(String label, Range range) {
         super(label);
+        this.configuredType = null;
         this.range = range;
         this.autoAdjustRange = true;
         this.lowerMargin = 0.05;
@@ -106,6 +110,41 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
         this.tickMarkStroke = new BasicStroke(0.5f);
         this.tickMarkPaint = Color.GRAY;
         this.valueMarkers = new LinkedHashMap<String, ValueMarker>();
+    }
+    
+    /**
+     * Returns the configured type for the axis.
+     * 
+     * @return The configured type (<code>null</code> if the axis has not yet
+     *     been assigned to a plot).
+     * 
+     * @since 1.3
+     */
+    @Override
+    public ValueAxis3DType getConfiguredType() {
+        return this.configuredType;
+    }
+    
+    /**
+     * Returns a string representing the configured type of the axis.
+     * 
+     * @return A string.
+     */
+    @Override
+    protected String axisStr() {
+        if (this.configuredType.equals(ValueAxis3DType.VALUE)) {
+            return "value";
+        }
+        if (this.configuredType.equals(ValueAxis3DType.X)) {
+            return "x";
+        }
+        if (this.configuredType.equals(ValueAxis3DType.Y)) {
+            return "y";
+        }
+        if (this.configuredType.equals(ValueAxis3DType.Z)) {
+            return "z";
+        }
+        return "";
     }
 
     /**
@@ -414,6 +453,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
      */
     @Override
     public void configureAsValueAxis(CategoryPlot3D plot) {
+        this.configuredType = ValueAxis3DType.VALUE;
         if (this.autoAdjustRange) {
         	CategoryDataset3D dataset = plot.getDataset();
             Range valueRange = plot.getRenderer().findValueRange(dataset);
@@ -434,6 +474,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
      */
     @Override
     public void configureAsXAxis(XYZPlot plot) {
+        this.configuredType = ValueAxis3DType.X;
         if (this.autoAdjustRange) {
             Range xRange = plot.getRenderer().findXRange(plot.getDataset());
             if (xRange != null) {
@@ -453,6 +494,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
      */
     @Override
     public void configureAsYAxis(XYZPlot plot) {
+        this.configuredType = ValueAxis3DType.Y;
         if (this.autoAdjustRange) {
             Range yRange = plot.getRenderer().findYRange(plot.getDataset());
             if (yRange != null) {
@@ -472,6 +514,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
      */
     @Override
     public void configureAsZAxis(XYZPlot plot) {
+        this.configuredType = ValueAxis3DType.Z;
         if (this.autoAdjustRange) {
             Range zRange = plot.getRenderer().findZRange(plot.getDataset());
             if (zRange != null) {

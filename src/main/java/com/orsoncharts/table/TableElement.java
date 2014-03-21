@@ -35,13 +35,12 @@ import com.orsoncharts.util.RefPt2D;
  */
 public interface TableElement {
     
-    final String CLASS = "class";
-    
-    /** 
-     * The 'bounds' property key.  Values for this property should be 
-     * instances of Rectangle2D. 
+    /**
+     * A property key for the class of a table element.
+     * 
+     * @since 1.3
      */
-    final String BOUNDS = "bounds";
+    final String CLASS = "class";
     
     /**
      * Calculates the preferred size for the element, with reference to the 
@@ -102,18 +101,19 @@ public interface TableElement {
     void draw(Graphics2D g2, Rectangle2D bounds);
     
     /**
-     * Draws the element within the specified bounds.  If the 
-     * <code>recordBounds</code> flag is set, this element and each of its
-     * children will have their <code>BOUNDS_2D</code> property updated with 
-     * the current bounds.
+     * Draws the element within the specified bounds.  The 
+     * <code>onDrawHandler</code> provides (optional) access to all elements 
+     * before and after they are rendered.
      * 
      * @param g2  the graphics target (<code>null</code> not permitted).
      * @param bounds  the bounds (<code>null</code> not permitted).
-     * @param recordBounds  record the bounds?
+     * @param onDrawHandler  an object that will receive notification before 
+     *     and after the element is drawn (<code>null</code> permitted).
      * 
      * @since 1.3
      */
-    void draw(Graphics2D g2, Rectangle2D bounds, boolean recordBounds);
+    void draw(Graphics2D g2, Rectangle2D bounds, 
+            TableElementOnDraw onDrawHandler);
     
     /**
      * Returns the value of the property with the specified key, or 

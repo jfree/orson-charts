@@ -18,5 +18,12 @@ package com.orsoncharts.data;
  * @since 1.3
  */
 public interface ItemKey {
-    
+
+    /**
+     * Returns a JSON formatted string representing the key.
+     * 
+     * @return A JSON formatted string.
+     */
+    String toJSONString();
+
 }

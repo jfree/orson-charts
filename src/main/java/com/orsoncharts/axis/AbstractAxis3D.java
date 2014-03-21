@@ -24,11 +24,18 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.swing.event.EventListenerList;
 
+import com.orsoncharts.Chart3DHints;
 import com.orsoncharts.ChartElementVisitor;
+import com.orsoncharts.graphics3d.RenderedElement;
+import com.orsoncharts.graphics3d.RenderingInfo;
 import com.orsoncharts.graphics3d.Utils2D;
+import com.orsoncharts.interaction.InteractiveElementType;
 import com.orsoncharts.marker.MarkerChangeEvent;
 import com.orsoncharts.marker.MarkerChangeListener;
 import com.orsoncharts.util.ArgChecks;
@@ -413,11 +420,13 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
      * @param axisLine  the axis line (<code>null</code> not permitted).
      * @param opposingPt  an opposing point (<code>null</code> not permitted).
      * @param offset  the offset.
+     * @param hinting  perform element hinting?
      * 
      * @return A bounding shape.
      */
     protected Shape drawAxisLabel(String label, Graphics2D g2, 
-            Line2D axisLine, Point2D opposingPt, double offset) {
+            Line2D axisLine, Point2D opposingPt, double offset, 
+            RenderingInfo info, boolean hinting) {
         ArgChecks.nullNotPermitted(label, "label");
         ArgChecks.nullNotPermitted(g2, "g2");
         ArgChecks.nullNotPermitted(axisLine, "axisLine");
@@ -433,11 +442,52 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
         if (theta > Math.PI / 2.0) {
             theta = theta - Math.PI;
         }
-        return TextUtils.drawRotatedString(getLabel(), g2, 
+        
+        if (hinting) {
+            Map m = new HashMap<String, String>();
+            m.put("ref", "{\"type\": \"axisLabel\", axis: " + axisStr() 
+                    + ", \"label\": \"" + getLabel() + "\"}");
+            g2.setRenderingHint(Chart3DHints.KEY_BEGIN_ELEMENT, m);
+        }
+        Shape bounds = TextUtils.drawRotatedString(getLabel(), g2, 
                 (float) labelPosLine.getX2(), (float) labelPosLine.getY2(), 
                 TextAnchor.CENTER, theta, TextAnchor.CENTER);
+        if (hinting) {
+            g2.setRenderingHint(Chart3DHints.KEY_END_ELEMENT, true);
+        }
+        if (info != null) {
+            RenderedElement labelElement = new RenderedElement(
+                    InteractiveElementType.AXIS_LABEL, bounds);
+            labelElement.setProperty("axis", axisStr());
+            labelElement.setProperty("label", getLabel());
+            info.addOffsetElement(labelElement);
+        }
+        return bounds;
     }
-
+ 
+    protected abstract String axisStr();
+    
+    /**
+     * Draws the axis along an arbitrary line (between <code>startPt</code> 
+     * and <code>endPt</code>).  The opposing point is used as a reference
+     * point to know on which side of the axis to draw the labels.
+     * 
+     * @param g2  the graphics target (<code>null</code> not permitted).
+     * @param startPt  the starting point (<code>null</code> not permitted).
+     * @param endPt  the end point (<code>null</code> not permitted)
+     * @param opposingPt  an opposing point (<code>null</code> not permitted).
+     * @param tickData  info about the ticks to draw (<code>null</code> not 
+     *     permitted).
+     * @param info  an object to be populated with rendering info 
+     *     (<code>null</code> permitted).
+     * @param hinting  a flag that controls whether or not element hinting 
+     *     should be performed.
+     */
+    @Override
+    public abstract void draw(Graphics2D g2, Point2D startPt, Point2D endPt, 
+            Point2D opposingPt, List<TickData> tickData, RenderingInfo info, 
+            boolean hinting);
+    
     /**
      * Tests this instance for equality with an arbitrary object.
      * 

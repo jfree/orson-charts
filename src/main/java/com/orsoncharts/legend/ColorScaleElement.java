@@ -35,6 +35,7 @@ import com.orsoncharts.util.Orientation;
 import com.orsoncharts.util.TextAnchor;
 import com.orsoncharts.util.TextUtils;
 import com.orsoncharts.Range;
+import com.orsoncharts.table.TableElementOnDraw;
 import com.orsoncharts.table.TableElementVisitor;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.Fit2D;
@@ -245,32 +246,31 @@ public class ColorScaleElement extends AbstractTableElement
      */
     @Override
     public void draw(Graphics2D g2, Rectangle2D bounds) {
-        draw(g2, bounds, false);
+        draw(g2, bounds, null);
     }
     
     /**
-     * Draws the element within the specified bounds.  If the 
-     * <code>recordBounds</code> flag is set, this element and each of its
-     * children will have their <code>BOUNDS_2D</code> property updated with 
-     * the current bounds.
+     * Draws the element within the specified bounds.
      * 
      * @param g2  the graphics target (<code>null</code> not permitted).
      * @param bounds  the bounds (<code>null</code> not permitted).
-     * @param recordBounds  record the bounds?
+     * @param onDrawHandler  receives notification before and after the element
+     *     is drawn (<code>null</code> permitted);
      * 
      * @since 1.3
      */
     @Override
-    public void draw(Graphics2D g2, Rectangle2D bounds, boolean recordBounds) {
-        if (recordBounds) {
-            setProperty(BOUNDS, bounds);
+    public void draw(Graphics2D g2, Rectangle2D bounds, 
+            TableElementOnDraw onDrawHandler) {
+        
+        if (onDrawHandler != null) {
+            onDrawHandler.beforeDraw(this, g2, bounds);
         }
+        
         Shape savedClip = g2.getClip();
         g2.clip(bounds);
-
         List<Rectangle2D> layoutInfo = layoutElements(g2, bounds, null);
-        Rectangle2D dest = layoutInfo.get(0);
-        
+        Rectangle2D dest = layoutInfo.get(0);        
         if (getBackground() != null) {
             getBackground().fill(g2, dest);
         }
@@ -320,6 +320,10 @@ public class ColorScaleElement extends AbstractTableElement
                     TextAnchor.HALF_ASCENT_LEFT);
         }
         g2.setClip(savedClip);
+
+        if (onDrawHandler != null) {
+            onDrawHandler.afterDraw(this, g2, bounds);
+        }
     }
     
     /**

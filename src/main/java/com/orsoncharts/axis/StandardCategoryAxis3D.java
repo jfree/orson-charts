@@ -28,8 +28,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
+import com.orsoncharts.Chart3DHints;
 import com.orsoncharts.ChartElementVisitor;
 import com.orsoncharts.Range;
 import com.orsoncharts.data.category.CategoryDataset3D;
@@ -130,6 +132,15 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      */
     private Map<String, CategoryMarker> markers;
     
+    /** A flag to indicate that this axis has been configured as a row axis. */
+    private boolean isRowAxis;
+    
+    /** 
+     * A flag to indicate that this axis has been configured as a column 
+     * axis. 
+     */
+    private boolean isColumnAxis;
+    
     /**
      * Default constructor.
      */
@@ -159,6 +170,36 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
         this.tickLabelFactor = 1.4;
         this.maxTickLabelLevels = 3;
         this.markers = new LinkedHashMap<String, CategoryMarker>();
+        this.isRowAxis = false;
+        this.isColumnAxis = false;
+    }
+
+    /**
+     * Returns <code>true</code> if this axis has been configured as a 
+     * row axis for the plot that it belongs to, and <code>false</code> 
+     * otherwise.
+     * 
+     * @return A boolean.
+     * 
+     * @since 1.3
+     */
+    @Override
+    public boolean isRowAxis() {
+        return isRowAxis;
+    }
+
+    /**
+     * Returns <code>true</code> if this axis has been configred as a
+     * column axis for the plot that it belongs to, and <code>false</code>
+     * otherwise.
+     * 
+     * @return A boolean.
+     * 
+     * @since 1.3
+     */
+    @Override
+    public boolean isColumnAxis() {
+        return isColumnAxis;
     }
 
     /**
@@ -562,6 +603,8 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     public void configureAsRowAxis(CategoryPlot3D plot) {
         ArgChecks.nullNotPermitted(plot, "plot");
         this.categories = plot.getDataset().getRowKeys();
+        this.isColumnAxis = true;
+        this.isRowAxis = false;
     }
 
     /**
@@ -575,6 +618,8 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     public void configureAsColumnAxis(CategoryPlot3D plot) {
         ArgChecks.nullNotPermitted(plot, "plot");
         this.categories = plot.getDataset().getColumnKeys();
+        this.isColumnAxis = true;
+        this.isRowAxis = false;
     }
 
     /**
@@ -642,10 +687,12 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      *     by the 3D engine (<code>null</code> not permitted).
      * @param info  an object to be populated with rendering info 
      *     (<code>null</code> permitted).
+     * @param hinting  perform element hinting?
      */
     @Override
     public void draw(Graphics2D g2, Point2D pt0, Point2D pt1, 
-            Point2D opposingPt, List<TickData> tickData, RenderingInfo info) {
+            Point2D opposingPt, List<TickData> tickData, RenderingInfo info,
+            boolean hinting) {
         
         if (!isVisible()) {
             return;
@@ -683,11 +730,12 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
             g2.setPaint(getTickLabelColor());
             if (this.tickLabelOrientation.equals(
                     LabelOrientation.PERPENDICULAR)) {
-                drawPerpendicularTickLabels(g2, axisLine, opposingPt, tickData);
+                drawPerpendicularTickLabels(g2, axisLine, opposingPt, tickData,
+                        info, hinting);
             } else if (this.tickLabelOrientation.equals(
                     LabelOrientation.PARALLEL)) {
                 maxTickLabelDim = drawParallelTickLabels(g2, axisLine, 
-                        opposingPt, tickData, maxTickLabelWidth);
+                        opposingPt, tickData, maxTickLabelWidth, info, hinting);
             }
         } else {
             maxTickLabelDim = 0.0;
@@ -697,18 +745,24 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
         if (getLabel() != null) {
             Shape labelBounds = drawAxisLabel(getLabel(), g2, axisLine, 
                     opposingPt, maxTickLabelDim + this.tickMarkLength 
-                    + this.tickLabelOffset + getLabelOffset());
-            if (info != null) {
-                RenderedElement labelElement = new RenderedElement(
-                        InteractiveElementType.AXIS_LABEL, labelBounds);
-                info.addOffsetElement(labelElement);
-            }
+                    + this.tickLabelOffset + getLabelOffset(), info, hinting);
         }
+    }
+    
+    @Override
+    protected String axisStr() {
+        String result = "";
+        if (this.isRowAxis) {
+            result = "row";
+        } else if (this.isColumnAxis) {
+            result = "column";
+        }
+        return result;
     }
     
     private double drawParallelTickLabels(Graphics2D g2, Line2D axisLine,
             Point2D opposingPt, List<TickData> tickData, 
-            double maxTickLabelWidth) {
+            double maxTickLabelWidth, RenderingInfo info, boolean hinting) {
         int levels = 1;
         LineMetrics lm = g2.getFontMetrics().getLineMetrics("123", g2);
         double height = lm.getHeight();
@@ -744,9 +798,27 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
                 axisTheta = axisTheta + Math.PI;  
             }
             String tickLabel = t.getKeyLabel();
-            TextUtils.drawRotatedString(tickLabel, g2, 
+            if (hinting) {
+                Map m = new HashMap<String, String>();
+                m.put("ref", "{\"type\": \"categoryTickLabel\", \"axis\": " 
+                        + axisStr() + ", \"key\": \"" 
+                        + t.getKey() + "\"}");
+                g2.setRenderingHint(Chart3DHints.KEY_BEGIN_ELEMENT, m);
+            }
+
+            Shape bounds = TextUtils.drawRotatedString(tickLabel, g2, 
                     (float) perpLine.getX2(), (float) perpLine.getY2(), 
                     textAnchor, axisTheta, textAnchor);
+            if (hinting) {
+                g2.setRenderingHint(Chart3DHints.KEY_END_ELEMENT, true);
+            }
+            if (info != null) {
+                RenderedElement tickLabelElement = new RenderedElement(
+                        InteractiveElementType.CATEGORY_AXIS_TICK_LABEL, bounds);
+                tickLabelElement.setProperty("label", tickLabel);
+                tickLabelElement.setProperty("axis", axisStr());
+                info.addOffsetElement(tickLabelElement);
+            }
             index++;
         }
         return height * levels;
@@ -760,9 +832,13 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      * @param opposingPt  an opposing point (used to indicate which side the
      *     labels will appear on).
      * @param tickData  the tick data.
+     * @param info  if not <code>null</code> this will be populated with 
+     *     {@link RenderedElement} instances for the tick labels.
+     * @param hinting  
      */
     private void drawPerpendicularTickLabels(Graphics2D g2, Line2D axisLine,
-            Point2D opposingPt, List<TickData> tickData) {
+            Point2D opposingPt, List<TickData> tickData, RenderingInfo info,
+            boolean hinting) {
         
         for (TickData t : tickData) {
             Line2D perpLine = Utils2D.createPerpendicularLine(axisLine, 
@@ -778,9 +854,26 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
                 textAnchor = TextAnchor.CENTER_RIGHT;   
             }
             String tickLabel = t.getKeyLabel();
-            TextUtils.drawRotatedString(tickLabel, g2, 
+            if (hinting) {
+                Map m = new HashMap<String, String>();
+                m.put("ref", "{\"type\": \"categoryAxisLabel\", \"axis\": " 
+                        + axisStr() + ",\"key\": \"" 
+                        + t.getKey() + "\"}");
+                g2.setRenderingHint(Chart3DHints.KEY_BEGIN_ELEMENT, m);
+            }
+            Shape bounds = TextUtils.drawRotatedString(tickLabel, g2, 
                     (float) perpLine.getX2(), (float) perpLine.getY2(), 
                     textAnchor, perpTheta, textAnchor);
+            if (hinting) {
+                g2.setRenderingHint(Chart3DHints.KEY_END_ELEMENT, true);
+            }
+            if (info != null) {
+                RenderedElement tickLabelElement = new RenderedElement(
+                        InteractiveElementType.CATEGORY_AXIS_TICK_LABEL, bounds);
+                tickLabelElement.setProperty("label", tickLabel);
+                tickLabelElement.setProperty("axis", axisStr());
+                info.addOffsetElement(tickLabelElement);
+            }
         }
     }
     

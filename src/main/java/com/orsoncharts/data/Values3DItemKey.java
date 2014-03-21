@@ -77,6 +77,18 @@ public class Values3DItemKey implements ItemKey {
     }
     
     @Override
+    public String toJSONString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{\"seriesKey\": \"").append(this.seriesKey.toString());
+        sb.append("\" ");
+        sb.append("\"rowKey\": \"").append(this.rowKey.toString());
+        sb.append("\" ");
+        sb.append("\"columnKey\": \"").append(this.columnKey.toString());
+        sb.append("\"}");
+        return sb.toString();
+    }
+    
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Values3DItemKey[series=");

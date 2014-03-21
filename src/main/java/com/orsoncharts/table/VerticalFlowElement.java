@@ -285,7 +285,7 @@ public class VerticalFlowElement extends AbstractTableElement
      */
     @Override
     public void draw(Graphics2D g2, Rectangle2D bounds) {
-        draw(g2, bounds, false);
+        draw(g2, bounds, null);
     }
     
     
@@ -302,9 +302,10 @@ public class VerticalFlowElement extends AbstractTableElement
      * @since 1.3
      */
     @Override
-    public void draw(Graphics2D g2, Rectangle2D bounds, boolean recordBounds) {
-        if (recordBounds) {
-            setProperty(BOUNDS, bounds);
+    public void draw(Graphics2D g2, Rectangle2D bounds, 
+            TableElementOnDraw onDrawHandler) {
+        if (onDrawHandler != null) {
+            onDrawHandler.beforeDraw(this, g2, bounds);
         }
         Shape savedClip = g2.getClip();
         g2.clip(bounds);
@@ -324,9 +325,12 @@ public class VerticalFlowElement extends AbstractTableElement
         for (int i = 0; i < this.elements.size(); i++) {
             Rectangle2D rect = layoutInfo.get(i);
             TableElement element = this.elements.get(i);
-            element.draw(g2, rect, recordBounds);
+            element.draw(g2, rect, onDrawHandler);
         }
         g2.setClip(savedClip);
+        if (onDrawHandler != null) {
+            onDrawHandler.afterDraw(this, g2, bounds);
+        }
     }
     
     /**

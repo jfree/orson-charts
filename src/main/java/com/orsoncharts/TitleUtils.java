@@ -14,6 +14,7 @@ package com.orsoncharts;
 
 import java.awt.Color;
 import java.awt.Font;
+import com.orsoncharts.interaction.InteractiveElementType;
 import com.orsoncharts.table.GridElement;
 import com.orsoncharts.table.HAlign;
 import com.orsoncharts.table.TableElement;
@@ -109,6 +110,7 @@ public class TitleUtils {
         t.setHorizontalAligment(alignment);
         t.setColor(DEFAULT_TITLE_COLOR);
         t.setTag("CHART_TITLE");
+        t.setProperty(TableElement.CLASS, InteractiveElementType.TITLE);
         if (subtitle == null) {
             return t;
         }
@@ -121,6 +123,7 @@ public class TitleUtils {
         st.setHorizontalAligment(alignment);
         st.setColor(DEFAULT_TITLE_COLOR);
         st.setTag("CHART_SUBTITLE");
+        st.setProperty(TableElement.CLASS, InteractiveElementType.SUBTITLE);
         compositeTitle.setElement(t, "R1", "C1");
         compositeTitle.setElement(st, "R2", "C1");
         return compositeTitle;

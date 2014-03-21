@@ -178,7 +178,7 @@ public class GridElement extends AbstractTableElement implements TableElement,
      */
     @Override
     public void draw(Graphics2D g2, Rectangle2D bounds) {
-        draw(g2, bounds, false);
+        draw(g2, bounds, null);
     }
     
     /**
@@ -189,14 +189,16 @@ public class GridElement extends AbstractTableElement implements TableElement,
      * 
      * @param g2  the graphics target (<code>null</code> not permitted).
      * @param bounds  the bounds (<code>null</code> not permitted).
-     * @param recordBounds  record the bounds?
+     * @param onDrawHandler  an object that will receive notification before 
+     *     and after the element is drawn (<code>null</code> permitted).
      * 
      * @since 1.3
      */
     @Override
-    public void draw(Graphics2D g2, Rectangle2D bounds, boolean recordBounds) {
-        if (recordBounds) {
-            setProperty(BOUNDS, bounds);
+    public void draw(Graphics2D g2, Rectangle2D bounds, 
+            TableElementOnDraw onDrawHandler) {
+        if (onDrawHandler != null) {
+            onDrawHandler.beforeDraw(this, g2, bounds);
         }
         if (getBackground() != null) {
             getBackground().fill(g2, bounds);
@@ -209,8 +211,11 @@ public class GridElement extends AbstractTableElement implements TableElement,
                     continue;
                 }
                 Rectangle2D pos = positions.get(r * elements.getYCount() + c);
-                element.draw(g2, pos, recordBounds);
+                element.draw(g2, pos, onDrawHandler);
             }
+        }
+        if (onDrawHandler != null) {
+            onDrawHandler.afterDraw(this, g2, bounds);
         }
     }
     

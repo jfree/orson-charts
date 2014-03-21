@@ -61,6 +61,15 @@ public class XYZItemKey implements ItemKey {
     }
     
     @Override
+    public String toJSONString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{\"seriesKey\": \"").append(this.seriesKey.toString());
+        sb.append("\" ");
+        sb.append("\"itemIndex\": ").append(this.itemIndex).append("}");
+        return sb.toString();
+    }
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("XYZItemKey[seriesKey=");

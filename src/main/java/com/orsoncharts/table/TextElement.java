@@ -217,7 +217,7 @@ public class TextElement extends AbstractTableElement
      */
     @Override
     public void draw(Graphics2D g2, Rectangle2D bounds) {
-        draw(g2, bounds, false);
+        draw(g2, bounds, null);
     }
     
     /**
@@ -228,12 +228,14 @@ public class TextElement extends AbstractTableElement
      * 
      * @param g2  the graphics target (<code>null</code> not permitted).
      * @param bounds  the bounds (<code>null</code> not permitted).
-     * @param recordBounds  record the bounds?
+     * @param onDrawHandler  an object that will receive notification before 
+     *     and after the element is drawn (<code>null</code> permitted).
      */
     @Override
-    public void draw(Graphics2D g2, Rectangle2D bounds, boolean recordBounds) {
-        if (recordBounds) {
-            setProperty(BOUNDS, bounds);
+    public void draw(Graphics2D g2, Rectangle2D bounds, 
+            TableElementOnDraw onDrawHandler) {
+        if (onDrawHandler != null) {
+            onDrawHandler.beforeDraw(this, g2, bounds);
         }
         List<Rectangle2D> layout = layoutElements(g2, bounds, null);
         Rectangle2D textBounds = layout.get(0);
@@ -246,6 +248,9 @@ public class TextElement extends AbstractTableElement
         TextUtils.drawAlignedString(this.text, g2, 
                 (float) (textBounds.getX() + insets.left), 
                 (float) (textBounds.getY() + insets.top), TextAnchor.TOP_LEFT);
+        if (onDrawHandler != null) {
+            onDrawHandler.afterDraw(this, g2, bounds);
+        }
     }
     
     /**

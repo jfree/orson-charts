@@ -19,6 +19,7 @@ import java.util.List;
 import java.io.Serializable;
 
 import com.orsoncharts.Chart3D;
+import com.orsoncharts.interaction.InteractiveElementType;
 import com.orsoncharts.plot.Plot3D;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.plot.PiePlot3D;
@@ -311,7 +312,8 @@ public final class StandardLegendBuilder implements LegendBuilder,
                     style.getLegendItemFont(), style.getLegendItemColor(), 
                     shape, item.getColor(), 
                     style.getLegendItemBackgroundColor());
-            legendItem.setProperty(TableElement.CLASS, "LegendItem");
+            legendItem.setProperty(TableElement.CLASS, 
+                    InteractiveElementType.LEGEND_ITEM);
             legendItem.setProperty(Chart3D.SERIES_KEY, item.getSeriesKey());
             legend.addElement(legendItem);
         }

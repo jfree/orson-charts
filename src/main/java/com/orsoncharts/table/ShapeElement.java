@@ -108,9 +108,15 @@ public class ShapeElement extends AbstractTableElement
         return result;
     }
 
+    /**
+     * Draws the shape element within the specified bounds.
+     * 
+     * @param g2  the graphics target (<code>null</code> not permitted).
+     * @param bounds  the bounds (<code>null</code> not permitted).
+     */
     @Override
     public void draw(Graphics2D g2, Rectangle2D bounds) {
-        draw(g2, bounds, false);
+        draw(g2, bounds, null);
     }
     
     /**
@@ -121,14 +127,16 @@ public class ShapeElement extends AbstractTableElement
      * 
      * @param g2  the graphics target (<code>null</code> not permitted).
      * @param bounds  the bounds (<code>null</code> not permitted).
-     * @param recordBounds  record the bounds?
+     * @param onDrawHandler  an object that will receive notification before 
+     *     and after the element is drawn (<code>null</code> permitted).
      * 
      * @since 1.3
      */
     @Override
-    public void draw(Graphics2D g2, Rectangle2D bounds, boolean recordBounds) {
-        if (recordBounds) {
-            setProperty(BOUNDS, bounds);
+    public void draw(Graphics2D g2, Rectangle2D bounds, 
+            TableElementOnDraw onDrawHandler) {
+        if (onDrawHandler != null) {
+            onDrawHandler.beforeDraw(this, g2, bounds);
         }
         AffineTransform saved = g2.getTransform();
         RectanglePainter background = getBackground();
@@ -139,6 +147,9 @@ public class ShapeElement extends AbstractTableElement
         g2.setPaint(this.fillColor);
         g2.fill(shape);
         g2.setTransform(saved);
+        if (onDrawHandler != null) {
+            onDrawHandler.afterDraw(this, g2, bounds);
+        }
     }
     
     /**

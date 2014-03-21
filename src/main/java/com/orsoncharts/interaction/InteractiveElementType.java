@@ -21,11 +21,15 @@ public enum InteractiveElementType {
     
     TITLE,
     
+    SUBTITLE,
+    
     GRIDLINE, 
     
     AXIS_LABEL,
     
-    AXIS_TICK_LABEL,
+    CATEGORY_AXIS_TICK_LABEL,
+    
+    VALUE_AXIS_TICK_LABEL,
     
     /** The section label for a pie chart. */
     SECTION_LABEL,

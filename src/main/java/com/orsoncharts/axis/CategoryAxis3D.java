@@ -24,6 +24,26 @@ import com.orsoncharts.plot.CategoryPlot3D;
 public interface CategoryAxis3D extends Axis3D {
     
     /**
+     * Returns <code>true</code> if this axis is being used as the row axis
+     * in a plot, and <code>false</code> otherwise.
+     * 
+     * @return A boolean.
+     * 
+     * @since 1.3
+     */
+    boolean isRowAxis();
+    
+    /**
+     * Returns <code>true</code> if this axis is being used as the column axis
+     * in a plot, and <code>false</code> otherwise.
+     * 
+     * @return A boolean.
+     * 
+     * @since 1.3
+     */
+    boolean isColumnAxis();
+    
+    /**
      * Configure the axis as a row axis for the specified plot.
      * 
      * @param plot  the plot (<code>null</code> not permitted). 

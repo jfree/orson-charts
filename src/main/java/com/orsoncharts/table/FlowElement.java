@@ -294,32 +294,31 @@ public class FlowElement extends AbstractTableElement
     }
     
     /**
-     * Draws the element.
+     * Draws the element within the specified bounds.
      * 
      * @param g2  the graphics target (<code>null</code> not permitted).
      * @param bounds  the bounds (<code>null</code> not permitted).
      */
     @Override
     public void draw(Graphics2D g2, Rectangle2D bounds) {
-        draw(g2, bounds, false);
+        draw(g2, bounds, null);
     }
     
     /**
-     * Draws the element within the specified bounds.  If the 
-     * <code>recordBounds</code> flag is set, this element and each of its
-     * children will have their <code>BOUNDS_2D</code> property updated with 
-     * the current bounds.
+     * Draws the element within the specified bounds.
      * 
      * @param g2  the graphics target (<code>null</code> not permitted).
      * @param bounds  the bounds (<code>null</code> not permitted).
-     * @param recordBounds  record the bounds?
+     * @param onDrawHandler  an object that will receive notification before 
+     *     and after the element is drawn (<code>null</code> permitted).
      * 
      * @since 1.3
      */
     @Override
-    public void draw(Graphics2D g2, Rectangle2D bounds, boolean recordBounds) {
-        if (recordBounds) {
-            setProperty(BOUNDS, bounds);
+    public void draw(Graphics2D g2, Rectangle2D bounds, 
+            TableElementOnDraw onDrawHandler) {
+        if (onDrawHandler != null) {
+            onDrawHandler.beforeDraw(this, g2, bounds);
         }
         
         Shape savedClip = g2.getClip();
@@ -340,10 +339,13 @@ public class FlowElement extends AbstractTableElement
         for (int i = 0; i < this.elements.size(); i++) {
             Rectangle2D rect = layoutInfo.get(i);
             TableElement element = this.elements.get(i);
-            element.draw(g2, rect, recordBounds);
+            element.draw(g2, rect, onDrawHandler);
         }
         
         g2.setClip(savedClip);
+        if (onDrawHandler != null) {
+            onDrawHandler.afterDraw(this, g2, bounds);
+        }
     }
     
     /**

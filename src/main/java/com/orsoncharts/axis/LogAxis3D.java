@@ -26,12 +26,13 @@ import java.text.Format;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
+import com.orsoncharts.Chart3DHints;
 import com.orsoncharts.Range;
-import com.orsoncharts.graphics3d.RenderedElement;
 import com.orsoncharts.graphics3d.RenderingInfo;
 import com.orsoncharts.graphics3d.Utils2D;
-import com.orsoncharts.interaction.InteractiveElementType;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.ObjectUtils;
 import com.orsoncharts.util.TextAnchor;
@@ -361,10 +362,12 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
      *     the 3D engine).
      * @param info  an object to be populated with rendering info 
      *     (<code>null</code> permitted).
+     * @param hinting  perform element hinting?
      */
     @Override
     public void draw(Graphics2D g2, Point2D startPt, Point2D endPt, 
-            Point2D opposingPt, List<TickData> tickData, RenderingInfo info) {
+            Point2D opposingPt, List<TickData> tickData, RenderingInfo info,
+            boolean hinting) {
         
         if (!isVisible()) {
             return;
@@ -396,11 +399,12 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
             LabelOrientation orientation = getTickLabelOrientation();
             if (orientation.equals(LabelOrientation.PERPENDICULAR)) {
                 maxTickLabelDim = drawPerpendicularTickLabels(g2, axisLine, 
-                        opposingPt, tickData);
+                        opposingPt, tickData, hinting);
             } else if (orientation.equals(LabelOrientation.PARALLEL)) {
                 maxTickLabelDim = g2.getFontMetrics().getHeight();
                 double adj = g2.getFontMetrics().getAscent() / 2;
-                drawParallelTickLabels(g2, axisLine, opposingPt, tickData, adj);
+                drawParallelTickLabels(g2, axisLine, opposingPt, tickData, adj,
+                        hinting);
             }
         }
 
@@ -408,17 +412,12 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
         if (getLabel() != null) {
             Shape labelBounds = drawAxisLabel(getLabel(), g2, axisLine, 
                     opposingPt, maxTickLabelDim + tickMarkLength 
-                    + tickLabelOffset + 10);
-            if (info != null) {
-                RenderedElement labelElement = new RenderedElement(
-                        InteractiveElementType.AXIS_LABEL, labelBounds);
-                info.addElement(labelElement);
-            }
+                    + tickLabelOffset + getLabelOffset(), info, hinting);
         }
     }
     
     private double drawPerpendicularTickLabels(Graphics2D g2, Line2D axisLine,
-            Point2D opposingPt, List<TickData> tickData) {
+            Point2D opposingPt, List<TickData> tickData, boolean hinting) {
         double result = 0.0;
         for (TickData t : tickData) {
             double theta = Utils2D.calculateTheta(axisLine);
@@ -441,16 +440,27 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
             AttributedString as = createTickLabelAttributedString(logy,
                     this.tickLabelFormatter);
             Rectangle2D nonRotatedBounds = new Rectangle2D.Double();
+            if (hinting) {
+                Map m = new HashMap<String, String>();
+                m.put("ref", "{\"type\": \"valueTickLabel\", \"axis\": " 
+                        + axisStr() + ", \"value\": \"" 
+                        + t.getDataValue() + "\"}");
+                g2.setRenderingHint(Chart3DHints.KEY_BEGIN_ELEMENT, m);
+            }
             TextUtils.drawRotatedString(as, g2, 
                     (float) perpLine.getX2(), (float) perpLine.getY2(), 
                     textAnchor, thetaAdj, textAnchor, nonRotatedBounds);
+            if (hinting) {
+                g2.setRenderingHint(Chart3DHints.KEY_END_ELEMENT, true);
+            }
             result = Math.max(result, nonRotatedBounds.getWidth());
         }
         return result;
     }
     
     private void drawParallelTickLabels(Graphics2D g2, Line2D axisLine,
-            Point2D opposingPt, List<TickData> tickData, double adj) {
+            Point2D opposingPt, List<TickData> tickData, double adj, 
+            boolean hinting) {
         
         for (TickData t : tickData) {
             double theta = Utils2D.calculateTheta(axisLine);
@@ -469,9 +479,19 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
             double logy = calculateLog(t.getDataValue());
             AttributedString as = createTickLabelAttributedString(logy, 
                     this.tickSelector.getCurrentTickLabelFormat());
+            if (hinting) {
+                Map m = new HashMap<String, String>();
+                m.put("ref", "{\"type\": \"valueTickLabel\", \"axis\": " 
+                        + axisStr() + ", \"value\": \"" 
+                        + t.getDataValue() + "\"}");
+                g2.setRenderingHint(Chart3DHints.KEY_BEGIN_ELEMENT, m);
+            }
             TextUtils.drawRotatedString(as, g2, 
                     (float) perpLine.getX2(), (float) perpLine.getY2(), 
                     anchor, theta, anchor, null);
+            if (hinting) {
+                g2.setRenderingHint(Chart3DHints.KEY_END_ELEMENT, true);
+            }
         }
     }
 

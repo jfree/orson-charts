@@ -44,10 +44,17 @@ public class ValuesItemKey implements ItemKey {
     }
     
     @Override
+    public String toJSONString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{\"key\": ").append(this.key.toString()).append("\"}");
+        return sb.toString();
+    }
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("ValuesItemKey[");
-        sb.append(key.toString());
+        sb.append(this.key.toString());
         sb.append("]");
         return sb.toString();
     }

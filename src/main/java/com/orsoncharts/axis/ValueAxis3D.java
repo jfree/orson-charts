@@ -26,6 +26,16 @@ import com.orsoncharts.marker.ValueMarker;
  * axes in an {@link XYZPlot}.
  */
 public interface ValueAxis3D extends Axis3D {
+
+    /**
+     * Returns the type of use that the axis has been configured for.
+     * 
+     * @return The type (or <code>null</code> if the axis has not yet been 
+     *     configured).
+     * 
+     * @since 1.3
+     */
+    ValueAxis3DType getConfiguredType();
     
     /**
      * Configure the axis as a value axis for the specified plot.

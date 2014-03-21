@@ -164,9 +164,13 @@ public interface Axis3D extends ChartElement {
      *     permitted).
      * @param info  an object to be populated with rendering info 
      *     (<code>null</code> permitted).
+     * @param hinting  a flag that controls whether or not element hinting 
+     *     should be performed.
+     * 
+     * @since 1.3
      */
     void draw(Graphics2D g2, Point2D startPt, Point2D endPt, Point2D opposingPt, 
-            List<TickData> tickData, RenderingInfo info);
+            List<TickData> tickData, RenderingInfo info, boolean hinting);
 
     /**
      * Registers a listener so that it receives notification of changes to the
