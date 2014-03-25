@@ -43,6 +43,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -62,6 +63,7 @@ import javax.swing.UIManager.LookAndFeelInfo;
 
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.ChartPanel3D;
+import com.orsoncharts.style.ChartStyle;
 import com.orsoncharts.style.ChartStyles;
 
 /**
@@ -199,44 +201,51 @@ public class OrsonChartsDemo extends JFrame implements ActionListener {
         return result;
     }
     
+    private void applyStyleToChartsInPanels(List<ChartPanel3D> panels, 
+            ChartStyle style) {
+        for (ChartPanel3D panel : panels) {
+            Chart3D chart = (Chart3D) panel.getDrawable();
+            ChartStyle s = style.clone();
+            chart.setStyle(s);
+        }
+    }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         if ("EXIT".equals(e.getActionCommand())) {
             System.exit(0);
         }
-        ChartPanel3D chartPanel;
         Component c = this.demoComponent.getChartContainer().getComponent(0);
         if (c instanceof DemoPanel) {
             DemoPanel dp = (DemoPanel) c;
-            chartPanel = dp.getChartPanel();
-            Chart3D chart = (Chart3D) chartPanel.getDrawable();
+            List<ChartPanel3D> chartPanels = dp.getChartPanels();
             if ("NO_STYLE".equals(e.getActionCommand())) {
                 this.demoComponent.setChartStyle(null);
             }
             
             if ("ORSON1_STYLE".equals(e.getActionCommand())) {
                 this.demoComponent.setChartStyle(ChartStyles.createOrson1Style());
-                chart.setStyle(ChartStyles.createOrson1Style());
+                applyStyleToChartsInPanels(chartPanels, ChartStyles.createOrson1Style());
             }
 
             if ("ORSON2_STYLE".equals(e.getActionCommand())) {
                 this.demoComponent.setChartStyle(ChartStyles.createOrson2Style());
-                chart.setStyle(ChartStyles.createOrson2Style());
+                applyStyleToChartsInPanels(chartPanels, ChartStyles.createOrson2Style());
             }
 
             if ("ICE_CUBE_STYLE".equals(e.getActionCommand())) {
                 this.demoComponent.setChartStyle(ChartStyles.createIceCubeStyle());
-                chart.setStyle(ChartStyles.createIceCubeStyle());
+                applyStyleToChartsInPanels(chartPanels, ChartStyles.createIceCubeStyle());
             }
 
             if ("PASTEL_STYLE".equals(e.getActionCommand())) {
                 this.demoComponent.setChartStyle(ChartStyles.createPastelStyle());
-                chart.setStyle(ChartStyles.createPastelStyle());
+                applyStyleToChartsInPanels(chartPanels, ChartStyles.createPastelStyle());
             }
 
             if ("LOGICAL_FONT_STYLE".equals(e.getActionCommand())) {
                 this.demoComponent.setChartStyle(ChartStyles.createLogicalFontStyle());
-                chart.setStyle(ChartStyles.createLogicalFontStyle());
+                applyStyleToChartsInPanels(chartPanels, ChartStyles.createLogicalFontStyle());
             }
         }
 
