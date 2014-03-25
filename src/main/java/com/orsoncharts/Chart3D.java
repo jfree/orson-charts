@@ -153,6 +153,9 @@ public class Chart3D implements Drawable3D, ChartElement,
      */
     public static final String SERIES_KEY = "series_key";
     
+    /** The chart id. */
+    private String id;
+    
     /** A background rectangle painter, if any. */
     private RectanglePainter background;
     
@@ -286,6 +289,28 @@ public class Chart3D implements Drawable3D, ChartElement,
         receive(new ChartStyler(this.style));
     }
 
+    /**
+     * Returns the chart id.
+     * 
+     * @return The chart id (possibly <code>null</code>).
+     * 
+     * @since 1.3
+     */
+    public String getID() {
+        return this.id;
+    }
+    
+    /**
+     * Sets the chart id.
+     * 
+     * @param id  the id (<code>null</code> permitted).
+     * 
+     * @since 1.3
+     */
+    public void setID(String id) {
+        this.id = id;
+    }
+    
     /**
      * Returns the background painter (an object that is responsible for filling
      * the background area before charts are rendered).  The default value
@@ -781,6 +806,12 @@ public class Chart3D implements Drawable3D, ChartElement,
      */
     @Override
     public RenderingInfo draw(Graphics2D g2, Rectangle2D bounds) {
+        if (this.elementHinting) {
+            Map m = new HashMap<String, String>();
+            m.put("id", this.id);
+            m.put("ref", "ORSON_CHART_TOP_LEVEL");
+            g2.setRenderingHint(Chart3DHints.KEY_BEGIN_ELEMENT, m);
+        }
         Shape savedClip = g2.getClip();
         g2.clip(bounds);
         g2.addRenderingHints(this.renderingHints);
@@ -909,6 +940,9 @@ public class Chart3D implements Drawable3D, ChartElement,
             this.title.draw(g2, titleArea, onDrawHandler);
         }
         g2.setClip(savedClip);
+        if (this.elementHinting) {
+            g2.setRenderingHint(Chart3DHints.KEY_END_ELEMENT, Boolean.TRUE);
+        }
         return info;
     }
     
