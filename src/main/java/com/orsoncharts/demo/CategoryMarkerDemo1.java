@@ -320,8 +320,8 @@ public class CategoryMarkerDemo1 extends JFrame {
                         b2.doClick();
                     }
                 } else {
-                    JOptionPane.showMessageDialog(this, "You clicked on " 
-                            + element.toString());
+                    JOptionPane.showMessageDialog(this, 
+                            Chart3D.renderedElementToString(element));
                 }
             }
         }
