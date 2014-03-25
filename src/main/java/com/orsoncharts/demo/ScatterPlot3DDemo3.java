@@ -60,6 +60,8 @@ import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.legend.LegendAnchor;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.renderer.xyz.ScatterXYZRenderer;
+import com.orsoncharts.style.StandardChartStyle;
+import com.orsoncharts.table.TextElement;
 import com.orsoncharts.util.Orientation;
 
 /**
@@ -95,8 +97,9 @@ public class ScatterPlot3DDemo3 extends JFrame {
                 "petal length");
         Chart3D chart1 = Chart3DFactory.createScatterChart(null, null, dataset1, 
                 "Sepal Length", "Sepal Width", "Petal Length");
-        chart1.setTitle("Iris Dataset : Combination 1", 
-                new Font("Serif", Font.BOLD, 14), Color.DARK_GRAY);
+        TextElement title1 = new TextElement("Iris Dataset : Combination 1");
+        title1.setFont(StandardChartStyle.createDefaultFont(Font.PLAIN, 16));
+        chart1.setTitle(title1);
         chart1.setLegendAnchor(LegendAnchor.BOTTOM_LEFT);
         chart1.setLegendOrientation(Orientation.VERTICAL);
         XYZPlot plot1 = (XYZPlot) chart1.getPlot();
@@ -115,8 +118,9 @@ public class ScatterPlot3DDemo3 extends JFrame {
         Chart3D chart2 = Chart3DFactory.createScatterChart(
                 null, null, dataset2, 
                 "Sepal Length", "Sepal Width", "Petal Width");
-        chart2.setTitle("Iris Dataset : Combination 2", 
-                new Font("Serif", Font.BOLD, 14), Color.DARK_GRAY);
+        TextElement title2 = new TextElement("Iris Dataset : Combination 2");
+        title2.setFont(StandardChartStyle.createDefaultFont(Font.PLAIN, 16));
+        chart2.setTitle(title2);
         chart2.setLegendAnchor(LegendAnchor.BOTTOM_LEFT);
         chart2.setLegendOrientation(Orientation.VERTICAL);
         XYZPlot plot2 = (XYZPlot) chart2.getPlot();
@@ -136,8 +140,9 @@ public class ScatterPlot3DDemo3 extends JFrame {
         Chart3D chart3 = Chart3DFactory.createScatterChart(
                 null, null, dataset3, 
                 "Sepal Length", "Petal Width", "Petal Length");
-        chart3.setTitle("Iris Dataset : Combination 3", 
-                new Font("Serif", Font.BOLD, 14), Color.DARK_GRAY);
+        TextElement title3 = new TextElement("Iris Dataset : Combination 3");
+        title3.setFont(StandardChartStyle.createDefaultFont(Font.PLAIN, 16));
+        chart3.setTitle(title3);
         chart3.setLegendAnchor(LegendAnchor.BOTTOM_LEFT);
         chart3.setLegendOrientation(Orientation.VERTICAL);
         XYZPlot plot3 = (XYZPlot) chart3.getPlot();
@@ -156,8 +161,9 @@ public class ScatterPlot3DDemo3 extends JFrame {
                 "petal length");
         Chart3D chart4 = Chart3DFactory.createScatterChart(null, null, dataset4, 
                 "Sepal Width", "Petal Width", "Petal Length");
-        chart4.setTitle("Iris Dataset : Combination 4", 
-                new Font("Serif", Font.BOLD, 14), Color.DARK_GRAY);
+        TextElement title4 = new TextElement("Iris Dataset : Combination 4");
+        title4.setFont(StandardChartStyle.createDefaultFont(Font.PLAIN, 16));
+        chart4.setTitle(title4);
         chart4.setLegendAnchor(LegendAnchor.BOTTOM_LEFT);
         chart4.setLegendOrientation(Orientation.VERTICAL);
         XYZPlot plot4 = (XYZPlot) chart4.getPlot();
