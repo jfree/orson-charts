@@ -31,8 +31,8 @@ import com.orsoncharts.util.ArgChecks;
  * @since 1.3
  */
 @SuppressWarnings("serial")
-public class StandardCategoryToolTipGenerator 
-        implements CategoryToolTipGenerator, Serializable {
+public class StandardCategoryItemLabelGenerator 
+        implements CategoryItemLabelGenerator, Serializable {
 
     /** 
      * A template string that will show the series, row and column keys plus
@@ -66,7 +66,7 @@ public class StandardCategoryToolTipGenerator
     /**
      * The default constructor.
      */
-    public StandardCategoryToolTipGenerator() {
+    public StandardCategoryItemLabelGenerator() {
         this(DEFAULT_TEMPLATE);
     }
     
@@ -78,21 +78,23 @@ public class StandardCategoryToolTipGenerator
      * 
      * @param template  the template (<code>null</code> not permitted).
      */
-    public StandardCategoryToolTipGenerator(String template) {
+    public StandardCategoryItemLabelGenerator(String template) {
         ArgChecks.nullNotPermitted(template, "template");
         this.template = template;
     }
     
     /**
-     * Generates the tool tip for one data item in a category chart.
+     * Generates the item label for one data item in a category chart.
      * 
      * @param dataset  the dataset (<code>null</code> not permitted).
-     * @param seriesKey  the key (<code>null</code> not permitted).
+     * @param seriesKey  the series key (<code>null</code> not permitted).
+     * @param rowKey  the row key (<code>null</code> not permitted).
+     * @param columnKey  the column key (<code>null</code> not permitted).
      * 
      * @return The label (never <code>null</code> for this implementation). 
      */
     @Override
-    public String generateToolTipText(CategoryDataset3D dataset, 
+    public String generateItemLabel(CategoryDataset3D dataset, 
             Comparable<?> seriesKey, Comparable<?> rowKey, 
             Comparable<?> columnKey) {
         ArgChecks.nullNotPermitted(dataset, "dataset");
@@ -123,11 +125,11 @@ public class StandardCategoryToolTipGenerator
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof StandardCategoryToolTipGenerator)) {
+        if (!(obj instanceof StandardCategoryItemLabelGenerator)) {
             return false;
         }
-        StandardCategoryToolTipGenerator that 
-                = (StandardCategoryToolTipGenerator) obj;
+        StandardCategoryItemLabelGenerator that 
+                = (StandardCategoryItemLabelGenerator) obj;
         if (!this.template.equals(that.template)) {
             return false;
         }

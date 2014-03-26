@@ -57,7 +57,7 @@ import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.category.StandardCategoryDataset3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.label.StandardCategoryLabelGenerator;
-import com.orsoncharts.label.StandardCategoryToolTipGenerator;
+import com.orsoncharts.label.StandardCategoryItemLabelGenerator;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.category.StackedBarRenderer3D;
 import com.orsoncharts.util.Fit2D;
@@ -106,7 +106,7 @@ public class StackedBarChart3DDemo3 extends JFrame {
         CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
         plot.setLegendLabelGenerator(new StandardCategoryLabelGenerator(
                 StandardCategoryLabelGenerator.TOTAL_TEMPLATE));
-        plot.setToolTipGenerator(new StandardCategoryToolTipGenerator(
+        plot.setToolTipGenerator(new StandardCategoryItemLabelGenerator(
                 "%s, %s, %s = %4$.0f"));
         StandardCategoryAxis3D rowAxis 
                 = (StandardCategoryAxis3D) plot.getRowAxis();

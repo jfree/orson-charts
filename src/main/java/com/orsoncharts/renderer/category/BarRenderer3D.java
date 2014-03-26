@@ -34,7 +34,7 @@ import com.orsoncharts.util.ObjectUtils;
  * A renderer for creating 3D bar charts from a {@link CategoryDataset3D} (for 
  * use with a {@link CategoryPlot3D}).  For example:
  * <div>
- * <object id="ABC" data="../../../../doc-files/BarChart3DDemo1.svg"  type="image/svg+xml" 
+ * <object id="ABC" data="../../../../doc-files/BarChart3DDemo1.svg" type="image/svg+xml" 
  * width="500" height="359"> 
  * </object>
  * </div>
@@ -42,7 +42,8 @@ import com.orsoncharts.util.ObjectUtils;
  * above chart).
  * <br><br>
  * There is a factory method to create a chart using this renderer - see
- * {@link Chart3DFactory#createBarChart(String, String, CategoryDataset3D, String, String, String)}.
+ * {@link Chart3DFactory#createBarChart(String, String, CategoryDataset3D, 
+ * String, String, String)}.
  * <br><br>
  * NOTE: This class is serializable, but the serialization format is subject 
  * to change in future releases and should not be relied upon for persisting 

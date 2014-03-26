@@ -36,9 +36,9 @@ import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.label.CategoryLabelGenerator;
-import com.orsoncharts.label.CategoryToolTipGenerator;
+import com.orsoncharts.label.CategoryItemLabelGenerator;
 import com.orsoncharts.label.StandardCategoryLabelGenerator;
-import com.orsoncharts.label.StandardCategoryToolTipGenerator;
+import com.orsoncharts.label.StandardCategoryItemLabelGenerator;
 import com.orsoncharts.legend.LegendItemInfo;
 import com.orsoncharts.legend.StandardLegendItemInfo;
 import com.orsoncharts.renderer.Renderer3DChangeEvent;
@@ -132,7 +132,7 @@ public class CategoryPlot3D extends AbstractPlot3D
      * 
      * @since 1.3
      */
-    private CategoryToolTipGenerator toolTipGenerator;
+    private CategoryItemLabelGenerator toolTipGenerator;
     
     /**
      * Creates a new plot.
@@ -177,7 +177,7 @@ public class CategoryPlot3D extends AbstractPlot3D
         this.gridlineStrokeForValues = DEFAULT_GRIDLINE_STROKE;
         this.legendLabelGenerator = new StandardCategoryLabelGenerator();
         this.yDimensionOverride = null;
-        this.toolTipGenerator = new StandardCategoryToolTipGenerator();
+        this.toolTipGenerator = new StandardCategoryItemLabelGenerator();
     }
     
     /**
@@ -603,7 +603,7 @@ public class CategoryPlot3D extends AbstractPlot3D
      * 
      * @since 1.3
      */
-    public CategoryToolTipGenerator getToolTipGenerator() {
+    public CategoryItemLabelGenerator getToolTipGenerator() {
         return this.toolTipGenerator;
     }
     
@@ -615,7 +615,7 @@ public class CategoryPlot3D extends AbstractPlot3D
      * 
      * @since 1.3
      */
-    public void setToolTipGenerator(CategoryToolTipGenerator generator) {
+    public void setToolTipGenerator(CategoryItemLabelGenerator generator) {
         this.toolTipGenerator = generator;
         fireChangeEvent(false);
     }
@@ -664,7 +664,7 @@ public class CategoryPlot3D extends AbstractPlot3D
                     "The itemKey must be a Values3DItemKey instance.");
         }
         Values3DItemKey vik = (Values3DItemKey) itemKey;
-        return this.toolTipGenerator.generateToolTipText(dataset, 
+        return this.toolTipGenerator.generateItemLabel(dataset, 
                 vik.getSeriesKey(), vik.getRowKey(), vik.getColumnKey());
     }
 

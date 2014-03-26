@@ -15,13 +15,16 @@ package com.orsoncharts.label;
 import com.orsoncharts.data.category.CategoryDataset3D;
 
 /**
- * A tool tip generator for category charts.  The 
- * {@link StandardCategoryToolTipGenerator} class provides the default 
+ * An item label generator for category charts (this is used for tooltips and
+ * data item labels).  Note that this generator is used for individual data
+ * items, and is distinct from the {@link CategoryLabelGenerator} which
+ * generates labels for series keys, column keys and row keys.  
+ * The {@link StandardCategoryItemLabelGenerator} class provides the default 
  * implementation.
  * 
  * @since 1.3
  */
-public interface CategoryToolTipGenerator {
+public interface CategoryItemLabelGenerator {
 
     /**
      * Generates a label for one series in a {@link CategoryDataset3D}.
@@ -33,7 +36,7 @@ public interface CategoryToolTipGenerator {
      * 
      * @return The series label (possibly <code>null</code>).
      */
-    String generateToolTipText(CategoryDataset3D dataset, 
+    String generateItemLabel(CategoryDataset3D dataset, 
             Comparable<?> seriesKey, Comparable<?> rowKey, 
             Comparable<?> columnKey);
 

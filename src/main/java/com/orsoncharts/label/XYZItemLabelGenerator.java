@@ -15,24 +15,24 @@ package com.orsoncharts.label;
 import com.orsoncharts.data.xyz.XYZDataset;
 
 /**
- * A tool tip generator for XYZ charts.  The 
- * ({@link StandardXYZToolTipGenerator}) class provides the default 
- * implementation.
+ * A label generator for data items in XYZ charts (this can be used for 
+ * tooltips and item labels).  The ({@link StandardXYZItemLabelGenerator}) 
+ * class provides the default implementation.
  * 
  * @since 1.3
  */
-public interface XYZToolTipGenerator {
+public interface XYZItemLabelGenerator {
     
     /**
-     * Generates a tool tip for one data item in a {@link XYZDataset}.
+     * Generates an item label for one data item in an {@link XYZDataset}.
      * 
      * @param dataset  the dataset (<code>null</code> not permitted).
      * @param seriesKey  the series key (<code>null</code> not permitted).
      * @param itemIndex  the item index.
      * 
-     * @return The series label (possibly <code>null</code>).
+     * @return The item label (possibly <code>null</code>).
      */
-    String generateToolTipText(XYZDataset dataset, Comparable<?> seriesKey,
+    String generateItemLabel(XYZDataset dataset, Comparable<?> seriesKey,
             int itemIndex);
     
 }

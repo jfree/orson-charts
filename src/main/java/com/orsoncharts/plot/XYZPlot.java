@@ -37,9 +37,9 @@ import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.label.StandardXYZLabelGenerator;
-import com.orsoncharts.label.StandardXYZToolTipGenerator;
+import com.orsoncharts.label.StandardXYZItemLabelGenerator;
 import com.orsoncharts.label.XYZLabelGenerator;
-import com.orsoncharts.label.XYZToolTipGenerator;
+import com.orsoncharts.label.XYZItemLabelGenerator;
 import com.orsoncharts.legend.LegendItemInfo;
 import com.orsoncharts.legend.StandardLegendItemInfo;
 import com.orsoncharts.renderer.ComposeType;
@@ -110,7 +110,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
     private XYZLabelGenerator legendLabelGenerator;
     
     /** The tool tip generator (if null there will be no tooltips). */
-    private XYZToolTipGenerator toolTipGenerator;
+    private XYZItemLabelGenerator toolTipGenerator;
     
     /**
      * Creates a new plot with the specified axes.
@@ -153,7 +153,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
         this.gridlinePaintZ = Color.WHITE;
         this.gridlineStrokeZ = DEFAULT_GRIDLINE_STROKE;
         this.legendLabelGenerator = new StandardXYZLabelGenerator();
-        this.toolTipGenerator = new StandardXYZToolTipGenerator();
+        this.toolTipGenerator = new StandardXYZItemLabelGenerator();
     }
     
     /**
@@ -572,7 +572,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
             return null;
         }
         XYZItemKey k = (XYZItemKey) itemKey;
-        return this.toolTipGenerator.generateToolTipText(dataset, 
+        return this.toolTipGenerator.generateItemLabel(dataset, 
                 k.getSeriesKey(), k.getItemIndex());
     }
 
