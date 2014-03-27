@@ -603,8 +603,8 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     public void configureAsRowAxis(CategoryPlot3D plot) {
         ArgChecks.nullNotPermitted(plot, "plot");
         this.categories = plot.getDataset().getRowKeys();
-        this.isColumnAxis = true;
-        this.isRowAxis = false;
+        this.isColumnAxis = false;
+        this.isRowAxis = true;
     }
 
     /**
