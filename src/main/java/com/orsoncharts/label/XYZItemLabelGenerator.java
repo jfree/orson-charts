@@ -18,6 +18,9 @@ import com.orsoncharts.data.xyz.XYZDataset;
  * A label generator for data items in XYZ charts (this can be used for 
  * tooltips and item labels).  The ({@link StandardXYZItemLabelGenerator}) 
  * class provides the default implementation.
+ * <br><br>
+ * Implementations of this interface are expected to support cloning and
+ * serialization.
  * 
  * @since 1.3
  */
