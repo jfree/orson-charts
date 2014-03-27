@@ -105,6 +105,9 @@ public class OnDrawHandler implements TableElementOnDraw {
     @Override
     public void afterDraw(TableElement element, Graphics2D g2, 
             Rectangle2D bounds) {
+        if (!this.elementHinting) {
+            return;
+        }
         InteractiveElementType t = (InteractiveElementType) 
                 element.getProperty(TableElement.CLASS);
         if (t == null) {
