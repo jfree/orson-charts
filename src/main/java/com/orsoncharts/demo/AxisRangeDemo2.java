@@ -57,7 +57,9 @@ import com.orsoncharts.data.category.StandardCategoryDataset3D;
 import com.orsoncharts.data.DefaultKeyedValues;
 import com.orsoncharts.graphics3d.ViewPoint3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
+import com.orsoncharts.label.StandardCategoryItemLabelGenerator;
 import com.orsoncharts.plot.CategoryPlot3D;
+import com.orsoncharts.renderer.category.BarRenderer3D;
 
 /**
  * A test for changes to the value axis range on a bar chart.
@@ -130,6 +132,9 @@ public class AxisRangeDemo2 extends JFrame {
         CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
         plot.getValueAxis().setRange(-500, 500);
         plot.getRowAxis().setVisible(false);
+        BarRenderer3D renderer = (BarRenderer3D) plot.getRenderer();
+        renderer.setItemLabelGenerator(new StandardCategoryItemLabelGenerator(
+                StandardCategoryItemLabelGenerator.VALUE_TEMPLATE));
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
         content.setChartPanel(chartPanel);
         content.add(new DisplayPanel3D(chartPanel));

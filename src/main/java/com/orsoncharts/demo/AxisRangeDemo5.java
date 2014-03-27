@@ -37,23 +37,6 @@
 package com.orsoncharts.demo;
 
 import java.awt.BorderLayout;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-import com.orsoncharts.ChartPanel3D;
-import com.orsoncharts.Chart3D;
-import com.orsoncharts.Chart3DFactory;
-import com.orsoncharts.axis.ValueAxis3D;
-import com.orsoncharts.data.xyz.XYZDataset;
-import com.orsoncharts.data.xyz.XYZSeries;
-import com.orsoncharts.data.xyz.XYZSeriesCollection;
-import com.orsoncharts.graphics3d.Dimension3D;
-import com.orsoncharts.graphics3d.ViewPoint3D;
-import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
-import com.orsoncharts.plot.XYZPlot;
-import com.orsoncharts.renderer.xyz.ScatterXYZRenderer;
-
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.LayoutManager;
@@ -62,6 +45,24 @@ import javax.swing.JLabel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import com.orsoncharts.ChartPanel3D;
+import com.orsoncharts.Chart3D;
+import com.orsoncharts.Chart3DFactory;
+import com.orsoncharts.axis.ValueAxis3D;
+import com.orsoncharts.data.xyz.XYZDataset;
+import com.orsoncharts.data.xyz.XYZItemKeys;
+import com.orsoncharts.data.xyz.XYZSeries;
+import com.orsoncharts.data.xyz.XYZSeriesCollection;
+import com.orsoncharts.graphics3d.Dimension3D;
+import com.orsoncharts.graphics3d.ViewPoint3D;
+import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
+import com.orsoncharts.interaction.StandardXYZDataItemSelection;
+import com.orsoncharts.label.StandardXYZItemLabelGenerator;
+import com.orsoncharts.plot.XYZPlot;
+import com.orsoncharts.renderer.xyz.ScatterXYZRenderer;
 
 /**
  * A demonstration of a scatter plot in 3D.
@@ -190,6 +191,13 @@ public class AxisRangeDemo5 extends JFrame {
         plot.setDimensions(new Dimension3D(10.0, 4.0, 10.0));
         ScatterXYZRenderer renderer = (ScatterXYZRenderer) plot.getRenderer();
         renderer.setSize(0.10);
+        StandardXYZItemLabelGenerator itemLabelGenerator 
+                = new StandardXYZItemLabelGenerator();
+        StandardXYZDataItemSelection selection 
+                = new StandardXYZDataItemSelection();
+        itemLabelGenerator.setItemSelection(selection);
+        selection.addAll(XYZItemKeys.itemKeysForSeries(dataset, "S1"));
+        renderer.setItemLabelGenerator(itemLabelGenerator);
         chart.setViewPoint(ViewPoint3D.createAboveLeftViewPoint(40));
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
         content.setChartPanel(chartPanel);

@@ -18,11 +18,13 @@ import com.orsoncharts.data.DataUtils;
 import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.World;
+import com.orsoncharts.label.XYZItemLabelGenerator;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.renderer.AbstractRenderer3D;
 import com.orsoncharts.renderer.ComposeType;
 import com.orsoncharts.renderer.Renderer3DChangeEvent;
 import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.util.ObjectUtils;
 
 /**
  * An abstract base class that can be used to create new {@link XYZRenderer}
@@ -34,11 +36,17 @@ public class AbstractXYZRenderer extends AbstractRenderer3D {
   
     private XYZColorSource colorSource;
   
+    /** 
+     * An object that generates item labels for the chart.  Can be null.
+     */
+    private XYZItemLabelGenerator itemLabelGenerator;
+
     /**
      * Creates a new default instance.
      */
     protected AbstractXYZRenderer() {
         this.colorSource = new StandardXYZColorSource();
+        this.itemLabelGenerator = null;
     }
   
     /**
@@ -57,6 +65,32 @@ public class AbstractXYZRenderer extends AbstractRenderer3D {
      */
     public void setPlot(XYZPlot plot) {
         this.plot = plot;
+    }
+
+    /**
+     * Returns the item label generator for the renderer.  The default value
+     * is <code>null</code>.  Not all subclasses will use this generator 
+     * (for example, the {@link SurfaceRenderer} does not display item labels).
+     * 
+     * @return The item label generator (possibly <code>null</code>).
+     * 
+     * @since 1.3
+     */
+    public XYZItemLabelGenerator getItemLabelGenerator() {
+        return this.itemLabelGenerator;
+    }
+
+    /**
+     * Sets the item label generator and sends a change event to all registered
+     * listeners.  You can set this to <code>null</code> in which case no
+     * item labels will be generated.
+     * 
+     * @param generator  the new generator (<code>null</code> permitted).
+     * 
+     * @since 1.3
+     */
+    public void setItemLabelGenerator(XYZItemLabelGenerator generator) {
+        this.itemLabelGenerator = generator;
     }
 
     /**
@@ -184,7 +218,11 @@ public class AbstractXYZRenderer extends AbstractRenderer3D {
         if (!this.colorSource.equals(that.colorSource)) {
             return false;
         }
-        return true;
+        if (!ObjectUtils.equals(this.itemLabelGenerator, 
+                that.itemLabelGenerator)) {
+            return false;
+        }
+        return super.equals(obj);
     }
 
 }

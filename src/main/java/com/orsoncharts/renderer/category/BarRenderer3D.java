@@ -15,19 +15,19 @@ package com.orsoncharts.renderer.category;
 import java.awt.Color;
 import java.io.Serializable;
 
-import com.orsoncharts.axis.CategoryAxis3D;
+import com.orsoncharts.Chart3DFactory;
 import com.orsoncharts.Range;
+import com.orsoncharts.axis.CategoryAxis3D;
 import com.orsoncharts.axis.ValueAxis3D;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.DataUtils;
+import com.orsoncharts.data.Values3DItemKey;
 import com.orsoncharts.data.Values3D;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.World;
+import com.orsoncharts.label.ItemLabelPositioning;
 import com.orsoncharts.plot.CategoryPlot3D;
-import com.orsoncharts.renderer.Renderer3DChangeEvent;
-import com.orsoncharts.Chart3DFactory;
-import com.orsoncharts.data.Values3DItemKey;
 import com.orsoncharts.util.ObjectUtils;
 
 /**
@@ -312,15 +312,15 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
         double width = dimensions.getWidth();
         double height = dimensions.getHeight();
         double depth = dimensions.getDepth();
-        double xx = columnAxis.translateToWorld(columnValue, width);
-        double yy = valueAxis.translateToWorld(vtop, height);
-        double zz = rowAxis.translateToWorld(rowValue, depth);
+        double xx = columnAxis.translateToWorld(columnValue, width) + xOffset;
+        double yy = valueAxis.translateToWorld(vtop, height) + yOffset;
+        double zz = rowAxis.translateToWorld(rowValue, depth) + zOffset;
 
         double xw = this.barXWidth * columnAxis.getCategoryWidth();
         double zw = this.barZWidth * rowAxis.getCategoryWidth();
         double xxw = columnAxis.translateToWorld(xw, width);
         double xzw = rowAxis.translateToWorld(zw, depth);
-        double basew = valueAxis.translateToWorld(vbase, height);
+        double basew = valueAxis.translateToWorld(vbase, height) + yOffset;
     
         Color color = getColorSource().getColor(series, row, column);
         Color baseColor = null;
@@ -338,13 +338,45 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
         if (topColor == null) {
             topColor = color;
         }
-        Object3D bar = Object3D.createBar(xxw, xzw, xx + xOffset, 
-                yy + yOffset, zz + zOffset, basew + yOffset, color, baseColor, 
-                topColor, inverted);
+        Object3D bar = Object3D.createBar(xxw, xzw, xx, yy, zz, basew, 
+                color, baseColor, topColor, inverted);
         Values3DItemKey itemKey = new Values3DItemKey(seriesKey, rowKey, 
                 columnKey);
         bar.setProperty(Object3D.ITEM_KEY, itemKey);
         world.add(bar);
+        
+        ItemLabelPositioning positioning = getItemLabelPositioning();
+        if (getItemLabelGenerator() != null) {
+            String label = getItemLabelGenerator().generateItemLabel(dataset, 
+                   seriesKey, rowKey, columnKey);
+            if (label != null) {
+                double dx = getItemLabelOffsets().getDX();
+                double dy = getItemLabelOffsets().getDY() 
+                        * dimensions.getHeight();
+                double dz = getItemLabelOffsets().getDZ() * zw;
+                double yw = yy;
+                if (inverted) {
+                    yw = basew;
+                    dy = -dy;
+                }
+                if (positioning.equals(ItemLabelPositioning.CENTRAL)) {
+                    world.add(Object3D.createLabelObject(label, 
+                            getItemLabelFont(), getItemLabelColor(), 
+                            getItemLabelBackgroundColor(), xx + dx, 
+                            yw + dy, zz, false, true));
+                } else if (positioning.equals(
+                        ItemLabelPositioning.FRONT_AND_BACK)) {
+                    world.add(Object3D.createLabelObject(label, 
+                            getItemLabelFont(), getItemLabelColor(), 
+                            getItemLabelBackgroundColor(), xx + dx, 
+                            yw + dy, zz + dz, false, false));
+                    world.add(Object3D.createLabelObject(label, 
+                            getItemLabelFont(), getItemLabelColor(), 
+                            getItemLabelBackgroundColor(), xx + dx, 
+                            yw + dy, zz - dz, true, false));
+                }
+            }
+        }
     }
     
     /**

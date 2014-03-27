@@ -22,8 +22,8 @@ import com.orsoncharts.data.xyz.XYZItemKey;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.Object3D;
+import com.orsoncharts.graphics3d.Offset3D;
 import com.orsoncharts.graphics3d.World;
-import com.orsoncharts.renderer.Renderer3DChangeEvent;
 import com.orsoncharts.util.ArgChecks;
 
 /**
@@ -51,12 +51,16 @@ public class ScatterXYZRenderer extends AbstractXYZRenderer
     /** The size of the cubes to render for each data point (in world units). */
     private double size;
     
+    /** The offsets for item labels, as a percentage of the size. */
+    private Offset3D itemLabelOffsetPercent;
+    
     /**
      * Creates a new instance with default attribute values.
      */
     public ScatterXYZRenderer() {
         super();
         this.size = 0.10;
+        this.itemLabelOffsetPercent = new Offset3D(0.0, 1.0, 0.0);
     }
 
     /**
@@ -79,6 +83,31 @@ public class ScatterXYZRenderer extends AbstractXYZRenderer
     public void setSize(double size) {
         ArgChecks.positiveRequired(size, "size");
         this.size = size;
+        fireChangeEvent(true);
+    }
+    
+    /**
+     * Returns the item label offsets.
+     * 
+     * @return The item label offsets (never <code>null</code>).
+     * 
+     * @since 1.3
+     */
+    public Offset3D getItemLabelOffsetPercent() {
+        return this.itemLabelOffsetPercent;
+    }
+    
+    /**
+     * Sets the item label offsets and sends a change event to all registered
+     * listeners.
+     * 
+     * @param offset  the new offset (<code>null</code> not permitted).
+     * 
+     * @since 1.3
+     */
+    public void setItemLabelOffsetPercent(Offset3D offset) {
+        ArgChecks.nullNotPermitted(offset, "offset");
+        this.itemLabelOffsetPercent = offset;
         fireChangeEvent(true);
     }
     
@@ -126,12 +155,28 @@ public class ScatterXYZRenderer extends AbstractXYZRenderer
             return;
         }
         Color color = getColorSource().getColor(series, item);
-        Object3D cube = Object3D.createBox((xmax + xmin) / 2.0 + xOffset, xmax - xmin,
-                (ymax + ymin) / 2.0 + yOffset, ymax - ymin,
-                (zmax + zmin) / 2.0 + zOffset, zmax - zmin, color);
+        double cx = (xmax + xmin) / 2.0 + xOffset;
+        double cy = (ymax + ymin) / 2.0 + yOffset;
+        double cz = (zmax + zmin) / 2.0 + zOffset;
+        Object3D cube = Object3D.createBox(cx, xmax - xmin, cy, ymax - ymin, 
+                cz, zmax - zmin, color);
         Comparable<?> seriesKey = dataset.getSeriesKey(series);
         cube.setProperty(Object3D.ITEM_KEY, new XYZItemKey(seriesKey, item));
         world.add(cube);
+        
+        if (getItemLabelGenerator() != null) {
+            String label = getItemLabelGenerator().generateItemLabel(dataset,
+                    seriesKey, item);
+            if (label != null) {
+                double dx = this.itemLabelOffsetPercent.getDX() * this.size;
+                double dy = this.itemLabelOffsetPercent.getDY() * this.size;
+                double dz = this.itemLabelOffsetPercent.getDZ() * this.size;
+                world.add(Object3D.createLabelObject(label, getItemLabelFont(),
+                        getItemLabelColor(), getItemLabelBackgroundColor(),
+                        cx + dx, cy + dy, cz + dz, false, true));
+            }
+        }
+
     }
 
     /**
@@ -151,6 +196,9 @@ public class ScatterXYZRenderer extends AbstractXYZRenderer
         }
         ScatterXYZRenderer that = (ScatterXYZRenderer) obj;
         if (this.size != that.size) {
+            return false;
+        }
+        if (!this.itemLabelOffsetPercent.equals(that.itemLabelOffsetPercent)) {
             return false;
         }
         return super.equals(obj);

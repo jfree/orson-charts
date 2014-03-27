@@ -12,15 +12,31 @@
 
 package com.orsoncharts.renderer;
 
+import java.awt.Color;
+import java.awt.Font;
 import javax.swing.event.EventListenerList;
 
 import com.orsoncharts.ChartElementVisitor;
+import com.orsoncharts.label.ItemLabelPositioning;
+import com.orsoncharts.util.ArgChecks;
 
 /**
  * A base class for 3D renderers.
  */
 public abstract class AbstractRenderer3D implements Renderer3D {
     
+    /** The font used to draw item labels. */
+    private Font itemLabelFont;
+    
+    /** The foreground color for item labels. */
+    private Color itemLabelColor;
+    
+    /** The background color for item labels. */
+    private Color itemLabelBackgroundColor;
+    
+    /** The item label positioning. */
+    private ItemLabelPositioning itemLabelPositioning;
+
     /** Storage for registered change listeners. */
     private transient EventListenerList listenerList;
 
@@ -35,10 +51,118 @@ public abstract class AbstractRenderer3D implements Renderer3D {
      * Default constructor.
      */
     protected AbstractRenderer3D() {
+        this.itemLabelFont = new Font(Font.SERIF, Font.PLAIN, 12);
+        this.itemLabelColor = Color.WHITE;
+        this.itemLabelBackgroundColor = new Color(100, 100, 100, 100); //Renderer3D.TRANSPARENT_COLOR;
+        this.itemLabelPositioning = ItemLabelPositioning.CENTRAL;
         this.listenerList = new EventListenerList();
         this.notify = true;
     }
-  
+
+    /**
+     * Returns the font used to display item labels, if there are any.
+     * The default value is <code>Font(Font.SERIF, Font.PLAIN, 8)</code>.
+     * 
+     * @return The font (never <code>null</code>).
+     * 
+     * @since 1.3
+     */
+    public Font getItemLabelFont() {
+        return itemLabelFont;
+    }
+
+    /**
+     * Sets the font used to display item labels and sends a change event
+     * to all registered listeners.
+     * 
+     * @param itemLabelFont  the font (<code>null</code> not permitted).
+     * 
+     * @since 1.3
+     */
+    public void setItemLabelFont(Font itemLabelFont) {
+        ArgChecks.nullNotPermitted(itemLabelFont, "itemLabelFont");
+        this.itemLabelFont = itemLabelFont;
+        fireChangeEvent(true);
+    }
+
+    /**
+     * Returns the foreground color used to display item labels.  The default
+     * value is <code>Color.BLACK</code>.
+     * 
+     * @return The foreground color (never <code>null</code>).
+     * 
+     * @since 1.3
+     */
+    public Color getItemLabelColor() {
+        return itemLabelColor;
+    }
+
+    /**
+     * Sets the foreground color used to display item labels and sends a 
+     * change event to all registered listeners.
+     * 
+     * @param itemLabelColor  the new color (<code>null</code> not permitted).
+     * 
+     * @since 1.3
+     */
+    public void setItemLabelColor(Color itemLabelColor) {
+        ArgChecks.nullNotPermitted(itemLabelColor, "itemLabelColor");
+        this.itemLabelColor = itemLabelColor;
+        fireChangeEvent(true);
+    }
+
+    /**
+     * Returns the background color for item labels.
+     * 
+     * @return The background color (never <code>null</code>).
+     * 
+     * @since 1.3
+     */
+    public Color getItemLabelBackgroundColor() {
+        return itemLabelBackgroundColor;
+    }
+
+    /**
+     * Sets the background color and sends a change event to all registered
+     * listeners.
+     * 
+     * @param color  the new color (<code>null</code> not permitted).
+     * 
+     * @since 1.3
+     */
+    public void setItemLabelBackgroundColor(Color color) {
+        ArgChecks.nullNotPermitted(color, "color");
+        this.itemLabelBackgroundColor = color ;
+        fireChangeEvent(true);
+    }
+
+    /**
+     * Returns the item label positioning.  The default value is 
+     * {@link ItemLabelPositioning#CENTRAL}.
+     * 
+     * @return The item label positioning (never <code>null</code>).
+     * 
+     * @since 1.3
+     */
+    public ItemLabelPositioning getItemLabelPositioning() {
+        return itemLabelPositioning;
+    }
+
+    /**
+     * Sets the item label positioning and sends a change event to all 
+     * registered listeners.
+     * 
+     * @param positioning  the new positioning (<code>null</code> not 
+     *     permitted).
+     * 
+     * @since 1.3
+     */
+    public void setItemLabelPositioning(ItemLabelPositioning positioning) {
+        ArgChecks.nullNotPermitted(positioning, "positioning");
+        this.itemLabelPositioning = positioning;
+        fireChangeEvent(true);
+    }
+
     /**
      * Returns a flag that controls whether or not change events are sent to
      * registered listeners.
@@ -155,6 +279,19 @@ public abstract class AbstractRenderer3D implements Renderer3D {
         }
         AbstractRenderer3D that = (AbstractRenderer3D) obj;
         if (this.notify != that.notify) {
+            return false;
+        }
+        if (!this.itemLabelFont.equals(that.itemLabelFont)) {
+            return false;
+        }
+        if (!this.itemLabelColor.equals(that.itemLabelColor)) {
+            return false;
+        }
+        if (!this.itemLabelBackgroundColor.equals(
+                that.itemLabelBackgroundColor)) {
+            return false;
+        }
+        if (this.itemLabelPositioning != that.itemLabelPositioning) {
             return false;
         }
         return true;

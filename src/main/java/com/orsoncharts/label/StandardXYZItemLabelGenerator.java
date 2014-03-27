@@ -16,6 +16,8 @@ import java.io.Serializable;
 import java.util.Formatter;
 
 import com.orsoncharts.data.xyz.XYZDataset;
+import com.orsoncharts.data.xyz.XYZItemKey;
+import com.orsoncharts.interaction.XYZDataItemSelection;
 import com.orsoncharts.util.ArgChecks;
 
 /**
@@ -54,6 +56,8 @@ public class StandardXYZItemLabelGenerator implements XYZItemLabelGenerator,
     /** The label template. */
     private String template;
     
+    private XYZDataItemSelection itemSelection;
+    
     /**
      * The default constructor.
      */
@@ -69,8 +73,30 @@ public class StandardXYZItemLabelGenerator implements XYZItemLabelGenerator,
     public StandardXYZItemLabelGenerator(String template) {
         ArgChecks.nullNotPermitted(template, "template");
         this.template = template;
+        this.itemSelection = null;
     }
 
+    /**
+     * Returns the item selection (if this is non-<code>null</code>, labels 
+     * will only be generated for the items in the selection).
+     * 
+     * @return The item selection (possibly <code>null</code>).
+     */
+    public XYZDataItemSelection getItemSelection() {
+        return this.itemSelection;
+    }
+    
+    /**
+     * Sets the item selection, which can be used to specify a subset of the
+     * data items that should have item labels generated.  If this is set to 
+     * <code>null</code> then item labels will be generated for all items.
+     * 
+     * @param selection  the selection (<code>null</code> permitted). 
+     */
+    public void setItemSelection(XYZDataItemSelection selection) {
+        this.itemSelection = selection;
+    }
+    
     /**
      * Generates a label for the specified data item.
      * 
@@ -84,6 +110,12 @@ public class StandardXYZItemLabelGenerator implements XYZItemLabelGenerator,
             Comparable<?> seriesKey, int itemIndex) {
         ArgChecks.nullNotPermitted(dataset, "dataset");
         ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
+        if (this.itemSelection != null) {
+            XYZItemKey key = new XYZItemKey(seriesKey, itemIndex);
+            if (!this.itemSelection.isSelected(key)) {
+                return null;
+            }
+        }
         int seriesIndex = dataset.getSeriesIndex(seriesKey);
         Formatter formatter = new Formatter(new StringBuilder());
         double x = dataset.getX(seriesIndex, itemIndex);

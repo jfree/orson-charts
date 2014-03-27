@@ -22,10 +22,10 @@ import com.orsoncharts.util.ArgChecks;
  * 
  * @since 1.3
  */
-public class XYZItemKey implements ItemKey {
+public class XYZItemKey<S extends Comparable<S>> implements ItemKey, Comparable<XYZItemKey<S>> {
     
     /** A key identifying a series in the dataset. */
-    private Comparable<?> seriesKey;
+    private S seriesKey;
     
     /** The index of an item within a series. */
     private int itemIndex;
@@ -36,7 +36,7 @@ public class XYZItemKey implements ItemKey {
      * @param seriesKey  the series key.
      * @param itemIndex  the item index.
      */
-    public XYZItemKey(Comparable<?> seriesKey, int itemIndex) {
+    public XYZItemKey(S seriesKey, int itemIndex) {
         ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
         this.seriesKey = seriesKey;
         this.itemIndex = itemIndex;
@@ -47,7 +47,7 @@ public class XYZItemKey implements ItemKey {
      * 
      * @return The series key (never <code>null</code>). 
      */
-    public Comparable<?> getSeriesKey() {
+    public S getSeriesKey() {
         return this.seriesKey;
     }
     
@@ -60,6 +60,7 @@ public class XYZItemKey implements ItemKey {
         return this.itemIndex;
     }
     
+
     @Override
     public String toJSONString() {
         StringBuilder sb = new StringBuilder();
@@ -78,4 +79,14 @@ public class XYZItemKey implements ItemKey {
         sb.append("]");
         return sb.toString();
     }
+
+    @Override
+    public int compareTo(XYZItemKey<S> key) {
+        int result = this.seriesKey.compareTo(key.seriesKey);
+        if (result == 0) {
+            result = this.itemIndex - key.itemIndex;
+        }
+        return result;
+    }
+
 }

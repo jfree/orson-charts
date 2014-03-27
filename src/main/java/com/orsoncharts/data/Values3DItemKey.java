@@ -18,18 +18,22 @@ import com.orsoncharts.util.ArgChecks;
  * An object that references one data item in a {@link KeyedValues3D} data
  * structure.
  * 
+ * TODO: this should be renamed KeyedValues3DItemKey
+ * 
  * @since 1.3
  */
-public class Values3DItemKey implements ItemKey {
+public class Values3DItemKey<S extends Comparable<S>, R extends Comparable<R>, 
+        C extends Comparable<C>> 
+        implements ItemKey, Comparable<Values3DItemKey<S, R, C>> {
     
     /** The series key. */
-    Comparable<? extends Object> seriesKey;
+    S seriesKey;
     
     /** The row key. */
-    Comparable<? extends Object> rowKey;
+    R rowKey;
     
     /** The column key. */
-    Comparable<? extends Object> columnKey;
+    C columnKey;
     
     /**
      * Creates a new instance.
@@ -38,9 +42,7 @@ public class Values3DItemKey implements ItemKey {
      * @param rowKey  the row key (<code>null</code> not permitted).
      * @param columnKey  the column key (<code>null</code> not permitted).
      */
-    public Values3DItemKey(Comparable<? extends Object> seriesKey,
-            Comparable<? extends Object> rowKey,
-            Comparable<? extends Object> columnKey) {
+    public Values3DItemKey(S seriesKey, R rowKey, C columnKey) {
         ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
         ArgChecks.nullNotPermitted(rowKey, "rowKey");
         ArgChecks.nullNotPermitted(columnKey, "columnKey");
@@ -54,7 +56,7 @@ public class Values3DItemKey implements ItemKey {
      * 
      * @return The series key (never <code>null</code>). 
      */
-    public Comparable<?> getSeriesKey() {
+    public S getSeriesKey() {
         return this.seriesKey;
     }
     
@@ -63,7 +65,7 @@ public class Values3DItemKey implements ItemKey {
      * 
      * @return The row key (never <code>null</code>).
      */
-    public Comparable<?> getRowKey() {
+    public R getRowKey() {
         return this.rowKey;
     }
     
@@ -72,10 +74,22 @@ public class Values3DItemKey implements ItemKey {
      * 
      * @return The column key (never <code>null</code>). 
      */
-    public Comparable<?> getColumnKey() {
+    public C getColumnKey() {
         return this.columnKey;
     }
     
+    @Override
+    public int compareTo(Values3DItemKey<S, R, C> key) {
+        int result = this.seriesKey.compareTo(key.getSeriesKey());
+        if (result == 0) {
+            result = this.rowKey.compareTo(key.rowKey);
+            if (result == 0) {
+                result = this.columnKey.compareTo(key.columnKey);
+            }
+        }
+        return result;
+    }
+
     @Override
     public String toJSONString() {
         StringBuilder sb = new StringBuilder();

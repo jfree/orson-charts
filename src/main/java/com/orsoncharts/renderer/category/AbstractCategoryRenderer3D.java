@@ -17,9 +17,11 @@ import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.Range;
 import com.orsoncharts.data.DataUtils;
 import com.orsoncharts.data.Values3D;
+import com.orsoncharts.graphics3d.Offset3D;
+import com.orsoncharts.label.CategoryItemLabelGenerator;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.AbstractRenderer3D;
-import com.orsoncharts.renderer.Renderer3DChangeEvent;
+import com.orsoncharts.util.ObjectUtils;
 
 /**
  * A base class that can be used to implement renderers for a 
@@ -37,11 +39,21 @@ public abstract class AbstractCategoryRenderer3D extends AbstractRenderer3D
      */
     private CategoryColorSource colorSource;
     
+    /** 
+     * An object that generates item labels for the chart.  Can be null.
+     */
+    private CategoryItemLabelGenerator itemLabelGenerator;
+    
+    /** The item label offsets. */
+    private Offset3D itemLabelOffsets;
+    
     /**
      * Default constructor.
      */
     public AbstractCategoryRenderer3D() {
         this.colorSource = new StandardCategoryColorSource();
+        this.itemLabelGenerator = null;
+        this.itemLabelOffsets = new Offset3D(0.0, 0.05, 1.1);
     }
     
     /**
@@ -105,6 +117,56 @@ public abstract class AbstractCategoryRenderer3D extends AbstractRenderer3D
     public void setColors(Color... colors) {
         setColorSource(new StandardCategoryColorSource(colors));
     }
+
+    /**
+     * Returns the item label generator for the renderer (possibly 
+     * <code>null</code>).
+     * 
+     * @return The item label generator (possibly <code>null</code>).
+     * 
+     * @since 1.3
+     */
+    public CategoryItemLabelGenerator getItemLabelGenerator() {
+        return itemLabelGenerator;
+    }
+
+    /**
+     * Sets the item label generator for the renderer and sends a change event
+     * to all registered listeners.
+     * 
+     * @param generator  the generator (<code>null</code> permitted).
+     * 
+     * @since 1.3
+     */
+    public void setItemLabelGenerator(CategoryItemLabelGenerator generator) {
+        this.itemLabelGenerator = generator;
+        fireChangeEvent(true);
+    }
+
+    /**
+     * Returns the item label offsets.
+     * 
+     * @return The item label offsets (never <code>null</code>).
+     * 
+     * @since 1.3
+     */
+    public Offset3D getItemLabelOffsets() {
+        return this.itemLabelOffsets;
+    }
+    
+    /**
+     * Sets the item label offsets and sends a change event to all registered
+     * listeners.
+     * 
+     * @param offsets  the offsets (<code>null</code> not permitted).
+     * 
+     * @since 1.3
+     */
+    public void setItemLabelOffsets(Offset3D offsets) {
+        ArgChecks.nullNotPermitted(offsets, "offsets");
+        this.itemLabelOffsets = offsets;
+        fireChangeEvent(true);
+    }
     
     /**
      * Returns the range of values that will be required on the value axis
@@ -136,6 +198,13 @@ public abstract class AbstractCategoryRenderer3D extends AbstractRenderer3D
         }
         AbstractCategoryRenderer3D that = (AbstractCategoryRenderer3D) obj;
         if (!this.colorSource.equals(that.colorSource)) {
+            return false;
+        }
+        if (!ObjectUtils.equals(this.itemLabelGenerator, 
+                that.itemLabelGenerator)) {
+            return false;
+        }
+        if (!this.itemLabelOffsets.equals(that.itemLabelOffsets)) {
             return false;
         }
         return super.equals(obj);

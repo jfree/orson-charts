@@ -49,7 +49,16 @@ public class RenderedElement {
         this.properties.put(TYPE, type);
         this.properties.put(RenderedElement.BOUNDS, bounds);
     }
-    
+
+    /**
+     * Returns the element type, as specified in the constructor.
+     * 
+     * @return The element type. 
+     */
+    public Object getType() {
+        return this.properties.get(TYPE);
+    }
+
     /**
      * Returns the value of the property with the specified key, or 
      * <code>null</code>).

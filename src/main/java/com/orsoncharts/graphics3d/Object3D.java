@@ -13,6 +13,7 @@
 package com.orsoncharts.graphics3d;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -756,6 +757,47 @@ public class Object3D {
         }
         
         return bar;      
+    }
+    
+    /**
+     * Creates a label object, which has a single transparent face in the 
+     * Z-plane plus associated label attributes.  These faces are used to 
+     * track the location and visibility of labels in a 3D scene.
+     * 
+     * @param label  the label (<code>null</code> not permitted).
+     * @param font  the font (<code>null</code> not permitted).
+     * @param fgColor  the label foreground color (<code>null</code> not 
+     *     permitted).
+     * @param bgColor  the label background color (<code>null</code> not 
+     *     permitted).
+     * @param x  the x-coordinate in 3D space.
+     * @param y  the y-coordinate in 3D space.
+     * @param z  the z-coordinate in 3D space.
+     * @param reversed  reverse the order of the vertices?
+     * @param doubleSided  is the face double-sided (visible from either side)?
+     * 
+     * @return A new label object (never <code>null</code>).
+     * 
+     * @since 1.3
+     */
+    public static Object3D createLabelObject(String label, Font font, 
+            Color fgColor, Color bgColor, double x, double y, double z, 
+            boolean reversed, boolean doubleSided) {
+        Object3D labelObj = new Object3D(bgColor);
+        labelObj.addVertex(x - 0.1, y, z);
+        labelObj.addVertex(x + 0.1, y, z);
+        labelObj.addVertex(x + 0.1, y + 0.1, z);
+        labelObj.addVertex(x - 0.1, y + 0.1, z);
+        
+        if (!reversed || doubleSided) {
+            labelObj.addFace(new LabelFace(labelObj, new int[] {0, 1, 2, 3}, 
+                    label, font, fgColor, bgColor));
+        }
+        if (reversed || doubleSided) {
+            labelObj.addFace(new LabelFace(labelObj, new int[] {3, 2, 1, 0}, 
+                    label, font, fgColor, bgColor));
+        }
+        return labelObj;
     }
 
 }

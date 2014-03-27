@@ -59,6 +59,32 @@ public class TextUtils {
     }
 
     /**
+     * Returns the bounds of an aligned string.
+     * 
+     * @param text  the string (<code>null</code> not permitted).
+     * @param g2  the graphics target (<code>null</code> not permitted).
+     * @param x  the x-coordinate.
+     * @param y  the y-coordinate.
+     * @param anchor  the anchor point that will be aligned to 
+     *     <code>(x, y)</code> (<code>null</code> not permitted).
+     * 
+     * @return The text bounds (never <code>null</code>).
+     * 
+     * @since 1.3
+     */
+    public static Rectangle2D calcAlignedStringBounds(String text,
+            Graphics2D g2, float x, float y, TextAnchor anchor) {
+
+        Rectangle2D textBounds = new Rectangle2D.Double();
+        float[] adjust = deriveTextBoundsAnchorOffsets(g2, text, anchor,
+                textBounds);
+        // adjust text bounds to match string position
+        textBounds.setRect(x + adjust[0], y + adjust[1] + adjust[2],
+            textBounds.getWidth(), textBounds.getHeight());
+        return textBounds;
+    }
+    
+    /**
      * A utility method that calculates the anchor offsets for a string.
      * Normally, the (x, y) coordinate for drawing text is a point on the
      * baseline at the left of the text string.  If you add these offsets to

@@ -58,18 +58,22 @@ import com.orsoncharts.axis.StandardCategoryAxis3D;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.category.StandardCategoryDataset3D;
 import com.orsoncharts.data.DefaultKeyedValues;
+import com.orsoncharts.data.KeyedValues3DItemKeys;
 import com.orsoncharts.data.Values3DItemKey;
 import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.interaction.Chart3DMouseEvent;
 import com.orsoncharts.interaction.Chart3DMouseListener;
 import com.orsoncharts.graphics3d.RenderedElement;
+import com.orsoncharts.interaction.KeyedValues3DItemSelection;
+import com.orsoncharts.interaction.InteractiveElementType;
+import com.orsoncharts.interaction.StandardKeyedValues3DItemSelection;
+import com.orsoncharts.label.StandardCategoryItemLabelGenerator;
 import com.orsoncharts.legend.LegendAnchor;
 import com.orsoncharts.marker.CategoryMarker;
 import com.orsoncharts.plot.CategoryPlot3D;
-import com.orsoncharts.renderer.category.CategoryRenderer3D;
+import com.orsoncharts.renderer.category.BarRenderer3D;
 import com.orsoncharts.style.ChartStyler;
-import javax.swing.JOptionPane;
 
 /**
  * A demo showing category markers on a 3D bar chart plus many elements of
@@ -81,7 +85,12 @@ public class CategoryMarkerDemo1 extends JFrame {
     static class CustomDemoPanel extends DemoPanel implements ActionListener,
             Chart3DMouseListener {
         
+        /** A map of all the radio buttons. */
         private Map<String, JRadioButton> radioButtons;
+        
+        private String selectedRowKey;
+        
+        private String selectedColumnKey;
         
         public CustomDemoPanel(LayoutManager layout) {
             super(layout);
@@ -93,6 +102,7 @@ public class CategoryMarkerDemo1 extends JFrame {
             
             JRadioButton appleRB = new JRadioButton("Apple");
             appleRB.setSelected(true);
+            this.selectedRowKey = "Apple";
             appleRB.setActionCommand("APPLE");
             appleRB.addActionListener(this);
             cGroup.add(appleRB);
@@ -167,6 +177,7 @@ public class CategoryMarkerDemo1 extends JFrame {
 
             JRadioButton q412 = new JRadioButton("Q4/12");
             q412.setSelected(true);
+            this.selectedColumnKey = "Q4/12";
             q412.setActionCommand("Q412");
             q412.addActionListener(this);
             qGroup.add(q412);
@@ -205,15 +216,12 @@ public class CategoryMarkerDemo1 extends JFrame {
             controlPanel.add(panel2);
             add(controlPanel, BorderLayout.SOUTH);
         }
-
+        
         @Override
         public void actionPerformed(ActionEvent e) {
-            Chart3D chart = (Chart3D) getChartPanel().getDrawable();
+            Chart3D chart = getChartPanel().getChart();
             chart.setNotify(false);
-            CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
-            CategoryRenderer3D renderer = plot.getRenderer();
-            HighlightCategoryColorSource colorSource 
-                    = (HighlightCategoryColorSource) renderer.getColorSource();
+            CategoryPlot3D plot = getPlot();
             StandardCategoryAxis3D rowAxis 
                     = (StandardCategoryAxis3D) plot.getRowAxis();
             CategoryMarker rowMarker = rowAxis.getMarker("RM1");
@@ -222,21 +230,17 @@ public class CategoryMarkerDemo1 extends JFrame {
                 rowMarker.receive(new ChartStyler(chart.getStyle()));
             }
             if (e.getActionCommand().equals("APPLE")) {
+                this.selectedRowKey = "Apple";
                 rowMarker.setCategory("Apple");
-                colorSource.setHighlightRowIndex(
-                        plot.getDataset().getRowIndex("Apple"));
             } else if (e.getActionCommand().equals("GOOGLE")) {
+                this.selectedRowKey = "Google";
                 rowMarker.setCategory("Google");
-                colorSource.setHighlightRowIndex(
-                        plot.getDataset().getRowIndex("Google"));
             } else if (e.getActionCommand().equals("ORACLE")) {
+                this.selectedRowKey = "Oracle";
                 rowMarker.setCategory("Oracle");
-                colorSource.setHighlightRowIndex(
-                        plot.getDataset().getRowIndex("Oracle"));
             } else if (e.getActionCommand().equals("MICROSOFT")) {
+                this.selectedRowKey = "Microsoft";
                 rowMarker.setCategory("Microsoft");
-                colorSource.setHighlightRowIndex(
-                        plot.getDataset().getRowIndex("Microsoft"));
             }
             if (!rowMarker.getCategory().equals("")) {
                 rowAxis.setMarker("RM1", rowMarker);
@@ -250,78 +254,136 @@ public class CategoryMarkerDemo1 extends JFrame {
                 columnMarker.receive(new ChartStyler(chart.getStyle()));
             }
             if (e.getActionCommand().equals("Q211")) {
+                this.selectedColumnKey = "Q2/11";
                 columnMarker.setCategory("Q2/11");
-                colorSource.setHighlightColumnIndex(
-                        plot.getDataset().getColumnIndex("Q2/11"));
             } else if (e.getActionCommand().equals("Q311")) {
+                this.selectedColumnKey = "Q3/11";
                 columnMarker.setCategory("Q3/11");
-                colorSource.setHighlightColumnIndex(
-                        plot.getDataset().getColumnIndex("Q3/11"));
             } else if (e.getActionCommand().equals("Q411")) {
+                this.selectedColumnKey = "Q4/11";
                 columnMarker.setCategory("Q4/11");
-                colorSource.setHighlightColumnIndex(
-                        plot.getDataset().getColumnIndex("Q4/11"));
             } else if (e.getActionCommand().equals("Q112")) {
+                this.selectedColumnKey = "Q1/12";
                 columnMarker.setCategory("Q1/12");
-                colorSource.setHighlightColumnIndex(
-                        plot.getDataset().getColumnIndex("Q1/12"));
             } else if (e.getActionCommand().equals("Q212")) {
+                this.selectedColumnKey = "Q2/12";
                 columnMarker.setCategory("Q2/12");
-                colorSource.setHighlightColumnIndex(
-                        plot.getDataset().getColumnIndex("Q2/12"));
             } else if (e.getActionCommand().equals("Q312")) {
+                this.selectedColumnKey = "Q3/12";
                 columnMarker.setCategory("Q3/12");
-                colorSource.setHighlightColumnIndex(
-                        plot.getDataset().getColumnIndex("Q3/12"));
             } else if (e.getActionCommand().equals("Q412")) {
+                this.selectedColumnKey = "Q4/12";
                 columnMarker.setCategory("Q4/12");
-                colorSource.setHighlightColumnIndex(
-                        plot.getDataset().getColumnIndex("Q4/12"));
             } else if (e.getActionCommand().equals("Q113")) {
+                this.selectedColumnKey = "Q1/13";
                 columnMarker.setCategory("Q1/13");
-                colorSource.setHighlightColumnIndex(
-                        plot.getDataset().getColumnIndex("Q1/13"));
             } else if (e.getActionCommand().equals("Q213")) {
+                this.selectedColumnKey = "Q2/13";
                 columnMarker.setCategory("Q2/13");
-                colorSource.setHighlightColumnIndex(
-                        plot.getDataset().getColumnIndex("Q2/13"));
             } else if (e.getActionCommand().equals("Q313")) {
+                this.selectedColumnKey = "Q3/13";
                 columnMarker.setCategory("Q3/13");
-                colorSource.setHighlightColumnIndex(
-                        plot.getDataset().getColumnIndex("Q3/13"));
             } else if (e.getActionCommand().equals("Q413")) {
+                this.selectedColumnKey = "Q4/13";
                 columnMarker.setCategory("Q4/13");
-                colorSource.setHighlightColumnIndex(
-                        plot.getDataset().getColumnIndex("Q4/13"));
             } else {
                 // should not get here                
             }
             if (!columnMarker.getCategory().equals("")) {
                 columnAxis.setMarker("CM1", columnMarker);
             }
+            
+            updateColorSource(this.selectedRowKey, this.selectedColumnKey);
+            updateItemSelection(this.selectedRowKey, this.selectedColumnKey);
             chart.setNotify(true);
+        }
+        
+        private void updateColorSource(String selectedRow, 
+                String selectedColumn) {
+            HighlightCategoryColorSource colorSource 
+                    = (HighlightCategoryColorSource) 
+                    getRenderer().getColorSource();
+            int rowIndex = getPlot().getDataset().getRowIndex(selectedRow);
+            int columnIndex = getPlot().getDataset().getColumnIndex(
+                    selectedColumn);
+            colorSource.setHighlightRowIndex(rowIndex);
+            colorSource.setHighlightColumnIndex(columnIndex);
+        }
+        
+        private void updateItemSelection(String selectedRow, 
+                String selectedColumn) {
+            StandardKeyedValues3DItemSelection itemSelection 
+                    = (StandardKeyedValues3DItemSelection) getItemSelection();
+            itemSelection.clear();
+            itemSelection.addAll(KeyedValues3DItemKeys.itemKeysForColumn(
+                    getPlot().getDataset(), selectedColumn));
+            itemSelection.addAll(KeyedValues3DItemKeys.itemKeysForRow(
+                    getPlot().getDataset(), selectedRow));
+        }
+        
+        private CategoryPlot3D getPlot() {
+            Chart3D chart = getChartPanel().getChart();
+            return (CategoryPlot3D) chart.getPlot();
+        }
+        
+        private BarRenderer3D getRenderer() {
+            return (BarRenderer3D) getPlot().getRenderer();        
+        }
+        
+        private KeyedValues3DItemSelection getItemSelection() {
+            StandardCategoryItemLabelGenerator generator 
+                    = (StandardCategoryItemLabelGenerator) 
+                    getRenderer().getItemLabelGenerator();
+            return generator.getItemSelection();
         }
 
         @Override
         public void chartMouseClicked(Chart3DMouseEvent event) {
             RenderedElement element = event.getElement();
-            if (element != null) {
-                Values3DItemKey key = (Values3DItemKey) element.getProperty(
-                        Object3D.ITEM_KEY);
-                if (key != null) {
-                    JRadioButton b1 = this.radioButtons.get(
-                            key.getRowKey().toString());
-                    if (b1 != null) {
-                        b1.doClick(0);
+            if (element == null) {
+                return;
+            }
+            // first handle clicks on data items
+            Values3DItemKey key = (Values3DItemKey) element.getProperty(
+                    Object3D.ITEM_KEY);
+            if (key != null) {
+                JRadioButton b1 = this.radioButtons.get(
+                        key.getRowKey().toString());
+                if (b1 != null) {
+                    b1.doClick(0);
+                }
+                JRadioButton b2 = this.radioButtons.get(
+                        key.getColumnKey().toString());
+                if (b2 != null) {
+                    b2.doClick();
+                }
+            } else {
+                if (InteractiveElementType.CATEGORY_AXIS_TICK_LABEL.equals(element.getType())) {
+                    String label = (String) element.getProperty("label");
+                    String axisStr = (String) element.getProperty("axis");
+                    if (axisStr.equals("row")) {
+                        JRadioButton b1 = this.radioButtons.get(label);
+                        if (b1 != null) {
+                            b1.doClick();
+                        }
+                    } else { // column axis
+                        // in fact the code is the same here because of the
+                        // way we stored the radio buttons
+                        JRadioButton b1 = this.radioButtons.get(label);
+                        if (b1 != null) {
+                            b1.doClick();
+                        }
                     }
-                    JRadioButton b2 = this.radioButtons.get(
-                            key.getColumnKey().toString());
-                    if (b2 != null) {
-                        b2.doClick();
+                } else if (InteractiveElementType.LEGEND_ITEM.equals(element.getType())) {
+                    Comparable<?> seriesKey = (Comparable<?>) element.getProperty(Chart3D.SERIES_KEY);
+                    // the row keys are the same as the series keys in this chart
+                    JRadioButton b1 = this.radioButtons.get(seriesKey.toString());
+                    if (b1 != null) {
+                        b1.doClick();
                     }
                 } else {
-                    JOptionPane.showMessageDialog(this, 
-                            Chart3D.renderedElementToString(element));
+                    //JOptionPane.showMessageDialog(this, 
+                    //        Chart3D.renderedElementToString(element));
                 }
             }
         }
@@ -367,7 +429,14 @@ public class CategoryMarkerDemo1 extends JFrame {
         StandardCategoryAxis3D columnAxis 
                 = (StandardCategoryAxis3D) plot.getColumnAxis();
         columnAxis.setMarker("CM1", new CategoryMarker("Q4/12"));
-        CategoryRenderer3D renderer = plot.getRenderer();
+        BarRenderer3D renderer = (BarRenderer3D) plot.getRenderer();
+        StandardCategoryItemLabelGenerator itemLabelGenerator = 
+                new StandardCategoryItemLabelGenerator(
+                StandardCategoryItemLabelGenerator.VALUE_TEMPLATE);
+        StandardKeyedValues3DItemSelection itemSelection 
+                = new StandardKeyedValues3DItemSelection();
+        itemLabelGenerator.setItemSelection(itemSelection);
+        renderer.setItemLabelGenerator(itemLabelGenerator);
         HighlightCategoryColorSource colorSource 
                 = new HighlightCategoryColorSource();
         colorSource.setHighlightRowIndex(3);
@@ -394,19 +463,6 @@ public class CategoryMarkerDemo1 extends JFrame {
      */
     private static CategoryDataset3D createDataset() {    
         StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
-                
-        //DefaultKeyedValues s0 = new DefaultKeyedValues();
-        //s0.put("Q1/11", 0.264746);
-        //s0.put("Q2/11", 0.281320);
-        //s0.put("Q3/11", 0.290026);
-        //s0.put("Q4/11", 0.297011);
-        //s0.put("Q1/12", 0.314731);
-        //s0.put("Q2/12", 0.322595);
-        //s0.put("Q3/12", 0.343606);
-        //s0.put("Q4/12", 0.347884);
-        //s0.put("Q1/13", 0.363259);
-        //s0.put("Q2/13", 0.374423);
-        //dataset.addSeriesAsRow("Redhat", s0);
 
         DefaultKeyedValues<Double> s1 = new DefaultKeyedValues<Double>();
         s1.put("Q2/11", 8.181);

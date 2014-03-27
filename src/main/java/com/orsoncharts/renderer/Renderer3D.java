@@ -12,6 +12,7 @@
 
 package com.orsoncharts.renderer;
 
+import java.awt.Color;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.ChartElement;
 import com.orsoncharts.plot.CategoryPlot3D;
@@ -34,6 +35,13 @@ import com.orsoncharts.plot.XYZPlot;
  * implement a renderer that does not support it).
  */
 public interface Renderer3D extends ChartElement {
+    
+    /**
+     * A color instance that is completely transparent.
+     * 
+     * @since 1.3
+     */
+    static final Color TRANSPARENT_COLOR = new Color(0, 0, 0, 0);    
     
     /**
      * Registers a listener to receive notification of changes to the

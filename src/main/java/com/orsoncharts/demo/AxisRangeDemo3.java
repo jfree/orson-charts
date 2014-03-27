@@ -55,9 +55,13 @@ import com.orsoncharts.axis.ValueAxis3D;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.category.StandardCategoryDataset3D;
 import com.orsoncharts.data.DefaultKeyedValues;
+import com.orsoncharts.graphics3d.Offset3D;
 import com.orsoncharts.graphics3d.ViewPoint3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
+import com.orsoncharts.label.ItemLabelPositioning;
+import com.orsoncharts.label.StandardCategoryItemLabelGenerator;
 import com.orsoncharts.plot.CategoryPlot3D;
+import com.orsoncharts.renderer.category.LineRenderer3D;
 
 /**
  * A test for changes to the value axis range on a bar chart.
@@ -65,9 +69,9 @@ import com.orsoncharts.plot.CategoryPlot3D;
 @SuppressWarnings("serial")
 public class AxisRangeDemo3 extends JFrame {
 
-	static class CustomDemoPanel extends DemoPanel implements ChangeListener {
+    static class CustomDemoPanel extends DemoPanel implements ChangeListener {
 
-		private JSlider slider1;
+        private JSlider slider1;
         
         private JSlider slider2;
         
@@ -130,6 +134,11 @@ public class AxisRangeDemo3 extends JFrame {
         CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
         plot.getValueAxis().setRange(-500, 500);
         plot.getRowAxis().setVisible(false);
+        LineRenderer3D renderer = (LineRenderer3D) plot.getRenderer();
+        renderer.setItemLabelPositioning(ItemLabelPositioning.FRONT_AND_BACK);
+        renderer.setItemLabelOffsets(new Offset3D(0.0, 0.0, 1.2));
+        renderer.setItemLabelGenerator(new StandardCategoryItemLabelGenerator(
+                StandardCategoryItemLabelGenerator.VALUE_TEMPLATE));
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
         content.setChartPanel(chartPanel);
         content.add(new DisplayPanel3D(chartPanel));

@@ -27,9 +27,12 @@ import com.orsoncharts.data.Values3D;
 import com.orsoncharts.data.Values3DItemKey;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.Object3D;
+import com.orsoncharts.graphics3d.Offset3D;
 import com.orsoncharts.graphics3d.Utils2D;
 import com.orsoncharts.graphics3d.World;
+import com.orsoncharts.label.ItemLabelPositioning;
 import com.orsoncharts.plot.CategoryPlot3D;
+import com.orsoncharts.renderer.Renderer3DChangeEvent;
 import com.orsoncharts.util.ObjectUtils;
 
 /**
@@ -412,6 +415,32 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
             isolated.setOutline(this.drawFaceOutlines);
             isolated.setProperty(Object3D.ITEM_KEY, itemKey);
             world.add(isolated);
+        }
+        
+        if (getItemLabelGenerator() != null && !Double.isNaN(yw) 
+                && yw >= ywmin && yw <= ywmax) {
+            String label = getItemLabelGenerator().generateItemLabel(dataset, 
+                    seriesKey, rowKey, columnKey);
+            ItemLabelPositioning positioning = getItemLabelPositioning();
+            Offset3D offsets = getItemLabelOffsets();
+            double ydelta = dimensions.getHeight() * offsets.getDY();
+            if (yw < basew) {
+                ydelta = -ydelta;
+            }
+            if (positioning.equals(ItemLabelPositioning.CENTRAL)) {
+                world.add(Object3D.createLabelObject(label, getItemLabelFont(),
+                        getItemLabelColor(), getItemLabelBackgroundColor(),
+                        xw, yw + ydelta, zw, false, true));
+            } else if (positioning.equals(
+                    ItemLabelPositioning.FRONT_AND_BACK)) {
+                double zdelta = this.depth / 2 * offsets.getDZ();
+                world.add(Object3D.createLabelObject(label, getItemLabelFont(),
+                        getItemLabelColor(), getItemLabelBackgroundColor(),
+                        xw, yw + ydelta, zw - zdelta, false, false));
+                world.add(Object3D.createLabelObject(label, getItemLabelFont(),
+                        getItemLabelColor(), getItemLabelBackgroundColor(),
+                        xw, yw + ydelta, zw + zdelta, true, false));
+            } 
         }
     }
 

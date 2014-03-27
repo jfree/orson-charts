@@ -47,6 +47,7 @@ import com.orsoncharts.graphics3d.DoubleSidedFace;
 import com.orsoncharts.graphics3d.Drawable3D;
 import com.orsoncharts.graphics3d.Face;
 import com.orsoncharts.graphics3d.FaceSorter;
+import com.orsoncharts.graphics3d.LabelFace;
 import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.Point3D;
 import com.orsoncharts.graphics3d.Utils2D;
@@ -890,6 +891,21 @@ public class Chart3D implements Drawable3D, ChartElement,
                     drawMarkers(g2, cbf, pts);
                     g2.setStroke(savedStroke);
                 }
+            } else if (f instanceof LabelFace) {
+                LabelFace lf = (LabelFace) f;
+                Path2D p = lf.createPath(pts);
+                Rectangle2D lb = p.getBounds2D();
+                g2.setFont(lf.getFont());
+                g2.setColor(lf.getBackgroundColor());
+                Rectangle2D bb = TextUtils.calcAlignedStringBounds(
+                        lf.getLabel(), g2, 
+                        (float) lb.getCenterX(), (float) lb.getCenterY(), 
+                        TextAnchor.CENTER);
+                g2.fill(bb);
+                g2.setColor(lf.getTextColor());
+                TextUtils.drawAlignedString(lf.getLabel(), g2, 
+                        (float) lb.getCenterX(), (float) lb.getCenterY(), 
+                        TextAnchor.CENTER);
             } 
         }
         RenderingInfo info = new RenderingInfo(facesInPaintOrder, pts, dx, dy);
@@ -2020,19 +2036,19 @@ public class Chart3D implements Drawable3D, ChartElement,
             sb.append(key);
             sb.append("'");
             return sb.toString();
-        } else if(InteractiveElementType.AXIS_LABEL.equals(type)) {
+        } else if (InteractiveElementType.AXIS_LABEL.equals(type)) {
             StringBuilder sb = new StringBuilder();
             sb.append("Axis label with the label '");
             sb.append(element.getProperty("label"));
             sb.append("'");
             return sb.toString();
-        } else if(InteractiveElementType.CATEGORY_AXIS_TICK_LABEL.equals(type)) {
+        } else if (InteractiveElementType.CATEGORY_AXIS_TICK_LABEL.equals(type)) {
             StringBuilder sb = new StringBuilder();
             sb.append("Axis tick label with the label '");
             sb.append(element.getProperty("label"));
             sb.append("'");
             return sb.toString();
-        } else if(InteractiveElementType.VALUE_AXIS_TICK_LABEL.equals(type)) {
+        } else if (InteractiveElementType.VALUE_AXIS_TICK_LABEL.equals(type)) {
             StringBuilder sb = new StringBuilder();
             sb.append("Axis tick label with the value '");
             sb.append(element.getProperty("value"));

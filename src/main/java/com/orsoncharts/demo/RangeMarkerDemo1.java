@@ -54,11 +54,19 @@ import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
 import com.orsoncharts.axis.NumberAxis3D;
 import com.orsoncharts.data.xyz.XYZDataset;
+import com.orsoncharts.data.xyz.XYZItemKey;
 import com.orsoncharts.data.xyz.XYZSeries;
 import com.orsoncharts.data.xyz.XYZSeriesCollection;
 import com.orsoncharts.graphics3d.Dimension3D;
+import com.orsoncharts.graphics3d.Object3D;
+import com.orsoncharts.graphics3d.RenderedElement;
 import com.orsoncharts.graphics3d.ViewPoint3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
+import com.orsoncharts.interaction.Chart3DMouseEvent;
+import com.orsoncharts.interaction.Chart3DMouseListener;
+import com.orsoncharts.interaction.StandardXYZDataItemSelection;
+import com.orsoncharts.interaction.XYZDataItemSelection;
+import com.orsoncharts.label.StandardXYZItemLabelGenerator;
 import com.orsoncharts.marker.RangeMarker;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.renderer.xyz.ScatterXYZRenderer;
@@ -73,7 +81,8 @@ import com.orsoncharts.util.Anchor2D;
 @SuppressWarnings("serial")
 public class RangeMarkerDemo1 extends JFrame {
 
-    static class CustomDemoPanel extends DemoPanel implements ActionListener {
+    static class CustomDemoPanel extends DemoPanel implements ActionListener,
+            Chart3DMouseListener {
         
         private JCheckBox checkBox;
         
@@ -106,6 +115,38 @@ public class RangeMarkerDemo1 extends JFrame {
                 plot.getRenderer().setColorSource(colorSource);                
             }
         }
+
+        @Override
+        public void chartMouseClicked(Chart3DMouseEvent event) {
+            RenderedElement element = event.getElement();
+            XYZItemKey key = (XYZItemKey) element.getProperty(Object3D.ITEM_KEY);
+            if (key == null) {
+                getItemSelection().clear();
+                getChartPanel().getChart().setNotify(true);
+                return;
+            }
+            if (event.getTrigger().isShiftDown()) {
+                getItemSelection().add(key);
+            } else {
+                getItemSelection().clear();
+                getItemSelection().add(key);
+            }
+            getChartPanel().getChart().setNotify(true);
+        }
+        
+        private StandardXYZDataItemSelection getItemSelection() {
+            Chart3D chart = getChartPanel().getChart();
+            XYZPlot plot = (XYZPlot) chart.getPlot();
+            ScatterXYZRenderer renderer = (ScatterXYZRenderer) plot.getRenderer();
+            StandardXYZItemLabelGenerator itemLabelGenerator 
+                    = (StandardXYZItemLabelGenerator) renderer.getItemLabelGenerator();
+            return (StandardXYZDataItemSelection) itemLabelGenerator.getItemSelection();
+        }
+        
+        @Override
+        public void chartMouseMoved(Chart3DMouseEvent event) {
+            // not interested in these
+        }
     }
 
     /**
@@ -127,7 +168,7 @@ public class RangeMarkerDemo1 extends JFrame {
      * @return A panel containing the content for the demo.
      */
     public static JPanel createDemoPanel() {
-        DemoPanel content = new CustomDemoPanel(new BorderLayout());
+        CustomDemoPanel content = new CustomDemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         XYZDataset dataset = createDataset();
         Chart3D chart = Chart3DFactory.createScatterChart("RangeMarkerDemo1", 
@@ -162,9 +203,16 @@ public class RangeMarkerDemo1 extends JFrame {
                 yMarker1.getRange(), zMarker1.getRange(), 
                 chart.getStyle().getStandardColors());
         renderer.setColorSource(colorSource);
+        StandardXYZItemLabelGenerator generator 
+                = new StandardXYZItemLabelGenerator();
+        XYZDataItemSelection selection = new StandardXYZDataItemSelection();
+        generator.setItemSelection(selection);
+        renderer.setItemLabelGenerator(generator);
         chart.setViewPoint(ViewPoint3D.createAboveLeftViewPoint(40));
+        
         ChartPanel3D chartPanel = new ChartPanel3D(chart);
         content.setChartPanel(chartPanel);
+        chartPanel.addChartMouseListener(content);
         chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         content.add(new DisplayPanel3D(chartPanel));
         return content;
