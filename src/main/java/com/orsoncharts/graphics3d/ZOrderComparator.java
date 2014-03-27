@@ -39,11 +39,9 @@ public class ZOrderComparator implements Comparator<Face> {
         double z2 = f2.calculateAverageZValue(this.pts);
         if (z1 > z2) {
             return 1;
-        }
-        else if (z2 > z1) {
+        } else if (z2 > z1) {
             return -1;
-        }
-        else {
+        } else {
             return 0;
         }
     }
