@@ -74,6 +74,17 @@ public class ChartPanel3D extends Panel3D implements Chart3DChangeListener,
     }
 
     /**
+     * Returns the chart being displayed in this panel.
+     * 
+     * @return The chart (never <code>null</code>).
+     * 
+     * @since 1.3
+     */
+    public Chart3D getChart() {
+        return this.chart;
+    }
+    
+    /**
      * Receives notification when the chart has been modified, and responds
      * by completely repainting the panel and chart.
      * 
