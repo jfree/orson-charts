@@ -64,7 +64,9 @@ public class Panel3D extends JPanel implements MouseListener,
     /** 
      * The minimum viewing distance (zooming in will not go closer than this).
      */
-    private float minViewingDistance;
+    private double minViewingDistance;
+
+    private double maxViewingDistanceMultiplier;
 
     /** 
      * The margin to leave around the edges of the chart when zooming to fit. 
@@ -114,7 +116,8 @@ public class Panel3D extends JPanel implements MouseListener,
         this.drawable = drawable;
         this.margin = 0.25;
         this.minViewingDistance 
-                = (float) (drawable.getDimensions().getDiagonalLength());
+                = drawable.getDimensions().getDiagonalLength();
+        this.maxViewingDistanceMultiplier = 8.0;
         this.panIncrement = Math.PI / 60;
         this.rotateIncrement = Math.PI / 60;
         this.rollIncrement = Math.PI / 60;
@@ -159,14 +162,39 @@ public class Panel3D extends JPanel implements MouseListener,
     
     /**
      * Returns the minimum viewing distance.  Zooming by mouse wheel or other
-     * means will not move the viewing point closer than this.
+     * means will not move the viewing point closer than this.  The value
+     * is computed in the constructor from the dimensions of the drawable 
+     * object.
      * 
      * @return The minimum viewing distance.
      */
-    public float getMinViewingDistance() {
+    public double getMinViewingDistance() {
         return this.minViewingDistance;
     }
+    
+    /**
+     * Returns the multiplier for the maximum viewing distance (a multiple of
+     * the minimum viewing distance).  The default value is <code>8.0</code>.
+     * 
+     * @return The multiplier.
+     * 
+     * @since 1.3
+     */
+    public double getMaxViewingDistanceMultiplier() {
+        return this.maxViewingDistanceMultiplier;
+    }
 
+    /**
+     * Sets the multiplier used to calculate the maximum viewing distance.
+     * 
+     * @param multiplier  the new multiplier. 
+     * 
+     * @since 1.3
+     */
+    public void setMaxViewingDistanceMultiplier(double multiplier) {
+        this.maxViewingDistanceMultiplier = multiplier;
+    }
+    
     /**
      * Returns the angle delta for each pan left or right.  The default
      * value is <code>Math.PI / 60</code>.
@@ -427,8 +455,11 @@ public class Panel3D extends JPanel implements MouseListener,
     @Override
     public void mouseWheelMoved(MouseWheelEvent mwe) {
         float units = mwe.getUnitsToScroll();
+        double maxViewingDistance = this.maxViewingDistanceMultiplier 
+                * this.minViewingDistance;
         double valRho = Math.max(this.minViewingDistance, 
-                this.drawable.getViewPoint().getRho() + units);
+                Math.min(maxViewingDistance, 
+                this.drawable.getViewPoint().getRho() + units));
         this.drawable.getViewPoint().setRho(valRho);
         repaint();
     }

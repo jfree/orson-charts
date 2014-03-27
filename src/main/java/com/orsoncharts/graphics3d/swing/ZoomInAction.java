@@ -26,7 +26,9 @@ import com.orsoncharts.util.ArgChecks;
  * <br><br>
  * NOTE: This class is serializable, but the serialization format is subject 
  * to change in future releases and should not be relied upon for persisting 
- * instances of this class. 
+ * instances of this class.
+ * 
+ * @see ZoomOutAction
  */
 @SuppressWarnings("serial")
 public class ZoomInAction extends AbstractAction {
@@ -34,6 +36,8 @@ public class ZoomInAction extends AbstractAction {
     /** The panel that the action applies to. */
     private Panel3D panel;
   
+    private double zoomMultiplier;
+    
     /**
      * Creates a new zoom-in action associated with the specified panel.
      * 
@@ -45,11 +49,36 @@ public class ZoomInAction extends AbstractAction {
         super("\uf00e");
         ArgChecks.nullNotPermitted(panel, "panel");
         this.panel = panel;
+        this.zoomMultiplier = 0.95; 
         if (!fontAwesome) {
             putValue(Action.NAME, Resources.localString("ZOOM_IN"));
         }
         putValue(Action.ACTION_COMMAND_KEY, "ZOOM_IN");
         putValue(Action.SHORT_DESCRIPTION, Resources.localString("ZOOM_IN"));
+    }
+
+    /**
+     * Returns the zoom multiplier.  The default value is <code>95 / 100</code> 
+     * (the inverse of the multiplier in the {@link ZoomOutAction}).
+     * 
+     * @return The zoom multiplier. 
+     * 
+     * @since 1.3
+     */
+    public double getZoomMultiplier() {
+        return zoomMultiplier;
+    }
+
+    /**
+     * Sets the zoom multiplier (the current viewing distance is multiplied 
+     * by this factor to determine the new viewing distance).
+     * 
+     * @param multiplier  the new multiplier.
+     * 
+     * @since 1.3
+     */
+    public void setZoomMultiplier(double multiplier) {
+        this.zoomMultiplier = multiplier;
     }
 
     /**
@@ -59,10 +88,12 @@ public class ZoomInAction extends AbstractAction {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        float delta = 5.0f;
         ViewPoint3D viewPt = this.panel.getViewPoint();
-        double valRho = Math.max(this.panel.getMinViewingDistance(), 
-                viewPt.getRho() - delta);
+        double minDistance = this.panel.getMinViewingDistance();
+        double maxDistance = minDistance 
+                * this.panel.getMaxViewingDistanceMultiplier();
+        double valRho = Math.max(minDistance, 
+                Math.min(maxDistance, viewPt.getRho() * this.zoomMultiplier));
         this.panel.getViewPoint().setRho(valRho);
         this.panel.repaint();
     }

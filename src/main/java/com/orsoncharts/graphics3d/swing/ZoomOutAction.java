@@ -26,7 +26,9 @@ import com.orsoncharts.graphics3d.ViewPoint3D;
  * <br><br>
  * NOTE: This class is serializable, but the serialization format is subject 
  * to change in future releases and should not be relied upon for persisting 
- * instances of this class. 
+ * instances of this class.
+ * 
+ * @see ZoomInAction
  */
 @SuppressWarnings("serial")
 public class ZoomOutAction extends AbstractAction {
@@ -34,6 +36,9 @@ public class ZoomOutAction extends AbstractAction {
     /** The panel that the action applies to. */
     private Panel3D panel;
   
+    /** The multiplier used to calculate the new viewing distance. */
+    private double zoomMultiplier;
+    
     /**
      * Creates a new zoom-out action associated with the specified panel.
      * 
@@ -43,11 +48,37 @@ public class ZoomOutAction extends AbstractAction {
     public ZoomOutAction(Panel3D panel, boolean fontAwesome) {
         super("\uf010");
         this.panel = panel;
+        this.zoomMultiplier = 10.0 / 9.5; 
         if (!fontAwesome) {
             putValue(Action.NAME, Resources.localString("ZOOM_OUT"));
         }
         putValue(Action.ACTION_COMMAND_KEY, "ZOOM_OUT");
         putValue(Action.SHORT_DESCRIPTION, Resources.localString("ZOOM_OUT"));
+    }
+
+    /**
+     * Returns the zoom multiplier.  The default value is 
+     * <code>100 / 95</code> (the inverse of the multiplier in the 
+     * {@link ZoomInAction}).
+     * 
+     * @return The zoom multiplier. 
+     * 
+     * @since 1.3
+     */
+    public double getZoomMultiplier() {
+        return zoomMultiplier;
+    }
+
+    /**
+     * Sets the zoom multiplier (the current viewing distance is multiplied 
+     * by this factor to determine the new viewing distance).
+     * 
+     * @param multiplier  the new multiplier.
+     * 
+     * @since 1.3
+     */
+    public void setZoomMultiplier(double multiplier) {
+        this.zoomMultiplier = multiplier;
     }
 
     /**
@@ -58,7 +89,11 @@ public class ZoomOutAction extends AbstractAction {
     @Override
     public void actionPerformed(ActionEvent e) {
         ViewPoint3D viewPt = this.panel.getViewPoint();
-        double valRho = Math.max(10.0f, viewPt.getRho() + 5.0f);
+        double minDistance = this.panel.getMinViewingDistance();
+        double maxDistance = minDistance 
+                * this.panel.getMaxViewingDistanceMultiplier();
+        double valRho = Math.max(minDistance, 
+                Math.min(maxDistance, viewPt.getRho() * this.zoomMultiplier));
         this.panel.getViewPoint().setRho(valRho);
         this.panel.repaint();
     }
