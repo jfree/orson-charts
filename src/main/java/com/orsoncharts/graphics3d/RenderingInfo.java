@@ -154,8 +154,6 @@ public class RenderingInfo {
      * @return The interactive element or <code>null</code>.
      */
     public RenderedElement findElementAt(double x, double y) {
-        
-    
         for (int i = this.otherElements.size() - 1; i >= 0; i--) {
             RenderedElement element = this.otherElements.get(i);
             Shape bounds = (Shape) element.getProperty(RenderedElement.BOUNDS);
