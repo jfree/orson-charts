@@ -24,6 +24,7 @@ import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.Offset3D;
 import com.orsoncharts.graphics3d.World;
+import com.orsoncharts.renderer.Renderer3DChangeEvent;
 import com.orsoncharts.util.ArgChecks;
 
 /**
