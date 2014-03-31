@@ -28,6 +28,7 @@ import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.label.ItemLabelPositioning;
 import com.orsoncharts.plot.CategoryPlot3D;
+import com.orsoncharts.renderer.Renderer3DChangeEvent;
 import com.orsoncharts.util.ObjectUtils;
 
 /**
