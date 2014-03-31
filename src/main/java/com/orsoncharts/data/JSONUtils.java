@@ -603,7 +603,8 @@ public class JSONUtils {
     /**
      * Returns a custom container factory for the JSON parser.  We create this 
      * so that the collections respect the order of elements.
-     * @return 
+     * 
+     * @return The container factory.
      */
     private static ContainerFactory createContainerFactory() {
         return new ContainerFactory() {
