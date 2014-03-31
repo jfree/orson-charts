@@ -12,10 +12,11 @@
 
 package com.orsoncharts.interaction;
 
+import com.orsoncharts.data.KeyedValues3D;
 import com.orsoncharts.data.Values3DItemKey;
 
 /**
- * An object representing a select of selected items for a {@linkKeyedValues3D}
+ * An object representing a select of selected items for a {@link KeyedValues3D}
  * dataset.
  * 
  * @since 1.3
