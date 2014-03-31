@@ -21,6 +21,7 @@ import com.orsoncharts.graphics3d.Offset3D;
 import com.orsoncharts.label.CategoryItemLabelGenerator;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.AbstractRenderer3D;
+import com.orsoncharts.renderer.Renderer3DChangeEvent;
 import com.orsoncharts.util.ObjectUtils;
 
 /**
