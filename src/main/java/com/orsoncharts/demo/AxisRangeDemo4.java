@@ -57,7 +57,9 @@ import com.orsoncharts.data.category.StandardCategoryDataset3D;
 import com.orsoncharts.data.DefaultKeyedValues;
 import com.orsoncharts.graphics3d.ViewPoint3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
+import com.orsoncharts.label.StandardCategoryItemLabelGenerator;
 import com.orsoncharts.plot.CategoryPlot3D;
+import com.orsoncharts.renderer.category.StackedBarRenderer3D;
 
 /**
  * A test for changes to the value axis range on a bar chart.
@@ -119,17 +121,21 @@ public class AxisRangeDemo4 extends JFrame {
      * @return A panel containing the content for the demo.
      */
     public static JPanel createDemoPanel() {
-        DemoPanel content = new AxisRangeDemo1.CustomDemoPanel(new BorderLayout());
+        DemoPanel content = new CustomDemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         CategoryDataset3D dataset = createDataset();
         Chart3D chart = Chart3DFactory.createStackedBarChart("AxisRangeDemo4", 
-                "A test for axis range changes on a stacked bar chart", dataset, "Row", 
-                "Category", "Value");
+                "A test for axis range changes on a stacked bar chart", dataset,
+                "Row", "Category", "Value");
         chart.setChartBoxColor(new Color(255, 255, 255, 128));
         chart.setViewPoint(ViewPoint3D.createAboveLeftViewPoint(40));
         CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
         plot.getValueAxis().setRange(-500, 500);
         plot.getRowAxis().setVisible(false);
+        StackedBarRenderer3D renderer 
+                = (StackedBarRenderer3D) plot.getRenderer();
+        renderer.setItemLabelGenerator(new StandardCategoryItemLabelGenerator(
+                StandardCategoryItemLabelGenerator.VALUE_TEMPLATE));
         Chart3DPanel chartPanel = new Chart3DPanel(chart);
         content.setChartPanel(chartPanel);
         content.add(new DisplayPanel3D(chartPanel));

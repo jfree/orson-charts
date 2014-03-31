@@ -345,39 +345,47 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
                 rowKey, columnKey);
         bar.setProperty(Object3D.ITEM_KEY, itemKey);
         world.add(bar);
-        
+        drawItemLabels(world, dataset, seriesKey, rowKey, columnKey, xx, yy, 
+                zz, basew, inverted);   
+    }
+    
+    protected void drawItemLabels(World world, CategoryDataset3D dataset, 
+            Comparable<?> seriesKey, Comparable<?> rowKey, 
+            Comparable<?> columnKey, double xw, double yw, double zw, 
+            double basew, boolean inverted) {
         ItemLabelPositioning positioning = getItemLabelPositioning();
         if (getItemLabelGenerator() != null) {
             String label = getItemLabelGenerator().generateItemLabel(dataset, 
                    seriesKey, rowKey, columnKey);
             if (label != null) {
+                Dimension3D dimensions = getPlot().getDimensions();
                 double dx = getItemLabelOffsets().getDX();
                 double dy = getItemLabelOffsets().getDY() 
                         * dimensions.getHeight();
-                double dz = getItemLabelOffsets().getDZ() * zw;
-                double yw = yy;
+                double dz = getItemLabelOffsets().getDZ() * getBarZWidth();
+                double yy = yw;
                 if (inverted) {
-                    yw = basew;
+                    yy = basew;
                     dy = -dy;
                 }
                 if (positioning.equals(ItemLabelPositioning.CENTRAL)) {
                     world.add(Object3D.createLabelObject(label, 
                             getItemLabelFont(), getItemLabelColor(), 
-                            getItemLabelBackgroundColor(), xx + dx, 
-                            yw + dy, zz, false, true));
+                            getItemLabelBackgroundColor(), xw + dx, 
+                            yy + dy, zw, false, true));
                 } else if (positioning.equals(
                         ItemLabelPositioning.FRONT_AND_BACK)) {
                     world.add(Object3D.createLabelObject(label, 
                             getItemLabelFont(), getItemLabelColor(), 
-                            getItemLabelBackgroundColor(), xx + dx, 
-                            yw + dy, zz + dz, false, false));
+                            getItemLabelBackgroundColor(), xw + dx, 
+                            yy + dy, zw + dz, false, false));
                     world.add(Object3D.createLabelObject(label, 
                             getItemLabelFont(), getItemLabelColor(), 
-                            getItemLabelBackgroundColor(), xx + dx, 
-                            yw + dy, zz - dz, true, false));
+                            getItemLabelBackgroundColor(), xw + dx, 
+                            yy + dy, zw - dz, true, false));
                 }
             }
-        }
+        }        
     }
     
     /**

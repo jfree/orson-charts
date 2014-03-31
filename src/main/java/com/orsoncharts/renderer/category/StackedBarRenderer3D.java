@@ -20,6 +20,9 @@ import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.Chart3DFactory;
+import com.orsoncharts.graphics3d.Object3D;
+import com.orsoncharts.graphics3d.Offset3D;
+import com.orsoncharts.label.ItemLabelPositioning;
 
 /**
  * A renderer that can be used with the {@link CategoryPlot3D} class to create
@@ -48,6 +51,8 @@ public class StackedBarRenderer3D extends BarRenderer3D {
      */
     public StackedBarRenderer3D() {
         super();
+        setItemLabelPositioning(ItemLabelPositioning.FRONT_AND_BACK);
+        setItemLabelOffsets(new Offset3D(0.0, 0.0, -1.0));
     }
     
     /**
@@ -100,6 +105,47 @@ public class StackedBarRenderer3D extends BarRenderer3D {
                 dimensions, xOffset, yOffset, zOffset);
         
     }
+    
+    @Override
+    protected void drawItemLabels(World world, CategoryDataset3D dataset, 
+            Comparable<?> seriesKey, Comparable<?> rowKey, 
+            Comparable<?> columnKey, double xw, double yw, double zw, 
+            double basew, boolean inverted) {
+        ItemLabelPositioning positioning = getItemLabelPositioning();
+        if (getItemLabelGenerator() != null) {
+            String label = getItemLabelGenerator().generateItemLabel(dataset, 
+                   seriesKey, rowKey, columnKey);
+            if (label != null) {
+                Dimension3D dimensions = getPlot().getDimensions();
+                double dx = getItemLabelOffsets().getDX();
+                double dy = getItemLabelOffsets().getDY() 
+                        * dimensions.getHeight();
+                double dz = getItemLabelOffsets().getDZ() * getBarZWidth();
+                if (positioning.equals(ItemLabelPositioning.CENTRAL)) {
+                    double yy = yw;
+                    if (inverted) {
+                        yy = basew;
+                        dy = -dy;
+                    }
+                    world.add(Object3D.createLabelObject(label, 
+                            getItemLabelFont(), getItemLabelColor(), 
+                            getItemLabelBackgroundColor(), xw + dx, 
+                            yy + dy, zw, false, true));
+                } else if (positioning.equals(
+                        ItemLabelPositioning.FRONT_AND_BACK)) {
+                    double yy = (yw + basew) / 2.0;
+                    world.add(Object3D.createLabelObject(label, 
+                            getItemLabelFont(), getItemLabelColor(), 
+                            getItemLabelBackgroundColor(), xw + dx, 
+                            yy + dy, zw + dz, false, false));
+                    world.add(Object3D.createLabelObject(label, 
+                            getItemLabelFont(), getItemLabelColor(), 
+                            getItemLabelBackgroundColor(), xw + dx, 
+                            yy + dy, zw - dz, true, false));
+                }
+            }
+        }        
+    }    
     
     /**
      * Tests this renderer for equality with an arbitrary object.
