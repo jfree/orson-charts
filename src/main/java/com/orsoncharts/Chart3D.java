@@ -123,7 +123,7 @@ import com.orsoncharts.util.TextAnchor;
  * instances of this class.
  * 
  * @see Chart3DFactory
- * @see ChartPanel3D
+ * @see Chart3DPanel
  */
 @SuppressWarnings("serial")
 public class Chart3D implements Drawable3D, ChartElement, 
