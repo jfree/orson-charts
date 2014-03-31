@@ -13,11 +13,16 @@
 package com.orsoncharts.label;
 
 import com.orsoncharts.data.category.CategoryDataset3D;
+import com.orsoncharts.plot.CategoryPlot3D;
 
 /**
  * A label generator for category charts, used to create labels for the axes 
  * and for the chart legend.  The ({@link StandardCategoryLabelGenerator}) class
  * provides the default implementation.
+ * <br><br>
+ * Note that a different generator is used for <strong>item labels</strong> in 
+ * a {@link CategoryPlot3D} - see the {@link CategoryItemLabelGenerator} 
+ * interface.
  * 
  * @since 1.2
  */
