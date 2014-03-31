@@ -12,6 +12,7 @@
 
 package com.orsoncharts.interaction;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Set;
 import java.util.TreeSet;
@@ -25,7 +26,7 @@ import com.orsoncharts.util.ArgChecks;
  * @since 1.3
  */
 public class StandardKeyedValues3DItemSelection 
-        implements KeyedValues3DItemSelection {
+        implements KeyedValues3DItemSelection, Serializable {
     
     /** The set of selected items. */
     Set<KeyedValues3DItemKey> selectedItems;
@@ -99,4 +100,19 @@ public class StandardKeyedValues3DItemSelection
         this.selectedItems.clear();
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof StandardKeyedValues3DItemSelection)) {
+            return false;
+        }
+        StandardKeyedValues3DItemSelection that 
+                = (StandardKeyedValues3DItemSelection) obj;
+        if (!this.selectedItems.equals(that.selectedItems)) {
+            return false;
+        }
+        return true;
+    }
 }

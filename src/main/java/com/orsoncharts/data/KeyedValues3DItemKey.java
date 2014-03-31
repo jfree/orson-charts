@@ -12,6 +12,8 @@
 
 package com.orsoncharts.data;
 
+import java.io.Serializable;
+
 import com.orsoncharts.util.ArgChecks;
 
 /**
@@ -20,9 +22,10 @@ import com.orsoncharts.util.ArgChecks;
  * 
  * @since 1.3
  */
-public class KeyedValues3DItemKey<S extends Comparable<S>, R extends Comparable<R>, 
-        C extends Comparable<C>> 
-        implements ItemKey, Comparable<KeyedValues3DItemKey<S, R, C>> {
+public class KeyedValues3DItemKey<S extends Comparable<S>, 
+        R extends Comparable<R>, C extends Comparable<C>> 
+        implements ItemKey, Comparable<KeyedValues3DItemKey<S, R, C>>, 
+        Serializable {
     
     /** The series key. */
     S seriesKey;
@@ -86,6 +89,34 @@ public class KeyedValues3DItemKey<S extends Comparable<S>, R extends Comparable<
             }
         }
         return result;
+    }
+    
+    /**
+     * Tests this key for equality with an arbitrary object.
+     * 
+     * @param obj  the object (<code>null</code> permitted).
+     * 
+     * @return A boolean. 
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof KeyedValues3DItemKey)) {
+            return false;
+        }
+        KeyedValues3DItemKey that = (KeyedValues3DItemKey) obj;
+        if (!this.seriesKey.equals(that.seriesKey)) {
+            return false;
+        }
+        if (!this.rowKey.equals(that.rowKey)) {
+            return false;
+        }
+        if (!this.columnKey.equals(that.columnKey)) {
+            return false;
+        }
+        return true;
     }
 
     @Override
