@@ -12,6 +12,9 @@
 
 package com.orsoncharts.axis;
 
+import com.orsoncharts.plot.CategoryPlot3D;
+import com.orsoncharts.plot.XYZPlot;
+
 /**
  * An enumeration of the value axis types.  A {@link ValueAxis3D} can be 
  * used in several different plot dimensions.
