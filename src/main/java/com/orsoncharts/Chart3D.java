@@ -2019,8 +2019,15 @@ public class Chart3D implements Drawable3D, ChartElement,
                 
     }
     
+    /**
+     * Returns a string representing the <code>element</code>, primarily for
+     * debugging purposes.
+     * 
+     * @param element  the element (<code>null</code> not permitted).
+     * 
+     * @return A string (never <code>null</code>).
+     */
     public static String renderedElementToString(RenderedElement element) {
-        
         Object type = element.getProperty(RenderedElement.TYPE);
         if (InteractiveElementType.SECTION_LABEL.equals(type)) {
             StringBuilder sb = new StringBuilder();
