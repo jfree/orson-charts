@@ -26,11 +26,12 @@ import com.orsoncharts.plot.PiePlot3D;
  * code will use the <code>toDouble()</code> method to read values) or 
  * <code>null</code>.
  * <br><br>
- * This class provides an implementation of <code>KeyedValues<Number></code>,
- * so the following useful utility methods can be used:
+ * This class provides an implementation of 
+ * <code>KeyedValues&lt;Number&gt;</code>, so the following useful utility 
+ * methods can be used:
  * <ul>
  * {@link DataUtils#total(com.orsoncharts.data.Values)}
- * {@link JSONUtils#writeKeyedValuesToJSON(com.orsoncharts.data.KeyedValues)}
+ * {@link JSONUtils#writeKeyedValues(com.orsoncharts.data.KeyedValues)}
  * </ul>
  * <br><br>
  * NOTE: This class is serializable, but the serialization format is subject 

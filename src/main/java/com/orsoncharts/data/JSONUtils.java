@@ -162,8 +162,8 @@ public class JSONUtils {
     /**
      * Parses character data from the reader and (if possible) creates a
      * {@link KeyedValues3D} instance.  This method will read back the data
-     * written by {@link JSONUtils#writeKeyedValues3D(com.orsoncharts
-     * .data.KeyedValues3D, java.io.Writer)}.
+     * written by {@link JSONUtils#writeKeyedValues3D(
+     * com.orsoncharts.data.KeyedValues3D, java.io.Writer) }.
      * 
      * @param reader  the reader (<code>null</code> not permitted).
      * 

@@ -19,7 +19,7 @@ import com.orsoncharts.Chart3DPanel;
  * The interface that must be implemented by classes that wish to receive
  * {@link Chart3DMouseEvent} notifications from a {@link Chart3DPanel}.
  *
- * @see Chart3DPanel#addChartMouseListener(ChartMouseListener)
+ * @see Chart3DPanel#addChartMouseListener(com.orsoncharts.interaction.Chart3DMouseListener) 
  * 
  * @since 1.3
  */
