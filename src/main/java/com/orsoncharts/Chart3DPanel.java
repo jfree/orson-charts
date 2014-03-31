@@ -135,7 +135,7 @@ public class Chart3DPanel extends Panel3D implements Chart3DChangeListener,
 
     /**
      * Receives a mouse event and passes it on to registered 
-     * {@link ChartMouseListener}s along with the underlying rendered
+     * {@link Chart3DMouseListener}s along with the underlying rendered
      * element if any.
      * 
      * @param e  the mouse event.
@@ -162,7 +162,7 @@ public class Chart3DPanel extends Panel3D implements Chart3DChangeListener,
 
     /**
      * Receives a mouse event and passes it on to registered 
-     * {@link ChartMouseListener}s along with the underlying rendered
+     * {@link Chart3DMouseListener}s along with the underlying rendered
      * element if any.
      * 
      * @param e  the mouse event.
