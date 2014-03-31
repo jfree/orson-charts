@@ -63,7 +63,7 @@ public class ParseException extends Exception {
     }
     
     /**
-     * @see com.orsoncharts.util.json.simple.parser.JSONParser#getPosition()
+     * @see com.orsoncharts.util.json.parser.JSONParser#getPosition()
      * 
      * @return The character position (starting with 0) of the input where the 
      * error occurs.
@@ -77,7 +77,7 @@ public class ParseException extends Exception {
     }
     
     /**
-     * @see com.orsoncharts.util.json.simple.parser.Yytoken
+     * @see com.orsoncharts.util.json.parser.Yytoken
      * 
      * @return One of the following base on the value of errorType:
      *         ERROR_UNEXPECTED_CHAR        java.lang.Character

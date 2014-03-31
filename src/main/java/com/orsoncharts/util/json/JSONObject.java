@@ -43,7 +43,7 @@ public class JSONObject extends HashMap implements Map, JSONAware,
      * <code>JSONAware</code> or <code>JSONStreamAware</code> specific 
      * behaviours will be ignored at this top level.
      * 
-     * @see com.orsoncharts.util.json.simple.JSONValue#writeJSONString(Object, Writer)
+     * @see com.orsoncharts.util.json.JSONValue#writeJSONString(Object, Writer)
      * 
      * @param map  the map to write (<code>null</code> permitted).
      * @param out  the output writer (<code>null</code> not permitted).
@@ -93,7 +93,7 @@ public class JSONObject extends HashMap implements Map, JSONAware,
      * If this map is also a {@link JSONAware}, <code>JSONAware</code> specific 
      * behaviours will be omitted at this top level.
      * 
-     * @see com.orsoncharts.util.json.simple.JSONValue#toJSONString(Object)
+     * @see com.orsoncharts.util.json.JSONValue#toJSONString(Object)
      * 
      * @param map  the map (<code>null</code> permitted).
      * 

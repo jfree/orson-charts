@@ -49,7 +49,7 @@ public class JSONArray extends ArrayList implements List, JSONAware,
      * <code>JSONStreamAware</code> and <code>JSONAware</code> specific 
      * behaviours will be ignored at this top level.
      * 
-     * @see com.orsoncharts.util.json.simple.JSONValue#writeJSONString(Object, Writer)
+     * @see com.orsoncharts.util.json.JSONValue#writeJSONString(Object, Writer)
      * 
      * @param list  the list (<code>null</code> permitted).
      * @param out  the output writer (<code>null</code> not permitted).
@@ -101,7 +101,7 @@ public class JSONArray extends ArrayList implements List, JSONAware,
      * If this list is also a {@link JSONAware}, {@link JSONAware} specific 
      * behaviours will be omitted at this top level.
      * 
-     * @see com.orsoncharts.util.json.simple.JSONValue#toJSONString(Object)
+     * @see com.orsoncharts.util.json.JSONValue#toJSONString(Object)
      * 
      * @param list  the list (<code>null</code> permitted).
      * 

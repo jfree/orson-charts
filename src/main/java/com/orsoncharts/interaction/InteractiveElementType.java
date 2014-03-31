@@ -13,7 +13,6 @@
 package com.orsoncharts.interaction;
 
 import com.orsoncharts.graphics3d.RenderedElement;
-import static com.orsoncharts.interaction.InteractiveElementType.LEGEND_ITEM;
 
 /**
  * The type for an interactive chart element.  These values are used when 
@@ -53,7 +52,7 @@ public enum InteractiveElementType {
     /** The section label for a pie chart. */
     SECTION_LABEL,
     
-    /** The legend (see also {@link LEGEND_ITEM}). */
+    /** The legend (see also {@link #LEGEND_ITEM}). */
     LEGEND,
     
     /** 

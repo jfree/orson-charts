@@ -28,9 +28,8 @@ import java.io.IOException;
 /**
  * A simplified and stoppable SAX-like content handler for stream processing of 
  * JSON text. 
- * 
- * @see org.xml.sax.ContentHandler
- * @see com.orsoncharts.util.json.simple.parser.JSONParser#parse(java.io.Reader,
+ *
+ * @see com.orsoncharts.util.json.parser.JSONParser#parse(java.io.Reader,
  *     ContentHandler, boolean)
  */
 public interface ContentHandler {
