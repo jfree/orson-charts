@@ -12,6 +12,9 @@
 
 package com.orsoncharts.interaction;
 
+import com.orsoncharts.graphics3d.RenderedElement;
+import static com.orsoncharts.interaction.InteractiveElementType.LEGEND_ITEM;
+
 /**
  * The type for an interactive chart element.  These values are used when 
  * constructing a {@link RenderedElement}.  For each type, some additional

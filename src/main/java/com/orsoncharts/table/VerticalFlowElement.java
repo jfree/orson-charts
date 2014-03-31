@@ -297,7 +297,7 @@ public class VerticalFlowElement extends AbstractTableElement
      * 
      * @param g2  the graphics target (<code>null</code> not permitted).
      * @param bounds  the bounds (<code>null</code> not permitted).
-     * @param recordBounds  record the bounds?
+     * @param onDrawHandler  record the bounds?
      * 
      * @since 1.3
      */

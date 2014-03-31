@@ -461,7 +461,8 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
      * @param clipColor
      * @param openingFace
      * @param closingFace
-     * @return 
+     * 
+     * @return A list of objects making up the segment. 
      */
     private List<Object3D> createSegment(double x0, double y0, double x1, 
             double y1, double z, double base, double ymin, double ymax, 
