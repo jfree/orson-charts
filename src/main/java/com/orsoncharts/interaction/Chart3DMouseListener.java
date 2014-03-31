@@ -13,6 +13,7 @@
 package com.orsoncharts.interaction;
 
 import java.util.EventListener;
+import com.orsoncharts.Chart3DPanel;
 
 /**
  * The interface that must be implemented by classes that wish to receive

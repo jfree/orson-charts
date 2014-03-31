@@ -16,6 +16,7 @@ import java.awt.event.MouseEvent;
 import java.io.Serializable;
 import java.util.EventObject;
 import com.orsoncharts.Chart3D;
+import com.orsoncharts.Chart3DPanel;
 import com.orsoncharts.graphics3d.RenderedElement;
 
 /**
