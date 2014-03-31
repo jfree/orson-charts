@@ -62,7 +62,7 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
 import com.orsoncharts.Chart3D;
-import com.orsoncharts.ChartPanel3D;
+import com.orsoncharts.Chart3DPanel;
 import com.orsoncharts.style.ChartStyle;
 import com.orsoncharts.style.ChartStyles;
 
@@ -201,9 +201,9 @@ public class OrsonChartsDemo extends JFrame implements ActionListener {
         return result;
     }
     
-    private void applyStyleToChartsInPanels(List<ChartPanel3D> panels, 
+    private void applyStyleToChartsInPanels(List<Chart3DPanel> panels, 
             ChartStyle style) {
-        for (ChartPanel3D panel : panels) {
+        for (Chart3DPanel panel : panels) {
             Chart3D chart = (Chart3D) panel.getDrawable();
             ChartStyle s = style.clone();
             chart.setStyle(s);
@@ -218,7 +218,7 @@ public class OrsonChartsDemo extends JFrame implements ActionListener {
         Component c = this.demoComponent.getChartContainer().getComponent(0);
         if (c instanceof DemoPanel) {
             DemoPanel dp = (DemoPanel) c;
-            List<ChartPanel3D> chartPanels = dp.getChartPanels();
+            List<Chart3DPanel> chartPanels = dp.getChartPanels();
             if ("NO_STYLE".equals(e.getActionCommand())) {
                 this.demoComponent.setChartStyle(null);
             }

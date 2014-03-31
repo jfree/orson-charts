@@ -46,7 +46,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import com.orsoncharts.ChartPanel3D;
+import com.orsoncharts.Chart3DPanel;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
 import com.orsoncharts.Colors;
@@ -99,7 +99,7 @@ public class PieChart3DDemo2 extends JFrame {
         plot.setLegendLabelGenerator(new StandardPieLabelGenerator(PERCENT_TEMPLATE));
         plot.setSectionLabelGenerator(new StandardPieLabelGenerator(PERCENT_TEMPLATE));
         plot.setSectionColors(Colors.createFancyLightColors());
-        ChartPanel3D chartPanel = new ChartPanel3D(chart);
+        Chart3DPanel chartPanel = new Chart3DPanel(chart);
         chartPanel.setMargin(0.15);
         content.setChartPanel(chartPanel);
         chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);

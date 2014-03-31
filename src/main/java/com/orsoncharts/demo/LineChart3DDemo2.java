@@ -42,7 +42,7 @@ import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import com.orsoncharts.ChartPanel3D;
+import com.orsoncharts.Chart3DPanel;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
 import com.orsoncharts.data.category.CategoryDataset3D;
@@ -83,7 +83,7 @@ public class LineChart3DDemo2 extends JFrame {
                 "Large Banks in USA", dataset, null, "Quarter", "$ millions");
         chart.setChartBoxColor(new Color(255, 255, 255, 128));
         chart.setLegendAnchor(LegendAnchor.TOP_RIGHT);
-        ChartPanel3D chartPanel = new ChartPanel3D(chart);
+        Chart3DPanel chartPanel = new Chart3DPanel(chart);
         content.setChartPanel(chartPanel);
         content.add(new DisplayPanel3D(chartPanel));
         chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);

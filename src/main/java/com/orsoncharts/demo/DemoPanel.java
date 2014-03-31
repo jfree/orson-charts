@@ -42,11 +42,11 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
-import com.orsoncharts.ChartPanel3D;
+import com.orsoncharts.Chart3DPanel;
 
 /**
  * The base class for panels created by demo applications.  Some demos will 
- * subclass to add extra controls in addition to the main {@link ChartPanel3D}.
+ * subclass to add extra controls in addition to the main {@link Chart3DPanel}.
  */
 @SuppressWarnings("serial")
 public class DemoPanel extends JPanel {
@@ -55,7 +55,7 @@ public class DemoPanel extends JPanel {
      * A list of the chart panels on the demo panel (usually just one, but 
      * there can be multiple panels).
      */
-    private List<ChartPanel3D> chartPanels;
+    private List<Chart3DPanel> chartPanels;
     
     /**
      * Creates a new instance.
@@ -64,7 +64,7 @@ public class DemoPanel extends JPanel {
      */
     public DemoPanel(LayoutManager layout) {
         super(layout);
-        this.chartPanels = new ArrayList<ChartPanel3D>();
+        this.chartPanels = new ArrayList<Chart3DPanel>();
     }
     
     /**
@@ -73,7 +73,7 @@ public class DemoPanel extends JPanel {
      * 
      * @return The chart panel (possibly <code>null</code>). 
      */
-    public ChartPanel3D getChartPanel() {
+    public Chart3DPanel getChartPanel() {
         if (this.chartPanels.isEmpty()) {
             return null;
         }
@@ -81,11 +81,11 @@ public class DemoPanel extends JPanel {
     }
     
     /**
-     * Returns the {@link ChartPanel3D} from the demo panel.
+     * Returns the {@link Chart3DPanel} from the demo panel.
      * 
-     * @return The {@link ChartPanel3D}. 
+     * @return The {@link Chart3DPanel}. 
      */
-    public List<ChartPanel3D> getChartPanels() {
+    public List<Chart3DPanel> getChartPanels() {
         return this.chartPanels;
     }
     
@@ -95,18 +95,18 @@ public class DemoPanel extends JPanel {
      * 
      * @param panel  the panel.
      */
-    public void setChartPanel(ChartPanel3D panel) {
+    public void setChartPanel(Chart3DPanel panel) {
         this.chartPanels.clear();
         this.chartPanels.add(panel);
     }
     
     /**
-     * Adds the {@link ChartPanel3D} for this demo panel.  This can be
+     * Adds the {@link Chart3DPanel} for this demo panel.  This can be
      * accessed by code that wants to do something to the chart.
      * 
      * @param panel  the panel. 
      */
-    public void addChartPanel(ChartPanel3D panel) {
+    public void addChartPanel(Chart3DPanel panel) {
         this.chartPanels.add(panel);
     }
 }

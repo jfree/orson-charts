@@ -44,7 +44,7 @@ import com.orsoncharts.util.ArgChecks;
  * instances of this class.
  */
 @SuppressWarnings("serial")
-public class ChartPanel3D extends Panel3D implements Chart3DChangeListener, 
+public class Chart3DPanel extends Panel3D implements Chart3DChangeListener, 
         ComponentListener {
 
     /**
@@ -63,7 +63,7 @@ public class ChartPanel3D extends Panel3D implements Chart3DChangeListener,
      *
      * @param chart the chart.
      */
-    public ChartPanel3D(Chart3D chart) {
+    public Chart3DPanel(Chart3D chart) {
         super(chart);
         this.chartMouseListeners = new EventListenerList();
         this.chart = chart;

@@ -43,7 +43,7 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import com.orsoncharts.ChartPanel3D;
+import com.orsoncharts.Chart3DPanel;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
 import com.orsoncharts.Colors;
@@ -113,7 +113,7 @@ public class BarChart3DDemo2 extends JFrame {
         plot.getRenderer().setColors(Colors.createPastelColors());
         plot.setToolTipGenerator(new StandardCategoryItemLabelGenerator(
                 "%2$s (%3$s) = %4$s degrees"));
-        ChartPanel3D chartPanel = new ChartPanel3D(chart);
+        Chart3DPanel chartPanel = new Chart3DPanel(chart);
         content.setChartPanel(chartPanel);
         content.add(new DisplayPanel3D(chartPanel));
         chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);

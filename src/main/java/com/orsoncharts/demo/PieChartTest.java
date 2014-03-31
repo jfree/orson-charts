@@ -43,7 +43,7 @@ import javax.swing.JPanel;
 
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
-import com.orsoncharts.ChartPanel3D;
+import com.orsoncharts.Chart3DPanel;
 import com.orsoncharts.TitleAnchor;
 import com.orsoncharts.data.PieDataset3D;
 import com.orsoncharts.data.StandardPieDataset3D;
@@ -84,7 +84,7 @@ public class PieChartTest extends JFrame {
         chart.setTitleAnchor(TitleAnchor.TOP_LEFT);
         chart.setLegendPosition(LegendAnchor.BOTTOM_CENTER,
                 Orientation.HORIZONTAL);
-        ChartPanel3D chartPanel = new ChartPanel3D(chart);
+        Chart3DPanel chartPanel = new Chart3DPanel(chart);
         chartPanel.setMargin(0.05);
         content.setChartPanel(chartPanel);
         content.add(new DisplayPanel3D(chartPanel));

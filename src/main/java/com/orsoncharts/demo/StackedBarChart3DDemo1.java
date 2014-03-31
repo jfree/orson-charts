@@ -43,7 +43,7 @@ import javax.swing.JPanel;
 
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
-import com.orsoncharts.ChartPanel3D;
+import com.orsoncharts.Chart3DPanel;
 import com.orsoncharts.data.DefaultKeyedValues;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.category.StandardCategoryDataset3D;
@@ -80,7 +80,7 @@ public class StackedBarChart3DDemo1 extends JFrame {
         Chart3D chart = Chart3DFactory.createStackedBarChart(
                 "Stacked Bar Chart", "Put the data source here", dataset, null, 
                 null, "Value");
-        ChartPanel3D chartPanel = new ChartPanel3D(chart);
+        Chart3DPanel chartPanel = new Chart3DPanel(chart);
         chartPanel.setMargin(0.33);
         content.setChartPanel(chartPanel);
         chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);

@@ -48,7 +48,7 @@ import javax.swing.JPanel;
 
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
-import com.orsoncharts.ChartPanel3D;
+import com.orsoncharts.Chart3DPanel;
 import com.orsoncharts.axis.StandardCategoryAxis3D;
 import com.orsoncharts.data.DefaultKeyedValues;
 import com.orsoncharts.data.KeyedValues3DItemKeys;
@@ -268,7 +268,7 @@ public class CategoryMarkerDemo1 extends JFrame {
         colorSource.setHighlightRowIndex(3);
         colorSource.setHighlightColumnIndex(6);
         renderer.setColorSource(colorSource);
-        ChartPanel3D chartPanel = new ChartPanel3D(chart);
+        Chart3DPanel chartPanel = new Chart3DPanel(chart);
         chartPanel.setMargin(0.30);
         chartPanel.getViewPoint().panLeftRight(-0.30);
         chartPanel.getViewPoint().moveUpDown(-0.12);

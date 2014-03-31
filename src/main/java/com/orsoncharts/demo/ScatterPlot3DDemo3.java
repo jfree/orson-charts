@@ -47,7 +47,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import com.orsoncharts.ChartPanel3D;
+import com.orsoncharts.Chart3DPanel;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
 import com.orsoncharts.Colors;
@@ -107,7 +107,7 @@ public class ScatterPlot3DDemo3 extends JFrame {
         renderer1.setSize(0.15);
         renderer1.setColors(Colors.createIntenseColors());
         chart1.setViewPoint(ViewPoint3D.createAboveLeftViewPoint(40));
-        ChartPanel3D chartPanel1 = new ChartPanel3D(chart1);
+        Chart3DPanel chartPanel1 = new Chart3DPanel(chart1);
         chartPanel1.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(255, 255, 255, 0)), 
                 BorderFactory.createLineBorder(Color.DARK_GRAY)));
@@ -128,7 +128,7 @@ public class ScatterPlot3DDemo3 extends JFrame {
         renderer2.setSize(0.15);
         renderer2.setColors(Colors.createIntenseColors());
         chart2.setViewPoint(ViewPoint3D.createAboveLeftViewPoint(40));
-        ChartPanel3D chartPanel2 = new ChartPanel3D(chart2);
+        Chart3DPanel chartPanel2 = new Chart3DPanel(chart2);
         chartPanel2.setPreferredSize(new Dimension(10, 10));
         chartPanel2.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(255, 255, 255, 0)), 
@@ -150,7 +150,7 @@ public class ScatterPlot3DDemo3 extends JFrame {
         renderer3.setSize(0.15);
         renderer3.setColors(Colors.createIntenseColors());
         chart3.setViewPoint(ViewPoint3D.createAboveLeftViewPoint(40));
-        ChartPanel3D chartPanel3 = new ChartPanel3D(chart3);
+        Chart3DPanel chartPanel3 = new Chart3DPanel(chart3);
         chartPanel3.setPreferredSize(new Dimension(10, 10));
         chartPanel3.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(255, 255, 255, 0)), 
@@ -171,7 +171,7 @@ public class ScatterPlot3DDemo3 extends JFrame {
         renderer4.setSize(0.15);
         renderer4.setColors(Colors.createIntenseColors());
         chart4.setViewPoint(ViewPoint3D.createAboveLeftViewPoint(40));
-        ChartPanel3D chartPanel4 = new ChartPanel3D(chart4);
+        Chart3DPanel chartPanel4 = new Chart3DPanel(chart4);
         chartPanel4.setPreferredSize(new Dimension(10, 10));
         chartPanel4.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(255, 255, 255, 0)), 

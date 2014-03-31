@@ -44,7 +44,7 @@ import java.net.URL;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import com.orsoncharts.Chart3D;
-import com.orsoncharts.ChartPanel3D;
+import com.orsoncharts.Chart3DPanel;
 
 public class DemoDisplayer implements Runnable {
 
@@ -80,7 +80,7 @@ public class DemoDisplayer implements Runnable {
             this.demoComp.getChartContainer().validate();
             if (panel instanceof DemoPanel) {
                 DemoPanel demoPanel = (DemoPanel) panel;
-                for (ChartPanel3D cp3d : demoPanel.getChartPanels()) {
+                for (Chart3DPanel cp3d : demoPanel.getChartPanels()) {
                     if (demoComp.getChartStyle() != null) {
                         Chart3D chart = (Chart3D) cp3d.getDrawable();
                         chart.setStyle(demoComp.getChartStyle());

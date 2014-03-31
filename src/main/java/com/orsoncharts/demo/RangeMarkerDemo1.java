@@ -49,7 +49,7 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import com.orsoncharts.ChartPanel3D;
+import com.orsoncharts.Chart3DPanel;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
 import com.orsoncharts.axis.NumberAxis3D;
@@ -210,7 +210,7 @@ public class RangeMarkerDemo1 extends JFrame {
         renderer.setItemLabelGenerator(generator);
         chart.setViewPoint(ViewPoint3D.createAboveLeftViewPoint(40));
         
-        ChartPanel3D chartPanel = new ChartPanel3D(chart);
+        Chart3DPanel chartPanel = new Chart3DPanel(chart);
         content.setChartPanel(chartPanel);
         chartPanel.addChartMouseListener(content);
         chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);

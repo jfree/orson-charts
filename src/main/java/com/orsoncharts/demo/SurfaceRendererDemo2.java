@@ -41,7 +41,7 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import com.orsoncharts.ChartPanel3D;
+import com.orsoncharts.Chart3DPanel;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
 import com.orsoncharts.Range;
@@ -104,7 +104,7 @@ public class SurfaceRendererDemo2 extends JFrame {
         renderer.setDrawFaceOutlines(false);
         chart.setLegendPosition(LegendAnchor.BOTTOM_RIGHT, 
                 Orientation.VERTICAL);
-        ChartPanel3D chartPanel = new ChartPanel3D(chart);
+        Chart3DPanel chartPanel = new Chart3DPanel(chart);
         chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         content.setChartPanel(chartPanel);
         content.add(new DisplayPanel3D(chartPanel));

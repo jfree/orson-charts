@@ -48,7 +48,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import com.orsoncharts.ChartPanel3D;
+import com.orsoncharts.Chart3DPanel;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
 import com.orsoncharts.axis.ValueAxis3D;
@@ -199,7 +199,7 @@ public class AxisRangeDemo5 extends JFrame {
         selection.addAll(XYZItemKeys.itemKeysForSeries(dataset, "S1"));
         renderer.setItemLabelGenerator(itemLabelGenerator);
         chart.setViewPoint(ViewPoint3D.createAboveLeftViewPoint(40));
-        ChartPanel3D chartPanel = new ChartPanel3D(chart);
+        Chart3DPanel chartPanel = new Chart3DPanel(chart);
         content.setChartPanel(chartPanel);
         chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         content.add(new DisplayPanel3D(chartPanel));
