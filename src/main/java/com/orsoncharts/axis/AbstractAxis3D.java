@@ -420,6 +420,7 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
      * @param axisLine  the axis line (<code>null</code> not permitted).
      * @param opposingPt  an opposing point (<code>null</code> not permitted).
      * @param offset  the offset.
+     * @param info  collects rendering info (<code>null</code> permitted).
      * @param hinting  perform element hinting?
      * 
      * @return A bounding shape.
