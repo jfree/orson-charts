@@ -52,7 +52,7 @@ import com.orsoncharts.Chart3DPanel;
 import com.orsoncharts.axis.StandardCategoryAxis3D;
 import com.orsoncharts.data.DefaultKeyedValues;
 import com.orsoncharts.data.KeyedValues3DItemKeys;
-import com.orsoncharts.data.Values3DItemKey;
+import com.orsoncharts.data.KeyedValues3DItemKey;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.category.StandardCategoryDataset3D;
 import com.orsoncharts.graphics3d.Object3D;
@@ -180,8 +180,8 @@ public class CategoryMarkerDemo1 extends JFrame {
                 return;
             }
             // first handle clicks on data items
-            Values3DItemKey key = (Values3DItemKey) element.getProperty(
-                    Object3D.ITEM_KEY);
+            KeyedValues3DItemKey key = (KeyedValues3DItemKey) 
+                    element.getProperty(Object3D.ITEM_KEY);
             if (key != null) {
                 handleSelectItem(key.getRowKey(), key.getColumnKey());
             } else {
@@ -198,7 +198,8 @@ public class CategoryMarkerDemo1 extends JFrame {
                         element.getType())) {
                     Comparable<?> seriesKey = (Comparable<?>) 
                             element.getProperty(Chart3D.SERIES_KEY);
-                    // the row keys are the same as the series keys in this chart
+                    // the row keys are the same as the series keys in 
+                    // this chart
                     handleSelectRow(seriesKey);
                 } else {
                     //JOptionPane.showMessageDialog(this, 

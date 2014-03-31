@@ -24,7 +24,7 @@ import com.orsoncharts.axis.ValueAxis3D;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.DataUtils;
 import com.orsoncharts.data.Values3D;
-import com.orsoncharts.data.Values3DItemKey;
+import com.orsoncharts.data.KeyedValues3DItemKey;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.Offset3D;
@@ -360,8 +360,8 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
                 clipColor = c;
             }
         }
-        Values3DItemKey itemKey = new Values3DItemKey(seriesKey, rowKey, 
-                columnKey);
+        KeyedValues3DItemKey itemKey = new KeyedValues3DItemKey(seriesKey, 
+                rowKey, columnKey);
  
         if (createLeftSegment) {
             Comparable<?> prevColumnKey = dataset.getColumnKey(column - 1);

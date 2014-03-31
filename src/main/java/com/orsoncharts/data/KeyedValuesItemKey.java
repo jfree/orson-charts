@@ -18,11 +18,9 @@ import com.orsoncharts.util.ArgChecks;
  * An object that references one data item in a {@link KeyedValues3D} data
  * structure.
  * 
- * TODO: this should be renamed KeyedValuesItemKey.
- * 
  * @since 1.3
  */
-public class ValuesItemKey implements ItemKey {
+public class KeyedValuesItemKey implements ItemKey {
     
     Comparable<? extends Object> key;
     
@@ -31,7 +29,7 @@ public class ValuesItemKey implements ItemKey {
      * 
      * @param key  the key (<code>null</code> not permitted).
      */
-    public ValuesItemKey(Comparable<? extends Object> key) {
+    public KeyedValuesItemKey(Comparable<? extends Object> key) {
         ArgChecks.nullNotPermitted(key, "key");
         this.key = key;
     }

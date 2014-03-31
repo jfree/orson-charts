@@ -16,7 +16,7 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.TreeSet;
 import com.orsoncharts.data.KeyedValues3D;
-import com.orsoncharts.data.Values3DItemKey;
+import com.orsoncharts.data.KeyedValues3DItemKey;
 import com.orsoncharts.util.ArgChecks;
 
 /**
@@ -24,16 +24,17 @@ import com.orsoncharts.util.ArgChecks;
  * 
  * @since 1.3
  */
-public class StandardKeyedValues3DItemSelection implements KeyedValues3DItemSelection {
+public class StandardKeyedValues3DItemSelection 
+        implements KeyedValues3DItemSelection {
     
     /** The set of selected items. */
-    Set<Values3DItemKey> selectedItems;
+    Set<KeyedValues3DItemKey> selectedItems;
 
     /**
      * Creates a new item selection instance, initially with no selections.
      */
     public StandardKeyedValues3DItemSelection() {
-        this.selectedItems = new TreeSet<Values3DItemKey>();
+        this.selectedItems = new TreeSet<KeyedValues3DItemKey>();
     }
     
     /**
@@ -45,7 +46,7 @@ public class StandardKeyedValues3DItemSelection implements KeyedValues3DItemSele
      * 
      * @return A boolean.
      */
-    public boolean add(Values3DItemKey itemKey) {
+    public boolean add(KeyedValues3DItemKey itemKey) {
         ArgChecks.nullNotPermitted(itemKey, "itemKey");
         return this.selectedItems.add(itemKey);
     }
@@ -59,7 +60,7 @@ public class StandardKeyedValues3DItemSelection implements KeyedValues3DItemSele
      * 
      * @return A boolean.
      */
-    public boolean addAll(Collection<? extends Values3DItemKey> keys) {
+    public boolean addAll(Collection<? extends KeyedValues3DItemKey> keys) {
         ArgChecks.nullNotPermitted(keys, "keys");
         return this.selectedItems.addAll(keys);
     }
@@ -73,7 +74,7 @@ public class StandardKeyedValues3DItemSelection implements KeyedValues3DItemSele
      * 
      * @return A boolean. 
      */
-    public boolean remove(Values3DItemKey itemKey) {
+    public boolean remove(KeyedValues3DItemKey itemKey) {
         return this.selectedItems.remove(itemKey);
     }
     
@@ -86,7 +87,7 @@ public class StandardKeyedValues3DItemSelection implements KeyedValues3DItemSele
      * @return A boolean.
      */
     @Override
-    public boolean isSelected(Values3DItemKey itemKey) {
+    public boolean isSelected(KeyedValues3DItemKey itemKey) {
         return this.selectedItems.contains(itemKey);
     }
     

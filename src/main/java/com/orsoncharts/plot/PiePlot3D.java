@@ -31,7 +31,7 @@ import com.orsoncharts.Chart3DFactory;
 import com.orsoncharts.ChartElementVisitor;
 import com.orsoncharts.data.DataUtils;
 import com.orsoncharts.data.ItemKey;
-import com.orsoncharts.data.ValuesItemKey;
+import com.orsoncharts.data.KeyedValuesItemKey;
 import com.orsoncharts.label.PieLabelGenerator;
 import com.orsoncharts.label.StandardPieLabelGenerator;
 
@@ -422,7 +422,8 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
                 Object3D segment = Object3D.createPieSegment(this.radius, 0.0, 
                         yOffset, this.depth, r, r + angle, 
                         Math.PI / this.segments, c);
-                segment.setProperty(Object3D.ITEM_KEY, new ValuesItemKey(key));
+                segment.setProperty(Object3D.ITEM_KEY, 
+                        new KeyedValuesItemKey(key));
                 world.add(segment);
                 r = r + angle;
             }
@@ -468,11 +469,11 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
 
     @Override
     public String generateToolTipText(ItemKey itemKey) {
-        if (!(itemKey instanceof ValuesItemKey)) {
+        if (!(itemKey instanceof KeyedValuesItemKey)) {
             throw new IllegalArgumentException(
                     "The itemKey must be a ValuesItemKey instance.");
         }
-        ValuesItemKey vik = (ValuesItemKey) itemKey;
+        KeyedValuesItemKey vik = (KeyedValuesItemKey) itemKey;
         return this.toolTipGenerator.generateLabel(this.dataset, vik.getKey());
     }
 

@@ -31,7 +31,7 @@ import com.orsoncharts.axis.CategoryAxis3D;
 import com.orsoncharts.axis.ValueAxis3D;
 import com.orsoncharts.data.Dataset3DChangeEvent;
 import com.orsoncharts.data.ItemKey;
-import com.orsoncharts.data.Values3DItemKey;
+import com.orsoncharts.data.KeyedValues3DItemKey;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.World;
@@ -659,11 +659,11 @@ public class CategoryPlot3D extends AbstractPlot3D
     
     @Override
     public String generateToolTipText(ItemKey itemKey) {
-        if (!(itemKey instanceof Values3DItemKey)) {
+        if (!(itemKey instanceof KeyedValues3DItemKey)) {
             throw new IllegalArgumentException(
                     "The itemKey must be a Values3DItemKey instance.");
         }
-        Values3DItemKey vik = (Values3DItemKey) itemKey;
+        KeyedValues3DItemKey vik = (KeyedValues3DItemKey) itemKey;
         return this.toolTipGenerator.generateItemLabel(dataset, 
                 vik.getSeriesKey(), vik.getRowKey(), vik.getColumnKey());
     }

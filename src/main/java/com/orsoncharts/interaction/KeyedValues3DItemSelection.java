@@ -13,7 +13,7 @@
 package com.orsoncharts.interaction;
 
 import com.orsoncharts.data.KeyedValues3D;
-import com.orsoncharts.data.Values3DItemKey;
+import com.orsoncharts.data.KeyedValues3DItemKey;
 
 /**
  * An object representing a select of selected items for a {@link KeyedValues3D}
@@ -31,6 +31,6 @@ public interface KeyedValues3DItemSelection {
      * 
      * @return A boolean. 
      */
-    boolean isSelected(Values3DItemKey itemKey);
+    boolean isSelected(KeyedValues3DItemKey itemKey);
 
 }

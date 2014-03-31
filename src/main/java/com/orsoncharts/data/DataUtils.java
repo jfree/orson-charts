@@ -609,7 +609,7 @@ public class DataUtils {
             KeyedValues3D<? extends Number> source,
             Comparable<?> xRowKey, Comparable<?> yRowKey, 
             Comparable<?> zRowKey, NullConversion nullConversion, 
-            List<Values3DItemKey> exceptions) {
+            List<KeyedValues3DItemKey> exceptions) {
 
         ArgChecks.nullNotPermitted(source, "source");
         ArgChecks.nullNotPermitted(xRowKey, "xRowKey");
@@ -634,8 +634,8 @@ public class DataUtils {
                         } else if (y == null) {
                             rrKey = yRowKey;
                         }
-                        exceptions.add(new Values3DItemKey(seriesKey, rrKey, 
-                                colKey));
+                        exceptions.add(new KeyedValues3DItemKey(seriesKey, 
+                                rrKey, colKey));
                     }
                     if (nullConversion.equals(NullConversion.THROW_EXCEPTION)) {
                         Comparable rrKey = zRowKey;
@@ -725,7 +725,7 @@ public class DataUtils {
             KeyedValues3D<? extends Number> source,
             Comparable<?> xColKey, Comparable<?> yColKey, 
             Comparable<?> zColKey, NullConversion nullConversion, 
-            List<Values3DItemKey> exceptions) {
+            List<KeyedValues3DItemKey> exceptions) {
 
         ArgChecks.nullNotPermitted(source, "source");
         ArgChecks.nullNotPermitted(xColKey, "xColKey");
@@ -750,8 +750,8 @@ public class DataUtils {
                         } else if (y == null) {
                             ccKey = yColKey;
                         }
-                        exceptions.add(new Values3DItemKey(seriesKey, rowKey, 
-                                ccKey));
+                        exceptions.add(new KeyedValues3DItemKey(seriesKey, 
+                                rowKey, ccKey));
                     }
                     if (nullConversion.equals(NullConversion.THROW_EXCEPTION)) {
                         Comparable<?> ccKey = zColKey;

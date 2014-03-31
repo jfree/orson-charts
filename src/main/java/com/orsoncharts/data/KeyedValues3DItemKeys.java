@@ -37,19 +37,20 @@ public class KeyedValues3DItemKeys {
      * 
      * @return A collection of item keys (never <code>null</code>).
      */
-    public static Collection<Values3DItemKey> itemKeysForSeries(
+    public static Collection<KeyedValues3DItemKey> itemKeysForSeries(
             KeyedValues3D data, Comparable<?> seriesKey) {
         ArgChecks.nullNotPermitted(data, "data");
         ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
-        Collection<Values3DItemKey> result = new ArrayList<Values3DItemKey>();
+        Collection<KeyedValues3DItemKey> result 
+                = new ArrayList<KeyedValues3DItemKey>();
         if (!data.getSeriesKeys().contains(seriesKey)) {
             return result;
         }
         for (Comparable<?> rowKey: (List<Comparable<?>>) data.getRowKeys()) {
             for (Comparable columnKey: 
                     (List<Comparable<?>>) data.getColumnKeys()) {
-                Values3DItemKey key = new Values3DItemKey(seriesKey, rowKey, 
-                        columnKey);
+                KeyedValues3DItemKey key = new KeyedValues3DItemKey(seriesKey, 
+                        rowKey, columnKey);
                 result.add(key);
             }
         }
@@ -65,11 +66,12 @@ public class KeyedValues3DItemKeys {
      * 
      * @return A collection of item keys (never <code>null</code>).
      */
-    public static Collection<Values3DItemKey> itemKeysForRow(KeyedValues3D data,
-            Comparable<?> rowKey) {
+    public static Collection<KeyedValues3DItemKey> itemKeysForRow(
+            KeyedValues3D data, Comparable<?> rowKey) {
         ArgChecks.nullNotPermitted(data, "data");
         ArgChecks.nullNotPermitted(rowKey, "rowKey");
-        Collection<Values3DItemKey> result = new ArrayList<Values3DItemKey>();
+        Collection<KeyedValues3DItemKey> result 
+                = new ArrayList<KeyedValues3DItemKey>();
         if (!data.getRowKeys().contains(rowKey)) {
             return result;
         }
@@ -77,8 +79,8 @@ public class KeyedValues3DItemKeys {
                 (List<Comparable<?>>) data.getSeriesKeys()) {
             for (Comparable columnKey: (List<Comparable<?>>) 
                     data.getColumnKeys()) {
-                Values3DItemKey key = new Values3DItemKey(seriesKey, rowKey, 
-                        columnKey);
+                KeyedValues3DItemKey key = new KeyedValues3DItemKey(seriesKey, 
+                        rowKey, columnKey);
                 result.add(key);
             }
         }
@@ -94,19 +96,20 @@ public class KeyedValues3DItemKeys {
      * 
      * @return A collection of item keys (never <code>null</code>).
      */
-    public static Collection<Values3DItemKey> itemKeysForColumn(
+    public static Collection<KeyedValues3DItemKey> itemKeysForColumn(
             KeyedValues3D data, Comparable<?> columnKey) {
         ArgChecks.nullNotPermitted(data, "data");
         ArgChecks.nullNotPermitted(columnKey, "columnKey");
-        Collection<Values3DItemKey> result = new ArrayList<Values3DItemKey>();
+        Collection<KeyedValues3DItemKey> result 
+                = new ArrayList<KeyedValues3DItemKey>();
         if (!data.getColumnKeys().contains(columnKey)) {
             return result;
         }
         for (Comparable<?> seriesKey: 
                 (List<Comparable<?>>) data.getSeriesKeys()) {
             for (Comparable rowKey: (List<Comparable<?>>) data.getRowKeys()) {
-                Values3DItemKey key = new Values3DItemKey(seriesKey, rowKey, 
-                        columnKey);
+                KeyedValues3DItemKey key = new KeyedValues3DItemKey(seriesKey, 
+                        rowKey, columnKey);
                 result.add(key);
             }
         }

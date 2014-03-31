@@ -16,7 +16,7 @@ import java.io.Serializable;
 import java.util.Formatter;
 
 import com.orsoncharts.data.category.CategoryDataset3D;
-import com.orsoncharts.data.Values3DItemKey;
+import com.orsoncharts.data.KeyedValues3DItemKey;
 import com.orsoncharts.interaction.KeyedValues3DItemSelection;
 import com.orsoncharts.interaction.StandardKeyedValues3DItemSelection;
 import com.orsoncharts.util.ArgChecks;
@@ -141,8 +141,8 @@ public class StandardCategoryItemLabelGenerator
         ArgChecks.nullNotPermitted(rowKey, "rowKey");
         ArgChecks.nullNotPermitted(columnKey, "columnKey");
         if (this.itemSelection != null) {
-            Values3DItemKey key = new Values3DItemKey(seriesKey, rowKey, 
-                    columnKey);
+            KeyedValues3DItemKey key = new KeyedValues3DItemKey(seriesKey, 
+                    rowKey, columnKey);
             if (!this.itemSelection.isSelected(key)) {
                 return null;
             }

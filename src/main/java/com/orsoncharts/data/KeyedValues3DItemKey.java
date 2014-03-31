@@ -18,13 +18,11 @@ import com.orsoncharts.util.ArgChecks;
  * An object that references one data item in a {@link KeyedValues3D} data
  * structure.
  * 
- * TODO: this should be renamed KeyedValues3DItemKey
- * 
  * @since 1.3
  */
-public class Values3DItemKey<S extends Comparable<S>, R extends Comparable<R>, 
+public class KeyedValues3DItemKey<S extends Comparable<S>, R extends Comparable<R>, 
         C extends Comparable<C>> 
-        implements ItemKey, Comparable<Values3DItemKey<S, R, C>> {
+        implements ItemKey, Comparable<KeyedValues3DItemKey<S, R, C>> {
     
     /** The series key. */
     S seriesKey;
@@ -42,7 +40,7 @@ public class Values3DItemKey<S extends Comparable<S>, R extends Comparable<R>,
      * @param rowKey  the row key (<code>null</code> not permitted).
      * @param columnKey  the column key (<code>null</code> not permitted).
      */
-    public Values3DItemKey(S seriesKey, R rowKey, C columnKey) {
+    public KeyedValues3DItemKey(S seriesKey, R rowKey, C columnKey) {
         ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
         ArgChecks.nullNotPermitted(rowKey, "rowKey");
         ArgChecks.nullNotPermitted(columnKey, "columnKey");
@@ -79,7 +77,7 @@ public class Values3DItemKey<S extends Comparable<S>, R extends Comparable<R>,
     }
     
     @Override
-    public int compareTo(Values3DItemKey<S, R, C> key) {
+    public int compareTo(KeyedValues3DItemKey<S, R, C> key) {
         int result = this.seriesKey.compareTo(key.getSeriesKey());
         if (result == 0) {
             result = this.rowKey.compareTo(key.rowKey);

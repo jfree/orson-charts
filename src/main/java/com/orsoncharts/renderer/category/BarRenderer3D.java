@@ -21,7 +21,7 @@ import com.orsoncharts.axis.CategoryAxis3D;
 import com.orsoncharts.axis.ValueAxis3D;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.DataUtils;
-import com.orsoncharts.data.Values3DItemKey;
+import com.orsoncharts.data.KeyedValues3DItemKey;
 import com.orsoncharts.data.Values3D;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.Object3D;
@@ -341,8 +341,8 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
         }
         Object3D bar = Object3D.createBar(xxw, xzw, xx, yy, zz, basew, 
                 color, baseColor, topColor, inverted);
-        Values3DItemKey itemKey = new Values3DItemKey(seriesKey, rowKey, 
-                columnKey);
+        KeyedValues3DItemKey itemKey = new KeyedValues3DItemKey(seriesKey, 
+                rowKey, columnKey);
         bar.setProperty(Object3D.ITEM_KEY, itemKey);
         world.add(bar);
         
