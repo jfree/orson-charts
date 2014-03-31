@@ -114,7 +114,10 @@ public class StandardCategoryItemLabelGenerator
     }
     
     /**
-     * Sets the item selection.
+     * Sets the item selection (labels will be created by this generator only 
+     * for data items that are contained in the collection).  If you set the
+     * selection to <code>null</code> then the generator will create labels for
+     * all data items.
      * 
      * @param selection  the selection (<code>null</code> permitted).
      */
