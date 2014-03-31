@@ -12,6 +12,7 @@
 
 package com.orsoncharts.interaction;
 
+import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.data.xyz.XYZItemKey;
 
 /**
