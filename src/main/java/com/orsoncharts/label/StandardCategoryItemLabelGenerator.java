@@ -23,7 +23,7 @@ import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.ObjectUtils;
 
 /**
- * A default implementation of the {@link CategoryToolTipGenerator} interface.  
+ * A default implementation of the {@link CategoryItemLabelGenerator} interface.  
  * The implementation uses a {@link java.util.Formatter} instance to generate
  * the labels.  Four values are passed to the formatter: (1) the key for
  * the series, (2) the row key, (3) the column key and (4) the data value.
