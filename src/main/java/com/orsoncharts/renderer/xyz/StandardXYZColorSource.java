@@ -52,8 +52,8 @@ public class StandardXYZColorSource implements XYZColorSource, Serializable {
             throw new IllegalArgumentException(
                     "Zero length array not permitted.");
         }
-        for (int i = 0; i < colors.length; i++) {
-            if (colors[i] == null) {
+        for (Color c: colors) {
+            if (c == null) { 
                 throw new IllegalArgumentException(
                         "Null array entries not permitted.");
             }
@@ -103,8 +103,8 @@ public class StandardXYZColorSource implements XYZColorSource, Serializable {
             throw new IllegalArgumentException(
                     "Zero length array not permitted.");
         }
-        for (int i = 0; i < colors.length; i++) {
-            if (colors[i] == null) {
+        for (Color c: colors) {
+            if (c == null) { 
                 throw new IllegalArgumentException(
                         "Null array entries not permitted.");
             }
