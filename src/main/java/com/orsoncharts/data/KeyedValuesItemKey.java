@@ -12,6 +12,7 @@
 
 package com.orsoncharts.data;
 
+import java.io.Serializable;
 import com.orsoncharts.util.ArgChecks;
 
 /**
@@ -20,8 +21,9 @@ import com.orsoncharts.util.ArgChecks;
  * 
  * @since 1.3
  */
-public class KeyedValuesItemKey implements ItemKey {
+public class KeyedValuesItemKey implements ItemKey, Serializable {
     
+    /** The key for the item. */
     Comparable<? extends Object> key;
     
     /**
@@ -41,6 +43,28 @@ public class KeyedValuesItemKey implements ItemKey {
      */
     public Comparable<?> getKey() {
         return this.key;
+    }
+    
+    /**
+     * Tests this instance for equality with an arbitrary object.
+     * 
+     * @param obj  the object (<code>null</code> not permitted).
+     * 
+     * @return A boolean.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof KeyedValuesItemKey)) {
+            return false;
+        }
+        KeyedValuesItemKey that = (KeyedValuesItemKey) obj;
+        if (!this.key.equals(that.key)) {
+            return false;
+        }
+        return true;
     }
     
     @Override
