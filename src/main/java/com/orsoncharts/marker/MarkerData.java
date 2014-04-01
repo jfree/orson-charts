@@ -13,6 +13,7 @@
 package com.orsoncharts.marker;
 
 import java.awt.geom.Point2D;
+import java.util.Map;
 import java.util.HashMap;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.Anchor2D;
@@ -39,7 +40,7 @@ public class MarkerData {
     private MarkerDataType type;
     
     /** Storage for data values (using a map for future expansion). */
-    private HashMap<String, Object> data;
+    private Map<String, Object> data;
     
     /**
      * Creates marker data for the case where there is a single line
