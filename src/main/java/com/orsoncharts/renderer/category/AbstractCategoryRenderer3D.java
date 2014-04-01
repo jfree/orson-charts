@@ -13,6 +13,7 @@
 package com.orsoncharts.renderer.category;
 
 import java.awt.Color;
+import java.io.Serializable;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.Range;
 import com.orsoncharts.data.DataUtils;
@@ -29,7 +30,7 @@ import com.orsoncharts.util.ObjectUtils;
  * {@link CategoryPlot3D}.
  */
 public abstract class AbstractCategoryRenderer3D extends AbstractRenderer3D 
-        implements CategoryRenderer3D {
+        implements CategoryRenderer3D, Serializable {
     
     /** A reference to the plot that the renderer is currently assigned to. */
     private CategoryPlot3D plot;
