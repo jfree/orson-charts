@@ -220,10 +220,10 @@ public class Chart3D implements Drawable3D, ChartElement,
     private ChartStyle style;
     
     /** A 3D model of the world (represents the chart). */
-    private World world;
+    private transient World world;
 
     /** An object that sorts faces for rendering (painter's algorithm). */
-    private FaceSorter faceSorter = new StandardFaceSorter();
+    private FaceSorter faceSorter;
 
     /**
      * A flag that controls whether or not element hints are added to the
@@ -277,6 +277,7 @@ public class Chart3D implements Drawable3D, ChartElement,
         this.projDist = DEFAULT_PROJ_DIST;
         this.chartBoxColor = new Color(255, 255, 255, 100);
         this.translate2D = new Offset2D();
+        this.faceSorter = new StandardFaceSorter();
         this.renderingHints = new RenderingHints(
                 RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
