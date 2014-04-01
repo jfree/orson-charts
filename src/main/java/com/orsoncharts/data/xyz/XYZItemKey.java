@@ -12,6 +12,8 @@
 
 package com.orsoncharts.data.xyz;
 
+import java.io.Serializable;
+
 import com.orsoncharts.data.ItemKey;
 import com.orsoncharts.util.ArgChecks;
 
@@ -22,7 +24,8 @@ import com.orsoncharts.util.ArgChecks;
  * 
  * @since 1.3
  */
-public class XYZItemKey<S extends Comparable<S>> implements ItemKey, Comparable<XYZItemKey<S>> {
+public class XYZItemKey<S extends Comparable<S>> implements ItemKey, 
+        Comparable<XYZItemKey<S>>, Serializable {
     
     /** A key identifying a series in the dataset. */
     private S seriesKey;
@@ -60,6 +63,23 @@ public class XYZItemKey<S extends Comparable<S>> implements ItemKey, Comparable<
         return this.itemIndex;
     }
     
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof XYZItemKey)) {
+            return false;
+        }
+        XYZItemKey that = (XYZItemKey) obj;
+        if (!this.seriesKey.equals(that.seriesKey)) {
+            return false;
+        }
+        if (this.itemIndex != that.itemIndex) {
+            return false;
+        }
+        return true;
+    }
 
     @Override
     public String toJSONString() {
