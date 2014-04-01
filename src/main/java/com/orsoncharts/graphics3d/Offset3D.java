@@ -126,4 +126,8 @@ public final class Offset3D implements Serializable {
         return hash;
     }
 
+    @Override
+    public String toString() {
+        return "[" + this.dx + ", " + this.dy + ", " + this.dz + "]";
+    }
 }
