@@ -15,6 +15,7 @@ package com.orsoncharts;
 import java.awt.Color;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.orsoncharts.graphics3d.Face;
@@ -1096,29 +1097,65 @@ public class ChartBox3D {
         public List<TickData> getZTicksB() {
             return this.zTicksB;
         }
-        
+
+        /**
+         * Adds marker data for the x-dimension.
+         * 
+         * @param marker  the marker data (<code>null</code> not permitted). 
+         */
         public void addXMarker(MarkerData marker) {
+            ArgChecks.nullNotPermitted(marker, "marker");
             this.xMarkers.add(marker);
         }
-        
+
+        /**
+         * Returns a list of marker data for the x-dimension (the list is not
+         * modifiable).
+         * 
+         * @return The markers (never <code>null</code>). 
+         */
         public List<MarkerData> getXMarkers() {
-            return this.xMarkers;
+            return Collections.unmodifiableList(this.xMarkers);
         }
         
+        /**
+         * Adds marker data for the y-dimension.
+         * 
+         * @param marker  the marker data (<code>null</code> not permitted). 
+         */
         public void addYMarker(MarkerData marker) {
+            ArgChecks.nullNotPermitted(marker, "marker");
             this.yMarkers.add(marker);
         }
         
+        /**
+         * Returns a list of marker data for the y-dimension (the list is not
+         * modifiable).
+         * 
+         * @return The markers (never <code>null</code>). 
+         */
         public List<MarkerData> getYMarkers() {
-            return this.yMarkers;
+            return Collections.unmodifiableList(this.yMarkers);
         }
         
+        /**
+         * Adds marker data for the z-dimension.
+         * 
+         * @param marker  the marker data (<code>null</code> not permitted). 
+         */
         public void addZMarker(MarkerData marker) {
+            ArgChecks.nullNotPermitted(marker, "marker");
             this.zMarkers.add(marker);
         }
         
+        /**
+         * Returns a list of marker data for the z-dimension (the list is not
+         * modifiable).
+         * 
+         * @return The markers (never <code>null</code>). 
+         */
         public List<MarkerData> getZMarkers() {
-            return this.zMarkers;
+            return Collections.unmodifiableList(this.zMarkers);
         }
         
         /**
