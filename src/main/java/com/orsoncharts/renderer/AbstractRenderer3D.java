@@ -14,6 +14,7 @@ package com.orsoncharts.renderer;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.io.Serializable;
 import javax.swing.event.EventListenerList;
 
 import com.orsoncharts.ChartElementVisitor;
@@ -23,7 +24,7 @@ import com.orsoncharts.util.ArgChecks;
 /**
  * A base class for 3D renderers.
  */
-public abstract class AbstractRenderer3D implements Renderer3D {
+public abstract class AbstractRenderer3D implements Renderer3D, Serializable {
     
     /** The font used to draw item labels. */
     private Font itemLabelFont;
