@@ -256,7 +256,7 @@ public class TextUtils {
      */
     public static Shape drawRotatedString(String text, Graphics2D g2, float x,
             float y, TextAnchor textAnchor, double angle,
-            float rotationX, float rotationY, Rectangle2D bounds) {
+            float rotationX, float rotationY) {
         ArgChecks.nullNotPermitted(text, "text");
         float[] textAdj = deriveTextBoundsAnchorOffsets(g2, text, textAnchor);
         return drawRotatedString(text, g2, x + textAdj[0], y + textAdj[1], 
