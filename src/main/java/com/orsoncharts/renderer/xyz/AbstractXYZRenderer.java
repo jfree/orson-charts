@@ -205,6 +205,8 @@ public class AbstractXYZRenderer extends AbstractRenderer3D {
      * Tests this renderer for equality with an arbitrary object.
      * 
      * @param obj  the object (<code>null</code> permitted).
+     * 
+     * @return A boolean.
      */
     @Override
     public boolean equals(Object obj) {
