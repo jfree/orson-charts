@@ -47,6 +47,11 @@ public final class Chart3DHints {
      */
     public static class Key extends java.awt.RenderingHints.Key {
 
+        /**
+         * Creates a new key.
+         * 
+         * @param privateKey  the private key. 
+         */
         public Key(int privateKey) {
             super(privateKey);    
         }
