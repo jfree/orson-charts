@@ -12,6 +12,7 @@
 
 package com.orsoncharts.graphics3d;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
@@ -20,7 +21,7 @@ import java.util.List;
  * 
  * @since 1.3
  */
-public class StandardFaceSorter implements FaceSorter {
+public class StandardFaceSorter implements FaceSorter, Serializable {
 
     /**
      * Creates a new instance.
