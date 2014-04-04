@@ -40,7 +40,6 @@ public class StackedBarRenderer3DTest {
         
         // ensure that we distinguish from the base class
         assertFalse(r1.equals(new BarRenderer3D()));
-
     }
     
     /**
