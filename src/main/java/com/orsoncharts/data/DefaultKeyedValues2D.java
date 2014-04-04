@@ -30,14 +30,14 @@ import com.orsoncharts.util.ArgChecks;
 public final class DefaultKeyedValues2D<T> implements KeyedValues2D<T>, 
         Serializable {
 
-    /** The x-keys. */
-    List<Comparable<?>> xKeys;
+    /** The row keys. */
+    List<Comparable<?>> rowKeys;
     
-    /** The y-keys. */
-    List<Comparable<?>> yKeys;
+    /** The column keys. */
+    List<Comparable<?>> columnKeys;
     
     /** The data values. */
-    List<DefaultKeyedValues<T>> data;  // one entry per xKey
+    List<DefaultKeyedValues<T>> data;  // one entry per row key
   
     /**
      * Creates a new (empty) instance.
@@ -50,138 +50,138 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D<T>,
      * Creates a new instance with the specified keys and all data values 
      * initialized to <code>null</code>.
      * 
-     * @param xKeys  the xKeys (<code>null</code> not permitted).
-     * @param yKeys  the yKeys (<code>null</code> not permitted).
+     * @param rowKeys  the xKeys (<code>null</code> not permitted).
+     * @param columnKeys  the yKeys (<code>null</code> not permitted).
      */
-    public DefaultKeyedValues2D(List<Comparable<?>> xKeys, 
-            List<Comparable<?>> yKeys) {
-        ArgChecks.nullNotPermitted(xKeys, "xKeys");
-        ArgChecks.nullNotPermitted(yKeys, "yKeys");
-        this.xKeys = new ArrayList<Comparable<?>>(xKeys);
-        this.yKeys = new ArrayList<Comparable<?>>(yKeys);
+    public DefaultKeyedValues2D(List<Comparable<?>> rowKeys, 
+            List<Comparable<?>> columnKeys) {
+        ArgChecks.nullNotPermitted(rowKeys, "rowKeys");
+        ArgChecks.nullNotPermitted(columnKeys, "columnKeys");
+        this.rowKeys = new ArrayList<Comparable<?>>(rowKeys);
+        this.columnKeys = new ArrayList<Comparable<?>>(columnKeys);
         this.data = new ArrayList<DefaultKeyedValues<T>>();    
-        for (int i = 0; i < xKeys.size(); i++) {
-            this.data.add(new DefaultKeyedValues<T>(yKeys));
+        for (int i = 0; i < rowKeys.size(); i++) {
+            this.data.add(new DefaultKeyedValues<T>(columnKeys));
         }
     }
 
     /**
-     * Returns the x-key corresponding to the specified index.
+     * Returns the row key corresponding to the specified index.
      * 
-     * @param xIndex  the index.
-     * 
-     * @return The key. 
-     */
-    @Override
-    public Comparable<?> getXKey(int xIndex) {
-        return this.xKeys.get(xIndex);
-    }
-
-    /**
-     * Returns the y-key corresponding to the specified index.
-     * 
-     * @param yIndex  the index.
+     * @param rowIndex  the row index.
      * 
      * @return The key. 
      */
     @Override
-    public Comparable<?> getYKey(int yIndex) {
-        return this.yKeys.get(yIndex);
+    public Comparable<?> getRowKey(int rowIndex) {
+        return this.rowKeys.get(rowIndex);
     }
 
     /**
-     * Returns the index corresponding to the specified x-key.
+     * Returns the column key corresponding to the specified index.
      * 
-     * @param xkey  the x-key (<code>null</code> not permitted).
+     * @param columnIndex  the column index.
+     * 
+     * @return The key. 
+     */
+    @Override
+    public Comparable<?> getColumnKey(int columnIndex) {
+        return this.columnKeys.get(columnIndex);
+    }
+
+    /**
+     * Returns the index corresponding to the specified row key.
+     * 
+     * @param rowKey  the row key (<code>null</code> not permitted).
      * 
      * @return The index. 
      */
     @Override
-    public int getXIndex(Comparable<?> xkey) {
-        ArgChecks.nullNotPermitted(xkey, "xkey");
-        return this.xKeys.indexOf(xkey);
+    public int getRowIndex(Comparable<?> rowKey) {
+        ArgChecks.nullNotPermitted(rowKey, "rowKey");
+        return this.rowKeys.indexOf(rowKey);
     }
 
     /**
-     * Returns the index corresponding to the specified y-key.
+     * Returns the index corresponding to the specified column key.
      * 
-     * @param ykey  the y-key (<code>null</code> not permitted).
+     * @param columnKey  the column key (<code>null</code> not permitted).
      * 
      * @return The index. 
      */
     @Override
-    public int getYIndex(Comparable<?> ykey) {
-        ArgChecks.nullNotPermitted(ykey, "ykey");
-        return this.yKeys.indexOf(ykey);
+    public int getColumnIndex(Comparable<?> columnKey) {
+        ArgChecks.nullNotPermitted(columnKey, "columnKey");
+        return this.columnKeys.indexOf(columnKey);
     }
 
     /**
-     * Returns a copy of the list of xKeys.
+     * Returns a copy of the list of row keys.
      * 
-     * @return A copy of the list of xKeys (never <code>null</code>). 
+     * @return A copy of the list of row keys (never <code>null</code>). 
      */
     @Override
-    public List<Comparable<?>> getXKeys() {
-        return new ArrayList<Comparable<?>>(this.xKeys);
+    public List<Comparable<?>> getRowKeys() {
+        return new ArrayList<Comparable<?>>(this.rowKeys);
     }
 
     /**
-     * Returns a copy of the list of y-keys.
+     * Returns a copy of the list of column keys.
      * 
-     * @return A copy of the list of y-keys (never <code>null</code>). 
+     * @return A copy of the list of column keys (never <code>null</code>). 
      */
     @Override
-    public List<Comparable<?>> getYKeys() {
-        return new ArrayList<Comparable<?>>(this.yKeys);
+    public List<Comparable<?>> getColumnKeys() {
+        return new ArrayList<Comparable<?>>(this.columnKeys);
     }
 
     /**
-     * Returns the number of x-keys in the table.
+     * Returns the number of row keys in the table.
      * 
-     * @return The number of x-keys in the table.
+     * @return The number of row keys in the table.
      */
     @Override
-    public int getXCount() {
-        return this.xKeys.size();
+    public int getRowCount() {
+        return this.rowKeys.size();
     }
     
     /**
-     * Returns the number of y-keys in the data structure.
+     * Returns the number of column keys in the data structure.
      * 
-     * @return The number of y-keys.
+     * @return The number of column keys.
      */
     @Override
-    public int getYCount() {
-        return this.yKeys.size();
+    public int getColumnCount() {
+        return this.columnKeys.size();
     }
 
     /**
      * Returns a value from one cell in the table.
      * 
-     * @param xKey  the x-key (<code>null</code> not permitted).
-     * @param yKey  the y-key (<code>null</code> not permitted).
+     * @param rowKey  the row-key (<code>null</code> not permitted).
+     * @param columnKey  the column-key (<code>null</code> not permitted).
      * 
      * @return The value (possibly <code>null</code>).
      */
     @Override
-    public T getValue(Comparable<?> xKey, Comparable<?> yKey) {
+    public T getValue(Comparable<?> rowKey, Comparable<?> columnKey) {
         // arg checking is handled in getXIndex() and getYIndex()
-        int xIndex = getXIndex(xKey);
-        int yIndex = getYIndex(yKey);
-        return getValue(xIndex, yIndex);
+        int rowIndex = getRowIndex(rowKey);
+        int columnIndex = getColumnIndex(columnKey);
+        return getValue(rowIndex, columnIndex);
     }
 
     /**
      * Returns the value from one cell in the table.
      * 
-     * @param xIndex  the x-index.
-     * @param yIndex  the y-index.
+     * @param rowIndex  the row index.
+     * @param columnIndex  the column index.
      * 
      * @return The value (possibly <code>null</code>). 
      */
     @Override
-    public T getValue(int xIndex, int yIndex) {
-        return this.data.get(xIndex).getValue(yIndex);
+    public T getValue(int rowIndex, int columnIndex) {
+        return this.data.get(rowIndex).getValue(columnIndex);
     }
 
     /**
@@ -189,14 +189,14 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D<T>,
      * Where the {@link #getValue(int, int)} method returns <code>null</code>, 
      * this method returns <code>Double.NaN</code>.
      * 
-     * @param xIndex  the x-index.
-     * @param yIndex  the y-index.
+     * @param rowIndex  the row index.
+     * @param columnIndex  the column index.
      * 
      * @return The data value.
      */
     @Override
-    public double getDoubleValue(int xIndex, int yIndex) {
-        T n = getValue(xIndex, yIndex);
+    public double getDoubleValue(int rowIndex, int columnIndex) {
+        T n = getValue(rowIndex, columnIndex);
         if (n != null && n instanceof Number) {
             return ((Number) n).doubleValue();
         }
@@ -207,55 +207,55 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D<T>,
      * Sets a value for one cell in the table.
      * 
      * @param n  the value (<code>null</code> permitted).
-     * @param xKey  the x-key (<code>null</code> not permitted).
-     * @param yKey  the y-key (<code>null</code> not permitted).
+     * @param rowKey  the row key (<code>null</code> not permitted).
+     * @param columnKey  the column key (<code>null</code> not permitted).
      */
-    public void setValue(T n, Comparable<?> xKey, Comparable<?> yKey) {
-        ArgChecks.nullNotPermitted(xKey, "xKey");
-        ArgChecks.nullNotPermitted(yKey, "yKey");
+    public void setValue(T n, Comparable<?> rowKey, Comparable<?> columnKey) {
+        ArgChecks.nullNotPermitted(rowKey, "rowKey");
+        ArgChecks.nullNotPermitted(columnKey, "columnKey");
         
         if (this.data.isEmpty()) {  // 1. no data - just add one new entry
-            this.xKeys.add(xKey);
-            this.yKeys.add(yKey);
+            this.rowKeys.add(rowKey);
+            this.columnKeys.add(columnKey);
             DefaultKeyedValues<T> dkvs = new DefaultKeyedValues<T>();
-            dkvs.put(yKey, n);
+            dkvs.put(columnKey, n);
             this.data.add(dkvs);
         } else {
-            int xIndex = getXIndex(xKey);
-            int yIndex = getYIndex(yKey);
-            if (xIndex >= 0) {
-                DefaultKeyedValues<T> dkvs = this.data.get(xIndex);
-                if (yIndex >= 0) {
+            int rowIndex = getRowIndex(rowKey);
+            int columnIndex = getColumnIndex(columnKey);
+            if (rowIndex >= 0) {
+                DefaultKeyedValues<T> dkvs = this.data.get(rowIndex);
+                if (columnIndex >= 0) {
                     // 2.  Both keys exist - just update the value
-                    dkvs.put(yKey, n);
+                    dkvs.put(columnKey, n);
                 } else {
-                    // 3.  xKey exists, but yKey does not (add the yKey to 
-                    //     each series)
-                    this.yKeys.add(yKey);
+                    // 3.  rowKey exists, but columnKey does not (add the 
+                    //     columnKey to each series)
+                    this.columnKeys.add(columnKey);
                     for (DefaultKeyedValues<T> kv : this.data) {
-                        kv.put(yKey, null);
+                        kv.put(columnKey, null);
                     }
-                    dkvs.put(yKey, n);
+                    dkvs.put(columnKey, n);
                 }
             } else {
-                if (yIndex >= 0) {
-                    // 4.  xKey does not exist, but yKey does
-                    this.xKeys.add(xKey);
+                if (columnIndex >= 0) {
+                    // 4.  rowKey does not exist, but columnKey does
+                    this.rowKeys.add(rowKey);
                     DefaultKeyedValues<T> d = new DefaultKeyedValues<T>(
-                            this.yKeys);
-                    d.put(yKey, n);
+                            this.columnKeys);
+                    d.put(columnKey, n);
                     this.data.add(d);
                 } else {
                     // 5.  neither key exists, need to create the new series, 
                     //     plus the new entry in every series
-                    this.xKeys.add(xKey);
-                    this.yKeys.add(yKey);
+                    this.rowKeys.add(rowKey);
+                    this.columnKeys.add(columnKey);
                     for (DefaultKeyedValues<T> kv : this.data) {
-                        kv.put(yKey, null);
+                        kv.put(columnKey, null);
                     }
                     DefaultKeyedValues<T> d = new DefaultKeyedValues<T>(
-                            this.yKeys);
-                    d.put(yKey, n);
+                            this.columnKeys);
+                    d.put(columnKey, n);
                     this.data.add(d);
                 }
             }
@@ -271,10 +271,10 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D<T>,
             return false;
         }
         DefaultKeyedValues2D<?> that = (DefaultKeyedValues2D<?>) obj;
-        if (!this.xKeys.equals(that.xKeys)) {
+        if (!this.rowKeys.equals(that.rowKeys)) {
             return false;
         }
-        if (!this.yKeys.equals(that.yKeys)) {
+        if (!this.columnKeys.equals(that.columnKeys)) {
             return false;
         }
         if (!this.data.equals(that.data)) {

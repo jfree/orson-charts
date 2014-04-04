@@ -72,9 +72,9 @@ public class GridElement extends AbstractTableElement implements TableElement,
      */
     @Override
     public void receive(TableElementVisitor visitor) {
-        for (int x = 0; x < this.elements.getXCount(); x++) {
-            for (int y = 0; y < this.elements.getYCount(); y++) {
-                TableElement element = this.elements.getValue(x, y);
+        for (int r = 0; r < this.elements.getRowCount(); r++) {
+            for (int c = 0; c < this.elements.getColumnCount(); c++) {
+                TableElement element = this.elements.getValue(r, c);
                 if (element != null) {
                     element.receive(visitor);
                 }
@@ -93,13 +93,13 @@ public class GridElement extends AbstractTableElement implements TableElement,
      *     heights). 
      */
     private double[][] findCellDimensions(Graphics2D g2, Rectangle2D bounds) {
-        int rowCount = this.elements.getXCount();
-        int columnCount = this.elements.getYCount();
+        int rowCount = this.elements.getRowCount();
+        int columnCount = this.elements.getColumnCount();
         double[] widths = new double[columnCount];
         double[] heights = new double[rowCount];
         // calculate the maximum width for each column
-        for (int r = 0; r < elements.getXCount(); r++) {
-            for (int c = 0; c < this.elements.getYCount(); c++) {
+        for (int r = 0; r < elements.getRowCount(); r++) {
+            for (int c = 0; c < this.elements.getColumnCount(); c++) {
                 TableElement element = this.elements.getValue(r, c);
                 if (element == null) {
                     continue;
@@ -157,11 +157,11 @@ public class GridElement extends AbstractTableElement implements TableElement,
         double[] widths = cellDimensions[0];
         double[] heights = cellDimensions[1];
         List<Rectangle2D> result = new ArrayList<Rectangle2D>(
-                this.elements.getXCount() * this.elements.getYCount());
+                this.elements.getRowCount() * this.elements.getColumnCount());
         double y = bounds.getY() + getInsets().top;
-        for (int r = 0; r < elements.getXCount(); r++) {
+        for (int r = 0; r < elements.getRowCount(); r++) {
             double x = bounds.getX() + getInsets().left;
-            for (int c = 0; c < this.elements.getYCount(); c++) {
+            for (int c = 0; c < this.elements.getColumnCount(); c++) {
                 result.add(new Rectangle2D.Double(x, y, widths[c], heights[r]));
                 x += widths[c];
             }
@@ -204,13 +204,14 @@ public class GridElement extends AbstractTableElement implements TableElement,
             getBackground().fill(g2, bounds);
         }
         List<Rectangle2D> positions = layoutElements(g2, bounds, null);
-        for (int r = 0; r < this.elements.getXCount(); r++) {
-            for (int c = 0; c < this.elements.getYCount(); c++) {
+        for (int r = 0; r < this.elements.getRowCount(); r++) {
+            for (int c = 0; c < this.elements.getColumnCount(); c++) {
                 TableElement element = this.elements.getValue(r, c);
                 if (element == null) {
                     continue;
                 }
-                Rectangle2D pos = positions.get(r * elements.getYCount() + c);
+                Rectangle2D pos = positions.get(r * elements.getColumnCount() 
+                        + c);
                 element.draw(g2, pos, onDrawHandler);
             }
         }
@@ -250,8 +251,8 @@ public class GridElement extends AbstractTableElement implements TableElement,
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("GridElement[rowCount=").append(this.elements.getXCount());
-        sb.append(", columnCount=").append(this.elements.getYCount());
+        sb.append("GridElement[rowCount=").append(this.elements.getRowCount());
+        sb.append(", columnCount=").append(this.elements.getColumnCount());
         sb.append("]");
         return sb.toString();
     }
