@@ -65,13 +65,13 @@ public class StandardPieDataset3DTest {
     @Test
     public void checkToString() {
         StandardPieDataset3D dataset = new StandardPieDataset3D();
-        assertEquals("{}", dataset.toString());
+        assertEquals("[]", dataset.toString());
         dataset.add("key", 1.0);
-        assertEquals("{\"key\": 1.0}", dataset.toString());
+        assertEquals("[[\"key\", 1.0]]", dataset.toString());
         dataset.add("key", null);
-        assertEquals("{\"key\": null}", dataset.toString());
+        assertEquals("[[\"key\", null]]", dataset.toString());
         dataset.add("another key", 2.0);
-        assertEquals("{\"key\": null, \"another key\": 2.0}", 
+        assertEquals("[[\"key\", null], [\"another key\", 2.0]]", 
                 dataset.toString());
     }
 }

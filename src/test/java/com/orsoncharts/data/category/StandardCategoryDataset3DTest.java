@@ -73,27 +73,27 @@ public class StandardCategoryDataset3DTest {
         dataset.addValue(1.0, "S1", "R1", "C1");
         assertEquals("{\"columnKeys\": [\"C1\"], \"rowKeys\": [\"R1\"], "
                 + "\"data\": [{\"seriesKey\": \"S1\", "
-                + "\"rows\": {\"R1\": [1.0]}}]}", dataset.toString());
+                + "\"rows\": [[\"R1\", [1.0]]]}]}", dataset.toString());
         
         dataset.addValue(2.0, "S1", "R1", "C2");
         assertEquals("{\"columnKeys\": [\"C1\", \"C2\"], \"rowKeys\": [\"R1\"], "
                 + "\"data\": [{\"seriesKey\": \"S1\", " 
-                + "\"rows\": {\"R1\": [1.0, 2.0]}}]}",
+                + "\"rows\": [[\"R1\", [1.0, 2.0]]]}]}",
                 dataset.toString());
         
         dataset.addValue(3.0, "S1", "R2", "C2");
         assertEquals("{\"columnKeys\": [\"C1\", \"C2\"], "
                 + "\"rowKeys\": [\"R1\", \"R2\"], "
                 + "\"data\": [{\"seriesKey\": \"S1\", "
-                + "\"rows\": {\"R1\": [1.0, 2.0], \"R2\": [null, 3.0]}}]}",
+                + "\"rows\": [[\"R1\", [1.0, 2.0]], [\"R2\", [null, 3.0]]]}]}",
                 dataset.toString());
 
         dataset.addValue(4.0, "S2", "R2", "C2");
         assertEquals("{\"columnKeys\": [\"C1\", \"C2\"], "
                 + "\"rowKeys\": [\"R1\", \"R2\"], "
                 + "\"data\": [{\"seriesKey\": \"S1\", " 
-                + "\"rows\": {\"R1\": [1.0, 2.0], \"R2\": [null, 3.0]}}, "
-                + "{\"seriesKey\": \"S2\", \"rows\": {\"R2\": [null, 4.0]}}]}",
+                + "\"rows\": [[\"R1\", [1.0, 2.0]], [\"R2\", [null, 3.0]]]}, "
+                + "{\"seriesKey\": \"S2\", \"rows\": [[\"R2\", [null, 4.0]]]}]}",
                 dataset.toString());
     }
   

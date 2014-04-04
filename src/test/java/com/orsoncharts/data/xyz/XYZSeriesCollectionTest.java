@@ -44,27 +44,27 @@ public class XYZSeriesCollectionTest {
     @Test
     public void checkToString() {
         XYZSeriesCollection c = new XYZSeriesCollection();
-        assertEquals("{}", c.toString());
+        assertEquals("[]", c.toString());
         
         XYZSeries s1 = new XYZSeries("S1");
         c.add(s1);
-        assertEquals("{\"S1\": []}", c.toString());
+        assertEquals("[[\"S1\", []]]", c.toString());
         
         s1.add(1.0, 2.0, 3.0);
-        assertEquals("{\"S1\": [[1.0, 2.0, 3.0]]}", c.toString());
+        assertEquals("[[\"S1\", [[1.0, 2.0, 3.0]]]]", c.toString());
      
         s1.add(4.0, 5.0, 6.0);
-        assertEquals("{\"S1\": [[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]]}", 
+        assertEquals("[[\"S1\", [[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]]]]", 
                 c.toString());
         
         XYZSeries s2 = new XYZSeries("S2");
         c.add(s2);
-        assertEquals("{\"S1\": [[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]], \"S2\": []}", 
-                c.toString());
+        assertEquals("[[\"S1\", [[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]]], "
+                + "[\"S2\", []]]", c.toString());
         
         s2.add(7.0, Double.NaN, 9.0);
-        assertEquals("{\"S1\": [[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]], " 
-                + "\"S2\": [[7.0, null, 9.0]]}", c.toString());
+        assertEquals("[[\"S1\", [[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]]], " 
+                + "[\"S2\", [[7.0, null, 9.0]]]]", c.toString());
     }
     
 }

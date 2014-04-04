@@ -12,13 +12,14 @@
 
 package com.orsoncharts.data;
 
-import com.orsoncharts.data.category.StandardCategoryDataset3D;
-import com.orsoncharts.data.xyz.XYZDataset;
-import com.orsoncharts.data.xyz.XYZSeriesCollection;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
+import com.orsoncharts.data.category.StandardCategoryDataset3D;
+import com.orsoncharts.data.xyz.XYZDataset;
+import com.orsoncharts.data.xyz.XYZSeries;
+import com.orsoncharts.data.xyz.XYZSeriesCollection;
 
 /**
  * Some tests for the {@link JSONUtils} class.
@@ -30,14 +31,14 @@ public class JSONUtilsTest {
      */
     @Test
     public void checkReadKeyedValues() {
-        String json = "{}";
+        String json = "[]";
         KeyedValues<? extends Number> dkv = JSONUtils.readKeyedValues(json);
         assertTrue(dkv.getItemCount() == 0);
         
-        json = "{\"Key 1\": 1.23, \"Key 2\": null, \"NaN\": null, " 
-                + "\"MIN_VALUE\": 4.9E-324, " 
-                + "\"MAX_VALUE\": 1.7976931348623157E308, " 
-                + "\"POSITIVE_INFINITY\": null}";
+        json = "[[\"Key 1\", 1.23], [\"Key 2\", null], [\"NaN\", null], " 
+                + "[\"MIN_VALUE\", 4.9E-324], " 
+                + "[\"MAX_VALUE\", 1.7976931348623157E308], " 
+                + "[\"POSITIVE_INFINITY\", null]]";
         dkv = JSONUtils.readKeyedValues(json);
         assertTrue(dkv.getItemCount() == 6);
         assertEquals(1.23, dkv.getValue("Key 1"));
@@ -60,36 +61,68 @@ public class JSONUtilsTest {
         // toString() method in StandardPieDataset3D
         DefaultKeyedValues dkv = new DefaultKeyedValues();
         dkv.put("\"", 1.0);
-        assertEquals("{\"\\\"\": 1.0}", JSONUtils.writeKeyedValues(dkv));
+        assertEquals("[[\"\\\"\", 1.0]]", JSONUtils.writeKeyedValues(dkv));
         dkv.clear();
         
         dkv.put("\\", 1.0);
-        assertEquals("{\"\\\\\": 1.0}", JSONUtils.writeKeyedValues(dkv));
+        assertEquals("[[\"\\\\\", 1.0]]", JSONUtils.writeKeyedValues(dkv));
         dkv.clear();
 
         dkv.put("\t", 1.0);
-        assertEquals("{\"\\t\": 1.0}", JSONUtils.writeKeyedValues(dkv));
+        assertEquals("[[\"\\t\", 1.0]]", JSONUtils.writeKeyedValues(dkv));
         dkv.clear();
         
         dkv.put("\n", 1.0);
-        assertEquals("{\"\\n\": 1.0}", JSONUtils.writeKeyedValues(dkv));
+        assertEquals("[[\"\\n\", 1.0]]", JSONUtils.writeKeyedValues(dkv));
         dkv.clear();
         
         dkv.put("\f", 1.0);
-        assertEquals("{\"\\f\": 1.0}", JSONUtils.writeKeyedValues(dkv));
+        assertEquals("[[\"\\f\", 1.0]]", JSONUtils.writeKeyedValues(dkv));
         dkv.clear();
 
         dkv.put("\b", 1.0);
-        assertEquals("{\"\\b\": 1.0}", JSONUtils.writeKeyedValues(dkv));
+        assertEquals("[[\"\\b\", 1.0]]", JSONUtils.writeKeyedValues(dkv));
         dkv.clear();
 
         dkv.put("\r", 1.0);
-        assertEquals("{\"\\r\": 1.0}", JSONUtils.writeKeyedValues(dkv));
+        assertEquals("[[\"\\r\", 1.0]]", JSONUtils.writeKeyedValues(dkv));
         dkv.clear();
 
         dkv.put("/", 1.0);
-        assertEquals("{\"\\/\": 1.0}", JSONUtils.writeKeyedValues(dkv));
+        assertEquals("[[\"\\/\", 1.0]]", JSONUtils.writeKeyedValues(dkv));
         dkv.clear();
+    }
+    
+    @Test
+    public void checkReadKeyedValues2D() {
+        String json = "{}";
+        KeyedValues2D<? extends Number> dkv2d 
+                = JSONUtils.readKeyedValues2D(json);
+        assertEquals(0, dkv2d.getRowCount());
+        assertEquals(0, dkv2d.getColumnCount());
+        
+        json = "{\"columnKeys\": [\"C1\", \"C2\", \"C3\"], \"rows\": "
+                + "[[\"R1\", [1.0, 2.0, 3.0]], [\"R2\", [4.0, 5.0, 6.0]]]}";
+        dkv2d = JSONUtils.readKeyedValues2D(json);
+        assertEquals(2, dkv2d.getRowCount());
+        assertEquals(3, dkv2d.getColumnCount());
+        assertEquals(1.0, dkv2d.getValue("R1", "C1"));
+        assertEquals(2.0, dkv2d.getValue("R1", "C2"));
+        assertEquals(3.0, dkv2d.getValue("R1", "C3"));
+        assertEquals(4.0, dkv2d.getValue("R2", "C1"));
+        assertEquals(5.0, dkv2d.getValue("R2", "C2"));
+        assertEquals(6.0, dkv2d.getValue("R2", "C3"));
+    }
+    
+    @Test 
+    public void checkWriteKeyedValues2D() {
+        DefaultKeyedValues2D dkv2d = new DefaultKeyedValues2D();
+        String expected = "{}";
+        assertEquals(expected, JSONUtils.writeKeyedValues2D(dkv2d));
+        
+        dkv2d.setValue(1.0, "R1", "C1");
+        expected = "{\"columnKeys\": [\"C1\"], \"rows\": [[\"R1\", [1.0]]]}";
+        assertEquals(expected, JSONUtils.writeKeyedValues2D(dkv2d));        
     }
     
     @Test
@@ -128,24 +161,31 @@ public class JSONUtilsTest {
         dataset.addValue(2.0, "S1", "R1", "C2");
         dataset.addValue(3.0, "S1", "R2", "C1");
         dataset.addValue(4.0, "S1", "R2", "C2");
-    
+        // series 2 only has data in row 2
         dataset.addValue(5.0, "S2", "R2", "C1");
         dataset.addValue(6.0, "S2", "R2", "C2");
         String expected = "{\"columnKeys\": [\"C1\", \"C2\"], \"rowKeys\": "
                 + "[\"R1\", \"R2\"], \"data\": [{\"seriesKey\": \"S1\", "
-                + "\"rows\": {\"R1\": [1.0, 2.0], \"R2\": [3.0, 4.0]}}, "
-                + "{\"seriesKey\": \"S2\", \"rows\": {\"R2\": [5.0, 6.0]}}]}";
+                + "\"rows\": [[\"R1\", [1.0, 2.0]], [\"R2\", [3.0, 4.0]]]}, "
+                + "{\"seriesKey\": \"S2\", \"rows\": [[\"R2\", [5.0, 6.0]]]}]}";
         assertEquals(expected, JSONUtils.writeKeyedValues3D(dataset));
     }
     
     private static final double EPSILON = 0.0000001;
     
+    /**
+     * Tests for reading XYZDatasets from JSON format.
+     */
     @Test
     public void checkReadXYZDataset() {
-        String json = "{\"Series 1\": [[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]], " 
-                + "\"Series 2\": [[5.5, 6.6, 7.7], [8.8, 9.9, 9.9], " 
-                + "[8.4, 9.2, 9.1]]}";
+        String json = "[]";
         XYZDataset dataset = JSONUtils.readXYZDataset(json);
+        assertEquals(0, dataset.getSeriesCount());
+
+        json = "[[\"Series 1\", [[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]]], " 
+                + "[\"Series 2\", [[5.5, 6.6, 7.7], [8.8, 9.9, 9.9], " 
+                + "[8.4, 9.2, 9.1]]]]";
+        dataset = JSONUtils.readXYZDataset(json);
         assertEquals(2, dataset.getSeriesCount());
         assertEquals("Series 1", dataset.getSeriesKey(0));
         assertEquals("Series 2", dataset.getSeriesKey(1));
@@ -169,9 +209,25 @@ public class JSONUtilsTest {
         assertEquals(9.1, dataset.getZ(1, 2), EPSILON);
     }
     
+    /**
+     * Tests for writing XYZDatasets to JSON format.
+     */
     @Test
     public void checkWriteXYZDataset() {
         XYZSeriesCollection dataset = new XYZSeriesCollection();
-        assertEquals("{}", JSONUtils.writeXYZDataset(dataset));
+        assertEquals("[]", JSONUtils.writeXYZDataset(dataset));
+        
+        XYZSeries s1 = new XYZSeries("S1");
+        dataset.add(s1);
+        assertEquals("[[\"S1\", []]]", JSONUtils.writeXYZDataset(dataset));
+
+        s1.add(1.0, 2.0, 3.0);
+        assertEquals("[[\"S1\", [[1.0, 2.0, 3.0]]]]", 
+                JSONUtils.writeXYZDataset(dataset));
+        
+        XYZSeries s2 = new XYZSeries("S2");
+        dataset.add(s2);
+        assertEquals("[[\"S1\", [[1.0, 2.0, 3.0]]], [\"S2\", []]]", 
+                JSONUtils.writeXYZDataset(dataset));
     }
 }

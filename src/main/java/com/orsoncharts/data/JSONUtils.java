@@ -21,13 +21,13 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import com.orsoncharts.data.xyz.XYZDataset;
+import com.orsoncharts.data.category.StandardCategoryDataset3D;
 import com.orsoncharts.util.json.JSONValue;
-import com.orsoncharts.util.json.parser.ContainerFactory;
 import com.orsoncharts.util.json.parser.JSONParser;
 import com.orsoncharts.util.json.parser.ParseException;
 import com.orsoncharts.util.ArgChecks;
-import com.orsoncharts.data.category.StandardCategoryDataset3D;
+import com.orsoncharts.util.json.parser.ContainerFactory;
+import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.data.xyz.XYZSeries;
 import com.orsoncharts.data.xyz.XYZSeriesCollection;
 
@@ -80,10 +80,12 @@ public class JSONUtils {
         try {
             JSONParser parser = new JSONParser();
             // parse with custom containers (to preserve item order)
-            Map obj = (Map) parser.parse(reader, createContainerFactory());
+            List list = (List) parser.parse(reader, createContainerFactory());
             StandardPieDataset3D result = new StandardPieDataset3D();
-            for (Object key : obj.keySet()) {
-                result.add((Comparable) key, (Number) obj.get(key));
+            for (Object item : list) {
+                List itemAsList = (List) item;
+                result.add((Comparable) itemAsList.get(0), 
+                        (Number) itemAsList.get(1));
             }
             return result;        
         } catch (ParseException ex) {
@@ -123,7 +125,7 @@ public class JSONUtils {
             Writer writer) throws IOException {
         ArgChecks.nullNotPermitted(data, "data");
         ArgChecks.nullNotPermitted(writer, "writer");
-        writer.write("{");
+        writer.write("[");
         boolean first = true;
         for (Comparable<?> key : data.getKeys()) {
             if (!first) {
@@ -131,13 +133,209 @@ public class JSONUtils {
             } else {
                 first = false;
             }
+            writer.write("[");
             writer.write(JSONValue.toJSONString(key.toString()));
-            writer.write(": ");
+            writer.write(", ");
             writer.write(JSONValue.toJSONString(data.getValue(key)));
+            writer.write("]");
+        }
+        writer.write("]");
+    }
+    
+    /**
+     * Reads a data table from a JSON format string.
+     * 
+     * @param json  the string (<code>null</code> not permitted).
+     * 
+     * @return A data table. 
+     */
+    public static KeyedValues2D<? extends Number> readKeyedValues2D(
+            String json) {
+        ArgChecks.nullNotPermitted(json, "json");
+        StringReader in = new StringReader(json);
+        KeyedValues2D<? extends Number> result;
+        try { 
+            result = readKeyedValues2D(in);
+        } catch (IOException ex) {
+            // not for StringReader
+            result = null;
+        }
+        return result;
+    }
+ 
+    /**
+     * Reads a data table from a JSON format string coming from the specified
+     * reader.
+     * 
+     * @param reader  the reader (<code>null</code> not permitted).
+     * 
+     * @return A data table. 
+     */
+    public static KeyedValues2D<? extends Number> readKeyedValues2D(
+            Reader reader) throws IOException {
+        
+        JSONParser parser = new JSONParser();
+        try {
+            Map map = (Map) parser.parse(reader, createContainerFactory());
+            DefaultKeyedValues2D result = new DefaultKeyedValues2D();
+            if (map.isEmpty()) {
+                return result;
+            }
+            
+            // read the keys
+            Object keysObj = map.get("columnKeys");
+            List<?> keys = null;
+            if (keysObj instanceof List<?>) {
+                keys = (List<?>) keysObj;
+            } else {
+                if (keysObj == null) {
+                    throw new RuntimeException("No 'columnKeys' defined.");    
+                } else {
+                    throw new RuntimeException("Please check the 'columnKeys', " 
+                            + "the format does not parse to a list.");
+                }
+            }
+            
+            Object dataObj = map.get("rows");
+            if (dataObj instanceof List) {
+                List<?> rowList = (List<?>) dataObj;
+                // each entry in the map has the row key and an array of
+                // values (the length should match the list of keys above
+                for (Object rowObj : rowList) {
+                    processRow(rowObj, keys, result);
+                }
+            } else { // the 'data' entry is not parsing to a list
+                if (dataObj == null) {
+                    throw new RuntimeException("No 'rows' section defined.");
+                } else {
+                    throw new RuntimeException("Please check the 'rows' "
+                            + "entry, the format does not parse to a list of "
+                            + "rows.");
+                }
+            }
+            return result;
+        } catch (ParseException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    /**
+     * Processes an entry for one row in a KeyedValues2D.
+     * 
+     * @param rowObj  the series object.
+     * @param columnKeys  the required column keys.
+     */
+    static void processRow(Object rowObj, List<?> columnKeys, 
+            DefaultKeyedValues2D dataset) {
+        
+        if (!(rowObj instanceof List)) {
+            throw new RuntimeException("Check the 'data' section it contains "
+                    + "a row that does not parse to a list.");
+        }
+        
+        // we expect the row data object to be an array containing the 
+        // rowKey and rowValueArray entries, where rowValueArray
+        // should have the same number of entries as the columnKeys
+        List rowList = (List) rowObj;
+        Object rowKey = rowList.get(0);
+        Object rowDataObj = rowList.get(1);
+        if (!(rowDataObj instanceof List)) {
+            throw new RuntimeException("Please check the row entry for " 
+                    + rowKey + " because it is not parsing to a list (of " 
+                    + "rowKey and rowDataValues items.");
+        }
+        List<?> rowData = (List<?>) rowDataObj;
+        if (rowData.size() != columnKeys.size()) {
+            throw new RuntimeException("The values list for series "
+                    + rowKey + " does not contain the correct number of "
+                    + "entries to match the columnKeys.");
+        }
+
+        for (int c = 0; c < rowData.size(); c++) {
+            Object columnKey = columnKeys.get(c);
+            dataset.setValue(objToDouble(rowData.get(c)), 
+                    rowKey.toString(), columnKey.toString());
+        }
+    }
+    
+    /**
+     * Writes a data table to a string in JSON format.
+     * 
+     * @param data  the data (<code>null</code> not permitted).
+     * 
+     * @return The string. 
+     */
+    public static String writeKeyedValues2D(
+            KeyedValues2D<? extends Number> data) {
+        ArgChecks.nullNotPermitted(data, "data");
+        StringWriter sw = new StringWriter();
+        try {
+            writeKeyedValues2D(data, sw);
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+        return sw.toString();
+    }
+
+    /**
+     * Writes the data in JSON format to the supplied writer. Note that
+     * this method can be used with instances of {@link CategoryDataset2D}.
+     * 
+     * @param data  the data (<code>null</code> not permitted).
+     * @param writer  the writer (<code>null</code> not permitted).
+     * 
+     * @throws IOException 
+     */
+    public static void writeKeyedValues2D(KeyedValues2D<? extends Number> data, 
+            Writer writer) throws IOException {
+        ArgChecks.nullNotPermitted(data, "data");
+        ArgChecks.nullNotPermitted(writer, "writer");
+        List<Comparable<?>> columnKeys = data.getColumnKeys();
+        List<Comparable<?>> rowKeys = data.getRowKeys();
+        writer.write("{");
+        if (!columnKeys.isEmpty()) {
+            writer.write("\"columnKeys\": [");
+            boolean first = true;
+            for (Comparable<?> columnKey : columnKeys) {
+                if (!first) {
+                    writer.write(", ");
+                } else {
+                    first = false;
+                }
+                writer.write(JSONValue.toJSONString(columnKey.toString()));
+            }
+            writer.write("]");
+        }
+        if (!rowKeys.isEmpty()) {
+            writer.write(", \"rows\": [");
+            boolean firstRow = true;
+            for (Comparable<?> rowKey : rowKeys) {   
+                if (!firstRow) {
+                    writer.write(", [");
+                } else {
+                    writer.write("[");
+                    firstRow = false;
+                }
+                // write the row data 
+                writer.write(JSONValue.toJSONString(rowKey.toString()));
+                writer.write(", [");
+                boolean first = true;
+                for (Comparable<?> columnKey : columnKeys) {
+                    if (!first) {
+                        writer.write(", ");
+                    } else {
+                        first = false;
+                    }
+                    writer.write(JSONValue.toJSONString(data.getValue(rowKey, 
+                            columnKey)));
+                }
+                writer.write("]]");
+            }
+            writer.write("]");
         }
         writer.write("}");
     }
- 
+
     /**
      * Parses the supplied string and (if possible) creates a 
      * {@link KeyedValues3D} instance.
@@ -365,19 +563,20 @@ public class JSONUtils {
                 }
                 writer.write("{\"seriesKey\": ");
                 writer.write(JSONValue.toJSONString(seriesKey.toString()));
-                writer.write(", \"rows\": {");
+                writer.write(", \"rows\": [");
             
                 boolean firstRow = true;
                 for (Comparable<?> rowKey : dataset.getRowKeys()) {
                     if (countForRowInSeries(dataset, seriesKey, rowKey) > 0) {
                         if (!firstRow) {
-                            writer.write(", ");
+                            writer.write(", [");
                         } else {
+                            writer.write("[");
                             firstRow = false;
                         }
                         // write the row values
                         writer.write(JSONValue.toJSONString(rowKey.toString()) 
-                                + ": [");
+                                + ", [");
                         for (int c = 0; c < dataset.getColumnCount(); c++) {
                             Comparable columnKey = dataset.getColumnKey(c);
                             if (c != 0) {
@@ -387,10 +586,10 @@ public class JSONUtils {
                                     dataset.getValue(seriesKey, rowKey, 
                                     columnKey)));
                         }
-                        writer.write("]");
+                        writer.write("]]");
                     }
                 }            
-                writer.write("}}");
+                writer.write("]}");
             }
             writer.write("]");
         }
@@ -434,7 +633,8 @@ public class JSONUtils {
     /**
      * Parses the string and (if possible) creates an {XYZDataset} instance 
      * that represents the data.  This method will read back the data that
-     * is written by {@link #writeXYZDataset(com.orsoncharts.data.xyz.XYZDataset)}.
+     * is written by 
+     * {@link #writeXYZDataset(com.orsoncharts.data.xyz.XYZDataset)}.
      * 
      * @param json  a JSON formatted string (<code>null</code> not permitted).
      * 
@@ -468,19 +668,24 @@ public class JSONUtils {
         JSONParser parser = new JSONParser();
         XYZSeriesCollection result = new XYZSeriesCollection();
         try {
-            Map map = (Map) parser.parse(reader, createContainerFactory());
-            // each entry in the map should be a series where the key is
-            // the series name and the value is an array (of arrays of length 3)
-            for (Object key : map.keySet()) {
-                List values = (List) map.get(key);
-                XYZSeries series = createSeries((Comparable<?>) key, values);
-                result.add(series);
+            List<?> list = (List<?>) parser.parse(reader, 
+                    createContainerFactory());
+            // each entry in the array should be a series array (where the 
+            // first item is the series name and the next value is an array 
+            // (of arrays of length 3) containing the data items
+            for (Object seriesArray : list) {
+                if (seriesArray instanceof List) {
+                    List<?> seriesList = (List<?>) seriesArray;
+                    XYZSeries series = createSeries(seriesList);
+                    result.add(series);
+                } else {
+                    throw new RuntimeException(
+                            "Input for a series did not parse to a list.");
+                }
             }
-            
         } catch (ParseException ex) {
             throw new RuntimeException(ex);
         }
-        
         return result;
     }
 
@@ -511,16 +716,17 @@ public class JSONUtils {
      */
     public static void writeXYZDataset(XYZDataset dataset, Writer writer) 
             throws IOException {
-        writer.write("{");
+        writer.write("[");
         boolean first = true;
         for (Comparable<?> seriesKey : dataset.getSeriesKeys()) {
             if (!first) {
-                writer.write(", ");
+                writer.write(", [");
             } else {
+                writer.write("[");
                 first = false;
             }
             writer.write(JSONValue.toJSONString(seriesKey.toString()));
-            writer.write(": [");
+            writer.write(", [");
             int seriesIndex = dataset.getSeriesIndex(seriesKey);
             int itemCount = dataset.getItemCount(seriesIndex);
             for (int i = 0; i < itemCount; i++) {
@@ -538,9 +744,9 @@ public class JSONUtils {
                         dataset.getZ(seriesIndex, i))));
                 writer.write("]");
             }
-            writer.write("]");
+            writer.write("]]");
         }
-        writer.write("}");        
+        writer.write("]");        
     }
         
     /**
@@ -567,16 +773,18 @@ public class JSONUtils {
     }
     
     /**
-     * Creates an {@link XYZSeries} from a list of data items.
+     * Creates an {@link XYZSeries} from the supplied list.  The list is 
+     * coming from the JSON parser and should contain the series name as the
+     * first item, and a list of data items as the second item.  The list of
+     * data items should be a list of lists (
      * 
-     * @param key  the series key (<code>null</code> not permitted).
-     * @param dataItems  the list of data items (<code>null</code> not 
-     * permitted).
+     * @param sArray  the series array.
      * 
      * @return A data series. 
      */
-    private static XYZSeries createSeries(Comparable<?> key, 
-            List<?> dataItems) {
+    private static XYZSeries createSeries(List<?> sArray) {
+        Comparable<?> key = (Comparable<?>) sArray.get(0);
+        List<?> dataItems = (List<?>) sArray.get(1);
         XYZSeries series = new XYZSeries(key);
         for (Object item : dataItems) {
             if (item instanceof List<?>) {
