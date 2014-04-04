@@ -118,6 +118,7 @@ public class DefaultKeyedValues3DTest {
         assertNull(data.getValue("S1", "R5", "C5"));
     }
     
+    @Test
     public void testEquals() {
         DefaultKeyedValues3D<Number> d1 = new DefaultKeyedValues3D<Number>();
         DefaultKeyedValues3D<Number> d2 = new DefaultKeyedValues3D<Number>();
