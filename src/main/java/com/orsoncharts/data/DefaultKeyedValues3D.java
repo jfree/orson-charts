@@ -189,11 +189,36 @@ public final class DefaultKeyedValues3D<V> implements KeyedValues3D<V>,
         return this.data.get(seriesIndex).getValue(rowIndex, columnIndex);
     }
     
+    /**
+     * Returns the value for the specified data item.  This method will 
+     * throw an <code>IllegalArgumentException</code> if the dataset does not 
+     * contain the specified keys.
+     * 
+     * @param seriesKey  the series key (<code>null</code> not permitted).
+     * @param rowKey  the row key (<code>null</code> not permitted).
+     * @param columnKey  the column key (<code>null</code> not permitted).
+     * 
+     * @return The value (possibly <code>null</code>). 
+     */
     @Override
     public V getValue(Comparable<?> seriesKey, Comparable<?> rowKey, 
             Comparable<?> columnKey) {
-        return getValue(getSeriesIndex(seriesKey), getRowIndex(rowKey), 
-                getColumnIndex(columnKey));
+        int seriesIndex = getSeriesIndex(seriesKey);
+        if (seriesIndex < 0) {
+            throw new IllegalArgumentException("Series '" + seriesKey.toString() 
+                    + "' is not found.");
+        }
+        int rowIndex = getRowIndex(rowKey);
+        if (rowIndex < 0) {
+            throw new IllegalArgumentException("Row key '" + rowKey.toString() 
+                    + "' is not found.");
+        }
+        int columnIndex = getColumnIndex(columnKey);
+        if (columnIndex < 0) {
+            throw new IllegalArgumentException("Column key '" 
+                    + columnKey.toString() + "' is not found.");
+        }
+        return getValue(seriesIndex, rowIndex, columnIndex);
     }
 
     @Override
