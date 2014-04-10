@@ -800,8 +800,8 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
             String tickLabel = t.getKeyLabel();
             if (hinting) {
                 Map m = new HashMap<String, String>();
-                m.put("ref", "{\"type\": \"categoryTickLabel\", \"axis\": " 
-                        + axisStr() + ", \"key\": \"" 
+                m.put("ref", "{\"type\": \"categoryTickLabel\", \"axis\": \"" 
+                        + axisStr() + "\", \"key\": \"" 
                         + t.getKey() + "\"}");
                 g2.setRenderingHint(Chart3DHints.KEY_BEGIN_ELEMENT, m);
             }
@@ -856,8 +856,8 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
             String tickLabel = t.getKeyLabel();
             if (hinting) {
                 Map m = new HashMap<String, String>();
-                m.put("ref", "{\"type\": \"categoryAxisLabel\", \"axis\": " 
-                        + axisStr() + ",\"key\": \"" 
+                m.put("ref", "{\"type\": \"categoryAxisLabel\", \"axis\": \"" 
+                        + axisStr() + "\", \"key\": \"" 
                         + t.getKey() + "\"}");
                 g2.setRenderingHint(Chart3DHints.KEY_BEGIN_ELEMENT, m);
             }
