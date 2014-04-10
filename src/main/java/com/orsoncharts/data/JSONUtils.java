@@ -94,8 +94,13 @@ public class JSONUtils {
     }
 
     /**
-     * Returns a string containing the data in JSON format.  Note that
-     * this method can be used with instances of {@link PieDataset3D}.
+     * Returns a string containing the data in JSON format.  The format is
+     * an array of arrays, where each sub-array represents one data value.
+     * The sub-array should contain two items, first the item key as a string
+     * and second the item value as a number.  For example:
+     * <code>[["Key A", 1.0], ["Key B", 2.0]]</code>
+     * <br><br>
+     * Note that this method can be used with instances of {@link PieDataset3D}.
      * 
      * @param data  the data (<code>null</code> not permitted).
      * 
@@ -113,8 +118,9 @@ public class JSONUtils {
     }
 
     /**
-     * Writes the data in JSON format to the supplied writer. Note that
-     * this method can be used with instances of {@link PieDataset3D}.
+     * Writes the data in JSON format to the supplied writer.
+     * <br><br>
+     * Note that this method can be used with instances of {@link PieDataset3D}.
      * 
      * @param data  the data (<code>null</code> not permitted).
      * @param writer  the writer (<code>null</code> not permitted).
@@ -553,7 +559,7 @@ public class JSONUtils {
         // a data series has a 'key' and a 'rows' attribute
         // the 'rows' attribute is a Map from 'rowKey' -> array of data values
         if (dataset.getSeriesCount() != 0) {
-            writer.write("\"data\": [");
+            writer.write("\"series\": [");
             boolean first = true;
             for (Comparable<?> seriesKey : dataset.getSeriesKeys()) {
                 if (!first) {
