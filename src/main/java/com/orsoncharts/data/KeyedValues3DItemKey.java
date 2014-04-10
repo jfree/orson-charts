@@ -123,9 +123,9 @@ public class KeyedValues3DItemKey<S extends Comparable<S>,
     public String toJSONString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{\"seriesKey\": \"").append(this.seriesKey.toString());
-        sb.append("\" ");
+        sb.append("\", ");
         sb.append("\"rowKey\": \"").append(this.rowKey.toString());
-        sb.append("\" ");
+        sb.append("\", ");
         sb.append("\"columnKey\": \"").append(this.columnKey.toString());
         sb.append("\"}");
         return sb.toString();
