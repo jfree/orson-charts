@@ -126,7 +126,7 @@ public class OnDrawHandler implements TableElementOnDraw {
 
     private String generateLegendItemRef(TableElement element) {
         Object key = element.getProperty(Chart3D.SERIES_KEY);
-        return "{\"type\": \"legendItem\"; \"seriesKey\": \"" + key.toString() 
+        return "{\"type\": \"legendItem\", \"seriesKey\": \"" + key.toString() 
                 + "\"}";
     }
 }
