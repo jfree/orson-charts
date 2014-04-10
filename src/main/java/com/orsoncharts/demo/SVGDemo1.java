@@ -48,24 +48,39 @@ import java.util.logging.Logger;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
 import com.orsoncharts.TitleAnchor;
+import com.orsoncharts.data.DataUtils;
 import com.orsoncharts.data.DefaultKeyedValues;
+import com.orsoncharts.data.JSONUtils;
+import com.orsoncharts.data.KeyedValues3D;
 import com.orsoncharts.data.PieDataset3D;
 import com.orsoncharts.data.StandardPieDataset3D;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.category.StandardCategoryDataset3D;
+import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.legend.LegendAnchor;
 import com.orsoncharts.plot.CategoryPlot3D;
+import com.orsoncharts.plot.XYZPlot;
+import com.orsoncharts.renderer.xyz.ScatterXYZRenderer;
 import com.orsoncharts.util.Orientation;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import org.jfree.graphics2d.svg.SVGGraphics2D;
 
 /**
- * A demo showing the creation of an HTML page containing two charts in
- * SVG format, with tooltips and mouse-click interactivity.  There are 
- * support files that must be included with the output file, see the
- * 'svg' directory in the distribution.
+ * A demo showing the creation of an HTML page containing three charts in
+ * SVG format, with tooltips and mouse-click interactivity.  This demo creates
+ * a file SVGDemo1.html - this file also requires some other support files, 
+ * see the 'svg' directory in the distribution.
  */
 public class SVGDemo1 {
 
+    static String generateSVGForChart(Chart3D chart, int width, int height) {
+        SVGGraphics2D g2 = new SVGGraphics2D(width, height);
+        chart.setElementHinting(true);
+        chart.draw(g2, new Rectangle(width, height));
+        return g2.getSVGElement(chart.getID());
+    }
+    
     /**
      * Creates a sample dataset (hard-coded for the purpose of keeping the
      * demo self-contained - in practice you would normally read your data
@@ -73,7 +88,7 @@ public class SVGDemo1 {
      * 
      * @return A sample dataset.
      */
-    static PieDataset3D createDataset() {
+    static PieDataset3D createPieChartDataset() {
         StandardPieDataset3D dataset = new StandardPieDataset3D();
         dataset.add("Milk Products", 11625);
         dataset.add("Meat", 5114);
@@ -91,19 +106,12 @@ public class SVGDemo1 {
         Chart3D chart = Chart3DFactory.createPieChart(
                 "New Zealand Exports 2012", 
                 "http://www.stats.govt.nz/browse_for_stats/snapshots-of-nz/nz-in-profile-2013.aspx", 
-                createDataset());
+                createPieChartDataset());
         chart.setID(id);
         chart.setTitleAnchor(TitleAnchor.TOP_LEFT);
         chart.setLegendPosition(LegendAnchor.BOTTOM_CENTER,
                 Orientation.HORIZONTAL);
         return chart;
-    }
-    
-    static String generateSVGForChart(Chart3D chart, int width, int height) {
-        SVGGraphics2D g2 = new SVGGraphics2D(width, height);
-        chart.setElementHinting(true);
-        chart.draw(g2, new Rectangle(width, height));
-        return g2.getSVGElement("PieChart1");
     }
     
     /**
@@ -186,7 +194,42 @@ public class SVGDemo1 {
         plot.setGridlinePaintForValues(Color.BLACK);
         return chart;
     }
+
+    /**
+     * Reads a dataset from the file iris.txt.
+     * 
+     * @return A sample dataset.
+     */
+    private static XYZDataset createScatterDataset(Comparable<?> xKey, 
+            Comparable<?> yKey, Comparable<?> zKey) {
+        Reader in = new InputStreamReader(
+                SVGDemo1.class.getResourceAsStream("iris.txt"));
+        KeyedValues3D data;
+        try {
+            data = JSONUtils.readKeyedValues3D(in);
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+        return DataUtils.extractXYZDatasetFromColumns(data, xKey, yKey, zKey);
+    }
     
+    static Chart3D createScatterChart(String id) {
+        XYZDataset dataset = createScatterDataset("sepal length", 
+                "sepal width", "petal length");
+        Chart3D chart = Chart3DFactory.createScatterChart("Iris Dataset", 
+                null, dataset, "Sepal Length", "Sepal Width", "Petal Length");
+        chart.setID(id);
+        chart.setLegendAnchor(LegendAnchor.BOTTOM_LEFT);
+        chart.setLegendOrientation(Orientation.VERTICAL);
+        XYZPlot plot = (XYZPlot) chart.getPlot();
+        ScatterXYZRenderer renderer = (ScatterXYZRenderer) plot.getRenderer();
+        renderer.setSize(0.15);
+        chart.getViewPoint().panLeftRight(Math.PI / 12);
+        chart.getViewPoint().roll(Math.PI / 12);
+        chart.getViewPoint().setRho(1.4 * chart.getViewPoint().getRho());
+        return chart;
+    }
+
     public static void main(String[] args) throws Exception {
                 BufferedWriter writer = null;
         try {
@@ -201,7 +244,7 @@ public class SVGDemo1 {
             writer.write("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n"); 
             writer.write("<script src=\"lib/opentip-native.js\"></script>");
             writer.write("<link href=\"css/opentip.css\" rel=\"stylesheet\" type=\"text/css\" />");
-            writer.write("<script src=\"lib/OrsonCharts.js\"></script>");
+            writer.write("<script src=\"lib/orsoncharts.js\"></script>");
             writer.write("</head>\n");
             
             writer.write("<body>\n");
@@ -211,34 +254,102 @@ public class SVGDemo1 {
             writer.write("reference is a string in JSON format that should contain enough information to ");
             writer.write("identify the chart element):</p>\n");
             
-            writer.write("<script type=\"application/javascript\">\n");
+            writer.write("  <script type=\"application/javascript\">\n");
+            writer.write("    function pieChartData() {\n");
+            writer.write("      return " + JSONUtils.writeKeyedValues(createPieChartDataset()) + "\n");
+            writer.write("    }\n");
+            writer.write("  </script>\n");
+            
+            writer.write("  <script type=\"application/javascript\">\n");
+            writer.write("    function barChartData() {\n");
+            writer.write("      return " + JSONUtils.writeKeyedValues3D(createBarChartDataset()) + "\n");
+            writer.write("    }\n");
+            writer.write("  </script>\n");
+
+            writer.write("  <script type=\"application/javascript\">\n");
+            writer.write("    function scatterChartData() {\n");
+            XYZDataset dataset = createScatterDataset("sepal length", 
+                    "sepal width", "petal length");
+            writer.write("      return " + JSONUtils.writeXYZDataset(dataset) + "\n");
+            writer.write("    }\n");
+            writer.write("  </script>\n");
+
+            writer.write("  <script type=\"application/javascript\">\n");
             writer.write("    // wait until all the resources are loaded\n");
-            writer.write("    window.addEventListener(\"load\", registerListeners, false);\n");
+            writer.write("    window.addEventListener(\"load\", initialise, false);\n");
 
-            writer.write("    function registerListeners() {\n");
-            writer.write("      var chartSVGElement = document.getElementById(\"BarChart1\");\n");
-            writer.write("      chartSVGElement.onmouseover = handleMouseOver;\n");
-            writer.write("      chartSVGElement.onclick = handleClick;\n");
+            writer.write("    function initialise() {\n");
+            
+            writer.write("      orsoncharts.pieDataset = new orsoncharts.KeyedValuesDataset();\n");
+            writer.write("      orsoncharts.pieDataset.data = pieChartData();\n");
+            writer.write("      orsoncharts.pieLabelGenerator = new orsoncharts.KeyedValueLabels();\n");
+            
+            writer.write("      orsoncharts.barDataset = new orsoncharts.KeyedValues3DDataset();\n");
+            writer.write("      orsoncharts.barDataset.data = barChartData();\n");
+            writer.write("      orsoncharts.barLabelGenerator = new orsoncharts.KeyedValue3DLabels();\n");
+            
+            writer.write("      orsoncharts.scatterDataset = new orsoncharts.XYZDataset();\n");
+            writer.write("      orsoncharts.scatterDataset.data.series = scatterChartData();\n");
+            writer.write("      orsoncharts.scatterLabelGenerator = new orsoncharts.XYZLabels();\n");
 
-            writer.write("      // for the pie chart\n");
-            writer.write("      var pieChartSVGElement = document.getElementById(\"PieChart1\");\n");
-            writer.write("      pieChartSVGElement.onmouseover = handleMouseOver;\n");
-            writer.write("      pieChartSVGElement.onclick = handleClick;\n");
+            writer.write("      var pieSVG = document.getElementById(\"PieChart1\");\n");
+            writer.write("      pieSVG.onmouseover = handleMouseOver;\n");
+            writer.write("      pieSVG.onclick = handleClick;\n");
+
+            writer.write("      var barSVG = document.getElementById(\"BarChart1\");\n");
+            writer.write("      barSVG.onmouseover = handleMouseOver;\n");
+            writer.write("      barSVG.onclick = handleClick;\n");
+
+            writer.write("      var scatterSVG = document.getElementById(\"ScatterChart1\");\n");
+            writer.write("      scatterSVG.onmouseover = handleMouseOver;\n");
+            writer.write("      scatterSVG.onclick = handleClick;\n");
+
             writer.write("    }\n");
 
             writer.write("    function handleClick(evt) {\n");
             writer.write("      var element = evt.target;\n");
-            writer.write("      var ref = OrsonCharts.findChartRef(element);\n");
-            writer.write("      var chartId = OrsonCharts.findChartId(element);\n");
+            writer.write("      var ref = orsoncharts.Utils.findChartRef(element);\n");
+            writer.write("      var chartId = orsoncharts.Utils.findChartId(element);\n");
             writer.write("      alert('You clicked on the item ' + ref + ' for the chart [' + chartId + ']');\n");
             writer.write("    }\n");
 
             writer.write("    function handleMouseOver(evt) {\n");
             writer.write("      var element = evt.target;\n");
-            writer.write("      var id = OrsonCharts.findChartRef(element);\n");
-            writer.write("      if (id != null && id != 'ORSON_CHART_TOP_LEVEL') {\n");
-            writer.write("        var myOpentip = new Opentip(element, id);\n");
-            writer.write("        myOpentip.prepareToShow();\n");
+            writer.write("      var ref = orsoncharts.Utils.findChartRef(element);\n");
+            writer.write("      var chartId = orsoncharts.Utils.findChartId(element);\n");
+            writer.write("      if (ref != null && ref != 'ORSON_CHART_TOP_LEVEL') {\n");
+            writer.write("        var refObj = JSON.parse(ref);\n");
+            writer.write("        if (Opentip.tips.length < 1) {\n");
+            writer.write("          myOpentip = new Opentip(element, \"content\");\n");
+            writer.write("        } else {\n");
+            writer.write("          myOpentip = Opentip.tips[0];\n");
+            writer.write("        }\n");
+            writer.write("        myOpentip.target = element;\n");
+            writer.write("        if (chartId == \"PieChart1\") {\n");
+            writer.write("          if (refObj.hasOwnProperty(\"key\")) {\n");
+            writer.write("             var itemIndex = orsoncharts.pieDataset.indexOf(refObj.key);\n");
+            writer.write("             content = orsoncharts.pieLabelGenerator.itemLabel(orsoncharts.pieDataset, itemIndex);\n");
+            writer.write("          } else { content = ref; }\n");
+            writer.write("        } else if (chartId == \"BarChart1\") {\n");
+            writer.write("          if (!refObj.hasOwnProperty(\"type\")) {\n");
+            writer.write("            var seriesIndex = orsoncharts.barDataset.seriesIndex(refObj.seriesKey);\n");
+            writer.write("            var rowIndex = orsoncharts.barDataset.rowIndex(refObj.rowKey);\n");
+            writer.write("            var columnIndex = orsoncharts.barDataset.columnIndex(refObj.columnKey);\n");
+            writer.write("            content = orsoncharts.barLabelGenerator.itemLabel(orsoncharts.barDataset, seriesIndex, rowIndex, columnIndex);\n");
+            writer.write("          } else {\n");
+            writer.write("          content = ref + \" for bar chart.\";\n");
+            writer.write("          }\n");
+            writer.write("        } else if (chartId == \"ScatterChart1\") {\n");
+            writer.write("          if (!refObj.hasOwnProperty(\"type\")) {\n");
+            writer.write("            content = orsoncharts.scatterLabelGenerator.itemLabel(orsoncharts.scatterDataset, refObj.seriesKey, refObj.itemIndex);\n");
+            writer.write("          } else {\n");
+            writer.write("            content = ref + \" for scatter plot.\";\n");
+            writer.write("          }\n");
+            writer.write("        }\n");
+            writer.write("        myOpentip.setContent(content);\n");
+            writer.write("        myOpentip.reposition();\n");
+            writer.write("        myOpentip.show();\n");
+
             writer.write("     }\n");
             writer.write("    }\n");
             writer.write("</script>\n");
@@ -251,6 +362,11 @@ public class SVGDemo1 {
             writer.write("<p>\n");
             Chart3D barChart = createBarChart("BarChart1");
             writer.write(generateSVGForChart(barChart, 600, 370) + "\n");
+            writer.write("</p>\n");
+            
+            writer.write("<p>\n");
+            Chart3D scatterChart = createScatterChart("ScatterChart1");
+            writer.write(generateSVGForChart(scatterChart, 600, 370) + "\n");
             writer.write("</p>\n");
             
             writer.write("</body>\n");
