@@ -70,7 +70,7 @@ public class KeyedValuesItemKey implements ItemKey, Serializable {
     @Override
     public String toJSONString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("{\"key\": ").append(this.key.toString()).append("\"}");
+        sb.append("{\"key\": \"").append(this.key.toString()).append("\"}");
         return sb.toString();
     }
 
