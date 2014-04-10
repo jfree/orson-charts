@@ -85,7 +85,7 @@ public class XYZItemKey<S extends Comparable<S>> implements ItemKey,
     public String toJSONString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{\"seriesKey\": \"").append(this.seriesKey.toString());
-        sb.append("\" ");
+        sb.append("\", ");
         sb.append("\"itemIndex\": ").append(this.itemIndex).append("}");
         return sb.toString();
     }
