@@ -190,9 +190,7 @@ public class ScatterPlot3DDemo3 extends JFrame {
     }
 
     /**
-     * Creates a sample dataset (hard-coded for the purpose of keeping the
-     * demo self-contained - in practice you would normally read your data
-     * from a file, database or other source).
+     * Reads a dataset from the file iris.txt.
      * 
      * @return A sample dataset.
      */
