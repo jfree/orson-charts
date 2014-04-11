@@ -284,8 +284,7 @@ public class JSONUtils {
     }
 
     /**
-     * Writes the data in JSON format to the supplied writer. Note that
-     * this method can be used with instances of {@link CategoryDataset2D}.
+     * Writes the data in JSON format to the supplied writer.
      * 
      * @param data  the data (<code>null</code> not permitted).
      * @param writer  the writer (<code>null</code> not permitted).
