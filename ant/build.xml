@@ -211,7 +211,7 @@
         <!-- convert end-of-line characters in text files -->
         <fixcrlf srcdir="${basedir}/distribution/src"
                  eol="crlf" eof="remove"
-                 excludes="**/*.jpg" />
+                 excludes="**/*.jpg **/*.ttf" />
     </target>
 
     <target name="copy-svg-and-pdf" unless="eval">
@@ -279,7 +279,7 @@
         <!-- convert end-of-line characters in text files -->
         <fixcrlf srcdir="${basedir}/distribution/src"
                  eol="crlf" eof="remove"
-                 excludes="**/*.jpg" />
+                 excludes="**/*.jpg **/*.ttf" />
     </target>
 
     <target name="copy-svg-and-pdf2" unless="eval">
