@@ -71,6 +71,11 @@ import org.jfree.graphics2d.svg.SVGGraphics2D;
  * SVG format, with tooltips and mouse-click interactivity.  This demo creates
  * a file SVGDemo1.html - this file also requires some other support files, 
  * see the 'svg' directory in the distribution.
+ * 
+ * This demo isn't intended to show how you should generate HTML content in 
+ * a production system, but just to provide a concrete example of the SVG
+ * output from Orson Charts with JFreeSVG.
+ * 
  */
 public class SVGDemo1 {
 
@@ -283,14 +288,18 @@ public class SVGDemo1 {
             writer.write("      orsoncharts.pieDataset = new orsoncharts.KeyedValuesDataset();\n");
             writer.write("      orsoncharts.pieDataset.data = pieChartData();\n");
             writer.write("      orsoncharts.pieLabelGenerator = new orsoncharts.KeyedValueLabels();\n");
+            writer.write("      orsoncharts.pieLabelGenerator.valueDP = 0;\n");
+            writer.write("      orsoncharts.pieLabelGenerator.format = \"{K} = NZ${V} million\";\n");
             
             writer.write("      orsoncharts.barDataset = new orsoncharts.KeyedValues3DDataset();\n");
             writer.write("      orsoncharts.barDataset.data = barChartData();\n");
             writer.write("      orsoncharts.barLabelGenerator = new orsoncharts.KeyedValue3DLabels();\n");
+            writer.write("      orsoncharts.barLabelGenerator.format = \"{R}, {C} = US${V} billion\";\n");
             
             writer.write("      orsoncharts.scatterDataset = new orsoncharts.XYZDataset();\n");
             writer.write("      orsoncharts.scatterDataset.data.series = scatterChartData();\n");
             writer.write("      orsoncharts.scatterLabelGenerator = new orsoncharts.XYZLabels();\n");
+            writer.write("      orsoncharts.scatterLabelGenerator.format = \"{S} = ({X}, {Y}, {Z})\";\n");
 
             writer.write("      var pieSVG = document.getElementById(\"PieChart1\");\n");
             writer.write("      pieSVG.onmouseover = handleMouseOver;\n");
