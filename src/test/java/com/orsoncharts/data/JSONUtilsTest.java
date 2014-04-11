@@ -165,7 +165,7 @@ public class JSONUtilsTest {
         dataset.addValue(5.0, "S2", "R2", "C1");
         dataset.addValue(6.0, "S2", "R2", "C2");
         String expected = "{\"columnKeys\": [\"C1\", \"C2\"], \"rowKeys\": "
-                + "[\"R1\", \"R2\"], \"data\": [{\"seriesKey\": \"S1\", "
+                + "[\"R1\", \"R2\"], \"series\": [{\"seriesKey\": \"S1\", "
                 + "\"rows\": [[\"R1\", [1.0, 2.0]], [\"R2\", [3.0, 4.0]]]}, "
                 + "{\"seriesKey\": \"S2\", \"rows\": [[\"R2\", [5.0, 6.0]]]}]}";
         assertEquals(expected, JSONUtils.writeKeyedValues3D(dataset));
