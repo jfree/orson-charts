@@ -255,6 +255,12 @@
             </fileset>
         </copy>
 
+        <!-- copy across JavaScript files -->
+        <copy todir="${basedir}/distribution/js">
+            <fileset dir="${basedir}/js">
+            </fileset>
+        </copy>
+
         <!-- copy across Javadoc files -->
         <copy todir="${basedir}/distribution/javadoc">
             <fileset dir="${basedir}/javadoc/">
