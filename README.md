@@ -10,7 +10,8 @@ Orson Charts is a 3D chart library for the Java(tm) platform that can generate a
 
 - multiple chart types: pie charts, bar charts (regular and stacked), line charts, area charts, scatter charts and surface plots;
 - a mouse-enabled chart viewer provides 360 degree rotation and zooming for precise end-user view control;
-- tool tip and mouse event support providing interactivity options;
+- configurable tool tip support;
+- interactive chart (mouse event support on all chart elements);
 - flexible data sources; 
 - JSON format data import and export;
 - regular and logarithmic axis scales;
@@ -50,13 +51,16 @@ If you have any questions, don't hesitate to send a mail to info@object-refinery
 History
 -------
 
-?-???-2014 : Version 1.3
+11-Apr-2014 : Version 1.3
 
 - added chart mouse event and tooltip support for the chart viewer in Swing;
 - added item label support;
 - added JSON format data import and export;
 - new utility methods to extract an XYZDataset from a CategoryDataset3D;
 - fixed a clipping issue for panels with borders assigned;
+- added rendering hints for SVG output via JFreeSVG (to support tool-tips 
+and mouse events on chart elements);
+- added JavaScript utility library to support JFreeSVG export;
 
 
 7-Mar-2014 : Version 1.2
