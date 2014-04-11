@@ -103,13 +103,13 @@
             <include name="**" />
         </javac>
 
-        <!-- copy across about.html -->
+        <!-- copy across about.html, images, and data files -->
         <copy file="${basedir}/src/main/java/com/orsoncharts/demo/about.html" tofile="${basedir}/build/com/orsoncharts/demo/about.html" />
-
         <copy todir="${basedir}/build/com/orsoncharts/demo">
             <fileset dir="${basedir}/src/main/java/com/orsoncharts/demo">
                 <include name="*.html"/>
                 <include name="*.jpg"/>
+                <include name="*.txt"/>
             </fileset>
         </copy>
 
