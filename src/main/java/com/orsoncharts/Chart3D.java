@@ -931,7 +931,7 @@ public class Chart3D implements Drawable3D, ChartElement,
             TableElement legend = this.legendBuilder.createLegend(this.plot,
                     this.legendAnchor, this.legendOrientation, this.style);
             if (legend != null) {
-                if (false) { // eval
+                if (true) { // eval
                     GridElement legend2 = new GridElement();
                     legend2.setElement(legend, "R1", "C1");
                     TextElement te = new TextElement("Orson Charts (evaluation) (c) 2013, 2014, by Object Refinery Limited", 
