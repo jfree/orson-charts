@@ -24,6 +24,7 @@ import java.io.Serializable;
 
 import com.orsoncharts.util.Anchor2D;
 import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.util.ObjectUtils;
 
 /**
  * A {@link RectanglePainter} that can fill a rectangle with a gradient (the
@@ -39,16 +40,16 @@ public final class GradientRectanglePainter implements RectanglePainter,
         Serializable {
 
     /** The first color for the gradient. */
-    private Color color1;
+    private final Color color1;
     
     /** The anchor point used to find the starting point for the gradient. */
-    private Anchor2D anchor1;
+    private final Anchor2D anchor1;
     
     /** The first color for the gradient. */
-    private Color color2;
+    private final Color color2;
     
     /** The anchor point used to find the ending point for the gradient. */
-    private Anchor2D anchor2;
+    private final Anchor2D anchor2;
     
     /**
      * Creates a new instance.  
@@ -180,6 +181,16 @@ public final class GradientRectanglePainter implements RectanglePainter,
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 67 * hash + ObjectUtils.hashCode(this.color1);
+        hash = 67 * hash + ObjectUtils.hashCode(this.anchor1);
+        hash = 67 * hash + ObjectUtils.hashCode(this.color2);
+        hash = 67 * hash + ObjectUtils.hashCode(this.anchor2);
+        return hash;
     }
     
 }
