@@ -546,7 +546,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     /**
      * Sets the marker for the specified key and sends a change event to 
      * all registered listeners.  If there is an existing marker it is replaced
-     * (the axis will no longer listen for change events on the previous 
+     * (and the axis will no longer listen for change events on the previous 
      * marker).
      * 
      * @param key  the key that identifies the marker (<code>null</code> not 
@@ -749,6 +749,15 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
         }
     }
     
+    /**
+     * Returns "row" if the axis has been configured as a row axis, "column" if
+     * the axis has been configured as a column axis, and the empty string ("")
+     * if the axis has not yet been configured.
+     * 
+     * @return A string (never <code>null</code>).
+     * 
+     * @since 1.3
+     */
     @Override
     protected String axisStr() {
         String result = "";
