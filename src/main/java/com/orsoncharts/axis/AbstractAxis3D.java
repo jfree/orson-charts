@@ -38,6 +38,7 @@ import com.orsoncharts.graphics3d.Utils2D;
 import com.orsoncharts.interaction.InteractiveElementType;
 import com.orsoncharts.marker.MarkerChangeEvent;
 import com.orsoncharts.marker.MarkerChangeListener;
+import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.ObjectUtils;
 import com.orsoncharts.util.SerialUtils;
@@ -143,7 +144,7 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
     private Color tickLabelColor;
 
     /** Storage for registered change listeners. */
-    private transient EventListenerList listenerList;
+    private final transient EventListenerList listenerList;
     
     /**
      * Creates a new label with the specified label.  If the supplied label
@@ -466,6 +467,18 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
         return bounds;
     }
  
+    /**
+     * Returns a string representing the configured type of the axis ("row",
+     * "column", "value", "x", "y" or "z" - other values may be possible in the
+     * future).  A <em>row</em> axis on a {@link CategoryPlot3D} is in the 
+     * position of a z-axis (depth), a <em>column</em> axis is in the position 
+     * of an x-axis (width), a <em>value</em> axis is in the position of a 
+     * y-axis (height).
+     * 
+     * @return A string (never <code>null</code>).
+     * 
+     * @since 1.3
+     */
     protected abstract String axisStr();
     
     /**
@@ -533,6 +546,26 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
             return false;
         }
         return true;
+    }
+
+    /**
+     * Returns a hash code for this instance.
+     * 
+     * @return A hash code. 
+     */
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 83 * hash + (this.visible ? 1 : 0);
+        hash = 83 * hash + ObjectUtils.hashCode(this.label);
+        hash = 83 * hash + ObjectUtils.hashCode(this.labelFont);
+        hash = 83 * hash + ObjectUtils.hashCode(this.labelColor);
+        hash = 83 * hash + ObjectUtils.hashCode(this.lineStroke);
+        hash = 83 * hash + ObjectUtils.hashCode(this.lineColor);
+        hash = 83 * hash + (this.tickLabelsVisible ? 1 : 0);
+        hash = 83 * hash + ObjectUtils.hashCode(this.tickLabelFont);
+        hash = 83 * hash + ObjectUtils.hashCode(this.tickLabelColor);
+        return hash;
     }
     
     /**
