@@ -31,8 +31,8 @@ public final class Chart3DHints {
     
     /**
      * The key for a hint to signal the beginning of an element.  The value
-     * should be a string containing reference data for the element in JSON 
-     * format (or maybe a Map containing the 'id' and 'ref'?).
+     * should be a string containing the element id or, alternatively, a Map 
+     * containing the 'id' (String) and 'ref' (String in JSON format).
      */
     public static final Key KEY_BEGIN_ELEMENT = new Chart3DHints.Key(0);
     
