@@ -40,8 +40,10 @@ import java.awt.Color;
 import java.awt.Rectangle;
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
+import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.io.Reader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -62,8 +64,7 @@ import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.renderer.xyz.ScatterXYZRenderer;
 import com.orsoncharts.util.Orientation;
-import java.io.InputStreamReader;
-import java.io.Reader;
+
 import org.jfree.graphics2d.svg.SVGGraphics2D;
 
 /**
@@ -75,12 +76,13 @@ import org.jfree.graphics2d.svg.SVGGraphics2D;
  * This demo isn't intended to show how you should generate HTML content in 
  * a production system, but just to provide a concrete example of the SVG
  * output from Orson Charts with JFreeSVG.
- * 
  */
 public class SVGDemo1 {
 
-    static String generateSVGForChart(Chart3D chart, int width, int height) {
+    static String generateSVGForChart(Chart3D chart, int width, int height,
+            String defsPrefix) {
         SVGGraphics2D g2 = new SVGGraphics2D(width, height);
+        g2.setDefsKeyPrefix(defsPrefix);
         chart.setElementHinting(true);
         chart.draw(g2, new Rectangle(width, height));
         return g2.getSVGElement(chart.getID());
@@ -231,7 +233,7 @@ public class SVGDemo1 {
         renderer.setSize(0.15);
         chart.getViewPoint().panLeftRight(Math.PI / 12);
         chart.getViewPoint().roll(Math.PI / 12);
-        chart.getViewPoint().setRho(1.4 * chart.getViewPoint().getRho());
+        chart.getViewPoint().setRho(1.8 * chart.getViewPoint().getRho());
         return chart;
     }
 
@@ -325,6 +327,7 @@ public class SVGDemo1 {
             writer.write("    function handleMouseOver(evt) {\n");
             writer.write("      var element = evt.target;\n");
             writer.write("      var ref = orsoncharts.Utils.findChartRef(element);\n");
+            writer.write("      var content;\n");
             writer.write("      var chartId = orsoncharts.Utils.findChartId(element);\n");
             writer.write("      if (ref != null && ref != 'ORSON_CHART_TOP_LEVEL') {\n");
             writer.write("        var refObj = JSON.parse(ref);\n");
@@ -359,23 +362,23 @@ public class SVGDemo1 {
             writer.write("        myOpentip.reposition();\n");
             writer.write("        myOpentip.show();\n");
 
-            writer.write("     }\n");
+            writer.write("      }\n");
             writer.write("    }\n");
             writer.write("</script>\n");
             
             writer.write("<p>\n");
             Chart3D pieChart = createPieChart("PieChart1");
-            writer.write(generateSVGForChart(pieChart, 600, 370) + "\n");
+            writer.write(generateSVGForChart(pieChart, 600, 370, "defs1_") + "\n");
             writer.write("</p>\n");
             
             writer.write("<p>\n");
             Chart3D barChart = createBarChart("BarChart1");
-            writer.write(generateSVGForChart(barChart, 600, 370) + "\n");
+            writer.write(generateSVGForChart(barChart, 600, 370, "defs2_") + "\n");
             writer.write("</p>\n");
             
             writer.write("<p>\n");
             Chart3D scatterChart = createScatterChart("ScatterChart1");
-            writer.write(generateSVGForChart(scatterChart, 600, 370) + "\n");
+            writer.write(generateSVGForChart(scatterChart, 600, 370, "defs3_") + "\n");
             writer.write("</p>\n");
             
             writer.write("</body>\n");
