@@ -17,6 +17,7 @@ import java.util.List;
 import java.io.Serializable;
 
 import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.util.ObjectUtils;
 
 /**
  * A data series containing a sequence of <code>(x, y, z)</code> data items.  
@@ -31,10 +32,10 @@ import com.orsoncharts.util.ArgChecks;
 public class XYZSeries implements Serializable {
 
     /** The series key (never <code>null</code>). */
-    private Comparable<?> key;
+    private final Comparable<?> key;
 
     /** The data items in the series. */
-    private List<XYZDataItem> items;
+    private final List<XYZDataItem> items;
 
     /**
      * Creates a new series with the specified key.
@@ -143,4 +144,12 @@ public class XYZSeries implements Serializable {
         }
         return true;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 41 * hash + ObjectUtils.hashCode(this.key);
+        return hash;
+    }
+
 }
