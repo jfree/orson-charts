@@ -419,8 +419,8 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
                     t.getDataValue());
             if (hinting) {
                 Map m = new HashMap<String, String>();
-                m.put("ref", "{\"type\": \"valueTickLabel\", \"axis\": " 
-                        + axisStr() + ", \"value\": \"" 
+                m.put("ref", "{\"type\": \"valueTickLabel\", \"axis\": \"" 
+                        + axisStr() + "\", \"value\": \"" 
                         + t.getDataValue() + "\"}");
                 g2.setRenderingHint(Chart3DHints.KEY_BEGIN_ELEMENT, m);
             }
