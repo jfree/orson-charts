@@ -51,6 +51,12 @@ If you have any questions, don't hesitate to send a mail to info@object-refinery
 History
 -------
 
+Not Yet Released : Version 1.4
+
+- fixed bug in hinting for tick labels on NumberAxis3D;
+- fixed Utils.js functions that didn't work with Internet Explorer 9.
+
+
 11-Apr-2014 : Version 1.3
 
 - added chart mouse event and tooltip support for the chart viewer in Swing;
