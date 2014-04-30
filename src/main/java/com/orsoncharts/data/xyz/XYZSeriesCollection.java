@@ -21,6 +21,7 @@ import com.orsoncharts.data.AbstractDataset3D;
 import com.orsoncharts.data.JSONUtils;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.renderer.xyz.XYZRenderer;
+import com.orsoncharts.util.ObjectUtils;
 
 /**
  * A collection of {@link XYZSeries} objects (implements the {@link XYZDataset}
@@ -36,7 +37,7 @@ public class XYZSeriesCollection extends AbstractDataset3D
         implements XYZDataset, Serializable {
 
     /** Storage for the data series. */
-    private List<XYZSeries> series;
+    private final List<XYZSeries> series;
 
     /**
      * Creates a new (empty) <code>XYZSeriesCollection</code> instance.
@@ -223,6 +224,13 @@ public class XYZSeriesCollection extends AbstractDataset3D
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 59 * hash + ObjectUtils.hashCode(this.series);
+        return hash;
     }
     
     /**
