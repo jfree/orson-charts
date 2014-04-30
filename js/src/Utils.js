@@ -21,7 +21,7 @@ orsoncharts.Utils.findChartRef = function(element) {
     var found = false;
     var current = element;
     while (!found) {
-        current = current.parentElement;
+        current = current.parentNode;
         if (current != null) {
             id = current.getAttribute("jfreesvg:ref");
             found = (id != null);
@@ -38,7 +38,7 @@ orsoncharts.Utils.findChartId = function(element) {
     var found = false;
     var current = element;
     while (!found) {
-        current = current.parentElement;
+        current = current.parentNode;
         if (current != null) {
             var ref = current.getAttribute("jfreesvg:ref");
             if (ref == 'ORSON_CHART_TOP_LEVEL') {
