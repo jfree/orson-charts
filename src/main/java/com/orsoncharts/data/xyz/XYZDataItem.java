@@ -26,13 +26,13 @@ import java.io.Serializable;
 public class XYZDataItem implements Serializable {
 
     /** The x-value. */
-    private double x;
+    private final double x;
 
     /** The y-value. */
-    private double y;
+    private final double y;
 
     /** The z-value. */
-    private double z;
+    private final double z;
 
     /**
      * Creates a new (immutable) instance.
@@ -100,6 +100,18 @@ public class XYZDataItem implements Serializable {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 79 * hash + (int) (Double.doubleToLongBits(this.x) 
+                ^ (Double.doubleToLongBits(this.x) >>> 32));
+        hash = 79 * hash + (int) (Double.doubleToLongBits(this.y) 
+                ^ (Double.doubleToLongBits(this.y) >>> 32));
+        hash = 79 * hash + (int) (Double.doubleToLongBits(this.z) 
+                ^ (Double.doubleToLongBits(this.z) >>> 32));
+        return hash;
     }
 
 }
