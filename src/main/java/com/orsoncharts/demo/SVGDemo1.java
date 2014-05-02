@@ -50,6 +50,8 @@ import java.util.logging.Logger;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
 import com.orsoncharts.TitleAnchor;
+import com.orsoncharts.axis.NumberAxis3D;
+import com.orsoncharts.axis.StandardCategoryAxis3D;
 import com.orsoncharts.data.DataUtils;
 import com.orsoncharts.data.DefaultKeyedValues;
 import com.orsoncharts.data.JSONUtils;
@@ -60,6 +62,8 @@ import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.category.StandardCategoryDataset3D;
 import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.legend.LegendAnchor;
+import com.orsoncharts.marker.CategoryMarker;
+import com.orsoncharts.marker.RangeMarker;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.renderer.xyz.ScatterXYZRenderer;
@@ -199,6 +203,13 @@ public class SVGDemo1 {
         chart.setLegendAnchor(LegendAnchor.BOTTOM_RIGHT);
         CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
         plot.setGridlinePaintForValues(Color.BLACK);
+        StandardCategoryAxis3D rowAxis = (StandardCategoryAxis3D) plot.getRowAxis();
+        CategoryMarker rowMarker = new CategoryMarker("Apple");
+        rowAxis.setMarker("Apple", rowMarker);
+        StandardCategoryAxis3D columnAxis = (StandardCategoryAxis3D) plot.getColumnAxis();
+        CategoryMarker columnMarker = new CategoryMarker("Q4/12");
+        columnAxis.setMarker("Q4/12", columnMarker);
+        chart.getViewPoint().setRho(1.3 * chart.getViewPoint().getRho());
         return chart;
     }
 
@@ -229,11 +240,14 @@ public class SVGDemo1 {
         chart.setLegendAnchor(LegendAnchor.BOTTOM_LEFT);
         chart.setLegendOrientation(Orientation.VERTICAL);
         XYZPlot plot = (XYZPlot) chart.getPlot();
+        NumberAxis3D yAxis = (NumberAxis3D) plot.getYAxis();
+        RangeMarker marker1 = new RangeMarker(3.5, 4.0);
+        yAxis.setMarker("M1", marker1);
         ScatterXYZRenderer renderer = (ScatterXYZRenderer) plot.getRenderer();
         renderer.setSize(0.15);
         chart.getViewPoint().panLeftRight(Math.PI / 12);
         chart.getViewPoint().roll(Math.PI / 12);
-        chart.getViewPoint().setRho(1.8 * chart.getViewPoint().getRho());
+        chart.getViewPoint().setRho(1.6 * chart.getViewPoint().getRho());
         return chart;
     }
 
