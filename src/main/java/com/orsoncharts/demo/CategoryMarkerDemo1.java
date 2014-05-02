@@ -242,7 +242,27 @@ public class CategoryMarkerDemo1 extends JFrame {
     public static JPanel createDemoPanel() {
         CustomDemoPanel content = new CustomDemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
-        CategoryDataset3D dataset = createDataset();
+        Chart3D chart = createChart(createDataset());
+        Chart3DPanel chartPanel = new Chart3DPanel(chart);
+        chartPanel.setMargin(0.30);
+        chartPanel.getViewPoint().panLeftRight(-0.30);
+        chartPanel.getViewPoint().moveUpDown(-0.12);
+        chartPanel.getViewPoint().roll(-Math.PI / 60);
+        content.setChartPanel(chartPanel);
+        chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
+        chartPanel.addChartMouseListener(content);
+        content.add(new DisplayPanel3D(chartPanel));
+        return content;
+    }
+  
+    /**
+     * Creates a bar chart using the supplied dataset.
+     * 
+     * @param dataset  the dataset.
+     * 
+     * @return A bar chart.
+     */
+    public static Chart3D createChart(CategoryDataset3D dataset) {
         Chart3D chart = Chart3DFactory.createBarChart("Quarterly Revenues", 
                 "For some large IT companies", dataset, null, "Quarter", 
                 "$billion Revenues");
@@ -269,18 +289,9 @@ public class CategoryMarkerDemo1 extends JFrame {
         colorSource.setHighlightRowIndex(3);
         colorSource.setHighlightColumnIndex(6);
         renderer.setColorSource(colorSource);
-        Chart3DPanel chartPanel = new Chart3DPanel(chart);
-        chartPanel.setMargin(0.30);
-        chartPanel.getViewPoint().panLeftRight(-0.30);
-        chartPanel.getViewPoint().moveUpDown(-0.12);
-        chartPanel.getViewPoint().roll(-Math.PI / 60);
-        content.setChartPanel(chartPanel);
-        chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
-        chartPanel.addChartMouseListener(content);
-        content.add(new DisplayPanel3D(chartPanel));
-        return content;
+        return chart;
     }
-  
+    
     /**
      * Creates a sample dataset (hard-coded for the purpose of keeping the
      * demo self-contained - in practice you would normally read your data
@@ -288,7 +299,7 @@ public class CategoryMarkerDemo1 extends JFrame {
      * 
      * @return A sample dataset.
      */
-    private static CategoryDataset3D createDataset() {    
+    public static CategoryDataset3D createDataset() {    
         StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
 
         DefaultKeyedValues<Double> s1 = new DefaultKeyedValues<Double>();

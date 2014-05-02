@@ -81,7 +81,23 @@ public class BarChart3DDemo1 extends JFrame {
     public static JPanel createDemoPanel() {
         DemoPanel content = new DemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
-        CategoryDataset3D dataset = createDataset();
+        Chart3D chart = createChart(createDataset());
+        Chart3DPanel chartPanel = new Chart3DPanel(chart);
+        chartPanel.setMargin(0.30);
+        content.setChartPanel(chartPanel);
+        chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
+        content.add(new DisplayPanel3D(chartPanel));
+        return content;
+    }
+    
+    /**
+     * Creates a bar chart with the supplied dataset.
+     * 
+     * @param dataset  the dataset.
+     * 
+     * @return A bar chart. 
+     */
+    public static Chart3D createChart(CategoryDataset3D dataset) {
         Chart3D chart = Chart3DFactory.createBarChart("Quarterly Revenues", 
                 "For some large IT companies", dataset, null, "Quarter", 
                 "$billion Revenues");
@@ -89,12 +105,7 @@ public class BarChart3DDemo1 extends JFrame {
         chart.setLegendAnchor(LegendAnchor.BOTTOM_RIGHT);
         CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
         plot.setGridlinePaintForValues(Color.BLACK);
-        Chart3DPanel chartPanel = new Chart3DPanel(chart);
-        chartPanel.setMargin(0.30);
-        content.setChartPanel(chartPanel);
-        chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
-        content.add(new DisplayPanel3D(chartPanel));
-        return content;
+        return chart;
     }
   
     /**
@@ -104,7 +115,7 @@ public class BarChart3DDemo1 extends JFrame {
      * 
      * @return A sample dataset.
      */
-    private static CategoryDataset3D createDataset() {    
+    public static CategoryDataset3D createDataset() {    
         StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
                 
         //DefaultKeyedValues s0 = new DefaultKeyedValues();

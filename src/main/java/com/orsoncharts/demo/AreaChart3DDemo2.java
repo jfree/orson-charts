@@ -81,7 +81,22 @@ public class AreaChart3DDemo2 extends JFrame {
     public static JPanel createDemoPanel() {
         DemoPanel content = new DemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
-        CategoryDataset3D dataset = createDataset();
+        Chart3D chart = createChart(createDataset());
+        Chart3DPanel chartPanel = new Chart3DPanel(chart);
+        content.setChartPanel(chartPanel);
+        content.add(new DisplayPanel3D(chartPanel));
+        chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
+        return content;
+    }
+  
+    /**
+     * Creates an area chart using the specified <code>dataset</code>.
+     * 
+     * @param dataset  the dataset.
+     * 
+     * @return An area chart. 
+     */
+    public static Chart3D createChart(CategoryDataset3D dataset) {
         Chart3D chart = Chart3DFactory.createAreaChart("AreaChart3DDemo2", 
                 "Chart created with Orson Charts", dataset, "Row", 
                 "Category", "Value");
@@ -93,13 +108,9 @@ public class AreaChart3DDemo2 extends JFrame {
         AreaRenderer3D renderer = (AreaRenderer3D) plot.getRenderer();
         renderer.setBaseColor(Color.GRAY);
         renderer.setColors(Colors.getSAPMultiColor());
-        Chart3DPanel chartPanel = new Chart3DPanel(chart);
-        content.setChartPanel(chartPanel);
-        content.add(new DisplayPanel3D(chartPanel));
-        chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
-        return content;
+        return chart;
     }
-  
+    
     /**
      * Creates a sample dataset (hard-coded for the purpose of keeping the
      * demo self-contained - in practice you would normally read your data
@@ -107,7 +118,7 @@ public class AreaChart3DDemo2 extends JFrame {
      * 
      * @return A sample dataset.
      */
-    private static CategoryDataset3D createDataset() {    
+    public static CategoryDataset3D createDataset() {    
         StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
                 
         DefaultKeyedValues<Number> s1 = new DefaultKeyedValues<Number>();

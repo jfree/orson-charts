@@ -86,7 +86,22 @@ public class BarChart3DDemo2 extends JFrame {
     public static JPanel createDemoPanel() {
         DemoPanel content = new DemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
-        CategoryDataset3D dataset = createDataset();
+        Chart3D chart = createChart(createDataset());
+        Chart3DPanel chartPanel = new Chart3DPanel(chart);
+        content.setChartPanel(chartPanel);
+        content.add(new DisplayPanel3D(chartPanel));
+        chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
+        return content;
+    }
+  
+    /**
+     * Creates a bar chart with the supplied dataset.
+     * 
+     * @param dataset  the dataset.
+     * 
+     * @return A bar chart. 
+     */
+    public static Chart3D createChart(CategoryDataset3D dataset) {
         Chart3D chart = Chart3DFactory.createBarChart(
                 "Average Maximum Temperature", 
                 "http://www.worldclimateguide.co.uk/climateguides/", dataset, 
@@ -112,14 +127,9 @@ public class BarChart3DDemo2 extends JFrame {
         zAxis.setLineColor(new Color(0, 0, 0, 0));
         plot.getRenderer().setColors(Colors.createPastelColors());
         plot.setToolTipGenerator(new StandardCategoryItemLabelGenerator(
-                "%2$s (%3$s) = %4$s degrees"));
-        Chart3DPanel chartPanel = new Chart3DPanel(chart);
-        content.setChartPanel(chartPanel);
-        content.add(new DisplayPanel3D(chartPanel));
-        chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
-        return content;
+                "%2$s (%3$s) = %4$s degrees"));        return chart;    
     }
-  
+    
     /**
      * Creates a sample dataset (hard-coded for the purpose of keeping the
      * demo self-contained - in practice you would normally read your data
@@ -127,7 +137,7 @@ public class BarChart3DDemo2 extends JFrame {
      * 
      * @return A sample dataset.
      */
-    private static CategoryDataset3D createDataset() {    
+    public static CategoryDataset3D createDataset() {    
         StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
                 
         DefaultKeyedValues<Number> s3 = new DefaultKeyedValues<Number>();
