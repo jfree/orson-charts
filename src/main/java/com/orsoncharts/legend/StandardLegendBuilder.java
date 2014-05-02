@@ -255,6 +255,7 @@ public final class StandardLegendBuilder implements LegendBuilder,
                 orientation, style);
         if (this.header != null || this.footer != null) {
             GridElement compositeLegend = new GridElement();
+            compositeLegend.setBackground(null);
             if (header != null) {
                 TextElement he = new TextElement(this.header, 
                         style.getLegendHeaderFont());
