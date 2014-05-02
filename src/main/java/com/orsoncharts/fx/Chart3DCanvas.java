@@ -31,6 +31,13 @@ public class Chart3DCanvas extends Canvas {
     
     private Chart3D chart;
     
+    /** 
+     * The minimum viewing distance (zooming in will not go closer than this).
+     */
+    private double minViewingDistance;
+
+    private double maxViewingDistanceMultiplier;
+    
     private Graphics2D g2;
 
     /** The angle increment for panning left and right (in radians). */
@@ -59,9 +66,15 @@ public class Chart3DCanvas extends Canvas {
      */
     private Offset2D offsetAtMousePressed;
     
-    
+    /**
+     * Creates a new canvas to display the supplied chart in JavaFX.
+     * 
+     * @param chart  the chart (<code>null</code> not permitted). 
+     */
     public Chart3DCanvas(Chart3D chart) {
         this.chart = chart;
+        this.minViewingDistance = chart.getDimensions().getDiagonalLength();
+        this.maxViewingDistanceMultiplier = 8.0;        
         widthProperty().addListener(evt -> draw());
         heightProperty().addListener(evt -> draw());
         this.g2 = new FXGraphics2D(getGraphicsContext2D());
@@ -70,18 +83,13 @@ public class Chart3DCanvas extends Canvas {
             @Override
             public void handle(ScrollEvent event) {
                 double units = event.getDeltaY();
-                //double maxViewingDistance = this.maxViewingDistanceMultiplier 
-                //* this.minViewingDistance;
+                double maxViewingDistance = Chart3DCanvas.this.maxViewingDistanceMultiplier 
+                        * Chart3DCanvas.this.minViewingDistance;
                 ViewPoint3D vp = Chart3DCanvas.this.chart.getViewPoint();
-                double valRho = vp.getRho();
-                
-                //double valRho = Math.max(this.minViewingDistance, 
-                //Math.min(maxViewingDistance, 
-                //this.drawable.getViewPoint().getRho() + units));
-                vp.setRho(valRho + units);
-        Chart3DCanvas.this.draw();
-                
-               
+                double valRho = Math.max(Chart3DCanvas.this.minViewingDistance, 
+                        Math.min(maxViewingDistance, vp.getRho() + units));
+                vp.setRho(valRho);
+                Chart3DCanvas.this.draw();
             }
         });
         setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -103,6 +111,11 @@ public class Chart3DCanvas extends Canvas {
             }
         });
         
+    }
+    
+    public void setChart(Chart3D chart) {
+        this.chart = chart;
+        draw();
     }
         
     public Graphics2D getGraphics2D() {
