@@ -49,25 +49,24 @@ import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.data.Dataset3D;
 import com.orsoncharts.data.xyz.XYZDataset;
+import com.orsoncharts.demo.AreaChart3DDemo1;
 import com.orsoncharts.demo.DemoDescription;
 import com.orsoncharts.demo.XYZBarChart3DDemo1;
 import com.orsoncharts.fx.Chart3DCanvas;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
+import javafx.scene.layout.BorderPane;
 
 /**
  * Demo application for Orson Charts in JavaFX.
@@ -79,6 +78,8 @@ public class OrsonChartsFXDemo extends Application {
     private Map<String, DemoDescription> descriptions;
     
     private Chart3DCanvas canvas;
+    
+    private WebView chartDescription;
 
     public OrsonChartsFXDemo() {
         super();    
@@ -95,8 +96,8 @@ public class OrsonChartsFXDemo extends Application {
         SplitPane sp = new SplitPane();
         final StackPane sp1 = new StackPane();
         sp1.getChildren().add(createTreeView());
-        final StackPane sp2 = new StackPane();
-        sp2.getChildren().add(createChartPane());
+        final BorderPane sp2 = new BorderPane();
+        sp2.setCenter(createChartPane());
  
         sp.getItems().addAll(sp1, sp2);
         sp.setDividerPositions(0.3f, 0.6f);
@@ -112,7 +113,8 @@ public class OrsonChartsFXDemo extends Application {
         tab2.setContent(browser);
         tabPane.getTabs().add(tab2);        
 
-        stage.setScene(new Scene(tabPane));
+        Scene scene = new Scene(tabPane, 1024, 768);
+        stage.setScene(scene);
         stage.setTitle("Orson Charts Demo for JavaFX");
         stage.show();
     }
@@ -250,6 +252,9 @@ public class OrsonChartsFXDemo extends Application {
                 
                 this.canvas.setChart(chart);
                 this.canvas.setOpacity(1.0);
+                String urlStr = c.getResource(name.substring(0, name.indexOf('.')) + ".html").toString();
+                this.chartDescription.getEngine().load(urlStr);
+                
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(OrsonChartsFXDemo.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SecurityException ex) {
@@ -263,9 +268,7 @@ public class OrsonChartsFXDemo extends Application {
             }
 
         }
-        // create the chart 
-        // update the
-        System.out.println(name);        
+     
     }
     
     private SplitPane createChartPane() {
@@ -275,19 +278,23 @@ public class OrsonChartsFXDemo extends Application {
       
         SplitPane splitter = new SplitPane();
         splitter.setOrientation(Orientation.VERTICAL);
-        final StackPane stackPane = new StackPane();
-        stackPane.getChildren().add(canvas);
+        final BorderPane borderPane = new BorderPane();
+        borderPane.setCenter(canvas);
         
        // Bind canvas size to stack pane size.
         canvas.widthProperty().bind(
-                       stackPane.widthProperty());
+                       borderPane.widthProperty());
         canvas.heightProperty().bind(
-                       stackPane.heightProperty());
-        
+                       borderPane.heightProperty());
 
         final StackPane sp2 = new StackPane();
-        sp2.getChildren().add(new Button("Chart Description goes here."));  
-        splitter.getItems().addAll(stackPane, sp2);
+        
+        this.chartDescription = new WebView();
+        WebEngine webEngine = chartDescription.getEngine();
+        webEngine.load(AreaChart3DDemo1.class.getResource("AreaChart3DDemo1.html").toString());
+        
+        sp2.getChildren().add(chartDescription);  
+        splitter.getItems().addAll(borderPane, sp2);
         splitter.setDividerPositions(0.75f, 0.25f);
         return splitter;
     }
