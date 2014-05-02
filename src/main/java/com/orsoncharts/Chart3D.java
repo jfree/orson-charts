@@ -808,12 +808,7 @@ public class Chart3D implements Drawable3D, ChartElement,
      */
     @Override
     public RenderingInfo draw(Graphics2D g2, Rectangle2D bounds) {
-        if (this.elementHinting) {
-            Map m = new HashMap<String, String>();
-            m.put("id", this.id);
-            m.put("ref", "ORSON_CHART_TOP_LEVEL");
-            g2.setRenderingHint(Chart3DHints.KEY_BEGIN_ELEMENT, m);
-        }
+        beginElement(g2, this.id, "ORSON_CHART_TOP_LEVEL");
         Shape savedClip = g2.getClip();
         g2.clip(bounds);
         g2.addRenderingHints(this.renderingHints);
@@ -933,6 +928,7 @@ public class Chart3D implements Drawable3D, ChartElement,
             if (legend != null) {
                 if (true) { // eval
                     GridElement legend2 = new GridElement();
+                    legend2.setBackground(null);
                     legend2.setElement(legend, "R1", "C1");
                     TextElement te = new TextElement("Orson Charts (evaluation) (c) 2013, 2014, by Object Refinery Limited", 
                             this.style.getLegendFooterFont());
@@ -957,9 +953,7 @@ public class Chart3D implements Drawable3D, ChartElement,
             this.title.draw(g2, titleArea, onDrawHandler);
         }
         g2.setClip(savedClip);
-        if (this.elementHinting) {
-            g2.setRenderingHint(Chart3DHints.KEY_END_ELEMENT, Boolean.TRUE);
-        }
+        endElement(g2);
         return info;
     }
     
@@ -1377,22 +1371,13 @@ public class Chart3D implements Drawable3D, ChartElement,
                         ppts[f.getVertexIndex(3)]);
                 String label = p.getSectionLabelGenerator().generateLabel(
                         p.getDataset(), key);
-                
-                if (this.elementHinting) {
-                    Map m = new HashMap<String, String>();
-                    m.put("ref", "{\"type\": \"sectionLabel\", \"key\": \"" 
-                            + key.toString() + "\"}");
-                    g2.setRenderingHint(Chart3DHints.KEY_BEGIN_ELEMENT, m);
-                }
-                
+                String ref = "{\"type\": \"sectionLabel\", \"key\": \"" 
+                        + key.toString() + "\"}";
+                beginElementWithRef(g2, ref);
                 Rectangle2D bounds = TextUtils.drawAlignedString(label, g2, 
                         (float) pt.getX(), (float) pt.getY(), 
                         TextAnchor.CENTER);
-                
-                if (this.elementHinting) {
-                    g2.setRenderingHint(Chart3DHints.KEY_END_ELEMENT, 
-                            Boolean.TRUE);
-                }
+                endElement(g2);
                 
                 if (info != null) {
                     RenderedElement pieLabelRE = new RenderedElement(
@@ -1401,6 +1386,27 @@ public class Chart3D implements Drawable3D, ChartElement,
                     info.addOffsetElement(pieLabelRE);
                 }
             }
+        }
+    }
+    
+    private void beginElementWithRef(Graphics2D g2, String ref) {
+        beginElement(g2, null, ref);    
+    }
+    
+    private void beginElement(Graphics2D g2, String id, String ref) {
+        if (this.elementHinting) {
+            Map m = new HashMap<String, String>();
+            if (id != null) {
+                m.put("id", id);
+            }
+            m.put("ref", ref);            
+            g2.setRenderingHint(Chart3DHints.KEY_BEGIN_ELEMENT, m);            
+        }    
+    }
+
+    private void endElement(Graphics2D g2) {
+        if (this.elementHinting) {
+            g2.setRenderingHint(Chart3DHints.KEY_END_ELEMENT, Boolean.TRUE);
         }
     }
     
@@ -1674,7 +1680,10 @@ public class Chart3D implements Drawable3D, ChartElement,
         for (MarkerData m : xmarkers) {
             m.updateProjection(pts);
             Marker marker = fetchXMarker(this.plot, m.getMarkerKey());
+            beginElementWithRef(g2, "{\"type\": \"xMarker\", \"key\": \"" 
+                    + m.getMarkerKey() + "\"}");
             marker.draw(g2, m, true);
+            endElement(g2);
         }
         
         // y markers
@@ -1682,15 +1691,21 @@ public class Chart3D implements Drawable3D, ChartElement,
         for (MarkerData m : ymarkers) {
             m.updateProjection(pts);
             Marker marker = fetchYMarker(this.plot, m.getMarkerKey());
+            beginElementWithRef(g2, "{\"type\": \"yMarker\", \"key\": \"" 
+                    + m.getMarkerKey() + "\"}");
             marker.draw(g2, m, false);                
+            endElement(g2);
         }
         
         // z markers
         List<MarkerData> zmarkers = face.getZMarkers();
         for (MarkerData m : zmarkers) {
             m.updateProjection(pts);
+            beginElementWithRef(g2, "{\"type\": \"zMarker\", \"key\": \"" 
+                    + m.getMarkerKey() + "\"}");
             Marker marker = fetchZMarker(this.plot, m.getMarkerKey());
             marker.draw(g2, m, false);
+            endElement(g2);
         }
     }
     
