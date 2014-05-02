@@ -139,12 +139,12 @@ public class Chart3DCanvas extends Canvas {
  
     @Override
     public double prefWidth(double height) {
-        return getWidth();
+        return 100;
     }
  
     @Override
     public double prefHeight(double width) {
-        return getHeight();
+        return 100;
     }
 
 }
