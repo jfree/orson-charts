@@ -78,7 +78,22 @@ public class AreaChart3DDemo1 extends JFrame {
     public static DemoPanel createDemoPanel() {
         DemoPanel content = new DemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
-        CategoryDataset3D dataset = createDataset();
+        Chart3D chart = createChart(createDataset());
+        Chart3DPanel chartPanel = new Chart3DPanel(chart);
+        content.setChartPanel(chartPanel);
+        content.add(new DisplayPanel3D(chartPanel));
+        chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
+        return content;
+    }
+  
+    /**
+     * Creates an area chart using the specified <code>dataset</code>.
+     * 
+     * @param dataset  the dataset.
+     * 
+     * @return An area chart. 
+     */
+    public static Chart3D createChart(CategoryDataset3D dataset) {
         Chart3D chart = Chart3DFactory.createAreaChart(
                 "Reported Revenues By Quarter", 
                 "Large companies in the IT industry", dataset, "Company", 
@@ -88,13 +103,9 @@ public class AreaChart3DDemo1 extends JFrame {
         plot.getRowAxis().setVisible(false);
         AreaRenderer3D renderer = (AreaRenderer3D) plot.getRenderer();
         renderer.setBaseColor(Color.GRAY);
-        Chart3DPanel chartPanel = new Chart3DPanel(chart);
-        content.setChartPanel(chartPanel);
-        content.add(new DisplayPanel3D(chartPanel));
-        chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
-        return content;
+        return chart;
     }
-  
+    
     /**
      * Creates a sample dataset (hard-coded for the purpose of keeping the
      * demo self-contained - in practice you would normally read your data
@@ -102,7 +113,7 @@ public class AreaChart3DDemo1 extends JFrame {
      * 
      * @return A sample dataset.
      */
-    private static CategoryDataset3D createDataset() {    
+    public static CategoryDataset3D createDataset() {    
         StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
                 
         DefaultKeyedValues<Double> s1 = new DefaultKeyedValues<Double>();
