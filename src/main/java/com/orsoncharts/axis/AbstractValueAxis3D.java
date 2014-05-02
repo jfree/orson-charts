@@ -74,6 +74,12 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
      */
     private Range defaultAutoRange;
 
+    /** 
+     * The minimum length for the axis range when auto-calculated.  This will
+     * be applied, for example, when the dataset contains just a single value.
+     */
+    private double minAutoRangeLength;
+    
     /** The tick label offset (number of Java2D units). */
     private double tickLabelOffset;
     
@@ -95,14 +101,22 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
     /** Storage for value markers for the axis (empty by default). */
     private Map<String, ValueMarker> valueMarkers;
     
+    /**
+     * Creates a new axis instance.
+     * 
+     * @param label  the axis label (<code>null</code> permitted).
+     * @param range  the axis range (<code>null</code> not permitted).
+     */
     public AbstractValueAxis3D(String label, Range range) {
         super(label);
+        ArgChecks.nullNotPermitted(range, "range");
         this.configuredType = null;
         this.range = range;
         this.autoAdjustRange = true;
         this.lowerMargin = 0.05;
         this.upperMargin = 0.05;
         this.defaultAutoRange = new Range(0.0, 1.0);
+        this.minAutoRangeLength = 0.001;
         this.tickLabelOffset = 5.0;
         this.tickLabelOrientation = LabelOrientation.PARALLEL;
         this.tickLabelFactor = 1.4;
@@ -305,6 +319,32 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
         ArgChecks.nullNotPermitted(range, "range");
         this.defaultAutoRange = range;
         fireChangeEvent(true);
+    }
+    
+    /**
+     * Returns the minimum length for the axis range when auto-calculated.
+     * The default value is 0.001.
+     * 
+     * @return The minimum length.
+     * 
+     * @since 1.4
+     */
+    public double getMinAutoRangeLength() {
+        return this.minAutoRangeLength;
+    }
+    
+    /**
+     * Sets the minimum length for the axis range when it is auto-calculated
+     * and sends a change event to all registered listeners.
+     * 
+     * @param length  the new minimum length.
+     * 
+     * @since 1.4
+     */
+    public void setMinAutoRangeLength(double length) {
+        ArgChecks.positiveRequired(length, "length");
+        this.minAutoRangeLength = length;
+        fireChangeEvent(this.range.getLength() < length);
     }
 
     /**

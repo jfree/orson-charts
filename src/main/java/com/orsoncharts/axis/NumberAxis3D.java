@@ -246,6 +246,12 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
                 upperBound = 0.0;
             }
         }
+        if ((upperBound - lowerBound) < getMinAutoRangeLength()) {
+            double adj = (getMinAutoRangeLength() - (upperBound - lowerBound)) 
+                    / 2.0;
+            lowerBound -= adj;
+            upperBound += adj;
+        }
         return new Range(lowerBound, upperBound);
     }
     
@@ -368,10 +374,12 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
                         + t.getDataValue() + "\"}");
                 g2.setRenderingHint(Chart3DHints.KEY_BEGIN_ELEMENT, m);
             }
-
             Shape bounds = TextUtils.drawRotatedString(tickLabel, g2, 
                     (float) perpLine.getX2(), (float) perpLine.getY2(), 
                     textAnchor, axisTheta, textAnchor);
+            if (hinting) {
+                g2.setRenderingHint(Chart3DHints.KEY_END_ELEMENT, true);
+            }
             if (info != null) {
                 RenderedElement tickLabelElement = new RenderedElement(
                         InteractiveElementType.VALUE_AXIS_TICK_LABEL, bounds);
