@@ -83,7 +83,22 @@ public class LineChart3DDemo1 extends JFrame {
     public static JPanel createDemoPanel() {
         DemoPanel content = new DemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
-        CategoryDataset3D dataset = createDataset();
+        Chart3D chart = createChart(createDataset());
+        Chart3DPanel chartPanel = new Chart3DPanel(chart);
+        content.setChartPanel(chartPanel);
+        chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
+        content.add(new DisplayPanel3D(chartPanel));
+        return content;
+    }
+  
+    /**
+     * Creates a line chart with the supplied dataset.
+     * 
+     * @param dataset  the dataset.
+     * 
+     * @return A line chart.
+     */
+    public static Chart3D createChart(CategoryDataset3D dataset) {
         Chart3D chart = Chart3DFactory.createLineChart(
                 "Web Browser Market Share", 
                 "Source: http://gs.statcounter.com", dataset, null, null, 
@@ -95,13 +110,9 @@ public class LineChart3DDemo1 extends JFrame {
         valueAxis.setTickSelector(new NumberTickSelector(true));
         plot.getRenderer().setColors(Colors.createFancyDarkColors());
         chart.setViewPoint(ViewPoint3D.createAboveViewPoint(30));
-        Chart3DPanel chartPanel = new Chart3DPanel(chart);
-        content.setChartPanel(chartPanel);
-        chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
-        content.add(new DisplayPanel3D(chartPanel));
-        return content;
+        return chart;    
     }
-  
+    
     /**
      * Creates a sample dataset (hard-coded for the purpose of keeping the
      * demo self-contained - in practice you would normally read your data
@@ -109,7 +120,7 @@ public class LineChart3DDemo1 extends JFrame {
      * 
      * @return A sample dataset.
      */
-    private static CategoryDataset3D createDataset() {
+    public static CategoryDataset3D createDataset() {
         StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
         dataset.addSeriesAsRow("Safari", createSafariData());
         dataset.addSeriesAsRow("Firefox", createFirefoxData());

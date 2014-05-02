@@ -82,7 +82,22 @@ public class ScatterPlot3DDemo1 extends JFrame {
     public static JPanel createDemoPanel() {
         DemoPanel content = new DemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
-        XYZDataset dataset = createDataset();
+        Chart3D chart = createChart(createDataset());
+        Chart3DPanel chartPanel = new Chart3DPanel(chart);
+        content.setChartPanel(chartPanel);
+        chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
+        content.add(new DisplayPanel3D(chartPanel));
+        return content;
+    }
+
+    /**
+     * Creates a scatter chart based on the supplied dataset.
+     * 
+     * @param dataset  the dataset.
+     * 
+     * @return A scatter chart. 
+     */
+    public static Chart3D createChart(XYZDataset dataset) {
         Chart3D chart = Chart3DFactory.createScatterChart("ScatterPlot3DDemo1", 
                 "Chart created with Orson Charts", dataset, "X", "Y", "Z");
         XYZPlot plot = (XYZPlot) chart.getPlot();
@@ -93,13 +108,9 @@ public class ScatterPlot3DDemo1 extends JFrame {
         renderer.setSize(0.15);
         renderer.setColors(Colors.createIntenseColors());
         chart.setViewPoint(ViewPoint3D.createAboveLeftViewPoint(40));
-        Chart3DPanel chartPanel = new Chart3DPanel(chart);
-        content.setChartPanel(chartPanel);
-        chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
-        content.add(new DisplayPanel3D(chartPanel));
-        return content;
+        return chart;
     }
-
+    
     /**
      * Creates a sample dataset (hard-coded for the purpose of keeping the
      * demo self-contained - in practice you would normally read your data
@@ -107,7 +118,7 @@ public class ScatterPlot3DDemo1 extends JFrame {
      * 
      * @return A sample dataset.
      */
-    private static XYZDataset createDataset() {
+    public static XYZDataset createDataset() {
         XYZSeries s1 = createRandomSeries("S1", 10);
         XYZSeries s2 = createRandomSeries("S2", 50);
         XYZSeries s3 = createRandomSeries("S3", 150);

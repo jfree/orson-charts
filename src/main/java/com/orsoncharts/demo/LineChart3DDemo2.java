@@ -78,11 +78,7 @@ public class LineChart3DDemo2 extends JFrame {
     public static JPanel createDemoPanel() {
         DemoPanel content = new DemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
-        CategoryDataset3D dataset = createDataset();
-        Chart3D chart = Chart3DFactory.createLineChart("Quarterly Profits", 
-                "Large Banks in USA", dataset, null, "Quarter", "$ millions");
-        chart.setChartBoxColor(new Color(255, 255, 255, 128));
-        chart.setLegendAnchor(LegendAnchor.TOP_RIGHT);
+        Chart3D chart = createChart(createDataset());
         Chart3DPanel chartPanel = new Chart3DPanel(chart);
         content.setChartPanel(chartPanel);
         content.add(new DisplayPanel3D(chartPanel));
@@ -90,6 +86,14 @@ public class LineChart3DDemo2 extends JFrame {
         return content;
     }
   
+    public static Chart3D createChart(CategoryDataset3D dataset) {
+        Chart3D chart = Chart3DFactory.createLineChart("Quarterly Profits", 
+                "Large Banks in USA", dataset, null, "Quarter", "$ millions");
+        chart.setChartBoxColor(new Color(255, 255, 255, 128));
+        chart.setLegendAnchor(LegendAnchor.TOP_RIGHT);
+        return chart;    
+    }
+    
     /**
      * Creates a sample dataset (hard-coded for the purpose of keeping the
      * demo self-contained - in practice you would normally read your data
@@ -97,7 +101,7 @@ public class LineChart3DDemo2 extends JFrame {
      * 
      * @return A sample dataset.
      */
-    private static CategoryDataset3D createDataset() {    
+    public static CategoryDataset3D createDataset() {    
         StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
         
         // http://investor.bankofamerica.com/phoenix.zhtml?c=71595&p=quarterlyearnings#fbid=Ke_-yRMOTA4

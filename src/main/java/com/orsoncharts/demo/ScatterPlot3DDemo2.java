@@ -122,7 +122,15 @@ public class ScatterPlot3DDemo2 extends JFrame {
     public static JPanel createDemoPanel() {
         DemoPanel content = new CustomDemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
-        XYZDataset dataset = createDataset();
+        Chart3D chart = createChart(createDataset());
+        Chart3DPanel chartPanel = new Chart3DPanel(chart);
+        content.setChartPanel(chartPanel);
+        chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
+        content.add(new DisplayPanel3D(chartPanel));
+        return content;
+    }
+    
+    public static Chart3D createChart(XYZDataset dataset) {
         Chart3D chart = Chart3DFactory.createScatterChart("ScatterPlot3DDemo2", 
                 null, dataset, "X", "Y", "Z");
         XYZPlot plot = (XYZPlot) chart.getPlot();
@@ -135,11 +143,7 @@ public class ScatterPlot3DDemo2 extends JFrame {
         yAxis.receive(new ChartStyler(chart.getStyle()));
         plot.setYAxis(yAxis);
         chart.setViewPoint(ViewPoint3D.createAboveLeftViewPoint(40));
-        Chart3DPanel chartPanel = new Chart3DPanel(chart);
-        content.setChartPanel(chartPanel);
-        chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
-        content.add(new DisplayPanel3D(chartPanel));
-        return content;
+        return chart;
     }
 
     /**
@@ -149,7 +153,7 @@ public class ScatterPlot3DDemo2 extends JFrame {
      * 
      * @return A sample dataset.
      */
-    private static XYZDataset createDataset() {
+    public static XYZDataset createDataset() {
         XYZSeries s1 = new XYZSeries("S1");
         for (int i = 0; i < 1000; i++) {
             s1.add(Math.random() * 100, Math.pow(10, Math.random() * 5), 

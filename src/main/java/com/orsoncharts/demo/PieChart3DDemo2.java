@@ -70,7 +70,7 @@ public class PieChart3DDemo2 extends JFrame {
      * 
      * @return A sample dataset.
      */
-    static PieDataset3D createDataset() {
+    public static PieDataset3D createDataset() {
         StandardPieDataset3D dataset = new StandardPieDataset3D();
         dataset.add("United States", Math.random() * 30);
         dataset.add("France", Math.random() * 20);
@@ -82,6 +82,25 @@ public class PieChart3DDemo2 extends JFrame {
     }
   
     /**
+     * Creates a pie chart based on the supplied dataset.
+     * 
+     * @param dataset  the dataset.
+     * 
+     * @return A pie chart. 
+     */
+    public static Chart3D createChart(PieDataset3D dataset) {
+        final Chart3D chart = Chart3DFactory.createPieChart("Orson Charts 3D", 
+            "For more info see: http://www.object-refinery.com/orsoncharts/", 
+            createDataset());
+        chart.setTitleAnchor(TitleAnchor.TOP_LEFT);
+        PiePlot3D plot = (PiePlot3D) chart.getPlot();
+        plot.setLegendLabelGenerator(new StandardPieLabelGenerator(PERCENT_TEMPLATE));
+        plot.setSectionLabelGenerator(new StandardPieLabelGenerator(PERCENT_TEMPLATE));
+        plot.setSectionColors(Colors.createFancyLightColors());
+        return chart;
+    }
+    
+    /**
      * Returns a panel containing the content for the demo.  This method is
      * used across all the individual demo applications to allow aggregation 
      * into a single "umbrella" demo (OrsonChartsDemo).
@@ -91,14 +110,7 @@ public class PieChart3DDemo2 extends JFrame {
     public static JPanel createDemoPanel() {
         DemoPanel content = new DemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
-        final Chart3D chart = Chart3DFactory.createPieChart("Orson Charts 3D", 
-            "For more info see: http://www.object-refinery.com/orsoncharts/", 
-            createDataset());
-        chart.setTitleAnchor(TitleAnchor.TOP_LEFT);
-        PiePlot3D plot = (PiePlot3D) chart.getPlot();
-        plot.setLegendLabelGenerator(new StandardPieLabelGenerator(PERCENT_TEMPLATE));
-        plot.setSectionLabelGenerator(new StandardPieLabelGenerator(PERCENT_TEMPLATE));
-        plot.setSectionColors(Colors.createFancyLightColors());
+        final Chart3D chart = createChart(createDataset());
         Chart3DPanel chartPanel = new Chart3DPanel(chart);
         chartPanel.setMargin(0.15);
         content.setChartPanel(chartPanel);

@@ -170,7 +170,23 @@ public class RangeMarkerDemo1 extends JFrame {
     public static JPanel createDemoPanel() {
         CustomDemoPanel content = new CustomDemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
-        XYZDataset dataset = createDataset();
+        Chart3D chart = createChart(createDataset());
+        Chart3DPanel chartPanel = new Chart3DPanel(chart);
+        content.setChartPanel(chartPanel);
+        chartPanel.addChartMouseListener(content);
+        chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
+        content.add(new DisplayPanel3D(chartPanel));
+        return content;
+    }
+
+    /**
+     * Creates a demo chart based on the supplied dataset.
+     * 
+     * @param dataset  the dataset.
+     * 
+     * @return A demo chart. 
+     */
+    public static Chart3D createChart(XYZDataset dataset) {
         Chart3D chart = Chart3DFactory.createScatterChart("RangeMarkerDemo1", 
                 null, dataset, "X", "Y", "Z");
         chart.setStyle(ChartStyles.createOrson1Style());
@@ -209,15 +225,9 @@ public class RangeMarkerDemo1 extends JFrame {
         generator.setItemSelection(selection);
         renderer.setItemLabelGenerator(generator);
         chart.setViewPoint(ViewPoint3D.createAboveLeftViewPoint(40));
-        
-        Chart3DPanel chartPanel = new Chart3DPanel(chart);
-        content.setChartPanel(chartPanel);
-        chartPanel.addChartMouseListener(content);
-        chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
-        content.add(new DisplayPanel3D(chartPanel));
-        return content;
+        return chart;    
     }
-
+    
     /**
      * Creates a sample dataset (hard-coded for the purpose of keeping the
      * demo self-contained - in practice you would normally read your data
@@ -225,7 +235,7 @@ public class RangeMarkerDemo1 extends JFrame {
      * 
      * @return A sample dataset.
      */
-    private static XYZDataset createDataset() {
+    public static XYZDataset createDataset() {
         XYZSeries s1 = createRandomSeries("S1", 10);
         XYZSeries s2 = createRandomSeries("S2", 50);
         XYZSeries s3 = createRandomSeries("S3", 150);

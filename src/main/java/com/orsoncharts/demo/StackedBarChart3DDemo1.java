@@ -76,10 +76,7 @@ public class StackedBarChart3DDemo1 extends JFrame {
     public static JPanel createDemoPanel() {
         DemoPanel content = new DemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
-        CategoryDataset3D dataset = createDataset();
-        Chart3D chart = Chart3DFactory.createStackedBarChart(
-                "Stacked Bar Chart", "Put the data source here", dataset, null, 
-                null, "Value");
+        Chart3D chart = createChart(createDataset());
         Chart3DPanel chartPanel = new Chart3DPanel(chart);
         chartPanel.setMargin(0.33);
         content.setChartPanel(chartPanel);
@@ -89,13 +86,27 @@ public class StackedBarChart3DDemo1 extends JFrame {
     }
   
     /**
+     * Creates a stacked bar chart based on the supplied dataset.
+     * 
+     * @param dataset  the dataset.
+     * 
+     * @return A stacked bar chart. 
+     */
+    public static Chart3D createChart(CategoryDataset3D dataset) {
+        Chart3D chart = Chart3DFactory.createStackedBarChart(
+                "Stacked Bar Chart", "Put the data source here", dataset, null, 
+                null, "Value");
+        return chart;    
+    }
+    
+    /**
      * Creates a sample dataset (hard-coded for the purpose of keeping the
      * demo self-contained - in practice you would normally read your data
      * from a file, database or other source).
      * 
      * @return A sample dataset.
      */
-    private static CategoryDataset3D createDataset() {
+    public static CategoryDataset3D createDataset() {
         
         StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
 

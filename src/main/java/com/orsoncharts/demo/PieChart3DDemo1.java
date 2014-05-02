@@ -114,13 +114,31 @@ public class PieChart3DDemo1 extends JFrame {
     }
 
     /**
+     * Creates a pie chart based on the supplied dataset.
+     * 
+     * @param dataset  the dataset.
+     * 
+     * @return A pie chart. 
+     */
+    public static Chart3D createChart(PieDataset3D dataset) {
+        Chart3D chart = Chart3DFactory.createPieChart(
+                "New Zealand Exports 2012", 
+                "http://www.stats.govt.nz/browse_for_stats/snapshots-of-nz/nz-in-profile-2013.aspx", 
+                createDataset());
+        chart.setTitleAnchor(TitleAnchor.TOP_LEFT);
+        chart.setLegendPosition(LegendAnchor.BOTTOM_CENTER,
+                Orientation.HORIZONTAL);
+        return chart;
+    }
+    
+    /**
      * Creates a sample dataset (hard-coded for the purpose of keeping the
      * demo self-contained - in practice you would normally read your data
      * from a file, database or other source).
      * 
      * @return A sample dataset.
      */
-    static PieDataset3D createDataset() {
+    public static PieDataset3D createDataset() {
         StandardPieDataset3D dataset = new StandardPieDataset3D();
         dataset.add("Milk Products", 11625);
         dataset.add("Meat", 5114);

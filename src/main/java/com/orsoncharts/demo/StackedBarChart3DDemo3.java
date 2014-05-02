@@ -132,13 +132,56 @@ public class StackedBarChart3DDemo3 extends JFrame {
     }
   
     /**
+     * Creates a stacked bar chart based on the supplied dataset.
+     * 
+     * @param dataset  the dataset.
+     * 
+     * @return A stacked bar chart.
+     */
+    public static Chart3D createChart(CategoryDataset3D dataset) {
+        Chart3D chart = Chart3DFactory.createStackedBarChart(
+                "The Sinking of the Titanic", 
+                "Survival data for 2,201 passengers", 
+                dataset, null, 
+                "Class", "Passengers");
+
+        URL imageURL = StackedBarChart3DDemo3.class.getResource(
+                "iStock_000003105870Small.jpg");
+        ImageIcon icon = new ImageIcon(imageURL); 
+        RectanglePainter background = new StandardRectanglePainter(Color.WHITE, 
+                icon.getImage(), Fit2D.SCALE_TO_FIT_TARGET);
+        chart.setBackground(background);
+        chart.setChartBoxColor(new Color(255, 255, 255, 155));
+        CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
+        plot.setLegendLabelGenerator(new StandardCategoryLabelGenerator(
+                StandardCategoryLabelGenerator.TOTAL_TEMPLATE));
+        plot.setToolTipGenerator(new StandardCategoryItemLabelGenerator(
+                "%s, %s, %s = %4$.0f"));
+        StandardCategoryAxis3D rowAxis 
+                = (StandardCategoryAxis3D) plot.getRowAxis();
+        rowAxis.setTickLabelGenerator(new StandardCategoryLabelGenerator(
+                StandardCategoryLabelGenerator.TOTAL_TEMPLATE));
+
+        StandardCategoryAxis3D columnAxis 
+                = (StandardCategoryAxis3D) plot.getColumnAxis();
+        columnAxis.setTickLabelGenerator(new StandardCategoryLabelGenerator(
+                StandardCategoryLabelGenerator.TOTAL_TEMPLATE));
+        columnAxis.setTickLabelOrientation(LabelOrientation.PARALLEL);
+        columnAxis.setMaxTickLabelLevels(2);
+
+        StackedBarRenderer3D renderer = (StackedBarRenderer3D) plot.getRenderer();
+        renderer.setColors(Colors.createIceCubeColors());
+        return chart;    
+    }
+    
+    /**
      * Creates a sample dataset (hard-coded for the purpose of keeping the
      * demo self-contained - in practice you would normally read your data
      * from a file, database or other source).
      * 
      * @return A sample dataset.
      */
-    private static CategoryDataset3D createDataset() {
+    public static CategoryDataset3D createDataset() {
         
         StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
         

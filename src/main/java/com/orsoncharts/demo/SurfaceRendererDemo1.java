@@ -81,6 +81,19 @@ public class SurfaceRendererDemo1 extends JFrame {
     public static JPanel createDemoPanel() {
         DemoPanel content = new DemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
+        Chart3DPanel chartPanel = new Chart3DPanel(createChart());
+        chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
+        content.setChartPanel(chartPanel);
+        content.add(new DisplayPanel3D(chartPanel));
+        return content;
+    }
+    
+    /**
+     * Creates a surface chart for the demo.
+     * 
+     * @return A surface chart. 
+     */
+    public static Chart3D createChart() {
         Function3D function = new Function3D() {
             @Override
             public double getValue(double x, double z) {
@@ -102,11 +115,7 @@ public class SurfaceRendererDemo1 extends JFrame {
         SurfaceRenderer renderer = (SurfaceRenderer) plot.getRenderer();
         renderer.setColorScale(new GradientColorScale(new Range(-1.0, 1.0), 
                 Color.RED, Color.YELLOW));
-        Chart3DPanel chartPanel = new Chart3DPanel(chart);
-        chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
-        content.setChartPanel(chartPanel);
-        content.add(new DisplayPanel3D(chartPanel));
-        return content;
+        return chart;    
     }
     
     /**

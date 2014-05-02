@@ -79,7 +79,22 @@ public class StackedBarChart3DDemo2 extends JFrame {
     public static JPanel createDemoPanel() {
         DemoPanel content = new DemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
-        CategoryDataset3D dataset = createDataset();
+        Chart3D chart = createChart(createDataset());
+        Chart3DPanel chartPanel = new Chart3DPanel(chart);
+        content.setChartPanel(chartPanel);
+        chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
+        content.add(new DisplayPanel3D(chartPanel));
+        return content;
+    }
+    
+    /**
+     * Creates a stacked bar chart based on the supplied dataset.
+     * 
+     * @param dataset  the dataset.
+     * 
+     * @return A stacked bar chart. 
+     */
+    public static Chart3D createChart(CategoryDataset3D dataset) {
         Chart3D chart = Chart3DFactory.createStackedBarChart(
                 "Water Usage Chart", 
                 "Source: http://en.wikipedia.org/wiki/Peak_water#Water_supply", 
@@ -92,11 +107,7 @@ public class StackedBarChart3DDemo2 extends JFrame {
         renderer.setBarZWidth(0.3);
         renderer.setColors(Colors.createBlueOceanColors());
         chart.getViewPoint().moveUpDown(Math.PI / 30);
-        Chart3DPanel chartPanel = new Chart3DPanel(chart);
-        content.setChartPanel(chartPanel);
-        chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
-        content.add(new DisplayPanel3D(chartPanel));
-        return content;
+        return chart;
     }
   
     /**
@@ -106,7 +117,7 @@ public class StackedBarChart3DDemo2 extends JFrame {
      * 
      * @return A sample dataset.
      */
-    private static CategoryDataset3D createDataset() {
+    public static CategoryDataset3D createDataset() {
         
         StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
 

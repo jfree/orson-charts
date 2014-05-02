@@ -77,10 +77,7 @@ public class XYZBarChart3DDemo1 extends JFrame {
     public static JPanel createDemoPanel() {
         DemoPanel content = new DemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
-        XYZDataset dataset = createDataset();
-        Chart3D chart = Chart3DFactory.createXYZBarChart("XYZBarChart3DDemo1", 
-                "Chart created with Orson Charts", dataset, "X", "Value", "Z");
-        chart.setViewPoint(ViewPoint3D.createAboveRightViewPoint(40));
+        Chart3D chart = createChart(createDataset());
         Chart3DPanel chartPanel = new Chart3DPanel(chart);
         content.setChartPanel(chartPanel);
         chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
@@ -89,13 +86,27 @@ public class XYZBarChart3DDemo1 extends JFrame {
     }
   
     /**
+     * Creates an XYZ-bar chart for the demo.
+     * 
+     * @param dataset  the dataset.
+     * 
+     * @return An XYZ-bar chart. 
+     */
+    public static Chart3D createChart(XYZDataset dataset) {
+        Chart3D chart = Chart3DFactory.createXYZBarChart("XYZBarChart3DDemo1", 
+                "Chart created with Orson Charts", dataset, "X", "Value", "Z");
+        chart.setViewPoint(ViewPoint3D.createAboveRightViewPoint(40));
+        return chart;    
+    }
+    
+    /**
      * Creates a sample dataset (hard-coded for the purpose of keeping the
      * demo self-contained - in practice you would normally read your data
      * from a file, database or other source).
      * 
      * @return A sample dataset.
      */
-    private static XYZDataset createDataset() {
+    public static XYZDataset createDataset() {
         XYZSeries series1 = new XYZSeries("Series 1");
         series1.add(1.0, 5.0, 1.0);
         XYZSeries series2 = new XYZSeries("Series 2");
