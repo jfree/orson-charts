@@ -53,6 +53,8 @@ History
 
 Not Yet Released : Version 1.4
 
+- added support to marker elements for KEY_BEGIN_ELEMENT and KEY_END_ELEMENT rendering hints;
+- add minAutoRangeLength attribute in AbstractValueAxis3D (this fixes a bug for plots where the length of the data range is zero, for example scatter plots with a single value);
 - fixed bug in hinting for tick labels on NumberAxis3D;
 - fixed Utils.js functions that didn't work with Internet Explorer 9.
 
