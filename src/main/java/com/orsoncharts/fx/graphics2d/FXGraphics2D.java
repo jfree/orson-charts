@@ -74,6 +74,7 @@ import java.awt.image.renderable.RenderableImage;
 import java.text.AttributedCharacterIterator;
 import java.util.Map;
 import java.util.Set;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.CycleMethod;
@@ -1394,10 +1395,30 @@ public class FXGraphics2D extends Graphics2D {
         return drawImage(img, x, y, w, h, observer);
     }
 
+    /**
+     * Draws an image at the location <code>(x, y)</code>.  Note that the 
+     * <code>observer</code> is ignored.
+     * 
+     * @param img  the image.
+     * @param x  the x-coordinate.
+     * @param y  the y-coordinate.
+     * @param width  the width of the target rectangle for the image.
+     * @param height  the height of the target rectangle for the image.
+     * @param observer  ignored.
+     * 
+     * @return {@code true} if the image is drawn. 
+     */
     @Override
-    public boolean drawImage(Image img, int x, int y, int width, int height, ImageObserver observer) {
-        //throw new UnsupportedOperationException("Not supported yet."); //TODO
-        return false;
+    public boolean drawImage(Image img, int x, int y, int width, int height, 
+            ImageObserver observer) {
+        BufferedImage img2 = new BufferedImage(width, height, 
+                BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2 = img2.createGraphics();
+        g2.drawImage(img, 0, 0, width, height, null);
+        javafx.scene.image.WritableImage fxImage = SwingFXUtils.toFXImage(img2, 
+                null);
+        this.gc.drawImage(fxImage, x, y, width, height);
+        return true;
     }
 
     /**
