@@ -54,6 +54,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.scene.web.WebEngine;
@@ -61,12 +62,13 @@ import javafx.scene.web.WebView;
 
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.data.Dataset3D;
-import com.orsoncharts.data.xyz.XYZDataset;
+import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.demo.AreaChart3DDemo1;
 import com.orsoncharts.demo.DemoDescription;
-import com.orsoncharts.demo.XYZBarChart3DDemo1;
 import com.orsoncharts.fx.Chart3DCanvas;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.Node;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.layout.Region;
 
 /**
  * Demo application for Orson Charts in JavaFX.
@@ -77,10 +79,13 @@ public class OrsonChartsFXDemo extends Application {
     
     private Map<String, DemoDescription> descriptions;
     
-    private Chart3DCanvas canvas;
-    
+    private SplitPane splitter;
+        
     private WebView chartDescription;
 
+    /**
+     * Creates a new demo instance.
+     */
     public OrsonChartsFXDemo() {
         super();    
         this.descriptions = new HashMap<String, DemoDescription>();
@@ -123,6 +128,7 @@ public class OrsonChartsFXDemo extends Application {
         TreeItem<String> rootItem = new TreeItem<String> ("Orson Charts", null);
         rootItem.setExpanded(true);
         TreeItem<String> categoryChartsNode = new TreeItem<String>("Category Charts");
+        categoryChartsNode.setExpanded(true);
         rootItem.getChildren().add(categoryChartsNode);
         
         DemoDescription d = new DemoDescription(PREFIX + "AreaChart3DDemo1", "AreaChart3DDemo1.java");
@@ -201,12 +207,17 @@ public class OrsonChartsFXDemo extends Application {
         n = new TreeItem<String>(d.getFileName());        
         xyzChartsNode.getChildren().add(n);
 
-        d = new DemoDescription(PREFIX + "SurfaceRendererDemo1", "SurfaceRendererDemo1.java");
+        d = new DemoDescription(PREFIX + "fx.ScatterPlot3DFXDemo3", "ScatterPlot3DFXDemo3.java");
         this.descriptions.put(d.getFileName(), d);
         n = new TreeItem<String>(d.getFileName());        
         xyzChartsNode.getChildren().add(n);
 
-        d = new DemoDescription(PREFIX + "SurfaceRendererDemo2", "SurfaceRendererDemo2.java");
+        d = new DemoDescription(PREFIX + "fx.SurfaceRendererFXDemo1", "SurfaceRendererFXDemo1.java");
+        this.descriptions.put(d.getFileName(), d);
+        n = new TreeItem<String>(d.getFileName());        
+        xyzChartsNode.getChildren().add(n);
+
+        d = new DemoDescription(PREFIX + "fx.SurfaceRendererFXDemo2", "SurfaceRendererFXDemo2.java");
         this.descriptions.put(d.getFileName(), d);
         n = new TreeItem<String>(d.getFileName());        
         xyzChartsNode.getChildren().add(n);
@@ -221,7 +232,6 @@ public class OrsonChartsFXDemo extends Application {
             (ObservableValue<? extends TreeItem<String>> observableValue, 
                     TreeItem<String> oldItem, TreeItem<String> newItem) -> {
             selectDemo(newItem.getValue());
-            //System.out.println(newItem.getValue());
         });
         StackPane root = new StackPane();
         root.getChildren().add(tree);
@@ -230,9 +240,9 @@ public class OrsonChartsFXDemo extends Application {
     
     private Method getMethod(String name, Class c) {
         Method[] methods = c.getDeclaredMethods();
-        for (int i = 0; i < methods.length; i++) {
-            if (methods[i].getName().equals(name)) {
-                return methods[i];
+        for (Method method: methods) {
+            if (method.getName().equals(name)) {
+                return method;
             }
         }
         return null;
@@ -242,16 +252,42 @@ public class OrsonChartsFXDemo extends Application {
         DemoDescription demoDesc = this.descriptions.get(name);
         if (demoDesc != null) {
             try {
+                BorderPane borderPane = (BorderPane) this.splitter.getItems().get(0);
+                Node oldnode = borderPane.getCenter();
+                if (oldnode instanceof Canvas) {
+                    Canvas c = (Canvas) oldnode;
+                    c.widthProperty().unbind();
+                    c.heightProperty().unbind();
+                }
                 // get the class by reflection
                 Class<?> c = Class.forName(demoDesc.getClassName());
-                Method m1 = getMethod("createDataset", c);
-                Method m2 = getMethod("createChart", c);
+                Method m0 = getMethod("createDemoNode", c);
+                if (m0 != null) {
+                    Node node = (Node) m0.invoke(null, (Object[]) null);
+                    borderPane.setCenter(node);
+                    if (node instanceof Region) {
+                        Region r = (Region) node;
+                        r.minWidthProperty().bind(borderPane.widthProperty());
+                        r.minHeightProperty().bind(borderPane.heightProperty());
+                        if (node instanceof Chart3DCanvas) {
+                            Chart3DCanvas cc = (Chart3DCanvas) node;
+                            cc.zoomToFit(cc.getWidth(), cc.getHeight());
+                        }
+                    } 
+              
+                } else {
+                    Method m1 = getMethod("createDataset", c);
+                    Method m2 = getMethod("createChart", c);
 
-                Dataset3D dataset = (Dataset3D) m1.invoke(null, (Object[]) null);
-                Chart3D chart = (Chart3D) m2.invoke(null, new Object[] { dataset });
+                    Dataset3D dataset = (Dataset3D) m1.invoke(null, (Object[]) null);
+                    Chart3D chart = (Chart3D) m2.invoke(null, new Object[] { dataset });
                 
-                this.canvas.setChart(chart);
-                this.canvas.setOpacity(1.0);
+                    Chart3DCanvas canvas = new Chart3DCanvas(chart);
+                    borderPane.setCenter(canvas);
+                    canvas.widthProperty().bind(borderPane.widthProperty());
+                    canvas.heightProperty().bind(borderPane.heightProperty());                
+                    canvas.zoomToFit(canvas.getWidth(), canvas.getHeight());
+                }
                 String urlStr = c.getResource(name.substring(0, name.indexOf('.')) + ".html").toString();
                 this.chartDescription.getEngine().load(urlStr);
                 
@@ -272,11 +308,11 @@ public class OrsonChartsFXDemo extends Application {
     }
     
     private SplitPane createChartPane() {
-        XYZDataset dataset = XYZBarChart3DDemo1.createDataset();
-        Chart3D chart = XYZBarChart3DDemo1.createChart(dataset);
-        this.canvas = new Chart3DCanvas(chart);
+        CategoryDataset3D dataset = AreaChart3DDemo1.createDataset();
+        Chart3D chart = AreaChart3DDemo1.createChart(dataset);
+        Chart3DCanvas canvas = new Chart3DCanvas(chart);
       
-        SplitPane splitter = new SplitPane();
+        this.splitter = new SplitPane();
         splitter.setOrientation(Orientation.VERTICAL);
         final BorderPane borderPane = new BorderPane();
         borderPane.setCenter(canvas);
@@ -295,7 +331,7 @@ public class OrsonChartsFXDemo extends Application {
         
         sp2.getChildren().add(chartDescription);  
         splitter.getItems().addAll(borderPane, sp2);
-        splitter.setDividerPositions(0.75f, 0.25f);
+        splitter.setDividerPositions(0.70f, 0.30f);
         return splitter;
     }
 
