@@ -32,6 +32,14 @@ import com.orsoncharts.util.ArgChecks;
 public class Object3D {
 
     /**
+     * The key for storing the object class as an optional property for this 
+     * object.
+     * 
+     * @since 1.4
+     */
+    public static final String CLASS_KEY = "class";
+    
+    /**
      * The key for storing item keys as property values.
      * 
      * @since 1.3
@@ -149,7 +157,10 @@ public class Object3D {
     }
 
     /**
-     * Sets the value of a property, overwriting any existing value.
+     * Sets the value of a property, overwriting any existing value.  One 
+     * application for this is storing item key references to link a 3D object
+     * back to the data item that it represents (the key for this is
+     * {@link Object3D#ITEM_KEY}.
      * 
      * @param key  the key (<code>null</code> not permitted).
      * @param value  the value (<code>null</code> permitted).
@@ -784,6 +795,7 @@ public class Object3D {
             Color fgColor, Color bgColor, double x, double y, double z, 
             boolean reversed, boolean doubleSided) {
         Object3D labelObj = new Object3D(bgColor);
+        labelObj.setProperty(Object3D.CLASS_KEY, "ItemLabel");
         labelObj.addVertex(x - 0.1, y, z);
         labelObj.addVertex(x + 0.1, y, z);
         labelObj.addVertex(x + 0.1, y + 0.1, z);
