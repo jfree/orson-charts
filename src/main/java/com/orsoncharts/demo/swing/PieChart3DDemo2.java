@@ -34,43 +34,29 @@
  * 
  */
 
-package com.orsoncharts.demo;
+package com.orsoncharts.demo.swing;
 
-import com.orsoncharts.demo.swing.OrsonChartsDemo;
-import com.orsoncharts.demo.swing.DemoPanel;
-import com.orsoncharts.demo.swing.ExitOnClose;
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import com.orsoncharts.Chart3D;
-import com.orsoncharts.Chart3DFactory;
 import com.orsoncharts.Chart3DPanel;
-import com.orsoncharts.TitleAnchor;
+import com.orsoncharts.Chart3D;
 import com.orsoncharts.data.PieDataset3D;
-import com.orsoncharts.data.StandardPieDataset3D;
+import com.orsoncharts.demo.PieChart3D2;
+import com.orsoncharts.plot.PiePlot3D;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
-import com.orsoncharts.legend.LegendAnchor;
-import com.orsoncharts.util.Orientation;
 
 /**
- * A demo showing a simple pie chart in 3D.
+ * A demo of a pie chart.
  */
 @SuppressWarnings("serial")
-public class PieChartTest extends JFrame {
-
-    /**
-     * Creates a new test app.
-     *
-     * @param title  the frame title.
-     */
-    public PieChartTest(String title) {
-        super(title);
-        addWindowListener(new ExitOnClose());
-        getContentPane().add(createDemoPanel());
-    }
-
+public class PieChart3DDemo2 extends JFrame {
+    
     /**
      * Returns a panel containing the content for the demo.  This method is
      * used across all the individual demo applications to allow aggregation 
@@ -81,42 +67,45 @@ public class PieChartTest extends JFrame {
     public static JPanel createDemoPanel() {
         DemoPanel content = new DemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
-        Chart3D chart = Chart3DFactory.createPieChart(
-                "New Zealand Exports 2012", 
-                "http://www.stats.govt.nz/browse_for_stats/snapshots-of-nz/nz-in-profile-2013.aspx", createDataset());
-        chart.setTitleAnchor(TitleAnchor.TOP_LEFT);
-        chart.setLegendPosition(LegendAnchor.BOTTOM_CENTER,
-                Orientation.HORIZONTAL);
+        PieDataset3D dataset = PieChart3D2.createDataset();
+        final Chart3D chart = PieChart3D2.createChart(dataset);
         Chart3DPanel chartPanel = new Chart3DPanel(chart);
-        chartPanel.setMargin(0.05);
+        chartPanel.setMargin(0.15);
         content.setChartPanel(chartPanel);
-        content.add(new DisplayPanel3D(chartPanel));
         chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
+        content.add(new DisplayPanel3D(chartPanel));
+        JButton button = new JButton("Change the Data");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PieDataset3D dataset = PieChart3D2.createDataset();
+                PiePlot3D plot = (PiePlot3D) chart.getPlot();
+                plot.setDataset(dataset);
+            }
+        });
+        content.add(button, BorderLayout.SOUTH);
         return content;
     }
-
-    /**
-     * Creates a sample dataset (hard-coded for the purpose of keeping the
-     * demo self-contained - in practice you would normally read your data
-     * from a file, database or other source).
-     * 
-     * @return A sample dataset.
-     */
-    static PieDataset3D createDataset() {
-        StandardPieDataset3D dataset = new StandardPieDataset3D();
-        dataset.add("Milk Products", 11625);
-        dataset.add("Test", null);
-        return dataset; 
-    }
     
+    /**
+     * Creates a new test app.
+     *
+     * @param title  the frame title.
+     */
+    public PieChart3DDemo2(String title) {
+        super(title);
+        addWindowListener(new ExitOnClose());
+        getContentPane().add(createDemoPanel());
+    }
+
     /**
      * Starting point for the app.
      *
      * @param args  command line arguments (ignored).
      */
     public static void main(String[] args) {
-        PieChartTest app = new PieChartTest(
-                "OrsonCharts: PieChart3DDemo1.java");
+        PieChart3DDemo2 app = new PieChart3DDemo2(
+                "OrsonCharts: PieChart3DDemo2.java");
         app.pack();
         app.setVisible(true);
     }

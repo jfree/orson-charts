@@ -43,18 +43,18 @@ import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import com.orsoncharts.Chart3D;
-import com.orsoncharts.data.category.CategoryDataset3D;
-import com.orsoncharts.demo.AreaChart3D1;
+import com.orsoncharts.data.PieDataset3D;
+import com.orsoncharts.demo.PieChart3D2;
 import com.orsoncharts.fx.Chart3DViewer;
 
 /**
- * A 3D area chart demo for JavaFX.
+ * A 3D pie chart demo for JavaFX.
  */
-public class AreaChart3DFXDemo1 extends Application {
+public class PieChart3DFXDemo2 extends Application {
 
     public static Node createDemoNode() {
-        CategoryDataset3D dataset = AreaChart3D1.createDataset();
-        Chart3D chart = AreaChart3D1.createChart(dataset);
+        PieDataset3D dataset = PieChart3D2.createDataset();
+        Chart3D chart = PieChart3D2.createChart(dataset);
         Chart3DViewer viewer = new Chart3DViewer(chart);
         return viewer;
     }
@@ -65,7 +65,7 @@ public class AreaChart3DFXDemo1 extends Application {
         sp.getChildren().add(createDemoNode());
         Scene scene = new Scene(sp, 768, 512);
         stage.setScene(scene);
-        stage.setTitle("Orson Charts: AreaChart3DFXDemo1.java");
+        stage.setTitle("Orson Charts: PieChart3DFXDemo2.java");
         stage.show();
     }
     

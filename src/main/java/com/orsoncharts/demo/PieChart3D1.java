@@ -36,65 +36,37 @@
 
 package com.orsoncharts.demo;
 
-import com.orsoncharts.demo.swing.OrsonChartsDemo;
-import com.orsoncharts.demo.swing.DemoPanel;
-import com.orsoncharts.demo.swing.ExitOnClose;
-import java.awt.BorderLayout;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
-import com.orsoncharts.Chart3DPanel;
 import com.orsoncharts.TitleAnchor;
 import com.orsoncharts.data.PieDataset3D;
 import com.orsoncharts.data.StandardPieDataset3D;
-import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.legend.LegendAnchor;
 import com.orsoncharts.util.Orientation;
 
 /**
- * A demo showing a simple pie chart in 3D.
+ * 3D pie chart configuration for demo applications.
  */
-@SuppressWarnings("serial")
-public class PieChartTest extends JFrame {
-
+public class PieChart3D1 {
+  
     /**
-     * Creates a new test app.
-     *
-     * @param title  the frame title.
-     */
-    public PieChartTest(String title) {
-        super(title);
-        addWindowListener(new ExitOnClose());
-        getContentPane().add(createDemoPanel());
-    }
-
-    /**
-     * Returns a panel containing the content for the demo.  This method is
-     * used across all the individual demo applications to allow aggregation 
-     * into a single "umbrella" demo (OrsonChartsDemo).
+     * Creates a pie chart based on the supplied dataset.
      * 
-     * @return A panel containing the content for the demo.
+     * @param dataset  the dataset.
+     * 
+     * @return A pie chart. 
      */
-    public static JPanel createDemoPanel() {
-        DemoPanel content = new DemoPanel(new BorderLayout());
-        content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
+    public static Chart3D createChart(PieDataset3D dataset) {
         Chart3D chart = Chart3DFactory.createPieChart(
                 "New Zealand Exports 2012", 
-                "http://www.stats.govt.nz/browse_for_stats/snapshots-of-nz/nz-in-profile-2013.aspx", createDataset());
+                "http://www.stats.govt.nz/browse_for_stats/snapshots-of-nz/nz-in-profile-2013.aspx", 
+                createDataset());
         chart.setTitleAnchor(TitleAnchor.TOP_LEFT);
         chart.setLegendPosition(LegendAnchor.BOTTOM_CENTER,
                 Orientation.HORIZONTAL);
-        Chart3DPanel chartPanel = new Chart3DPanel(chart);
-        chartPanel.setMargin(0.05);
-        content.setChartPanel(chartPanel);
-        content.add(new DisplayPanel3D(chartPanel));
-        chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
-        return content;
+        return chart;
     }
-
+    
     /**
      * Creates a sample dataset (hard-coded for the purpose of keeping the
      * demo self-contained - in practice you would normally read your data
@@ -102,23 +74,18 @@ public class PieChartTest extends JFrame {
      * 
      * @return A sample dataset.
      */
-    static PieDataset3D createDataset() {
+    public static PieDataset3D createDataset() {
         StandardPieDataset3D dataset = new StandardPieDataset3D();
         dataset.add("Milk Products", 11625);
-        dataset.add("Test", null);
+        dataset.add("Meat", 5114);
+        dataset.add("Wood/Logs", 3060);
+        dataset.add("Crude Oil", 2023);
+        dataset.add("Machinery", 1865);
+        dataset.add("Fruit", 1587);
+        dataset.add("Fish", 1367);
+        dataset.add("Wine", 1177);
+        dataset.add("Other", 18870);
         return dataset; 
     }
     
-    /**
-     * Starting point for the app.
-     *
-     * @param args  command line arguments (ignored).
-     */
-    public static void main(String[] args) {
-        PieChartTest app = new PieChartTest(
-                "OrsonCharts: PieChart3DDemo1.java");
-        app.pack();
-        app.setVisible(true);
-    }
-
 }

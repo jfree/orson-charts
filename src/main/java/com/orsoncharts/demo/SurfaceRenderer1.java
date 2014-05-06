@@ -34,45 +34,51 @@
  * 
  */
 
-package com.orsoncharts.demo.fx;
+package com.orsoncharts.demo;
 
-import static javafx.application.Application.launch;
-import javafx.application.Application;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
+import java.awt.Color;
 import com.orsoncharts.Chart3D;
-import com.orsoncharts.data.category.CategoryDataset3D;
-import com.orsoncharts.demo.AreaChart3D1;
-import com.orsoncharts.fx.Chart3DViewer;
+import com.orsoncharts.Chart3DFactory;
+import com.orsoncharts.Range;
+import com.orsoncharts.axis.ValueAxis3D;
+import com.orsoncharts.data.function.Function3D;
+import com.orsoncharts.graphics3d.Dimension3D;
+import com.orsoncharts.plot.XYZPlot;
+import com.orsoncharts.renderer.GradientColorScale;
+import com.orsoncharts.renderer.xyz.SurfaceRenderer;
 
 /**
- * A 3D area chart demo for JavaFX.
+ * Surface renderer demo chart configuration.
  */
-public class AreaChart3DFXDemo1 extends Application {
-
-    public static Node createDemoNode() {
-        CategoryDataset3D dataset = AreaChart3D1.createDataset();
-        Chart3D chart = AreaChart3D1.createChart(dataset);
-        Chart3DViewer viewer = new Chart3DViewer(chart);
-        return viewer;
-    }
-
-    @Override
-    public void start(Stage stage) throws Exception {
-        StackPane sp = new StackPane();
-        sp.getChildren().add(createDemoNode());
-        Scene scene = new Scene(sp, 768, 512);
-        stage.setScene(scene);
-        stage.setTitle("Orson Charts: AreaChart3DFXDemo1.java");
-        stage.show();
-    }
-    
-    /**
-     * @param args the command line arguments
+public class SurfaceRenderer1 {
+     /**
+     * Creates a surface chart for the demo.
+     * 
+     * @return A surface chart. 
      */
-    public static void main(String[] args) {
-        launch(args);
+    public static Chart3D createChart() {
+        Function3D function = new Function3D() {
+            @Override
+            public double getValue(double x, double z) {
+                return Math.cos(x) * Math.sin(z);
+            }
+        };
+        
+        Chart3D chart = Chart3DFactory.createSurfaceChart(
+                "SurfaceRendererDemo1", 
+                "y = cos(x) * sin(z)", 
+                function, "X", "Y", "Z");
+ 
+        XYZPlot plot = (XYZPlot) chart.getPlot();
+        plot.setDimensions(new Dimension3D(10, 5, 10));
+        ValueAxis3D xAxis = plot.getXAxis();
+        xAxis.setRange(-Math.PI, Math.PI);
+        ValueAxis3D zAxis = plot.getZAxis();
+        zAxis.setRange(-Math.PI, Math.PI);
+        SurfaceRenderer renderer = (SurfaceRenderer) plot.getRenderer();
+        renderer.setColorScale(new GradientColorScale(new Range(-1.0, 1.0), 
+                Color.RED, Color.YELLOW));
+        return chart;    
     }
+   
 }

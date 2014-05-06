@@ -63,9 +63,10 @@ import javafx.scene.web.WebView;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.data.Dataset3D;
 import com.orsoncharts.data.category.CategoryDataset3D;
-import com.orsoncharts.demo.AreaChart3DDemo1;
+import com.orsoncharts.demo.AreaChart3D1;
 import com.orsoncharts.demo.DemoDescription;
 import com.orsoncharts.fx.Chart3DCanvas;
+import com.orsoncharts.fx.Chart3DViewer;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.Region;
@@ -75,7 +76,7 @@ import javafx.scene.layout.Region;
  */
 public class OrsonChartsFXDemo extends Application {
 
-    private static final String PREFIX = "com.orsoncharts.demo.";
+    private static final String PREFIX = "com.orsoncharts.demo.fx.";
     
     private Map<String, DemoDescription> descriptions;
     
@@ -97,6 +98,7 @@ public class OrsonChartsFXDemo extends Application {
         TabPane tabPane = new TabPane();
         Tab tab1 = new Tab();
         tab1.setText("Demos");
+        tab1.setClosable(false);
         
         SplitPane sp = new SplitPane();
         final StackPane sp1 = new StackPane();
@@ -111,6 +113,7 @@ public class OrsonChartsFXDemo extends Application {
  
         Tab tab2 = new Tab();
         tab2.setText("About");
+        tab2.setClosable(false);
         
         WebView browser = new WebView();
         WebEngine webEngine = browser.getEngine();
@@ -131,47 +134,47 @@ public class OrsonChartsFXDemo extends Application {
         categoryChartsNode.setExpanded(true);
         rootItem.getChildren().add(categoryChartsNode);
         
-        DemoDescription d = new DemoDescription(PREFIX + "AreaChart3DDemo1", "AreaChart3DDemo1.java");
+        DemoDescription d = new DemoDescription(PREFIX + "AreaChart3DFXDemo1", "AreaChart3DFXDemo1.java", "../AreaChart3DDemo1.html");
         this.descriptions.put(d.getFileName(), d);
         TreeItem<String> n = new TreeItem<String>(d.getFileName());
         categoryChartsNode.getChildren().add(n);
         
-        d = new DemoDescription(PREFIX + "AreaChart3DDemo2", "AreaChart3DDemo2.java");
+        d = new DemoDescription(PREFIX + "AreaChart3DFXDemo2", "AreaChart3DFXDemo2.java", "../AreaChart3DDemo2.html");
         this.descriptions.put(d.getFileName(), d);
         n = new TreeItem<String>(d.getFileName());        
         categoryChartsNode.getChildren().add(n);
         
-        d = new DemoDescription(PREFIX + "BarChart3DDemo1", "BarChart3DDemo1.java");
+        d = new DemoDescription(PREFIX + "BarChart3DFXDemo1", "BarChart3DFXDemo1.java", "../BarChart3DDemo1.html");
         this.descriptions.put(d.getFileName(), d);
         n = new TreeItem<String>(d.getFileName());        
         categoryChartsNode.getChildren().add(n);
 
-        d = new DemoDescription(PREFIX + "BarChart3DDemo2", "BarChart3DDemo2.java");
+        d = new DemoDescription(PREFIX + "BarChart3DFXDemo2", "BarChart3DFXDemo2.java", "../BarChart3DDemo2.html");
         this.descriptions.put(d.getFileName(), d);
         n = new TreeItem<String>(d.getFileName());        
         categoryChartsNode.getChildren().add(n);
 
-        d = new DemoDescription(PREFIX + "LineChart3DDemo1", "LineChart3DDemo1.java");
+        d = new DemoDescription(PREFIX + "LineChart3DFXDemo1", "LineChart3DFXDemo1.java", "../LineChart3DDemo1.html");
         this.descriptions.put(d.getFileName(), d);
         n = new TreeItem<String>(d.getFileName());        
         categoryChartsNode.getChildren().add(n);
 
-        d = new DemoDescription(PREFIX + "LineChart3DDemo2", "LineChart3DDemo2.java");
+        d = new DemoDescription(PREFIX + "LineChart3DFXDemo2", "LineChart3DFXDemo2.java", "../LineChart3DDemo2.html");
         this.descriptions.put(d.getFileName(), d);
         n = new TreeItem<String>(d.getFileName());        
         categoryChartsNode.getChildren().add(n);
 
-        d = new DemoDescription(PREFIX + "StackedBarChart3DDemo1", "StackedBarChart3DDemo1.java");
+        d = new DemoDescription(PREFIX + "StackedBarChart3DFXDemo1", "StackedBarChart3DFXDemo1.java", "../StackedBarChart3DDemo1.html");
         this.descriptions.put(d.getFileName(), d);
         n = new TreeItem<String>(d.getFileName());        
         categoryChartsNode.getChildren().add(n);
 
-        d = new DemoDescription(PREFIX + "StackedBarChart3DDemo2", "StackedBarChart3DDemo2.java");
+        d = new DemoDescription(PREFIX + "StackedBarChart3DFXDemo2", "StackedBarChart3DFXDemo2.java", "../StackedBarChart3DDemo2.html");
         this.descriptions.put(d.getFileName(), d);
         n = new TreeItem<String>(d.getFileName());        
         categoryChartsNode.getChildren().add(n);
 
-        d = new DemoDescription(PREFIX + "StackedBarChart3DDemo3", "StackedBarChart3DDemo3.java");
+        d = new DemoDescription(PREFIX + "StackedBarChart3DFXDemo3", "StackedBarChart3DFXDemo3.java", "../StackedBarChart3DDemo3.html");
         this.descriptions.put(d.getFileName(), d);
         n = new TreeItem<String>(d.getFileName());        
         categoryChartsNode.getChildren().add(n);
@@ -179,12 +182,12 @@ public class OrsonChartsFXDemo extends Application {
         TreeItem<String> pieChartsNode = new TreeItem<String>("Pie Charts");
         rootItem.getChildren().add(pieChartsNode);
         
-        d = new DemoDescription(PREFIX + "PieChart3DDemo1", "PieChart3DDemo1.java");
+        d = new DemoDescription(PREFIX + "PieChart3DFXDemo1", "PieChart3DFXDemo1.java", "../PieChart3DDemo1.html");
         this.descriptions.put(d.getFileName(), d);
         n = new TreeItem<String>(d.getFileName());        
         pieChartsNode.getChildren().add(n);
 
-        d = new DemoDescription(PREFIX + "PieChart3DDemo2", "PieChart3DDemo2.java");
+        d = new DemoDescription(PREFIX + "PieChart3DFXDemo2", "PieChart3DFXDemo2.java", "../PieChart3DDemo2.html");
         this.descriptions.put(d.getFileName(), d);
         n = new TreeItem<String>(d.getFileName());        
         pieChartsNode.getChildren().add(n);
@@ -192,37 +195,37 @@ public class OrsonChartsFXDemo extends Application {
         TreeItem<String> xyzChartsNode = new TreeItem<String>("XYZ Charts");
         rootItem.getChildren().add(xyzChartsNode);
 
-        d = new DemoDescription(PREFIX + "RangeMarkerDemo1", "RangeMarkerDemo1.java");
+        d = new DemoDescription(PREFIX + "RangeMarkerFXDemo1", "RangeMarkerFXDemo1.java", "../RangeMarkerDemo1.html");
         this.descriptions.put(d.getFileName(), d);
         n = new TreeItem<String>(d.getFileName());        
         xyzChartsNode.getChildren().add(n);
 
-        d = new DemoDescription(PREFIX + "ScatterPlot3DDemo1", "ScatterPlot3DDemo1.java");
+        d = new DemoDescription(PREFIX + "ScatterPlot3DFXDemo1", "ScatterPlot3DFXDemo1.java", "../ScatterPlot3DDemo1.html");
         this.descriptions.put(d.getFileName(), d);
         n = new TreeItem<String>(d.getFileName());        
         xyzChartsNode.getChildren().add(n);
 
-        d = new DemoDescription(PREFIX + "ScatterPlot3DDemo2", "ScatterPlot3DDemo2.java");
+        d = new DemoDescription(PREFIX + "ScatterPlot3DFXDemo2", "ScatterPlot3DFXDemo2.java", "../ScatterPlot3DDemo1.html");
         this.descriptions.put(d.getFileName(), d);
         n = new TreeItem<String>(d.getFileName());        
         xyzChartsNode.getChildren().add(n);
 
-        d = new DemoDescription(PREFIX + "fx.ScatterPlot3DFXDemo3", "ScatterPlot3DFXDemo3.java");
+        d = new DemoDescription(PREFIX + "ScatterPlot3DFXDemo3", "ScatterPlot3DFXDemo3.java", "../ScatterPlot3DDemo1.html");
         this.descriptions.put(d.getFileName(), d);
         n = new TreeItem<String>(d.getFileName());        
         xyzChartsNode.getChildren().add(n);
 
-        d = new DemoDescription(PREFIX + "fx.SurfaceRendererFXDemo1", "SurfaceRendererFXDemo1.java");
+        d = new DemoDescription(PREFIX + "SurfaceRendererFXDemo1", "SurfaceRendererFXDemo1.java", "../SurfaceRendererDemo1.html");
         this.descriptions.put(d.getFileName(), d);
         n = new TreeItem<String>(d.getFileName());        
         xyzChartsNode.getChildren().add(n);
 
-        d = new DemoDescription(PREFIX + "fx.SurfaceRendererFXDemo2", "SurfaceRendererFXDemo2.java");
+        d = new DemoDescription(PREFIX + "SurfaceRendererFXDemo2", "SurfaceRendererFXDemo2.java", "../SurfaceRendererDemo1.html");
         this.descriptions.put(d.getFileName(), d);
         n = new TreeItem<String>(d.getFileName());        
         xyzChartsNode.getChildren().add(n);
 
-        d = new DemoDescription(PREFIX + "XYZBarChart3DDemo1", "XYZBarChart3DDemo1.java");
+        d = new DemoDescription(PREFIX + "XYZBarChart3DFXDemo1", "XYZBarChart3DFXDemo1.java", "../XYZBarChart3DDemo1.html");
         this.descriptions.put(d.getFileName(), d);
         n = new TreeItem<String>(d.getFileName());        
         xyzChartsNode.getChildren().add(n);
@@ -265,10 +268,10 @@ public class OrsonChartsFXDemo extends Application {
                 if (m0 != null) {
                     Node node = (Node) m0.invoke(null, (Object[]) null);
                     borderPane.setCenter(node);
-                    if (node instanceof Region) {
-                        Region r = (Region) node;
-                        r.minWidthProperty().bind(borderPane.widthProperty());
-                        r.minHeightProperty().bind(borderPane.heightProperty());
+                    if (node instanceof Chart3DViewer) {
+                        Chart3DViewer v = (Chart3DViewer) node;
+                        v.prefWidthProperty().bind(borderPane.widthProperty());
+                        v.prefHeightProperty().bind(borderPane.heightProperty());
                         if (node instanceof Chart3DCanvas) {
                             Chart3DCanvas cc = (Chart3DCanvas) node;
                             cc.zoomToFit(cc.getWidth(), cc.getHeight());
@@ -288,7 +291,7 @@ public class OrsonChartsFXDemo extends Application {
                     canvas.heightProperty().bind(borderPane.heightProperty());                
                     canvas.zoomToFit(canvas.getWidth(), canvas.getHeight());
                 }
-                String urlStr = c.getResource(name.substring(0, name.indexOf('.')) + ".html").toString();
+                String urlStr = c.getResource(demoDesc.getDescriptionFileName()).toString();
                 this.chartDescription.getEngine().load(urlStr);
                 
             } catch (ClassNotFoundException ex) {
@@ -308,8 +311,8 @@ public class OrsonChartsFXDemo extends Application {
     }
     
     private SplitPane createChartPane() {
-        CategoryDataset3D dataset = AreaChart3DDemo1.createDataset();
-        Chart3D chart = AreaChart3DDemo1.createChart(dataset);
+        CategoryDataset3D dataset = AreaChart3D1.createDataset();
+        Chart3D chart = AreaChart3D1.createChart(dataset);
         Chart3DCanvas canvas = new Chart3DCanvas(chart);
       
         this.splitter = new SplitPane();
@@ -327,7 +330,7 @@ public class OrsonChartsFXDemo extends Application {
         
         this.chartDescription = new WebView();
         WebEngine webEngine = chartDescription.getEngine();
-        webEngine.load(AreaChart3DDemo1.class.getResource("AreaChart3DDemo1.html").toString());
+        webEngine.load(AreaChart3D1.class.getResource("AreaChart3DDemo1.html").toString());
         
         sp2.getChildren().add(chartDescription);  
         splitter.getItems().addAll(borderPane, sp2);

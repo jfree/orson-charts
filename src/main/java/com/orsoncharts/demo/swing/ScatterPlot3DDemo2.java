@@ -34,38 +34,73 @@
  * 
  */
 
-package com.orsoncharts.demo;
+package com.orsoncharts.demo.swing;
 
-import com.orsoncharts.demo.swing.OrsonChartsDemo;
-import com.orsoncharts.demo.swing.DemoPanel;
-import com.orsoncharts.demo.swing.ExitOnClose;
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.LayoutManager;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import com.orsoncharts.Chart3D;
-import com.orsoncharts.Chart3DFactory;
 import com.orsoncharts.Chart3DPanel;
-import com.orsoncharts.TitleAnchor;
-import com.orsoncharts.data.PieDataset3D;
-import com.orsoncharts.data.StandardPieDataset3D;
+import com.orsoncharts.Chart3D;
+import com.orsoncharts.axis.LabelOrientation;
+import com.orsoncharts.axis.LogAxis3D;
+import com.orsoncharts.axis.NumberAxis3D;
+import com.orsoncharts.data.xyz.XYZDataset;
+import com.orsoncharts.demo.ScatterPlot3D2;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
-import com.orsoncharts.legend.LegendAnchor;
-import com.orsoncharts.util.Orientation;
+import com.orsoncharts.plot.XYZPlot;
+import com.orsoncharts.style.ChartStyler;
 
 /**
- * A demo showing a simple pie chart in 3D.
+ * A demonstration of a scatter plot in 3D.
  */
 @SuppressWarnings("serial")
-public class PieChartTest extends JFrame {
+public class ScatterPlot3DDemo2 extends JFrame {
+
+    static class CustomDemoPanel extends DemoPanel implements ActionListener {
+        
+        private JCheckBox checkBox;
+        
+        public CustomDemoPanel(LayoutManager layout) {
+            super(layout);
+            this.checkBox = new JCheckBox("Logarithmic Scale");
+            this.checkBox.setSelected(true);
+            this.checkBox.addActionListener(this);
+            JPanel controlPanel = new JPanel(new FlowLayout());
+            controlPanel.add(this.checkBox);
+            add(controlPanel, BorderLayout.SOUTH);
+        }    
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Chart3D chart = (Chart3D) getChartPanel().getDrawable();
+            XYZPlot plot = (XYZPlot) chart.getPlot();
+            if (this.checkBox.isSelected()) {
+                LogAxis3D logAxis = new LogAxis3D("Y (logarithmic scale)");
+                logAxis.setTickLabelOrientation(LabelOrientation.PERPENDICULAR);
+                logAxis.receive(new ChartStyler(chart.getStyle()));
+                plot.setYAxis(logAxis);
+            } else {
+                NumberAxis3D yAxis = new NumberAxis3D("Y");
+                yAxis.setTickLabelOrientation(LabelOrientation.PERPENDICULAR);
+                yAxis.receive(new ChartStyler(chart.getStyle()));
+                plot.setYAxis(yAxis);
+            }
+        }
+    }
 
     /**
      * Creates a new test app.
      *
      * @param title  the frame title.
      */
-    public PieChartTest(String title) {
+    public ScatterPlot3DDemo2(String title) {
         super(title);
         addWindowListener(new ExitOnClose());
         getContentPane().add(createDemoPanel());
@@ -79,34 +114,15 @@ public class PieChartTest extends JFrame {
      * @return A panel containing the content for the demo.
      */
     public static JPanel createDemoPanel() {
-        DemoPanel content = new DemoPanel(new BorderLayout());
+        DemoPanel content = new CustomDemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
-        Chart3D chart = Chart3DFactory.createPieChart(
-                "New Zealand Exports 2012", 
-                "http://www.stats.govt.nz/browse_for_stats/snapshots-of-nz/nz-in-profile-2013.aspx", createDataset());
-        chart.setTitleAnchor(TitleAnchor.TOP_LEFT);
-        chart.setLegendPosition(LegendAnchor.BOTTOM_CENTER,
-                Orientation.HORIZONTAL);
+        XYZDataset dataset = ScatterPlot3D2.createDataset();
+        Chart3D chart = ScatterPlot3D2.createChart(dataset);
         Chart3DPanel chartPanel = new Chart3DPanel(chart);
-        chartPanel.setMargin(0.05);
         content.setChartPanel(chartPanel);
-        content.add(new DisplayPanel3D(chartPanel));
         chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
+        content.add(new DisplayPanel3D(chartPanel));
         return content;
-    }
-
-    /**
-     * Creates a sample dataset (hard-coded for the purpose of keeping the
-     * demo self-contained - in practice you would normally read your data
-     * from a file, database or other source).
-     * 
-     * @return A sample dataset.
-     */
-    static PieDataset3D createDataset() {
-        StandardPieDataset3D dataset = new StandardPieDataset3D();
-        dataset.add("Milk Products", 11625);
-        dataset.add("Test", null);
-        return dataset; 
     }
     
     /**
@@ -115,10 +131,9 @@ public class PieChartTest extends JFrame {
      * @param args  command line arguments (ignored).
      */
     public static void main(String[] args) {
-        PieChartTest app = new PieChartTest(
-                "OrsonCharts: PieChart3DDemo1.java");
+        ScatterPlot3DDemo2 app = new ScatterPlot3DDemo2(
+                "OrsonCharts : ScatterPlot3DDemo2.java");
         app.pack();
         app.setVisible(true);
     }
-
 }

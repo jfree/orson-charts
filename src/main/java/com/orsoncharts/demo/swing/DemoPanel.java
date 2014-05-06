@@ -34,62 +34,79 @@
  * 
  */
 
-package com.orsoncharts.demo;
+package com.orsoncharts.demo.swing;
+
+import java.awt.LayoutManager;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JPanel;
+
+import com.orsoncharts.Chart3DPanel;
 
 /**
- * A description of a demo application.
+ * The base class for panels created by demo applications.  Some demos will 
+ * subclass to add extra controls in addition to the main {@link Chart3DPanel}.
  */
-public class DemoDescription {
-
-    private String className;
+@SuppressWarnings("serial")
+public class DemoPanel extends JPanel {
     
-    private String fileName;
-    
-    private String descriptionFileName;
+    /** 
+     * A list of the chart panels on the demo panel (usually just one, but 
+     * there can be multiple panels).
+     */
+    private List<Chart3DPanel> chartPanels;
     
     /**
-     * Creates a new description.
+     * Creates a new instance.
      * 
-     * @param demoClassName  the class name.
-     * @param fileName  the file name.
+     * @param layout  the layout manager. 
      */
-    public DemoDescription(String demoClassName, String fileName,
-            String descriptionFileName) {
-        this.className = demoClassName;
-        this.fileName = fileName;
-        this.descriptionFileName = descriptionFileName;
+    public DemoPanel(LayoutManager layout) {
+        super(layout);
+        this.chartPanels = new ArrayList<Chart3DPanel>();
     }
     
     /**
-     * Returns the class name.
+     * Returns the chart panel for this demo panel.  In the case where there
+     * are multiple chart panels, this method will return the first one.
      * 
-     * @return The class name.
+     * @return The chart panel (possibly <code>null</code>). 
      */
-    public String getClassName() {
-        return this.className;
+    public Chart3DPanel getChartPanel() {
+        if (this.chartPanels.isEmpty()) {
+            return null;
+        }
+        return this.chartPanels.get(0);    
     }
     
     /**
-     * Returns the file name.
+     * Returns the {@link Chart3DPanel} from the demo panel.
      * 
-     * @return The file name.
+     * @return The {@link Chart3DPanel}. 
      */
-    public String getFileName() {
-        return this.fileName;
-    }
-    
-    public String getDescriptionFileName() {
-        return this.descriptionFileName;
+    public List<Chart3DPanel> getChartPanels() {
+        return this.chartPanels;
     }
     
     /**
-     * Returns the class description.
+     * Sets the chart panel that is displayed within this demo panel (for the
+     * case where there is only one chart panel).
      * 
-     * @return The class description.
+     * @param panel  the panel.
      */
-    @Override
-    public String toString() {
-        return this.fileName;
+    public void setChartPanel(Chart3DPanel panel) {
+        this.chartPanels.clear();
+        this.chartPanels.add(panel);
     }
     
+    /**
+     * Adds the {@link Chart3DPanel} for this demo panel.  This can be
+     * accessed by code that wants to do something to the chart.
+     * 
+     * @param panel  the panel. 
+     */
+    public void addChartPanel(Chart3DPanel panel) {
+        this.chartPanels.add(panel);
+    }
 }

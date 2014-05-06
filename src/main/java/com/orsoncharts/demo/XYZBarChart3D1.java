@@ -34,45 +34,52 @@
  * 
  */
 
-package com.orsoncharts.demo.fx;
+package com.orsoncharts.demo;
 
-import static javafx.application.Application.launch;
-import javafx.application.Application;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 import com.orsoncharts.Chart3D;
-import com.orsoncharts.data.category.CategoryDataset3D;
-import com.orsoncharts.demo.AreaChart3D1;
-import com.orsoncharts.fx.Chart3DViewer;
+import com.orsoncharts.Chart3DFactory;
+import com.orsoncharts.data.xyz.XYZDataset;
+import com.orsoncharts.data.xyz.XYZSeries;
+import com.orsoncharts.data.xyz.XYZSeriesCollection;
+import com.orsoncharts.graphics3d.ViewPoint3D;
 
 /**
- * A 3D area chart demo for JavaFX.
+ * XYZ bar chart demo chart configuration.
  */
-public class AreaChart3DFXDemo1 extends Application {
-
-    public static Node createDemoNode() {
-        CategoryDataset3D dataset = AreaChart3D1.createDataset();
-        Chart3D chart = AreaChart3D1.createChart(dataset);
-        Chart3DViewer viewer = new Chart3DViewer(chart);
-        return viewer;
-    }
-
-    @Override
-    public void start(Stage stage) throws Exception {
-        StackPane sp = new StackPane();
-        sp.getChildren().add(createDemoNode());
-        Scene scene = new Scene(sp, 768, 512);
-        stage.setScene(scene);
-        stage.setTitle("Orson Charts: AreaChart3DFXDemo1.java");
-        stage.show();
+public class XYZBarChart3D1 {
+  
+    /**
+     * Creates an XYZ-bar chart for the demo.
+     * 
+     * @param dataset  the dataset.
+     * 
+     * @return An XYZ-bar chart. 
+     */
+    public static Chart3D createChart(XYZDataset dataset) {
+        Chart3D chart = Chart3DFactory.createXYZBarChart("XYZBarChart3DDemo1", 
+                "Chart created with Orson Charts", dataset, "X", "Value", "Z");
+        chart.setViewPoint(ViewPoint3D.createAboveRightViewPoint(40));
+        return chart;    
     }
     
     /**
-     * @param args the command line arguments
+     * Creates a sample dataset (hard-coded for the purpose of keeping the
+     * demo self-contained - in practice you would normally read your data
+     * from a file, database or other source).
+     * 
+     * @return A sample dataset.
      */
-    public static void main(String[] args) {
-        launch(args);
-    }
+    public static XYZDataset createDataset() {
+        XYZSeries series1 = new XYZSeries("Series 1");
+        series1.add(1.0, 5.0, 1.0);
+        XYZSeries series2 = new XYZSeries("Series 2");
+        series2.add(2.0, 8.0, 2.0);
+        XYZSeries series3 = new XYZSeries("Series 3");
+        series3.add(1.0, 10.0, 2.0);
+        XYZSeriesCollection dataset = new XYZSeriesCollection();
+        dataset.add(series1);
+        dataset.add(series2);
+        dataset.add(series3);
+        return dataset;
+    }    
 }

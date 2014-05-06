@@ -34,45 +34,19 @@
  * 
  */
 
-package com.orsoncharts.demo.fx;
+package com.orsoncharts.demo.swing;
 
-import static javafx.application.Application.launch;
-import javafx.application.Application;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
-import com.orsoncharts.Chart3D;
-import com.orsoncharts.data.category.CategoryDataset3D;
-import com.orsoncharts.demo.AreaChart3D1;
-import com.orsoncharts.fx.Chart3DViewer;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
- * A 3D area chart demo for JavaFX.
+ * Shuts down the JVM when the demo window is closed.
  */
-public class AreaChart3DFXDemo1 extends Application {
-
-    public static Node createDemoNode() {
-        CategoryDataset3D dataset = AreaChart3D1.createDataset();
-        Chart3D chart = AreaChart3D1.createChart(dataset);
-        Chart3DViewer viewer = new Chart3DViewer(chart);
-        return viewer;
-    }
+public class ExitOnClose extends WindowAdapter {
 
     @Override
-    public void start(Stage stage) throws Exception {
-        StackPane sp = new StackPane();
-        sp.getChildren().add(createDemoNode());
-        Scene scene = new Scene(sp, 768, 512);
-        stage.setScene(scene);
-        stage.setTitle("Orson Charts: AreaChart3DFXDemo1.java");
-        stage.show();
+    public void windowClosing(WindowEvent e) {
+        System.exit(0);
     }
     
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        launch(args);
-    }
 }
