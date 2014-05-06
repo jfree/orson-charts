@@ -35,7 +35,7 @@ public class RenderedElement {
     public static final String BOUNDS = "bounds";
     
     /** Properties for the element. */
-    private Map<String, Object> properties;
+    private final Map<String, Object> properties;
     
     /**
      * Creates a new interactive element with the specified type.
@@ -98,7 +98,8 @@ public class RenderedElement {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         Object type = this.properties.get(TYPE);
-        sb.append("RenderedElement[").append(type).append("]");
+        sb.append("RenderedElement[").append(type).append(",")
+                .append(this.properties.entrySet()).append("]");
         return sb.toString();
     }
     
