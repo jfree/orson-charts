@@ -16,11 +16,13 @@ import java.io.Serializable;
 
 import com.orsoncharts.data.ItemKey;
 import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.util.ObjectUtils;
 
 /**
  * An object that references one data item in an {@link XYZDataset}.  This is 
  * used internally to track the data item that a 3D object is related to, if
- * any (and later that link is used for chart interaction).
+ * any (and later that link is used for chart interaction).  Instances of
+ * this class are immutable.
  * 
  * @since 1.3
  */
@@ -28,10 +30,10 @@ public class XYZItemKey<S extends Comparable<S>> implements ItemKey,
         Comparable<XYZItemKey<S>>, Serializable {
     
     /** A key identifying a series in the dataset. */
-    private S seriesKey;
+    private final S seriesKey;
     
     /** The index of an item within a series. */
-    private int itemIndex;
+    private final int itemIndex;
     
     /**
      * Creates a new instance.
@@ -63,6 +65,13 @@ public class XYZItemKey<S extends Comparable<S>> implements ItemKey,
         return this.itemIndex;
     }
     
+    /**
+     * Tests this instance for equality with an arbitrary object.
+     * 
+     * @param obj  the object to test (<code>null</code> permitted).
+     * 
+     * @return A boolean. 
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
@@ -79,6 +88,14 @@ public class XYZItemKey<S extends Comparable<S>> implements ItemKey,
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 41 * hash + ObjectUtils.hashCode(this.seriesKey);
+        hash = 41 * hash + this.itemIndex;
+        return hash;
     }
 
     @Override
