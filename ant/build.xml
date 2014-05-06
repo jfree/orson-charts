@@ -152,6 +152,7 @@
             <packageset dir="${basedir}/src/main/java" defaultexcludes="yes">
                 <include name="**"/>
                 <exclude name="com/orsoncharts/demo/**"/>
+                <exclude name="com/orsoncharts/fx/**"/>
             </packageset>
         </javadoc>
     </target>
