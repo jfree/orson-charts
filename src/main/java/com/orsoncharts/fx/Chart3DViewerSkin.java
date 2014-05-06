@@ -21,14 +21,14 @@ import javafx.scene.layout.StackPane;
  * 
  * @since 1.4
  */
-public class Chart3DControlSkin extends SkinBase<Chart3DViewer>  {
+public class Chart3DViewerSkin extends SkinBase<Chart3DViewer>  {
 
     /**
      * Creates a new instance.
      * 
      * @param control  the control (<code>null</code> not permitted). 
      */    
-    public Chart3DControlSkin(Chart3DViewer control) {
+    public Chart3DViewerSkin(Chart3DViewer control) {
         super(control);
         getChildren().add(createNode());
     }
@@ -48,7 +48,7 @@ public class Chart3DControlSkin extends SkinBase<Chart3DViewer>  {
         canvas.widthProperty().bind(sp.widthProperty());
         canvas.heightProperty().bind(sp.heightProperty());
         sp.getChildren().add(canvas);
-        
+        getSkinnable().setCanvas(canvas);
         borderPane.setCenter(sp);
         //borderPane.setBottom(new Button("Hello World"));
         return borderPane;
