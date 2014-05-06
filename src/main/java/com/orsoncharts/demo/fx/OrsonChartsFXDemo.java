@@ -123,7 +123,7 @@ public class OrsonChartsFXDemo extends Application {
 
         Scene scene = new Scene(tabPane, 1024, 768);
         stage.setScene(scene);
-        stage.setTitle("Orson Charts Demo for JavaFX");
+        stage.setTitle("Orson Charts JavaFX Demo");
         stage.show();
     }
     
