@@ -20,6 +20,7 @@ import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.Chart3DFactory;
+import com.orsoncharts.data.KeyedValues3DItemKey;
 import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.Offset3D;
 import com.orsoncharts.label.ItemLabelPositioning;
@@ -108,13 +109,13 @@ public class StackedBarRenderer3D extends BarRenderer3D {
     
     @Override
     protected void drawItemLabels(World world, CategoryDataset3D dataset, 
-            Comparable<?> seriesKey, Comparable<?> rowKey, 
-            Comparable<?> columnKey, double xw, double yw, double zw, 
+            KeyedValues3DItemKey itemKey, double xw, double yw, double zw, 
             double basew, boolean inverted) {
         ItemLabelPositioning positioning = getItemLabelPositioning();
         if (getItemLabelGenerator() != null) {
             String label = getItemLabelGenerator().generateItemLabel(dataset, 
-                   seriesKey, rowKey, columnKey);
+                   itemKey.getSeriesKey(), itemKey.getRowKey(), 
+                   itemKey.getColumnKey());
             if (label != null) {
                 Dimension3D dimensions = getPlot().getDimensions();
                 double dx = getItemLabelOffsets().getDX();
@@ -127,21 +128,27 @@ public class StackedBarRenderer3D extends BarRenderer3D {
                         yy = basew;
                         dy = -dy;
                     }
-                    world.add(Object3D.createLabelObject(label, 
+                    Object3D labelObj = Object3D.createLabelObject(label, 
                             getItemLabelFont(), getItemLabelColor(), 
                             getItemLabelBackgroundColor(), xw + dx, 
-                            yy + dy, zw, false, true));
+                            yy + dy, zw, false, true);
+                    labelObj.setProperty(Object3D.ITEM_KEY, itemKey);
+                    world.add(labelObj);
                 } else if (positioning.equals(
                         ItemLabelPositioning.FRONT_AND_BACK)) {
                     double yy = (yw + basew) / 2.0;
-                    world.add(Object3D.createLabelObject(label, 
+                    Object3D labelObj1 = Object3D.createLabelObject(label, 
                             getItemLabelFont(), getItemLabelColor(), 
                             getItemLabelBackgroundColor(), xw + dx, 
-                            yy + dy, zw + dz, false, false));
-                    world.add(Object3D.createLabelObject(label, 
+                            yy + dy, zw + dz, false, false);
+                    labelObj1.setProperty(Object3D.ITEM_KEY, itemKey);
+                    world.add(labelObj1);
+                    Object3D labelObj2 = Object3D.createLabelObject(label, 
                             getItemLabelFont(), getItemLabelColor(), 
                             getItemLabelBackgroundColor(), xw + dx, 
-                            yy + dy, zw - dz, true, false));
+                            yy + dy, zw - dz, true, false);
+                    labelObj2.setProperty(Object3D.ITEM_KEY, itemKey);
+                    world.add(labelObj2);
                 }
             }
         }        
