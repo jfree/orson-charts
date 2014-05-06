@@ -15,9 +15,9 @@
         <tstamp />
         <property name="eval" value="wtf" />
         <property name="orsoncharts.name" value="orsoncharts" />
-        <property name="orsoncharts.version" value="1.3-eval" />
+        <property name="orsoncharts.version" value="1.4-pre" />
         <property name="jfreesvg.name" value="jfreesvg" />
-        <property name="jfreesvg.version" value="1.8" />
+        <property name="jfreesvg.version" value="1.9" />
         <property name="jfreesvg.jar" value="${basedir}/lib/${jfreesvg.name}-${jfreesvg.version}.jar"/>
         <property name="orsonpdf.name" value="orsonpdf" />
         <property name="orsonpdf.version" value="1.6-eval" />
@@ -51,6 +51,7 @@
 
         <!-- compile the source -->
         <javac srcdir="${basedir}/src/main/java"
+               excludes="com/orsoncharts/demo/** com/orsoncharts/fx/**"
                destdir="${basedir}/build"
                debug="on"
                deprecation="false"
@@ -58,7 +59,6 @@
                target="${target.version}">
             <classpath refid="build.classpath" />
             <include name="**"/>
-            <exclude name="com/orsoncharts/demo/**"/>
         </javac>
 
         <!-- copy across Font Awesome -->
@@ -101,6 +101,7 @@
                target="${target.version}">
             <classpath refid="demo.build.classpath" />
             <include name="**" />
+            <exclude name="fx/**" />
         </javac>
 
         <!-- copy across about.html, images, and data files -->
@@ -362,7 +363,7 @@
 
     <!-- ALL -->
     <target name="all"
-            depends="compile,compile-demo,zip-javadocs,zip-nosrc,zip"
+            depends="compile,zip-javadocs,zip-nosrc,zip"
             description="Compiles Orson Charts, builds the jar files, generates the Javadoc HTML pages and creates a zip file.">
 
         <!-- delete the temporary distribution directory -->
