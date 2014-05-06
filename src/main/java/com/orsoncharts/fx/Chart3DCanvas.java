@@ -30,7 +30,6 @@ import com.orsoncharts.graphics3d.Offset2D;
 import com.orsoncharts.graphics3d.RenderingInfo;
 import com.orsoncharts.graphics3d.ViewPoint3D;
 import com.orsoncharts.util.ArgChecks;
-import javafx.scene.control.ContextMenu;
 
 /**
  * A canvas for displaying a {@link Chart3D} in JavaFX. 
@@ -43,7 +42,7 @@ public class Chart3DCanvas extends Canvas {
     private Chart3D chart;
     
     /**
-     * The graphics drawing context.
+     * The graphics drawing context (will be an instance of FXGraphics2D).
      */
     private Graphics2D g2;
 
