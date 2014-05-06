@@ -162,7 +162,8 @@ public class ScatterXYZRenderer extends AbstractXYZRenderer
         Object3D cube = Object3D.createBox(cx, xmax - xmin, cy, ymax - ymin, 
                 cz, zmax - zmin, color);
         Comparable<?> seriesKey = dataset.getSeriesKey(series);
-        cube.setProperty(Object3D.ITEM_KEY, new XYZItemKey(seriesKey, item));
+        XYZItemKey itemKey = new XYZItemKey(seriesKey, item);
+        cube.setProperty(Object3D.ITEM_KEY, itemKey);
         world.add(cube);
         
         if (getItemLabelGenerator() != null) {
@@ -172,9 +173,12 @@ public class ScatterXYZRenderer extends AbstractXYZRenderer
                 double dx = this.itemLabelOffsetPercent.getDX() * this.size;
                 double dy = this.itemLabelOffsetPercent.getDY() * this.size;
                 double dz = this.itemLabelOffsetPercent.getDZ() * this.size;
-                world.add(Object3D.createLabelObject(label, getItemLabelFont(),
-                        getItemLabelColor(), getItemLabelBackgroundColor(),
-                        cx + dx, cy + dy, cz + dz, false, true));
+                Object3D labelObj = Object3D.createLabelObject(label, 
+                        getItemLabelFont(), getItemLabelColor(), 
+                        getItemLabelBackgroundColor(), cx + dx, cy + dy, 
+                        cz + dz, false, true);
+                labelObj.setProperty(Object3D.ITEM_KEY, itemKey);
+                world.add(labelObj);
             }
         }
 
