@@ -17,7 +17,6 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 
-import com.orsoncharts.TitleAnchor;
 
 /**
  * A specification for the alignment and fitting of one rectangle (the source 
@@ -40,7 +39,7 @@ public class Fit2D implements Serializable {
      * 
      * @since 1.1
      */
-    public static final Fit2D CENTER_NO_SCALING = new Fit2D(TitleAnchor.CENTER, 
+    public static final Fit2D CENTER_NO_SCALING = new Fit2D(Anchor2D.CENTER, 
             Scale2D.NONE);
  
     /** 
@@ -145,7 +144,7 @@ public class Fit2D implements Serializable {
      * @since 1.1
      */
     public static final Fit2D SCALE_TO_FIT_TARGET 
-            = new Fit2D(TitleAnchor.CENTER, Scale2D.SCALE_BOTH);
+            = new Fit2D(Anchor2D.CENTER, Scale2D.SCALE_BOTH);
 
     /** The anchor point for alignment. */
     private Anchor2D anchor;
