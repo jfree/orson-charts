@@ -341,22 +341,27 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
                 Offset3D offsets = getItemLabelOffsets();
                 double dy = offsets.getDY() * dimensions.getHeight();
                 if (positioning.equals(ItemLabelPositioning.CENTRAL)) {
-                    world.add(Object3D.createLabelObject(label, 
+                    Object3D labelObj = Object3D.createLabelObject(label, 
                             getItemLabelFont(), getItemLabelColor(), 
                             getItemLabelBackgroundColor(),
-                            xw, yw + dy, zw, false, true));
-                    
+                            xw, yw + dy, zw, false, true);
+                    labelObj.setProperty(Object3D.ITEM_KEY, itemKey);
+                    world.add(labelObj);
                 } else if (positioning.equals(
                         ItemLabelPositioning.FRONT_AND_BACK)) {
                     double dz = this.lineWidth ;
-                    world.add(Object3D.createLabelObject(label, 
+                    Object3D labelObj1 = Object3D.createLabelObject(label, 
                             getItemLabelFont(), getItemLabelColor(), 
                             getItemLabelBackgroundColor(),
-                            xw, yw, zw - dz, false, false));
-                    world.add(Object3D.createLabelObject(label, 
+                            xw, yw, zw - dz, false, false);
+                    labelObj1.setProperty(Object3D.ITEM_KEY, itemKey);
+                    world.add(labelObj1);
+                    Object3D labelObj2 = Object3D.createLabelObject(label, 
                             getItemLabelFont(), getItemLabelColor(), 
                             getItemLabelBackgroundColor(),
-                            xw, yw, zw + dz, true, false));
+                            xw, yw, zw + dz, true, false);
+                    labelObj2.setProperty(Object3D.ITEM_KEY, itemKey);
+                    world.add(labelObj2);
                 }
             }
         }
