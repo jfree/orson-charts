@@ -110,6 +110,14 @@ public class FXGraphics2D extends Graphics2D {
     
     private Stroke stroke = new BasicStroke(1.0f);
     
+    /** 
+     * The width of the stroke to use when the user supplies a
+     * BasicStroke with a width of 0.0 (in this case the Java specification
+     * says "If width is set to 0.0f, the stroke is rendered as the thinnest 
+     * possible line for the target device and the antialias hint setting.")
+     */
+    private double zeroStrokeWidth;
+    
     private Font font = new Font("SansSerif", Font.PLAIN, 12);
     
     private AffineTransform transform = new AffineTransform();
@@ -177,10 +185,39 @@ public class FXGraphics2D extends Graphics2D {
     public FXGraphics2D(GraphicsContext gc) {
         nullNotPermitted(gc, "gc");
         this.gc = gc;
+        this.zeroStrokeWidth = 0.5;
         this.hints = new RenderingHints(RenderingHints.KEY_ANTIALIASING, 
                 RenderingHints.VALUE_ANTIALIAS_DEFAULT);
     }
     
+    /**
+     * Returns the width to use for the stroke when the AWT stroke
+     * specified has a zero width (the default value is <code>0.5</code>).  In 
+     * the Java specification for <code>BasicStroke</code> it states "If width 
+     * is set to 0.0f, the stroke is rendered as the thinnest possible 
+     * line for the target device and the antialias hint setting."  We don't 
+     * have a means to implement that accurately since we must specify a fixed
+     * width.
+     * 
+     * @return The width.
+     */
+    public double getZeroStrokeWidth() {
+        return this.zeroStrokeWidth;
+    }
+    
+    /**
+     * Sets the width to use for the stroke when the current AWT stroke
+     * has a width of 0.0.
+     * 
+     * @param width  the new width (must be 0 or greater).
+     */
+    public void setZeroStrokeWidth(double width) {
+        if (width < 0.0) {
+            throw new IllegalArgumentException("Width cannot be negative.");
+        }
+        this.zeroStrokeWidth = width;
+    }
+ 
     /**
      * Returns the flag that controls whether or not clipping is actually 
      * applied to the JavaFX canvas.  The default value is currently 
@@ -445,7 +482,11 @@ public class FXGraphics2D extends Graphics2D {
         this.stroke = s;
         if (stroke instanceof BasicStroke) {
             BasicStroke bs = (BasicStroke) s;
-            this.gc.setLineWidth(bs.getLineWidth());
+            double lineWidth = bs.getLineWidth();
+            if (lineWidth == 0.0) {
+                lineWidth = this.zeroStrokeWidth;
+            }
+            this.gc.setLineWidth(lineWidth);
             this.gc.setLineCap(awtToJavaFXLineCap(bs.getEndCap()));
             this.gc.setLineJoin(awtToJavaFXLineJoin(bs.getLineJoin()));
             this.gc.setMiterLimit(bs.getMiterLimit());
