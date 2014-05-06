@@ -899,9 +899,10 @@ public class Chart3D implements Drawable3D, ChartElement,
                         TextAnchor.CENTER);
                 g2.fill(bb);
                 g2.setColor(lf.getTextColor());
-                TextUtils.drawAlignedString(lf.getLabel(), g2, 
+                Rectangle2D r = TextUtils.drawAlignedString(lf.getLabel(), g2, 
                         (float) lb.getCenterX(), (float) lb.getCenterY(), 
                         TextAnchor.CENTER);
+                lf.getOwner().setProperty("labelBounds", r);
             } 
         }
         RenderingInfo info = new RenderingInfo(facesInPaintOrder, pts, dx, dy);
