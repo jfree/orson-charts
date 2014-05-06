@@ -15,6 +15,7 @@ package com.orsoncharts.graphics3d;
 import java.awt.Shape;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -116,6 +117,11 @@ public class RenderingInfo {
         this.otherElements.add(element);
     }
     
+    /**
+     * Adds a rendered element to the list of offset elements.
+     * 
+     * @param element  the element (<code>null</code> not permitted). 
+     */
     public void addOffsetElement(RenderedElement element) {
         this.otherOffsetElements.add(element);
     }
@@ -131,9 +137,17 @@ public class RenderingInfo {
     public Object3D fetchObjectAt(double x, double y) {
         for (int i = this.faces.size() - 1; i >= 0; i--) {
             Face f = this.faces.get(i);
-            Path2D p = f.createPath(this.projPts);
-            if (p.contains(x - dx, y - dy)) {
-                return f.getOwner();
+            if (f instanceof LabelFace) {
+                Rectangle2D bounds 
+                        = (Rectangle2D) f.getOwner().getProperty("labelBounds");
+                if (bounds != null && bounds.contains(x - dx, y - dy)) {
+                    return f.getOwner();
+                }
+            } else {
+                Path2D p = f.createPath(this.projPts);
+                if (p.contains(x - dx, y - dy)) {
+                    return f.getOwner();
+                }
             }
         }
         return null;
@@ -175,6 +189,10 @@ public class RenderingInfo {
             RenderedElement element = new RenderedElement("obj3d", null);
             element.setProperty(Object3D.ITEM_KEY, 
                     obj.getProperty(Object3D.ITEM_KEY));
+            if (obj.getProperty(Object3D.CLASS_KEY) != null) {
+                element.setProperty(Object3D.CLASS_KEY, 
+                        obj.getProperty(Object3D.CLASS_KEY));
+            }
             return element;
         }
         return null;
