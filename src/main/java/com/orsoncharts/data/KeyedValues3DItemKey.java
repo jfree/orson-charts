@@ -15,10 +15,12 @@ package com.orsoncharts.data;
 import java.io.Serializable;
 
 import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.util.ObjectUtils;
 
 /**
  * An object that references one data item in a {@link KeyedValues3D} data
- * structure.
+ * structure.  Instances of this class are immutable (subject to the caller
+ * using series, row and column keys that are immutable).
  * 
  * @since 1.3
  */
@@ -117,6 +119,15 @@ public class KeyedValues3DItemKey<S extends Comparable<S>,
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 17 * hash + ObjectUtils.hashCode(this.seriesKey);
+        hash = 17 * hash + ObjectUtils.hashCode(this.rowKey);
+        hash = 17 * hash + ObjectUtils.hashCode(this.columnKey);
+        return hash;
     }
 
     @Override
