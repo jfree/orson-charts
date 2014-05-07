@@ -15,7 +15,7 @@
         <tstamp />
         <property name="eval" value="wtf" />
         <property name="orsoncharts.name" value="orsoncharts" />
-        <property name="orsoncharts.version" value="1.4-fx" />
+        <property name="orsoncharts.version" value="1.4-pre" />
         <property name="jfreesvg.name" value="jfreesvg" />
         <property name="jfreesvg.version" value="1.9" />
         <property name="jfreesvg.jar" value="${basedir}/lib/${jfreesvg.name}-${jfreesvg.version}.jar"/>
@@ -116,7 +116,7 @@
         </copy>
 
         <!-- make the jar -->
-        <jar jarfile="${basedir}/${orsoncharts.name}-${orsoncharts.version}-demo.jar"
+        <jar jarfile="${basedir}/${orsoncharts.name}-${orsoncharts.version}-swing-demo.jar"
              basedir="${basedir}/build" >
             <manifest>
                 <attribute name="Main-Class" value="com.orsoncharts.demo.swing.OrsonChartsDemo" />
@@ -166,7 +166,7 @@
         </copy>
 
         <!-- make the jar -->
-        <jar jarfile="${basedir}/${orsoncharts.name}-${orsoncharts.version}-fxdemo.jar"
+        <jar jarfile="${basedir}/${orsoncharts.name}-${orsoncharts.version}-fx-demo.jar"
              basedir="${basedir}/build" >
             <manifest>
                 <attribute name="Main-Class" value="com.orsoncharts.demo.fx.OrsonChartsFXDemo" />
@@ -236,7 +236,8 @@
 
         <!-- copy across runtime jar file and demo jar file -->
         <copy file="${basedir}/lib/${orsoncharts.name}-${orsoncharts.version}.jar" tofile="${basedir}/distribution/lib/${orsoncharts.name}-${orsoncharts.version}.jar" />
-        <copy file="${basedir}/${orsoncharts.name}-${orsoncharts.version}-demo.jar" tofile="${basedir}/distribution/${orsoncharts.name}-${orsoncharts.version}-demo.jar" />
+        <copy file="${basedir}/${orsoncharts.name}-${orsoncharts.version}-swing-demo.jar" tofile="${basedir}/distribution/${orsoncharts.name}-${orsoncharts.version}-swing-demo.jar" />
+        <copy file="${basedir}/${orsoncharts.name}-${orsoncharts.version}-fx-demo.jar" tofile="${basedir}/distribution/${orsoncharts.name}-${orsoncharts.version}-fx-demo.jar" />
 
         <!-- copy across Javadoc files -->
         <copy todir="${basedir}/distribution/javadoc">
@@ -299,7 +300,8 @@
         <copy file="${basedir}/Orson Charts Software Licence.pdf" tofile="${basedir}/distribution/Orson Charts Software Licence.pdf" />
         <!-- copy across runtime jar file and demo jar file -->
         <copy file="${basedir}/lib/${orsoncharts.name}-${orsoncharts.version}.jar" tofile="${basedir}/distribution/lib/${orsoncharts.name}-${orsoncharts.version}.jar" />
-        <copy file="${basedir}/${orsoncharts.name}-${orsoncharts.version}-demo.jar" tofile="${basedir}/distribution/${orsoncharts.name}-${orsoncharts.version}-demo.jar" />
+        <copy file="${basedir}/${orsoncharts.name}-${orsoncharts.version}-swing-demo.jar" tofile="${basedir}/distribution/${orsoncharts.name}-${orsoncharts.version}-swing-demo.jar" />
+        <copy file="${basedir}/${orsoncharts.name}-${orsoncharts.version}-fx-demo.jar" tofile="${basedir}/distribution/${orsoncharts.name}-${orsoncharts.version}-fx-demo.jar" />
 
         <!-- copy across source files -->
         <copy todir="${basedir}/distribution/src">
@@ -333,6 +335,7 @@
 
         <!-- copy across ant build files -->
         <copy file="${basedir}/ant/build.xml" tofile="${basedir}/distribution/ant/build.xml" />
+        <copy file="${basedir}/ant/build.xml" tofile="${basedir}/distribution/ant/buildfx.xml" />
 
         <!-- convert end-of-line characters in text files -->
         <fixcrlf srcdir="${basedir}/distribution/src"
