@@ -284,6 +284,7 @@
 
         <!-- copy across ant build files -->
         <copy file="${basedir}/ant/build.xml" tofile="${basedir}/distribution/ant/build.xml" />
+        <copy file="${basedir}/ant/buildfx.xml" tofile="${basedir}/distribution/ant/buildfx.xml" />
 
         <!-- convert end-of-line characters in text files -->
         <fixcrlf srcdir="${basedir}/distribution/src"
