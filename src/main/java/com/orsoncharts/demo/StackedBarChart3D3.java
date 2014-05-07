@@ -43,7 +43,6 @@ import com.orsoncharts.axis.LabelOrientation;
 import com.orsoncharts.axis.StandardCategoryAxis3D;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.category.StandardCategoryDataset3D;
-import com.orsoncharts.demo.swing.StackedBarChart3DDemo3;
 import com.orsoncharts.label.StandardCategoryItemLabelGenerator;
 import com.orsoncharts.label.StandardCategoryLabelGenerator;
 import com.orsoncharts.plot.CategoryPlot3D;

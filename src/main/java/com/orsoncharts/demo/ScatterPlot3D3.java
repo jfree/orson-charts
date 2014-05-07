@@ -47,7 +47,6 @@ import com.orsoncharts.data.DataUtils;
 import com.orsoncharts.data.JSONUtils;
 import com.orsoncharts.data.KeyedValues3D;
 import com.orsoncharts.data.xyz.XYZDataset;
-import com.orsoncharts.demo.swing.ScatterPlot3DDemo3;
 import com.orsoncharts.graphics3d.ViewPoint3D;
 import com.orsoncharts.legend.LegendAnchor;
 import com.orsoncharts.plot.XYZPlot;
@@ -57,8 +56,7 @@ import com.orsoncharts.table.TextElement;
 import com.orsoncharts.util.Orientation;
 
 /**
- *
- * @author dgilbert
+ * Demo chart configuration.
  */
 public class ScatterPlot3D3 {
     

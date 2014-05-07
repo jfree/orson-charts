@@ -190,37 +190,31 @@ public class OrsonChartsDemoComponent extends JPanel
         DefaultMutableTreeNode n = new DefaultMutableTreeNode(
                 "Category Charts");
         MutableTreeNode defaultNode = createNode(PREFIX + "AreaChart3DDemo1", 
-                "AreaChart3DDemo1.java", 
-                ABOUT_PREFIX + "AreaChart3DDemo1.html");
+                "AreaChart3DDemo1.java", ABOUT_PREFIX + "AreaChart3D1.html");
         this.defaultChartPath = new TreePath(new Object[] {r, n, defaultNode});
         n.add(defaultNode);
         n.add(createNode(PREFIX + "AreaChart3DDemo2", 
-                "AreaChart3DDemo2.java", 
-                ABOUT_PREFIX + "AreaChart3DDemo2.html"));
+                "AreaChart3DDemo2.java", ABOUT_PREFIX + "AreaChart3D2.html"));
         n.add(createNode(PREFIX + "BarChart3DDemo1", 
-                "BarChart3DDemo1.java", 
-                ABOUT_PREFIX + "BarChart3DDemo1.html"));
+                "BarChart3DDemo1.java", ABOUT_PREFIX + "BarChart3D1.html"));
         n.add(createNode(PREFIX + "BarChart3DDemo2", 
-                "BarChart3DDemo2.java", 
-                ABOUT_PREFIX + "BarChart3DDemo2.html"));
+                "BarChart3DDemo2.java", ABOUT_PREFIX + "BarChart3D2.html"));
         n.add(createNode(PREFIX + "CategoryMarkerDemo1", 
                 "CategoryMarkerDemo1.java", 
                 ABOUT_PREFIX + "CategoryMarkerDemo1.html"));
         n.add(createNode(PREFIX + "LineChart3DDemo1", 
-                "LineChart3DDemo1.java", 
-                ABOUT_PREFIX + "LineChart3DDemo1.html"));
+                "LineChart3DDemo1.java", ABOUT_PREFIX + "LineChart3D1.html"));
         n.add(createNode(PREFIX + "LineChart3DDemo2", 
-                "LineChart3DDemo2.java", 
-                ABOUT_PREFIX + "LineChart3DDemo2.html"));
+                "LineChart3DDemo2.java", ABOUT_PREFIX + "LineChart3D2.html"));
         n.add(createNode(PREFIX + "StackedBarChart3DDemo1", 
                 "StackedBarChart3DDemo1.java", 
-                ABOUT_PREFIX + "StackedBarChart3DDemo1.html"));
+                ABOUT_PREFIX + "StackedBarChart3D1.html"));
         n.add(createNode(PREFIX + "StackedBarChart3DDemo2", 
                 "StackedBarChart3DDemo2.java", 
-                ABOUT_PREFIX + "StackedBarChart3DDemo2.html"));
+                ABOUT_PREFIX + "StackedBarChart3D2.html"));
         n.add(createNode(PREFIX + "StackedBarChart3DDemo3", 
                 "StackedBarChart3DDemo3.java", 
-                ABOUT_PREFIX + "StackedBarChart3DDemo3.html"));
+                ABOUT_PREFIX + "StackedBarChart3D3.html"));
         return n;
     }
     
@@ -232,34 +226,34 @@ public class OrsonChartsDemoComponent extends JPanel
     private MutableTreeNode createPieChartsNode() {
         DefaultMutableTreeNode n = new DefaultMutableTreeNode("Pie Charts");
         n.add(createNode(PREFIX + "PieChart3DDemo1", 
-                "PieChart3DDemo1.java", ABOUT_PREFIX + "PieChart3DDemo1.html"));
+                "PieChart3DDemo1.java", ABOUT_PREFIX + "PieChart3D1.html"));
         n.add(createNode(PREFIX + "PieChart3DDemo2", 
-                "PieChart3DDemo2.java", ABOUT_PREFIX + "PieChart3DDemo2.html"));
+                "PieChart3DDemo2.java", ABOUT_PREFIX + "PieChart3D2.html"));
         return n;        
     }
     
     private MutableTreeNode createXYZChartsNode() {
         DefaultMutableTreeNode n = new DefaultMutableTreeNode("XYZ Charts");
         n.add(createNode(PREFIX + "RangeMarkerDemo1", "RangeMarkerDemo1.java", 
-                ABOUT_PREFIX + "RangeMarkerDemo1.html"));
+                ABOUT_PREFIX + "RangeMarker1.html"));
         n.add(createNode(PREFIX + "ScatterPlot3DDemo1", 
                 "ScatterPlot3DDemo1.java", 
-                ABOUT_PREFIX + "ScatterPlot3DDemo1.html"));
+                ABOUT_PREFIX + "ScatterPlot3D1.html"));
         n.add(createNode(PREFIX + "ScatterPlot3DDemo2",  
                 "ScatterPlot3DDemo2.java", 
-                ABOUT_PREFIX + "ScatterPlot3DDemo2.html"));
+                ABOUT_PREFIX + "ScatterPlot3D2.html"));
         n.add(createNode(PREFIX + "ScatterPlot3DDemo3",  
                 "ScatterPlot3DDemo3.java", 
-                ABOUT_PREFIX + "ScatterPlot3DDemo3.html"));
+                ABOUT_PREFIX + "ScatterPlot3D3.html"));
         n.add(createNode(PREFIX + "SurfaceRendererDemo1", 
                 "SurfaceRendererDemo1.java", 
-                ABOUT_PREFIX + "SurfaceRendererDemo1.html"));
+                ABOUT_PREFIX + "SurfaceRenderer1.html"));
         n.add(createNode(PREFIX + "SurfaceRendererDemo2", 
                 "SurfaceRendererDemo2.java", 
-                ABOUT_PREFIX + "SurfaceRendererDemo2.html"));
+                ABOUT_PREFIX + "SurfaceRenderer2.html"));
         n.add(createNode(PREFIX + "XYZBarChart3DDemo1", 
                 "XYZBarChart3DDemo1.java", 
-                ABOUT_PREFIX + "XYZBarChart3DDemo1.html"));
+                ABOUT_PREFIX + "XYZBarChart3D1.html"));
         return n;        
     }
     
