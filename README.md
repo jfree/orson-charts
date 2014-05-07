@@ -9,7 +9,7 @@ Overview
 Orson Charts is a 3D chart library for the Java(tm) platform that can generate a wide variety of 3D charts for use in applications, applets and servlets. Key features include:
 
 - multiple chart types: pie charts, bar charts (regular and stacked), line charts, area charts, scatter charts and surface plots;
-- a mouse-enabled chart viewer provides 360 degree rotation and zooming for precise end-user view control;
+- mouse-enabled chart viewers in JavaFX and Swing provide 360 degree rotation and zooming for precise end-user view control;
 - configurable tool tip support;
 - interactive chart (mouse event support on all chart elements);
 - flexible data sources; 
@@ -53,7 +53,8 @@ History
 
 Not Yet Released : Version 1.4
 
-- added support to marker elements for KEY_BEGIN_ELEMENT and KEY_END_ELEMENT rendering hints;
+- added JavaFX support;
+- added support to marker elements and item labels for KEY_BEGIN_ELEMENT and KEY_END_ELEMENT rendering hints;
 - add minAutoRangeLength attribute in AbstractValueAxis3D (this fixes a bug for plots where the length of the data range is zero, for example scatter plots with a single value);
 - fixed bug in hinting for tick labels on NumberAxis3D;
 - fixed Utils.js functions that didn't work with Internet Explorer 9.
