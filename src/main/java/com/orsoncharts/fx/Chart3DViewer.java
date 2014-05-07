@@ -279,7 +279,7 @@ public class Chart3DViewer extends Control implements Skinnable {
 
     @Override
     protected String getUserAgentStylesheet() {
-        return Chart3DViewer.class.getResource("chart3d-control.css")
+        return Chart3DViewer.class.getResource("chart3d-viewer.css")
                 .toExternalForm();
     }
  
