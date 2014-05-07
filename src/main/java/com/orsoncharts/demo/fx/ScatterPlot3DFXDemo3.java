@@ -40,6 +40,7 @@ import static javafx.application.Application.launch;
 import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import com.orsoncharts.Chart3D;
@@ -47,7 +48,6 @@ import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.demo.ScatterPlot3D3;
 import com.orsoncharts.fx.Chart3DViewer;
 import com.orsoncharts.graphics3d.ViewPoint3D;
-import javafx.scene.layout.GridPane;
 
 /**
  * A scatter plot demo for JavaFX.
@@ -67,22 +67,22 @@ public class ScatterPlot3DFXDemo3 extends Application {
         Chart3D chart1 = ScatterPlot3D3.createChart(
                 "Iris Dataset : Combination 1", datasets[0], "Sepal Length", 
                 "Sepal Width", "Petal Length");
-        chart1.setViewPoint(ViewPoint3D.createAboveLeftViewPoint(40));
+        chart1.setViewPoint(ViewPoint3D.createAboveLeftViewPoint(120));
         Chart3DViewer viewer1 = new Chart3DViewer(chart1);
         Chart3D chart2 = ScatterPlot3D3.createChart(
                 "Iris Dataset : Combination 2", datasets[1], 
                 "Sepal Length", "Sepal Width", "Petal Width");
-        chart2.setViewPoint(ViewPoint3D.createAboveLeftViewPoint(40));
+        chart2.setViewPoint(ViewPoint3D.createAboveLeftViewPoint(120));
         Chart3DViewer viewer2 = new Chart3DViewer(chart2);
         Chart3D chart3 = ScatterPlot3D3.createChart(
                 "Iris Dataset : Combination 3", datasets[2], 
                 "Sepal Length", "Petal Width", "Petal Length");
-        chart3.setViewPoint(ViewPoint3D.createAboveLeftViewPoint(40));
+        chart3.setViewPoint(ViewPoint3D.createAboveLeftViewPoint(120));
         Chart3DViewer viewer3 = new Chart3DViewer(chart3);
         Chart3D chart4 = ScatterPlot3D3.createChart(
                 "Iris Dataset : Combination 4", datasets[3], 
                 "Sepal Width", "Petal Width", "Petal Length");
-        chart4.setViewPoint(ViewPoint3D.createAboveLeftViewPoint(40));
+        chart4.setViewPoint(ViewPoint3D.createAboveLeftViewPoint(120));
         Chart3DViewer viewer4 = new Chart3DViewer(chart4);
         
         GridPane pane = new GridPane();
