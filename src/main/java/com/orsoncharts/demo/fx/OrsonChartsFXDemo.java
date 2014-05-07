@@ -119,7 +119,7 @@ public class OrsonChartsFXDemo extends Application {
         
         WebView browser = new WebView();
         WebEngine webEngine = browser.getEngine();
-        webEngine.load(getClass().getResource("about.html").toString());
+        webEngine.load(getClass().getResource("../about.html").toString());
         tab2.setContent(browser);
         tabPane.getTabs().add(tab2);        
 
@@ -240,7 +240,7 @@ public class OrsonChartsFXDemo extends Application {
         xyzChartsNode.getChildren().add(n);
 
         d = new DemoDescription(PREFIX + "SurfaceRendererFXDemo2", 
-                "SurfaceRendererFXDemo2.java", "../SurfaceRendererDemo1.html");
+                "SurfaceRendererFXDemo2.java", "../SurfaceRendererDemo2.html");
         this.descriptions.put(d.getFileName(), d);
         n = new TreeItem<String>(d.getFileName());        
         xyzChartsNode.getChildren().add(n);
