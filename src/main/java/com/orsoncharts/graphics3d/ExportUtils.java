@@ -149,6 +149,9 @@ public class ExportUtils {
      * @param file  the output file (<code>null</code> not permitted).
      * 
      * @return The rendering info.
+     * 
+     * @throws FileNotFoundException if the file is not found.
+     * @throws IOException if there is an I/O problem.
      */
     public static RenderingInfo writeAsPNG(Drawable3D drawable, int w, int h, 
             File file) throws FileNotFoundException, IOException {

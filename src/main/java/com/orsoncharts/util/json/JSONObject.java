@@ -48,7 +48,7 @@ public class JSONObject extends HashMap implements Map, JSONAware,
      * @param map  the map to write (<code>null</code> permitted).
      * @param out  the output writer (<code>null</code> not permitted).
      * 
-     * @throws IOException  
+     * @throws IOException if there is an I/O problem.
      */
     public static void writeJSONString(Map map, Writer out) throws IOException {
         if (map == null) {
@@ -81,7 +81,7 @@ public class JSONObject extends HashMap implements Map, JSONAware,
      * 
      * @param out  the output writer (<code>null</code> not permitted).
      * 
-     * @throws IOException 
+     * @throws IOException if there is an I/O problem.
      */
     @Override
     public void writeJSONString(Writer out) throws IOException {

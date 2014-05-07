@@ -31,11 +31,13 @@ public class TableElementStyler implements TableElementVisitor {
     private Map<String, Color> backgroundColorChanges;
     
     /**
-     * Creates a new styler.
+     * Creates a new styler.  The keys in each map are tag values - each 
+     * element with a matching tag will have the associated value applied
+     * to it.
      * 
-     * @param fontChanges
-     * @param fgChanges
-     * @param bgChanges 
+     * @param fontChanges  a map of font changes.
+     * @param fgChanges  a map of foreground color changes.
+     * @param bgChanges  a map of background color changes.
      */
     public TableElementStyler(Map<String, Font> fontChanges, 
             Map<String, Color> fgChanges, Map<String, Color> bgChanges) {

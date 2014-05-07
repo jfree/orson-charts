@@ -91,8 +91,8 @@ public class JSONValue {
      *     java.lang.Boolean,
      *     null
      * 
-     * @throws IOException
-     * @throws ParseException
+     * @throws IOException if there is an I/O problem.
+     * @throws ParseException if there is a parsing problem.
      */
     public static Object parseWithException(Reader in) throws IOException, 
             ParseException{
@@ -107,7 +107,7 @@ public class JSONValue {
      * 
      * @return An object.
      * 
-     * @throws ParseException 
+     * @throws ParseException if there is a parsing problem. 
      */
     public static Object parseWithException(String s) throws ParseException{
         JSONParser parser = new JSONParser();
@@ -132,7 +132,7 @@ public class JSONValue {
      * 
      * @param value  the value.
      * @param out  the output writer.
-     * @throws IOException  
+     * @throws IOException if there is an I/O problem.  
      */
     public static void writeJSONString(Object value, Writer out) 
             throws IOException {
@@ -215,7 +215,7 @@ public class JSONValue {
      * @see com.orsoncharts.util.json.JSONObject#toJSONString(Map)
      * @see com.orsoncharts.util.json.JSONArray#toJSONString(List)
      * 
-     * @param value
+     * @param value the value.
      * @return JSON text, or "null" if value is null or it's an NaN or an INF 
      * number.
      */

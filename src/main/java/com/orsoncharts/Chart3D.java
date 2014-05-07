@@ -1768,7 +1768,7 @@ public class Chart3D implements Drawable3D, ChartElement,
      * Receives a visitor.  The visitor is first directed to the plot, then
      * the visit is completed for the chart.
      * 
-     * @param visitor 
+     * @param visitor  the visitor.
      * 
      * @since 1.2
      */

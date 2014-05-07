@@ -113,7 +113,7 @@ public class JSONParser {
     /**
      * Parse JSON text into java object from the input source.
      *     
-     * @param in
+     * @param in  the input source.
      * @param containerFactory  use this factory to create your own JSON 
      *     object and JSON array containers.
      * @return Instance of the following:
@@ -124,8 +124,8 @@ public class JSONParser {
      *     java.lang.Boolean,
      *     null
      * 
-     * @throws IOException
-     * @throws ParseException
+     * @throws IOException if there is an I/O problem.
+     * @throws ParseException if there is a parsing problem.
      */
     public Object parse(Reader in, ContainerFactory containerFactory) 
             throws IOException, ParseException{
@@ -349,15 +349,15 @@ public class JSONParser {
      * 
      * @see ContentHandler
      * 
-     * @param in
-     * @param contentHandler
+     * @param in  the input.
+     * @param contentHandler  the content handler.
      * @param isResume  indicates if it continues previous parsing operation.
      *     If set to true, resume parsing the old stream, and parameter 'in' 
      *     will be ignored.  If this method is called for the first time in 
      *     this instance, isResume will be ignored.
      * 
-     * @throws IOException
-     * @throws ParseException
+     * @throws IOException if there is an I/O problem.
+     * @throws ParseException if there is a parsing problem.
      */
     public void parse(Reader in, ContentHandler contentHandler, 
             boolean isResume) throws IOException, ParseException {

@@ -458,7 +458,7 @@ public class Colors {
      * ColorBrewer tool.  This is a high-contrast set of colors, good for
      * pie charts.
      * 
-     * http://colorbrewer2.org/?type=qualitative&scheme=Set1&n=9
+     * http://colorbrewer2.org/?type=qualitative&amp;scheme=Set1&amp;n=9
      * 
      * @return A color array.
      */
@@ -480,7 +480,7 @@ public class Colors {
      * Returns a newly created array containing 12 colors from the the 
      * ColorBrewer tool.
      * 
-     * http://colorbrewer2.org/?type=qualitative&scheme=Paired&n=12
+     * http://colorbrewer2.org/?type=qualitative&amp;scheme=Paired&amp;n=12
      * 
      * @return A color array.
      */
@@ -506,7 +506,7 @@ public class Colors {
      * ColorBrewer tool.  Good for pie charts and bar charts, not so good for 
      * scatter plots.
      * 
-     * http://colorbrewer2.org/?type=qualitative&scheme=Set3&n=12 
+     * http://colorbrewer2.org/?type=qualitative&amp;scheme=Set3&amp;n=12 
      * 
      * @return A color array.
      */

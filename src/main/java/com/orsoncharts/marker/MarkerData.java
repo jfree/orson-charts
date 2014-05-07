@@ -64,7 +64,9 @@ public class MarkerData {
      * 
      * @param key  the key (<code>null</code> not permitted).
      * @param startPos  the relative start position.
+     * @param startPegged  is the start position pegged?
      * @param endPos  the relative end position.
+     * @param endPegged  is the end position pegged?
      */
     public MarkerData(String key, double startPos, boolean startPegged, 
             double endPos, boolean endPegged) {

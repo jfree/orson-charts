@@ -54,7 +54,7 @@ public class JSONArray extends ArrayList implements List, JSONAware,
      * @param list  the list (<code>null</code> permitted).
      * @param out  the output writer (<code>null</code> not permitted).
      * 
-     * @throws IOException  
+     * @throws IOException if there is an I/O problem.
      */
     public static void writeJSONString(List list, Writer out) 
             throws IOException {
@@ -89,7 +89,7 @@ public class JSONArray extends ArrayList implements List, JSONAware,
      * 
      * @param out  the output writer (<code>null</code> not permitted).
      * 
-     * @throws IOException 
+     * @throws IOException  if there is an I/O problem.
      */
     @Override
     public void writeJSONString(Writer out) throws IOException {

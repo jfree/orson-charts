@@ -134,7 +134,7 @@ public abstract class AbstractMarker implements Marker {
     /**
      * Receives a visitor.
      * 
-     * @param visitor 
+     * @param visitor  the visitor.
      * 
      * @since 1.2
      */

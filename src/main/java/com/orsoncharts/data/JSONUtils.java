@@ -72,7 +72,8 @@ public class JSONUtils {
      * @param reader  the reader (<code>null</code> not permitted).
      * 
      * @return A <code>KeyedValues</code> instance.
-     * @throws IOException  
+     * 
+     * @throws IOException if there is an I/O problem.
      */
     public static KeyedValues<? extends Number> readKeyedValues(Reader reader) 
             throws IOException {
@@ -125,7 +126,7 @@ public class JSONUtils {
      * @param data  the data (<code>null</code> not permitted).
      * @param writer  the writer (<code>null</code> not permitted).
      * 
-     * @throws IOException 
+     * @throws IOException if there is an I/O problem.
      */
     public static void writeKeyedValues(KeyedValues<? extends Number> data, 
             Writer writer) throws IOException {
@@ -175,7 +176,9 @@ public class JSONUtils {
      * 
      * @param reader  the reader (<code>null</code> not permitted).
      * 
-     * @return A data table. 
+     * @return A data table.
+     * 
+     * @throws java.io.IOException if there is an I/O problem.
      */
     public static KeyedValues2D<? extends Number> readKeyedValues2D(
             Reader reader) throws IOException {
@@ -289,7 +292,7 @@ public class JSONUtils {
      * @param data  the data (<code>null</code> not permitted).
      * @param writer  the writer (<code>null</code> not permitted).
      * 
-     * @throws IOException 
+     * @throws IOException if there is an I/O problem.
      */
     public static void writeKeyedValues2D(KeyedValues2D<? extends Number> data, 
             Writer writer) throws IOException {
@@ -371,7 +374,8 @@ public class JSONUtils {
      * @param reader  the reader (<code>null</code> not permitted).
      * 
      * @return A <code>KeyedValues3D</code> instance.
-     * @throws IOException  
+     * 
+     * @throws IOException if there is an I/O problem.  
      */
     public static KeyedValues3D<? extends Number> readKeyedValues3D(
             Reader reader) throws IOException {
@@ -516,7 +520,7 @@ public class JSONUtils {
      * @param dataset  the dataset (<code>null</code> not permitted).
      * @param writer  the writer (<code>null</code> not permitted).
      * 
-     * @throws IOException 
+     * @throws IOException if there is an I/O problem.
      */
     public static void writeKeyedValues3D(
             KeyedValues3D<? extends Number> dataset, Writer writer) 
@@ -667,7 +671,8 @@ public class JSONUtils {
      * @param reader  a reader (<code>null</code> not permitted).
      * 
      * @return A dataset.
-     * @throws IOException  
+     * 
+     * @throws IOException if there is an I/O problem.
      */
     public static XYZDataset readXYZDataset(Reader reader) throws IOException {
         JSONParser parser = new JSONParser();
@@ -717,7 +722,7 @@ public class JSONUtils {
      * @param dataset  the data (<code>null</code> not permitted).
      * @param writer  the writer (<code>null</code> not permitted).
      * 
-     * @throws IOException 
+     * @throws IOException if there is an I/O problem.
      */
     public static void writeXYZDataset(XYZDataset dataset, Writer writer) 
             throws IOException {

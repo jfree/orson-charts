@@ -44,7 +44,7 @@ public interface Marker extends ChartElement {
     public static final Color DEFAULT_LABEL_COLOR = Color.BLACK;
     
     /** 
-     * Draws the marker based on the <code>markerData</code>> which has been 
+     * Draws the marker based on the <code>markerData</code> which has been 
      * passed to the 3D engine to generate the required 2D projection points.
      * 
      * @param g2  the graphics target (<code>null</code> not permitted).
