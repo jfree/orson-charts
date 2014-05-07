@@ -76,6 +76,8 @@ public class OrsonChartsDemoComponent extends JPanel
     
     private static final String PREFIX = "com.orsoncharts.demo.swing.";
     
+    private static final String ABOUT_PREFIX = "/com/orsoncharts/demo/";
+    
     /** 
      * The path to the default demo chart.  This gets used to ensure the
      * JTree is open at the initial demo selection.
@@ -188,27 +190,37 @@ public class OrsonChartsDemoComponent extends JPanel
         DefaultMutableTreeNode n = new DefaultMutableTreeNode(
                 "Category Charts");
         MutableTreeNode defaultNode = createNode(PREFIX + "AreaChart3DDemo1", 
-                "AreaChart3DDemo1.java", "../AreaChart3DDemo1.html");
+                "AreaChart3DDemo1.java", 
+                ABOUT_PREFIX + "AreaChart3DDemo1.html");
         this.defaultChartPath = new TreePath(new Object[] {r, n, defaultNode});
         n.add(defaultNode);
         n.add(createNode(PREFIX + "AreaChart3DDemo2", 
-                "AreaChart3DDemo2.java", "../AreaChart3DDemo2.html"));
+                "AreaChart3DDemo2.java", 
+                ABOUT_PREFIX + "AreaChart3DDemo2.html"));
         n.add(createNode(PREFIX + "BarChart3DDemo1", 
-                "BarChart3DDemo1.java", "../BarChart3DDemo1.html"));
+                "BarChart3DDemo1.java", 
+                ABOUT_PREFIX + "BarChart3DDemo1.html"));
         n.add(createNode(PREFIX + "BarChart3DDemo2", 
-                "BarChart3DDemo2.java", "../BarChart3DDemo2.html"));
+                "BarChart3DDemo2.java", 
+                ABOUT_PREFIX + "BarChart3DDemo2.html"));
         n.add(createNode(PREFIX + "CategoryMarkerDemo1", 
-                "CategoryMarkerDemo1.java", "../CategoryMarkerDemo1.html"));
+                "CategoryMarkerDemo1.java", 
+                ABOUT_PREFIX + "CategoryMarkerDemo1.html"));
         n.add(createNode(PREFIX + "LineChart3DDemo1", 
-                "LineChart3DDemo1.java", "../LineChart3DDemo1.html"));
+                "LineChart3DDemo1.java", 
+                ABOUT_PREFIX + "LineChart3DDemo1.html"));
         n.add(createNode(PREFIX + "LineChart3DDemo2", 
-                "LineChart3DDemo2.java", "../LineChart3DDemo2.html"));
+                "LineChart3DDemo2.java", 
+                ABOUT_PREFIX + "LineChart3DDemo2.html"));
         n.add(createNode(PREFIX + "StackedBarChart3DDemo1", 
-                "StackedBarChart3DDemo1.java", "../StackedBarChart3DDemo1.html"));
+                "StackedBarChart3DDemo1.java", 
+                ABOUT_PREFIX + "StackedBarChart3DDemo1.html"));
         n.add(createNode(PREFIX + "StackedBarChart3DDemo2", 
-                "StackedBarChart3DDemo2.java", "../StackedBarChart3DDemo2.html"));
+                "StackedBarChart3DDemo2.java", 
+                ABOUT_PREFIX + "StackedBarChart3DDemo2.html"));
         n.add(createNode(PREFIX + "StackedBarChart3DDemo3", 
-                "StackedBarChart3DDemo3.java", "../StackedBarChart3DDemo3.html"));
+                "StackedBarChart3DDemo3.java", 
+                ABOUT_PREFIX + "StackedBarChart3DDemo3.html"));
         return n;
     }
     
@@ -220,28 +232,34 @@ public class OrsonChartsDemoComponent extends JPanel
     private MutableTreeNode createPieChartsNode() {
         DefaultMutableTreeNode n = new DefaultMutableTreeNode("Pie Charts");
         n.add(createNode(PREFIX + "PieChart3DDemo1", 
-                "PieChart3DDemo1.java", "../PieChart3DDemo1.html"));
+                "PieChart3DDemo1.java", ABOUT_PREFIX + "PieChart3DDemo1.html"));
         n.add(createNode(PREFIX + "PieChart3DDemo2", 
-                "PieChart3DDemo2.java", "../PieChart3DDemo2.html"));
+                "PieChart3DDemo2.java", ABOUT_PREFIX + "PieChart3DDemo2.html"));
         return n;        
     }
     
     private MutableTreeNode createXYZChartsNode() {
         DefaultMutableTreeNode n = new DefaultMutableTreeNode("XYZ Charts");
         n.add(createNode(PREFIX + "RangeMarkerDemo1", "RangeMarkerDemo1.java", 
-                "../RangeMarkerDemo1.html"));
+                ABOUT_PREFIX + "RangeMarkerDemo1.html"));
         n.add(createNode(PREFIX + "ScatterPlot3DDemo1", 
-                "ScatterPlot3DDemo1.java", "../ScatterPlot3DDemo1.html"));
+                "ScatterPlot3DDemo1.java", 
+                ABOUT_PREFIX + "ScatterPlot3DDemo1.html"));
         n.add(createNode(PREFIX + "ScatterPlot3DDemo2",  
-                "ScatterPlot3DDemo2.java", "../ScatterPlot3DDemo2.html"));
+                "ScatterPlot3DDemo2.java", 
+                ABOUT_PREFIX + "ScatterPlot3DDemo2.html"));
         n.add(createNode(PREFIX + "ScatterPlot3DDemo3",  
-                "ScatterPlot3DDemo3.java", "../ScatterPlot3DDemo3.html"));
+                "ScatterPlot3DDemo3.java", 
+                ABOUT_PREFIX + "ScatterPlot3DDemo3.html"));
         n.add(createNode(PREFIX + "SurfaceRendererDemo1", 
-                "SurfaceRendererDemo1.java", "../SurfaceRendererDemo1.html"));
+                "SurfaceRendererDemo1.java", 
+                ABOUT_PREFIX + "SurfaceRendererDemo1.html"));
         n.add(createNode(PREFIX + "SurfaceRendererDemo2", 
-                "SurfaceRendererDemo2.java", "../SurfaceRendererDemo2.html"));
+                "SurfaceRendererDemo2.java", 
+                ABOUT_PREFIX + "SurfaceRendererDemo2.html"));
         n.add(createNode(PREFIX + "XYZBarChart3DDemo1", 
-                "XYZBarChart3DDemo1.java", "../XYZBarChart3DDemo1.html"));
+                "XYZBarChart3DDemo1.java", 
+                ABOUT_PREFIX + "XYZBarChart3DDemo1.html"));
         return n;        
     }
     
@@ -249,17 +267,17 @@ public class OrsonChartsDemoComponent extends JPanel
         DefaultMutableTreeNode n = new DefaultMutableTreeNode(
                 "Axis Range Tests");
         n.add(createNode(PREFIX + "AxisRangeDemo1", "AxisRangeDemo1.java", 
-                "../AxisRangeDemo1.html"));
+                ABOUT_PREFIX + "AxisRangeDemo1.html"));
         n.add(createNode(PREFIX + "AxisRangeDemo2", "AxisRangeDemo2.java", 
-                "../AxisRangeDemo2.html"));
+                ABOUT_PREFIX + "AxisRangeDemo2.html"));
         n.add(createNode(PREFIX + "AxisRangeDemo3", "AxisRangeDemo3.java", 
-                "../AxisRangeDemo3.html"));
+                ABOUT_PREFIX + "AxisRangeDemo3.html"));
         n.add(createNode(PREFIX + "AxisRangeDemo4", "AxisRangeDemo4.java", 
-                "../AxisRangeDemo4.html"));
+                ABOUT_PREFIX + "AxisRangeDemo4.html"));
         n.add(createNode(PREFIX + "AxisRangeDemo5", "AxisRangeDemo5.java", 
-                "../AxisRangeDemo5.html"));
+                ABOUT_PREFIX + "AxisRangeDemo5.html"));
         n.add(createNode(PREFIX + "AxisRangeDemo6", "AxisRangeDemo6.java", 
-                "../AxisRangeDemo6.html"));
+                ABOUT_PREFIX + "AxisRangeDemo6.html"));
         return n;                
     }
     
