@@ -63,6 +63,7 @@ import javax.swing.UIManager.LookAndFeelInfo;
 
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DPanel;
+import com.orsoncharts.demo.AreaChart3D1;
 import com.orsoncharts.style.ChartStyle;
 import com.orsoncharts.style.ChartStyles;
 
@@ -191,7 +192,8 @@ public class OrsonChartsDemo extends JFrame implements ActionListener {
         JTextPane textPane = new JTextPane();
         textPane.setEditable(false);
         textPane.setPreferredSize(new Dimension(800, 400));
-        URL descriptionURL = OrsonChartsDemo.class.getResource("../about.html");
+        URL descriptionURL = OrsonChartsDemo.class.getResource(
+                "/com/orsoncharts/demo/about.html");
         try {
             textPane.setPage(descriptionURL);
         } catch (IOException ex) {
