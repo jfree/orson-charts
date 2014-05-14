@@ -319,7 +319,7 @@ public class VerticalFlowElement extends AbstractTableElement
         Rectangle2D dest = fitter.fit(prefDim, bounds);
         
         // perform layout within this bounding rectangle
-        List<Rectangle2D> layoutInfo = this.layoutElements(g2, dest, null);
+        List<Rectangle2D> layoutInfo = layoutElements(g2, dest, null);
         
         // draw the elements
         for (int i = 0; i < this.elements.size(); i++) {
