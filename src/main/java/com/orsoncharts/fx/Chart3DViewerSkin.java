@@ -50,7 +50,6 @@ public class Chart3DViewerSkin extends SkinBase<Chart3DViewer>  {
         sp.getChildren().add(canvas);
         getSkinnable().setCanvas(canvas);
         borderPane.setCenter(sp);
-        //borderPane.setBottom(new Button("Hello World"));
         return borderPane;
     }
     
