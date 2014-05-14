@@ -72,6 +72,7 @@ import com.orsoncharts.fx.Chart3DCanvas;
 import com.orsoncharts.fx.Chart3DViewer;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.Drawable3D;
+import com.orsoncharts.interaction.fx.FXChart3DMouseEvent;
 
 /**
  * Demo application for Orson Charts in JavaFX.
@@ -315,6 +316,9 @@ public class OrsonChartsFXDemo extends Application {
                     borderPane.setCenter(node);
                     if (node instanceof Chart3DViewer) {
                         Chart3DViewer v = (Chart3DViewer) node;
+                        v.addEventHandler(FXChart3DMouseEvent.MOUSE_CLICKED, (FXChart3DMouseEvent event) -> {
+                            System.out.println(event.getElement());
+                        });
                         v.prefWidthProperty().bind(borderPane.widthProperty());
                         v.prefHeightProperty().bind(borderPane.heightProperty());
                         zoomToFit(v.getChart(), new Dimension(
