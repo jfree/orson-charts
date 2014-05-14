@@ -18,9 +18,9 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.Dimension2D;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
-import javafx.scene.control.Tooltip;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.data.ItemKey;
 import com.orsoncharts.fx.graphics2d.FXGraphics2D;
@@ -71,9 +71,6 @@ public class Chart3DCanvas extends Canvas {
     /** The angle increment for rotating up and down (in radians). */
     private double rotateIncrement = Math.PI / 120.0;
     
-    /** The roll increment (in radians). */
-    private double rollIncrement;
-    
     /** 
      * The (screen) point of the last mouse click (will be <code>null</code> 
      * initially).  Used to calculate the mouse drag distance and direction.
@@ -94,6 +91,12 @@ public class Chart3DCanvas extends Canvas {
     /** The tooltip object for the canvas. */
     private Tooltip tooltip;
     
+    /** Are tooltips enabled? */
+    private boolean tooltipEnabled = true;
+    
+    /** Is rotation by mouse-dragging enabled? */
+    private boolean rotateViewEnabled = true;
+    
     /**
      * Creates a new canvas to display the supplied chart in JavaFX.
      * 
@@ -108,42 +111,15 @@ public class Chart3DCanvas extends Canvas {
         this.g2 = new FXGraphics2D(getGraphicsContext2D());
 
         setOnMouseMoved((MouseEvent me) -> { updateTooltip(me); });
-        
         setOnMousePressed((MouseEvent me) -> {
-            Chart3DCanvas.this.lastClickPoint = new Point((int) me.getScreenX(),
+            Chart3DCanvas canvas = Chart3DCanvas.this;
+            canvas.lastClickPoint = new Point((int) me.getScreenX(),
                     (int) me.getScreenY());
-            Chart3DCanvas.this.lastMovePoint = Chart3DCanvas.this.lastClickPoint;
+            canvas.lastMovePoint = canvas.lastClickPoint;
         });
 
-        setOnMouseDragged((MouseEvent me) -> {
-            Point currPt = new Point((int) me.getScreenX(), 
-                    (int) me.getScreenY());
-            int dx = currPt.x - Chart3DCanvas.this.lastMovePoint.x;
-            int dy = currPt.y - Chart3DCanvas.this.lastMovePoint.y;
-            Chart3DCanvas.this.lastMovePoint = currPt;
-            Chart3DCanvas.this.chart.getViewPoint().panLeftRight(
-                    -dx * this.panIncrement);
-            Chart3DCanvas.this.chart.getViewPoint().moveUpDown(
-                    -dy * this.rotateIncrement);
-            Chart3DCanvas.this.draw();
-        });
-
-        setOnScroll((ScrollEvent event) -> {
-            double units = event.getDeltaY();
-            double maxViewingDistance 
-                    = Chart3DCanvas.this.maxViewingDistanceMultiplier
-                    * Chart3DCanvas.this.minViewingDistance;
-            ViewPoint3D vp = Chart3DCanvas.this.chart.getViewPoint();
-            double valRho = Math.max(Chart3DCanvas.this.minViewingDistance,
-                    Math.min(maxViewingDistance, vp.getRho() + units));
-            vp.setRho(valRho);
-            Chart3DCanvas.this.draw();
-        });
-        
-    }
-    
-    private boolean isContextMenuShowing() {
-        return false;  // FIXME
+        setOnMouseDragged((MouseEvent me) -> { handleMouseDragged(me); });
+        setOnScroll((ScrollEvent event) -> { handleScroll(event); });
     }
     
     /**
@@ -166,22 +142,54 @@ public class Chart3DCanvas extends Canvas {
         draw();
     }
 
+    /**
+     * Returns the margin that is used when zooming to fit.  The margin can 
+     * be used to control the amount of space around the chart (where labels
+     * are often drawn).  The default value is 0.25 (25 percent).
+     * 
+     * @return The margin. 
+     */
     public double getMargin() {
         return this.margin;
     }
 
+    /**
+     * Sets the margin (note that this will not have an immediate effect, it
+     * will only be applied on the next call to 
+     * {@link #zoomToFit(double, double)}.
+     * 
+     * @param margin  the margin. 
+     */
     public void setMargin(double margin) {
         this.margin = margin;
     }
     
+    /**
+     * Returns the rendering info from the most recent drawing of the chart.
+     * 
+     * @return The rendering info (possibly <code>null</code>).
+     */
     public RenderingInfo getRenderingInfo() {
         return this.renderingInfo;
     }
 
+    /**
+     * Returns the minimum distance between the viewing point and the origin. 
+     * This is initialised in the constructor based on the chart dimensions.
+     * 
+     * @return The minimum viewing distance.
+     */
     public double getMinViewingDistance() {
         return this.minViewingDistance;
     }
 
+    /**
+     * Sets the minimum between the viewing point and the origin. If the
+     * current distance is lower than the new minimum, it will be set to this
+     * minimum value.
+     * 
+     * @param minViewingDistance  the minimum viewing distance.
+     */
     public void setMinViewingDistance(double minViewingDistance) {
         this.minViewingDistance = minViewingDistance;
         if (this.chart.getViewPoint().getRho() < this.minViewingDistance) {
@@ -189,11 +197,27 @@ public class Chart3DCanvas extends Canvas {
         }
     }
 
+    /**
+     * Returns the multiplier used to calculate the maximum permitted distance
+     * between the viewing point and the origin.  The multiplier is applied to
+     * the minimum viewing distance.  The default value is 8.0.
+     * 
+     * @return The multiplier. 
+     */
     public double getMaxViewingDistanceMultiplier() {
         return this.maxViewingDistanceMultiplier;
     }
 
+    /**
+     * Sets the multiplier used to calculate the maximum viewing distance.
+     * 
+     * @param multiplier  the multiplier.
+     */
     public void setMaxViewingDistanceMultiplier(double multiplier) {
+        if (multiplier < 1.0) {
+            throw new IllegalArgumentException(
+                    "The 'multiplier' should be greater than 1.0.");
+        }
         this.maxViewingDistanceMultiplier = multiplier;
         double maxDistance = this.minViewingDistance * multiplier;
         if (this.chart.getViewPoint().getRho() > maxDistance) {
@@ -201,33 +225,87 @@ public class Chart3DCanvas extends Canvas {
         }
     }
 
+    /**
+     * Returns the increment for panning left and right.  This is an angle in
+     * radians, and the default value is <code>Math.PI / 120.0</code>.
+     * 
+     * @return The panning increment. 
+     */
     public double getPanIncrement() {
-        return panIncrement;
+        return this.panIncrement;
     }
 
-    public void setPanIncrement(double panIncrement) {
-        this.panIncrement = panIncrement;
+    /**
+     * Sets the increment for panning left and right (an angle measured in 
+     * radians).
+     * 
+     * @param increment  the angle in radians.
+     */
+    public void setPanIncrement(double increment) {
+        this.panIncrement = increment;
     }
 
+    /**
+     * Returns the increment for rotating up and down.  This is an angle in
+     * radians, and the default value is <code>Math.PI / 120.0</code>.
+     * 
+     * @return The rotate increment. 
+     */
     public double getRotateIncrement() {
-        return rotateIncrement;
+        return this.rotateIncrement;
     }
 
-    public void setRotateIncrement(double rotateIncrement) {
-        this.rotateIncrement = rotateIncrement;
+    /**
+     * Sets the increment for rotating up and down (an angle measured in 
+     * radians).
+     * 
+     * @param increment  the angle in radians.
+     */
+    public void setRotateIncrement(double increment) {
+        this.rotateIncrement = increment;
     }
-
-    public double getRollIncrement() {
-        return rollIncrement;
-    }
-
-    public void setRollIncrement(double rollIncrement) {
-        this.rollIncrement = rollIncrement;
-    }    
  
     /**
+     * Returns the flag that controls whether or not tooltips are enabled.
+     * 
+     * @return The flag. 
+     */
+    public boolean isTooltipEnabled() {
+        return this.tooltipEnabled;
+    }
+
+    /**
+     * Sets the flag that controls whether or not tooltips are enabled.
+     * 
+     * @param tooltipEnabled  the new flag value. 
+     */
+    public void setTooltipEnabled(boolean tooltipEnabled) {
+        this.tooltipEnabled = tooltipEnabled;
+    }
+
+    /**
+     * Returns a flag that controls whether or not rotation by mouse dragging
+     * is enabled.
+     * 
+     * @return A boolean.
+     */
+    public boolean isRotateViewEnabled() {
+        return this.rotateViewEnabled;
+    }
+
+    /**
+     * Sets the flag that controls whether or not rotation by mouse dragging
+     * is enabled.
+     * 
+     * @param rotateViewEnabled 
+     */
+    public void setRotateViewEnabled(boolean rotateViewEnabled) {
+        this.rotateViewEnabled = rotateViewEnabled;
+    }
+
+    /**
      * Adjusts the viewing distance so that the chart fits the specified
-     * size.  A margin is left (see {@link #getMargin()} around the edges to 
+     * size.  A margin is left (see {@link #getMargin()}) around the edges to 
      * leave room for labels etc.
      * 
      * @param width  the width.
@@ -245,7 +323,9 @@ public class Chart3DCanvas extends Canvas {
     }
 
     /**
-     * Draws the content of the canvas.
+     * Draws the content of the canvas and updates the 
+     * <code>renderingInfo</code> attribute with the latest rendering 
+     * information.
      */
     public void draw() {
         getGraphicsContext2D().save();
@@ -258,13 +338,24 @@ public class Chart3DCanvas extends Canvas {
         getGraphicsContext2D().restore();
     }
  
+    /**
+     * Return <code>true</code> to indicate the canvas is resizable.
+     * 
+     * @return <code>true</code>. 
+     */
     @Override
     public boolean isResizable() {
         return true;
     }
 
+    /**
+     * Updates the tooltip.  This method will return without doing anything if
+     * the <code>tooltipEnabled</code> flag is set to false.
+     * 
+     * @param me  the mouse event.
+     */
     protected void updateTooltip(MouseEvent me) {
-        if (this.renderingInfo == null) {
+        if (!this.tooltipEnabled || this.renderingInfo == null) {
             return;
         }
         Object3D object = this.renderingInfo.fetchObjectAt(me.getX(), 
@@ -288,6 +379,38 @@ public class Chart3DCanvas extends Canvas {
                 this.tooltip = null;
             }
         }
+    }
+    
+    /**
+     * Handles a mouse dragged event by rotating the chart (unless the
+     * <code>rotateViewEnabled</code> flag is set to false, in which case this
+     * method does nothing).
+     * 
+     * @param event  the mouse event. 
+     */
+    private void handleMouseDragged(MouseEvent event) {
+        if (!this.rotateViewEnabled) {
+            return;
+        }
+        Point currPt = new Point((int) event.getScreenX(), 
+                    (int) event.getScreenY());
+        int dx = currPt.x - this.lastMovePoint.x;
+        int dy = currPt.y - this.lastMovePoint.y;
+        this.lastMovePoint = currPt;
+        this.chart.getViewPoint().panLeftRight(-dx * this.panIncrement);
+        this.chart.getViewPoint().moveUpDown(-dy * this.rotateIncrement);
+        this.draw();        
+    }
+
+    private void handleScroll(ScrollEvent event) {
+        double units = event.getDeltaY();
+        double maxViewingDistance = this.maxViewingDistanceMultiplier
+                    * this.minViewingDistance;
+        ViewPoint3D vp = this.chart.getViewPoint();
+        double valRho = Math.max(this.minViewingDistance,
+                Math.min(maxViewingDistance, vp.getRho() + units));
+        vp.setRho(valRho);
+        draw();
     }
 }
 
