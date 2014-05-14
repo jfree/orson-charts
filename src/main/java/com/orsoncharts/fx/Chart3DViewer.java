@@ -15,16 +15,22 @@ package com.orsoncharts.fx;
 import java.io.File;
 import java.io.IOException;
 import javafx.event.ActionEvent;
-import javafx.stage.FileChooser;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Control;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.Skinnable;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
+import javafx.stage.WindowEvent;
+import javax.swing.event.EventListenerList;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.graphics3d.ExportUtils;
+import com.orsoncharts.graphics3d.RenderedElement;
+import com.orsoncharts.graphics3d.RenderingInfo;
 import com.orsoncharts.graphics3d.ViewPoint3D;
+import com.orsoncharts.interaction.fx.FXChart3DMouseEvent;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.ExportFormats;
 
@@ -54,6 +60,9 @@ public class Chart3DViewer extends Control implements Skinnable {
      */
     private double zoomMultiplier = 0.95;
     
+    /** Storage for registered chart mouse listeners. */
+    private transient EventListenerList chartMouseListeners;
+
     /**
      * Creates a new viewer to display the supplied chart in JavaFX.
      * 
@@ -72,8 +81,23 @@ public class Chart3DViewer extends Control implements Skinnable {
     public Chart3DViewer(Chart3D chart, boolean contextMenuEnabled) {
         ArgChecks.nullNotPermitted(chart, "chart");
         this.chart = chart;
+        this.chartMouseListeners = new EventListenerList();
         getStyleClass().add("chart3d-control");
         this.contextMenu = createContextMenu();
+        this.contextMenu.setOnShowing((WindowEvent event) -> {
+            Chart3DViewer viewer = Chart3DViewer.this;
+            if (viewer.canvas != null) {
+                viewer.canvas.setRotateViewEnabled(false);
+                viewer.canvas.setTooltipEnabled(false);
+            }
+        });
+        this.contextMenu.setOnHiding((WindowEvent event) -> {
+            Chart3DViewer viewer = Chart3DViewer.this;
+            if (viewer.canvas != null) {
+                viewer.canvas.setRotateViewEnabled(true);
+                viewer.canvas.setTooltipEnabled(true);
+            }
+        });
         setContextMenu(this.contextMenu);
     }
 
@@ -113,8 +137,18 @@ public class Chart3DViewer extends Control implements Skinnable {
      * 
      * @param canvas  the canvas. 
      */
-    public void setCanvas(Chart3DCanvas canvas) {
+    public void setCanvas(final Chart3DCanvas canvas) {
         this.canvas = canvas;
+        this.canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, 
+                (MouseEvent event) -> {
+            RenderingInfo info = canvas.getRenderingInfo();
+            RenderedElement element = info.findElementAt(
+                    event.getX(), event.getSceneY());
+
+            Chart3DViewer viewer = Chart3DViewer.this;
+            viewer.fireEvent(new FXChart3DMouseEvent(viewer,
+                    FXChart3DMouseEvent.MOUSE_CLICKED, element, event)); 
+        });
     }
 
     /**
@@ -134,7 +168,7 @@ public class Chart3DViewer extends Control implements Skinnable {
      * @param multiplier  the new multiplier.
      */
     public void setZoomMultiplier(double multiplier) {
-        this.zoomMultiplier = zoomMultiplier;
+        this.zoomMultiplier = multiplier;
     }
 
     /**
@@ -143,7 +177,7 @@ public class Chart3DViewer extends Control implements Skinnable {
      * @return The context menu.
      */
     private ContextMenu createContextMenu() {
-        final ContextMenu contextMenu = new ContextMenu();
+        final ContextMenu menu = new ContextMenu();
         MenuItem zoomIn = new MenuItem("Zoom In");
         zoomIn.setOnAction((ActionEvent e) -> { 
             handleZoom(this.zoomMultiplier);
@@ -181,9 +215,9 @@ public class Chart3DViewer extends Control implements Skinnable {
             });
             export.getItems().add(svgItem);        
         }
-        contextMenu.getItems().addAll(zoomIn, zoomOut, zoomToFit, separator, 
+        menu.getItems().addAll(zoomIn, zoomOut, zoomToFit, separator, 
                 export);
-        return contextMenu;
+        return menu;
     }
     
     /**
