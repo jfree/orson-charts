@@ -48,10 +48,13 @@ import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
+import java.awt.image.ColorModel;
 import java.awt.image.ImageObserver;
 import java.awt.image.RenderedImage;
+import java.awt.image.WritableRaster;
 import java.awt.image.renderable.RenderableImage;
 import java.text.AttributedCharacterIterator;
+import java.util.Hashtable;
 import java.util.Map;
 import java.util.Set;
 import javafx.embed.swing.SwingFXUtils;
@@ -223,9 +226,14 @@ public class FXGraphics2D extends Graphics2D {
         this.clippingDisabled = disabled;    
     }
     
+    /**
+     * This method is not implemented.
+     * @return <code>null</code>.
+     */
     @Override
     public GraphicsConfiguration getDeviceConfiguration() {
-        throw new UnsupportedOperationException("Not supported yet."); //TODO
+        // FIXME
+        return null;
     }
 
     /**
@@ -1557,7 +1565,41 @@ public class FXGraphics2D extends Graphics2D {
 
     @Override
     public void drawRenderedImage(RenderedImage img, AffineTransform xform) {
-        throw new UnsupportedOperationException("Not supported yet."); //TODO
+        BufferedImage bi = convertRenderedImage(img);
+        drawImage(bi, xform, null);
+    }
+
+    /**
+     * Converts a rendered image to a <code>BufferedImage</code>.  This utility
+     * method has come from a forum post by Jim Moore at:
+     * <p>
+     * <a href="http://www.jguru.com/faq/view.jsp?EID=114602">
+     * http://www.jguru.com/faq/view.jsp?EID=114602</a>
+     * 
+     * @param img  the rendered image.
+     * 
+     * @return A buffered image. 
+     */
+    private static BufferedImage convertRenderedImage(RenderedImage img) {
+        if (img instanceof BufferedImage) {
+            return (BufferedImage) img;	
+        }
+        ColorModel cm = img.getColorModel();
+        int width = img.getWidth();
+        int height = img.getHeight();
+        WritableRaster raster = cm.createCompatibleWritableRaster(width, height);
+        boolean isAlphaPremultiplied = cm.isAlphaPremultiplied();
+        Hashtable properties = new Hashtable();
+        String[] keys = img.getPropertyNames();
+        if (keys != null) {
+            for (int i = 0; i < keys.length; i++) {
+                properties.put(keys[i], img.getProperty(keys[i]));
+            }
+        }
+        BufferedImage result = new BufferedImage(cm, raster, 
+                isAlphaPremultiplied, properties);
+        img.copyData(raster);
+        return result;
     }
 
     /**
@@ -1608,20 +1650,33 @@ public class FXGraphics2D extends Graphics2D {
         drawImage(imageToDraw, new AffineTransform(1f, 0f, 0f, 1f, x, y), null);
     }
 
+    /**
+     * Not yet implemented.
+     * 
+     * @param x  the x-coordinate.
+     * @param y  the y-coordinate.
+     * @param width  the width of the area.
+     * @param height  the height of the area.
+     * @param dx  the delta x.
+     * @param dy  the delta y.
+     */
     @Override
     public void copyArea(int x, int y, int width, int height, int dx, int dy) {
-        throw new UnsupportedOperationException("Not supported yet."); //TODO
+        // FIXME: implement this, low priority
     }
 
+    /**
+     * This method does nothing.
+     */
     @Override
     public void dispose() {
-        throw new UnsupportedOperationException("Not supported yet."); //TODO
+        // nothing to do
     }
  
     /**
      * Sets the attributes of the reusable {@link Rectangle2D} object that is
-     * used by the {@link CanvasGraphics2D#drawRect(int, int, int, int)} and 
-     * {@link CanvasGraphics2D#fillRect(int, int, int, int)} methods.
+     * used by the {@link FXGraphics2D#drawRect(int, int, int, int)} and 
+     * {@link FXGraphics2D#fillRect(int, int, int, int)} methods.
      * 
      * @param x  the x-coordinate.
      * @param y  the y-coordinate.
