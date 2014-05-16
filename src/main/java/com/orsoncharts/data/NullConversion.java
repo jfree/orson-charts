@@ -13,7 +13,8 @@
 package com.orsoncharts.data;
 
 /**
- * Options for handling <code>null</code> values during dataset extraction.
+ * Options for handling <code>null</code> values during dataset extraction
+ * (SKIP, CONVERT_TO_NAN, CONVERT_TO_ZERO, THROW_EXCEPTION).
  * 
  * @since 1.3
  */
