@@ -64,6 +64,22 @@ public final class ArgChecks {
                     + "' must be positive.");
         } 
     }
+    
+    /**
+     * Checks if the specified argument is finite and, if it is NOT, throws an
+     * <code>IllegalArgumentException</code>.
+     * 
+     * @param value  the value.
+     * @param name  the parameter name (<code>null</code> not permitted).
+     * 
+     * @since 1.4
+     */
+    public static void finiteRequired(double value, String name) {
+        if (Double.isInfinite(value)) {
+            throw new IllegalArgumentException("Param '" + name 
+                    + "' must be finite.");
+        }
+    }
 
     /**
      * Checks that the index is less than the specified <code>arrayLimit</code>
