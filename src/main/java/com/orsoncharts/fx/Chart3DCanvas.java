@@ -297,10 +297,10 @@ public class Chart3DCanvas extends Canvas {
      * Sets the flag that controls whether or not rotation by mouse dragging
      * is enabled.
      * 
-     * @param rotateViewEnabled 
+     * @param enabled  the new flag value.
      */
-    public void setRotateViewEnabled(boolean rotateViewEnabled) {
-        this.rotateViewEnabled = rotateViewEnabled;
+    public void setRotateViewEnabled(boolean enabled) {
+        this.rotateViewEnabled = enabled;
     }
 
     /**
