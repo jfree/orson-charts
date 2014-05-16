@@ -12,14 +12,16 @@
 
 package com.orsoncharts.data;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertNull;
+
+import org.junit.Test;
+import com.orsoncharts.Range;
 import com.orsoncharts.data.category.StandardCategoryDataset3D;
 import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.data.xyz.XYZSeries;
 import com.orsoncharts.data.xyz.XYZSeriesCollection;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertArrayEquals;
-
-import org.junit.Test;
 
 /**
  * Tests for the {@link DataUtils} class.
@@ -174,5 +176,119 @@ public class DataUtilsTest {
         assertEquals(16.0, dataset.getX(1, 1), EPSILON);
         assertEquals(14.0, dataset.getY(1, 1), EPSILON);
         assertEquals(15.0, dataset.getZ(1, 1), EPSILON);
+    }
+    
+    @Test
+    public void testFindXRange() {
+        XYZSeries s1 = new XYZSeries("S1");
+        XYZSeriesCollection dataset = new XYZSeriesCollection();
+        dataset.add(s1);
+        assertNull(DataUtils.findXRange(dataset));
+        assertNull(DataUtils.findXRange(dataset, Double.NaN));
+        assertNull(DataUtils.findXRange(dataset, Double.NaN, false));
+        assertEquals(new Range(1.0, 1.0), DataUtils.findXRange(dataset, 1.0));
+        assertEquals(new Range(1.0, 1.0), DataUtils.findXRange(dataset, 1.0, 
+                false));
+        
+        s1.add(5.0, 6.0, 7.0);
+        assertEquals(new Range(5.0, 5.0), DataUtils.findXRange(dataset));
+        assertEquals(new Range(-1.0, 5.0), DataUtils.findXRange(dataset, -1.0));
+        assertEquals(new Range(-1.0, 5.0), DataUtils.findXRange(dataset, -1.0, 
+                false));
+
+        s1.add(Double.NaN, 8.0, 9.0);
+        assertEquals(new Range(5.0, 5.0), DataUtils.findXRange(dataset));
+        assertEquals(new Range(-1.0, 5.0), DataUtils.findXRange(dataset, -1.0));
+        assertEquals(new Range(-1.0, 5.0), DataUtils.findXRange(dataset, -1.0, 
+                false));
+
+        s1.add(Double.NEGATIVE_INFINITY, 8.0, 9.0);
+        assertEquals(new Range(5.0, 5.0), DataUtils.findXRange(dataset));
+        assertEquals(new Range(-1.0, 5.0), DataUtils.findXRange(dataset, -1.0));
+        assertEquals(new Range(Double.NEGATIVE_INFINITY, 5.0), 
+                DataUtils.findXRange(dataset, -1.0, false));
+
+        s1.add(Double.POSITIVE_INFINITY, 10.0, 11.0);
+        assertEquals(new Range(5.0, 5.0), DataUtils.findXRange(dataset));
+        assertEquals(new Range(-1.0, 5.0), DataUtils.findXRange(dataset, -1.0));
+        assertEquals(new Range(Double.NEGATIVE_INFINITY, 
+                Double.POSITIVE_INFINITY), DataUtils.findXRange(dataset, -1.0, 
+                false));
+    }
+
+    @Test
+    public void testFindYRange() {
+        XYZSeries s1 = new XYZSeries("S1");
+        XYZSeriesCollection dataset = new XYZSeriesCollection();
+        dataset.add(s1);
+        assertNull(DataUtils.findYRange(dataset));
+        assertNull(DataUtils.findYRange(dataset, Double.NaN));
+        assertNull(DataUtils.findYRange(dataset, Double.NaN, false));
+        assertEquals(new Range(1.0, 1.0), DataUtils.findYRange(dataset, 1.0));
+        assertEquals(new Range(1.0, 1.0), DataUtils.findYRange(dataset, 1.0, 
+                false));
+        
+        s1.add(5.0, 6.0, 7.0);
+        assertEquals(new Range(6.0, 6.0), DataUtils.findYRange(dataset));
+        assertEquals(new Range(-1.0, 6.0), DataUtils.findYRange(dataset, -1.0));
+        assertEquals(new Range(-1.0, 6.0), DataUtils.findYRange(dataset, -1.0, 
+                false));
+
+        s1.add(8.0, Double.NaN, 9.0);
+        assertEquals(new Range(6.0, 6.0), DataUtils.findYRange(dataset));
+        assertEquals(new Range(-1.0, 6.0), DataUtils.findYRange(dataset, -1.0));
+        assertEquals(new Range(-1.0, 6.0), DataUtils.findYRange(dataset, -1.0, 
+                false));
+
+        s1.add(8.0, Double.NEGATIVE_INFINITY, 9.0);
+        assertEquals(new Range(6.0, 6.0), DataUtils.findYRange(dataset));
+        assertEquals(new Range(-1.0, 6.0), DataUtils.findYRange(dataset, -1.0));
+        assertEquals(new Range(Double.NEGATIVE_INFINITY, 6.0), 
+                DataUtils.findYRange(dataset, -1.0, false));
+
+        s1.add(10.0, Double.POSITIVE_INFINITY, 11.0);
+        assertEquals(new Range(6.0, 6.0), DataUtils.findYRange(dataset));
+        assertEquals(new Range(-1.0, 6.0), DataUtils.findYRange(dataset, -1.0));
+        assertEquals(new Range(Double.NEGATIVE_INFINITY, 
+                Double.POSITIVE_INFINITY), DataUtils.findYRange(dataset, -1.0, 
+                false));
+    }
+    
+    @Test
+    public void testFindZRange() {
+        XYZSeries s1 = new XYZSeries("S1");
+        XYZSeriesCollection dataset = new XYZSeriesCollection();
+        dataset.add(s1);
+        assertNull(DataUtils.findZRange(dataset));
+        assertNull(DataUtils.findZRange(dataset, Double.NaN));
+        assertNull(DataUtils.findZRange(dataset, Double.NaN, false));
+        assertEquals(new Range(1.0, 1.0), DataUtils.findZRange(dataset, 1.0));
+        assertEquals(new Range(1.0, 1.0), DataUtils.findZRange(dataset, 1.0, 
+                false));
+        
+        s1.add(5.0, 6.0, 7.0);
+        assertEquals(new Range(7.0, 7.0), DataUtils.findZRange(dataset));
+        assertEquals(new Range(-1.0, 7.0), DataUtils.findZRange(dataset, -1.0));
+        assertEquals(new Range(-1.0, 7.0), DataUtils.findZRange(dataset, -1.0, 
+                false));
+
+        s1.add(8.0, 9.0, Double.NaN);
+        assertEquals(new Range(7.0, 7.0), DataUtils.findZRange(dataset));
+        assertEquals(new Range(-1.0, 7.0), DataUtils.findZRange(dataset, -1.0));
+        assertEquals(new Range(-1.0, 7.0), DataUtils.findZRange(dataset, -1.0, 
+                false));
+
+        s1.add(8.0, 9.0, Double.NEGATIVE_INFINITY);
+        assertEquals(new Range(7.0, 7.0), DataUtils.findZRange(dataset));
+        assertEquals(new Range(-1.0, 7.0), DataUtils.findZRange(dataset, -1.0));
+        assertEquals(new Range(Double.NEGATIVE_INFINITY, 7.0), 
+                DataUtils.findZRange(dataset, -1.0, false));
+
+        s1.add(10.0, 11.0, Double.POSITIVE_INFINITY);
+        assertEquals(new Range(7.0, 7.0), DataUtils.findZRange(dataset));
+        assertEquals(new Range(-1.0, 7.0), DataUtils.findZRange(dataset, -1.0));
+        assertEquals(new Range(Double.NEGATIVE_INFINITY, 
+                Double.POSITIVE_INFINITY), DataUtils.findZRange(dataset, -1.0, 
+                false));
     }
 }
