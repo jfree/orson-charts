@@ -278,6 +278,27 @@ public class DataUtils {
      */
     public static Range findValueRange(Values3D<? extends Number> data, 
             double base) {
+        return findValueRange(data, base, true);
+    }
+    
+    /**
+    /**
+     * Returns the range of values in the specified data cube, or 
+     * <code>null</code> if there is no data.  The range will be expanded, if 
+     * required, to include the <code>base</code> value (unless it
+     * is <code>Double.NaN</code> in which case it is ignored).
+     * 
+     * @param data  the data (<code>null</code> not permitted).
+     * @param base  a value that must be included in the range (often 0).  This
+     *         argument is ignored if it is <code>Double.NaN</code>.
+     * @param finite  if <code>true</code> infinite values will be ignored.
+     * 
+     * @return The range (possibly <code>null</code>).   
+     * 
+     * @since 1.4
+     */
+    public static Range findValueRange(Values3D<? extends Number> data,
+            double base, boolean finite) {
         ArgChecks.nullNotPermitted(data, "data");
         double min = Double.POSITIVE_INFINITY;
         double max = Double.NEGATIVE_INFINITY;
@@ -286,8 +307,10 @@ public class DataUtils {
                 for (int col = 0; col < data.getColumnCount(); col++) {
                     double d = data.getDoubleValue(series, row, col);
                     if (!Double.isNaN(d)) {
-                        min = Math.min(min, d);
-                        max = Math.max(max, d);
+                        if (!finite || !Double.isInfinite(d)) {
+                            min = Math.min(min, d);
+                            max = Math.max(max, d);
+                        }
                     }
                 }
             }
@@ -411,27 +434,55 @@ public class DataUtils {
     }
     
     /**
-     * Returns the range of x-values in the specified dataset.
+     * Returns the range of x-values in the dataset by iterating over all
+     * values (and ignoring <code>Double.NaN</code> and infinite values). 
+     * If there are no values eligible for inclusion in the range, this method 
+     * returns <code>null</code>.     
      *
      * @param dataset  the dataset (<code>null</code> not permitted).
      * 
-     * @return The range. 
+     * @return The range (possibly <code>null</code>).
      */
     public static Range findXRange(XYZDataset dataset) {
         return findXRange(dataset, Double.NaN);    
     }
     
     /**
-     * Returns the range of x-values in the specified dataset plus the
-     * special value <code>inc</code> (ignored if it is 
-     * <code>Double.NaN</code>).
+     * Returns the range of x-values in the dataset by iterating over all
+     * values (and ignoring <code>Double.NaN</code> values).  The range will be 
+     * extended if necessary to include <code>inc</code> (unless it is 
+     * <code>Double.NaN</code> in which case it is ignored).  Infinite values 
+     * in the dataset will be ignored.  If there are no values eligible for 
+     * inclusion in the range, this method returns <code>null</code>.
      *
      * @param dataset  the dataset (<code>null</code> not permitted).
      * @param inc  an additional x-value to include.
      * 
-     * @return The range. 
+     * @return The range (possibly <code>null</code>).
      */
     public static Range findXRange(XYZDataset dataset, double inc) {
+        return findXRange(dataset, inc, true);
+    }
+    
+    /**
+     * Returns the range of x-values in the dataset by iterating over all
+     * values (and ignoring <code>Double.NaN</code> values).  The range will be 
+     * extended if necessary to include <code>inc</code> (unless it is 
+     * <code>Double.NaN</code> in which case it is ignored).  If the
+     * <code>finite</code> flag is set, infinite values in the dataset will be 
+     * ignored.  If there are no values eligible for inclusion in the range, 
+     * this method returns <code>null</code>.
+     * 
+     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param inc  an additional x-value to include.
+     * @param finite  a flag indicating whether to exclude infinite values.
+     * 
+     * @return The range (possibly <code>null</code>).
+     * 
+     * @since 1.4
+     */
+    public static Range findXRange(XYZDataset dataset, double inc, 
+            boolean finite) {
         ArgChecks.nullNotPermitted(dataset, "dataset");
         double min = Double.POSITIVE_INFINITY;
         double max = Double.NEGATIVE_INFINITY;
@@ -439,8 +490,10 @@ public class DataUtils {
             for (int i = 0; i < dataset.getItemCount(s); i++) {
                 double x = dataset.getX(s, i);
                 if (!Double.isNaN(x)) {
-                    min = Math.min(x, min);
-                    max = Math.max(x, max);
+                    if (!finite || !Double.isInfinite(x)) {
+                        min = Math.min(x, min);
+                        max = Math.max(x, max);
+                    }
                 }
             }
         }
@@ -456,7 +509,10 @@ public class DataUtils {
     }
     
     /**
-     * Returns the range of y-values in the specified dataset.
+     * Returns the range of y-values in the dataset by iterating over all
+     * values (and ignoring <code>Double.NaN</code> and infinite values). 
+     * If there are no values eligible for inclusion in the range, this method 
+     * returns <code>null</code>.     
      *
      * @param dataset  the dataset (<code>null</code> not permitted).
      * 
@@ -467,9 +523,12 @@ public class DataUtils {
     }
     
     /**
-     * Returns the range of y-values in the specified dataset plus the
-     * special value <code>inc</code> (ignored if it is 
-     * <code>Double.NaN</code>).
+     * Returns the range of y-values in the dataset by iterating over all
+     * values (and ignoring <code>Double.NaN</code> values).  The range will be 
+     * extended if necessary to include <code>inc</code> (unless it is 
+     * <code>Double.NaN</code> in which case it is ignored).  Infinite values 
+     * in the dataset will be ignored.  If there are no values eligible for 
+     * inclusion in the range, this method returns <code>null</code>.
      *
      * @param dataset  the dataset (<code>null</code> not permitted).
      * @param inc  an additional x-value to include.
@@ -477,6 +536,28 @@ public class DataUtils {
      * @return The range. 
      */
     public static Range findYRange(XYZDataset dataset, double inc) {
+        return findYRange(dataset, inc, true);
+    }
+    
+    /**
+     * Returns the range of y-values in the dataset by iterating over all
+     * values (and ignoring <code>Double.NaN</code> values).  The range will be 
+     * extended if necessary to include <code>inc</code> (unless it is 
+     * <code>Double.NaN</code> in which case it is ignored).  If the
+     * <code>finite</code> flag is set, infinite values in the dataset will be 
+     * ignored.  If there are no values eligible for inclusion in the range, 
+     * this method returns <code>null</code>.
+     * 
+     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param inc  an additional y-value to include.
+     * @param finite  a flag indicating whether to exclude infinite values.
+     * 
+     * @return The range (possibly <code>null</code>).
+     * 
+     * @since 1.4
+     */
+    public static Range findYRange(XYZDataset dataset, double inc, 
+            boolean finite) {
         ArgChecks.nullNotPermitted(dataset, "dataset");
         double min = Double.POSITIVE_INFINITY;
         double max = Double.NEGATIVE_INFINITY;
@@ -484,8 +565,10 @@ public class DataUtils {
             for (int i = 0; i < dataset.getItemCount(s); i++) {
                 double y = dataset.getY(s, i);
                 if (!Double.isNaN(y)) {
-                    min = Math.min(y, min);
-                    max = Math.max(y, max);
+                    if (!finite || !Double.isInfinite(y)) {
+                        min = Math.min(y, min);
+                        max = Math.max(y, max);
+                    }
                 }
             }
         }
@@ -501,36 +584,67 @@ public class DataUtils {
     }
     
     /**
-     * Returns the range of z-values in the specified dataset.
+     * Returns the range of z-values in the dataset by iterating over all
+     * values (and ignoring <code>Double.NaN</code> and infinite values). 
+     * If there are no values eligible for inclusion in the range, this method 
+     * returns <code>null</code>.     
      *
      * @param dataset  the dataset (<code>null</code> not permitted).
      * 
-     * @return The range. 
+     * @return The range (possibly <code>null</code>). 
      */
     public static Range findZRange(XYZDataset dataset) {
         return findZRange(dataset, Double.NaN);
     }
     
     /**
-     * Returns the range of z-values in the specified dataset plus the
-     * special value <code>inc</code> (ignored if it is 
-     * <code>Double.NaN</code>).
+     * Returns the range of z-values in the dataset by iterating over all
+     * values (and ignoring <code>Double.NaN</code> values).  The range will be 
+     * extended if necessary to include <code>inc</code> (unless it is 
+     * <code>Double.NaN</code> in which case it is ignored).  Infinite values 
+     * in the dataset will be ignored.  If there are no values eligible for 
+     * inclusion in the range, this method returns <code>null</code>.
      *
      * @param dataset  the dataset (<code>null</code> not permitted).
      * @param inc  an additional x-value to include.
      * 
-     * @return The range. 
+     * @return The range (possibly <code>null</code>).
      */
     public static Range findZRange(XYZDataset dataset, double inc) {
+        return findZRange(dataset, inc, true);
+    }
+    
+    /**
+     * Returns the range of z-values in the dataset by iterating over all
+     * values (and ignoring <code>Double.NaN</code> values).  The range will be 
+     * extended if necessary to include <code>inc</code> (unless it is 
+     * <code>Double.NaN</code> in which case it is ignored).  If the
+     * <code>finite</code> flag is set, infinite values in the dataset will be 
+     * ignored.  If there are no values eligible for inclusion in the range, 
+     * this method returns <code>null</code>.
+     * 
+     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param inc  an additional z-value to include.
+     * @param finite  a flag indicating whether to exclude infinite values.
+     * 
+     * @return The range (possibly <code>null</code>).
+     * 
+     * @since 1.4
+     */
+    public static Range findZRange(XYZDataset dataset, double inc, 
+            boolean finite) {
         ArgChecks.nullNotPermitted(dataset, "dataset");
+        ArgChecks.finiteRequired(inc, "inc");
         double min = Double.POSITIVE_INFINITY;
         double max = Double.NEGATIVE_INFINITY;
         for (int s = 0; s < dataset.getSeriesCount(); s++) {
             for (int i = 0; i < dataset.getItemCount(s); i++) {
                 double z = dataset.getZ(s, i);
                 if (!Double.isNaN(z)) {
-                    min = Math.min(z, min);
-                    max = Math.max(z, max);
+                    if (!finite || !Double.isInfinite(z)) {
+                        min = Math.min(z, min);
+                        max = Math.max(z, max);
+                    }
                 }
             }
         }
