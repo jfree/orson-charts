@@ -15,6 +15,7 @@ package com.orsoncharts.axis;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.text.Format;
+import com.orsoncharts.util.ArgChecks;
 
 /**
  * A {@link TickSelector} implementation that selects tick units in multiples 
@@ -58,15 +59,23 @@ public class NumberTickSelector implements TickSelector, Serializable {
     }
     
     /**
-     * Selects a standard tick size that is near to the specified reference
-     * value.
+     * Selects and returns a standard tick size that is greater than or equal to 
+     * the specified reference value and, ideally, as close to it as possible 
+     * (to minimise the number of iterations used by axes to determine the tick
+     * size to use).  After a call to this method, the 
+     * {@link #getCurrentTickSize()} method should return the selected tick 
+     * size (there is a "pointer" to this tick size), the {@link #next()} 
+     * method should move the pointer to the next (larger) standard tick size, 
+     * and the {@link #previous()} method should move the pointer to the 
+     * previous (smaller) standard tick size.
      * 
-     * @param reference  the reference value.
+     * @param reference  the reference value (must be positive and finite).
      * 
      * @return The selected tick size. 
      */
     @Override
     public double select(double reference) {
+        ArgChecks.finitePositiveRequired(reference, "reference");
         this.power = (int) Math.ceil(Math.log10(reference));
         this.factor = 1;
         return getCurrentTickSize();
