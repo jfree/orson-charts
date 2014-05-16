@@ -303,7 +303,7 @@ public class Chart3DViewer extends Control implements Skinnable {
         File file = fileChooser.showSaveDialog(this.getScene().getWindow());
         if (file != null) {
             try {
-                ExportUtils.writeAsPNG(this.chart, (int) getWidth(),
+                ExportUtils.writeAsJPEG(this.chart, (int) getWidth(),
                         (int) getHeight(), file);
             } catch (IOException ex) {
                 // FIXME: show a dialog with the error
