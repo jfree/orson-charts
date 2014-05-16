@@ -82,6 +82,22 @@ public final class ArgChecks {
     }
 
     /**
+     * Checks if the specified argument is finite and positive and, 
+     * if it is NOT, throws an <code>IllegalArgumentException</code>.
+     * 
+     * @param value  the value.
+     * @param name  the parameter name (<code>null</code> not permitted).
+     * 
+     * @since 1.4
+     */
+    public static void finitePositiveRequired(double value, String name) {
+        if (value <= 0.0 || Double.isInfinite(value)) {
+            throw new IllegalArgumentException("Param '" + name 
+                    + "' must be finite and positive.");
+        }
+    }
+
+    /**
      * Checks that the index is less than the specified <code>arrayLimit</code>
      * and throws an <code>IllegalArgumentException</code> if it is not.
      * 
