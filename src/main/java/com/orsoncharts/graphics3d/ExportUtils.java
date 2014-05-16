@@ -168,4 +168,34 @@ public class ExportUtils {
         }
         return result;
     }
+
+    /**
+     * Writes the current content to the specified file in JPEG format.
+     * 
+     * @param drawable  the drawable (<code>null</code> not permitted).
+     * @param w  the chart width.
+     * @param h  the chart height.
+     * @param file  the output file (<code>null</code> not permitted).
+     * 
+     * @return The rendering info.
+     * 
+     * @throws FileNotFoundException if the file is not found.
+     * @throws IOException if there is an I/O problem.
+     */
+    public static RenderingInfo writeAsJPEG(Drawable3D drawable, int w, int h, 
+            File file) throws FileNotFoundException, IOException {
+        BufferedImage image = new BufferedImage(w, h, 
+                BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2 = image.createGraphics();
+        RenderingInfo result = drawable.draw(g2, new Rectangle(w, h));
+        OutputStream out = new BufferedOutputStream(new FileOutputStream(file));
+        try {
+            ImageIO.write(image, "jpg", out);
+        }
+        finally {
+            out.close();
+        }
+        return result;
+    }
+
 }
