@@ -13,7 +13,7 @@
     <!-- Initialisation. -->
     <target name="initialise" description="Initialise required settings.">
         <tstamp />
-        <property name="eval" value="wtf" />
+        <property name="eval" value="yes" />
         <property name="orsoncharts.name" value="orsoncharts" />
         <property name="orsoncharts.version" value="1.4-nofx" />
         <property name="jfreesvg.name" value="jfreesvg" />
@@ -73,10 +73,10 @@
             <manifest>
                 <attribute name="Specification-Title" value="Orson Charts" />
                 <attribute name="Specification-Version" value="${orsoncharts.version}" />
-                <attribute name="Specification-Vendor" value="orsoncharts.com" />
+                <attribute name="Specification-Vendor" value="Object Refinery Limited" />
                 <attribute name="Implementation-Title" value="Orson Charts" />
                 <attribute name="Implementation-Version" value="${orsoncharts.version}" />
-                <attribute name="Implementation-Vendor" value="orsoncharts.com" />
+                <attribute name="Implementation-Vendor" value="Object Refinery Limited" />
             </manifest>
         </jar>
 
@@ -87,7 +87,7 @@
 
     <!-- Compile the Orson Charts demo applications -->
     <target name="compile-demo" depends="compile"
-            description="Compile the Orson Charts demo applications.">
+            description="Compile the Orson Charts demo applications for Swing.">
 
         <!-- create a temp build directory -->
         <mkdir dir="${basedir}/build" />
@@ -121,12 +121,12 @@
             <manifest>
                 <attribute name="Main-Class" value="com.orsoncharts.demo.swing.OrsonChartsDemo" />
                 <attribute name="Class-Path" value="lib/${orsoncharts.name}-${orsoncharts.version}.jar lib/${orsonpdf.name}-${orsonpdf.version}.jar lib/${jfreesvg.name}-${jfreesvg.version}.jar" />
-                <attribute name="Specification-Title" value="Orson Charts Demo" />
+                <attribute name="Specification-Title" value="Orson Charts Demo (Swing)" />
                 <attribute name="Specification-Version" value="${orsoncharts.version}" />
-                <attribute name="Specification-Vendor" value="orsoncharts.com" />
-                <attribute name="Implementation-Title" value="Orson Charts Demo" />
+                <attribute name="Specification-Vendor" value="Object Refinery Limited" />
+                <attribute name="Implementation-Title" value="Orson Charts Demo (Swing)" />
                 <attribute name="Implementation-Version" value="${orsoncharts.version}" />
-                <attribute name="Implementation-Vendor" value="orsoncharts.com" />
+                <attribute name="Implementation-Vendor" value="Object Refinery Limited" />
             </manifest>
         </jar>
 
