@@ -39,6 +39,14 @@ The Javadoc generated documentation is the principal source of documentation for
 If there are topics that are not covered or not clear in the documentation, please let us know so that we can improve the coverage.
 
 
+Building
+--------
+Two Ant build scripts are provided to build Orson Charts from source code:
+
+- ant/build.xml : builds Orson Charts without JavaFX support (requires JDK 1.6 or later);
+- ant/buildfx.xml : builds Orson Charts with JavaFX support (requires JDK 1.8 or later);
+
+
 More Info
 ---------
 You can find out more about Orson Charts at:
