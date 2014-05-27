@@ -6,12 +6,12 @@ Orson Charts
 
 Overview
 --------
-Orson Charts is a 3D chart library for the Java(tm) platform that can generate a wide variety of 3D charts for use in applications, applets and servlets. Key features include:
+Orson Charts is a 3D chart library for the Java(tm) platform that can generate a wide variety of 3D charts for use in client-side applications (JavaFX and Swing) and server-side applications (with export to PDF, SVG, PNG and JPEG). Key features include:
 
 - multiple chart types: pie charts, bar charts (regular and stacked), line charts, area charts, scatter charts and surface plots;
 - mouse-enabled chart viewers in JavaFX and Swing provide 360 degree rotation and zooming for precise end-user view control;
 - configurable tool tip support;
-- interactive chart (mouse event support on all chart elements);
+- interactive charts (mouse event support on all chart elements);
 - flexible data sources; 
 - JSON format data import and export;
 - regular and logarithmic axis scales;
@@ -20,9 +20,9 @@ Orson Charts is a 3D chart library for the Java(tm) platform that can generate a
 - support for PDF, SVG, PNG and JPG export of charts for reporting;
 - a clean and well-documented API with a high degree of chart configurability.
 
-Orson Charts is very easy to use, and includes comprehensive Javadocs.  Licenses can be purchased from Object Refinery Limited.  The license permits royalty-free redistribution of the Orson Charts runtime jar file.
+Orson Charts is very easy to use, and includes comprehensive Javadocs.  Licenses can be purchased from Object Refinery Limited.  The license permits royalty-free redistribution of the Orson Charts runtime jar file.  Orson Charts requires JDK/JRE 1.6 or later.  To use Orson Charts with JavaFX requires JDK/JRE 1.8 or later.
 
-There are also versions of Orson Charts available for Android and for HTML5 (Javascript), please see our web site for details.
+There are also versions of Orson Charts available for Android and for HTML5 (JavaScript), please see our web site for details.
 
 
 Evaluation Version
@@ -51,11 +51,13 @@ If you have any questions, don't hesitate to send a mail to info@object-refinery
 History
 -------
 
-Not Yet Released : Version 1.4
+27-May-2014 : Version 1.4
 
 - added JavaFX support;
 - added support to marker elements and item labels for KEY_BEGIN_ELEMENT and KEY_END_ELEMENT rendering hints;
+- added JPEG export option;
 - add minAutoRangeLength attribute in AbstractValueAxis3D (this fixes a bug for plots where the length of the data range is zero, for example scatter plots with a single value);
+- fixed endless loop in axis range code for datasets with infinite values;
 - fixed bug in hinting for tick labels on NumberAxis3D;
 - fixed Utils.js functions that didn't work with Internet Explorer 9.
 

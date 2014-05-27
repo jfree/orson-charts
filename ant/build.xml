@@ -15,7 +15,7 @@
         <tstamp />
         <property name="eval" value="wtf" />
         <property name="orsoncharts.name" value="orsoncharts" />
-        <property name="orsoncharts.version" value="1.4-nofx-pre" />
+        <property name="orsoncharts.version" value="1.4-nofx" />
         <property name="jfreesvg.name" value="jfreesvg" />
         <property name="jfreesvg.version" value="1.9" />
         <property name="jfreesvg.jar" value="${basedir}/lib/${jfreesvg.name}-${jfreesvg.version}.jar"/>
@@ -49,9 +49,9 @@
         <!-- create a temp build directory -->
         <mkdir dir="${basedir}/build" />
 
-        <!-- compile the source -->
+        <!-- compile the source, but exclude the JavaFX files because they need JDK1.8 (there is a separate Ant script to handle the build that includes JavaFX -->
         <javac srcdir="${basedir}/src/main/java"
-               excludes="com/orsoncharts/demo/** com/orsoncharts/fx/**"
+               excludes="com/orsoncharts/demo/** com/orsoncharts/fx/** com/orsoncharts/interaction/fx/**"
                destdir="${basedir}/build"
                debug="on"
                deprecation="false"
@@ -154,6 +154,7 @@
                 <include name="**"/>
                 <exclude name="com/orsoncharts/demo/**"/>
                 <exclude name="com/orsoncharts/fx/**"/>
+                <exclude name="com/orsoncharts/interaction/fx/**"/>
             </packageset>
         </javadoc>
     </target>
@@ -374,6 +375,3 @@
     </target>
 
 </project>
-
-
-
