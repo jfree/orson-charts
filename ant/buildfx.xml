@@ -15,8 +15,7 @@
         <tstamp />
         <property name="eval" value="yes" />
         <property name="orsoncharts.name" value="orsoncharts" />
-        <property name="orsoncharts.version" value="1.4" />
-        <property name="orsoncharts.nofx.version" value="1.4-nofx" />
+        <property name="orsoncharts.version" value="1.4-eval" />
         <property name="jfreesvg.name" value="jfreesvg" />
         <property name="jfreesvg.version" value="1.9" />
         <property name="jfreesvg.jar" value="${basedir}/lib/${jfreesvg.name}-${jfreesvg.version}.jar"/>
