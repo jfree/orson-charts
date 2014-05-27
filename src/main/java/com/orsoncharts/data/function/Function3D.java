@@ -21,7 +21,8 @@ import com.orsoncharts.data.xyz.XYZDatasetUtils;
  * <br><br>
  * A dataset can be created by sampling a function - see the 
  * {@link XYZDatasetUtils#sampleFunction(Function3D, String, Range, double, Range, double)} 
- * method.
+ * method.  In addition, any <code>Function3D</code> instance can be plotted
+ * by a {@link com.orsoncharts.renderer.xyz.SurfaceRenderer}.
  */
 public interface Function3D extends Serializable {
     
