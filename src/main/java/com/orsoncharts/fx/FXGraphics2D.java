@@ -10,7 +10,7 @@
  * 
  */
 
-package com.orsoncharts.fx.graphics2d;
+package com.orsoncharts.fx;
 
 import java.awt.AlphaComposite;
 import java.awt.BasicStroke;

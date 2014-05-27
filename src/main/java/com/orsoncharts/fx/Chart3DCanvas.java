@@ -23,7 +23,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.data.ItemKey;
-import com.orsoncharts.fx.graphics2d.FXGraphics2D;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.Offset2D;
