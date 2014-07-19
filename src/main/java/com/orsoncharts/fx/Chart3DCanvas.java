@@ -18,6 +18,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.Dimension2D;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
@@ -323,18 +324,20 @@ public class Chart3DCanvas extends Canvas {
 
     /**
      * Draws the content of the canvas and updates the 
-     * <code>renderingInfo</code> attribute with the latest rendering 
+     * {@code renderingInfo} attribute with the latest rendering 
      * information.
      */
     public void draw() {
-        getGraphicsContext2D().save();
+        GraphicsContext ctx = getGraphicsContext2D();
+        ctx.save();
         double width = getWidth();
         double height = getHeight();
         if (width > 0 && height > 0) {
+            ctx.clearRect(0, 0, width, height);
             this.renderingInfo = this.chart.draw(this.g2, 
                     new Rectangle((int) width, (int) height));
         }
-        getGraphicsContext2D().restore();
+        ctx.restore();
     }
  
     /**
