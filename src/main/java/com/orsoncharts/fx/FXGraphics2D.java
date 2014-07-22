@@ -75,13 +75,16 @@ import javafx.scene.text.FontWeight;
  */
 public class FXGraphics2D extends Graphics2D {
     
+    /** The graphics context for the JavaFX canvas. */
     private final GraphicsContext gc;
     
+    /** The number of times the graphics state has been saved. */
     private int saveCount = 0;
 
+    /** A flag to permit clipping to be disabled (since it is buggy). */
     private boolean clippingDisabled = true;
     
-    /** Rendering hints (all ignored). */
+    /** Rendering hints. */
     private final RenderingHints hints;
     
     private Shape clip;
@@ -612,6 +615,14 @@ public class FXGraphics2D extends Graphics2D {
         }
         if (s instanceof Line2D) {
             Line2D l = (Line2D) s;
+            Object hint = getRenderingHint(RenderingHints.KEY_STROKE_CONTROL);
+            if (hint != RenderingHints.VALUE_STROKE_PURE) {
+                double x1 = Math.rint(l.getX1()) - 0.5;
+                double y1 = Math.rint(l.getY1()) - 0.5;
+                double x2 = Math.rint(l.getX2()) - 0.5;
+                double y2 = Math.rint(l.getY2()) - 0.5;
+                l.setLine(x1, y1, x2, y2);
+            }
             this.gc.strokeLine(l.getX1(), l.getY1(), l.getX2(), l.getY2());
         } else if (s instanceof RoundRectangle2D) {
             RoundRectangle2D rr = (RoundRectangle2D) s;
@@ -1082,7 +1093,7 @@ public class FXGraphics2D extends Graphics2D {
         }
         // null is handled fine here...
         this.clip = this.transform.createTransformedShape(shape);
-        if (clip != null) {
+        if (clip != null && !this.clippingDisabled) {
             this.gc.save(); 
             this.saveCount++;
             shapeToPath(shape);
