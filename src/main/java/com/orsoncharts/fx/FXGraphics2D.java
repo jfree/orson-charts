@@ -108,6 +108,9 @@ public class FXGraphics2D extends Graphics2D {
     
     private Font font = new Font("SansSerif", Font.PLAIN, 12);
     
+    private final FontRenderContext fontRenderContext = new FontRenderContext(
+            null, false, true);
+
     private AffineTransform transform = new AffineTransform();
 
     /** The background color, presently ignored. */
@@ -147,6 +150,8 @@ public class FXGraphics2D extends Graphics2D {
     private final BufferedImage fmImage = new BufferedImage(10, 10, 
             BufferedImage.TYPE_INT_RGB);
 
+    private final Graphics2D fmImageG2 = fmImage.createGraphics();
+    
     /**
      * Throws an {@code IllegalArgumentException} if {@code arg} is
      * {@code null}.
@@ -510,7 +515,7 @@ public class FXGraphics2D extends Graphics2D {
      * Maps a line join code from AWT to the corresponding JavaFX 
      * StrokeLineJoin enum value.
      * 
-     * @param c  the line join code.
+     * @param j  the line join code.
      * 
      * @return A JavaFX line join value. 
      */
@@ -630,6 +635,18 @@ public class FXGraphics2D extends Graphics2D {
                     rr.getHeight(), rr.getArcWidth(), rr.getArcHeight());
         } else if (s instanceof Rectangle2D) {
             Rectangle2D r = (Rectangle2D) s;
+            if (s instanceof Rectangle) {
+                r = new Rectangle2D.Double(r.getX(), r.getY(), r.getWidth(), 
+                        r.getHeight());
+            }
+            Object hint = getRenderingHint(RenderingHints.KEY_STROKE_CONTROL);
+            if (hint != RenderingHints.VALUE_STROKE_PURE) {
+                double x = Math.rint(r.getX()) - 0.5;
+                double y = Math.rint(r.getY()) - 0.5;
+                double w = Math.floor(r.getWidth());
+                double h = Math.floor(r.getHeight());
+                r.setRect(x, y, w, h);
+            }
             this.gc.strokeRect(r.getX(), r.getY(), r.getWidth(), r.getHeight());
         } else if (s instanceof Ellipse2D) {
             Ellipse2D e = (Ellipse2D) s;
@@ -645,13 +662,14 @@ public class FXGraphics2D extends Graphics2D {
         }
     }
 
+    private double[] coords = new double[6];
+    
     /**
      * Maps a shape to a path in the graphics context. 
      * 
      * @param s  the shape ({@code null} not permitted).
      */
     private void shapeToPath(Shape s) {
-        double[] coords = new double[6];
         this.gc.beginPath();
         PathIterator iterator = s.getPathIterator(null);
         while (!iterator.isDone()) {
@@ -767,7 +785,7 @@ public class FXGraphics2D extends Graphics2D {
      */
     @Override
     public FontMetrics getFontMetrics(Font f) {
-        return this.fmImage.createGraphics().getFontMetrics(f);
+        return this.fmImageG2.getFontMetrics(f);
     }
     
     /**
@@ -779,7 +797,7 @@ public class FXGraphics2D extends Graphics2D {
      */
     @Override
     public FontRenderContext getFontRenderContext() {
-        return this.fmImage.createGraphics().getFontRenderContext();
+        return this.fontRenderContext;
     }
 
     /**
@@ -1458,14 +1476,20 @@ public class FXGraphics2D extends Graphics2D {
      * @return {@code true} if the image is drawn. 
      */
     @Override
-    public boolean drawImage(Image img, int x, int y, int width, int height, 
+    public boolean drawImage(final Image img, int x, int y, int width, int height,
             ImageObserver observer) {
-        BufferedImage img2 = new BufferedImage(width, height, 
-                BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2 = img2.createGraphics();
-        g2.drawImage(img, 0, 0, width, height, null);
-        javafx.scene.image.WritableImage fxImage = SwingFXUtils.toFXImage(img2, 
-                null);
+        final BufferedImage buffered;
+        if (img instanceof BufferedImage) {
+            buffered = (BufferedImage) img;
+        } else {
+            buffered = new BufferedImage(width, height, 
+                    BufferedImage.TYPE_INT_ARGB);
+            final Graphics2D g2 = buffered.createGraphics();
+            g2.drawImage(img, 0, 0, width, height, null);
+            g2.dispose();
+        }
+        javafx.scene.image.WritableImage fxImage = SwingFXUtils.toFXImage(
+                buffered, null);
         this.gc.drawImage(fxImage, x, y, width, height);
         return true;
     }
