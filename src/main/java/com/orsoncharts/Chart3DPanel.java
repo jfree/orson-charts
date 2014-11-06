@@ -31,13 +31,14 @@ import com.orsoncharts.graphics3d.RenderedElement;
 import com.orsoncharts.util.ArgChecks;
 
 /**
- * A panel designed to display a {@link Chart3D}.  The panel registers with the
- * chart to receive change notifications, and when these are received the chart
- * is automatically repainted.
+ * A panel designed to display a {@link Chart3D} in a Swing-based desktop
+ * application.  The panel registers with the chart to receive change 
+ * notifications, and when these are received the chart is automatically 
+ * repainted.
  * <br><br>
- * This panel will display the chart in a Swing user interface, but does not
- * include additional features such as the view toolbar and popup menu (these
- * are provided by the {@link DisplayPanel3D} class).
+ * This panel will display the chart, but does not include additional features
+ * such as the view toolbar and popup menu (these are provided by the 
+ * {@link DisplayPanel3D} class).
  * <br><br>
  * NOTE: This class is serializable, but the serialization format is subject 
  * to change in future releases and should not be relied upon for persisting 
@@ -76,7 +77,7 @@ public class Chart3DPanel extends Panel3D implements Chart3DChangeListener,
     /**
      * Returns the chart being displayed in this panel.
      * 
-     * @return The chart (never <code>null</code>).
+     * @return The chart (never {@code null}).
      * 
      * @since 1.3
      */
@@ -190,7 +191,7 @@ public class Chart3DPanel extends Panel3D implements Chart3DChangeListener,
     /**
      * Adds a listener to the list of objects listening for chart mouse events.
      *
-     * @param listener  the listener (<code>null</code> not permitted).
+     * @param listener  the listener ({@code null} not permitted).
      * 
      * @since 1.3
      */
@@ -203,11 +204,12 @@ public class Chart3DPanel extends Panel3D implements Chart3DChangeListener,
      * Removes a listener from the list of objects listening for chart mouse
      * events.
      *
-     * @param listener  the listener.
+     * @param listener  the listener ({@code null} not permitted).
      * 
      * @since 1.3
      */
     public void removeChartMouseListener(Chart3DMouseListener listener) {
+        ArgChecks.nullNotPermitted(listener, "listener");
         this.chartMouseListeners.remove(Chart3DMouseListener.class, listener);
     }
 
@@ -230,7 +232,7 @@ public class Chart3DPanel extends Panel3D implements Chart3DChangeListener,
         }
     }
     
-        /**
+    /**
      * Provides serialization support.
      *
      * @param stream  the input stream.
@@ -248,6 +250,5 @@ public class Chart3DPanel extends Panel3D implements Chart3DChangeListener,
             this.chart.addChangeListener(this);
         }
     }
-
 
 }
