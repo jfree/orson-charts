@@ -28,32 +28,38 @@ import com.orsoncharts.graphics3d.swing.Panel3D;
 public interface Drawable3D {
 
     /**
-     * Returns the dimensions of the 3D object.
+     * Returns the aggregate dimensions of the objects in the 3D scene.  This
+     * will be a bounding box for all the objects.  One use for this 
+     * information is to determine a suitable default viewing distance for
+     * a given scene (one that sizes the 2D projection to something appropriate
+     * for the available drawing space).
      * 
-     * @return The dimensions. 
+     * @return The dimensions (never {@code null}). 
      */
     Dimension3D getDimensions();
     
     /**
-     * Returns the view point.
+     * Returns the point from which the 3D scene is viewed.  The viewing point
+     * determines how the 3D scene is projected onto the 2D viewing plane in
+     * the {@link #draw(java.awt.Graphics2D, java.awt.geom.Rectangle2D)} method.
      * 
-     * @return The view point (never <code>null</code>).
+     * @return The view point (never {@code null}).
      */
     ViewPoint3D getViewPoint();
     
     /**
-     * Sets a new view point.  Note that the <code>ViewPoint3D</code> class is
+     * Sets a new view point.  Note that the {@code ViewPoint3D} class is
      * implemented so that its position and orientation can be updated directly,
      * so you should use this method only when you want to set an entirely
      * new view point.
      * 
-     * @param viewPoint  the view point (<code>null</code> not permitted).
+     * @param viewPoint  the view point ({@code null} not permitted).
      */
     void setViewPoint(ViewPoint3D viewPoint);
     
     /** 
-     * Returns the projection distance.  The default value is 1500, higher 
-     * numbers flatten out the perspective and reduce distortion in the
+     * Returns the projection distance.  A typical value is {@code 1500}, 
+     * higher numbers flatten out the perspective and reduce distortion in the
      * projected image.
      * 
      * @return The projection distance.
@@ -63,7 +69,9 @@ public interface Drawable3D {
     double getProjDistance();
     
     /**
-     * Sets the projection distance.  
+     * Sets the projection distance.  A typical value is {@code 1500} (but this
+     * will depend on the dimensions of the scene), higher numbers flatten out
+     * the perspective and reduce distortion in the projected image.
      * 
      * @param dist  the distance.
      * 
@@ -72,26 +80,31 @@ public interface Drawable3D {
     void setProjDistance(double dist);
     
     /**
-     * Returns the 2D offset for the scene.
+     * Returns the 2D offset for the scene.  Normally this will default
+     * to {@code (0, 0)}.
      * 
-     * @return The translation (never <code>null</code>). 
+     * @return The translation offset (never {@code null}). 
      */
     Offset2D getTranslate2D();
     
     /**
-     * Sets the translation offset.
+     * Sets the translation offset.  This is typically used to allow the user
+     * to modify the offset of a 2D projection on-screen by dragging with the 
+     * mouse.
      * 
-     * @param offset  the offset (<code>null</code> not permitted). 
+     * @param offset  the translation offset ({@code null} not permitted). 
      */
     void setTranslate2D(Offset2D offset);
     
     /**
-     * Draws the scene to the supplied <code>Graphics2D</code> target.
+     * Draws the scene to the supplied {@code Graphics2D} target and returns
+     * an object containing state information about the rendering.
      * 
-     * @param g2  the graphics target (<code>null</code> not permitted).
-     * @param bounds  the bounds (<code>null</code> not permitted).
+     * @param g2  the graphics target ({@code null} not permitted).
+     * @param bounds  the bounds ({@code null} not permitted).
      * 
-     * @return Information about the rendering.
+     * @return State information about the 3D scene that has been drawn 
+     *         (never {@code null}).
      */
     RenderingInfo draw(Graphics2D g2, Rectangle2D bounds);
     
