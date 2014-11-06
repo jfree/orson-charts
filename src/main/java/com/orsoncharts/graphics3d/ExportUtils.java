@@ -40,12 +40,13 @@ public class ExportUtils {
      * Writes the current content to the specified file in SVG format.  This 
      * will only work when the JFreeSVG library is found on the classpath.
      * Reflection is used to ensure there is no compile-time dependency on
-     * JFreeSVG.
+     * JFreeSVG.  Any exceptions that occur while writing the file are
+     * caught and wrapped in a {@code RuntimeException} that is then thrown.
      * 
-     * @param drawable  the drawable (<code>null</code> not permitted).
+     * @param drawable  the drawable ({@code null} not permitted).
      * @param w  the chart width.
      * @param h  the chart height.
-     * @param file  the output file (<code>null</code> not permitted).
+     * @param file  the output file ({@code null} not permitted).
      * 
      * @return The rendering info.
      */
@@ -93,12 +94,13 @@ public class ExportUtils {
      * Writes a {@link Drawable3D} to the specified file in PDF format.  This 
      * will only work when the OrsonPDF library is found on the classpath.
      * Reflection is used to ensure there is no compile-time dependency on
-     * OrsonPDF.
+     * OrsonPDF.  Any exceptions that occur while writing the file are
+     * caught and wrapped in a {@code RuntimeException} that is then thrown.
      * 
-     * @param drawable  the drawable (<code>null</code> not permitted).
+     * @param drawable  the drawable ({code null} not permitted).
      * @param w  the chart width.
      * @param h  the chart height.
-     * @param file  the output file (<code>null</code> not permitted).
+     * @param file  the output file ({code null} not permitted).
      * 
      * @return The rendering info.
      */
@@ -143,10 +145,10 @@ public class ExportUtils {
     /**
      * Writes the current content to the specified file in PNG format.
      * 
-     * @param drawable  the drawable (<code>null</code> not permitted).
+     * @param drawable  the drawable ({@code null} not permitted).
      * @param w  the chart width.
      * @param h  the chart height.
-     * @param file  the output file (<code>null</code> not permitted).
+     * @param file  the output file ({@code null} not permitted).
      * 
      * @return The rendering info.
      * 
@@ -172,10 +174,10 @@ public class ExportUtils {
     /**
      * Writes the current content to the specified file in JPEG format.
      * 
-     * @param drawable  the drawable (<code>null</code> not permitted).
+     * @param drawable  the drawable ({@code null} not permitted).
      * @param w  the chart width.
      * @param h  the chart height.
-     * @param file  the output file (<code>null</code> not permitted).
+     * @param file  the output file ({@code null} not permitted).
      * 
      * @return The rendering info.
      * 
