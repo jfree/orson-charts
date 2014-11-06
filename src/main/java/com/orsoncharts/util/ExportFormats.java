@@ -20,8 +20,8 @@ package com.orsoncharts.util;
 public class ExportFormats {
 
     /**
-     * Returns <code>true</code> if JFreeSVG is on the classpath, and 
-     * <code>false</code> otherwise.  The JFreeSVG library can be found at
+     * Returns {@code true} if JFreeSVG is on the classpath, and 
+     * {@code false} otherwise.  The JFreeSVG library can be found at
      * http://www.jfree.org/jfreesvg/
      * 
      * @return A boolean.
@@ -39,9 +39,9 @@ public class ExportFormats {
     }
 
     /**
-     * Returns <code>true</code> if OrsonPDF is on the classpath, and 
-     * <code>false</code> otherwise.  The OrsonPDF library can be found at
-     * http://www.object-refinery.com/pdf/
+     * Returns {@code true} if OrsonPDF is on the classpath, and 
+     * {@code false} otherwise.  The OrsonPDF library can be found at
+     * http://www.object-refinery.com/orsonpdf/
      * 
      * @return A boolean.
      */
