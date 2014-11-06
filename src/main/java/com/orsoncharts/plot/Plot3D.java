@@ -21,8 +21,8 @@ import com.orsoncharts.ChartElement;
 import com.orsoncharts.data.ItemKey;
 
 /**
- * A plot for a {@link Chart3D}.  In Orson Charts, the <code>Chart3D</code> is
- * the umbrella object for all charts, but it is the <code>Plot3D</code>
+ * A plot for a {@link Chart3D}.  In Orson Charts, the {@code Chart3D} is
+ * the umbrella object for all charts, but it is the {@code Plot3D}
  * instance that determines the real structure of the chart.  Built-in 
  * implementations include {@link PiePlot3D}, {@link CategoryPlot3D} and 
  * {@link XYZPlot}.
@@ -32,7 +32,7 @@ public interface Plot3D extends ChartElement {
     /**
      * Returns the chart that the plot is assigned to, if any.
      * 
-     * @return The chart (possibly <code>null</code>).
+     * @return The chart (possibly {@code null}).
      * 
      * @since 1.2
      */
@@ -42,7 +42,7 @@ public interface Plot3D extends ChartElement {
      * Sets the chart that the plot is assigned to.  This method is intended
      * for use by the framework, you should not need to call it yourself.
      * 
-     * @param chart  the chart (<code>null</code> permitted).
+     * @param chart  the chart ({@code null} permitted).
      * 
      * @since 1.2
      */
@@ -52,7 +52,7 @@ public interface Plot3D extends ChartElement {
      * Returns the dimensions for the plot in the 3D world in which it will 
      * be composed.
      * 
-     * @return The dimensions (never <code>null</code>). 
+     * @return The dimensions (never {@code null}). 
      */
     Dimension3D getDimensions();
   
@@ -61,7 +61,7 @@ public interface Plot3D extends ChartElement {
      * specified world.  After the world has been populated (or constructed) in
      * this way, it is ready for rendering.
      * 
-     * @param world  the world (<code>null</code> not permitted).
+     * @param world  the world ({@code null} not permitted).
      * @param xOffset  the x-offset.
      * @param yOffset  the y-offset.
      * @param zOffset  the z-offset.
@@ -76,17 +76,17 @@ public interface Plot3D extends ChartElement {
      * If you are implementing a new plot type that does not require a legend, 
      * return an empty list.
      * 
-     * @return A list containing legend item info (never <code>null</code>).
+     * @return A list containing legend item info (never {@code null}).
      */
     List<LegendItemInfo> getLegendInfo();
     
     /**
      * Returns the tool tip text for the specified data item, or 
-     * <code>null</code> if no tool tip is required.
+     * {@code null} if no tool tip is required.
      * 
-     * @param itemKey  the item key (<code>null</code> not permitted).
+     * @param itemKey  the item key ({@code null} not permitted).
      * 
-     * @return The tool tip text (possibly <code>null</code>).
+     * @return The tool tip text (possibly {@code null}).
      * 
      * @since 1.3
      */
@@ -95,7 +95,7 @@ public interface Plot3D extends ChartElement {
     /**
      * Registers a listener to receive notification of changes to the plot.
      * 
-     * @param listener  the listener (<code>null</code> not permitted). 
+     * @param listener  the listener ({@code null} not permitted). 
      */
     void addChangeListener(Plot3DChangeListener listener);
   
@@ -103,7 +103,7 @@ public interface Plot3D extends ChartElement {
      * De-registers a listener so that it no longer receives notification of
      * changes to the plot.
      * 
-     * @param listener  the listener (<code>null</code> not permitted).
+     * @param listener  the listener ({@code null} not permitted).
      */
     void removeChangeListener(Plot3DChangeListener listener);
   
