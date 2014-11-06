@@ -23,6 +23,8 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import com.orsoncharts.Chart3D;
+import com.orsoncharts.Chart3DChangeEvent;
+import com.orsoncharts.Chart3DChangeListener;
 import com.orsoncharts.data.ItemKey;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.Object3D;
@@ -32,11 +34,13 @@ import com.orsoncharts.graphics3d.ViewPoint3D;
 import com.orsoncharts.util.ArgChecks;
 
 /**
- * A canvas for displaying a {@link Chart3D} in JavaFX. 
+ * A canvas node for displaying a {@link Chart3D} in JavaFX.  This node
+ * handles mouse events and tooltips but does not provide a context menu or
+ * toolbar
  * 
  * @since 1.4
  */
-public class Chart3DCanvas extends Canvas {
+public class Chart3DCanvas extends Canvas implements Chart3DChangeListener {
     
     /** The chart being displayed in the canvas. */
     private Chart3D chart;
@@ -72,7 +76,7 @@ public class Chart3DCanvas extends Canvas {
     private double rotateIncrement = Math.PI / 120.0;
     
     /** 
-     * The (screen) point of the last mouse click (will be <code>null</code> 
+     * The (screen) point of the last mouse click (will be {@code null} 
      * initially).  Used to calculate the mouse drag distance and direction.
      */
     private Point lastClickPoint;
@@ -100,14 +104,14 @@ public class Chart3DCanvas extends Canvas {
     /**
      * Creates a new canvas to display the supplied chart in JavaFX.
      * 
-     * @param chart  the chart (<code>null</code> not permitted). 
+     * @param chart  the chart ({@code null} not permitted). 
      */
     public Chart3DCanvas(Chart3D chart) {
         this.chart = chart;
         this.minViewingDistance = chart.getDimensions().getDiagonalLength();
         this.maxViewingDistanceMultiplier = 8.0;        
-        widthProperty().addListener(evt -> draw());
-        heightProperty().addListener(evt -> draw());
+        widthProperty().addListener(e -> draw());
+        heightProperty().addListener(e -> draw());
         this.g2 = new FXGraphics2D(getGraphicsContext2D());
 
         setOnMouseMoved((MouseEvent me) -> { updateTooltip(me); });
@@ -120,12 +124,13 @@ public class Chart3DCanvas extends Canvas {
 
         setOnMouseDragged((MouseEvent me) -> { handleMouseDragged(me); });
         setOnScroll((ScrollEvent event) -> { handleScroll(event); });
+        this.chart.addChangeListener(this);
     }
     
     /**
      * Returns the chart that is being displayed by this node.
      * 
-     * @return The chart (never <code>null</code>). 
+     * @return The chart (never {@code null}). 
      */
     public Chart3D getChart() {
         return this.chart;
@@ -134,11 +139,15 @@ public class Chart3DCanvas extends Canvas {
     /**
      * Sets the chart to be displayed by this node.
      * 
-     * @param chart  the chart (<code>null</code> not permitted). 
+     * @param chart  the chart ({@code null} not permitted). 
      */
     public void setChart(Chart3D chart) {
         ArgChecks.nullNotPermitted(chart, "chart");
+        if (this.chart != null) {
+            this.chart.removeChangeListener(this);
+        }
         this.chart = chart;
+        this.chart.addChangeListener(this);
         draw();
     }
 
@@ -167,7 +176,7 @@ public class Chart3DCanvas extends Canvas {
     /**
      * Returns the rendering info from the most recent drawing of the chart.
      * 
-     * @return The rendering info (possibly <code>null</code>).
+     * @return The rendering info (possibly {@code null}).
      */
     public RenderingInfo getRenderingInfo() {
         return this.renderingInfo;
@@ -227,7 +236,7 @@ public class Chart3DCanvas extends Canvas {
 
     /**
      * Returns the increment for panning left and right.  This is an angle in
-     * radians, and the default value is <code>Math.PI / 120.0</code>.
+     * radians, and the default value is {@code Math.PI / 120.0}.
      * 
      * @return The panning increment. 
      */
@@ -247,7 +256,7 @@ public class Chart3DCanvas extends Canvas {
 
     /**
      * Returns the increment for rotating up and down.  This is an angle in
-     * radians, and the default value is <code>Math.PI / 120.0</code>.
+     * radians, and the default value is {@code Math.PI / 120.0}.
      * 
      * @return The rotate increment. 
      */
@@ -341,9 +350,9 @@ public class Chart3DCanvas extends Canvas {
     }
  
     /**
-     * Return <code>true</code> to indicate the canvas is resizable.
+     * Return {@code true} to indicate the canvas is resizable.
      * 
-     * @return <code>true</code>. 
+     * @return {@code true}. 
      */
     @Override
     public boolean isResizable() {
@@ -352,7 +361,7 @@ public class Chart3DCanvas extends Canvas {
 
     /**
      * Updates the tooltip.  This method will return without doing anything if
-     * the <code>tooltipEnabled</code> flag is set to false.
+     * the {@code tooltipEnabled} flag is set to false.
      * 
      * @param me  the mouse event.
      */
@@ -385,7 +394,7 @@ public class Chart3DCanvas extends Canvas {
     
     /**
      * Handles a mouse dragged event by rotating the chart (unless the
-     * <code>rotateViewEnabled</code> flag is set to false, in which case this
+     * {@code rotateViewEnabled} flag is set to false, in which case this
      * method does nothing).
      * 
      * @param event  the mouse event. 
@@ -412,6 +421,11 @@ public class Chart3DCanvas extends Canvas {
         double valRho = Math.max(this.minViewingDistance,
                 Math.min(maxViewingDistance, vp.getRho() + units));
         vp.setRho(valRho);
+        draw();
+    }
+
+    @Override
+    public void chartChanged(Chart3DChangeEvent event) {
         draw();
     }
 }
