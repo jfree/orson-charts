@@ -107,7 +107,7 @@ import com.orsoncharts.util.TextAnchor;
  * can be used to modify how objects are composed within the 3D world model.  
  * Once the objects (for example, bars in a bar chart) within the world have 
  * been composed, they are projected onto a 2D plane and rendered to the 
- * <code>Graphics2D</code> target (such as the screen, image, SVG file or 
+ * {@code Graphics2D} target (such as the screen, image, SVG file or 
  * PDF file).  
  * <br><br>
  * Charts can have simple titles or composite titles (anything that can be
@@ -160,19 +160,19 @@ public class Chart3D implements Drawable3D, ChartElement,
     /** A background rectangle painter, if any. */
     private RectanglePainter background;
     
-    /** The chart title (can be <code>null</code>). */
+    /** The chart title (can be {@code null}). */
     private TableElement title;
     
-    /** The anchor point for the title (never <code>null</code>). */
+    /** The anchor point for the title (never {@code null}). */
     private Anchor2D titleAnchor;
     
-    /** A builder for the chart legend (can be <code>null</code>). */
+    /** A builder for the chart legend (can be {@code null}). */
     private LegendBuilder legendBuilder;
     
-    /** The anchor point for the legend (never <code>null</code>). */
+    /** The anchor point for the legend (never {@code null}). */
     private Anchor2D legendAnchor;
     
-    /** The orientation for the legend (never <code>null</code>). */
+    /** The orientation for the legend (never {@code null}). */
     private Orientation legendOrientation;
     
     /** The plot. */
@@ -184,7 +184,7 @@ public class Chart3D implements Drawable3D, ChartElement,
     /** The projection distance. */
     private double projDist;
     
-    /** The chart box color (never <code>null</code>). */
+    /** The chart box color (never {@code null}). */
     private Color chartBoxColor;
 
     /** 
@@ -199,14 +199,14 @@ public class Chart3D implements Drawable3D, ChartElement,
 
     /**
      * A flag that controls whether or not the chart will notify listeners
-     * of changes (defaults to <code>true</code>, but sometimes it is useful 
+     * of changes (defaults to {@code true}, but sometimes it is useful 
      * to disable this).
      */
     private boolean notify;
 
     /**
      * Rendering hints that will be used for chart drawing.  This can be
-     * empty but it should never be <code>null</code>.
+     * empty but it should never be {@code null}.
      * 
      * @since 1.1
      */
@@ -227,7 +227,7 @@ public class Chart3D implements Drawable3D, ChartElement,
 
     /**
      * A flag that controls whether or not element hints are added to the
-     * <code>Graphics2D</code> output.
+     * {@code Graphics2D} output.
      */
     private boolean elementHinting;
     
@@ -236,9 +236,9 @@ public class Chart3D implements Drawable3D, ChartElement,
      * style.  Note that a plot instance must be used in one chart instance
      * only.
      * 
-     * @param title  the chart title (<code>null</code> permitted).
-     * @param subtitle  the chart subtitle (<code>null</code> permitted).
-     * @param plot  the plot (<code>null</code> not permitted).
+     * @param title  the chart title ({@code null} permitted).
+     * @param subtitle  the chart subtitle ({@code null} permitted).
+     * @param plot  the plot ({@code null} not permitted).
      * 
      * @see Chart3DFactory
      */
@@ -249,10 +249,10 @@ public class Chart3D implements Drawable3D, ChartElement,
     /**
      * Creates a 3D chart for the specified plot using the supplied style.
      * 
-     * @param title  the chart title (<code>null</code> permitted).
-     * @param subtitle  the chart subtitle (<code>null</code> permitted).
-     * @param plot  the plot (<code>null</code> not permitted).
-     * @param style  the chart style (<code>null</code> not permitted).
+     * @param title  the chart title ({@code null} permitted).
+     * @param subtitle  the chart subtitle ({@code null} permitted).
+     * @param plot  the plot ({@code null} not permitted).
+     * @param style  the chart style ({@code null} not permitted).
      * 
      * @since 1.2
      */
@@ -294,7 +294,7 @@ public class Chart3D implements Drawable3D, ChartElement,
     /**
      * Returns the chart id.
      * 
-     * @return The chart id (possibly <code>null</code>).
+     * @return The chart id (possibly {@code null}).
      * 
      * @since 1.3
      */
@@ -305,7 +305,7 @@ public class Chart3D implements Drawable3D, ChartElement,
     /**
      * Sets the chart id.
      * 
-     * @param id  the id (<code>null</code> permitted).
+     * @param id  the id ({@code null} permitted).
      * 
      * @since 1.3
      */
@@ -319,7 +319,7 @@ public class Chart3D implements Drawable3D, ChartElement,
      * is an instance of {@link StandardRectanglePainter} that paints the
      * background white.
      * 
-     * @return The background painter (possibly <code>null</code>).
+     * @return The background painter (possibly {@code null}).
      * 
      * @see #setBackground(com.orsoncharts.table.RectanglePainter) 
      */
@@ -335,7 +335,7 @@ public class Chart3D implements Drawable3D, ChartElement,
      * {@link StandardRectanglePainter}.  To fill the background with a 
      * gradient paint, use {@link GradientRectanglePainter}.
      * 
-     * @param background  the background painter (<code>null</code> permitted).
+     * @param background  the background painter ({@code null} permitted).
      * 
      * @see #getBackground() 
      */
@@ -349,7 +349,7 @@ public class Chart3D implements Drawable3D, ChartElement,
      * since it allows a lot of flexibility in the types of title that can
      * be displayed.
      * 
-     * @return The chart title (possibly <code>null</code>). 
+     * @return The chart title (possibly {@code null}). 
      */
     public TableElement getTitle() {
         return this.title;
@@ -360,7 +360,7 @@ public class Chart3D implements Drawable3D, ChartElement,
      * registered listeners.  This is a convenience method that constructs
      * the required {@link TableElement} under-the-hood.
      * 
-     * @param title  the title (<code>null</code> permitted). 
+     * @param title  the title ({@code null} permitted). 
      */
     public void setTitle(String title) {
         if (title == null) {
@@ -376,9 +376,9 @@ public class Chart3D implements Drawable3D, ChartElement,
      * registered listeners.  This is a convenience method that constructs
      * the required {@link TableElement} under-the-hood.
      * 
-     * @param title  the title (<code>null</code> not permitted). 
-     * @param font  the font (<code>null</code> not permitted).
-     * @param color  the foreground color (<code>null</code> not permitted).
+     * @param title  the title ({@code null} not permitted). 
+     * @param font  the font ({@code null} not permitted).
+     * @param color  the foreground color ({@code null} not permitted).
      */
     public void setTitle(String title, Font font, Color color) {
         // defer 'title' null check
@@ -393,10 +393,10 @@ public class Chart3D implements Drawable3D, ChartElement,
     
     /**
      * Sets the chart title and sends a {@link Chart3DChangeEvent} to all 
-     * registered listeners.  You can set the title to <code>null</code>, in
+     * registered listeners.  You can set the title to {@code null}, in
      * which case there will be no chart title.
      * 
-     * @param title  the title (<code>null</code> permitted).
+     * @param title  the title ({@code null} permitted).
      */
     public void setTitle(TableElement title) {
         this.title = title;
@@ -407,7 +407,7 @@ public class Chart3D implements Drawable3D, ChartElement,
      * Returns the title anchor.  This controls the position of the title
      * in the chart area. 
      * 
-     * @return The title anchor (never <code>null</code>).
+     * @return The title anchor (never {@code null}).
      * 
      * @see #setTitleAnchor(com.orsoncharts.util.Anchor2D) 
      */
@@ -420,7 +420,7 @@ public class Chart3D implements Drawable3D, ChartElement,
      * registered listeners.  There is a {@link TitleAnchor} class providing
      * some useful default anchors.
      * 
-     * @param anchor  the anchor (<code>null</code> not permitted).
+     * @param anchor  the anchor ({@code null} not permitted).
      * 
      * @see #getTitleAnchor() 
      */
@@ -436,7 +436,7 @@ public class Chart3D implements Drawable3D, ChartElement,
      * plot is specified via the constructor...there is no method to set a 
      * new plot for the chart, instead you need to create a new chart instance.
      *
-     * @return The plot (never <code>null</code>).
+     * @return The plot (never {@code null}).
      */
     public Plot3D getPlot() {
         return this.plot;
@@ -445,9 +445,9 @@ public class Chart3D implements Drawable3D, ChartElement,
     /**
      * Returns the chart box color (the chart box is the visible, open-sided 
      * box inside which data is plotted for all charts except pie charts). 
-     * The default value is <code>Color.WHITE</code>.
+     * The default value is {@code Color.WHITE}.
      * 
-     * @return The chart box color (never <code>null</code>). 
+     * @return The chart box color (never {@code null}). 
      * 
      * @see #setChartBoxColor(java.awt.Color) 
      */
@@ -460,7 +460,7 @@ public class Chart3D implements Drawable3D, ChartElement,
      * registered listeners.  Bear in mind that {@link PiePlot3D} does not
      * display a chart box, so this attribute will be ignored for pie charts.
      * 
-     * @param color  the color (<code>null</code> not permitted).
+     * @param color  the color ({@code null} not permitted).
      * 
      * @see #getChartBoxColor()
      */
@@ -473,7 +473,7 @@ public class Chart3D implements Drawable3D, ChartElement,
     /**
      * Returns the dimensions of the 3D object.
      * 
-     * @return The dimensions. 
+     * @return The dimensions (never {@code null}). 
      */
     @Override
     public Dimension3D getDimensions() {
@@ -483,7 +483,7 @@ public class Chart3D implements Drawable3D, ChartElement,
     /**
      * Returns the view point.
      * 
-     * @return The view point (never <code>null</code>). 
+     * @return The view point (never {@code null}). 
      */
     @Override
     public ViewPoint3D getViewPoint() {
@@ -493,7 +493,7 @@ public class Chart3D implements Drawable3D, ChartElement,
     /**
      * Sets the view point.
      * 
-     * @param viewPoint  the view point (<code>null</code> not permitted). 
+     * @param viewPoint  the view point ({@code null} not permitted). 
      */
     @Override
     public void setViewPoint(ViewPoint3D viewPoint) {
@@ -532,12 +532,12 @@ public class Chart3D implements Drawable3D, ChartElement,
 
     /**
      * Sets the offset in 2D-space for the rendering of the chart.  The 
-     * default value is <code>(0, 0)</code> but the user can modify it via
+     * default value is {@code (0, 0)} but the user can modify it via
      * ALT-mouse-drag in the chart panel, providing an easy way to get improved
      * chart alignment in the panels (especially prior to export to PNG, SVG or
      * PDF).
      * 
-     * @return The offset (never <code>null</code>). 
+     * @return The offset (never {@code null}). 
      */
     @Override
     public Offset2D getTranslate2D() {
@@ -548,7 +548,7 @@ public class Chart3D implements Drawable3D, ChartElement,
      * Sets the offset in 2D-space for the rendering of the chart and sends a
      * change event to all registered listeners.
      * 
-     * @param offset  the new offset (<code>null</code> not permitted).
+     * @param offset  the new offset ({@code null} not permitted).
      */
     @Override
     public void setTranslate2D(Offset2D offset) {
@@ -559,10 +559,10 @@ public class Chart3D implements Drawable3D, ChartElement,
     
     /**
      * Returns the legend builder.  The default value is an instance of
-     * {@link StandardLegendBuilder}.  If the legend builder is 
-     * <code>null</code>, no legend will be displayed for the chart.
+     * {@link StandardLegendBuilder}.  If the legend builder is {@code null}, 
+     * no legend will be displayed for the chart.
      * 
-     * @return The legend builder (possibly <code>null</code>).
+     * @return The legend builder (possibly {@code null}).
      * 
      * @see #setLegendBuilder(com.orsoncharts.legend.LegendBuilder) 
      * @see #setLegendAnchor(com.orsoncharts.util.Anchor2D) 
@@ -573,10 +573,10 @@ public class Chart3D implements Drawable3D, ChartElement,
     
     /**
      * Sets the legend builder and sends a change event to all registered 
-     * listeners.  When the legend builder is <code>null</code>, no legend 
+     * listeners.  When the legend builder is {@code null}, no legend 
      * will be displayed on the chart.
      * 
-     * @param legendBuilder  the legend builder (<code>null</code> permitted).
+     * @param legendBuilder  the legend builder ({@code null} permitted).
      * 
      * @see #setLegendAnchor(com.orsoncharts.util.Anchor2D) 
      */
@@ -588,7 +588,7 @@ public class Chart3D implements Drawable3D, ChartElement,
     /**
      * Returns the legend anchor.
      * 
-     * @return The legend anchor (never <code>null</code>).
+     * @return The legend anchor (never {@code null}).
      * 
      * @see #setLegendAnchor(com.orsoncharts.util.Anchor2D) 
      */
@@ -601,7 +601,7 @@ public class Chart3D implements Drawable3D, ChartElement,
      * registered listeners.  There is a {@link LegendAnchor} class providing
      * some useful default anchors.
      * 
-     * @param anchor  the anchor (<code>null</code> not permitted).
+     * @param anchor  the anchor ({@code null} not permitted).
      * 
      * @see #getLegendAnchor() 
      */
@@ -614,7 +614,7 @@ public class Chart3D implements Drawable3D, ChartElement,
     /**
      * Returns the orientation for the legend.
      * 
-     * @return The orientation (never <code>null</code>). 
+     * @return The orientation (never {@code null}). 
      * 
      * @since 1.1
      */
@@ -626,7 +626,7 @@ public class Chart3D implements Drawable3D, ChartElement,
      * Sets the legend orientation and sends a {@link Chart3DChangeEvent}
      * to all registered listeners.
      * 
-     * @param orientation  the orientation (<code>null</code> not permitted).
+     * @param orientation  the orientation ({@code null} not permitted).
      * 
      * @since 1.1
      */
@@ -644,8 +644,8 @@ public class Chart3D implements Drawable3D, ChartElement,
      * {@link #setLegendOrientation(com.orsoncharts.util.Orientation)}
      * methods.
      * 
-     * @param anchor  the anchor (<code>null</code> not permitted).
-     * @param orientation  the orientation (<code>null</code> not permitted).
+     * @param anchor  the anchor ({@code null} not permitted).
+     * @param orientation  the orientation ({@code null} not permitted).
      * 
      * @since 1.1
      */
@@ -659,7 +659,7 @@ public class Chart3D implements Drawable3D, ChartElement,
     /**
      * Returns the collection of rendering hints for the chart.
      *
-     * @return The rendering hints for the chart (never <code>null</code>).
+     * @return The rendering hints for the chart (never {@code null}).
      *
      * @see #setRenderingHints(RenderingHints)
      * 
@@ -671,13 +671,12 @@ public class Chart3D implements Drawable3D, ChartElement,
 
     /**
      * Sets the rendering hints for the chart.  These will be added (using the
-     * <code>Graphics2D.addRenderingHints()</code> method) near the start of 
+     * {@Code Graphics2D.addRenderingHints()} method) near the start of 
      * the chart rendering.  Note that calling this method will replace all
      * existing hints assigned to the chart.  If you simply wish to add an
-     * additional hint, you can use 
-     * <code>getRenderingHints().put(key, value)</code>.
+     * additional hint, you can use {@code getRenderingHints().put(key, value)}.
      *
-     * @param hints  the rendering hints (<code>null</code> not permitted).
+     * @param hints  the rendering hints ({@code null} not permitted).
      *
      * @see #getRenderingHints()
      * 
@@ -718,8 +717,7 @@ public class Chart3D implements Drawable3D, ChartElement,
         if (flag) {
             this.renderingHints.put(RenderingHints.KEY_ANTIALIASING,
                     RenderingHints.VALUE_ANTIALIAS_ON);
-        }
-        else {
+        } else {
             this.renderingHints.put(RenderingHints.KEY_ANTIALIASING,
                     RenderingHints.VALUE_ANTIALIAS_OFF);
         }
@@ -728,8 +726,8 @@ public class Chart3D implements Drawable3D, ChartElement,
  
     /**
      * Returns the flag that controls whether or not element hints will be
-     * added to the <code>Graphics2D</code> output when the chart is rendered.
-     * The default value is <code>false</code>.
+     * added to the {@code Graphics2D} output when the chart is rendered.
+     * The default value is {@code false}.
      * 
      * @return A boolean.
      * 
@@ -741,7 +739,7 @@ public class Chart3D implements Drawable3D, ChartElement,
     
     /**
      * Sets the flag that controls whether or not element hints will be
-     * added to the <code>Graphics2D</code> output when the chart is rendered
+     * added to the {@code Graphics2D} output when the chart is rendered
      * and sends a change event to all registered listeners.
      * 
      * @param hinting  the new flag value.
@@ -756,7 +754,7 @@ public class Chart3D implements Drawable3D, ChartElement,
     /**
      * Returns the chart style.
      * 
-     * @return The chart style (never <code>null</code>).
+     * @return The chart style (never {@code null}).
      * 
      * @since 1.2
      */
@@ -767,7 +765,7 @@ public class Chart3D implements Drawable3D, ChartElement,
     /**
      * Sets (and applies) the specified chart style.
      * 
-     * @param style  the chart style (<code>null</code> not permitted).
+     * @param style  the chart style ({@code null} not permitted).
      * 
      * @since 1.2
      */
@@ -784,7 +782,7 @@ public class Chart3D implements Drawable3D, ChartElement,
     /**
      * Creates a world containing the chart and the supplied chart box.
      * 
-     * @param chartBox  the chart box (<code>null</code> permitted).
+     * @param chartBox  the chart box ({@code null} permitted).
      */
     private World createWorld(ChartBox3D chartBox) {
         World result = new World();      
@@ -1051,10 +1049,10 @@ public class Chart3D implements Drawable3D, ChartElement,
     /**
      * Fetches marker data for the plot's x-axis.
      * 
-     * @param plot  the plot (<code>null</code> not permitted).
+     * @param plot  the plot ({@code null} not permitted).
      * 
      * @return A list of marker data items (possibly empty but never 
-     *     <code>null</code>).
+     *         {@code null}).
      */
     private List<MarkerData> fetchXMarkerData(Plot3D plot) {
         if (plot instanceof CategoryPlot3D) {
@@ -1069,10 +1067,10 @@ public class Chart3D implements Drawable3D, ChartElement,
     /**
      * Fetches marker data for the plot's x-axis.
      * 
-     * @param plot  the plot (<code>null</code> not permitted).
+     * @param plot  the plot ({@code null} not permitted).
      * 
      * @return A list of marker data items (possibly empty but never 
-     *     <code>null</code>).
+     *         {@code null}).
      */
     private List<MarkerData> fetchYMarkerData(Plot3D plot) {
         if (plot instanceof CategoryPlot3D) {
@@ -1087,10 +1085,10 @@ public class Chart3D implements Drawable3D, ChartElement,
     /**
      * Fetches marker data for the plot's x-axis.
      * 
-     * @param plot  the plot (<code>null</code> not permitted).
+     * @param plot  the plot ({@code null} not permitted).
      * 
      * @return A list of marker data items (possibly empty but never 
-     *     <code>null</code>).
+     *         {@code null}).
      */
     private List<MarkerData> fetchZMarkerData(Plot3D plot) {
         if (plot instanceof CategoryPlot3D) {
@@ -1152,10 +1150,10 @@ public class Chart3D implements Drawable3D, ChartElement,
     }
 
     /**
-     * Returns <code>true</code> if gridlines are visible for the x-axis
+     * Returns {@code true} if gridlines are visible for the x-axis
      * (column axis in the case of a {@link CategoryPlot3D}) and 
-     * <code>false</code> otherwise.  For pie charts, this method will always
-     * return <code>false>.
+     * {@code false} otherwise.  For pie charts, this method will always
+     * return {@code false}.
      * 
      * @param plot  the plot.
      * 
@@ -1174,9 +1172,9 @@ public class Chart3D implements Drawable3D, ChartElement,
     }
     
     /**
-     * Returns <code>true</code> if gridlines are visible for the y-axis
+     * Returns {@code true} if gridlines are visible for the y-axis
      * (value axis in the case of a {@link CategoryPlot3D}) and 
-     * <code>false</code> otherwise.
+     * {@code false} otherwise.
      * 
      * @param plot  the plot.
      * 
@@ -1195,9 +1193,9 @@ public class Chart3D implements Drawable3D, ChartElement,
     }
     
     /**
-     * Returns <code>true</code> if gridlines are visible for the z-axis
+     * Returns {@code true} if gridlines are visible for the z-axis
      * (row axis in the case of a {@link CategoryPlot3D}) and 
-     * <code>false</code> otherwise.
+     * {@code false} otherwise.
      * 
      * @param plot  the plot.
      * 
@@ -1344,7 +1342,7 @@ public class Chart3D implements Drawable3D, ChartElement,
      * @param w  the width.
      * @param h  the height.
      * @param depth  the depth.
-     * @param info  the rendering info (<code>null</code> permitted).
+     * @param info  the rendering info ({@code null} permitted).
      */
     private void drawPieLabels(Graphics2D g2, double w, double h, 
             double depth, RenderingInfo info) {
@@ -1545,12 +1543,12 @@ public class Chart3D implements Drawable3D, ChartElement,
     /**
      * Draws the axes for a chart.
      * 
-     * @param g2  the graphics target (<code>null</code> not permitted).
+     * @param g2  the graphics target ({@code null} not permitted).
      * @param chartBox  the chart box (this contains projected points for
      *     the tick marks and labels)
      * @param pts  the projected points.
      * @param info  an object to be populated with rendering info, if it is
-     *     non-<code>null</code>.
+     *     non-{@code null}.
      */
     private void drawAxes(Graphics2D g2, ChartBox3D chartBox, Point2D[] pts,
             RenderingInfo info) {
@@ -1667,12 +1665,12 @@ public class Chart3D implements Drawable3D, ChartElement,
     }
 
     /**
-     * Draws the markers for one face on a chart box.  The <code>pts</code>
+     * Draws the markers for one face on a chart box.  The {@code pts}
      * array contains all the projected points for all the vertices in the
      * world...the chart box face references the required points by index.
      * 
-     * @param g2  the graphics target (<code>null</code> not permitted).
-     * @param face  the face of the chart box (<code>null</code> not permitted).
+     * @param g2  the graphics target ({@code null} not permitted).
+     * @param face  the face of the chart box ({@code null} not permitted).
      * @param pts  the projected points for the whole world.
      */
     private void drawMarkers(Graphics2D g2, ChartBoxFace face, Point2D[] pts) {
@@ -1712,12 +1710,12 @@ public class Chart3D implements Drawable3D, ChartElement,
     
     /**
      * Returns the marker from the plot's x-axis that has the specified key,
-     * or <code>null</code> if there is no marker with that key.
+     * or {@code null} if there is no marker with that key.
      * 
-     * @param plot  the plot (<code>null</code> not permitted).
-     * @param key  the marker key (<code>null</code> not permitted).
+     * @param plot  the plot ({@code null} not permitted).
+     * @param key  the marker key ({@code null} not permitted).
      * 
-     * @return The marker (possibly <code>null</code>). 
+     * @return The marker (possibly {@code null}). 
      */
     private Marker fetchXMarker(Plot3D plot, String key) {
         if (plot instanceof CategoryPlot3D) {
@@ -1730,12 +1728,12 @@ public class Chart3D implements Drawable3D, ChartElement,
     
     /**
      * Returns the marker from the plot's y-axis that has the specified key,
-     * or <code>null</code> if there is no marker with that key.
+     * or {@code null} if there is no marker with that key.
      * 
-     * @param plot  the plot (<code>null</code> not permitted).
-     * @param key  the marker key (<code>null</code> not permitted).
+     * @param plot  the plot ({@code null} not permitted).
+     * @param key  the marker key ({@code null} not permitted).
      * 
-     * @return The marker (possibly <code>null</code>). 
+     * @return The marker (possibly {@code null}). 
      */
     private Marker fetchYMarker(Plot3D plot, String key) {
         if (plot instanceof CategoryPlot3D) {
@@ -1748,12 +1746,12 @@ public class Chart3D implements Drawable3D, ChartElement,
 
     /**
      * Returns the marker from the plot's z-axis that has the specified key,
-     * or <code>null</code> if there is no marker with that key.
+     * or {@code null} if there is no marker with that key.
      * 
-     * @param plot  the plot (<code>null</code> not permitted).
-     * @param key  the marker key (<code>null</code> not permitted).
+     * @param plot  the plot ({@code null} not permitted).
+     * @param key  the marker key ({@code null} not permitted).
      * 
-     * @return The marker (possibly <code>null</code>). 
+     * @return The marker (possibly {@code null}). 
      */
     private Marker fetchZMarker(Plot3D plot, String key) {
         if (plot instanceof CategoryPlot3D) {
@@ -1781,7 +1779,7 @@ public class Chart3D implements Drawable3D, ChartElement,
     /**
      * Tests this chart for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> not permitted).
+     * @param obj  the object ({@code null} not permitted).
      * 
      * @return A boolean. 
      */
@@ -1828,10 +1826,10 @@ public class Chart3D implements Drawable3D, ChartElement,
      * A utility method that calculates a drawing area based on a bounding area
      * and an anchor.
      * 
-     * @param dim  the dimensions for the drawing area (<code>null</code> not 
+     * @param dim  the dimensions for the drawing area ({@code null} not 
      *     permitted).
-     * @param anchor  the anchor (<code>null</code> not permitted).
-     * @param bounds  the bounds (<code>null</code> not permitted).
+     * @param anchor  the anchor ({@code null} not permitted).
+     * @param bounds  the bounds ({@code null} not permitted).
      * 
      * @return A drawing area. 
      */
@@ -1878,8 +1876,8 @@ public class Chart3D implements Drawable3D, ChartElement,
     }
 
     /**
-     * Returns <code>true</code> if x is the longest of the four lengths,
-     * and <code>false</code> otherwise.
+     * Returns {@code true} if x is the longest of the four lengths,
+     * and {@code false} otherwise.
      * 
      * @param x  the x-length.
      * @param a  length 1.
@@ -1894,7 +1892,7 @@ public class Chart3D implements Drawable3D, ChartElement,
 
     /**
      * Returns the number (0, 1 or 2) arguments that have the value 
-     * <code>true</code>.  We use this to examine the visibility of
+     * {@code true}.  We use this to examine the visibility of
      * adjacent walls of the chart box...where only one wall is visible, there
      * is an opportunity to display the axis along that edge.
      * 
@@ -1941,7 +1939,7 @@ public class Chart3D implements Drawable3D, ChartElement,
     /**
      * Registers a listener to receive notification of changes to the chart.
      * 
-     * @param listener  the listener. 
+     * @param listener  the listener ({@code null} not permitted). 
      */
     public void addChangeListener(Chart3DChangeListener listener) {
         this.listenerList.add(Chart3DChangeListener.class, listener);   
@@ -1951,7 +1949,7 @@ public class Chart3D implements Drawable3D, ChartElement,
      * Deregisters a listener so that it no longer receives notification of
      * changes to the chart.
      * 
-     * @param listener  the listener. 
+     * @param listener  the listener ({@code null} not permitted). 
      */
     public void removeChangeListener(Chart3DChangeListener listener) {
         this.listenerList.remove(Chart3DChangeListener.class, listener);  
@@ -2037,12 +2035,12 @@ public class Chart3D implements Drawable3D, ChartElement,
     }
     
     /**
-     * Returns a string representing the <code>element</code>, primarily for
+     * Returns a string representing the {@code element}, primarily for
      * debugging purposes.
      * 
-     * @param element  the element (<code>null</code> not permitted).
+     * @param element  the element ({@code null} not permitted).
      * 
-     * @return A string (never <code>null</code>).
+     * @return A string (never {@code null}).
      */
     public static String renderedElementToString(RenderedElement element) {
         Object type = element.getProperty(RenderedElement.TYPE);
