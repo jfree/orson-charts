@@ -51,7 +51,8 @@ import com.orsoncharts.renderer.xyz.SurfaceRenderer;
  * Surface renderer demo chart configuration.
  */
 public class SurfaceRenderer1 {
-     /**
+
+    /**
      * Creates a surface chart for the demo.
      * 
      * @return A surface chart. 
@@ -76,6 +77,7 @@ public class SurfaceRenderer1 {
         ValueAxis3D zAxis = plot.getZAxis();
         zAxis.setRange(-Math.PI, Math.PI);
         SurfaceRenderer renderer = (SurfaceRenderer) plot.getRenderer();
+        renderer.setDrawFaceOutlines(false);
         renderer.setColorScale(new GradientColorScale(new Range(-1.0, 1.0), 
                 Color.RED, Color.YELLOW));
         return chart;    
