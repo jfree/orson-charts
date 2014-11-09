@@ -26,7 +26,7 @@ public class Chart3DViewerSkin extends SkinBase<Chart3DViewer>  {
     /**
      * Creates a new instance.
      * 
-     * @param control  the control (<code>null</code> not permitted). 
+     * @param control  the control ({@code null} not permitted). 
      */    
     public Chart3DViewerSkin(Chart3DViewer control) {
         super(control);
