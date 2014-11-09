@@ -20,7 +20,11 @@ import com.orsoncharts.util.ArgChecks;
 
 /**
  * Represents a face in one {@link Object3D}, defined in terms of vertex
- * indices.
+ * indices.  It is expected (but not enforced) that all the vertices for
+ * the face lie within a single plane.  The face will be visible from the 
+ * "front" side only, which is a function of the order in which the vertices
+ * are specified.  A special subclass, {@link DoubleSidedFace}, is visible
+ * from both front and back.
  */
 public class Face {
 
@@ -30,22 +34,29 @@ public class Face {
     /** The offset into the global list of vertices. */
     private int offset;
 
-    /** The indices of the vertices representing this face. */
+    /** 
+     * The indices of the vertices representing this face.  Normally a face
+     * should have at least three vertices (a triangle) but we allow a special
+     * case with just two vertices to represent a line.
+     */
     private int[] vertices;
 
     /**
-     * Creates a new face.
+     * Creates a new face with the specified vertices that is part of the 3D
+     * {@code owner} object.  Most faces will have at least three vertices,
+     * but a special case with just two vertices (representing a line) is
+     * permitted.
      *
      * @param owner  the object that owns the face ({@code null} not 
      *     permitted).
-     * @param vertices  the indices of the vertices (at least 3 required).
+     * @param vertices  the indices of the vertices (array length >= 2).
      * 
      * @since 1.3
      */
     public Face(Object3D owner, int[] vertices) {
-        if (vertices.length < 3) {
+        if (vertices.length < 2) {
             throw new IllegalArgumentException(
-                    "Faces must have at least 3 vertices.");
+                    "Faces must have at least two vertices.");
         }
         ArgChecks.nullNotPermitted(owner, "owner");
         this.owner = owner;
@@ -54,7 +65,8 @@ public class Face {
     }
 
     /**
-     * Returns the object that owns this face (as passed to the constructor).
+     * Returns the object that this face belongs too (as passed to the 
+     * constructor).
      * 
      * @return The owner (never {@code null}).
      * 
@@ -127,7 +139,8 @@ public class Face {
     
     /**
      * Returns the tag for this face (always {@code null} for this class,
-     * subclasses may override).
+     * subclasses may override).  The {@link TaggedFace} class overrides
+     * this method.
      * 
      * @return {@code null}.
      * 
