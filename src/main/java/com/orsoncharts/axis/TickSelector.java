@@ -49,8 +49,8 @@ public interface TickSelector {
     
     /**
      * Move the cursor to the next (larger) tick size, if there is one.  
-     * Returns <code>true</code> in the case that the cursor is moved, and 
-     * <code>false</code> where there are a finite number of tick sizes and the
+     * Returns {@code true} in the case that the cursor is moved, and 
+     * {@code false} where there are a finite number of tick sizes and the
      * current tick size is the largest available.
      * 
      * @return A boolean.
@@ -59,8 +59,8 @@ public interface TickSelector {
     
     /**
      * Move the cursor to the previous (smaller) tick size, if there is one.  
-     * Returns <code>true</code> in the case that the cursor is moved, and 
-     * <code>false</code> where there are a finite number of tick sizes and the
+     * Returns {@code true} in the case that the cursor is moved, and 
+     * {@code false} where there are a finite number of tick sizes and the
      * current tick size is the smallest available.
      * 
      * @return A boolean.
