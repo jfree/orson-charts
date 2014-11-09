@@ -27,9 +27,9 @@ public class TaggedFace extends Face {
     /**
      * Creates a new instance.
      * 
-     * @param owner  the owner (<code>null</code> not permitted).
+     * @param owner  the owner ({@code null} not permitted).
      * @param vertices  the vertices (must contain at least 3 vertices).
-     * @param tag  the tag (<code>null</code> not permitted).
+     * @param tag  the tag ({@code null} not permitted).
      */
     public TaggedFace(Object3D owner, int[] vertices, String tag) {
         super(owner, vertices);
@@ -40,7 +40,7 @@ public class TaggedFace extends Face {
     /**
      * Returns the tag that was specified in the constructor.
      * 
-     * @return The tag (never <code>null</code>).
+     * @return The tag (never {@code null}).
      */
     @Override
     public String getTag() {
