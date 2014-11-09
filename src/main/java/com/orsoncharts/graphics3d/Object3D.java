@@ -71,14 +71,15 @@ public class Object3D {
  
     /**
      * A map containing properties for the object.  If there are no properties
-     * defined, then we leave this as <code>null</code>.
+     * defined, then we leave this as {@code null} as an empty map would 
+     * consume memory unnecessarily.
      */
     private Map<String, Object> properties;
     
     /**
      * Creates a new object, initially with no vertices or faces.
      * 
-     * @param color  the default face color (<code>null</code> not permitted).
+     * @param color  the default face color ({@code null} not permitted).
      * 
      * @since 1.3
      */
@@ -89,7 +90,7 @@ public class Object3D {
     /**
      * Creates a new object, initially with no vertices or faces.
      * 
-     * @param color  the default face color (<code>null</code> not permitted).
+     * @param color  the default face color ({@code null} not permitted).
      * @param outline  the default flag that determines whether face outlines
      *     are drawn.
      * 
@@ -106,7 +107,7 @@ public class Object3D {
     /**
      * Returns the default face color as specified in the constructor.
      * 
-     * @return The color (never <code>null</code>).
+     * @return The color (never {@code null}).
      * 
      * @since 1.3
      */
@@ -139,11 +140,11 @@ public class Object3D {
     
     /**
      * Returns the value of the property with the specified key, or 
-     * <code>null</code> if there is no property defined for that key.
+     * {@code null} if there is no property defined for that key.
      * 
-     * @param key  the property key (<code>null</code> not permitted).
+     * @param key  the property key ({@code null} not permitted).
      * 
-     * @return The value (possibly <code>null</code>).
+     * @return The value (possibly {@code null}).
      * 
      * @since 1.3
      */
@@ -160,10 +161,10 @@ public class Object3D {
      * Sets the value of a property, overwriting any existing value.  One 
      * application for this is storing item key references to link a 3D object
      * back to the data item that it represents (the key for this is
-     * {@link Object3D#ITEM_KEY}.
+     * {@link Object3D#ITEM_KEY}).
      * 
-     * @param key  the key (<code>null</code> not permitted).
-     * @param value  the value (<code>null</code> permitted).
+     * @param key  the key ({@code null} not permitted).
+     * @param value  the value ({@code null} permitted).
      * 
      * @since 1.3
      */
@@ -181,9 +182,9 @@ public class Object3D {
      * and return that color, otherwise it returns the default color for the
      * object.
      * 
-     * @param face  the face (<code>null</code> not permitted).
+     * @param face  the face ({@code null} not permitted).
      * 
-     * @return The color for the specified face (never <code>null</code>).
+     * @return The color for the specified face (never {@code null}).
      * 
      * @since 1.3
      */
@@ -199,10 +200,10 @@ public class Object3D {
     }
     
     /**
-     * Returns <code>true</code> if an outline should be drawn for the 
-     * specified face, and <code>false</code> otherwise.
+     * Returns {@code true} if an outline should be drawn for the 
+     * specified face, and {@code false} otherwise.
      * 
-     * @param face  the face (<code>null</code> not permitted).
+     * @param face  the face ({@code null} not permitted).
      * 
      * @return A boolean.
      * 
@@ -235,7 +236,7 @@ public class Object3D {
     /**
      * Adds a new object vertex.
      *
-     * @param vertex  the vertex (<code>null</code> not permitted).
+     * @param vertex  the vertex ({@code null} not permitted).
      */
     public void addVertex(Point3D vertex) {
         ArgChecks.nullNotPermitted(vertex, "vertex");
@@ -267,7 +268,7 @@ public class Object3D {
      * Adds a tagged face for the given vertices (specified by index value).
      * 
      * @param vertices  the vertices (all should lie in a plane).
-     * @param tag  the tag (<code>null</code> not permitted).
+     * @param tag  the tag ({@code null} not permitted).
      * 
      * @since 1.3
      */
@@ -290,7 +291,7 @@ public class Object3D {
     /**
      * Adds a face for this object.
      *
-     * @param face  the face (<code>null</code> not permitted).
+     * @param face  the face ({@code null} not permitted).
      */
     public void addFace(Face face) {
         ArgChecks.nullNotPermitted(face, "face");
@@ -299,7 +300,7 @@ public class Object3D {
 
     /**
      * Returns the faces for this object.  Note that the list returned is a 
-     * direct reference to the internal storage for this <code>Object3D</code> 
+     * direct reference to the internal storage for this {@code Object3D} 
      * instance, so callers should take care not to modify this list 
      * unintentionally.
      *
@@ -313,7 +314,7 @@ public class Object3D {
      * Calculates the projected points for the object's vertices, for the
      * given viewpoint.
      *
-     * @param viewPoint  the view point (<code>null</code> not permitted).
+     * @param viewPoint  the view point ({@code null} not permitted).
      * @param d  the projection distance.
      *
      * @return The projected points.
@@ -332,7 +333,7 @@ public class Object3D {
     /**
      * Returns the eye coordinates of the object's vertices.
      *
-     * @param viewPoint  the view point (<code>null</code> not permitted).
+     * @param viewPoint  the view point ({@code null} not permitted).
      *
      * @return The eye coordinates.
      */
@@ -355,7 +356,7 @@ public class Object3D {
      * @param x  the x-coordinate for the center of the square.
      * @param y  the y-coordinate.
      * @param z  the z-coordinate for the center of the square.
-     * @param color  the color (<code>null</code> not permitted).
+     * @param color  the color ({@code null} not permitted).
      * @param invert  invert the order of the face
      * 
      * @return  The sheet.
@@ -401,16 +402,16 @@ public class Object3D {
     }
 
     /**  
-     * Creates a cube centered on <code>(x, y, z)</code> with the specified 
-     * <code>size</code>.
+     * Creates a cube centered on {@code (x, y, z)} with the specified 
+     * {@code size}.
      *
      * @param size  the size.
      * @param x  the x-offset.
      * @param y  the y-offset.
      * @param z  the z-offset.
-     * @param color  the color (<code>null</code> not permitted).
+     * @param color  the color ({@code null} not permitted).
      *
-     * @return The cube (never <code>null</code>).
+     * @return The cube (never {@code null}).
      */
     public static Object3D createCube(double size, double x, 
             double y, double z, Color color) {
@@ -418,7 +419,8 @@ public class Object3D {
     }
 
     /**  
-     * Creates a box centered on (x, y, z) with the specified dimensions.  
+     * Creates a box centered on {@code (x, y, z)} with the specified 
+     * dimensions.  
      *
      * @param x  the x-coordinate.
      * @param xdim  the length of the box in the x-dimension.
@@ -426,9 +428,9 @@ public class Object3D {
      * @param ydim  the length of the box in the y-dimension.
      * @param z  the z-coordinate.
      * @param zdim  the length of the box in the y-dimension.
-     * @param color  the color (<code>null</code> not permitted).
+     * @param color  the color ({@code null} not permitted).
      *
-     * @return The box (never <code>null</code>).
+     * @return The box (never {@code null}).
      * 
      * @see #createCube(double, double, double, double, java.awt.Color) 
      */
@@ -464,7 +466,7 @@ public class Object3D {
      * @param xOffset  the x-offset.
      * @param yOffset  the y-offset.
      * @param zOffset  the z-offset.
-     * @param color  the color (<code>null</code> not permitted).
+     * @param color  the color ({@code null} not permitted).
      * 
      * @return A tetrahedron.
      */
@@ -494,7 +496,7 @@ public class Object3D {
      * @param xOffset  the x-offset.
      * @param yOffset  the y-offset.
      * @param zOffset  the z-offset.
-     * @param color  the color (<code>null</code> not permitted).
+     * @param color  the color ({@code null} not permitted).
      * 
      * @return An octahedron.
      */
@@ -528,8 +530,8 @@ public class Object3D {
      * @param x  the x-coordinate of the center of the sphere. 
      * @param y  the y-coordinate of the center of the sphere.
      * @param z  the z-coordinate of the center of the sphere.
-     * @param extColor  the exterior color (<code>null</code> not permitted).
-     * @param intColor  the interior color (<code>null</code> not permitted).
+     * @param extColor  the exterior color ({@code null} not permitted).
+     * @param intColor  the interior color ({@code null} not permitted).
      * 
      * @return A sphere. 
      */
@@ -570,8 +572,7 @@ public class Object3D {
                             (layer - 1) * n * 2 + i, 
                             (layer - 1) * n * 2 + i - 1}, "interior");
                         sphere.addFace(f);
-                    }
-                    else {
+                    } else {
                         sphere.addFace(new Face(sphere, new int[] {
                             (layer - 1) * n * 2 + i - 1, (layer - 1) * n * 2, 
                             layer * n * 2, layer * n * 2 + i - 1}));
@@ -596,7 +597,7 @@ public class Object3D {
      * @param angle1  the start angle (radians).
      * @param angle2  the end angle (radians).
      * @param inc  the increment.
-     * @param color  the color (<code>null</code> not permitted).
+     * @param color  the color ({@code null} not permitted).
      * 
      * @return  A pie segment object. 
      */
@@ -707,11 +708,11 @@ public class Object3D {
      * @param y  the y-coordinate for the top of the bar.
      * @param z  the z-coordinate for the center of the bar.
      * @param zero  the y-coordinate for the bottom of the bar.
-     * @param barColor  the color for the bar (<code>null</code> not permitted).
-     * @param baseColor  the color for the base of the bar (if 
-     *     <code>null</code>, the <code>color</code> is used instead).
+     * @param barColor  the color for the bar ({@code null} not permitted).
+     * @param baseColor  the color for the base of the bar (if {@code null}, 
+     *     the {@code color} is used instead).
      * @param topColor  the color for the top of the bar (if 
-     *     <code>null</code>, the <code>color</code> is used instead).
+     *     {@code null}, the {@code color} is used instead).
      * @param inverted  a flag that determines whether the baseColor and 
      *     topColor should be swapped in their usage.
      * 
@@ -775,19 +776,17 @@ public class Object3D {
      * Z-plane plus associated label attributes.  These faces are used to 
      * track the location and visibility of labels in a 3D scene.
      * 
-     * @param label  the label (<code>null</code> not permitted).
-     * @param font  the font (<code>null</code> not permitted).
-     * @param fgColor  the label foreground color (<code>null</code> not 
-     *     permitted).
-     * @param bgColor  the label background color (<code>null</code> not 
-     *     permitted).
+     * @param label  the label ({@code null} not permitted).
+     * @param font  the font ({@code null} not permitted).
+     * @param fgColor  the label foreground color ({@code null} not permitted).
+     * @param bgColor  the label background color ({@code null} not permitted).
      * @param x  the x-coordinate in 3D space.
      * @param y  the y-coordinate in 3D space.
      * @param z  the z-coordinate in 3D space.
      * @param reversed  reverse the order of the vertices?
      * @param doubleSided  is the face double-sided (visible from either side)?
      * 
-     * @return A new label object (never <code>null</code>).
+     * @return A new label object (never {@code null}).
      * 
      * @since 1.3
      */
