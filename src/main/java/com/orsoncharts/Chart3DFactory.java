@@ -33,6 +33,7 @@ import com.orsoncharts.renderer.category.BarRenderer3D;
 import com.orsoncharts.renderer.category.CategoryRenderer3D;
 import com.orsoncharts.renderer.category.LineRenderer3D;
 import com.orsoncharts.renderer.category.StackedBarRenderer3D;
+import com.orsoncharts.renderer.xyz.LineXYZRenderer;
 import com.orsoncharts.renderer.xyz.ScatterXYZRenderer;
 import com.orsoncharts.renderer.xyz.SurfaceRenderer;
 import com.orsoncharts.style.ChartStyle;
@@ -380,4 +381,33 @@ public class Chart3DFactory {
         return new Chart3D(title, subtitle, plot);
     }
 
+    /**
+     * Creates and returns a line chart based on the supplied dataset. The 
+     * chart returned by this method will be constructed with an 
+     * {@link XYZPlot} using a {@link LineXYZRenderer}  (so it is safe
+     * to cast the plot and/or renderer to customise attributes that are
+     * specific to those subclasses).
+     * 
+     * @param title  the chart title ({@code null} permitted).
+     * @param subtitle  the chart subtitle ({@code null} permitted).
+     * @param dataset  the dataset ({@code null} not permitted).
+     * @param xAxisLabel  the x-axis label ({@code null} permitted).
+     * @param yAxisLabel  the y-axis label ({@code null} permitted).
+     * @param zAxisLabel  the z-axis label ({@code null} permitted).
+     * 
+     * @return The chart. 
+     * 
+     * @since 1.5
+     */
+    public static Chart3D createXYZLineChart(String title, String subtitle, 
+            XYZDataset dataset, String xAxisLabel, String yAxisLabel, 
+            String zAxisLabel) {
+        ValueAxis3D xAxis = new NumberAxis3D(xAxisLabel);
+        NumberAxis3D yAxis = new NumberAxis3D(yAxisLabel);
+        yAxis.setTickLabelOrientation(LabelOrientation.PERPENDICULAR);
+        ValueAxis3D zAxis = new NumberAxis3D(zAxisLabel);
+        XYZRenderer renderer = new LineXYZRenderer();
+        XYZPlot plot = new XYZPlot(dataset, renderer, xAxis, yAxis, zAxis);
+        return new Chart3D(title, subtitle, plot);
+    }
 }
