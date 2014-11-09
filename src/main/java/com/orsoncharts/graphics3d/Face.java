@@ -36,15 +36,16 @@ public class Face {
     /**
      * Creates a new face.
      *
-     * @param owner  the object that owns the face (<code>null</code> not 
+     * @param owner  the object that owns the face ({@code null} not 
      *     permitted).
-     * @param vertices  the indices of the vertices.
+     * @param vertices  the indices of the vertices (at least 3 required).
      * 
      * @since 1.3
      */
     public Face(Object3D owner, int[] vertices) {
         if (vertices.length < 3) {
-            throw new IllegalArgumentException("Faces must have at least 3 vertices.");
+            throw new IllegalArgumentException(
+                    "Faces must have at least 3 vertices.");
         }
         ArgChecks.nullNotPermitted(owner, "owner");
         this.owner = owner;
@@ -55,7 +56,7 @@ public class Face {
     /**
      * Returns the object that owns this face (as passed to the constructor).
      * 
-     * @return The owner (never <code>null</code>).
+     * @return The owner (never {@code null}).
      * 
      * @since 1.3
      */
@@ -107,15 +108,15 @@ public class Face {
      * not stored as an attribute of the face, because typically an object
      * has many faces that are all the same color.
      * 
-     * @return The color (never <code>null</code>).
+     * @return The color (never {@code null}).
      */
     public Color getColor() {
         return this.owner.getColor(this);
     }
     
     /**
-     * Returns <code>true</code> if an outline should be drawn for this face,
-     * and <code>false</code> otherwise.  The value is obtained by querying
+     * Returns {@code true} if an outline should be drawn for this face,
+     * and {@code false} otherwise.  The value is obtained by querying
      * the object that owns the face.
      * 
      * @return A boolean. 
@@ -125,10 +126,10 @@ public class Face {
     }
     
     /**
-     * Returns the tag for this face (always <code>null</code> for this class,
+     * Returns the tag for this face (always {@code null} for this class,
      * subclasses may override).
      * 
-     * @return <code>null</code>.
+     * @return {@code null}.
      * 
      * @since 1.3
      */
@@ -183,8 +184,8 @@ public class Face {
     }
 
     /**
-     * Returns <code>true</code> if this face is front facing, and 
-     * <code>false</code> otherwise.
+     * Returns {@code true} if this face is front facing, and 
+     * {@code false} otherwise.
      * 
      * @param projPts  the projection points.
      * 
@@ -198,7 +199,7 @@ public class Face {
     /**
      * Creates and returns a path for the outline of this face.
      * 
-     * @param pts  the projected points for the world (<code>null</code> not 
+     * @param pts  the projected points for the world ({@code null} not 
      *     permitted).
      * 
      * @return A path.
