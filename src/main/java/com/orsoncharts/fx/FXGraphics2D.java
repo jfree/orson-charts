@@ -150,6 +150,10 @@ public class FXGraphics2D extends Graphics2D {
     private final BufferedImage fmImage = new BufferedImage(10, 10, 
             BufferedImage.TYPE_INT_RGB);
 
+    /** 
+     * A Graphics2D instance for the hidden image that is used for font
+     * metrics.  Used in the getFontMetrics(Font f) method.
+     */
     private final Graphics2D fmImageG2 = fmImage.createGraphics();
     
     /**
