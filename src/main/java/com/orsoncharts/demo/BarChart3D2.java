@@ -36,6 +36,7 @@
 
 package com.orsoncharts.demo;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 
 import com.orsoncharts.Chart3D;
@@ -51,7 +52,6 @@ import com.orsoncharts.legend.LegendAnchor;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.util.Orientation;
 import com.orsonpdf.PDFHints;
-import java.awt.BasicStroke;
 
 /**
  * 3D bar chart configuration for demo applications.
@@ -91,7 +91,8 @@ public class BarChart3D2 {
         zAxis.setLineColor(new Color(0, 0, 0, 0));
         plot.getRenderer().setColors(Colors.createPastelColors());
         plot.setToolTipGenerator(new StandardCategoryItemLabelGenerator(
-                "%2$s (%3$s) = %4$s degrees"));        return chart;    
+                "%2$s (%3$s) = %4$s degrees"));        
+        return chart;    
     }
     
     /**
