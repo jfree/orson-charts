@@ -849,7 +849,23 @@ public class Chart3D implements Drawable3D, ChartElement,
         // sort faces by z-order
         List<Face> facesInPaintOrder = new ArrayList<Face>(world.getFaces());
         facesInPaintOrder = this.faceSorter.sort(facesInPaintOrder, eyePts);
+        Line2D line = null;
+        Stroke stroke = new BasicStroke(1.0f);
         for (Face f : facesInPaintOrder) {
+            // check for the special case where the face is just a line
+            if (f.getVertexCount() == 2) {
+                g2.setPaint(f.getColor());
+                if (line == null) {
+                    line = new Line2D.Float();
+                }
+                int v0 = f.getVertexIndex(0);
+                int v1 = f.getVertexIndex(1);
+                line.setLine(pts[v0].getX(), pts[v0].getY(), pts[v1].getX(), 
+                        pts[v1].getY());
+                g2.setStroke(stroke);
+                g2.draw(line);
+                continue;
+            }
             boolean drawOutline = f.getOutline();
             double[] plane = f.calculateNormal(eyePts);
             double inprod = plane[0] * world.getSunX() + plane[1]
@@ -859,21 +875,19 @@ public class Chart3D implements Drawable3D, ChartElement,
                     || Utils2D.area2(pts[f.getVertexIndex(0)],
                     pts[f.getVertexIndex(1)], pts[f.getVertexIndex(2)]) > 0.0) {
                 Color c = f.getColor();
-                if (c != null) {
-                    Path2D p = f.createPath(pts);
-                    g2.setPaint(new Color((int) (c.getRed() * shade),
+                Path2D p = f.createPath(pts);
+                g2.setPaint(new Color((int) (c.getRed() * shade),
                         (int) (c.getGreen() * shade),
                         (int) (c.getBlue() * shade), c.getAlpha()));
-                    if (this.elementHinting) {
-                        beginElementGroup(f, g2);
-                    }
-                    g2.fill(p);
-                    if (drawOutline) {
-                        g2.draw(p);
-                    }
-                    if (this.elementHinting) {
-                        endElementGroup(f, g2);
-                    }
+                if (this.elementHinting) {
+                    beginElementGroup(f, g2);
+                }
+                g2.fill(p);
+                if (drawOutline) {
+                    g2.draw(p);
+                }
+                if (this.elementHinting) {
+                    endElementGroup(f, g2);
                 }
                 
                 if (f instanceof ChartBoxFace 
