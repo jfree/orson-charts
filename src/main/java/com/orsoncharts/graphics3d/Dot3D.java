@@ -20,12 +20,12 @@ import java.awt.Color;
 public class Dot3D extends Object3D {
     
     /**
-     * Creates a new <code>Dot3D</code> instance.
+     * Creates a new {@code Dot3D} instance.
      * 
      * @param x  the x-coordinate.
      * @param y  the y-coordinate.
      * @param z  the z-coordinate.
-     * @param color  the color (<code>null</code> not permitted).
+     * @param color  the color ({@code null} not permitted).
      */
     public Dot3D(float x, float y, float z, Color color) {
         super(color);
