@@ -36,7 +36,7 @@ import com.orsoncharts.util.ArgChecks;
 /**
  * A canvas node for displaying a {@link Chart3D} in JavaFX.  This node
  * handles mouse events and tooltips but does not provide a context menu or
- * toolbar
+ * toolbar (these features are provided by the {@link Chart3DViewer} class.)
  * 
  * @since 1.4
  */
@@ -165,7 +165,7 @@ public class Chart3DCanvas extends Canvas implements Chart3DChangeListener {
     /**
      * Sets the margin (note that this will not have an immediate effect, it
      * will only be applied on the next call to 
-     * {@link #zoomToFit(double, double)}.
+     * {@link #zoomToFit(double, double)}).
      * 
      * @param margin  the margin. 
      */
@@ -220,7 +220,7 @@ public class Chart3DCanvas extends Canvas implements Chart3DChangeListener {
     /**
      * Sets the multiplier used to calculate the maximum viewing distance.
      * 
-     * @param multiplier  the multiplier.
+     * @param multiplier  the multiplier (must be > 1.0).
      */
     public void setMaxViewingDistanceMultiplier(double multiplier) {
         if (multiplier < 1.0) {
@@ -414,7 +414,7 @@ public class Chart3DCanvas extends Canvas implements Chart3DChangeListener {
     }
 
     private void handleScroll(ScrollEvent event) {
-        double units = event.getDeltaY();
+        double units = -event.getDeltaY();
         double maxViewingDistance = this.maxViewingDistanceMultiplier
                     * this.minViewingDistance;
         ViewPoint3D vp = this.chart.getViewPoint();
