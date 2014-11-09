@@ -36,9 +36,6 @@
 
 package com.orsoncharts.demo.swing;
 
-import com.orsoncharts.demo.swing.OrsonChartsDemo;
-import com.orsoncharts.demo.swing.DemoPanel;
-import com.orsoncharts.demo.swing.ExitOnClose;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
