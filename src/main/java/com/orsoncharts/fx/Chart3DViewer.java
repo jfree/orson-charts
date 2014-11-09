@@ -14,7 +14,6 @@ package com.orsoncharts.fx;
 
 import java.io.File;
 import java.io.IOException;
-import javafx.event.ActionEvent;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Control;
 import javafx.scene.control.Menu;
@@ -24,7 +23,6 @@ import javafx.scene.control.Skinnable;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.WindowEvent;
-import javax.swing.event.EventListenerList;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.graphics3d.ExportUtils;
 import com.orsoncharts.graphics3d.RenderedElement;
@@ -35,7 +33,8 @@ import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.ExportFormats;
 
 /**
- * A control for displaying a {@link Chart3D} in JavaFX.
+ * A control for displaying a {@link Chart3D} in JavaFX.  This control embeds
+ * a {@link Chart3DCanvas} and also provides a context menu.
  * 
  * @since 1.4
  */
@@ -59,14 +58,11 @@ public class Chart3DViewer extends Control implements Skinnable {
      * the context menu.
      */
     private double zoomMultiplier = 0.95;
-    
-    /** Storage for registered chart mouse listeners. */
-    private transient EventListenerList chartMouseListeners;
 
     /**
      * Creates a new viewer to display the supplied chart in JavaFX.
      * 
-     * @param chart  the chart (<code>null</code> not permitted). 
+     * @param chart  the chart ({@code null} not permitted). 
      */
     public Chart3DViewer(Chart3D chart) {
         this(chart, true);
@@ -75,13 +71,12 @@ public class Chart3DViewer extends Control implements Skinnable {
     /**
      * Creates a new viewer instance.
      * 
-     * @param chart  the chart (<code>null</code> not permitted).
+     * @param chart  the chart ({@code null} not permitted).
      * @param contextMenuEnabled  enable the context menu?
      */
     public Chart3DViewer(Chart3D chart, boolean contextMenuEnabled) {
         ArgChecks.nullNotPermitted(chart, "chart");
         this.chart = chart;
-        this.chartMouseListeners = new EventListenerList();
         getStyleClass().add("chart3d-control");
         this.contextMenu = createContextMenu();
         this.contextMenu.setOnShowing((WindowEvent event) -> {
@@ -104,7 +99,7 @@ public class Chart3DViewer extends Control implements Skinnable {
     /**
      * Returns the chart that is being displayed by this node.
      * 
-     * @return The chart (never <code>null</code>). 
+     * @return The chart (never {@code null}). 
      */
     public Chart3D getChart() {
         return this.chart;
@@ -113,7 +108,7 @@ public class Chart3DViewer extends Control implements Skinnable {
     /**
      * Sets the chart to be displayed by this node.
      * 
-     * @param chart  the chart (<code>null</code> not permitted). 
+     * @param chart  the chart ({@code null} not permitted). 
      */
     public void setChart(Chart3D chart) {
         ArgChecks.nullNotPermitted(chart, "chart");
@@ -124,7 +119,7 @@ public class Chart3DViewer extends Control implements Skinnable {
     /**
      * Returns the canvas used within this control to display the chart.
      * 
-     * @return The canvas. 
+     * @return The canvas (never {@code null}). 
      */
     public Chart3DCanvas getCanvas() {
         return this.canvas;
@@ -135,15 +130,16 @@ public class Chart3DViewer extends Control implements Skinnable {
      * This method is called by the control's skin, you should not need to
      * call it directly.
      * 
-     * @param canvas  the canvas. 
+     * @param canvas  the canvas ({@code null} not permitted). 
      */
     public void setCanvas(final Chart3DCanvas canvas) {
+        ArgChecks.nullNotPermitted(canvas, "canvas");
         this.canvas = canvas;
         this.canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, 
                 (MouseEvent event) -> {
             RenderingInfo info = canvas.getRenderingInfo();
             RenderedElement element = info.findElementAt(
-                    event.getX(), event.getSceneY());
+                    event.getX(), event.getY());
 
             Chart3DViewer viewer = Chart3DViewer.this;
             viewer.fireEvent(new FXChart3DMouseEvent(viewer,
@@ -153,7 +149,7 @@ public class Chart3DViewer extends Control implements Skinnable {
 
     /**
      * Returns the multiplier used for the zoom in and out options in the
-     * context menu.  The default value is <code>0.95</code>.
+     * context menu.  The default value is {@code 0.95}.
      * 
      * @return The zoom multiplier. 
      */
@@ -163,7 +159,9 @@ public class Chart3DViewer extends Control implements Skinnable {
 
     /**
      * Sets the zoom multiplier used for the zoom in and out options in the
-     * context menu.
+     * context menu.  When zooming in, the current viewing distance will be
+     * multiplied by this value (which defaults to 0.95).  When zooming out,
+     * the viewing distance is multiplied by 1 / zoomMultiplier.
      * 
      * @param multiplier  the new multiplier.
      */
@@ -179,40 +177,36 @@ public class Chart3DViewer extends Control implements Skinnable {
     private ContextMenu createContextMenu() {
         final ContextMenu menu = new ContextMenu();
         MenuItem zoomIn = new MenuItem("Zoom In");
-        zoomIn.setOnAction((ActionEvent e) -> { 
-            handleZoom(this.zoomMultiplier);
-        });
+        zoomIn.setOnAction(e -> { handleZoom(this.zoomMultiplier); });
         MenuItem zoomOut = new MenuItem("Zoom Out");
-        zoomOut.setOnAction((ActionEvent e) -> {
-            handleZoom(1.0 / this.zoomMultiplier);
-        });
+        zoomOut.setOnAction(e -> { handleZoom(1.0 / this.zoomMultiplier); });
         
         MenuItem zoomToFit = new MenuItem("Zoom To Fit");
-        zoomToFit.setOnAction((ActionEvent e) -> { handleZoomToFit(); });
+        zoomToFit.setOnAction(e -> { handleZoomToFit(); });
         
         SeparatorMenuItem separator = new SeparatorMenuItem();
         Menu export = new Menu("Export As");
         
         MenuItem pngItem = new MenuItem("PNG...");
-        pngItem.setOnAction((ActionEvent e) -> { handleExportToPNG(); });        
+        pngItem.setOnAction(e -> { handleExportToPNG(); });        
         export.getItems().add(pngItem);
         
         MenuItem jpegItem = new MenuItem("JPEG...");
-        jpegItem.setOnAction((ActionEvent e) -> { handleExportToJPEG(); });        
+        jpegItem.setOnAction(e -> { handleExportToJPEG(); });        
         export.getItems().add(jpegItem);
         
+        // automatically detect if OrsonPDF is on the classpath and, if it is,
+        // provide a PDF export menu item
         if (ExportFormats.isOrsonPDFAvailable()) {
             MenuItem pdfItem = new MenuItem("PDF...");
-            pdfItem.setOnAction((ActionEvent e) -> {
-                handleExportToPDF();
-            });
+            pdfItem.setOnAction(e -> { handleExportToPDF(); });
             export.getItems().add(pdfItem);
         }
+        // automatically detect if JFreeSVG is on the classpath and, if it is,
+        // provide a SVG export menu item
         if (ExportFormats.isJFreeSVGAvailable()) {
             MenuItem svgItem = new MenuItem("SVG...");
-            svgItem.setOnAction((ActionEvent e) -> {
-                handleExportToSVG();
-            });
+            svgItem.setOnAction(e -> { handleExportToSVG(); });
             export.getItems().add(svgItem);        
         }
         menu.getItems().addAll(zoomIn, zoomOut, zoomToFit, separator, 
@@ -223,7 +217,8 @@ public class Chart3DViewer extends Control implements Skinnable {
     /**
      * A handler for the zoom in and out options in the context menu.
      * 
-     * @param multiplier  the multiplier. 
+     * @param multiplier  the multiplier (less than 1.0 zooms in, greater than
+     *         1.0 zooms out). 
      */
     private void handleZoom(double multiplier) {
         ViewPoint3D viewPt = this.chart.getViewPoint();
@@ -244,7 +239,9 @@ public class Chart3DViewer extends Control implements Skinnable {
     }
     
     /**
-     * A handler for the export to PDF option in the context menu.
+     * A handler for the export to PDF option in the context menu.  Note that
+     * the Export to PDF menu item is only installed if OrsonPDF is on the 
+     * classpath.
      */
     private void handleExportToPDF() {
         FileChooser fileChooser = new FileChooser();
