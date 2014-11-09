@@ -671,7 +671,7 @@ public class Chart3D implements Drawable3D, ChartElement,
 
     /**
      * Sets the rendering hints for the chart.  These will be added (using the
-     * {@Code Graphics2D.addRenderingHints()} method) near the start of 
+     * {@code Graphics2D.addRenderingHints()} method) near the start of 
      * the chart rendering.  Note that calling this method will replace all
      * existing hints assigned to the chart.  If you simply wish to add an
      * additional hint, you can use {@code getRenderingHints().put(key, value)}.
