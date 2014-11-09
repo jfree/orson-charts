@@ -209,8 +209,7 @@ public class Chart3DViewer extends Control implements Skinnable {
             svgItem.setOnAction(e -> { handleExportToSVG(); });
             export.getItems().add(svgItem);        
         }
-        menu.getItems().addAll(zoomIn, zoomOut, zoomToFit, separator, 
-                export);
+        menu.getItems().addAll(zoomIn, zoomOut, zoomToFit, separator, export);
         return menu;
     }
     
