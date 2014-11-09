@@ -59,6 +59,13 @@ If you have any questions, don't hesitate to send a mail to info@object-refinery
 History
 -------
 
+??-Nov-2014 : Version 1.5
+
+- fix direction of mouse wheel zooming in JavaFX;
+- JavaFX demos brought up to match the Swing demos;
+- various Javadoc improvements.
+
+
 27-May-2014 : Version 1.4
 
 - added JavaFX support;
