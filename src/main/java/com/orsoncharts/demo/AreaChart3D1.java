@@ -2,7 +2,7 @@
  * Orson Charts - Demo
  * ===================
  * 
- * Copyright (c) 2013, 2014, Object Refinery Limited.
+ * Copyright (c) 2013-2015, Object Refinery Limited.
  * All rights reserved.
  *
  * http://www.object-refinery.com/orsoncharts/index.html
@@ -45,6 +45,7 @@ import com.orsoncharts.data.category.StandardCategoryDataset3D;
 import com.orsoncharts.data.DefaultKeyedValues;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.category.AreaRenderer3D;
+import java.awt.BasicStroke;
 
 /**
  * 3D area chart configuration for demo applications.
@@ -66,6 +67,9 @@ public class AreaChart3D1 {
         chart.setChartBoxColor(new Color(255, 255, 255, 128));
         CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
         plot.getRowAxis().setVisible(false);
+        plot.setGridlineStrokeForValues(new BasicStroke(0.5f, 
+                BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 4.0f, 
+                new float[] { 2f, 2f }, 0f));
         AreaRenderer3D renderer = (AreaRenderer3D) plot.getRenderer();
         renderer.setBaseColor(Color.GRAY);
         return chart;
