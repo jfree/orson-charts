@@ -243,17 +243,17 @@ public class CategoryPlot3D extends AbstractPlot3D
     }
     
     /**
-     * Sets the dataset and sends a {@link Plot3DChangeEvent} to all registered
-     * listeners.
+     * Sets the dataset (which reconfigures the axes for the new date) and 
+     * sends a {@link Plot3DChangeEvent} to all registered listeners.
      * 
-     * @param dataset  the dataset (<code>null</code> not permitted). 
+     * @param dataset  the dataset ({@code null} not permitted). 
      */
     public void setDataset(CategoryDataset3D dataset) {
         ArgChecks.nullNotPermitted(dataset, "dataset");
         this.dataset.removeChangeListener(this);
         this.dataset = dataset;
         this.dataset.addChangeListener(this);
-        fireChangeEvent(true);
+        datasetChanged(new Dataset3DChangeEvent(this, this.dataset));
     }
     
     /**
