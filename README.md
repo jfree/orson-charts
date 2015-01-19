@@ -1,7 +1,7 @@
 Orson Charts
 ============
 
-(C)opyright 2013, 2014, by Object Refinery Limited.  All rights reserved.
+(C)opyright 2013-2015, by Object Refinery Limited.  All rights reserved.
 
 
 Overview
@@ -59,8 +59,9 @@ If you have any questions, don't hesitate to send a mail to info@object-refinery
 History
 -------
 
-??-Nov-2014 : Version 1.5
+??-Jan-2015 : Version 1.5
 
+- fix exception when setting a new dataset using CategoryPlot3D.setDataset():
 - fix direction of mouse wheel zooming in JavaFX;
 - JavaFX demos brought up to match the Swing demos;
 - various Javadoc improvements.
