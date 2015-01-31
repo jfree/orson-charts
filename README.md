@@ -25,11 +25,6 @@ Orson Charts is very easy to use, and includes comprehensive Javadocs.  Licenses
 There are also versions of Orson Charts available for Android and for HTML5 (JavaScript), please see our web site for details.
 
 
-Evaluation Version
-------------------
-The evaluation version of Orson Charts is a fully functional copy of the library that can be used for evaluation purposes only.  It is not permitted to use this version in production systems, nor is it permitted to modify or redistribute the evaluation version in any way.  There is no time limit on the evaluation.
-
-
 Documentation
 -------------
 The Javadoc generated documentation is the principal source of documentation for Orson Charts:
