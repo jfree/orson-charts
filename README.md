@@ -20,7 +20,7 @@ Orson Charts is a 3D chart library for the Java(tm) platform that can generate a
 - support for PDF, SVG, PNG and JPG export of charts for reporting;
 - a clean and well-documented API with a high degree of chart configurability.
 
-Orson Charts is very easy to use, and includes comprehensive Javadocs.  Licenses can be purchased from Object Refinery Limited.  The license permits royalty-free redistribution of the Orson Charts runtime jar file.  Orson Charts requires JDK/JRE 1.6 or later.  To use Orson Charts with JavaFX requires JDK/JRE 1.8 or later.
+Orson Charts is very easy to use, and includes comprehensive Javadocs.  It is licensed under the terms of the GNU General Public License version 3 or later.  Commercial licenses can be purchased from Object Refinery Limited.  The license permits royalty-free redistribution of the Orson Charts runtime jar file.  Orson Charts requires JDK/JRE 1.6 or later.  To use Orson Charts with JavaFX requires JDK/JRE 1.8 or later.
 
 There are also versions of Orson Charts available for Android and for HTML5 (JavaScript), please see our web site for details.
 
