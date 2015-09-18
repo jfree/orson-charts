@@ -820,7 +820,7 @@ public class Chart3D implements Drawable3D, ChartElement,
     /**
      * Draws the chart to the specified output target.
      * 
-     * @param g2  the output target.
+     * @param g2  the output target ({@code null} not permitted).
      * 
      * @return Information about the items rendered.
      */
@@ -859,8 +859,10 @@ public class Chart3D implements Drawable3D, ChartElement,
             this.background.fill(g2, bounds);
         }
         AffineTransform saved = g2.getTransform();
-        double dx = bounds.getWidth() / 2.0 + this.translate2D.getDX();
-        double dy = bounds.getHeight() / 2.0 + this.translate2D.getDY();
+        double dx = bounds.getX() + bounds.getWidth() / 2.0 
+                + this.translate2D.getDX();
+        double dy = bounds.getY() + bounds.getHeight() / 2.0 
+                + this.translate2D.getDY();
         g2.translate(dx, dy);
         Point3D[] eyePts = this.world.calculateEyeCoordinates(this.viewPoint);
         Point2D[] pts = this.world.calculateProjectedPoints(this.viewPoint, 
@@ -959,18 +961,6 @@ public class Chart3D implements Drawable3D, ChartElement,
             TableElement legend = this.legendBuilder.createLegend(this.plot,
                     this.legendAnchor, this.legendOrientation, this.style);
             if (legend != null) {
-                if (false) { // eval
-                    GridElement legend2 = new GridElement();
-                    legend2.setBackground(null);
-                    legend2.setElement(legend, "R1", "C1");
-                    TextElement te = new TextElement("Orson Charts (evaluation) (c) 2013, 2014, by Object Refinery Limited", 
-                            this.style.getLegendFooterFont());
-                    te.setColor(this.style.getLegendFooterColor());
-                    te.setBackgroundColor(this.style.getLegendFooterBackgroundColor());
-                    te.setHorizontalAligment(HAlign.RIGHT);
-                    legend2.setElement(te, "R2", "C1");
-                    legend = legend2;         
-                }
                 Dimension2D legendSize = legend.preferredSize(g2, bounds);
                 Rectangle2D legendArea = calculateDrawArea(legendSize, 
                         this.legendAnchor, bounds);
