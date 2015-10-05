@@ -69,32 +69,32 @@ public interface Axis3D extends ChartElement {
     /**
      * Returns the font that is used to display the main axis label.
      * 
-     * @return The font (never <code>null</code>). 
+     * @return The font (never {@code null}). 
      */
     Font getLabelFont();
     
     /**
      * Sets the font for the axis label (the main label, not the tick labels)
-     * and sends a {@link Axis3DChangeEvent} to all registered listeners.
+     * and sends an {@link Axis3DChangeEvent} to all registered listeners.
      * 
-     * @param font  the font (<code>null</code> not permitted). 
+     * @param font  the font ({@code null} not permitted). 
      */
     void setLabelFont(Font font);
     
     /**
      * Returns the color used to draw the axis label.
      * 
-     * @return The color (never <code>null</code>).
+     * @return The color (never {@code null}).
      * 
      * @since 1.2
      */
     Color getLabelColor();
     
     /**
-     * Sets the color used to draw the axis label and sends a change event to 
-     * all registered listeners.
+     * Sets the color used to draw the axis label and sends an 
+     * {@link Axis3DChangeEvent} to all registered listeners.
      * 
-     * @param color  the color (<code>null</code> not permitted). 
+     * @param color  the color ({@code null} not permitted). 
      * 
      * @since 1.2
      */
@@ -103,32 +103,32 @@ public interface Axis3D extends ChartElement {
     /**
      * Returns the font that is used to display the tick labels.
      * 
-     * @return The font (never <code>null</code>). 
+     * @return The font (never {@code null}). 
      */
     Font getTickLabelFont();
     
     /**
-     * Sets the font for the tick labels and sends a {@link Axis3DChangeEvent} 
+     * Sets the font for the tick labels and sends an {@link Axis3DChangeEvent} 
      * to all registered listeners.
      * 
-     * @param font  the font (<code>null</code> not permitted). 
+     * @param font  the font ({@code null} not permitted). 
      */
     void setTickLabelFont(Font font);
     
     /**
      * Returns the color used to draw the axis tick labels.
      * 
-     * @return The color (never <code>null</code>). 
+     * @return The color (never {@code null}). 
      * 
      * @since 1.2
      */
     Color getTickLabelColor();
     
     /**
-     * Sets the color used to draw the axis tick labels and sends a change 
-     * event to all registered listeners.
+     * Sets the color used to draw the axis tick labels and sends an 
+     * {@link Axis3DChangeEvent} to all registered listeners.
      * 
-     * @param color  the color (<code>null</code> not permitted). 
+     * @param color  the color ({@code null} not permitted). 
      * 
      * @since 1.2
      */
@@ -137,7 +137,7 @@ public interface Axis3D extends ChartElement {
     /**
      * Returns the axis range.
      * 
-     * @return The axis range (never <code>null</code>). 
+     * @return The axis range (never {@code null}). 
      */
     Range getRange();
 
@@ -145,7 +145,7 @@ public interface Axis3D extends ChartElement {
      * Sets the axis range and sends an {@link Axis3DChangeEvent} to all
      * registered listeners.
      * 
-     * @param range  the range (<code>null</code> not permitted). 
+     * @param range  the range ({@code null} not permitted). 
      */
     public void setRange(Range range);
   
@@ -160,7 +160,7 @@ public interface Axis3D extends ChartElement {
     
     /**
      * Translates a data value to a world coordinate.  Since we draw the charts
-     * in a box that has one corner at <code>(0, 0, 0)</code>, we only need to 
+     * in a box that has one corner at {@code (0, 0, 0)}, we only need to 
      * know the length of the side of the box along which we are translating in 
      * order to do the calculation.
      * 
@@ -172,18 +172,18 @@ public interface Axis3D extends ChartElement {
     double translateToWorld(double value, double length);
 
     /**
-     * Draws the axis along an arbitrary line (between <code>startPt</code> 
-     * and <code>endPt</code>).  The opposing point is used as a reference
+     * Draws the axis along an arbitrary line (between {@code startPt} 
+     * and {@code endPt}).  The opposing point is used as a reference
      * point to know on which side of the axis to draw the labels.
      * 
-     * @param g2  the graphics target (<code>null</code> not permitted).
-     * @param startPt  the starting point (<code>null</code> not permitted).
-     * @param endPt  the end point (<code>null</code> not permitted)
-     * @param opposingPt  an opposing point (<code>null</code> not permitted).
-     * @param tickData  info about the ticks to draw (<code>null</code> not 
+     * @param g2  the graphics target ({@code null} not permitted).
+     * @param startPt  the starting point ({@code null} not permitted).
+     * @param endPt  the end point ({@code null} not permitted)
+     * @param opposingPt  an opposing point ({@code null} not permitted).
+     * @param tickData  info about the ticks to draw ({@code null} not 
      *     permitted).
      * @param info  an object to be populated with rendering info 
-     *     (<code>null</code> permitted).
+     *     ({@code null} permitted).
      * @param hinting  a flag that controls whether or not element hinting 
      *     should be performed.
      * 
@@ -196,7 +196,7 @@ public interface Axis3D extends ChartElement {
      * Registers a listener so that it receives notification of changes to the
      * axis.
      * 
-     * @param listener  the listener (<code>null</code> not permitted).
+     * @param listener  the listener ({@code null} not permitted).
      */
     void addChangeListener(Axis3DChangeListener listener);
     
@@ -204,7 +204,7 @@ public interface Axis3D extends ChartElement {
      * Deregisters a listener so that it no longer receives notification of
      * changes to the axis.
      * 
-     * @param listener  the listener (<code>null</code> not permitted). 
+     * @param listener  the listener ({@code null} not permitted). 
      */
     void removeChangeListener(Axis3DChangeListener listener);
 
