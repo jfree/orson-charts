@@ -49,12 +49,14 @@ import com.orsoncharts.util.ArgChecks;
 @SuppressWarnings("serial")
 public class Chart3DChangeEvent extends EventObject {
 
+    /** The chart that is the source of the event. */
     private Chart3D chart;
   
     /**
      * Creates a new event.
      * 
-     * @param chart  the chart (<code>null</code> not permitted). 
+     * @param chart  the chart that is the source of the event ({@code null} 
+     *     not permitted). 
      */
     public Chart3DChangeEvent(Chart3D chart) {
         this(chart, chart);
@@ -64,7 +66,8 @@ public class Chart3DChangeEvent extends EventObject {
      * Creates a new event.
      * 
      * @param source  the source.
-     * @param chart  the chart (<code>null</code> not permitted).
+     * @param chart  the chart that is the source of the event ({@code null} 
+     *     not permitted).
      */
     public Chart3DChangeEvent(Object source, Chart3D chart) {
         super(source);
@@ -75,7 +78,7 @@ public class Chart3DChangeEvent extends EventObject {
     /**
      * Returns the chart that this event is associated with.
      * 
-     * @return The chart (never <code>null</code>). 
+     * @return The chart (never {@code null}). 
      */
     public Chart3D getChart() {
         return this.chart;
