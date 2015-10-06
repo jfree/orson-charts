@@ -39,13 +39,16 @@ import com.orsoncharts.marker.MarkerData;
 import com.orsoncharts.plot.CategoryPlot3D;
 
 /**
- * An axis that displays categories and is used with a {@link CategoryPlot3D}.
+ * An axis that displays categories and is used with a {@link CategoryPlot3D}
+ * for the row and column axes.  Most of the methods in this interface are 
+ * intended to be called by the plot that the axis is assigned to, they won't 
+ * normally be called by external code.
  */
 public interface CategoryAxis3D extends Axis3D {
     
     /**
-     * Returns <code>true</code> if this axis is being used as the row axis
-     * in a plot, and <code>false</code> otherwise.
+     * Returns {@code true} if this axis is being used as the row axis
+     * in a plot, and {@code false} otherwise.
      * 
      * @return A boolean.
      * 
@@ -54,8 +57,8 @@ public interface CategoryAxis3D extends Axis3D {
     boolean isRowAxis();
     
     /**
-     * Returns <code>true</code> if this axis is being used as the column axis
-     * in a plot, and <code>false</code> otherwise.
+     * Returns {@code true} if this axis is being used as the column axis
+     * in a plot, and {@code false} otherwise.
      * 
      * @return A boolean.
      * 
@@ -64,16 +67,20 @@ public interface CategoryAxis3D extends Axis3D {
     boolean isColumnAxis();
     
     /**
-     * Configure the axis as a row axis for the specified plot.
+     * Configure the axis as a row axis for the specified plot.  Note that this
+     * method will be called by the plot, it will not normally be called by 
+     * external code.
      * 
-     * @param plot  the plot (<code>null</code> not permitted). 
+     * @param plot  the plot ({@code null} not permitted). 
      */
     void configureAsRowAxis(CategoryPlot3D plot);
     
     /**
-     * Configure the axis as a column axis for the specified plot.
+     * Configure the axis as a column axis for the specified plot.  Note that 
+     * this method will be called by the plot, it will not normally be called 
+     * by external code.
      * 
-     * @param plot  the plot (<code>null</code> not permitted). 
+     * @param plot  the plot ({@code null} not permitted). 
      */
     void configureAsColumnAxis(CategoryPlot3D plot);
 
@@ -88,9 +95,9 @@ public interface CategoryAxis3D extends Axis3D {
     /**
      * Returns the numerical value along the axis that corresponds to the
      * specified category.  If the category is unknown, this method will
-     * return <code>Double.NaN</code>.
+     * return {@code Double.NaN}.
      * 
-     * @param category  the category (<code>null</code> not permitted).
+     * @param category  the category ({@code null} not permitted).
      * 
      * @return The axis value. 
      */
@@ -103,7 +110,7 @@ public interface CategoryAxis3D extends Axis3D {
      * example, a row label might show the total for that row in the dataset)
      * ---whether or not this is used depends on the axis implementation.
      * 
-     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param dataset  the dataset ({@code null} not permitted).
      * 
      * @return The tick data.
      * 
@@ -118,7 +125,7 @@ public interface CategoryAxis3D extends Axis3D {
      * example, a row label might show the total for that row in the dataset)
      * ---whether or not this is used depends on the axis implementation.
      * 
-     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param dataset  the dataset ({@code null} not permitted).
      * 
      * @return The tick data.
      * 
@@ -137,9 +144,9 @@ public interface CategoryAxis3D extends Axis3D {
     /**
      * Returns the marker with the specified key, if there is one.
      * 
-     * @param key  the key (<code>null</code> not permitted).
+     * @param key  the key ({@code null} not permitted).
      * 
-     * @return The marker (possibly <code>null</code>). 
+     * @return The marker (possibly {@code null}). 
      * 
      * @since 1.2
      */
