@@ -96,7 +96,7 @@ public class CategoryPlot3D extends AbstractPlot3D
     /** The dataset. */
     private CategoryDataset3D dataset;
     
-    /** The renderer (never <code>null</code>). */
+    /** The renderer (never {@code null}). */
     private CategoryRenderer3D renderer;
 
     /** The row axis. */
@@ -111,28 +111,28 @@ public class CategoryPlot3D extends AbstractPlot3D
     /** Are gridlines shown for the row (z) axis? */
     private boolean gridlinesVisibleForRows;
     
-    /** The paint for the row axis gridlines (never <code>null</code>). */
+    /** The paint for the row axis gridlines (never {@code null}). */
     private transient Paint gridlinePaintForRows;
     
-    /** The stroke for the row axis gridlines (never <code>null</code>). */
+    /** The stroke for the row axis gridlines (never {@code null}). */
     private transient Stroke gridlineStrokeForRows;
 
     /** Are gridlines shown for the column (x) axis? */
     private boolean gridlinesVisibleForColumns;
     
-    /** The paint for the column axis gridlines (never <code>null</code>). */
+    /** The paint for the column axis gridlines (never {@code null}). */
     private transient Paint gridlinePaintForColumns;
     
-    /** The stroke for the column axis gridlines (never <code>null</code>). */
+    /** The stroke for the column axis gridlines (never {@code null}). */
     private transient Stroke gridlineStrokeForColumns;
 
     /** Are gridlines shown for the value axis? */
     private boolean gridlinesVisibleForValues;
     
-    /** The paint for the value axis gridlines (never <code>null</code>). */
+    /** The paint for the value axis gridlines (never {@code null}). */
     private transient Paint gridlinePaintForValues;
 
-    /** The stroke for the value axis gridlines (never <code>null</code>). */
+    /** The stroke for the value axis gridlines (never {@code null}). */
     private transient Stroke gridlineStrokeForValues;
     
     /** The legend label generator. */
@@ -141,7 +141,7 @@ public class CategoryPlot3D extends AbstractPlot3D
     /** 
      * A special attribute to provide control over the y-dimension for the
      * plot when the plot dimensions are auto-calculated.  The default value
-     * is <code>null</code>.
+     * is {@code null}.
      * 
      * @since 1.2
      */
@@ -155,13 +155,13 @@ public class CategoryPlot3D extends AbstractPlot3D
     private CategoryItemLabelGenerator toolTipGenerator;
     
     /**
-     * Creates a new plot.
+     * Creates a new plot with the supplied dataset, renderer and axes.
      * 
-     * @param dataset  the dataset (<code>null</code> not permitted). 
-     * @param renderer  the renderer (<code>null</code> not permitted).
-     * @param rowAxis  the row axis (<code>null</code> not permitted).
-     * @param columnAxis  the column axis (<code>null</code> not permitted).
-     * @param valueAxis  the value axis (<code>null</code> not permitted).
+     * @param dataset  the dataset ({@code null} not permitted). 
+     * @param renderer  the renderer ({@code null} not permitted).
+     * @param rowAxis  the row axis ({@code null} not permitted).
+     * @param columnAxis  the column axis ({@code null} not permitted).
+     * @param valueAxis  the value axis ({@code null} not permitted).
      */
     public CategoryPlot3D(CategoryDataset3D dataset, 
             CategoryRenderer3D renderer, CategoryAxis3D rowAxis, 
@@ -202,7 +202,7 @@ public class CategoryPlot3D extends AbstractPlot3D
     
     /**
      * Sets the flag that controls whether the plot's dimensions are 
-     * automatically calculated and, if <code>true</code>, sends a change
+     * automatically calculated and, if {@code true}, sends a change
      * event to all registered listeners.
      * 
      * @param auto  the new flag value.
@@ -219,10 +219,10 @@ public class CategoryPlot3D extends AbstractPlot3D
     
     /**
      * Sets the dimensions (in 3D space) for the plot, resets the 
-     * <code>autoAdjustDimensions</code> flag to <code>false</code>, and sends
+     * {@code autoAdjustDimensions} flag to {@code false}, and sends
      * a {@link Plot3DChangeEvent} to all registered listeners.
      * 
-     * @param dimensions  the dimensions (<code>null</code> not permitted).
+     * @param dimensions  the dimensions ({@code null} not permitted).
      * 
      * @see Plot3D#getDimensions() 
      */
@@ -234,17 +234,18 @@ public class CategoryPlot3D extends AbstractPlot3D
     }
 
     /**
-     * Returns the dataset.
+     * Returns the dataset for the chart.
      * 
-     * @return The dataset (never <code>null</code>). 
+     * @return The dataset (never {@code null}). 
      */
     public CategoryDataset3D getDataset() {
         return this.dataset;
     }
     
     /**
-     * Sets the dataset (which reconfigures the axes for the new date) and 
-     * sends a {@link Plot3DChangeEvent} to all registered listeners.
+     * Sets the dataset and sends a {@link Plot3DChangeEvent} to all registered
+     * listeners.  When you call this method, the axes will be reconfigured for 
+     * the new data.
      * 
      * @param dataset  the dataset ({@code null} not permitted). 
      */
@@ -253,6 +254,8 @@ public class CategoryPlot3D extends AbstractPlot3D
         this.dataset.removeChangeListener(this);
         this.dataset = dataset;
         this.dataset.addChangeListener(this);
+        // we send ourselves a dataset change event since this will 
+        // reconfigure the axes then trigger the required plot change event
         datasetChanged(new Dataset3DChangeEvent(this, this.dataset));
     }
     
@@ -260,7 +263,7 @@ public class CategoryPlot3D extends AbstractPlot3D
      * Returns the renderer (very often you will need to cast this to a 
      * specific class to make customisations).
      * 
-     * @return The renderer (never <code>null</code>). 
+     * @return The renderer (never {@code null}). 
      */
     public CategoryRenderer3D getRenderer() {
         return this.renderer;
@@ -269,7 +272,7 @@ public class CategoryPlot3D extends AbstractPlot3D
     /**
      * Sets the renderer and sends a change event to all registered listeners.
      * 
-     * @param renderer  the renderer (<code>null</code> not permitted).
+     * @param renderer  the renderer ({@code null} not permitted).
      */
     public void setRenderer(CategoryRenderer3D renderer) {
         ArgChecks.nullNotPermitted(renderer, "renderer");
@@ -294,7 +297,7 @@ public class CategoryPlot3D extends AbstractPlot3D
      * Sets the row axis and sends a {@link Plot3DChangeEvent} to all 
      * registered listeners.  The row axis is equivalent to the z-axis.
      * 
-     * @param axis  the row axis (<code>null</code> not permitted).
+     * @param axis  the row axis ({@code null} not permitted).
      */
     public void setRowAxis(CategoryAxis3D axis) {
         ArgChecks.nullNotPermitted(axis, "axis");
@@ -307,7 +310,7 @@ public class CategoryPlot3D extends AbstractPlot3D
     /**
      * Returns the column axis.
      * 
-     * @return The column axis (never <code>null</code>).
+     * @return The column axis (never {@code null}).
      */
     public CategoryAxis3D getColumnAxis() {
         return this.columnAxis;
@@ -317,7 +320,7 @@ public class CategoryPlot3D extends AbstractPlot3D
      * Sets the column axis and sends a {@link Plot3DChangeEvent} to all 
      * registered listeners.
      * 
-     * @param axis  the new axis (<code>null</code> not permitted).
+     * @param axis  the new axis ({@code null} not permitted).
      * 
      * @see #setRowAxis(com.orsoncharts.axis.CategoryAxis3D) 
      * @see #setValueAxis(com.orsoncharts.axis.ValueAxis3D) 
@@ -334,7 +337,7 @@ public class CategoryPlot3D extends AbstractPlot3D
     /**
      * Returns the value axis (the vertical axis in the plot).
      * 
-     * @return The value axis (never <code>null</code>). 
+     * @return The value axis (never {@code null}). 
      */
     public ValueAxis3D getValueAxis() {
         return this.valueAxis;
@@ -344,7 +347,7 @@ public class CategoryPlot3D extends AbstractPlot3D
      * Sets the value axis and sends a {@link Plot3DChangeEvent} to all 
      * registered listeners.
      * 
-     * @param axis  the axis (<code>null</code> not permitted). 
+     * @param axis  the axis ({@code null} not permitted). 
      */
     public void setValueAxis(ValueAxis3D axis) {
         ArgChecks.nullNotPermitted(axis, "axis");
@@ -356,9 +359,8 @@ public class CategoryPlot3D extends AbstractPlot3D
     }
     
     /**
-     * Returns <code>true</code> if gridlines are shown for the row axis
-     * and <code>false</code> otherwise.  The default value is 
-     * <code>false</code>
+     * Returns {@code true} if gridlines are shown for the column axis
+     * and {@code false} otherwise.  The default value is {@code false}.
      * 
      * @return A boolean. 
      */
@@ -382,7 +384,7 @@ public class CategoryPlot3D extends AbstractPlot3D
      * Returns the paint used to draw the gridlines for the row axis, if they
      * are visible.
      * 
-     * @return The paint (never <code>null</code>). 
+     * @return The paint (never {@code null}). 
      */
     public Paint getGridlinePaintForRows() {
         return this.gridlinePaintForRows;
@@ -392,7 +394,7 @@ public class CategoryPlot3D extends AbstractPlot3D
      * Sets the paint used for the row axis gridlines and sends a 
      * {@link Plot3DChangeEvent} to all registered listeners.
      * 
-     * @param paint  the paint (<code>null</code> not permitted). 
+     * @param paint  the paint ({@code null} not permitted). 
      */
     public void setGridlinePaintForRows(Paint paint) {
         ArgChecks.nullNotPermitted(paint, "paint");
@@ -402,10 +404,10 @@ public class CategoryPlot3D extends AbstractPlot3D
 
     /**
      * Returns the stroke for the gridlines associated with the row axis.
-     * The default value is <code>BasicStroke(0.5f, BasicStroke.CAP_ROUND, 
-     * BasicStroke.JOIN_ROUND, 1f, new float[] { 3f, 3f }, 0f)</code>.
+     * The default value is {@code BasicStroke(0.5f, BasicStroke.CAP_ROUND, 
+     * BasicStroke.JOIN_ROUND, 1f, new float[] { 3f, 3f }, 0f)}.
      * 
-     * @return The stroke (never <code>null</code>).
+     * @return The stroke (never {@code null}).
      */
     public Stroke getGridlineStrokeForRows() {
         return this.gridlineStrokeForRows;
@@ -416,7 +418,7 @@ public class CategoryPlot3D extends AbstractPlot3D
      * are visible, and sends a {@link Plot3DChangeEvent} to all 
      * registered listeners.
      * 
-     * @param stroke  the stroke (<code>null</code> not permitted). 
+     * @param stroke  the stroke ({@code null} not permitted). 
      */
     public void setGridlineStrokeForRows(Stroke stroke) {
         ArgChecks.nullNotPermitted(stroke, "stroke");
@@ -425,9 +427,8 @@ public class CategoryPlot3D extends AbstractPlot3D
     }
 
     /**
-     * Returns <code>true</code> if gridlines are shown for the column axis
-     * and <code>false</code> otherwise.  The default value is 
-     * <code>false</code>
+     * Returns {@code true} if gridlines are shown for the column axis
+     * and {@code false} otherwise.  The default value is {@code false}.
      * 
      * @return A boolean. 
      */
@@ -448,8 +449,8 @@ public class CategoryPlot3D extends AbstractPlot3D
     }
     
     /**
-     * Returns <code>true</code> if gridlines are shown for the value axis
-     * and <code>false</code> otherwise.  The default value is <code>TRUE</code>
+     * Returns {@code true} if gridlines are shown for the column axis
+     * and {@code false} otherwise.  The default value is {@code true}.
      * 
      * @return A boolean. 
      */
@@ -471,9 +472,9 @@ public class CategoryPlot3D extends AbstractPlot3D
 
     /**
      * Returns the paint for the gridlines associated with the value axis. 
-     * The default value is <code>Color:WHITE</code>.
+     * The default value is {@code Color.WHITE}.
      * 
-     * @return The paint for value axis gridlines (never <code>null</code>). 
+     * @return The paint for value axis gridlines (never {@code null}). 
      */
     public Paint getGridlinePaintForValues() {
         return this.gridlinePaintForValues;
@@ -483,7 +484,7 @@ public class CategoryPlot3D extends AbstractPlot3D
      * Sets the paint used for the value axis gridlines and sends a 
      * {@link Plot3DChangeEvent} to all registered listeners.
      * 
-     * @param paint  the paint (<code>null</code> not permitted). 
+     * @param paint  the paint ({@code null} not permitted). 
      */
     public void setGridlinePaintForValues(Paint paint) {
         ArgChecks.nullNotPermitted(paint, "paint");
@@ -493,10 +494,10 @@ public class CategoryPlot3D extends AbstractPlot3D
 
     /**
      * Returns the stroke for the gridlines associated with the value axis.
-     * The default value is <code>BasicStroke(0.5f, BasicStroke.CAP_ROUND, 
-     * BasicStroke.JOIN_ROUND, 1f, new float[] { 3f, 3f }, 0f)</code>.
+     * The default value is {@code BasicStroke(0.5f, BasicStroke.CAP_ROUND, 
+     * BasicStroke.JOIN_ROUND, 1f, new float[] { 3f, 3f }, 0f)}.
      * 
-     * @return The stroke (never <code>null</code>).
+     * @return The stroke (never {@code null}).
      */
     public Stroke getGridlineStrokeForValues() {
         return this.gridlineStrokeForValues;
@@ -507,7 +508,7 @@ public class CategoryPlot3D extends AbstractPlot3D
      * they are visible, and sends a {@link Plot3DChangeEvent} to all
      * registered listeners.
      * 
-     * @param stroke  the stroke (<code>null</code> not permitted).
+     * @param stroke  the stroke ({@code null} not permitted).
      */
     public void setGridlineStrokeForValues(Stroke stroke) {
         ArgChecks.nullNotPermitted(stroke, "stroke");
@@ -517,9 +518,9 @@ public class CategoryPlot3D extends AbstractPlot3D
     
     /**
      * Returns the paint used to draw the grid lines for the column axis, if
-     * they are visible.
+     * they are visible.  The default value is {@code Color.WHITE}.
      * 
-     * @return The paint (never <code>null</code>). 
+     * @return The paint (never {@code null}). 
      */
     public Paint getGridlinePaintForColumns() {
         return this.gridlinePaintForColumns;
@@ -530,7 +531,7 @@ public class CategoryPlot3D extends AbstractPlot3D
      * they are visible, and sends a {@link Plot3DChangeEvent} to all 
      * registered listeners.
      * 
-     * @param paint  the paint (<code>null</code> not permitted). 
+     * @param paint  the paint ({@code null} not permitted). 
      */
     public void setGridlinePaintForColumns(Paint paint) {
         ArgChecks.nullNotPermitted(paint, "paint");
@@ -540,10 +541,10 @@ public class CategoryPlot3D extends AbstractPlot3D
 
     /**
      * Returns the stroke for the gridlines associated with the column axis.
-     * The default value is <code>BasicStroke(0.5f, BasicStroke.CAP_ROUND, 
-     * BasicStroke.JOIN_ROUND, 1f, new float[] { 3f, 3f }, 0f)</code>.
+     * The default value is {@code BasicStroke(0.5f, BasicStroke.CAP_ROUND, 
+     * BasicStroke.JOIN_ROUND, 1f, new float[] { 3f, 3f }, 0f)}.
      * 
-     * @return The stroke (never <code>null</code>).
+     * @return The stroke (never {@code null}).
      */
     public Stroke getGridlineStrokeForColumns() {
         return this.gridlineStrokeForColumns;
@@ -554,7 +555,7 @@ public class CategoryPlot3D extends AbstractPlot3D
      * they are visible, and sends a {@link Plot3DChangeEvent} to all
      * registered listeners.
      * 
-     * @param stroke  the stroke (<code>null</code> not permitted).
+     * @param stroke  the stroke ({@code null} not permitted).
      */
     public void setGridlineStrokeForColumns(Stroke stroke) {
         ArgChecks.nullNotPermitted(stroke, "stroke");
@@ -563,9 +564,10 @@ public class CategoryPlot3D extends AbstractPlot3D
     }
 
     /**
-     * Returns the legend label generator.
+     * Returns the legend label generator, an object that converts key values
+     * in the dataset into corresponding strings for presentation in the chart.
      * 
-     * @return The legend label generator (never <code>null</code>).
+     * @return The legend label generator (never {@code null}).
      * 
      * @since 1.2
      */
@@ -577,7 +579,7 @@ public class CategoryPlot3D extends AbstractPlot3D
      * Sets the legend label generator and sends a {@link Plot3DChangeEvent}
      * to all registered listeners.
      * 
-     * @param generator  the generator (<code>null</code> not permitted).
+     * @param generator  the generator ({@code null} not permitted).
      * 
      * @since 1.2
      */
@@ -588,23 +590,25 @@ public class CategoryPlot3D extends AbstractPlot3D
     }
     
     /**
-     * Returns the y-dimension override.  The default value is
-     * <code>null</code>.
+     * Returns the y-dimension override.  The default value is {@code null},
+     * which means that when the plot dimensions are automatically calculated,
+     * the height of the plot will be set to the greater of the width and
+     * the depth.
      * 
-     * @return The y-dimension override (possibly <code>null</code>). 
+     * @return The y-dimension override (possibly {@code null}). 
      * 
      * @since 1.2
      */
     public Double getYDimensionOverride() {
         return this.yDimensionOverride;
     }
-    
+
     /**
-     * Sets the y-dimension override and, if the autoAdjustDimensions flag is
-     * set, recalculates the dimensions and sends a change event to all 
-     * registered listeners.
+     * Sets the y-dimension override and, if the {@code autoAdjustDimensions} 
+     * flag is set, recalculates the dimensions and sends a 
+     * {@link Plot3DChangeEvent} to all registered listeners.
      * 
-     * @param dim  the new y-dimension override (<code>null</code> permitted).
+     * @param dim  the new y-dimension override ({@code null} permitted).
      * 
      * @since 1.2
      */
@@ -617,9 +621,11 @@ public class CategoryPlot3D extends AbstractPlot3D
     }
     
     /**
-     * Returns the tool tip generator.
+     * Returns the tool tip generator.  This is an object that calculates and
+     * returns a string (that will be used as the tool tip) for any given
+     * data value in the dataset.
      * 
-     * @return The tool tip generator (possibly <code>null</code>).
+     * @return The tool tip generator (possibly {@code null}).
      * 
      * @since 1.3
      */
@@ -628,10 +634,10 @@ public class CategoryPlot3D extends AbstractPlot3D
     }
     
     /**
-     * Sets the tool tip generator and sends a change event to all registered
-     * listeners.
+     * Sets the tool tip generator and sends a {@link Plot3DChangeEvent} to all 
+     * registered listeners.
      * 
-     * @param generator  the new generator (<code>null</code> permitted).
+     * @param generator  the new generator ({@code null} permitted).
      * 
      * @since 1.3
      */
@@ -639,13 +645,14 @@ public class CategoryPlot3D extends AbstractPlot3D
         this.toolTipGenerator = generator;
         fireChangeEvent(false);
     }
-    
+
     /**
      * Returns a list containing legend item info, typically one item for
      * each series in the chart.  This is intended for use in the construction
      * of a chart legend.
      * 
-     * @return A list containing legend item info.
+     * @return A list containing legend item info (possibly empty but never 
+     *     {@code null}).
      */
     @Override
     public List<LegendItemInfo> getLegendInfo() {
@@ -689,11 +696,13 @@ public class CategoryPlot3D extends AbstractPlot3D
     }
 
     /**
-     * Accepts a visitor.  This is a general purpose mechanism, but the main
-     * use is to apply chart style changes across all the elements of a 
-     * chart.
+     * Accepts a visitor for the plot.  This method first calls the 
+     * {@code receive()} method for each of the plot's axes and the renderer, 
+     * then performs the visitor's function on the plot.  This is a general 
+     * purpose mechanism, but the main use is to apply chart style changes 
+     * across all the elements of a chart.
      * 
-     * @param visitor  the visitor (<code>null</code> not permitted).
+     * @param visitor  the visitor ({@code null} not permitted).
      * 
      * @since 1.2
      */
@@ -709,7 +718,7 @@ public class CategoryPlot3D extends AbstractPlot3D
     /**
      * Tests this plot for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean. 
      */
@@ -768,7 +777,10 @@ public class CategoryPlot3D extends AbstractPlot3D
     }
     
     /**
-     * Receives notification of a change to the dataset. 
+     * Receives notification of a change to the dataset and handles this by
+     * adjusting the plot dimensions (according to the setting of the
+     * {@code autoAdjustDimensions} flag), reconfiguring the axes, and
+     * propagating a {@code Plot3DChangeEvent}. 
      * 
      * @param event  the change event. 
      */
@@ -782,7 +794,7 @@ public class CategoryPlot3D extends AbstractPlot3D
         this.columnAxis.configureAsColumnAxis(this);
         this.rowAxis.configureAsRowAxis(this);
         this.valueAxis.configureAsValueAxis(this);
-        super.datasetChanged(event);  // propogates a plot change event
+        super.datasetChanged(event);  // propagates a plot change event
     }
     
     /**
@@ -790,11 +802,11 @@ public class CategoryPlot3D extends AbstractPlot3D
      * values.  The x-dimension is set to the number of columns in the 
      * dataset and the z-dimension is set to the number of rows in the dataset.
      * For the y-dimension, the code first checks the 
-     * <code>yDimensionOverride</code> attribute to see if a specific value is 
+     * {@code yDimensionOverride} attribute to see if a specific value is 
      * requested...and if not, the minimum of the x and z dimensions will be
      * used.
      * 
-     * @return The dimensions (never <code>null</code>). 
+     * @return The dimensions (never {@code null}). 
      */
     private Dimension3D calculateDimensions() {
         double depth = Math.max(1.0, this.dataset.getRowCount() + 1);
@@ -807,7 +819,9 @@ public class CategoryPlot3D extends AbstractPlot3D
     }
    
     /**
-     * Receives notification that one of the axes has been changed.
+     * Receives notification that one of the axes has been changed.  This will
+     * trigger a {@link Plot3DChangeEvent} that will usually cause the chart
+     * to be repainted.
      * 
      * @param event  the change event. 
      */
@@ -819,7 +833,9 @@ public class CategoryPlot3D extends AbstractPlot3D
     }
 
     /**
-     * Receives notification that the renderer has been modified in some way.
+     * Receives notification that the renderer has been modified in some way.  
+     * This will trigger a {@link Plot3DChangeEvent} that will usually cause 
+     * the chart to be repainted.     
      * 
      * @param event  information about the event. 
      */
