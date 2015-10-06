@@ -50,7 +50,7 @@ public interface ValueAxis3D extends Axis3D {
     /**
      * Returns the type of use that the axis has been configured for.
      * 
-     * @return The type (or <code>null</code> if the axis has not yet been 
+     * @return The type (or {@code null} if the axis has not yet been 
      *     configured).
      * 
      * @since 1.3
@@ -60,34 +60,34 @@ public interface ValueAxis3D extends Axis3D {
     /**
      * Configure the axis as a value axis for the specified plot.
      * 
-     * @param plot  the plot (<code>null</code> not permitted). 
+     * @param plot  the plot ({@code null} not permitted). 
      */
     void configureAsValueAxis(CategoryPlot3D plot);
     
     /**
      * Configure the axis as an x-axis for the specified plot.
      * 
-     * @param plot  the plot (<code>null</code> not permitted). 
+     * @param plot  the plot ({@code null} not permitted). 
      */
     void configureAsXAxis(XYZPlot plot);
 
     /**
      * Configure the axis as an y-axis for the specified plot.
      * 
-     * @param plot  the plot (<code>null</code> not permitted). 
+     * @param plot  the plot ({@code null} not permitted). 
      */
     void configureAsYAxis(XYZPlot plot);
     
     /**
      * Configure the axis as an z-axis for the specified plot.
      * 
-     * @param plot  the plot (<code>null</code> not permitted). 
+     * @param plot  the plot ({@code null} not permitted). 
      */
     void configureAsZAxis(XYZPlot plot);
  
     /**
      * Selects an appropriate tick size and format for the axis based on
-     * the axis being rendered from <code>pt0</code> to <code>pt1</code>.
+     * the axis being rendered from {@code pt0} to {@code pt1}.
      * 
      * @param g2  the graphics target.
      * @param pt0  the starting point.
@@ -106,12 +106,12 @@ public interface ValueAxis3D extends Axis3D {
      * projection that can later be used to write the axis tick labels in the
      * appropriate places.
      * <br><br>
-     * If <code>tickUnit</code> is <code>Double.NaN</code>, then tick data is
+     * If {@code tickUnit} is {@code Double.NaN}, then tick data is
      * generated for just the bounds of the axis.
      * 
      * @param tickUnit  the tick unit.
      * 
-     * @return A list of tick data (never <code>null</code>). 
+     * @return A list of tick data (never {@code null}). 
      */
     List<TickData> generateTickData(double tickUnit);
     
@@ -126,9 +126,9 @@ public interface ValueAxis3D extends Axis3D {
     /**
      * Returns the marker with the specified key, if there is one.
      * 
-     * @param key  the key (<code>null</code> not permitted).
+     * @param key  the key ({@code null} not permitted).
      * 
-     * @return The marker (possibly <code>null</code>). 
+     * @return The marker (possibly {@code null}). 
      * 
      * @since 1.2
      */
