@@ -279,7 +279,7 @@ public class OrsonChartsDemo extends JFrame implements ActionListener {
                     }
                 }
                 OrsonChartsDemo app = new OrsonChartsDemo(
-                        "Orson Charts Demo 1.4");
+                        "Orson Charts Demo 1.5");
                 app.pack();
                 app.setVisible(true);
             }
