@@ -54,10 +54,11 @@ If you have any questions, don't hesitate to send a mail to info@object-refinery
 History
 -------
 
-??-Jan-2015 : Version 1.5
+??-Oct-2015 : Version 1.5
 
 - fix exception when setting a new dataset using CategoryPlot3D.setDataset():
 - fix direction of mouse wheel zooming in JavaFX;
+- updated OrsonPDF to version 1.7;
 - JavaFX demos brought up to match the Swing demos;
 - various Javadoc improvements.
 
