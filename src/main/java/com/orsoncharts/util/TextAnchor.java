@@ -96,8 +96,8 @@ public enum TextAnchor {
     }
     
     /**
-     * Returns <code>true</code> if this anchor is at the left side of the
-     * text bounds, and <code>false</code> otherwise.
+     * Returns {@code true} if this anchor is at the left side of the
+     * text bounds, and {@code false} otherwise.
      * 
      * @return A boolean. 
      */
@@ -108,8 +108,8 @@ public enum TextAnchor {
     }
     
     /**
-     * Returns <code>true</code> if this anchor is horizontally at the center 
-     * of the text bounds, and <code>false</code> otherwise.
+     * Returns {@code true} if this anchor is horizontally at the center 
+     * of the text bounds, and {@code false} otherwise.
      * 
      * @return A boolean. 
      */
@@ -120,8 +120,8 @@ public enum TextAnchor {
     }
     
     /**
-     * Returns <code>true</code> if this anchor is at the right side of the
-     * text bounds, and <code>false</code> otherwise.
+     * Returns {@code true} if this anchor is at the right side of the
+     * text bounds, and {@code false} otherwise.
      * 
      * @return A boolean. 
      */
@@ -132,8 +132,8 @@ public enum TextAnchor {
     }
     
     /**
-     * Returns <code>true</code> if this anchor is at the top of the
-     * text bounds, and <code>false</code> otherwise.
+     * Returns {@code true} if this anchor is at the top of the
+     * text bounds, and {@code false} otherwise.
      * 
      * @return A boolean. 
      */
@@ -142,8 +142,8 @@ public enum TextAnchor {
     }
     
     /**
-     * Returns <code>true</code> if this anchor is at the half-ascent level of 
-     * the text bounds, and <code>false</code> otherwise.
+     * Returns {@code true} if this anchor is at the half-ascent level of 
+     * the text bounds, and {@code false} otherwise.
      * 
      * @return A boolean. 
      */
@@ -153,8 +153,8 @@ public enum TextAnchor {
     }
     
     /**
-     * Returns <code>true</code> if this anchor is at the half-height level of 
-     * the text bounds, and <code>false</code> otherwise.
+     * Returns {@code true} if this anchor is at the half-height level of 
+     * the text bounds, and {@code false} otherwise.
      * 
      * @return A boolean. 
      */
@@ -163,8 +163,8 @@ public enum TextAnchor {
     }
     
     /**
-     * Returns <code>true</code> if this anchor is at the baseline level of 
-     * the text bounds, and <code>false</code> otherwise.
+     * Returns {@code true} if this anchor is at the baseline level of 
+     * the text bounds, and {@code false} otherwise.
      * 
      * @return A boolean. 
      */
@@ -174,8 +174,8 @@ public enum TextAnchor {
     }
     
     /**
-     * Returns <code>true</code> if this anchor is at the bottom of 
-     * the text bounds, and <code>false</code> otherwise.
+     * Returns {@code true} if this anchor is at the bottom of 
+     * the text bounds, and {@code false} otherwise.
      * 
      * @return A boolean. 
      */
