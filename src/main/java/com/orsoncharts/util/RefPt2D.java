@@ -68,8 +68,8 @@ public enum RefPt2D {
     BOTTOM_RIGHT;
     
     /**
-     * Returns <code>true</code> if the reference point is at the left, and
-     * <code>false</code> otherwise.
+     * Returns {@code true} if the reference point is at the left, and
+     * {@code false} otherwise.
      * 
      * @return A boolean. 
      */
@@ -78,8 +78,8 @@ public enum RefPt2D {
     }
     
     /**
-     * Returns <code>true</code> if the reference point is at the right, and
-     * <code>false</code> otherwise.
+     * Returns {@code true} if the reference point is at the right, and
+     * {@code false} otherwise.
      * 
      * @return A boolean. 
      */
@@ -89,8 +89,8 @@ public enum RefPt2D {
     }
     
     /**
-     * Returns <code>true</code> if the reference point is at the center 
-     * horizontally, and <code>false</code> otherwise.
+     * Returns {@code true} if the reference point is at the center 
+     * horizontally, and {@code false} otherwise.
      * 
      * @return A boolean. 
      */
@@ -100,8 +100,8 @@ public enum RefPt2D {
     }
     
     /**
-     * Returns <code>true</code> if the reference point is at the top, and 
-     * <code>false</code> otherwise.
+     * Returns {@code true} if the reference point is at the top, and 
+     * {@code false} otherwise.
      * 
      * @return A boolean. 
      */
@@ -110,8 +110,8 @@ public enum RefPt2D {
     }
 
     /**
-     * Returns <code>true</code> if the reference point is at the bottom, and 
-     * <code>false</code> otherwise.
+     * Returns {@code true} if the reference point is at the bottom, and 
+     * {@code false} otherwise.
      * 
      * @return A boolean. 
      */
@@ -121,8 +121,8 @@ public enum RefPt2D {
     }
     
     /**
-     * Returns <code>true</code> if the reference point is at the center 
-     * vertically, and <code>false</code> otherwise.
+     * Returns {@code true} if the reference point is at the center 
+     * vertically, and {@code false} otherwise.
      * 
      * @return A boolean. 
      */
