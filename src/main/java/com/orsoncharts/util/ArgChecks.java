@@ -45,11 +45,11 @@ public final class ArgChecks {
     }
  
     /**
-     * Checks if the specified argument is <code>null</code> and, if it is,
-     * throws an <code>IllegalArgumentException</code>.
+     * Checks if the specified argument is {@code null} and, if it is,
+     * throws an {@code IllegalArgumentException}.
      *
-     * @param arg  the argument to check (<code>null</code> permitted).
-     * @param name  the parameter name (<code>null</code> not permitted).
+     * @param arg  the argument to check ({@code null} permitted).
+     * @param name  the parameter name ({@code null} not permitted).
      */
     public static void nullNotPermitted(Object arg, String name) {
         if (arg == null) {
@@ -59,10 +59,10 @@ public final class ArgChecks {
     
     /**
      * Checks if the specified argument is negative and, if it is, throws an
-     * <code>IllegalArgumentException</code>.
+     * {@code IllegalArgumentException}.
      * 
      * @param value  the value.
-     * @param name  the parameter name (<code>null</code> not permitted).
+     * @param name  the parameter name ({@code null} not permitted).
      */
     public static void negativeNotPermitted(double value, String name) {
         if (value < 0.0) {
@@ -73,10 +73,10 @@ public final class ArgChecks {
 
     /**
      * Checks if the specified argument is positive and, if it is NOT, throws an
-     * <code>IllegalArgumentException</code>.
+     * {@code IllegalArgumentException}.
      * 
      * @param value  the value.
-     * @param name  the parameter name (<code>null</code> not permitted).
+     * @param name  the parameter name ({@code null} not permitted).
      */
     public static void positiveRequired(double value, String name) {
         if (value <= 0.0) {
@@ -87,10 +87,10 @@ public final class ArgChecks {
     
     /**
      * Checks if the specified argument is finite and, if it is NOT, throws an
-     * <code>IllegalArgumentException</code>.
+     * {@code IllegalArgumentException}.
      * 
      * @param value  the value.
-     * @param name  the parameter name (<code>null</code> not permitted).
+     * @param name  the parameter name ({@code null} not permitted).
      * 
      * @since 1.4
      */
@@ -103,10 +103,10 @@ public final class ArgChecks {
 
     /**
      * Checks if the specified argument is finite and positive and, 
-     * if it is NOT, throws an <code>IllegalArgumentException</code>.
+     * if it is NOT, throws an {@code IllegalArgumentException}.
      * 
      * @param value  the value.
-     * @param name  the parameter name (<code>null</code> not permitted).
+     * @param name  the parameter name ({@code null} not permitted).
      * 
      * @since 1.4
      */
@@ -118,8 +118,8 @@ public final class ArgChecks {
     }
 
     /**
-     * Checks that the index is less than the specified <code>arrayLimit</code>
-     * and throws an <code>IllegalArgumentException</code> if it is not.
+     * Checks that the index is less than the specified {@code arrayLimit}
+     * and throws an {@code IllegalArgumentException} if it is not.
      * 
      * @param index  the array index.
      * @param name  the parameter name (to display in the error message).

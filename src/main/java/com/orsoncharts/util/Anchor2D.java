@@ -138,12 +138,12 @@ public final class Anchor2D implements Serializable {
 
     /** 
      * The reference point relative to some bounding rectangle, normally the 
-     * bounds of the chart (never <code>null</code>). 
+     * bounds of the chart (never {@code null}). 
      */
     private RefPt2D refPt;
     
     /**
-     * The offsets to apply (never <code>null</code>).
+     * The offsets to apply (never {@code null}).
      */
     private Offset2D offset;
     
@@ -155,10 +155,10 @@ public final class Anchor2D implements Serializable {
     }
     
     /**
-     * Creates a new <code>Anchor2D</code> instance with the specified 
-     * reference point and offsets of <code>(4.0, 4.0)</code>.
+     * Creates a new {@code Anchor2D} instance with the specified 
+     * reference point and offsets of {@code (4.0, 4.0)}.
      * 
-     * @param refPt  the reference point (<code>null</code> not permitted).
+     * @param refPt  the reference point ({@code null} not permitted).
      */
     public Anchor2D(RefPt2D refPt) {
         this(refPt, new Offset2D(4.0, 4.0));    
@@ -167,8 +167,8 @@ public final class Anchor2D implements Serializable {
     /**
      * Creates a new anchor.
      * 
-     * @param refPt  the reference point (<code>null</code> not permitted).
-     * @param offset  the offset (<code>null</code> not permitted).
+     * @param refPt  the reference point ({@code null} not permitted).
+     * @param offset  the offset ({@code null} not permitted).
      */
     public Anchor2D(RefPt2D refPt, Offset2D offset) {
         ArgChecks.nullNotPermitted(refPt, "refPt");
@@ -180,7 +180,7 @@ public final class Anchor2D implements Serializable {
     /**
      * Returns the reference point.
      * 
-     * @return The reference point (never <code>null</code>). 
+     * @return The reference point (never {@code null}). 
      */
     public RefPt2D getRefPt() {
         return this.refPt;
@@ -189,7 +189,7 @@ public final class Anchor2D implements Serializable {
     /**
      * Returns the offsets.
      * 
-     * @return The offsets (never <code>null</code>). 
+     * @return The offsets (never {@code null}). 
      */
     public Offset2D getOffset() {
         return this.offset;
@@ -198,7 +198,7 @@ public final class Anchor2D implements Serializable {
     /**
      * Returns the anchor point for the given rectangle.
      * 
-     * @param rect  the reference rectangle (<code>null</code> not permitted).
+     * @param rect  the reference rectangle ({@code null} not permitted).
      * 
      * @return The anchor point. 
      */
@@ -264,7 +264,7 @@ public final class Anchor2D implements Serializable {
     /**
      * Tests this instance for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> not permitted).
+     * @param obj  the object ({@code null} not permitted).
      * 
      * @return A boolean. 
      */
