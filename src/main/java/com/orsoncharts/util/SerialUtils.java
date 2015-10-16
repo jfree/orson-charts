@@ -52,12 +52,12 @@ public class SerialUtils {
     }
     
     /**
-     * Reads a <code>Paint</code> object that has been serialized by the
+     * Reads a {@code Paint} object that has been serialized by the
      * {@link SerialUtils#writePaint(Paint, ObjectOutputStream)} method.
      *
-     * @param stream  the input stream (<code>null</code> not permitted).
+     * @param stream  the input stream ({@code null} not permitted).
      *
-     * @return The paint object (possibly <code>null</code>).
+     * @return The paint object (possibly {@code null}).
      *
      * @throws IOException  if there is an I/O problem.
      * @throws ClassNotFoundException  if there is a problem loading a class.
@@ -84,14 +84,13 @@ public class SerialUtils {
             }
         }
         return result;
-
     }
 
     /**
-     * Serializes a <code>Paint</code> object.
+     * Serializes a {@code Paint} object.
      *
-     * @param paint  the paint object (<code>null</code> permitted).
-     * @param stream  the output stream (<code>null</code> not permitted).
+     * @param paint  the paint object ({@code null} permitted).
+     * @param stream  the output stream ({@code null} not permitted).
      *
      * @throws IOException if there is an I/O error.
      */
@@ -120,12 +119,12 @@ public class SerialUtils {
     }
 
     /**
-     * Reads a <code>Stroke</code> object that has been serialized by the
+     * Reads a {@code Stroke} object that has been serialized by the
      * {@link SerialUtils#writeStroke(Stroke, ObjectOutputStream)} method.
      *
-     * @param stream  the input stream (<code>null</code> not permitted).
+     * @param stream  the input stream ({@code null} not permitted).
      *
-     * @return The stroke object (possibly <code>null</code>).
+     * @return The stroke object (possibly {@code null}).
      *
      * @throws IOException  if there is an I/O problem.
      * @throws ClassNotFoundException  if there is a problem loading a class.
@@ -155,13 +154,13 @@ public class SerialUtils {
     }
 
     /**
-     * Serializes a <code>Stroke</code> object.  This code handles the
-     * <code>BasicStroke</code> class which is the only <code>Stroke</code>
+     * Serializes a {@code Stroke} object.  This code handles the
+     * {@code BasicStroke} class which is the only {@code Stroke}
      * implementation provided by the JDK (and isn't directly
-     * <code>Serializable</code>).
+     * {@code Serializable}).
      *
-     * @param stroke  the stroke object (<code>null</code> permitted).
-     * @param stream  the output stream (<code>null</code> not permitted).
+     * @param stroke  the stroke object ({@code null} permitted).
+     * @param stream  the output stream ({@code null} not permitted).
      *
      * @throws IOException if there is an I/O error.
      */
@@ -184,10 +183,9 @@ public class SerialUtils {
                 stream.writeObject(stroke.getClass());
                 stream.writeObject(stroke);
             }
-        }
-        else {
+        } else {
             stream.writeBoolean(true);
         }
     }
-   
+
 }
