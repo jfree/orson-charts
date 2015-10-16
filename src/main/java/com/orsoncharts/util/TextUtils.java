@@ -54,14 +54,14 @@ public class TextUtils {
     
     /**
      * Draws a string such that the specified anchor point is aligned to the
-     * given <code>(x, y)</code> location, and returns a bounding rectangle 
+     * given {@code (x, y)} location, and returns a bounding rectangle 
      * for the text.
      *
      * @param text  the text.
-     * @param g2  the graphics device.
+     * @param g2  the graphics device ({@code null} not permitted).
      * @param x  the x coordinate (Java 2D).
      * @param y  the y coordinate (Java 2D).
-     * @param anchor  the anchor location.
+     * @param anchor  the anchor location ({@code null} not permitted).
      *
      * @return The text bounds (adjusted for the text position).
      */
@@ -81,14 +81,14 @@ public class TextUtils {
     /**
      * Returns the bounds of an aligned string.
      * 
-     * @param text  the string (<code>null</code> not permitted).
-     * @param g2  the graphics target (<code>null</code> not permitted).
+     * @param text  the string ({@code null} not permitted).
+     * @param g2  the graphics target ({@code null} not permitted).
      * @param x  the x-coordinate.
      * @param y  the y-coordinate.
-     * @param anchor  the anchor point that will be aligned to 
-     *     <code>(x, y)</code> (<code>null</code> not permitted).
+     * @param anchor  the anchor point on the text that will be aligned to 
+     *     {@code (x, y)} ({@code null} not permitted).
      * 
-     * @return The text bounds (never <code>null</code>).
+     * @return The text bounds (never {@code null}).
      * 
      * @since 1.3
      */
@@ -106,14 +106,14 @@ public class TextUtils {
     
     /**
      * A utility method that calculates the anchor offsets for a string.
-     * Normally, the (x, y) coordinate for drawing text is a point on the
-     * baseline at the left of the text string.  If you add these offsets to
-     * (x, y) and draw the string, then the anchor point should coincide with
-     * the (x, y) point.
+     * Normally, the {@code (x, y)} coordinate for drawing text is a point on 
+     * the baseline at the left of the text string.  If you add these offsets 
+     * to {@code (x, y)} and draw the string, then the anchor point should 
+     * coincide with the {@code (x, y)} point.
      *
-     * @param g2  the graphics device (not <code>null</code>).
+     * @param g2  the graphics device (not {@code null}).
      * @param text  the text.
-     * @param anchor  the anchor point.
+     * @param anchor  the anchor point ({@code null} not permitted).
      *
      * @return  The offsets.
      */
@@ -135,43 +135,37 @@ public class TextUtils {
 
         if (anchor.isHorizontalCenter()) {
             xAdj = (float) -bounds.getWidth() / 2.0f;
-        }
-        else if (anchor.isRight()) {
+        } else if (anchor.isRight()) {
             xAdj = (float) -bounds.getWidth();
         }
 
         if (anchor.isTop()) {
             yAdj = -descent - leading + (float) bounds.getHeight();
-        }
-        else if (anchor.isHalfAscent()) {
+        } else if (anchor.isHalfAscent()) {
             yAdj = halfAscent;
-        }
-        else if (anchor.isHalfHeight()) {
+        } else if (anchor.isHalfHeight()) {
             yAdj = -descent - leading + (float) (bounds.getHeight() / 2.0);
-        }
-        else if (anchor.isBaseline()) {
+        } else if (anchor.isBaseline()) {
             yAdj = 0.0f;
-        }
-        else if (anchor.isBottom()) {
+        } else if (anchor.isBottom()) {
             yAdj = -metrics.getDescent() - metrics.getLeading();
         }
         result[0] = xAdj;
         result[1] = yAdj;
         return result;
-
     }
 
     /**
      * A utility method that calculates the anchor offsets for a string.
-     * Normally, the (x, y) coordinate for drawing text is a point on the
-     * baseline at the left of the text string.  If you add these offsets to
-     * (x, y) and draw the string, then the anchor point should coincide with
-     * the (x, y) point.
+     * Normally, the {@code (x, y)} coordinate for drawing text is a point on 
+     * the baseline at the left of the text string.  If you add these offsets 
+     * to {@code (x, y)} and draw the string, then the anchor point should 
+     * coincide with the {@code (x, y)} point.
      *
-     * @param g2  the graphics device (not <code>null</code>).
+     * @param g2  the graphics device (not {@code null}).
      * @param text  the text.
-     * @param anchor  the anchor point.
-     * @param textBounds  the text bounds (if not <code>null</code>, this
+     * @param anchor  the anchor point ({@code null} not permitted).
+     * @param textBounds  the text bounds (if not {@code null}, this
      *                    object will be updated by this method to match the
      *                    string bounds).
      *
@@ -196,24 +190,19 @@ public class TextUtils {
 
         if (anchor.isHorizontalCenter()) {
             xAdj = (float) -bounds.getWidth() / 2.0f;
-        }
-        else if (anchor.isRight()) {
+        } else if (anchor.isRight()) {
             xAdj = (float) -bounds.getWidth();
         }
 
         if (anchor.isTop()) {
             yAdj = -descent - leading + (float) bounds.getHeight();
-        }
-        else if (anchor.isHalfAscent()) {
+        } else if (anchor.isHalfAscent()) {
             yAdj = halfAscent;
-        }
-        else if (anchor.isHorizontalCenter()) {
+        } else if (anchor.isHorizontalCenter()) {
             yAdj = -descent - leading + (float) (bounds.getHeight() / 2.0);
-        }
-        else if (anchor.isBaseline()) {
+        } else if (anchor.isBaseline()) {
             yAdj = 0.0f;
-        }
-        else if (anchor.isBottom()) {
+        } else if (anchor.isBottom()) {
             yAdj = -metrics.getDescent() - metrics.getLeading();
         }
         if (textBounds != null) {
@@ -229,8 +218,8 @@ public class TextUtils {
      * assumed to be on a single line (no carriage return or newline 
      * characters).
      *
-     * @param text  the text (<code>null</code> not permitted).
-     * @param fm  the font metrics (<code>null</code> not permitted).
+     * @param text  the text ({@code null} not permitted).
+     * @param fm  the font metrics ({@code null} not permitted).
      *
      * @return The text bounds.
      */
@@ -240,14 +229,14 @@ public class TextUtils {
     
     /**
      * Returns the bounds for the specified text when it is drawn with the 
-     * left-baseline aligned to the point <code>(x, y)</code>.
+     * left-baseline aligned to the point {@code (x, y)}.
      * 
-     * @param text  the text (<code>null</code> not permitted).
+     * @param text  the text ({@code null} not permitted).
      * @param x  the x-coordinate.
      * @param y  the y-coordinate.
-     * @param fm  the font metrics (<code>null</code> not permitted).
+     * @param fm  the font metrics ({@code null} not permitted).
      * 
-     * @return The bounding rectangle (never <code>null</code>). 
+     * @return The bounding rectangle (never {@code null}). 
      */
     public static Rectangle2D getTextBounds(String text, double x, double y,
             FontMetrics fm) {
@@ -256,23 +245,22 @@ public class TextUtils {
         double width = fm.stringWidth(text);
         double height = fm.getHeight();
         return new Rectangle2D.Double(x, y - fm.getAscent(), width, height);
-        
     }
     
     /**
      * Draws a string that is aligned by one anchor point and rotated about
      * another anchor point.
      *
-     * @param text  the text (<code>null</code> not permitted).
-     * @param g2  the graphics target (<code>null</code> not permitted).
+     * @param text  the text ({@code null} not permitted).
+     * @param g2  the graphics target ({@code null} not permitted).
      * @param x  the x-coordinate for positioning the text.
      * @param y  the y-coordinate for positioning the text.
-     * @param textAnchor  the text anchor.
+     * @param textAnchor  the text anchor ({@code null} not permitted).
      * @param angle  the rotation angle.
      * @param rotationX  the x-coordinate for the rotation anchor point.
      * @param rotationY  the y-coordinate for the rotation anchor point.
      * 
-     * @return The text bounds (never <code>null</code>).
+     * @return The text bounds (never {@code null}).
      */
     public static Shape drawRotatedString(String text, Graphics2D g2, float x,
             float y, TextAnchor textAnchor, double angle,
@@ -287,13 +275,13 @@ public class TextUtils {
      * Draws a string that is aligned by one anchor point and rotated about
      * another anchor point, and returns a bounding shape for the text.
      *
-     * @param text  the text (<code>null</code> not permitted).
-     * @param g2  the graphics device.
+     * @param text  the text ({@code null} not permitted).
+     * @param g2  the graphics device ({@code null} not permitted).
      * @param x  the x-coordinate for positioning the text.
      * @param y  the y-coordinate for positioning the text.
-     * @param textAnchor  the text anchor.
+     * @param textAnchor  the text anchor ({@code null} not permitted).
      * @param angle  the rotation angle (in radians).
-     * @param rotationAnchor  the rotation anchor.
+     * @param rotationAnchor  the rotation anchor ({@code null} not permitted).
      * 
      * @return A bounding shape for the text.
      */
@@ -308,17 +296,16 @@ public class TextUtils {
         return drawRotatedString(text, g2, x + textAdj[0], y + textAdj[1],
                 angle, x + textAdj[0] + rotateAdj[0],
                 y + textAdj[1] + rotateAdj[1]);
-
     }
 
     /**
      * A utility method that calculates the rotation anchor offsets for a
      * string.  These offsets are relative to the text starting coordinate
-     * (BASELINE_LEFT).
+     * ({@code BASELINE_LEFT}).
      *
-     * @param g2  the graphics device.
-     * @param text  the text.
-     * @param anchor  the anchor point.
+     * @param g2  the graphics device ({@code null} not permitted).
+     * @param text  the text ({@code null} not permitted).
+     * @param anchor  the anchor point ({@code null} not permitted).
      *
      * @return  The offsets.
      */
@@ -339,43 +326,36 @@ public class TextUtils {
 
         if (anchor.isLeft()) {
             xAdj = 0.0f;
-        }
-        else if (anchor.isHorizontalCenter()) {
+        } else if (anchor.isHorizontalCenter()) {
             xAdj = (float) bounds.getWidth() / 2.0f;
-        }
-        else if (anchor.isRight()) {
+        } else if (anchor.isRight()) {
             xAdj = (float) bounds.getWidth();
         }
 
         if (anchor.isTop()) {
             yAdj = descent + leading - (float) bounds.getHeight();
-        }
-        else if (anchor.isHalfHeight()) {
+        } else if (anchor.isHalfHeight()) {
             yAdj = descent + leading - (float) (bounds.getHeight() / 2.0);
-        }
-        else if (anchor.isHalfAscent()) {
+        } else if (anchor.isHalfAscent()) {
             yAdj = -halfAscent;
-        }
-        else if (anchor.isBaseline()) {
+        } else if (anchor.isBaseline()) {
             yAdj = 0.0f;
-        }
-        else if (anchor.isBottom()) {
+        } else if (anchor.isBottom()) {
             yAdj = metrics.getDescent() + metrics.getLeading();
         }
         result[0] = xAdj;
         result[1] = yAdj;
         return result;
-
     }
     
     /**
      * A utility method for drawing rotated text.
      * <P>
-     * A common rotation is -Math.PI/2 which draws text 'vertically' (with the
-     * top of the characters on the left).
+     * A common rotation is {@code -Math.PI/2} which draws text 'vertically' 
+     * (with the top of the characters on the left).
      *
-     * @param text  the text (<code>null</code> not permitted)
-     * @param g2  the graphics target (<code>null</code> not permitted).
+     * @param text  the text ({@code null} not permitted)
+     * @param g2  the graphics target ({@code null} not permitted).
      * @param angle  the angle of the (clockwise) rotation (in radians).
      * @param x  the x-coordinate.
      * @param y  the y-coordinate.
@@ -390,18 +370,18 @@ public class TextUtils {
     /**
      * A utility method for drawing rotated text.
      * <P>
-     * A common rotation is -Math.PI/2 which draws text 'vertically' (with the
-     * top of the characters on the left).
+     * A common rotation is {@code -Math.PI/2} which draws text 'vertically' 
+     * (with the top of the characters on the left).
      *
-     * @param text  the text (<code>null</code> not permitted)
-     * @param g2  the graphics device.
+     * @param text  the text ({@code null} not permitted).
+     * @param g2  the graphics device ({@code null} not permitted).
      * @param textX  the x-coordinate for the text (before rotation).
      * @param textY  the y-coordinate for the text (before rotation).
      * @param angle  the angle of the (clockwise) rotation (in radians).
      * @param rotateX  the point about which the text is rotated.
      * @param rotateY  the point about which the text is rotated.
      * 
-     * @return The bounds for the rotated text (never <code>null</code>).
+     * @return The bounds for the rotated text (never {@code null}).
      */
     public static Shape drawRotatedString(String text, Graphics2D g2,
             float textX, float textY, double angle,
@@ -420,16 +400,16 @@ public class TextUtils {
     }
     
     /**
-     * Draws the attributed string at <code>(x, y)</code>, rotated by the 
-     * specified angle about <code>(x, y)</code>.
+     * Draws the attributed string at {@code (x, y)}, rotated by the 
+     * specified angle about {@code (x, y)}.
      * 
-     * @param text  the attributed string (<code>null</code> not permitted).
-     * @param g2  the graphics output target.
+     * @param text  the attributed string ({@code null} not permitted).
+     * @param g2  the graphics output target ({@code null} not permitted).
      * @param angle  the angle.
      * @param x  the x-coordinate.
      * @param y  the y-coordinate.
      * 
-     * @return The text bounds (never <code>null</code>).
+     * @return The text bounds (never {@code null}).
      * 
      * @since 1.2
      */
@@ -439,18 +419,18 @@ public class TextUtils {
     }
     
     /**
-     * Draws the attributed string at <code>(textX, textY)</code>, rotated by 
-     * the specified angle about <code>(rotateX, rotateY)</code>.
+     * Draws the attributed string at {@code (textX, textY)}, rotated by 
+     * the specified angle about {@code (rotateX, rotateY)}.
      * 
-     * @param text  the attributed string (<code>null</code> not permitted).
-     * @param g2  the graphics output target.
+     * @param text  the attributed string ({@code null} not permitted).
+     * @param g2  the graphics output target ({@code null} not permitted).
      * @param textX  the x-coordinate for the text alignment point.
      * @param textY  the y-coordinate for the text alignment point.
      * @param angle  the rotation angle (in radians).
      * @param rotateX  the x-coordinate for the rotation point.
      * @param rotateY  the y-coordinate for the rotation point.
      * 
-     * @return The text bounds (never <code>null</code>).
+     * @return The text bounds (never {@code null}).
      * 
      * @since 1.2
      */
@@ -472,22 +452,22 @@ public class TextUtils {
     }
 
     /**
-     * Draws the attributed string aligned to the point <code>(x, y)</code>, 
-     * rotated by the specified angle about <code>rotationAnchor</code>.
+     * Draws the attributed string aligned to the point {@code (x, y)}, 
+     * rotated by the specified angle about {@code rotationAnchor}.
      * 
-     * @param text  the attributed string (<code>null</code> not permitted).
-     * @param g2  the graphics target (<code>null</code> not permitted).
+     * @param text  the attributed string ({@code null} not permitted).
+     * @param g2  the graphics target ({@code null} not permitted).
      * @param x  the x-coordinate.
      * @param y  the y-coordinate.
-     * @param textAnchor  the text anchor (<code>null</code> not permitted).
+     * @param textAnchor  the text anchor ({@code null} not permitted).
      * @param angle  the rotation angle (in radians).
-     * @param rotationAnchor  the rotation anchor (<code>null</code> not 
+     * @param rotationAnchor  the rotation anchor ({@code null} not 
      *     permitted).
-     * @param nonRotatedBounds  if not <code>null</code> this rectangle will 
+     * @param nonRotatedBounds  if not {@code null} this rectangle will 
      *     be updated with the non-rotated bounds of the text for the caller
      *     to use.
      * 
-     * @return The text bounds (never <code>null</code>).
+     * @return The text bounds (never {@code null}).
      * 
      * @since 1.2
      */
@@ -507,12 +487,12 @@ public class TextUtils {
 
     /**
      * Calculates the x and y offsets required to align the text with the
-     * specified <code>anchor</code>.
+     * specified {@code anchor}.
      * 
-     * @param g2  the graphics target (<code>null</code> not permitted).
-     * @param text  the text (<code>null</code> not permitted).
-     * @param anchor  the anchor (<code>null</code> not permitted).
-     * @param textBounds  if not <code>null</code>, this rectangle will be
+     * @param g2  the graphics target ({@code null} not permitted).
+     * @param text  the text ({@code null} not permitted).
+     * @param anchor  the anchor ({@code null} not permitted).
+     * @param textBounds  if not {@code null}, this rectangle will be
      *     updated with the bounds of the text (for the caller to use).
      * 
      * @return An array of two floats dx and dy.
@@ -535,24 +515,19 @@ public class TextUtils {
         
         if (anchor.isHorizontalCenter()) {
             xAdj = (float) -bounds.getWidth() / 2.0f;
-        }
-        else if (anchor.isRight()) {
+        } else if (anchor.isRight()) {
             xAdj = (float) -bounds.getWidth();
         }
 
         if (anchor.isTop()) {
             yAdj = -descent - leading + (float) bounds.getHeight();
-        }
-        else if (anchor.isHalfAscent()) {
+        } else if (anchor.isHalfAscent()) {
             yAdj = halfAscent;
-        }
-        else if (anchor.isHalfHeight()) {
+        } else if (anchor.isHalfHeight()) {
             yAdj = -descent - leading + (float) (bounds.getHeight() / 2.0);
-        }
-        else if (anchor.isBaseline()) {
+        } else if (anchor.isBaseline()) {
             yAdj = 0.0f;
-        }
-        else if (anchor.isBottom()) {
+        } else if (anchor.isBottom()) {
             yAdj = -descent - leading;
         }
         if (textBounds != null) {
@@ -566,11 +541,11 @@ public class TextUtils {
     /**
      * A utility method that calculates the rotation anchor offsets for a
      * string.  These offsets are relative to the text starting coordinate
-     * (BASELINE_LEFT).
+     * ({@code BASELINE_LEFT}).
      *
-     * @param g2  the graphics device.
-     * @param text  the text.
-     * @param anchor  the anchor point.
+     * @param g2  the graphics device ({@code null} not permitted).
+     * @param text  the text ({@code null} not permitted).
+     * @param anchor  the anchor point ({@code null} not permitted).
      *
      * @return  The offsets.
      */
@@ -591,27 +566,21 @@ public class TextUtils {
 
         if (anchor.isLeft()) {
             xAdj = 0.0f;
-        }
-        else if (anchor.isHorizontalCenter()) {
+        } else if (anchor.isHorizontalCenter()) {
             xAdj = (float) bounds.getWidth() / 2.0f;
-        }
-        else if (anchor.isRight()) {
+        } else if (anchor.isRight()) {
             xAdj = (float) bounds.getWidth();
         }
 
         if (anchor.isTop()) {
             yAdj = descent + leading - (float) bounds.getHeight();
-        }
-        else if (anchor.isHalfHeight()) {
+        } else if (anchor.isHalfHeight()) {
             yAdj = descent + leading - (float) (bounds.getHeight() / 2.0);
-        }
-        else if (anchor.isHalfAscent()) {
+        } else if (anchor.isHalfAscent()) {
             yAdj = -halfAscent;
-        }
-        else if (anchor.isBaseline()) {
+        } else if (anchor.isBaseline()) {
             yAdj = 0.0f;
-        }
-        else if (anchor.isBottom()) {
+        } else if (anchor.isBottom()) {
             yAdj = descent + leading;
         }
         result[0] = xAdj;
