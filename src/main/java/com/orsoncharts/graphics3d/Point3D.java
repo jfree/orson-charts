@@ -45,16 +45,16 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public final class Point3D implements Serializable {
 
-    /** The origin <code>(0, 0, 0)</code>. */
+    /** The origin {@code (0, 0, 0)}. */
     public static final Point3D ORIGIN = new Point3D(0, 0, 0);
     
-    /** The point <code>(1, 0, 0)</code>. */
+    /** The point {@code (1, 0, 0)}. */
     public static final Point3D UNIT_X = new Point3D(1, 0, 0);
     
-    /** The point <code>(0, 1, 0)</code>. */
+    /** The point {@code (0, 1, 0)}. */
     public static final Point3D UNIT_Y = new Point3D(0, 1, 0);
     
-    /** The point <code>(0, 0, 1)</code>. */
+    /** The point {@code (0, 0, 1)}. */
     public static final Point3D UNIT_Z = new Point3D(0, 0, 1);
     
     /** The x-coordinate. */
@@ -67,13 +67,13 @@ public final class Point3D implements Serializable {
     public double z;
     
     /**
-     * Creates a new <code>Point3D</code> instance from spherical coordinates.
+     * Creates a new {@code Point3D} instance from spherical coordinates.
      * 
      * @param theta  theta (in radians).
      * @param phi  phi (in radians).
      * @param rho  the distance from the origin.
      * 
-     * @return The point (never <code>null</code>).
+     * @return The point (never {@code null}).
      */
     public static Point3D createPoint3D(double theta, double phi, double rho) {
         double x = rho * Math.sin(phi) * Math.cos(theta);
@@ -152,7 +152,7 @@ public final class Point3D implements Serializable {
     /**
      * Tests this instance for equality to an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean. 
      */
@@ -193,7 +193,7 @@ public final class Point3D implements Serializable {
      * Returns a string representation of this instance, primarily for 
      * debugging purposes.
      * 
-     * @return A string (never <code>null</code>).
+     * @return A string (never {@code null}).
      */
     @Override
     public String toString() {
