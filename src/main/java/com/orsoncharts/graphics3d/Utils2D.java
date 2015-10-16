@@ -46,8 +46,8 @@ public class Utils2D {
     }
     
     /**
-     * Returns <code>true</code> if the specified value is spanned by the
-     * two bounds, and <code>false</code> otherwise.
+     * Returns {@code true} if the specified value is spanned by the
+     * two bounds, and {@code false} otherwise.
      * 
      * @param value  the value.
      * @param bound1  the first boundary.
@@ -65,9 +65,9 @@ public class Utils2D {
      * counter-clockwise order (if the points are specified in clockwise order
      * the result will be negative).
      * 
-     * @param a  the first point (<code>null</code> not permitted).
-     * @param b  the second point (<code>null</code> not permitted).
-     * @param c  the third point (<code>null</code> not permitted).
+     * @param a  the first point ({@code null} not permitted).
+     * @param b  the second point ({@code null} not permitted).
+     * @param c  the third point ({@code null} not permitted).
      * 
      * @return The area x 2.
      */
@@ -84,12 +84,12 @@ public class Utils2D {
     /**
      * Returns the point in the center of the four supplied points.
      * 
-     * @param pt0  point 0 (<code>null</code> not permitted).
-     * @param pt1  point 1 (<code>null</code> not permitted).
-     * @param pt2  point 2 (<code>null</code> not permitted).
-     * @param pt3  point 3 (<code>null</code> not permitted).
+     * @param pt0  point 0 ({@code null} not permitted).
+     * @param pt1  point 1 ({@code null} not permitted).
+     * @param pt2  point 2 ({@code null} not permitted).
+     * @param pt3  point 3 ({@code null} not permitted).
      * 
-     * @return  The center point (never <code>null</code>).
+     * @return  The center point (never {@code null}).
      */
     public static Point2D centerPoint(Point2D pt0, Point2D pt1, Point2D pt2, 
             Point2D pt3) {
@@ -104,7 +104,7 @@ public class Utils2D {
      * Returns the dimensions of the smallest rectangle that could contain
      * the supplied points.
      * 
-     * @param pts  an array of points (<code>null</code> not permitted).
+     * @param pts  an array of points ({@code null} not permitted).
      * 
      * @return The dimensions.
      */
@@ -125,12 +125,12 @@ public class Utils2D {
     /**
      * Creates and returns a line that is perpendicular to the specified line.
      *
-     * @param line  the reference line (<code>null</code> not permitted).
+     * @param line  the reference line ({@code null} not permitted).
      * @param b  the base point, expressed as a percentage along the length of 
      *     the reference line.
      * @param size  the size or length of the perpendicular line.
      * @param opposingPoint  an opposing point, to define which side of the 
-     *     reference line the perpendicular line will extend (<code>null</code> 
+     *     reference line the perpendicular line will extend ({@code null} 
      *     not permitted).
      *
      * @return The perpendicular line.
@@ -154,12 +154,12 @@ public class Utils2D {
      * Creates and returns a line that is perpendicular to the specified 
      * line.
      * 
-     * @param line  the reference line (<code>null</code> not permitted).
-     * @param pt1  a point on the reference line (<code>null</code> not 
+     * @param line  the reference line ({@code null} not permitted).
+     * @param pt1  a point on the reference line ({@code null} not 
      *     permitted).
      * @param size  the length of the new line.
      * @param opposingPoint  an opposing point, to define which side of the 
-     *     reference line the perpendicular line will extend (<code>null</code> 
+     *     reference line the perpendicular line will extend ({@code null} 
      *     not permitted).
      * 
      * @return The perpendicular line. 
@@ -180,7 +180,7 @@ public class Utils2D {
     /**
      * Returns the angle of rotation (in radians) for the specified line.
      * 
-     * @param line  the line (<code>null</code> not permitted).
+     * @param line  the line ({@code null} not permitted).
      * 
      * @return The angle of rotation (in radians). 
      */
@@ -193,7 +193,7 @@ public class Utils2D {
     /**
      * Returns the length of the line.
      * 
-     * @param line  the line (<code>null</code> not permitted).
+     * @param line  the line ({@code null} not permitted).
      * 
      * @return The length of the line.
      */
