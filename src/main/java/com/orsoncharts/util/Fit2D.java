@@ -37,7 +37,6 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 
-
 /**
  * A specification for the alignment and fitting of one rectangle (the source 
  * rectangle) with reference to another (the target rectangle).  Instances of
@@ -137,7 +136,7 @@ public class Fit2D implements Serializable {
     /**
      * Returns a fitter for the specified reference point.
      * 
-     * @param refPt  the reference point (<code>null</code> not permitted).
+     * @param refPt  the reference point ({@code null} not permitted).
      * 
      * @return A fitter.
      * 
@@ -175,8 +174,8 @@ public class Fit2D implements Serializable {
     /**
      * Creates a new instance.
      * 
-     * @param anchor  the anchor point (<code>null</code> not permitted).
-     * @param scale  the scaling (<code>null</code> not permitted).
+     * @param anchor  the anchor point ({@code null} not permitted).
+     * @param scale  the scaling ({@code null} not permitted).
      */
     public Fit2D(Anchor2D anchor, Scale2D scale) {
         ArgChecks.nullNotPermitted(anchor, "anchor");
@@ -188,7 +187,7 @@ public class Fit2D implements Serializable {
     /**
      * Returns the anchor.
      * 
-     * @return The anchor (never <code>null</code>).
+     * @return The anchor (never {@code null}).
      * 
      * @since 1.1
      */
@@ -199,7 +198,7 @@ public class Fit2D implements Serializable {
     /**
      * Returns the scaling.
      * 
-     * @return The scaling (never <code>null</code>).
+     * @return The scaling (never {@code null}).
      * 
      * @since 1.1
      */
@@ -211,11 +210,11 @@ public class Fit2D implements Serializable {
      * Fits a rectangle of the specified dimension to the target rectangle,
      * aligning and scaling according to the attributes of this instance.
      * 
-     * @param srcDim  the dimensions of the source rectangle (<code>null</code>
+     * @param srcDim  the dimensions of the source rectangle ({@code null}
      *     not permitted).
-     * @param target  the target rectangle (<code>null</code> not permitted).
+     * @param target  the target rectangle ({@code null} not permitted).
      * 
-     * @return The bounds of the fitted rectangle (never <code>null</code>). 
+     * @return The bounds of the fitted rectangle (never {@code null}). 
      */
     public Rectangle2D fit(Dimension2D srcDim, Rectangle2D target) {
         Rectangle2D result = new Rectangle2D.Double();
@@ -261,7 +260,7 @@ public class Fit2D implements Serializable {
     /**
      * Tests this instance for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean. 
      */
