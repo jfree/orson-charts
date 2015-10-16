@@ -122,7 +122,7 @@ public class World {
     /**
      * Sets the light source point.
      * 
-     * @param p  the point (<code>null</code> not permitted).
+     * @param p  the point ({@code null} not permitted).
      * 
      * @since 1.2
      */
@@ -137,7 +137,7 @@ public class World {
     /**
      * Adds an object to the world in the default partition.
      *
-     * @param object  the object (<code>null</code> not permitted).
+     * @param object  the object ({@code null} not permitted).
      */
     public void add(Object3D object) {
         // defer argument checking
@@ -147,8 +147,8 @@ public class World {
     /**
      * Adds an object to a specific partition.
      * 
-     * @param partition  the partition (<code>null</code> not permitted).
-     * @param object  the object (<code>null</code> not permitted).
+     * @param partition  the partition ({@code null} not permitted).
+     * @param object  the object ({@code null} not permitted).
      * 
      * @since 1.2
      */
@@ -167,7 +167,7 @@ public class World {
      * Adds a collection of objects to the world (in the default
      * partition).
      * 
-     * @param objects  the objects (<code>null</code> not permitted). 
+     * @param objects  the objects ({@code null} not permitted). 
      */
     public void addAll(Collection<Object3D> objects) {
         ArgChecks.nullNotPermitted(objects, "objects");
@@ -179,7 +179,7 @@ public class World {
     /**
      * Clears any objects belonging to the specified partition.
      * 
-     * @param partitionKey  the partition key (<code>null</code> not permitted).
+     * @param partitionKey  the partition key ({@code null} not permitted).
      * 
      * @since 1.2
      */
@@ -208,7 +208,7 @@ public class World {
      * Returns an array containing the vertices for all objects in this
      * world, transformed to eye coordinates.
      *
-     * @param vp  the view point (<code>null</code> not permitted).
+     * @param vp  the view point ({@code null} not permitted).
      *
      * @return The eye coordinates.
      */
@@ -230,7 +230,7 @@ public class World {
      * Calculates the projected points in 2D-space for all the vertices of the
      * objects in the world.
      * 
-     * @param vp  the view point (<code>null</code> not permitted).
+     * @param vp  the view point ({@code null} not permitted).
      * @param d  the distance.
      * 
      * @return The projected points.
