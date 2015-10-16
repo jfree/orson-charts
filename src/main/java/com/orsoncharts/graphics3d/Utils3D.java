@@ -44,7 +44,7 @@ public class Utils3D {
     /**
      * Returns the length of the vector v.
      * 
-     * @param v  the vector (<code>null</code> not permitted).
+     * @param v  the vector ({@code null} not permitted).
      * 
      * @return The length.
      */
@@ -56,7 +56,7 @@ public class Utils3D {
      * Returns a new vector that is the normalised form of the specified 
      * vector.
      * 
-     * @param v  the vector (<code>null</code> not permitted).
+     * @param v  the vector ({@code null} not permitted).
      * 
      * @return The normalised form of the specified vector.
      * 
@@ -70,8 +70,8 @@ public class Utils3D {
     /**
      * Returns the scalar product of two vectors.
      * 
-     * @param a  vector A (<code>null</code> not permitted).
-     * @param b  vector B (<code>null</code> not permitted).
+     * @param a  vector A ({@code null} not permitted).
+     * @param b  vector B ({@code null} not permitted).
      * 
      * @return The scalar product. 
      */
@@ -82,9 +82,9 @@ public class Utils3D {
     /**
      * Returns the normal vector for the plane defined by three points.
      * 
-     * @param a  point A (<code>null</code> not permitted).
-     * @param b  point B (<code>null</code> not permitted).
-     * @param c  point C (<code>null</code> not permitted).
+     * @param a  point A ({@code null} not permitted).
+     * @param b  point B ({@code null} not permitted).
+     * @param c  point C ({@code null} not permitted).
      * 
      * @return The normal vector. 
      */
@@ -102,8 +102,8 @@ public class Utils3D {
     /**
      * Returns the angle between the two vectors.
      * 
-     * @param a  vector A (<code>null</code> not permitted).
-     * @param b  vector B (<code>null</code> not permitted).
+     * @param a  vector A ({@code null} not permitted).
+     * @param b  vector B ({@code null} not permitted).
      * 
      * @return The (positive) angle in radians. 
      */
