@@ -41,11 +41,10 @@ import java.awt.Paint;
 public class ObjectUtils {
     
     /**
-     * Returns <code>true</code> if the objects are equal or both 
-     * <code>null</code>. 
+     * Returns {@code true} if the objects are equal or both {@code null}. 
      * 
-     * @param obj1  object 1 (<code>null</code> permitted).
-     * @param obj2  object 2 (<code>null</code> permitted).
+     * @param obj1  object 1 ({@code null} permitted).
+     * @param obj2  object 2 ({@code null} permitted).
      * 
      * @return A boolean. 
      */
@@ -59,10 +58,10 @@ public class ObjectUtils {
     
     /**
      * Returns the hash code of the object, or 0 if the object is 
-     * <code>null</code>.  This method is provided in the Objects class in 
+     * {@code null}.  This method is provided in the Objects class in 
      * Java 1.7, but you can use this one to run on Java 1.6.
      * 
-     * @param obj (<code>null</code> permitted).
+     * @param obj ({@code null} permitted).
      * 
      * @return A hash code.
      * 
@@ -73,12 +72,12 @@ public class ObjectUtils {
     }
     
     /**
-     * Returns <code>true</code> if the two <code>Paint</code> objects are equal 
-     * OR both <code>null</code>.  This method handles
-     * <code>GradientPaint</code> as a special case.
+     * Returns {@code true} if the two {@code Paint} objects are equal 
+     * OR both {@code null}.  This method handles {@code GradientPaint} as a 
+     * special case.
      *
-     * @param p1  paint 1 (<code>null</code> permitted).
-     * @param p2  paint 2 (<code>null</code> permitted).
+     * @param p1  paint 1 ({@code null} permitted).
+     * @param p2  paint 2 ({@code null} permitted).
      *
      * @return A boolean.
      */
