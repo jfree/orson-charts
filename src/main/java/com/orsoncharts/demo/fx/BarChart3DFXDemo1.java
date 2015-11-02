@@ -45,6 +45,7 @@ import javafx.stage.Stage;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.demo.BarChart3D1;
+import com.orsoncharts.demo.SampleData;
 import com.orsoncharts.fx.Chart3DViewer;
 
 /**
@@ -53,7 +54,7 @@ import com.orsoncharts.fx.Chart3DViewer;
 public class BarChart3DFXDemo1 extends Application {
 
     public static Node createDemoNode() {
-        CategoryDataset3D dataset = BarChart3D1.createDataset();
+        CategoryDataset3D dataset = SampleData.createCompanyRevenueDataset();
         Chart3D chart = BarChart3D1.createChart(dataset);
         Chart3DViewer viewer = new Chart3DViewer(chart);
         return viewer;
