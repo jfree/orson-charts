@@ -45,6 +45,7 @@ import com.orsoncharts.Chart3DPanel;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.demo.BarChart3D1;
+import com.orsoncharts.demo.SampleData;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 
 /**
@@ -76,7 +77,7 @@ public class BarChart3DDemo1 extends JFrame {
     public static JPanel createDemoPanel() {
         DemoPanel content = new DemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
-        CategoryDataset3D dataset = BarChart3D1.createDataset();
+        CategoryDataset3D dataset = SampleData.createCompanyRevenueDataset();
         Chart3D chart = BarChart3D1.createChart(dataset);
         Chart3DPanel chartPanel = new Chart3DPanel(chart);
         chartPanel.setMargin(0.30);
