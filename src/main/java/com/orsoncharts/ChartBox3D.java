@@ -108,8 +108,8 @@ public class ChartBox3D {
      * @param xOffset  the x-offset.
      * @param yOffset  the y-offset.
      * @param zOffset  the z-offset.
-     * @param color  the color for the sides of the box (<code>null</code>
-     *     not permitted).
+     * @param color  the color for the sides of the box ({@code null} not 
+     *     permitted).
      */
     public ChartBox3D(double xLength, double yLength, double zLength, 
             double xOffset, double yOffset, double zOffset, Color color) {
@@ -133,7 +133,7 @@ public class ChartBox3D {
      * Returns the list of tick data items for the x-axis.
      * 
      * @return The list of tick data items for the x-axis (possibly empty, but
-     *     never <code>null</code>).
+     *     never {@code null}).
      * 
      * @since 1.2
      */
@@ -144,7 +144,7 @@ public class ChartBox3D {
     /**
      * Sets the list of tick data items for the x-axis.
      * 
-     * @param ticks  the tick data (<code>null</code> not permitted).
+     * @param ticks  the tick data ({@code null} not permitted).
      * 
      * @since 1.2
      */
@@ -157,7 +157,7 @@ public class ChartBox3D {
      * Returns the list of tick data items for the y-axis.
      * 
      * @return The list of tick data items for the y-axis (possibly empty, but
-     *     never <code>null</code>).
+     *     never {@code null}).
      * 
      * @since 1.2
      */
@@ -168,7 +168,7 @@ public class ChartBox3D {
     /**
      * Sets the list of tick data items for the y-axis.
      * 
-     * @param ticks  the tick data (<code>null</code> not permitted).
+     * @param ticks  the tick data ({@code null} not permitted).
      * 
      * @since 1.2
      */
@@ -181,7 +181,7 @@ public class ChartBox3D {
      * Returns the list of tick data items for the z-axis.
      * 
      * @return The list of tick data items for the z-axis (possibly empty, but
-     *     never <code>null</code>).
+     *     never {@code null}).
      * 
      * @since 1.2
      */
@@ -192,7 +192,7 @@ public class ChartBox3D {
     /**
      * Sets the list of tick data items for the z-axis.
      * 
-     * @param ticks  the tick data (<code>null</code> not permitted).
+     * @param ticks  the tick data ({@code null} not permitted).
      * 
      * @since 1.2
      */
@@ -205,7 +205,7 @@ public class ChartBox3D {
      * Returns the marker data for the x-axis markers, if any.
      * 
      * @return The marker data for the x-axis markers (possibly empty but 
-     *     never <code>null</code>).
+     *     never {@code null}).
      * 
      * @since 1.2
      */
@@ -216,7 +216,7 @@ public class ChartBox3D {
     /**
      * Sets the list of marker data items for the x-axis.
      * 
-     * @param markers  the list of marker data items (<code>null</code> not 
+     * @param markers  the list of marker data items ({@code null} not 
      *     permitted).
      * 
      * @since 1.2
@@ -230,7 +230,7 @@ public class ChartBox3D {
      * Returns the marker data for the y-axis markers, if any.
      * 
      * @return The marker data for the y-axis markers (possibly empty but 
-     *     never <code>null</code>).
+     *     never {@code null}).
      * 
      * @since 1.2
      */
@@ -241,7 +241,7 @@ public class ChartBox3D {
     /**
      * Sets the list of marker data items for the y-axis.
      * 
-     * @param markers  the list of marker data items (<code>null</code> not 
+     * @param markers  the list of marker data items ({@code null} not 
      *     permitted).
      * 
      * @since 1.2
@@ -255,7 +255,7 @@ public class ChartBox3D {
      * Returns the marker data for the z-axis markers, if any.
      * 
      * @return The marker data for the z-axis markers (possibly empty but 
-     *     never <code>null</code>).
+     *     never {@code null}).
      * 
      * @since 1.2
      */
@@ -266,7 +266,7 @@ public class ChartBox3D {
     /**
      * Sets the list of marker data items for the x-axis.
      * 
-     * @param markers  the list of marker data items (<code>null</code> not 
+     * @param markers  the list of marker data items ({@code null} not 
      *     permitted).
      * 
      * @since 1.2
@@ -811,7 +811,7 @@ public class ChartBox3D {
     /**
      * Returns the horizontal offset for an anchor assuming that (a) the delta 
      * is expressed as a percentage, and (b) the length in the offset direction 
-     * is <code>length</code>.
+     * is {@code length}.
      * 
      * @param anchor  the anchor.
      * @param length  the length.
@@ -831,7 +831,7 @@ public class ChartBox3D {
     /**
      * Returns the vertical offset for an anchor assuming that (a) the delta is
      * expressed as a percentage, and (b) the length in the offset direction 
-     * is <code>length</code>.
+     * is {@code length}.
      * 
      * @param anchor  the anchor.
      * @param length  the length.
@@ -852,7 +852,7 @@ public class ChartBox3D {
      * Returns the horizontal position along the line based on the anchor 
      * point.
      * 
-     * @param anchor  the anchor (<code>null</code> not permitted).
+     * @param anchor  the anchor ({@code null} not permitted).
      * @param start  the start value.
      * @param end  the end value.
      * 
@@ -1004,8 +1004,8 @@ public class ChartBox3D {
         /**
          * Creates a new face for a {@link ChartBox3D}.
          * 
-         * @param owner  the object that the new face belongs to 
-         *         (<code>null</code> not permitted).
+         * @param owner  the object that the new face belongs to ({@code null} 
+         *     not permitted).
          * @param vertices  the indices of the vertices.
          * 
          * @since 1.3
@@ -1121,7 +1121,7 @@ public class ChartBox3D {
         /**
          * Adds marker data for the x-dimension.
          * 
-         * @param marker  the marker data (<code>null</code> not permitted). 
+         * @param marker  the marker data ({@code null} not permitted). 
          */
         public void addXMarker(MarkerData marker) {
             ArgChecks.nullNotPermitted(marker, "marker");
@@ -1132,7 +1132,7 @@ public class ChartBox3D {
          * Returns a list of marker data for the x-dimension (the list is not
          * modifiable).
          * 
-         * @return The markers (never <code>null</code>). 
+         * @return The markers (never {@code null}). 
          */
         public List<MarkerData> getXMarkers() {
             return Collections.unmodifiableList(this.xMarkers);
@@ -1141,7 +1141,7 @@ public class ChartBox3D {
         /**
          * Adds marker data for the y-dimension.
          * 
-         * @param marker  the marker data (<code>null</code> not permitted). 
+         * @param marker  the marker data ({@code null} not permitted). 
          */
         public void addYMarker(MarkerData marker) {
             ArgChecks.nullNotPermitted(marker, "marker");
@@ -1152,7 +1152,7 @@ public class ChartBox3D {
          * Returns a list of marker data for the y-dimension (the list is not
          * modifiable).
          * 
-         * @return The markers (never <code>null</code>). 
+         * @return The markers (never {@code null}). 
          */
         public List<MarkerData> getYMarkers() {
             return Collections.unmodifiableList(this.yMarkers);
@@ -1161,7 +1161,7 @@ public class ChartBox3D {
         /**
          * Adds marker data for the z-dimension.
          * 
-         * @param marker  the marker data (<code>null</code> not permitted). 
+         * @param marker  the marker data ({@code null} not permitted). 
          */
         public void addZMarker(MarkerData marker) {
             ArgChecks.nullNotPermitted(marker, "marker");
@@ -1172,14 +1172,14 @@ public class ChartBox3D {
          * Returns a list of marker data for the z-dimension (the list is not
          * modifiable).
          * 
-         * @return The markers (never <code>null</code>). 
+         * @return The markers (never {@code null}). 
          */
         public List<MarkerData> getZMarkers() {
             return Collections.unmodifiableList(this.zMarkers);
         }
         
         /**
-         * Returns <code>-123456f</code> which ensures that the chart box face 
+         * Returns {@code -123456f} which ensures that the chart box face 
          * is always drawn first (before any data items).
          * 
          * @param points  the points (ignored here).
