@@ -68,6 +68,7 @@ import com.orsoncharts.data.Dataset3D;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.demo.AreaChart3D1;
 import com.orsoncharts.demo.DemoDescription;
+import com.orsoncharts.demo.SampleData;
 import com.orsoncharts.fx.Chart3DCanvas;
 import com.orsoncharts.fx.Chart3DViewer;
 import com.orsoncharts.graphics3d.Dimension3D;
@@ -366,7 +367,7 @@ public class OrsonChartsFXDemo extends Application {
     }
     
     private SplitPane createChartPane() {
-        CategoryDataset3D dataset = AreaChart3D1.createDataset();
+        CategoryDataset3D dataset = SampleData.createCompanyRevenueDataset();
         Chart3D chart = AreaChart3D1.createChart(dataset);
         Chart3DViewer viewer = new Chart3DViewer(chart);
       
