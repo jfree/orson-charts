@@ -43,6 +43,7 @@ import com.orsoncharts.Chart3DPanel;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.demo.AreaChart3D1;
+import com.orsoncharts.demo.SampleData;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 
 /**
@@ -72,7 +73,7 @@ public class AreaChart3DDemo1 extends JFrame {
     public static DemoPanel createDemoPanel() {
         DemoPanel content = new DemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
-        CategoryDataset3D dataset = AreaChart3D1.createDataset();
+        CategoryDataset3D dataset = SampleData.createCompanyRevenueDataset();
         Chart3D chart = AreaChart3D1.createChart(dataset);
         Chart3DPanel chartPanel = new Chart3DPanel(chart);
         content.setChartPanel(chartPanel);
