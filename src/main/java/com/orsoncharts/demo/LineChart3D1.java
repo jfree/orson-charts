@@ -63,7 +63,7 @@ public class LineChart3D1 {
      */
     public static Chart3D createChart(CategoryDataset3D dataset) {
         Chart3D chart = Chart3DFactory.createLineChart(
-                "Web Browser Market Share", 
+                "Desktop Web Browser Market Share", 
                 "Source: http://gs.statcounter.com", dataset, null, null, 
                 "Market Share (%)");
         CategoryPlot3D plot = (CategoryPlot3D) chart.getPlot();
