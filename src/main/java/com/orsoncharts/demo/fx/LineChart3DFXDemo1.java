@@ -38,6 +38,7 @@ package com.orsoncharts.demo.fx;
 
 import static javafx.application.Application.launch;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
@@ -56,6 +57,8 @@ public class LineChart3DFXDemo1 extends Application {
         CategoryDataset3D dataset = LineChart3D1.createDataset();
         Chart3D chart = LineChart3D1.createChart(dataset);
         Chart3DViewer viewer = new Chart3DViewer(chart);
+        Platform.runLater(() -> viewer.getCanvas().zoomToFit(viewer.getWidth(), 
+                viewer.getHeight()));
         return viewer;
     }
 
