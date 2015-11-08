@@ -39,7 +39,7 @@ import java.awt.Color;
  * 
  * @since 1.5
  */
-public class Line3D extends Object3D {
+public class LineObject3D extends Object3D {
     
     /**
      * Creates a new {@code Line3D} instance.
@@ -52,7 +52,7 @@ public class Line3D extends Object3D {
      * @param z1  the z-coordinate for the end of the line.
      * @param color  the color ({@code null} not permitted).
      */
-    public Line3D(float x0, float y0, float z0, float x1, float y1, float z1, 
+    public LineObject3D(float x0, float y0, float z0, float x1, float y1, float z1, 
             Color color) {
         super(color);
         addVertex(x0, y0, z0);

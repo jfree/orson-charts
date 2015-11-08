@@ -39,7 +39,7 @@ import com.orsoncharts.axis.Axis3D;
 import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.graphics3d.Dimension3D;
-import com.orsoncharts.graphics3d.Line3D;
+import com.orsoncharts.graphics3d.LineObject3D;
 import com.orsoncharts.graphics3d.World;
 
 /**
@@ -83,8 +83,8 @@ public class LineXYZRenderer extends AbstractXYZRenderer implements XYZRenderer,
             World world, Dimension3D dimensions, double xOffset, double yOffset, 
             double zOffset) {
 
-        if (item == 0) {
-            return;
+        if (item == 0) { // we are connecting lines between points, so there
+            return;      // is nothing to do for item 0
         }
         XYZPlot plot = getPlot();
         Axis3D xAxis = plot.getXAxis();
@@ -106,7 +106,7 @@ public class LineXYZRenderer extends AbstractXYZRenderer implements XYZRenderer,
         double wz1 = zAxis.translateToWorld(z1, dimensions.getDepth());
     
         Color color = getColorSource().getColor(series, item);
-        Line3D line = new Line3D((float) (wx0 + xOffset), 
+        LineObject3D line = new LineObject3D((float) (wx0 + xOffset), 
                 (float) (wy0 + yOffset), (float) (wz0 + zOffset), 
                 (float) (wx1 + xOffset), (float) (wy1 + yOffset), 
                 (float) (wz1 + zOffset), color);
