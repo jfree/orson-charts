@@ -1184,7 +1184,7 @@ public class ChartBox3D {
          * 
          * @param points  the points (ignored here).
          * 
-         * @return <code>-123456f</code>. 
+         * @return {@code -123456f}. 
          */
         @Override
         public float calculateAverageZValue(Point3D[] points) {

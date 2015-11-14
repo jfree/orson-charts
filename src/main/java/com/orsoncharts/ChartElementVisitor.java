@@ -40,7 +40,7 @@ public interface ChartElementVisitor {
     /**
      * Visit a chart element.
      * 
-     * @param element  the chart element (<code>null</code> not permitted). 
+     * @param element  the chart element ({@code null} not permitted). 
      */
     void visit(ChartElement element);
     

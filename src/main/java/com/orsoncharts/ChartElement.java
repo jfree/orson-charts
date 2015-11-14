@@ -43,7 +43,7 @@ public interface ChartElement {
     /**
      * Receives a visitor to the element.
      * 
-     * @param visitor  the visitor (<code>null</code> not permitted). 
+     * @param visitor  the visitor ({@code null} not permitted). 
      */
     void receive(ChartElementVisitor visitor);
 
