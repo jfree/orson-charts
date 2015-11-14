@@ -61,7 +61,7 @@ public class Axis3DChangeEvent extends EventObject {
     /**
      * Creates a new event.
      * 
-     * @param axis  the axis (<code>null</code> not permitted).
+     * @param axis  the axis ({@code null} not permitted).
      * @param requiresWorldUpdate  a flag indicating whether or not this change
      *     requires the 3D world to be updated.
      */
@@ -73,7 +73,7 @@ public class Axis3DChangeEvent extends EventObject {
      * Creates a new event.
      * 
      * @param source  the event source.
-     * @param axis  the axis (<code>null</code> not permitted).
+     * @param axis  the axis ({@code null} not permitted).
      * @param requiresWorldUpdate  a flag indicating whether or not this change
      *     requires the 3D world to be updated.
      */
@@ -88,7 +88,7 @@ public class Axis3DChangeEvent extends EventObject {
     /**
      * Returns the axis associated with this event.
      * 
-     * @return The axis (never <code>null</code>). 
+     * @return The axis (never {@code null}). 
      */
     public Axis3D getAxis() {
         return this.axis;
