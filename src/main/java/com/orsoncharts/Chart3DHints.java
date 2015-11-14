@@ -37,9 +37,10 @@ import java.util.Map;
 /**
  * Special rendering hints that used internally by Orson Charts to provide
  * links between rendered items and the chart elements that they represent.
- * Most <code>Graphics2D</code> implementations will ignore these hints but
- * some, for example JFreeSVG's SVGGraphics2D class, will use the hints to
- * drive the output content.
+ * Most {@code Graphics2D} implementations will ignore these hints but
+ * some, for example the {@code SVGGraphics2D} class in 
+ * <a href="http://www.jfree.org/jfreesvg">JFreeSVG</a>, will use the hints 
+ * to drive the output content.
  * 
  * @since 1.3
  */
@@ -77,10 +78,10 @@ public final class Chart3DHints {
         }
     
         /**
-         * Returns <code>true</code> if <code>val</code> is a value that is
-         * compatible with this key, and <code>false</code> otherwise.
+         * Returns {@code true} if {@code val} is a value that is
+         * compatible with this key, and {@code false} otherwise.
          * 
-         * @param val  the value.
+         * @param val  the value ({@code null} permitted).
          * 
          * @return A boolean. 
          */
