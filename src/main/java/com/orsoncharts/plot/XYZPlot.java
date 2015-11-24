@@ -135,11 +135,11 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
     /**
      * Creates a new plot with the specified axes.
      * 
-     * @param dataset  the dataset (<code>null</code> not permitted).
-     * @param renderer  the renderer (<code>null</code> not permitted).
-     * @param xAxis  the x-axis (<code>null</code> not permitted).
-     * @param yAxis  the y-axis (<code>null</code> not permitted).
-     * @param zAxis  the z-axis (<code>null</code> not permitted).
+     * @param dataset  the dataset ({@code null} not permitted).
+     * @param renderer  the renderer ({@code null} not permitted).
+     * @param xAxis  the x-axis ({@code null} not permitted).
+     * @param yAxis  the y-axis ({@code null} not permitted).
+     * @param zAxis  the z-axis ({@code null} not permitted).
      */
     public XYZPlot(XYZDataset dataset, XYZRenderer renderer, ValueAxis3D xAxis, 
             ValueAxis3D yAxis, ValueAxis3D zAxis) {
@@ -180,7 +180,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
      * Sets the dimensions for the plot and notifies registered listeners that
      * the plot dimensions have been changed.
      * 
-     * @param dim  the new dimensions (<code>null</code> not permitted).
+     * @param dim  the new dimensions ({@code null} not permitted).
      */
     public void setDimensions(Dimension3D dim) {
         ArgChecks.nullNotPermitted(dim, "dim");
@@ -191,7 +191,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
     /**
      * Returns the dataset for the plot.
      * 
-     * @return The dataset (never <code>null</code>). 
+     * @return The dataset (never {@code null}). 
      */
     public XYZDataset getDataset() {
         return this.dataset;
@@ -201,7 +201,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
      * Sets the dataset and sends a change event notification to all registered
      * listeners.
      * 
-     * @param dataset  the new dataset (<code>null</code> not permitted).
+     * @param dataset  the new dataset ({@code null} not permitted).
      */
     public void setDataset(XYZDataset dataset) {
         ArgChecks.nullNotPermitted(dataset, "dataset");
@@ -214,7 +214,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
     /**
      * Returns the x-axis.
      * 
-     * @return The x-axis (never <code>null</code>). 
+     * @return The x-axis (never {@code null}). 
      */
     public ValueAxis3D getXAxis() {
         return this.xAxis;
@@ -224,7 +224,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
      * Sets the x-axis and sends a {@link Plot3DChangeEvent} to all registered
      * listeners.
      * 
-     * @param xAxis  the x-axis (<code>null</code> not permitted). 
+     * @param xAxis  the x-axis ({@code null} not permitted). 
      */
     public void setXAxis(ValueAxis3D xAxis) {
         ArgChecks.nullNotPermitted(xAxis, "xAxis");
@@ -238,7 +238,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
     /**
      * Returns the y-axis.
      * 
-     * @return The y-axis (never <code>null</code>). 
+     * @return The y-axis (never {@code null}). 
      */
     public ValueAxis3D getYAxis() {
         return this.yAxis;
@@ -248,7 +248,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
      * Sets the y-axis and sends a {@link Plot3DChangeEvent} to all registered
      * listeners.
      * 
-     * @param yAxis  the y-axis (<code>null</code> not permitted). 
+     * @param yAxis  the y-axis ({@code null} not permitted). 
      */
     public void setYAxis(ValueAxis3D yAxis) {
         ArgChecks.nullNotPermitted(yAxis, "yAxis");
@@ -262,7 +262,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
     /**
      * Returns the z-axis.
      * 
-     * @return The z-axis (never <code>null</code>). 
+     * @return The z-axis (never {@code null}). 
      */
     public ValueAxis3D getZAxis() {
         return this.zAxis;
@@ -272,7 +272,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
      * Sets the z-axis and sends a {@link Plot3DChangeEvent} to all registered
      * listeners.
      * 
-     * @param zAxis  the z-axis (<code>null</code> not permitted). 
+     * @param zAxis  the z-axis ({@code null} not permitted). 
      */
     public void setZAxis(ValueAxis3D zAxis) {
         ArgChecks.nullNotPermitted(zAxis, "zAxis");
@@ -286,7 +286,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
     /**
      * Returns the renderer for the plot.
      * 
-     * @return The renderer (possibly <code>null</code>).
+     * @return The renderer (possibly {@code null}).
      */
     public XYZRenderer getRenderer() {
         return this.renderer;
@@ -296,7 +296,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
      * Sets the renderer for the plot and sends a {@link Plot3DChangeEvent}
      * to all registered listeners.
      * 
-     * @param renderer  the renderer (<code>null</code> not permitted). 
+     * @param renderer  the renderer ({@code null} not permitted). 
      */
     public void setRenderer(XYZRenderer renderer) {
         this.renderer.setPlot(null);
@@ -332,7 +332,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
     /**
      * Returns the paint used to draw the gridlines for the x-axis.
      * 
-     * @return The paint (<code>null</code> not permitted). 
+     * @return The paint ({@code null} not permitted). 
      */
     public Paint getGridlinePaintX() {
         return this.gridlinePaintX;
@@ -342,7 +342,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
      * Sets the paint used to draw the gridlines for the x-axis, and sends 
      * a {@link Plot3DChangeEvent} to all registered listeners.
      * 
-     * @param paint  the paint (<code>null</code> not permitted).
+     * @param paint  the paint ({@code null} not permitted).
      */
     public void setGridlinePaintX(Paint paint) {
         ArgChecks.nullNotPermitted(paint, "paint");
@@ -353,7 +353,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
     /**
      * Returns the stroke used to draw the gridlines for the x-axis.
      * 
-     * @return The stroke (<code>null</code> not permitted). 
+     * @return The stroke ({@code null} not permitted). 
      */
     public Stroke getGridlineStrokeX() {
         return this.gridlineStrokeX;
@@ -363,7 +363,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
      * Sets the stroke used to draw the gridlines for the x-axis, and sends 
      * a {@link Plot3DChangeEvent} to all registered listeners.
      * 
-     * @param stroke  the stroke (<code>null</code> not permitted).
+     * @param stroke  the stroke ({@code null} not permitted).
      */
     public void setGridlineStrokeX(Stroke stroke) {
         ArgChecks.nullNotPermitted(stroke, "stroke");
@@ -396,7 +396,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
     /**
      * Returns the paint used to draw the gridlines for the y-axis.
      * 
-     * @return The paint (<code>null</code> not permitted). 
+     * @return The paint ({@code null} not permitted). 
      */
     public Paint getGridlinePaintY() {
         return this.gridlinePaintY;
@@ -406,7 +406,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
      * Sets the paint used to draw the gridlines for the y-axis, and sends 
      * a {@link Plot3DChangeEvent} to all registered listeners.
      * 
-     * @param paint  the paint (<code>null</code> not permitted).
+     * @param paint  the paint ({@code null} not permitted).
      */
     public void setGridlinePaintY(Paint paint) {
         ArgChecks.nullNotPermitted(paint, "paint");
@@ -417,7 +417,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
     /**
      * Returns the stroke used to draw the gridlines for the y-axis.
      * 
-     * @return The stroke (<code>null</code> not permitted). 
+     * @return The stroke ({@code null} not permitted). 
      */
     public Stroke getGridlineStrokeY() {
         return this.gridlineStrokeY;
@@ -427,7 +427,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
      * Sets the stroke used to draw the gridlines for the y-axis, and sends 
      * a {@link Plot3DChangeEvent} to all registered listeners.
      * 
-     * @param stroke  the stroke (<code>null</code> not permitted).
+     * @param stroke  the stroke ({@code null} not permitted).
      */
     public void setGridlineStrokeY(Stroke stroke) {
         ArgChecks.nullNotPermitted(stroke, "stroke");
@@ -460,7 +460,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
     /**
      * Returns the paint used to draw the gridlines for the z-axis.
      * 
-     * @return The paint (<code>null</code> not permitted). 
+     * @return The paint ({@code null} not permitted). 
      */
     public Paint getGridlinePaintZ() {
         return this.gridlinePaintZ;
@@ -470,7 +470,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
      * Sets the paint used to draw the gridlines for the z-axis, and sends 
      * a {@link Plot3DChangeEvent} to all registered listeners.
      * 
-     * @param paint  the paint (<code>null</code> not permitted).
+     * @param paint  the paint ({@code null} not permitted).
      */
     public void setGridlinePaintZ(Paint paint) {
         ArgChecks.nullNotPermitted(paint, "paint");
@@ -481,7 +481,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
     /**
      * Returns the stroke used to draw the gridlines for the z-axis.
      * 
-     * @return The stroke (<code>null</code> not permitted). 
+     * @return The stroke ({@code null} not permitted). 
      */
     public Stroke getGridlineStrokeZ() {
         return this.gridlineStrokeZ;
@@ -491,7 +491,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
      * Sets the stroke used to draw the gridlines for the z-axis, and sends 
      * a {@link Plot3DChangeEvent} to all registered listeners.
      * 
-     * @param stroke  the stroke (<code>null</code> not permitted).
+     * @param stroke  the stroke ({@code null} not permitted).
      */
     public void setGridlineStrokeZ(Stroke stroke) {
         ArgChecks.nullNotPermitted(stroke, "stroke");
@@ -503,7 +503,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
      * Returns the legend label generator.  The default value is a default
      * instance of {@link StandardXYZLabelGenerator}.
      * 
-     * @return The legend label generator (never <code>null</code>).
+     * @return The legend label generator (never {@code null}).
      * 
      * @since 1.2
      */
@@ -515,7 +515,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
      * Sets the legend label generator and sends a {@link Plot3DChangeEvent}
      * to all registered listeners.
      * 
-     * @param generator  the generator (<code>null</code> not permitted). 
+     * @param generator  the generator ({@code null} not permitted). 
      * 
      * @since 1.2
      */
@@ -552,7 +552,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
      * specified world.  After the world has been populated (or constructed) in
      * this way, it is ready for rendering.
      * 
-     * @param world  the world (<code>null</code> not permitted).
+     * @param world  the world ({@code null} not permitted).
      * @param xOffset  the x-offset.
      * @param yOffset  the y-offset.
      * @param zOffset  the z-offset.
@@ -601,7 +601,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
      * use is to apply chart style changes across all the elements of a 
      * chart.
      * 
-     * @param visitor  the visitor (<code>null</code> not permitted).
+     * @param visitor  the visitor ({@code null} not permitted).
      * 
      * @since 1.2
      */
@@ -617,7 +617,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
     /**
      * Tests this plot instance for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean. 
      */
