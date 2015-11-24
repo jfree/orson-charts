@@ -45,7 +45,7 @@ public interface CategoryColorSource {
 
     /**
      * Returns the color for one data item in the chart.  We return a 
-     * <code>Color</code> rather than a paint, because some manipulations
+     * {@code Color} rather than a paint, because some manipulations
      * are done for the shading during the 3D rendering.
      * 
      * @param series  the series index.
