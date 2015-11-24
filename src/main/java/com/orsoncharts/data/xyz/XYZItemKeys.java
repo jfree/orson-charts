@@ -44,11 +44,11 @@ import java.util.Collection;
 public class XYZItemKeys {
     
     /**
-     * Returns a collection of item keys for the specified dataset in the 
-     * series.
+     * Returns a collection of item keys extracted from one series in the
+     * specified dataset.
      * 
-     * @param dataset  the dataset (<code>null</code> not permitted).
-     * @param seriesKey  the series key (<code>null</code> not permitted).
+     * @param dataset  the dataset ({@code null} not permitted).
+     * @param seriesKey  the series key ({@code null} not permitted).
      * 
      * @return A boolean. 
      */
