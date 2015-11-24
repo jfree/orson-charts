@@ -72,9 +72,9 @@ public class GridElement extends AbstractTableElement implements TableElement,
     /**
      * Adds (or updates) a cell in the grid.
      * 
-     * @param element  the element (<code>null</code> permitted).
-     * @param rowKey  the row key (<code>null</code> not permitted).
-     * @param columnKey  the column key (<code>null</code> not permitted).
+     * @param element  the element ({@code null} permitted).
+     * @param rowKey  the row key ({@code null} not permitted).
+     * @param columnKey  the column key ({@code null} not permitted).
      */
     public void setElement(TableElement element, Comparable<?> rowKey, 
             Comparable<?> columnKey) {
@@ -83,10 +83,10 @@ public class GridElement extends AbstractTableElement implements TableElement,
     }
     
     /**
-     * Receives a visitor by calling the visitor's <code>visit()</code> method 
+     * Receives a visitor by calling the visitor's {@code visit()} method 
      * for each of the children in the grid, and finally for the grid itself. 
      * 
-     * @param visitor  the visitor (<code>null</code> not permitted).
+     * @param visitor  the visitor ({@code null} not permitted).
      * 
      * @since 1.2
      */
@@ -203,14 +203,14 @@ public class GridElement extends AbstractTableElement implements TableElement,
     
     /**
      * Draws the element within the specified bounds.  If the 
-     * <code>recordBounds</code> flag is set, this element and each of its
-     * children will have their <code>BOUNDS_2D</code> property updated with 
+     * {@code recordBounds} flag is set, this element and each of its
+     * children will have their {@code BOUNDS_2D} property updated with 
      * the current bounds.
      * 
-     * @param g2  the graphics target (<code>null</code> not permitted).
-     * @param bounds  the bounds (<code>null</code> not permitted).
+     * @param g2  the graphics target ({@code null} not permitted).
+     * @param bounds  the bounds ({@code null} not permitted).
      * @param onDrawHandler  an object that will receive notification before 
-     *     and after the element is drawn (<code>null</code> permitted).
+     *     and after the element is drawn ({@code null} permitted).
      * 
      * @since 1.3
      */
@@ -243,7 +243,7 @@ public class GridElement extends AbstractTableElement implements TableElement,
     /**
      * Tests this element for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean. 
      */
