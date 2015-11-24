@@ -103,8 +103,8 @@ public class NumberTickSelector implements TickSelector, Serializable {
 
     /**
      * Move the cursor to the next (larger) tick size, if there is one.  
-     * Returns <code>true</code> in the case that the cursor is moved, and 
-     * <code>false</code> where there are a finite number of tick sizes and the
+     * Returns {@code true} in the case that the cursor is moved, and 
+     * {@code false} where there are a finite number of tick sizes and the
      * current tick size is the largest available.
      */
     @Override
@@ -127,8 +127,8 @@ public class NumberTickSelector implements TickSelector, Serializable {
 
     /**
      * Move the cursor to the previous (smaller) tick size, if there is one.  
-     * Returns <code>true</code> in the case that the cursor is moved, and 
-     * <code>false</code> where there are a finite number of tick sizes and the
+     * Returns {@code true} in the case that the cursor is moved, and 
+     * {@code false} where there are a finite number of tick sizes and the
      * current tick size is the smallest available.
      */
     @Override
@@ -189,7 +189,7 @@ public class NumberTickSelector implements TickSelector, Serializable {
     /**
      * Tests this instance for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean. 
      */
