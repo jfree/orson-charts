@@ -65,7 +65,7 @@ public abstract class AbstractTableElement implements Serializable {
     /** The insets. */
     private Insets insets;
     
-    /** The background paint (this can be <code>null</code>). */
+    /** The background paint (this can be {@code null}). */
     private RectanglePainter background;
     
     /** A tag that can be used to identify the class of element. */
@@ -91,7 +91,7 @@ public abstract class AbstractTableElement implements Serializable {
      * rectangle within which it is drawn.  The default value is 
      * {@link RefPt2D#CENTER}.
      * 
-     * @return The anchor point (never <code>null</code>). 
+     * @return The anchor point (never {@code null}). 
      * 
      * @since 1.1
      */
@@ -102,7 +102,7 @@ public abstract class AbstractTableElement implements Serializable {
     /**
      * Sets the reference point.
      * 
-     * @param refPt  the reference point (<code>null</code> not permitted).
+     * @param refPt  the reference point ({@code null} not permitted).
      * 
      * @since 1.1
      */
@@ -112,10 +112,9 @@ public abstract class AbstractTableElement implements Serializable {
     }
 
     /**
-     * Returns the insets.  The default value is 
-     * <code>Insets(2, 2, 2, 2)</code>.
+     * Returns the insets.  The default value is {@code Insets(2, 2, 2, 2)}.
      * 
-     * @return The insets (never <code>null</code>).
+     * @return The insets (never {@code null}).
      */
     public Insets getInsets() {
         return this.insets;
@@ -124,7 +123,7 @@ public abstract class AbstractTableElement implements Serializable {
     /**
      * Sets the insets.
      * 
-     * @param insets  the insets (<code>null</code> not permitted). 
+     * @param insets  the insets ({@code null} not permitted). 
      */
     public void setInsets(Insets insets) {
         ArgChecks.nullNotPermitted(insets, "insets");
@@ -134,7 +133,7 @@ public abstract class AbstractTableElement implements Serializable {
     /**
      * Returns the background painter for the element.
      * 
-     * @return The background painter (possibly <code>null</code>). 
+     * @return The background painter (possibly {@code null}). 
      */
     public RectanglePainter getBackground() {
         return this.background;
@@ -143,7 +142,7 @@ public abstract class AbstractTableElement implements Serializable {
     /**
      * Sets the background for the element.
      * 
-     * @param background  the new background (<code>null</code> permitted).
+     * @param background  the new background ({@code null} permitted).
      */
     public void setBackground(RectanglePainter background) {
         this.background = background;
@@ -151,10 +150,10 @@ public abstract class AbstractTableElement implements Serializable {
     
     /**
      * Sets the background painter to fill the element with the specified 
-     * color.  If the color is <code>null</code>, the background painter will
-     * be set to <code>null</code>.
+     * color.  If the color is {@code null}, the background painter will
+     * be set to {@code null}.
      * 
-     * @param color  the color (<code>null</code> permitted). 
+     * @param color  the color ({@code null} permitted). 
      * 
      * @since 1.2
      */
@@ -169,7 +168,7 @@ public abstract class AbstractTableElement implements Serializable {
     /**
      * Returns the tag for this element.  The default value is an empty string.
      * 
-     * @return The tag (never <code>null</code>). 
+     * @return The tag (never {@code null}). 
      * 
      * @since 1.2
      */
@@ -180,7 +179,7 @@ public abstract class AbstractTableElement implements Serializable {
     /**
      * Sets the tag.
      * 
-     * @param tag  the tag (<code>null</code> not permitted).
+     * @param tag  the tag ({@code null} not permitted).
      * 
      * @since 1.2
      */
@@ -191,11 +190,11 @@ public abstract class AbstractTableElement implements Serializable {
     
     /**
      * Returns the value of the property with the specified key, or 
-     * <code>null</code>.
+     * {@code null}.
      * 
-     * @param key  the key (<code>null</code> not permitted).
+     * @param key  the key ({@code null} not permitted).
      * 
-     * @return The property value or <code>null</code>. 
+     * @return The property value or {@code null}. 
      * 
      * @since 1.3
      */
@@ -206,8 +205,8 @@ public abstract class AbstractTableElement implements Serializable {
     /**
      * Sets the value of the property with the specified key.
      * 
-     * @param key  the key (<code>null</code> not permitted).
-     * @param value  the value (<code>null</code> permitted).
+     * @param key  the key ({@code null} not permitted).
+     * @param value  the value ({@code null} permitted).
      * 
      * @since 1.3
      */
@@ -243,7 +242,7 @@ public abstract class AbstractTableElement implements Serializable {
     /**
      * Tests this instance for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean. 
      */
