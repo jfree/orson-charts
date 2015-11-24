@@ -43,7 +43,7 @@ public interface TableElementVisitor {
     /**
      * Performs the visitor's operation on the table element.
      * 
-     * @param element  the element (<code>null</code> not permitted). 
+     * @param element  the element ({@code null} not permitted). 
      */
     void visit(TableElement element);
     
