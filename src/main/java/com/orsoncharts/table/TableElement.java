@@ -69,10 +69,10 @@ public interface TableElement {
      * For example, in a {@link FlowElement}, the width of the bounds will
      * determine when the flow layout wraps.
      * 
-     * @param g2  the graphics target (<code>null</code> not permitted).
-     * @param bounds  the bounds (<code>null</code> not permitted).
+     * @param g2  the graphics target ({@code null} not permitted).
+     * @param bounds  the bounds ({@code null} not permitted).
      * 
-     * @return The preferred size (never <code>null</code>).
+     * @return The preferred size (never {@code null}).
      */
     Dimension2D preferredSize(Graphics2D g2, Rectangle2D bounds);
     
@@ -80,9 +80,9 @@ public interface TableElement {
      * Returns the preferred size of the element, subject to the supplied
      * constraints.
      * 
-     * @param g2  the graphics target (<code>null</code> not permitted).
-     * @param bounds  the bounds (<code>null</code> not permitted).
-     * @param constraints  the constraints (<code>null</code> permitted).
+     * @param g2  the graphics target ({@code null} not permitted).
+     * @param bounds  the bounds ({@code null} not permitted).
+     * @param constraints  the constraints ({@code null} permitted).
      * 
      * @return The preferred size. 
      */
@@ -93,7 +93,7 @@ public interface TableElement {
      * Returns the reference point used to align the element with the bounding
      * rectangle within which it is drawn.
      * 
-     * @return The anchor point (never <code>null</code>). 
+     * @return The anchor point (never {@code null}). 
      */
     RefPt2D getRefPoint();
     
@@ -103,8 +103,8 @@ public interface TableElement {
      * typically called by the {@link #draw(java.awt.Graphics2D, 
      * java.awt.geom.Rectangle2D)} method.
      * 
-     * @param g2  the graphics target (<code>null</code> not permitted).
-     * @param bounds  the bounds (<code>null</code> not permitted).
+     * @param g2  the graphics target ({@code null} not permitted).
+     * @param bounds  the bounds ({@code null} not permitted).
      * @param constraints  the constraints (if any).
      * 
      * @return A list of bounding rectangles. 
@@ -115,20 +115,20 @@ public interface TableElement {
     /**
      * Draws the element within the specified bounds.
      * 
-     * @param g2  the graphics target (<code>null</code> not permitted).
-     * @param bounds  the bounds (<code>null</code> not permitted).
+     * @param g2  the graphics target ({@code null} not permitted).
+     * @param bounds  the bounds ({@code null} not permitted).
      */
     void draw(Graphics2D g2, Rectangle2D bounds);
     
     /**
      * Draws the element within the specified bounds.  The 
-     * <code>onDrawHandler</code> provides (optional) access to all elements 
+     * {@code onDrawHandler} provides (optional) access to all elements 
      * before and after they are rendered.
      * 
-     * @param g2  the graphics target (<code>null</code> not permitted).
-     * @param bounds  the bounds (<code>null</code> not permitted).
+     * @param g2  the graphics target ({@code null} not permitted).
+     * @param bounds  the bounds ({@code null} not permitted).
      * @param onDrawHandler  an object that will receive notification before 
-     *     and after the element is drawn (<code>null</code> permitted).
+     *     and after the element is drawn ({@code null} permitted).
      * 
      * @since 1.3
      */
@@ -137,11 +137,11 @@ public interface TableElement {
     
     /**
      * Returns the value of the property with the specified key, or 
-     * <code>null</code>.
+     * {@code null}.
      * 
-     * @param key  the key (<code>null</code> not permitted).
+     * @param key  the key ({@code null} not permitted).
      * 
-     * @return The property value or <code>null</code>. 
+     * @return The property value or {@code null}. 
      * 
      * @since 1.3
      */
@@ -150,8 +150,8 @@ public interface TableElement {
     /**
      * Sets the value of the property with the specified key.
      * 
-     * @param key  the key (<code>null</code> not permitted).
-     * @param value  the value (<code>null</code> permitted).
+     * @param key  the key ({@code null} not permitted).
+     * @param value  the value ({@code null} permitted).
      * 
      * @since 1.3
      */
@@ -159,10 +159,10 @@ public interface TableElement {
     
     /**
      * Receives a {@link TableElementVisitor}.  The visitor will have its
-     * <code>visit(TableElement)</code> method called for each child element 
+     * {@code visit(TableElement)} method called for each child element 
      * of this table element (if it has children) and then for this element.
      * 
-     * @param visitor  the visitor (<code>null</code> not permitted).
+     * @param visitor  the visitor ({@code null} not permitted).
      * 
      * @since 1.2
      */
