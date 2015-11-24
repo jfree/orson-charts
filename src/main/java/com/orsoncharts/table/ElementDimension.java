@@ -37,7 +37,7 @@ import java.io.Serializable;
 
 /**
  * An element dimension (in fact a simple implementation of the 
- * <code>Dimension2D</code> interface).
+ * {@code Dimension2D} interface).
  * <br><br>
  * NOTE: This class is serializable, but the serialization format is subject 
  * to change in future releases and should not be relied upon for persisting 
@@ -100,7 +100,7 @@ public final class ElementDimension extends Dimension2D
     /**
      * Tests this dimension for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean. 
      */
