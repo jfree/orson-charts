@@ -57,7 +57,7 @@ public abstract class AbstractCategoryRenderer3D extends AbstractRenderer3D
    
     /** 
      * The color source is used to determine the color for each item drawn
-     * by the renderer (never <code>null</code>).
+     * by the renderer (never {@code null}).
      */
     private CategoryColorSource colorSource;
     
@@ -81,7 +81,7 @@ public abstract class AbstractCategoryRenderer3D extends AbstractRenderer3D
     /**
      * Returns the plot that the renderer is currently assigned to, if any.
      * 
-     * @return The plot or <code>null</code>.
+     * @return The plot or {@code null}.
      */
     @Override
     public CategoryPlot3D getPlot() {
@@ -91,9 +91,9 @@ public abstract class AbstractCategoryRenderer3D extends AbstractRenderer3D
     /**
      * Sets the plot that the renderer is assigned to.  You do not need to 
      * call this method yourself, the plot takes care of it when you call
-     * the <code>setRenderer()</code> method on the plot.
+     * the {@code setRenderer()} method on the plot.
      * 
-     * @param plot  the plot (<code>null</code> permitted).
+     * @param plot  the plot ({@code null} permitted).
      */
     @Override
     public void setPlot(CategoryPlot3D plot) {
@@ -105,7 +105,7 @@ public abstract class AbstractCategoryRenderer3D extends AbstractRenderer3D
      * the colors used for individual items in the chart, and the color to 
      * display for a series in the chart legend.
      * 
-     * @return The color source (never <code>null</code>). 
+     * @return The color source (never {@code null}). 
      */
     @Override
     public CategoryColorSource getColorSource() {
@@ -116,7 +116,7 @@ public abstract class AbstractCategoryRenderer3D extends AbstractRenderer3D
      * Sets the color source for the renderer and sends a 
      * {@link Renderer3DChangeEvent} to all registered listeners.
      * 
-     * @param colorSource  the color source (<code>null</code> not permitted). 
+     * @param colorSource  the color source ({@code null} not permitted). 
      */
     @Override
     public void setColorSource(CategoryColorSource colorSource) {
@@ -129,9 +129,9 @@ public abstract class AbstractCategoryRenderer3D extends AbstractRenderer3D
      * Sets a new color source for the renderer using the specified colors and
      * sends a {@link Renderer3DChangeEvent} to all registered listeners. This 
      * is a convenience method that is equivalent to 
-     * <code>setColorSource(new StandardCategoryColorSource(colors))</code>.
+     * {@code setColorSource(new StandardCategoryColorSource(colors))}.
      * 
-     * @param colors  one or more colors (<code>null</code> not permitted).
+     * @param colors  one or more colors ({@code null} not permitted).
      * 
      * @since 1.1
      */
@@ -142,9 +142,9 @@ public abstract class AbstractCategoryRenderer3D extends AbstractRenderer3D
 
     /**
      * Returns the item label generator for the renderer (possibly 
-     * <code>null</code>).
+     * {@code null}).
      * 
-     * @return The item label generator (possibly <code>null</code>).
+     * @return The item label generator (possibly {@code null}).
      * 
      * @since 1.3
      */
@@ -156,7 +156,7 @@ public abstract class AbstractCategoryRenderer3D extends AbstractRenderer3D
      * Sets the item label generator for the renderer and sends a change event
      * to all registered listeners.
      * 
-     * @param generator  the generator (<code>null</code> permitted).
+     * @param generator  the generator ({@code null} permitted).
      * 
      * @since 1.3
      */
@@ -168,7 +168,7 @@ public abstract class AbstractCategoryRenderer3D extends AbstractRenderer3D
     /**
      * Returns the item label offsets.
      * 
-     * @return The item label offsets (never <code>null</code>).
+     * @return The item label offsets (never {@code null}).
      * 
      * @since 1.3
      */
@@ -180,7 +180,7 @@ public abstract class AbstractCategoryRenderer3D extends AbstractRenderer3D
      * Sets the item label offsets and sends a change event to all registered
      * listeners.
      * 
-     * @param offsets  the offsets (<code>null</code> not permitted).
+     * @param offsets  the offsets ({@code null} not permitted).
      * 
      * @since 1.3
      */
@@ -194,9 +194,9 @@ public abstract class AbstractCategoryRenderer3D extends AbstractRenderer3D
      * Returns the range of values that will be required on the value axis
      * to see all the data from the dataset.
      * 
-     * @param data  the data (<code>null</code> not permitted).
+     * @param data  the data ({@code null} not permitted).
      * 
-     * @return The range (possibly <code>null</code>) 
+     * @return The range (possibly {@code null}) 
      */
     @Override
     public Range findValueRange(Values3D<? extends Number> data) {
@@ -206,7 +206,7 @@ public abstract class AbstractCategoryRenderer3D extends AbstractRenderer3D
     /**
      * Tests this renderer for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean. 
      */
