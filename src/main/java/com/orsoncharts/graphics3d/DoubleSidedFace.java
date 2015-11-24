@@ -44,7 +44,7 @@ public class DoubleSidedFace extends Face {
     /**
      * Creates a new double-sided face.
      * 
-     * @param owner  the object that the face belongs to (<code>null</code> not 
+     * @param owner  the object that the face belongs to ({@code null} not 
      *     permitted).
      * @param vertices  the vertices.
      * 
