@@ -35,7 +35,7 @@ package com.orsoncharts.data.xyz;
 import java.io.Serializable;
 
 /**
- * Represents a single <code>(x, y, z)</code> data item, which can be added to 
+ * Represents a single {@code (x, y, z)} data item, which can be added to 
  * a {@link XYZSeries}.  Instances of this class are immutable.
  * <br><br>
  * NOTE: This class is serializable, but the serialization format is subject 
@@ -97,7 +97,7 @@ public class XYZDataItem implements Serializable {
     /**
      * Tests this instance for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean. 
      */
