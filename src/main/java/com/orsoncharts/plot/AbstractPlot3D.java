@@ -89,7 +89,7 @@ public abstract class AbstractPlot3D implements Plot3D,
 
     /**
      * A flag that controls whether or not the plot will notify listeners
-     * of changes (defaults to <code>true</code>, but sometimes it is useful 
+     * of changes (defaults to {@code true}, but sometimes it is useful 
      * to disable this).
      */
     private boolean notify;
@@ -108,7 +108,7 @@ public abstract class AbstractPlot3D implements Plot3D,
     /**
      * Returns the chart that the plot is assigned to, if any.
      * 
-     * @return The chart (possibly <code>null</code>).
+     * @return The chart (possibly {@code null}).
      * 
      * @since 1.2
      */
@@ -120,7 +120,7 @@ public abstract class AbstractPlot3D implements Plot3D,
     /**
      * Sets the chart that the plot is assigned to.
      * 
-     * @param chart  the chart (<code>null</code> permitted). 
+     * @param chart  the chart ({@code null} permitted). 
      * 
      * @since 1.2
      */
@@ -134,7 +134,7 @@ public abstract class AbstractPlot3D implements Plot3D,
      * be composed.  The dimension can change according to the shape of the 
      * data.
      * 
-     * @return The dimensions of the plot (never <code>null</code>).
+     * @return The dimensions of the plot (never {@code null}).
      * 
      * @see #isAutoAdjustDimensions() 
      */
@@ -157,11 +157,11 @@ public abstract class AbstractPlot3D implements Plot3D,
 
     /**
      * Returns the tool tip text for the specified data item, or 
-     * <code>null</code> if no tool tip is required.
+     * {@code null} if no tool tip is required.
      * 
-     * @param itemKey  the item key (<code>null</code> not permitted).
+     * @param itemKey  the item key ({@code null} not permitted).
      * 
-     * @return The tool tip text (possibly <code>null</code>).
+     * @return The tool tip text (possibly {@code null}).
      * 
      * @since 1.3
      */
@@ -173,7 +173,7 @@ public abstract class AbstractPlot3D implements Plot3D,
      * a general purpose mechanism for traversing the chart
      * structure, you won't normally call this method directly.
      * 
-     * @param visitor  the visitor (never <code>null</code>). 
+     * @param visitor  the visitor (never {@code null}). 
      */
     @Override
     public abstract void receive(ChartElementVisitor visitor);
@@ -181,7 +181,7 @@ public abstract class AbstractPlot3D implements Plot3D,
     /**
      * Tests this plot for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean. 
      */
