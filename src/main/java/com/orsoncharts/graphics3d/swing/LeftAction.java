@@ -57,7 +57,7 @@ public class LeftAction extends AbstractAction {
     /**
      * Creates a new action instance.
      * 
-     * @param panel  the panel (<code>null</code> not permitted).
+     * @param panel  the panel ({@code null} not permitted).
      */
     public LeftAction(Panel3D panel) {
         super("\uF060");
