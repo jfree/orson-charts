@@ -63,9 +63,9 @@ public class StandardCategoryColorSource implements CategoryColorSource,
     /**
      * Creates a new instance with the supplied sequence of colors.  The
      * supplied array must have at least one entry, and all entries must be
-     * non-<code>null</code>.
+     * non-{@code null}.
      * 
-     * @param colors  the colors (<code>null</code> not permitted). 
+     * @param colors  the colors ({@code null} not permitted). 
      */
     public StandardCategoryColorSource(Color... colors) {
         ArgChecks.nullNotPermitted(colors, "colors");
@@ -89,7 +89,7 @@ public class StandardCategoryColorSource implements CategoryColorSource,
      * @param row  the row index.
      * @param column  the column index.
      * 
-     * @return The color (never <code>null</code>). 
+     * @return The color (never {@code null}). 
      */
     @Override
     public Color getColor(int series, int row, int column) {
@@ -101,7 +101,7 @@ public class StandardCategoryColorSource implements CategoryColorSource,
      * 
      * @param series  the series index.
      * 
-     * @return The color (never <code>null</code>).
+     * @return The color (never {@code null}).
      */
     @Override
     public Color getLegendColor(int series) {
@@ -137,7 +137,7 @@ public class StandardCategoryColorSource implements CategoryColorSource,
     /**
      * Tests this color source for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean. 
      */
