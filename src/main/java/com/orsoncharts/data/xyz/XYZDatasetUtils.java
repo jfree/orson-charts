@@ -44,11 +44,11 @@ public class XYZDatasetUtils {
      * Creates an {@link XYZDataset} by sampling a {@link Function3D} over
      * a specified range.
      * 
-     * @param f  the function (<code>null</code> not permitted).
-     * @param key  the series key (<code>null</code> not permitted).
-     * @param xrange  the range of x values (<code>null</code> not permitted).
+     * @param f  the function ({@code null} not permitted).
+     * @param key  the series key ({@code null} not permitted).
+     * @param xrange  the range of x values ({@code null} not permitted).
      * @param xcount  the number of x samples (must be at least 2).
-     * @param zrange  the range of z values (<code>null</code> not permitted).
+     * @param zrange  the range of z values ({@code null} not permitted).
      * @param zcount  the number of z-samples (must be at least 2).
      * 
      * @return A dataset containing sampled values from the function.
@@ -63,8 +63,8 @@ public class XYZDatasetUtils {
      * Creates an {@link XYZDataset} by sampling a {@link Function3D} over
      * a specified range.
      * 
-     * @param f  the function (<code>null</code> not permitted).
-     * @param key  the series key (<code>null</code> not permitted).
+     * @param f  the function ({@code null} not permitted).
+     * @param key  the series key ({@code null} not permitted).
      * @param xmin  the lower bound of the x-range.
      * @param xmax  the upper bound of the x-range.
      * @param xcount  the number of x samples (must be at least 2).
