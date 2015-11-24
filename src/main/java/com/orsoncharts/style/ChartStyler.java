@@ -70,7 +70,7 @@ public class ChartStyler implements ChartElementVisitor {
     /**
      * Creates a new instance.
      * 
-     * @param style  the style (<code>null</code> not permitted). 
+     * @param style  the style ({@code null} not permitted). 
      */
     public ChartStyler(ChartStyle style) {
         this.style = style;
@@ -79,7 +79,7 @@ public class ChartStyler implements ChartElementVisitor {
     /**
      * Visits a chart element and applies the current style to that element.
      * 
-     * @param element  the chart element (never <code>null</code>). 
+     * @param element  the chart element (never {@code null}). 
      */
     @Override
     public void visit(ChartElement element) {
@@ -108,7 +108,7 @@ public class ChartStyler implements ChartElementVisitor {
     /**
      * Applies the current style to a chart.
      * 
-     * @param chart  the chart (<code>null</code> not permitted). 
+     * @param chart  the chart ({@code null} not permitted). 
      */
     protected void styleChart(Chart3D chart) {
         chart.setBackground(this.style.getBackgroundPainter());
@@ -138,7 +138,7 @@ public class ChartStyler implements ChartElementVisitor {
     /**
      * Applies the current style to the plot.
      * 
-     * @param plot  the plot (<code>null</code> not permitted). 
+     * @param plot  the plot ({@code null} not permitted). 
      */
     protected void stylePlot(Plot3D plot) {
         if (plot instanceof PiePlot3D) {
@@ -184,7 +184,7 @@ public class ChartStyler implements ChartElementVisitor {
     /**
      * Applies the current style to the axis.
      * 
-     * @param axis  the axis (<code>null</code> not permitted). 
+     * @param axis  the axis ({@code null} not permitted). 
      */
     protected void styleAxis(Axis3D axis) {
         // axis line visible, stroke and paint TODO
