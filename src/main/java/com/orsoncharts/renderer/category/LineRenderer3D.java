@@ -109,7 +109,7 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
     
     /**
      * Returns the line width in world units.  The default value is 
-     * <code>0.4</code>.
+     * {@code 0.4}.
      * 
      * @return The line width in world units. 
      */
@@ -130,7 +130,7 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
 
     /**
      * Returns the line height in world units.  The default value is 
-     * <code>0.2</code>.
+     * {@code 0.2}.
      * 
      * @return The line height in world units. 
      */
@@ -176,10 +176,10 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
     
     /**
      * Returns the color source used to determine the color used to highlight
-     * clipping in the chart elements.  If the source is <code>null</code>,
+     * clipping in the chart elements.  If the source is {@code null},
      * then the regular series color is used instead.
      * 
-     * @return The color source (possibly <code>null</code>). 
+     * @return The color source (possibly {@code null}). 
      */
     public CategoryColorSource getClipColorSource() {
         return this.clipColorSource;
@@ -190,7 +190,7 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
      * clipping in the chart elements, and sends a {@link Renderer3DChangeEvent}
      * to all registered listeners.
      * 
-     * @param source  the source (<code>null</code> permitted). 
+     * @param source  the source ({@code null} permitted). 
      */
     public void setClipColorSource(CategoryColorSource source) {
         this.clipColorSource = source;
@@ -202,12 +202,12 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
      * world.  This method will be called by the {@link CategoryPlot3D} class
      * while iterating over the items in the dataset.
      * 
-     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param dataset  the dataset ({@code null} not permitted).
      * @param series  the series index.
      * @param row  the row index.
      * @param column  the column index.
-     * @param world  the world (<code>null</code> not permitted).
-     * @param dimensions  the plot dimensions (<code>null</code> not permitted).
+     * @param world  the world ({@code null} not permitted).
+     * @param dimensions  the plot dimensions ({@code null} not permitted).
      * @param xOffset  the x-offset.
      * @param yOffset  the y-offset.
      * @param zOffset  the z-offset.
@@ -499,7 +499,7 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
      *     case.
      * @param closingFace
      * 
-     * @return A segment (<code>null</code> if the segment is entirely clipped). 
+     * @return A segment ({@code null} if the segment is entirely clipped). 
      */
     private Object3D createSegmentA(double x0, double x1, double[] xpts, 
             double y0b, double y0t, double y1b, double y1t, double wmin, 
@@ -1354,7 +1354,7 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
     /**
      * Tests this renderer for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> not permitted).
+     * @param obj  the object ({@code null} not permitted).
      * 
      * @return A boolean. 
      */
