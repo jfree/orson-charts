@@ -52,21 +52,21 @@ public interface ChartStyle {
     /**
      * Returns the painter that fills the background for the chart.
      * 
-     * @return The painter (never <code>null</code>). 
+     * @return The painter (never {@code null}). 
      */
     RectanglePainter getBackgroundPainter();
     
     /**
      * Returns the title font.
      * 
-     * @return The title font (never <code>null</code>). 
+     * @return The title font (never {@code null}). 
      */
     Font getTitleFont();
     
     /**
      * Returns the foreground color for the chart title.
      * 
-     * @return The foreground color (never <code>null</code>). 
+     * @return The foreground color (never {@code null}). 
      */
     Color getTitleColor();
     
@@ -74,35 +74,35 @@ public interface ChartStyle {
      * Returns the background color for the chart title.
      * 
      * @return The background color for the chart title (never 
-     *     <code>null</code>).
+     *     {@code null}).
      */
     Color getTitleBackgroundColor();
     
     /**
      * Returns the subtitle font. 
      * 
-     * @return The subtitle font (never <code>null</code>). 
+     * @return The subtitle font (never {@code null}). 
      */
     Font getSubtitleFont();
 
     /**
      * Returns the foreground color for the chart subtitle.
      * 
-     * @return The foreground color (never <code>null</code>). 
+     * @return The foreground color (never {@code null}). 
      */
     Color getSubtitleColor();
     
     /**
      * Returns the background color for the chart subtitle.
      * 
-     * @return The background color (never <code>null</code>). 
+     * @return The background color (never {@code null}). 
      */
     Color getSubtitleBackgroundColor();
     
     /**
      * Returns the color for the chart box, if any.
      * 
-     * @return The color for the chart box (never <code>null</code>). 
+     * @return The color for the chart box (never {@code null}). 
      */
     Color getChartBoxColor();
     
@@ -149,35 +149,35 @@ public interface ChartStyle {
     /**
      * Returns the color used to draw the gridlines.
      * 
-     * @return The color (never <code>null</code>). 
+     * @return The color (never {@code null}). 
      */
     Color getGridlineColor();
     
     /**
      * Returns the stroke used to draw the gridlines.
      * 
-     * @return The stroke (never <code>null</code>).
+     * @return The stroke (never {@code null}).
      */
     Stroke getGridlineStroke();
     
     /**
      * Returns the font used for pie section labels.
      * 
-     * @return The pie section label font (never <code>null</code>).
+     * @return The pie section label font (never {@code null}).
      */
     Font getSectionLabelFont();
     
     /**
      * Returns the foreground color used for pie section labels.
      * 
-     * @return The pie section label color (never <code>null</code>). 
+     * @return The pie section label color (never {@code null}). 
      */
     Color getSectionLabelColor();
     
     /**
      * Returns the standard colors for the style.
      * 
-     * @return The standard colors (never <code>null</code>).
+     * @return The standard colors (never {@code null}).
      */
     Color[] getStandardColors();
     
@@ -185,7 +185,7 @@ public interface ChartStyle {
      * Returns the axis label font.  The axis label is usually a description
      * of what the axis represents.
      * 
-     * @return The axis label font (never <code>null</code>). 
+     * @return The axis label font (never {@code null}). 
      * 
      * @see #getAxisTickLabelFont() 
      */
@@ -194,14 +194,14 @@ public interface ChartStyle {
     /**
      * Returns the foreground color for axis labels.
      * 
-     * @return The foreground color (never <code>null</code>). 
+     * @return The foreground color (never {@code null}). 
      */
     Color getAxisLabelColor();
     
     /**
      * Returns the axis tick label font.
      * 
-     * @return The axis tick label font (never <code>null</code>).
+     * @return The axis tick label font (never {@code null}).
      * 
      * @see #getAxisLabelFont() 
      */
@@ -210,119 +210,119 @@ public interface ChartStyle {
     /**
      * Returns the color used to draw the tick labels on the axis.
      * 
-     * @return The color (never <code>null</code>).
+     * @return The color (never {@code null}).
      */
     Color getAxisTickLabelColor();
     
     /**
      * Returns the legend header font.
      * 
-     * @return The legend header font (never <code>null</code>). 
+     * @return The legend header font (never {@code null}). 
      */
     Font getLegendHeaderFont();
    
     /**
      * Returns the foreground color for the legend header if there is one.
      * 
-     * @return The color (never <code>null</code>). 
+     * @return The color (never {@code null}). 
      */
     Color getLegendHeaderColor();
     
     /**
      * Returns the background color for the legend header if there is one.
      * 
-     * @return The color (never <code>null</code>). 
+     * @return The color (never {@code null}). 
      */
     Color getLegendHeaderBackgroundColor();
     
     /**
      * Returns the standard shape for legend items.
      * 
-     * @return The legend shape (never <code>null</code>). 
+     * @return The legend shape (never {@code null}). 
      */
     Shape getLegendItemShape();
     
     /**
      * Returns the legend item font.
      * 
-     * @return The legend item font (never <code>null</code>). 
+     * @return The legend item font (never {@code null}). 
      */
     Font getLegendItemFont();
     
     /**
      * Returns the foreground color for legend items.
      * 
-     * @return The foreground color (never <code>null</code>).
+     * @return The foreground color (never {@code null}).
      */
     Color getLegendItemColor();
     
     /**
      * Returns the background color for legend items.
      * 
-     * @return The background color (never <code>null</code>). 
+     * @return The background color (never {@code null}). 
      */
     Color getLegendItemBackgroundColor();
     
     /**
      * Returns the legend footer font.
      * 
-     * @return The legend footer font (never <code>null</code>). 
+     * @return The legend footer font (never {@code null}). 
      */
     Font getLegendFooterFont();
     
     /**
      * Returns the color used for the legend footer text (if any).
      * 
-     * @return The color (never <code>null</code>). 
+     * @return The color (never {@code null}). 
      */
     Color getLegendFooterColor();
     
     /**
      * Returns the color used for the background of legend footer text (if any).
      * 
-     * @return The color (never <code>null</code>). 
+     * @return The color (never {@code null}). 
      */
     Color getLegendFooterBackgroundColor();
     
     /**
      * Returns the font used to draw marker labels.
      * 
-     * @return The font used to draw marker labels (never <code>null</code>).
+     * @return The font used to draw marker labels (never {@code null}).
      */
     Font getMarkerLabelFont();
     
     /**
      * Returns the color for the marker labels.
      * 
-     * @return The color for the marker labels (never <code>null</code>). 
+     * @return The color for the marker labels (never {@code null}). 
      */
     Color getMarkerLabelColor();
 
     /**
      * Returns the stroke used to draw marker lines.
      * 
-     * @return The stroke used to draw marker lines (never <code>null</code>).
+     * @return The stroke used to draw marker lines (never {@code null}).
      */
     Stroke getMarkerLineStroke();
     
     /**
      * Returns the color used to draw marker lines.
      * 
-     * @return The color used to draw marker lines (never <code>null</code>). 
+     * @return The color used to draw marker lines (never {@code null}). 
      */
     Color getMarkerLineColor();
     
     /**
      * Returns the color used to fill the band representing the marker range.
      * 
-     * @return The fill color (never <code>null</code>). 
+     * @return The fill color (never {@code null}). 
      */
     Color getMarkerFillColor();
 
     /**
      * Returns a clone of the chart style.
      * 
-     * @return A clone (never <code>null</code>). 
+     * @return A clone (never {@code null}). 
      */
     ChartStyle clone();
     
@@ -331,7 +331,7 @@ public interface ChartStyle {
      * style.  Typically the chart registers with its style, and applies the
      * style changes when it receives notification of any change.
      * 
-     * @param listener  the listener (<code>null</code> not permitted). 
+     * @param listener  the listener ({@code null} not permitted). 
      */
     void addChangeListener(ChartStyleChangeListener listener);
     
@@ -339,7 +339,7 @@ public interface ChartStyle {
      * Deregisters a listener so that it no longer receives notification of
      * chart changes.
      * 
-     * @param listener  the listener (<code>null</code> not permitted). 
+     * @param listener  the listener ({@code null} not permitted). 
      */
     void removeChangeListener(ChartStyleChangeListener listener);
 
