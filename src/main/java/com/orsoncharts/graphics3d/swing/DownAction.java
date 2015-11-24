@@ -53,7 +53,7 @@ public class DownAction extends AbstractAction {
     /**
      * Creates a new action associated with the specified panel. 
      * 
-     * @param panel  the panel (<code>null</code> not permitted).
+     * @param panel  the panel ({@code null} not permitted).
      */
     public DownAction(Panel3D panel) {
         super("\uF063");
