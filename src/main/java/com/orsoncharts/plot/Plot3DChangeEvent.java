@@ -59,12 +59,12 @@ public class Plot3DChangeEvent extends EventObject {
     private boolean requiresWorldUpdate;
   
     /**
-     * Creates a new event.  The <code>source</code> of the event can be
+     * Creates a new event.  The {@code source} of the event can be
      * either the plot instance or another event that was received by the
      * plot (for example, a {@link Dataset3DChangeEvent}).
      * 
-     * @param source  the event source (<code>null</code> not permitted).
-     * @param plot  the plot (<code>null</code> not permitted).
+     * @param source  the event source ({@code null} not permitted).
+     * @param plot  the plot ({@code null} not permitted).
      * @param requiresWorldUpdate  a flag that indicates whether or not the 
      *     world requires updating because of this change.
      */
@@ -79,7 +79,7 @@ public class Plot3DChangeEvent extends EventObject {
     /**
      * Returns the plot from which the event came.
      * 
-     * @return The plot (never <code>null</code>). 
+     * @return The plot (never {@code null}). 
      */
     public Plot3D getPlot() {
         return this.plot;
