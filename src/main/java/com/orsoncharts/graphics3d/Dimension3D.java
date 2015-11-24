@@ -55,7 +55,7 @@ public final class Dimension3D implements Serializable {
     private double depth;
   
     /**
-     * Creates a new <code>Dimension3D</code> instance.  Instances of this 
+     * Creates a new {@code Dimension3D} instance.  Instances of this 
      * class are immutable.
      * 
      * @param width  the width.
@@ -108,7 +108,7 @@ public final class Dimension3D implements Serializable {
     /**
      * Tests this instance for equality with an arbitrary object.
      * 
-     * @param obj  the object to test against (<code>null</code> permitted).
+     * @param obj  the object to test against ({@code null} permitted).
      * 
      * @return A boolean. 
      */
