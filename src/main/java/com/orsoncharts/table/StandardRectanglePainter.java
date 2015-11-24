@@ -66,7 +66,7 @@ import com.orsoncharts.util.SerialUtils;
 public class StandardRectanglePainter implements RectanglePainter, 
         Serializable {
     
-    /** The paint (never <code>null</code>). */
+    /** The paint (never {@code null}). */
     private transient Paint paint;
     
     /** A background image for the chart, if any. */
@@ -78,7 +78,7 @@ public class StandardRectanglePainter implements RectanglePainter,
      * Creates a new painter that will fill a rectangle with the specified
      * paint.
      * 
-     * @param paint  the fill paint (<code>null</code> not permitted).
+     * @param paint  the fill paint ({@code null} not permitted).
      */
     public StandardRectanglePainter(Paint paint) {
         this(paint, null, null);
@@ -88,9 +88,9 @@ public class StandardRectanglePainter implements RectanglePainter,
      * Creates a new painter that will draw an image within the specified
      * rectangle.
      * 
-     * @param paint  the background paint (<code>null</code> not permitted).
-     * @param image  the image (<code>null</code> permitted).
-     * @param imageFit  the fit (<code>null</code> permitted).
+     * @param paint  the background paint ({@code null} not permitted).
+     * @param image  the image ({@code null} permitted).
+     * @param imageFit  the fit ({@code null} permitted).
      */
     public StandardRectanglePainter(Paint paint, Image image, Fit2D imageFit) {
         ArgChecks.nullNotPermitted(paint, "paint");
@@ -105,7 +105,7 @@ public class StandardRectanglePainter implements RectanglePainter,
     /**
      * Returns the paint that will be used to fill rectangles.
      * 
-     * @return The paint (never <code>null</code>).
+     * @return The paint (never {@code null}).
      */
     public Paint getPaint() {
         return this.paint;
@@ -114,7 +114,7 @@ public class StandardRectanglePainter implements RectanglePainter,
     /**
      * Returns the image.
      * 
-     * @return The image (possibly <code>null</code>). 
+     * @return The image (possibly {@code null}). 
      */
     public Image getImage() {
         return this.image;
@@ -132,8 +132,8 @@ public class StandardRectanglePainter implements RectanglePainter,
     /**
      * Fills the rectangle with the paint specified in the constructor.
      * 
-     * @param g2  the graphics target (<code>null</code> not permitted).
-     * @param bounds  the rectangle (<code>null</code> not permitted).
+     * @param g2  the graphics target ({@code null} not permitted).
+     * @param bounds  the rectangle ({@code null} not permitted).
      */
     @Override
     public void fill(Graphics2D g2, Rectangle2D bounds) {
@@ -155,7 +155,7 @@ public class StandardRectanglePainter implements RectanglePainter,
     /**
      * Tests this painter for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean. 
      */
