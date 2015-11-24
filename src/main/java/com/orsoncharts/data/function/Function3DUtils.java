@@ -49,15 +49,15 @@ public class Function3DUtils {
     /**
      * Returns the range of y-values in the function by sampling.
      * 
-     * @param f  the function (<code>null</code> not permitted).
-     * @param xRange  the x-range to sample (<code>null</code> not permitted).
-     * @param zRange  the z-range to sample (<code>null</code> not permitted).
+     * @param f  the function ({@code null} not permitted).
+     * @param xRange  the x-range to sample ({@code null} not permitted).
+     * @param zRange  the z-range to sample ({@code null} not permitted).
      * @param xSamples  the number of x-samples (must be at least 2).
      * @param zSamples  the number of z-samples (must be at least 2).
-     * @param ignoreNaN  if <code>true</code>, any <code>NaN</code> values will
-     *     be skipped.
+     * @param ignoreNaN  if {@code true}, any {@code NaN} values will
+     *     be ignored.
      * 
-     * @return The range (<code>null</code> in the case that the function 
+     * @return The range ({@code null} in the case that the function 
      *     returns no valid values). 
      */
     public static Range findYRange(Function3D f, Range xRange, Range zRange, 
