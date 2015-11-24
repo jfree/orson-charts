@@ -47,7 +47,7 @@ public class ChartStyles {
     /**
      * Creates and returns a new instance of the "Orson 1" chart style.
      * 
-     * @return A chart style (never <code>null</code>). 
+     * @return A chart style (never {@code null}). 
      */
     public static ChartStyle createOrson1Style() {
         StandardChartStyle s = new StandardChartStyle();
@@ -60,7 +60,7 @@ public class ChartStyles {
      * style has a black background and uses shades of blue for the data
      * colors.
      * 
-     * @return A chart style (never <code>null</code>). 
+     * @return A chart style (never {@code null}). 
      */
     public static ChartStyle createOrson2Style() {
         StandardChartStyle s = new StandardChartStyle();
@@ -90,7 +90,7 @@ public class ChartStyles {
     /**
      * Creates and returns a new instance of the "Pastel" chart style.
      * 
-     * @return A chart style (never <code>null</code>). 
+     * @return A chart style (never {@code null}). 
      */
     public static ChartStyle createPastelStyle() {
         StandardChartStyle s = new StandardChartStyle();
@@ -101,7 +101,7 @@ public class ChartStyles {
     /**
      * Creates and returns a new instance of the "Pastel" chart style.
      * 
-     * @return A chart style (never <code>null</code>). 
+     * @return A chart style (never {@code null}). 
      */
     public static ChartStyle createIceCubeStyle() {
         StandardChartStyle s = new StandardChartStyle();
@@ -115,7 +115,7 @@ public class ChartStyles {
      * This style uses the Java logical fonts, but is otherwise the same as
      * the "Orson 1" chart style.
      * 
-     * @return A chart style (never <code>null</code>). 
+     * @return A chart style (never {@code null}). 
      */
     public static ChartStyle createLogicalFontStyle() {
         StandardChartStyle s = new StandardChartStyle();
