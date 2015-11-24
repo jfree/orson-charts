@@ -60,7 +60,7 @@ public class XYZSeriesCollection extends AbstractDataset3D
     private final List<XYZSeries> series;
 
     /**
-     * Creates a new (empty) <code>XYZSeriesCollection</code> instance.
+     * Creates a new (empty) {@code XYZSeriesCollection} instance.
      */
     public XYZSeriesCollection() {
         this.series = new ArrayList<XYZSeries>();
@@ -78,9 +78,9 @@ public class XYZSeriesCollection extends AbstractDataset3D
     
     /**
      * Returns the index of the series with the specified key, or 
-     * <code>-1</code> if there is no series with the specified key.
+     * {@code -1} if there is no series with the specified key.
      * 
-     * @param key  the key (<code>null</code> not permitted).
+     * @param key  the key ({@code null} not permitted).
      * 
      * @return The series index or <code>-1</code>. 
      */
@@ -92,10 +92,10 @@ public class XYZSeriesCollection extends AbstractDataset3D
 
     /**
      * Returns a new list containing all the series keys.  Modifying this list 
-     * will have no impact on the <code>XYZSeriesCollection</code> instance.
+     * will have no impact on the {@code XYZSeriesCollection} instance.
      * 
      * @return A list containing the series keys (possibly empty, but never 
-     *     <code>null</code>).
+     *     {@code null}).
      */
     @Override
     public List<Comparable<?>> getSeriesKeys() {
@@ -124,7 +124,7 @@ public class XYZSeriesCollection extends AbstractDataset3D
      * Adds a series to the collection (note that the series key must be
      * unique within the collection).
      * 
-     * @param series  the series (<code>null</code> not permitted). 
+     * @param series  the series ({@code null} not permitted). 
      */
     public void add(XYZSeries series) {
         ArgChecks.nullNotPermitted(series, "series");
@@ -149,10 +149,10 @@ public class XYZSeriesCollection extends AbstractDataset3D
     }
     
     /**
-     * Returns the series with the specified key, or <code>null</code> if 
+     * Returns the series with the specified key, or {@code null} if 
      * there is no such series.
      * 
-     * @param key  the key (<code>null</code> not permitted).
+     * @param key  the key ({@code null} not permitted).
      * 
      * @return The series. 
      * 
@@ -177,7 +177,6 @@ public class XYZSeriesCollection extends AbstractDataset3D
      */
     @Override
     public int getItemCount(int seriesIndex) {
-        ArgChecks.nullNotPermitted(this, null);
         XYZSeries s = this.series.get(seriesIndex);
         return s.getItemCount();
     }
@@ -227,7 +226,7 @@ public class XYZSeriesCollection extends AbstractDataset3D
     /**
      * Tests this dataset for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> not permitted).
+     * @param obj  the object ({@code null} not permitted).
      * 
      * @return A boolean. 
      */
