@@ -72,7 +72,7 @@ public class AbstractXYZRenderer extends AbstractRenderer3D {
     /**
      * Returns the plot that the renderer is assigned to, if any.
      * 
-     * @return The plot (possibly <code>null</code>). 
+     * @return The plot (possibly {@code null}). 
      */
     public XYZPlot getPlot() {
         return this.plot;
@@ -81,7 +81,7 @@ public class AbstractXYZRenderer extends AbstractRenderer3D {
     /**
      * Sets the plot that the renderer is assigned to.
      * 
-     * @param plot  the plot (<code>null</code> permitted). 
+     * @param plot  the plot ({@code null} permitted). 
      */
     public void setPlot(XYZPlot plot) {
         this.plot = plot;
@@ -89,10 +89,10 @@ public class AbstractXYZRenderer extends AbstractRenderer3D {
 
     /**
      * Returns the item label generator for the renderer.  The default value
-     * is <code>null</code>.  Not all subclasses will use this generator 
+     * is {@code null}.  Not all subclasses will use this generator 
      * (for example, the {@link SurfaceRenderer} does not display item labels).
      * 
-     * @return The item label generator (possibly <code>null</code>).
+     * @return The item label generator (possibly {@code null}).
      * 
      * @since 1.3
      */
@@ -102,10 +102,10 @@ public class AbstractXYZRenderer extends AbstractRenderer3D {
 
     /**
      * Sets the item label generator and sends a change event to all registered
-     * listeners.  You can set this to <code>null</code> in which case no
+     * listeners.  You can set this to {@code null} in which case no
      * item labels will be generated.
      * 
-     * @param generator  the new generator (<code>null</code> permitted).
+     * @param generator  the new generator ({@code null} permitted).
      * 
      * @since 1.3
      */
@@ -115,14 +115,14 @@ public class AbstractXYZRenderer extends AbstractRenderer3D {
 
     /**
      * Returns the type of composition performed by this renderer.  The default
-     * is <code>PER_ITEM</code> which means the plot will ask the renderer
+     * is {@code PER_ITEM} which means the plot will ask the renderer
      * to compose one data item at a time into the 3D model.  Some renderers
-     * will override this method to return <code>ALL</code>, which means the
+     * will override this method to return {@code ALL}, which means the
      * renderer will compose all of the data items in one go (the plot calls
      * the {@link #composeAll(XYZPlot, World, Dimension3D, double, double, double)} 
      * method to trigger this).
      * 
-     * @return The compose type (never <code>null</code>).
+     * @return The compose type (never {@code null}).
      * 
      * @since 1.1
      */
@@ -131,14 +131,14 @@ public class AbstractXYZRenderer extends AbstractRenderer3D {
     }
     
     /**
-     * Adds objects to the <code>world</code> to represent all the data items
+     * Adds objects to the {@code world} to represent all the data items
      * that this renderer is responsible for.  This method is only called for
      * renderers that return {@link ComposeType#ALL} from the 
      * {@link #getComposeType()} method.
      * 
-     * @param plot  the plot.
-     * @param world  the 3D model.
-     * @param dimensions  the dimensions of the plot.
+     * @param plot  the plot (not {@code null}).
+     * @param world  the 3D model (not {@code null}).
+     * @param dimensions  the dimensions of the plot (not {@code null}).
      * @param xOffset  the x-offset.
      * @param yOffset  the y-offset.
      * @param zOffset  the z-offset.
@@ -152,7 +152,7 @@ public class AbstractXYZRenderer extends AbstractRenderer3D {
      * Returns the object that provides the color instances for items drawn
      * by the renderer.
      * 
-     * @return The color source (never <code>null</code>). 
+     * @return The color source (never {@code null}). 
      */
     public XYZColorSource getColorSource() {
         return this.colorSource;
@@ -162,7 +162,7 @@ public class AbstractXYZRenderer extends AbstractRenderer3D {
      * Sets the color source and sends a {@link Renderer3DChangeEvent} to all
      * registered listeners.
      * 
-     * @param colorSource  the color source (<code>null</code> not permitted). 
+     * @param colorSource  the color source ({@code null} not permitted). 
      */
     public void setColorSource(XYZColorSource colorSource) {
         ArgChecks.nullNotPermitted(colorSource, "colorSource");
@@ -175,9 +175,9 @@ public class AbstractXYZRenderer extends AbstractRenderer3D {
      * Sets a new color source for the renderer using the specified colors and
      * sends a {@link Renderer3DChangeEvent} to all registered listeners. This 
      * is a convenience method that is equivalent to 
-     * <code>setColorSource(new StandardXYZColorSource(colors))</code>.
+     * {@code setColorSource(new StandardXYZColorSource(colors))}.
      * 
-     * @param colors  one or more colors (<code>null</code> not permitted).
+     * @param colors  one or more colors ({@code null} not permitted).
      * 
      * @since 1.1
      */
@@ -189,7 +189,7 @@ public class AbstractXYZRenderer extends AbstractRenderer3D {
      * Returns the range that is required on the x-axis for this renderer
      * to display all the items in the specified dataset.
      * 
-     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param dataset  the dataset ({@code null} not permitted).
      * 
      * @return The x-range. 
      */
@@ -201,7 +201,7 @@ public class AbstractXYZRenderer extends AbstractRenderer3D {
      * Returns the range that is required on the y-axis for this renderer
      * to display all the items in the specified dataset.
      * 
-     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param dataset  the dataset ({@code null} not permitted).
      * 
      * @return The y-range. 
      */
@@ -213,7 +213,7 @@ public class AbstractXYZRenderer extends AbstractRenderer3D {
      * Returns the range that is required on the z-axis for this renderer
      * to display all the items in the specified dataset.
      * 
-     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param dataset  the dataset ({@code null} not permitted).
      * 
      * @return The z-range. 
      */
@@ -224,7 +224,7 @@ public class AbstractXYZRenderer extends AbstractRenderer3D {
     /**
      * Tests this renderer for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean.
      */
