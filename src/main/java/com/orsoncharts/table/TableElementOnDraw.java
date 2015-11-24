@@ -46,18 +46,18 @@ public interface TableElementOnDraw {
     /**
      * A callback method that is called before an element is drawn.
      * 
-     * @param element  the element (<code>null</code> not permitted).
-     * @param g2  the graphics target (<code>null</code> not permitted).
-     * @param bounds  the bounds (<code>null</code> not permitted).
+     * @param element  the element ({@code null} not permitted).
+     * @param g2  the graphics target ({@code null} not permitted).
+     * @param bounds  the bounds ({@code null} not permitted).
      */
     void beforeDraw(TableElement element, Graphics2D g2, Rectangle2D bounds);
     
     /**
      * A callback method that is called after an element is drawn.
      * 
-     * @param element  the element (<code>null</code> not permitted).
-     * @param g2  the graphics target (<code>null</code> not permitted).
-     * @param bounds  the bounds (<code>null</code> not permitted).
+     * @param element  the element ({@code null} not permitted).
+     * @param g2  the graphics target ({@code null} not permitted).
+     * @param bounds  the bounds ({@code null} not permitted).
      */
     void afterDraw(TableElement element, Graphics2D g2, Rectangle2D bounds);
     
