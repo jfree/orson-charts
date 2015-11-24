@@ -51,7 +51,7 @@ public interface CategoryRenderer3D extends Renderer3D {
     /**
      * Returns the plot that this renderer is assigned to.
      * 
-     * @return The plot (possibly <code>null</code>). 
+     * @return The plot (possibly {@code null}). 
      */
     CategoryPlot3D getPlot();
   
@@ -59,7 +59,7 @@ public interface CategoryRenderer3D extends Renderer3D {
      * Sets the plot that the renderer is assigned to.  Although this method
      * is part of the public API, client code should not need to call it.
      * 
-     * @param plot  the plot (<code>null</code> permitted). 
+     * @param plot  the plot ({@code null} permitted). 
      */
     void setPlot(CategoryPlot3D plot);
   
@@ -68,7 +68,7 @@ public interface CategoryRenderer3D extends Renderer3D {
      * is responsible for providing the colors used by the renderer to draw
      * data (and legend) items.
      * 
-     * @return The paint source (never <code>null</code>). 
+     * @return The paint source (never {@code null}). 
      */
     CategoryColorSource getColorSource();
     
@@ -76,7 +76,7 @@ public interface CategoryRenderer3D extends Renderer3D {
      * Sets the color source for the renderer and sends a 
      * {@link Renderer3DChangeEvent} to all registered listeners.
      * 
-     * @param source  the color source (<code>null</code> not permitted).
+     * @param source  the color source ({@code null} not permitted).
      */
     void setColorSource(CategoryColorSource source);
     
@@ -95,7 +95,7 @@ public interface CategoryRenderer3D extends Renderer3D {
      * minimum and maximum values in the dataset, but some renderers require 
      * a larger range (for example, the stacked bar renderer).
      * 
-     * @param data  the data values (<code>null</code> not permitted).
+     * @param data  the data values ({@code null} not permitted).
      * 
      * @return The data range. 
      */
@@ -106,12 +106,12 @@ public interface CategoryRenderer3D extends Renderer3D {
      * world.  This method will be called by the {@link CategoryPlot3D} class
      * while iterating over the items in the dataset.
      * 
-     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param dataset  the dataset ({@code null} not permitted).
      * @param series  the series index.
      * @param row  the row index.
      * @param column  the column index.
-     * @param world  the world (<code>null</code> not permitted).
-     * @param dimensions  the plot dimensions (<code>null</code> not permitted).
+     * @param world  the world ({@code null} not permitted).
+     * @param dimensions  the plot dimensions ({@code null} not permitted).
      * @param xOffset  the x-offset.
      * @param yOffset  the y-offset.
      * @param zOffset  the z-offset.
