@@ -50,7 +50,7 @@ import com.orsoncharts.Chart3D;
  * Provides a default implementation of the {@link Drawable3D} interface.
  * This is not used directly in Orson Charts, since the {@link Chart3D} class
  * implements the {@link Drawable3D} interface itself.  However, it is used
- * in testing to ensure that the <code>com.orsoncharts.graphics3d.*</code>
+ * in testing to ensure that the {@code com.orsoncharts.graphics3d}
  * package can function on a stand-alone basis.
  */
 public class DefaultDrawable3D implements Drawable3D {
@@ -75,9 +75,9 @@ public class DefaultDrawable3D implements Drawable3D {
 
     /**
      * Creates a new instance to display the content of the specified
-     * <code>world</code>.
+     * {@code world}.
      * 
-     * @param world  the world to view (<code>null</code> not permitted). 
+     * @param world  the world to view ({@code null} not permitted). 
      */
     public DefaultDrawable3D(World world) {
         ArgChecks.nullNotPermitted(world, "world");
@@ -101,7 +101,7 @@ public class DefaultDrawable3D implements Drawable3D {
     /**
      * Returns the view point.
      * 
-     * @return The view point (never <code>null</code>). 
+     * @return The view point (never {@code null}). 
      */
     @Override
     public ViewPoint3D getViewPoint() {
@@ -111,7 +111,7 @@ public class DefaultDrawable3D implements Drawable3D {
     /**
      * Sets the view point.
      * 
-     * @param viewPoint  the view point (<code>null</code> not permitted).
+     * @param viewPoint  the view point ({@code null} not permitted).
      */
     @Override
     public void setViewPoint(ViewPoint3D viewPoint) {
@@ -157,10 +157,12 @@ public class DefaultDrawable3D implements Drawable3D {
     }
     
     /**
-     * Draws the current view to a <code>Graphics2D</code> instance.
+     * Draws the current view to a {@code Graphics2D} instance.
      * 
-     * @param g2  the graphics target (<code>null</code> not permitted).
-     * @param bounds  the bounds.
+     * @param g2  the graphics target ({@code null} not permitted).
+     * @param bounds  the bounds ({@code null} not permitted).
+     * 
+     * @return The rendering state.
      */
     @Override
     public RenderingInfo draw(Graphics2D g2, Rectangle2D bounds) {
