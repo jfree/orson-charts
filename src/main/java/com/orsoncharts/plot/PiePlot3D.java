@@ -117,7 +117,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
     /**
      * Creates a new pie plot in 3D.
      * 
-     * @param dataset  the dataset (<code>null</code> not permitted). 
+     * @param dataset  the dataset ({@code null} not permitted). 
      */
     public PiePlot3D(PieDataset3D dataset) {
         ArgChecks.nullNotPermitted(dataset, "dataset");
@@ -139,7 +139,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
     /**
      * Returns the dataset.
      * 
-     * @return The dataset (never <code>null</code>). 
+     * @return The dataset (never {@code null}). 
      */
     public PieDataset3D getDataset() {
         return this.dataset;
@@ -149,7 +149,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
      * Sets the dataset and notifies registered listeners that the dataset has
      * been updated.
      * 
-     * @param dataset  the dataset (<code>null</code> not permitted). 
+     * @param dataset  the dataset ({@code null} not permitted). 
      */
     public void setDataset(PieDataset3D dataset) {
         ArgChecks.nullNotPermitted(dataset, "dataset");
@@ -202,7 +202,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
     /**
      * Returns the color source for section colors.
      * 
-     * @return The color source (never <code>null</code>).
+     * @return The color source (never {@code null}).
      */
     public ColorSource getSectionColorSource() {
         return this.sectionColorSource;
@@ -212,7 +212,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
      * Sets the color source and sends a {@link Plot3DChangeEvent} to all 
      * registered listeners.
      * 
-     * @param source  the color source (<code>null</code> not permitted). 
+     * @param source  the color source ({@code null} not permitted). 
      */
     public void setSectionColorSource(ColorSource source) {
         ArgChecks.nullNotPermitted(source, "source");
@@ -224,9 +224,9 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
      * Sets a new color source for the plot using the specified colors and
      * sends a {@link Plot3DChangeEvent} to all registered listeners. This 
      * is a convenience method that is equivalent to 
-     * <code>setSectionColorSource(new StandardColorSource(colors))</code>.
+     * {@code setSectionColorSource(new StandardColorSource(colors))}.
      * 
-     * @param colors  one or more colors (<code>null</code> not permitted).
+     * @param colors  one or more colors ({@code null} not permitted).
      * 
      * @since 1.2
      */
@@ -238,7 +238,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
      * Returns the object that creates labels for each section of the pie
      * chart.
      * 
-     * @return The section label generator (never <code>null</code>).
+     * @return The section label generator (never {@code null}).
      * 
      * @since 1.2
      */
@@ -250,7 +250,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
      * Sets the object that creates labels for each section of the pie chart,
      * and sends a {@link Plot3DChangeEvent} to all registered listeners.
      * 
-     * @param generator  the generator (<code>null</code> not permitted).
+     * @param generator  the generator ({@code null} not permitted).
      * 
      * @since 1.2
      */
@@ -264,7 +264,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
      * Returns the font source that is used to determine the font to use for 
      * the section labels.
      * 
-     * @return The font source for the section labels (never <code>null</code>). 
+     * @return The font source for the section labels (never {@code null}). 
      */
     public FontSource getSectionLabelFontSource() {
         return this.sectionLabelFontSource; 
@@ -274,7 +274,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
      * Sets the font source and sends a {@link Plot3DChangeEvent} to all
      * registered listeners.
      * 
-     * @param source  the source (<code>null</code> not permitted). 
+     * @param source  the source ({@code null} not permitted). 
      */
     public void setSectionLabelFontSource(FontSource source) {
         ArgChecks.nullNotPermitted(source, "source");
@@ -285,9 +285,9 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
     /**
      * Returns the color source for section labels.  The default value is
      * an instance of {@link StandardColorSource} that always returns
-     * <code>Color.BLACK</code>.
+     * {@code Color.BLACK}.
      * 
-     * @return The color source (never <code>null</code>).
+     * @return The color source (never {@code null}).
      * 
      * @see #setSectionLabelColorSource(ColorSource) 
      */
@@ -313,7 +313,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
      * Returns the object that creates legend labels for each section of the pie
      * chart.
      * 
-     * @return The legend label generator (never <code>null</code>).
+     * @return The legend label generator (never {@code null}).
      * 
      * @since 1.2
      */
@@ -326,7 +326,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
      * chart, and sends a {@link Plot3DChangeEvent} to all registered 
      * listeners.
      * 
-     * @param generator  the generator (<code>null</code> not permitted).
+     * @param generator  the generator ({@code null} not permitted).
      * 
      * @since 1.2
      */
@@ -339,7 +339,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
     /**
      * Returns the tool tip generator.
      * 
-     * @return The tool tip generator (possibly <code>null</code>).
+     * @return The tool tip generator (possibly {@code null}).
      * 
      * @since 1.3
      */
@@ -351,7 +351,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
      * Sets the tool tip generator and sends a change event to all registered
      * listeners.
      * 
-     * @param generator  the generator (<code>null</code> permitted).
+     * @param generator  the generator ({@code null} permitted).
      * 
      * @since 1.3
      */
@@ -374,7 +374,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
  
     /**
      * Returns the number of segments used when composing the 3D objects
-     * representing the pie chart.  The default value is <code>40</code>.
+     * representing the pie chart.  The default value is {@code 40}.
      * 
      * @return The number of segments used to compose the pie chart. 
      */
@@ -421,7 +421,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
      * this way, it is ready for rendering.  This method is called by the
      * {@link Chart3D} class, you won't normally call it directly.
      * 
-     * @param world  the world (<code>null</code> not permitted).
+     * @param world  the world ({@code null} not permitted).
      * @param xOffset  the x-offset.
      * @param yOffset  the y-offset.
      * @param zOffset  the z-offset.
@@ -502,7 +502,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
      * use is to apply chart style changes across all the elements of a 
      * chart.
      * 
-     * @param visitor  the visitor (<code>null</code> not permitted).
+     * @param visitor  the visitor ({@code null} not permitted).
      * 
      * @since 1.2
      */
@@ -515,7 +515,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
      * Tests this plot for equality with an arbitrary object.  Note that the
      * plot's dataset is NOT considered in the equality test.
      * 
-     * @param obj  the object (<code>null</code> not permitted).
+     * @param obj  the object ({@code null} not permitted).
      * 
      * @return A boolean. 
      */
