@@ -72,10 +72,10 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
     private static final String FONT_FAMILY_2 = "Palatino";
     
     /**
-     * Creates a default font with the specified <code>style</code> and 
-     * <code>size</code>.  The method attempts to use 'Palatino Linotype' 
+     * Creates a default font with the specified {@code style} and 
+     * {@code size}.  The method attempts to use 'Palatino Linotype' 
      * ('Palatino' on MacOSX) but if it is not found it falls back to the
-     * <code>Font.SERIF</code> font family.
+     * {@code Font.SERIF} font family.
      * 
      * @param style  the style (see java.awt.Font).
      * @param size  the size.
@@ -314,7 +314,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
 
     /**
      * A flag that controls whether or not the chart will notify listeners
-     * of changes (defaults to <code>true</code>, but sometimes it is useful 
+     * of changes (defaults to {@code true}, but sometimes it is useful 
      * to disable this).
      */
     private boolean notify;
@@ -368,7 +368,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * A copy constructor that creates a new style that is a copy of an
      * existing style (note that the existing style listeners are not copied).
      * 
-     * @param source  the source style to copy (<code>null</code> not 
+     * @param source  the source style to copy ({@code null} not 
      *         permitted).
      */
     public StandardChartStyle(StandardChartStyle source) {
@@ -417,7 +417,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
     /**
      * Returns the background painter.
      * 
-     * @return The background painter (never <code>null</code>). 
+     * @return The background painter (never {@code null}). 
      */
     @Override
     public RectanglePainter getBackgroundPainter() {
@@ -427,7 +427,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
     /**
      * Sets the background painter.
      * 
-     * @param painter  the painter (<code>null</code> not permitted). 
+     * @param painter  the painter ({@code null} not permitted). 
      */
     public void setBackgroundPainter(RectanglePainter painter) {
         ArgChecks.nullNotPermitted(painter, "painter");
@@ -439,7 +439,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Returns the chart title font.  The default value is 
      * {@link #DEFAULT_TITLE_FONT}.
      * 
-     * @return The chart title font (never <code>null</code>). 
+     * @return The chart title font (never {@code null}). 
      */
     @Override
     public Font getTitleFont() {
@@ -450,7 +450,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Sets the font used for the chart title and sends a 
      * {@link ChartStyleChangeEvent} to all registered listeners.
      * 
-     * @param font  the font (<code>null</code> not permitted). 
+     * @param font  the font ({@code null} not permitted). 
      */
     public void setTitleFont(Font font) {
         ArgChecks.nullNotPermitted(font, "font");
@@ -461,7 +461,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
     /**
      * Returns the title color.  The default value is {@link Color#BLACK}.
      * 
-     * @return The title color (never <code>null</code>). 
+     * @return The title color (never {@code null}). 
      */
     @Override
     public Color getTitleColor() {
@@ -472,7 +472,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Sets the foreground color for the chart title and sends a 
      * change event to all registered listeners.
      * 
-     * @param color  the color (<code>null</code> not permitted).
+     * @param color  the color ({@code null} not permitted).
      */
     public void setTitleColor(Color color) {
         this.titleColor = color;
@@ -483,7 +483,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Returns the background color for the title.  The default value is
      * {@link #DEFAULT_TEXT_BACKGROUND_COLOR}.
      * 
-     * @return The background color (never <code>null</code>). 
+     * @return The background color (never {@code null}). 
      */
     @Override
     public Color getTitleBackgroundColor() {
@@ -494,7 +494,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Sets the background color for the title and sends a 
      * change event to all registered listeners.
      * 
-     * @param color  the color (<code>null</code> not permitted). 
+     * @param color  the color ({@code null} not permitted). 
      */
     public void setTitleBackgroundColor(Color color) {
         this.titleBackgroundColor = color;
@@ -505,7 +505,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Returns the font used for the chart subtitle.  The default value 
      * is {@link #DEFAULT_SUBTITLE_FONT}.
      * 
-     * @return The chart subtitle font (never <code>null</code>). 
+     * @return The chart subtitle font (never {@code null}). 
      */
     @Override
     public Font getSubtitleFont() {
@@ -516,7 +516,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Sets the font used for the chart subtitle and sends a 
      * {@link ChartStyleChangeEvent} to all registered listeners.
      * 
-     * @param font  the font (<code>null</code> not permitted). 
+     * @param font  the font ({@code null} not permitted). 
      */
     public void setSubtitleFont(Font font) {
         ArgChecks.nullNotPermitted(font, "font");
@@ -528,7 +528,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Returns the color for the chart subtitle.  The default value is 
      * {@link Color#BLACK}.
      * 
-     * @return The color (never <code>null</code>).
+     * @return The color (never {@code null}).
      */
     @Override
     public Color getSubtitleColor() {
@@ -539,7 +539,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Sets the color for the chart subtitle and sends a 
      * change event to all registered listeners.
      * 
-     * @param color  the color (<code>null</code> not permitted). 
+     * @param color  the color ({@code null} not permitted). 
      */
     public void setSubtitleColor(Color color) {
         ArgChecks.nullNotPermitted(color, "color");
@@ -551,7 +551,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Returns the background color for the chart subtitle.  The default value
      * is {@link #DEFAULT_TEXT_BACKGROUND_COLOR}.
      * 
-     * @return The background color (never <code>null</code>). 
+     * @return The background color (never {@code null}). 
      */
     @Override
     public Color getSubtitleBackgroundColor() {
@@ -562,7 +562,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Sets the background color for the chart subtitle and sends a 
      * change event to all registered listeners.
      * 
-     * @param color  the color (<code>null</code> not permitted). 
+     * @param color  the color ({@code null} not permitted). 
      */
     public void setSubtitleBackgroundColor(Color color) {
         ArgChecks.nullNotPermitted(color, "color");
@@ -574,7 +574,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Returns the color used for the {@link ChartBox3D} (for those charts that
      * have one).  The default value is {@link #DEFAULT_CHARTBOX_COLOR}.
      * 
-     * @return The color (never <code>null</code>). 
+     * @return The color (never {@code null}). 
      */
     @Override
     public Color getChartBoxColor() {
@@ -585,7 +585,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Sets the color used for the chart box and sends a 
      * {@link ChartStyleChangeEvent} to all registered listeners.
      * 
-     * @param color  the color (<code>null</code> not permitted). 
+     * @param color  the color ({@code null} not permitted). 
      */
     public void setChartBoxColor(Color color) {
         ArgChecks.nullNotPermitted(color, "color");
@@ -617,7 +617,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
 
     /**
      * Returns the flag that specifies whether or not gridlines are drawn for
-     * the x-axis.  The default value is <code>false</code>.
+     * the x-axis.  The default value is {@code false}.
      * 
      * @return A boolean. 
      */
@@ -640,7 +640,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
     
     /**
      * Returns the flag that specifies whether or not gridlines are drawn for
-     * the y-axis.  The default value is <code>true</code>.
+     * the y-axis.  The default value is {@code true}.
      * 
      * @return A boolean. 
      */
@@ -663,7 +663,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
 
     /**
      * Returns the flag that specifies whether or not gridlines are drawn for
-     * the z-axis.  The default value is <code>true</code>.
+     * the z-axis.  The default value is {@code true}.
      * 
      * @return A boolean. 
      */
@@ -688,7 +688,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Returns the color used for the gridlines.  The default value is
      * {@link #DEFAULT_GRIDLINE_STROKE}.
      * 
-     * @return The color used for the gridlines (never <code>null</code>).
+     * @return The color used for the gridlines (never {@code null}).
      */
     @Override
     public Color getGridlineColor() {
@@ -699,7 +699,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Sets the color for the gridlines and sends a 
      * {@link ChartStyleChangeEvent} to all registered listeners.
      * 
-     * @param color  the color (<code>null</code> not permitted). 
+     * @param color  the color ({@code null} not permitted). 
      */
     public void setGridlineColor(Color color) {
         ArgChecks.nullNotPermitted(color, "color");
@@ -711,7 +711,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Returns the stroke used to draw the gridlines.  The default value is
      * {@link #DEFAULT_GRIDLINE_STROKE}.
      * 
-     * @return The stroke (never <code>null</code>).
+     * @return The stroke (never {@code null}).
      */
     @Override
     public Stroke getGridlineStroke() {
@@ -722,7 +722,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Sets the stroke used for gridlines and sends a 
      * {@link ChartStyleChangeEvent} to all registered listeners.
      * 
-     * @param stroke  the stroke (<code>null</code> not permitted).
+     * @param stroke  the stroke ({@code null} not permitted).
      */
     public void setGridlineStroke(Stroke stroke) {
         ArgChecks.nullNotPermitted(stroke, "stroke");
@@ -733,7 +733,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Returns the font used for pie section labels.  The default value is
      * {@link #DEFAULT_SECTION_LABEL_FONT}.
      * 
-     * @return The font used for pie section labels (never <code>null</code>).
+     * @return The font used for pie section labels (never {@code null}).
      */
     @Override
     public Font getSectionLabelFont() {
@@ -744,7 +744,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Sets the font used for the pie section labels and sends a 
      * {@link ChartStyleChangeEvent} to all registered listeners.
      * 
-     * @param font  the font (<code>null</code> not permitted). 
+     * @param font  the font ({@code null} not permitted). 
      */
     public void setSectionLabelFont(Font font) {
         ArgChecks.nullNotPermitted(font, "font");
@@ -756,7 +756,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Returns the color used to display pie section labels.  The default
      * value is {@link #DEFAULT_SECTION_LABEL_COLOR}.
      * 
-     * @return The color (never <code>null</code>). 
+     * @return The color (never {@code null}). 
      */
     @Override
     public Color getSectionLabelColor() {
@@ -767,7 +767,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Sets the color used for the pie section labels and sends a 
      * {@link ChartStyleChangeEvent} to all registered listeners.
      * 
-     * @param color  the color (<code>null</code> not permitted). 
+     * @param color  the color ({@code null} not permitted). 
      */
     public void setSectionLabelColor(Color color) {
         ArgChecks.nullNotPermitted(color, "color");
@@ -779,7 +779,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Returns the standard colors for the style.  The default value is
      * initialised by calling {@link Colors#getDefaultColors()}.
      * 
-     * @return The standard colors (never <code>null</code>).
+     * @return The standard colors (never {@code null}).
      */
     @Override
     public Color[] getStandardColors() {
@@ -790,7 +790,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Sets the standard colors for the chart and sends a 
      * {@link ChartStyleChangeEvent} to all registered listeners.
      * 
-     * @param colors  the colors (<code>null</code> not permitted). 
+     * @param colors  the colors ({@code null} not permitted). 
      */
     public void setStandardColors(Color... colors) {
         this.standardColors = colors;
@@ -812,7 +812,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Sets the font used for the axis label and sends a 
      * {@link ChartStyleChangeEvent} to all registered listeners.
      * 
-     * @param font  the font (<code>null</code> not permitted). 
+     * @param font  the font ({@code null} not permitted). 
      */
     public void setAxisLabelFont(Font font) {
         ArgChecks.nullNotPermitted(font, "font");
@@ -825,7 +825,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * the tick labels).  The default value is 
      * {@link #DEFAULT_AXIS_LABEL_COLOR}.
      * 
-     * @return The color (never <code>null</code>). 
+     * @return The color (never {@code null}). 
      */
     @Override
     public Color getAxisLabelColor() {
@@ -836,7 +836,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Sets the foreground color for the axis label and sends a 
      * {@link ChartStyleChangeEvent} to all registered listeners.
      * 
-     * @param color  the color (<code>null</code> not permitted). 
+     * @param color  the color ({@code null} not permitted). 
      */
     public void setAxisLabelColor(Color color) {
         ArgChecks.nullNotPermitted(color, "color");
@@ -848,7 +848,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Returns the font used for the axis tick labels.  The default value 
      * is {@link #DEFAULT_AXIS_TICK_LABEL_FONT}.
      * 
-     * @return The font (never <code>null</code>). 
+     * @return The font (never {@code null}). 
      */
     @Override
     public Font getAxisTickLabelFont() {
@@ -859,7 +859,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Sets the font used for the axis tick labels and sends a 
      * {@link ChartStyleChangeEvent} to all registered listeners.
      * 
-     * @param font  the font (<code>null</code> not permitted). 
+     * @param font  the font ({@code null} not permitted). 
      */
     public void setAxisTickLabelFont(Font font) {
         ArgChecks.nullNotPermitted(font, "font");
@@ -871,7 +871,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Returns the color used to draw the tick labels on the axis.  The 
      * default value is {@link #DEFAULT_AXIS_TICK_LABEL_COLOR}.
      * 
-     * @return The color (never <code>null</code>).
+     * @return The color (never {@code null}).
      */
     @Override
     public Color getAxisTickLabelColor() {
@@ -882,7 +882,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Sets the foreground color for the axis tick labels and sends a 
      * {@link ChartStyleChangeEvent} to all registered listeners.
      * 
-     * @param color  the color (<code>null</code> not permitted). 
+     * @param color  the color ({@code null} not permitted). 
      */
     public void setAxisTickLabelColor(Color color) {
         ArgChecks.nullNotPermitted(color, "color");
@@ -894,7 +894,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Returns the font used to display the legend header.  The default 
      * value is {@link #DEFAULT_LEGEND_HEADER_FONT}.
      * 
-     * @return The font (never <code>null</code>). 
+     * @return The font (never {@code null}). 
      */
     @Override
     public Font getLegendHeaderFont() {
@@ -905,7 +905,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Sets the legend header font and sends a {@link ChartStyleChangeEvent} to
      * all registered listeners.
      * 
-     * @param font  the font (<code>null</code> not permitted). 
+     * @param font  the font ({@code null} not permitted). 
      */
     public void setLegendHeaderFont(Font font) {
         ArgChecks.nullNotPermitted(font, "font");
@@ -917,7 +917,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Returns the foreground color for the legend header.  The default value
      * is {@link #DEFAULT_LEGEND_HEADER_COLOR}.
      * 
-     * @return The color (never <code>null</code>). 
+     * @return The color (never {@code null}). 
      */
     @Override
     public Color getLegendHeaderColor() {
@@ -928,7 +928,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Sets the foreground color for the legend header and sends a 
      * {@link ChartStyleChangeEvent} to all registered listeners.
      * 
-     * @param color  the color (<code>null</code> not permitted). 
+     * @param color  the color ({@code null} not permitted). 
      */
     public void setLegendHeaderColor(Color color) {
         ArgChecks.nullNotPermitted(color, "color");
@@ -940,7 +940,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Returns the background color for the legend header.  The default value
      * is {@link #DEFAULT_TEXT_BACKGROUND_COLOR}.
      * 
-     * @return The color (never <code>null</code>). 
+     * @return The color (never {@code null}). 
      */
     @Override
     public Color getLegendHeaderBackgroundColor() {
@@ -951,7 +951,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Sets the background color for the legend header and sends a 
      * {@link ChartStyleChangeEvent} to all registered listeners.
      * 
-     * @param color  the color (<code>null</code> not permitted).
+     * @param color  the color ({@code null} not permitted).
      */
     public void setLegendHeaderBackgroundColor(Color color) {
         ArgChecks.nullNotPermitted(color, "color");
@@ -963,7 +963,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Returns the standard shape for legend items.  The default value 
      * is {@link #DEFAULT_LEGEND_ITEM_SHAPE}.
      * 
-     * @return The legend shape (never <code>null</code>). 
+     * @return The legend shape (never {@code null}). 
      */
     @Override
     public Shape getLegendItemShape() {
@@ -974,7 +974,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Sets the default shape for legend items and sends a 
      * {@link ChartStyleChangeEvent} to all registered listeners.
      * 
-     * @param shape  the shape (<code>null</code> not permitted). 
+     * @param shape  the shape ({@code null} not permitted). 
      */
     public void setLegendItemShape(Shape shape) {
         ArgChecks.nullNotPermitted(shape, "shape");
@@ -986,7 +986,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Returns the font used for legend item text.  The default value is 
      * {@link #DEFAULT_LEGEND_ITEM_FONT}.
      * 
-     * @return The font used for legend item text (never <code>null</code>). 
+     * @return The font used for legend item text (never {@code null}). 
      */
     @Override
     public Font getLegendItemFont() {
@@ -997,7 +997,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Sets the legend item font and sends a {@link ChartStyleChangeEvent} to
      * all registered listeners.
      * 
-     * @param font  the font (<code>null</code> not permitted). 
+     * @param font  the font ({@code null} not permitted). 
      */
     public void setLegendItemFont(Font font) {
         ArgChecks.nullNotPermitted(font, "font");
@@ -1009,7 +1009,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Returns the foreground color used for the legend items.  The default
      * value is {@link #DEFAULT_LEGEND_ITEM_COLOR}.
      * 
-     * @return The color (never <code>null</code>). 
+     * @return The color (never {@code null}). 
      */
     @Override
     public Color getLegendItemColor() {
@@ -1020,7 +1020,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Sets the foreground color used for legend item text and sends a
      * {@link ChartStyleChangeEvent} to all registered listeners.
      * 
-     * @param color  the color (<code>null</code> not permitted).
+     * @param color  the color ({@code null} not permitted).
      */
     public void setLegendItemColor(Color color) {
         ArgChecks.nullNotPermitted(color, "color");
@@ -1032,7 +1032,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Returns the background color for legend items.  The default value is
      * {@link #DEFAULT_LEGEND_ITEM_BACKGROUND_COLOR}.
      * 
-     * @return The color (never <code>null</code>). 
+     * @return The color (never {@code null}). 
      */
     @Override
     public Color getLegendItemBackgroundColor() {
@@ -1043,7 +1043,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Sets the background color for legend items and sends a 
      * {@link ChartStyleChangeEvent} to all registered listeners.
      * 
-     * @param color  the color (<code>null</code> not permitted). 
+     * @param color  the color ({@code null} not permitted). 
      */
     public void setLegendItemBackgroundColor(Color color) {
         ArgChecks.nullNotPermitted(color, "color");
@@ -1055,7 +1055,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Returns the font for the legend footer.  The default value is 
      * {@link #DEFAULT_LEGEND_FOOTER_FONT}.
      * 
-     * @return The font (never <code>null</code>). 
+     * @return The font (never {@code null}). 
      */
     @Override
     public Font getLegendFooterFont() {
@@ -1066,7 +1066,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Sets the legend footer font and sends a {@link ChartStyleChangeEvent} to
      * all registered listeners.
      * 
-     * @param font  the font (<code>null</code> not permitted). 
+     * @param font  the font ({@code null} not permitted). 
      */
     public void setLegendFooterFont(Font font) {
         ArgChecks.nullNotPermitted(font, "font");
@@ -1078,7 +1078,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Returns the foreground color for the legend footer.  The default
      * value is {@link #DEFAULT_LEGEND_FOOTER_COLOR}.
      * 
-     * @return The color (never <code>null</code>). 
+     * @return The color (never {@code null}). 
      */
     @Override
     public Color getLegendFooterColor() {
@@ -1089,7 +1089,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Sets the foreground color for the legend footer and sends a 
      * {@link ChartStyleChangeEvent} to all registered listeners.
      * 
-     * @param color  the color (<code>null</code> not permitted). 
+     * @param color  the color ({@code null} not permitted). 
      */
     public void setLegendFooterColor(Color color) {
         ArgChecks.nullNotPermitted(color, "color");
@@ -1101,7 +1101,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Returns the background color for the legend footer.  The default
      * value is {@link #DEFAULT_TEXT_BACKGROUND_COLOR}.
      * 
-     * @return The color (never <code>null</code>). 
+     * @return The color (never {@code null}). 
      */
     @Override
     public Color getLegendFooterBackgroundColor() {
@@ -1112,7 +1112,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Sets the background color for the legend footer and sends a 
      * {@link ChartStyleChangeEvent} to all registered listeners.
      * 
-     * @param color  the color (<code>null</code> not permitted).
+     * @param color  the color ({@code null} not permitted).
      */
     public void setLegendFooterBackgroundColor(Color color) {
         ArgChecks.nullNotPermitted(color, "color");
@@ -1123,7 +1123,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
     /**
      * Returns the font used to draw marker labels.
      * 
-     * @return The font used to draw marker labels (never <code>null</code>).
+     * @return The font used to draw marker labels (never {@code null}).
      */
     @Override
     public Font getMarkerLabelFont() {
@@ -1134,7 +1134,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Sets the marker label font and sends a change event to all registered
      * listeners.
      * 
-     * @param font  the font (<code>null</code> not permitted). 
+     * @param font  the font ({@code null} not permitted). 
      */
     public void setMarkerLabelFont(Font font) {
         ArgChecks.nullNotPermitted(font, "font");
@@ -1145,7 +1145,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
     /**
      * Returns the color for the marker labels.
      * 
-     * @return The color for the marker labels (never <code>null</code>). 
+     * @return The color for the marker labels (never {@code null}). 
      */
     @Override
     public Color getMarkerLabelColor() {
@@ -1156,7 +1156,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Sets the color for the marker labels and sends a change event to all
      * registered listeners.
      * 
-     * @param color  the color (<code>null</code> not permitted). 
+     * @param color  the color ({@code null} not permitted). 
      */
     public void setMarkerLabelColor(Color color) {
         ArgChecks.nullNotPermitted(color, "color");
@@ -1167,7 +1167,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
     /**
      * Returns the stroke used to draw marker lines.
      * 
-     * @return The stroke used to draw marker lines (never <code>null</code>).
+     * @return The stroke used to draw marker lines (never {@code null}).
      */
     @Override
     public Stroke getMarkerLineStroke() {
@@ -1178,7 +1178,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Sets the stroke for the marker lines and sends a change event to all
      * registered listeners.
      * 
-     * @param stroke  the stroke (<code>null</code> not permitted). 
+     * @param stroke  the stroke ({@code null} not permitted). 
      */
     public void setMarkerLineStroke(Stroke stroke) {
         ArgChecks.nullNotPermitted(stroke, "stroke");
@@ -1189,7 +1189,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
     /**
      * Returns the color used to draw marker lines.
      * 
-     * @return The color used to draw marker lines (never <code>null</code>). 
+     * @return The color used to draw marker lines (never {@code null}). 
      */
     @Override
     public Color getMarkerLineColor() {
@@ -1200,7 +1200,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Sets the marker line color and sends a change event to all registered
      * listeners.
      * 
-     * @param color  the color (<code>null</code> not permitted). 
+     * @param color  the color ({@code null} not permitted). 
      */
     public void setMarkerLineColor(Color color) {
         ArgChecks.nullNotPermitted(color, "color");
@@ -1211,7 +1211,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
     /**
      * Returns the color used to fill the band representing the marker range.
      * 
-     * @return The fill color (never <code>null</code>). 
+     * @return The fill color (never {@code null}). 
      */
     @Override
     public Color getMarkerFillColor() {
@@ -1222,7 +1222,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Sets the marker fill color and sends a change event to all registered
      * listeners.
      * 
-     * @param color  the color (<code>null</code> not permitted).
+     * @param color  the color ({@code null} not permitted).
      */
     public void setMarkerFillColor(Color color) {
         ArgChecks.nullNotPermitted(color, "color");
@@ -1312,7 +1312,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * Returns a clone of the chart style (note that the change listeners
      * are not cloned).
      * 
-     * @return A clone (never <code>null</code>). 
+     * @return A clone (never {@code null}). 
      */
     @Override
     public ChartStyle clone() {
@@ -1327,7 +1327,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
     /**
      * Tests this instance for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean. 
      */
