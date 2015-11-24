@@ -82,9 +82,9 @@ public class StackedBarRenderer3D extends BarRenderer3D {
      * account for the bars from each series being stacked on top of one 
      * another.
      * 
-     * @param data  the data (<code>null</code> not permitted).
+     * @param data  the data ({@code null} not permitted).
      * 
-     * @return The range (possibly <code>null</code>) 
+     * @return The range (possibly {@code null}) 
      */
     @Override
     public Range findValueRange(Values3D<? extends Number> data) {
@@ -96,12 +96,12 @@ public class StackedBarRenderer3D extends BarRenderer3D {
      * world.  This method will be called by the {@link CategoryPlot3D} class
      * while iterating over the items in the dataset.
      * 
-     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param dataset  the dataset ({@code null} not permitted).
      * @param series  the series index.
      * @param row  the row index.
      * @param column  the column index.
-     * @param world  the world (<code>null</code> not permitted).
-     * @param dimensions  the plot dimensions (<code>null</code> not permitted).
+     * @param world  the world ({@code null} not permitted).
+     * @param dimensions  the plot dimensions ({@code null} not permitted).
      * @param xOffset  the x-offset.
      * @param yOffset  the y-offset.
      * @param zOffset  the z-offset.
@@ -177,7 +177,7 @@ public class StackedBarRenderer3D extends BarRenderer3D {
     /**
      * Tests this renderer for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean. 
      */
