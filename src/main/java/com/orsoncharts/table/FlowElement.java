@@ -70,7 +70,7 @@ public class FlowElement extends AbstractTableElement
     
     /**
      * Creates a new instance (equivalent to 
-     * <code>new FlowElement(HAlign.CENTER, 2)</code>).
+     * {@code new FlowElement(HAlign.CENTER, 2)}).
      */
     public FlowElement() {
         this(HAlign.CENTER, 2);
@@ -80,7 +80,7 @@ public class FlowElement extends AbstractTableElement
      * Creates a new instance with the specified attributes.
      * 
      * @param alignment  the horizontal alignment of the elements within
-     *     each row (<code>null</code> not permitted).
+     *     each row ({@code null} not permitted).
      * @param hgap  the gap between elements.
      * 
      * @since 1.1
@@ -95,7 +95,7 @@ public class FlowElement extends AbstractTableElement
     
     /**
      * Returns the horizontal gap between elements, specified in Java2D units.
-     * The default value is <code>2</code>.
+     * The default value is {@code 2}.
      * 
      * @return The horizontal gap. 
      */
@@ -116,7 +116,7 @@ public class FlowElement extends AbstractTableElement
      * Returns the horizontal alignment of items within rows.  The default
      * value is {@link HAlign#CENTER}.
      * 
-     * @return The horizontal alignment (never <code>null</code>).
+     * @return The horizontal alignment (never {@code null}).
      * 
      * @since 1.1
      */
@@ -127,7 +127,7 @@ public class FlowElement extends AbstractTableElement
     /**
      * Sets the horizontal alignment.
      * 
-     * @param alignment  the alignment (<code>null</code> not permitted).
+     * @param alignment  the alignment ({@code null} not permitted).
      * 
      * @since 1.1
      */
@@ -140,7 +140,7 @@ public class FlowElement extends AbstractTableElement
      * Returns a (new) list containing the elements in this flow layout.
      * 
      * @return A list containing the elements (possibly empty, but never 
-     *     <code>null</code>). 
+     *     {@code null}). 
      */
     public List<TableElement> getElements() {
         return new ArrayList<TableElement>(this.elements);
@@ -149,7 +149,7 @@ public class FlowElement extends AbstractTableElement
     /**
      * Adds a sub-element to the list.
      * 
-     * @param element  the element (<code>null</code> not permitted).
+     * @param element  the element ({@code null} not permitted).
      */
     @Override
     public void addElement(TableElement element) {
@@ -161,7 +161,7 @@ public class FlowElement extends AbstractTableElement
      * Receives a visitor.  The implementation ensures that the vistor visits
      * all the elements belonging to the flow.
      * 
-     * @param visitor  the visitor (<code>null</code> not permitted).
+     * @param visitor  the visitor ({@code null} not permitted).
      * 
      * @since 1.2
      */
@@ -273,8 +273,8 @@ public class FlowElement extends AbstractTableElement
      * Calculates the layout of the elements for the given bounds and 
      * constraints.
      * 
-     * @param g2  the graphics target (<code>null</code> not permitted).
-     * @param bounds  the bounds (<code>null</code> not permitted).
+     * @param g2  the graphics target ({@code null} not permitted).
+     * @param bounds  the bounds ({@code null} not permitted).
      * @param constraints  the constraints (not used here).
      * 
      * @return A list of positions for the sub-elements. 
@@ -316,8 +316,8 @@ public class FlowElement extends AbstractTableElement
     /**
      * Draws the element within the specified bounds.
      * 
-     * @param g2  the graphics target (<code>null</code> not permitted).
-     * @param bounds  the bounds (<code>null</code> not permitted).
+     * @param g2  the graphics target ({@code null} not permitted).
+     * @param bounds  the bounds ({@code null} not permitted).
      */
     @Override
     public void draw(Graphics2D g2, Rectangle2D bounds) {
@@ -327,10 +327,10 @@ public class FlowElement extends AbstractTableElement
     /**
      * Draws the element within the specified bounds.
      * 
-     * @param g2  the graphics target (<code>null</code> not permitted).
-     * @param bounds  the bounds (<code>null</code> not permitted).
+     * @param g2  the graphics target ({@code null} not permitted).
+     * @param bounds  the bounds ({@code null} not permitted).
      * @param onDrawHandler  an object that will receive notification before 
-     *     and after the element is drawn (<code>null</code> permitted).
+     *     and after the element is drawn ({@code null} permitted).
      * 
      * @since 1.3
      */
@@ -371,7 +371,7 @@ public class FlowElement extends AbstractTableElement
     /**
      * Tests this element for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean. 
      */
