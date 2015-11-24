@@ -101,7 +101,7 @@ public class Panel3D extends JPanel implements MouseListener,
     private double rollIncrement;
     
     /** 
-     * The (screen) point of the last mouse click (will be <code>null</code> 
+     * The (screen) point of the last mouse click (will be {@code null} 
      * initially).  Used to calculate the mouse drag distance and direction.
      */
     private Point lastClickPoint;
@@ -123,7 +123,7 @@ public class Panel3D extends JPanel implements MouseListener,
      * Creates a new panel with the specified {@link Drawable3D} to
      * display.
      *
-     * @param drawable  the content to display (<code>null</code> not 
+     * @param drawable  the content to display ({@code null} not 
      *     permitted).
      */
     public Panel3D(Drawable3D drawable) {
@@ -143,11 +143,11 @@ public class Panel3D extends JPanel implements MouseListener,
     }
 
     /**
-     * Returns the <code>Drawable3D</code> object that is displayed in this
+     * Returns the {@code Drawable3D} object that is displayed in this
      * panel.  This is specified via the panel constructor and there is no
      * setter method to change it.
      * 
-     * @return The <code>Drawable3D</code> object (never <code>null</code>).
+     * @return The {@code Drawable3D} object (never {@code null}).
      */
     public Drawable3D getDrawable() {
         return this.drawable;
@@ -156,8 +156,8 @@ public class Panel3D extends JPanel implements MouseListener,
     /** 
      * Returns the margin, expressed as a percentage, that controls the amount
      * of space to leave around the edges of the 3D content when the 
-     * <code>zoomToFit()</code> method is called.  The default value is 
-     * <code>0.25</code> (25 percent).
+     * {@code zoomToFit()} method is called.  The default value is 
+     * {@code 0.25} (25 percent).
      * 
      * @return The margin. 
      */
@@ -167,7 +167,7 @@ public class Panel3D extends JPanel implements MouseListener,
     
     /**
      * Sets the margin that controls the amount of space to leave around the
-     * edges of the 3D content when the <code>zoomToFit()</code> method is 
+     * edges of the 3D content when the {@code zoomToFit()} method is 
      * called.
      *
      * @param margin  the margin (as a percentage, where 0.25 = 25 percent).
@@ -190,7 +190,7 @@ public class Panel3D extends JPanel implements MouseListener,
     
     /**
      * Returns the multiplier for the maximum viewing distance (a multiple of
-     * the minimum viewing distance).  The default value is <code>8.0</code>.
+     * the minimum viewing distance).  The default value is {@code 8.0}.
      * 
      * @return The multiplier.
      * 
@@ -213,7 +213,7 @@ public class Panel3D extends JPanel implements MouseListener,
     
     /**
      * Returns the angle delta for each pan left or right.  The default
-     * value is <code>Math.PI / 60</code>.
+     * value is {@code Math.PI / 60}.
      * 
      * @return The angle delta (in radians).
      */
@@ -233,7 +233,7 @@ public class Panel3D extends JPanel implements MouseListener,
 
     /**
      * Returns the angle delta for each rotate up or down.  The default
-     * value is <code>Math.PI / 60</code>.
+     * value is {@code Math.PI / 60}.
      * 
      * @return The angle delta (in radians).
      */
@@ -252,7 +252,7 @@ public class Panel3D extends JPanel implements MouseListener,
 
     /**
      * Returns the angle delta for each roll operation.  The default
-     * value is <code>Math.PI / 60</code>.
+     * value is {@code Math.PI / 60}.
      * 
      * @return The angle delta (in radians).
      */
@@ -273,7 +273,7 @@ public class Panel3D extends JPanel implements MouseListener,
      * Returns the view point that is maintained by the {@link Drawable3D}
      * instance on display.
      *
-     * @return  The view point (never <code>null</code>).
+     * @return  The view point (never {@code null}).
      */
     public ViewPoint3D getViewPoint() {
         return this.drawable.getViewPoint();
@@ -282,7 +282,7 @@ public class Panel3D extends JPanel implements MouseListener,
     /**
      * Sets a new view point and repaints the panel.
      *
-     * @param vp  the view point (<code>null</code> not permitted).
+     * @param vp  the view point ({@code null} not permitted).
      */
     public void setViewPoint(ViewPoint3D vp) {
         ArgChecks.nullNotPermitted(vp, "vp");
@@ -291,9 +291,9 @@ public class Panel3D extends JPanel implements MouseListener,
     }
     
     /**
-     * Returns the last click point (possibly <code>null</code>).
+     * Returns the last click point (possibly {@code null}).
      * 
-     * @return The last click point (possibly <code>null</code>).
+     * @return The last click point (possibly {@code null}).
      */
     protected Point getLastClickPoint() {
         return this.lastClickPoint;
@@ -303,7 +303,7 @@ public class Panel3D extends JPanel implements MouseListener,
      * Returns the rendering info from the previous call to
      * draw().
      * 
-     * @return The rendering info (possibly <code>null</code>).
+     * @return The rendering info (possibly {@code null}).
      */
     protected RenderingInfo getRenderingInfo() {
         return this.renderingInfo;
@@ -335,7 +335,7 @@ public class Panel3D extends JPanel implements MouseListener,
      * size.  A margin is left (see {@link #getMargin()} around the edges to 
      * leave room for labels etc.
      * 
-     * @param size  the target size (<code>null</code> not permitted).
+     * @param size  the target size ({@code null} not permitted).
      */    
     public void zoomToFit(Dimension2D size) {
         int w = (int) (size.getWidth() * (1.0 - this.margin));
@@ -352,8 +352,8 @@ public class Panel3D extends JPanel implements MouseListener,
      * Paints the panel by asking the drawable to render a 2D projection of the 
      * objects it is managing.
      *
-     * @param g  the graphics target (assumed to be an instance of
-     *           <code>Graphics2D</code>).
+     * @param g  the graphics target ({@code null} not permitted, assumed to be
+     *     an instance of {@code Graphics2D}).
      */
     @Override
     public void paintComponent(Graphics g) {
@@ -386,9 +386,7 @@ public class Panel3D extends JPanel implements MouseListener,
     public void unregisterForTooltips() {
         ToolTipManager.sharedInstance().unregisterComponent(this);
     }
-    
-    
-    
+
     /* (non-Javadoc)
      * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
      */
@@ -486,7 +484,7 @@ public class Panel3D extends JPanel implements MouseListener,
      * Reflection is used to ensure there is no compile-time dependency on
      * OrsonPDF (which is non-free software).
      * 
-     * @param file  the output file (<code>null</code> not permitted).
+     * @param file  the output file ({@code null} not permitted).
      * @param w  the chart width.
      * @param h  the chart height.
      * 
@@ -502,7 +500,7 @@ public class Panel3D extends JPanel implements MouseListener,
      * Reflection is used to ensure there is no compile-time dependency on
      * JFreeSVG.
      * 
-     * @param file  the output file (<code>null</code> not permitted).
+     * @param file  the output file ({@code null} not permitted).
      * @param w  the chart width.
      * @param h  the chart height.
      * 
