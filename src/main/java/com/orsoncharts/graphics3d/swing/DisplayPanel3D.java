@@ -104,7 +104,7 @@ public class DisplayPanel3D extends JPanel implements MouseListener {
      * Creates a new display panel for the given content, with a toolbar
      * and popup menu configured.
      * 
-     * @param content  the content (<code>null</code> not permitted). 
+     * @param content  the content ({@code null} not permitted). 
      */
     public DisplayPanel3D(Panel3D content) {
         this(content, true, true);
@@ -113,7 +113,7 @@ public class DisplayPanel3D extends JPanel implements MouseListener {
     /** 
      * Creates a new display panel.
      * 
-     * @param content  the content (<code>null</code> not permitted).
+     * @param content  the content ({@code null} not permitted).
      * @param toolbar  toolbar?
      * @param popupMenu  popup menu?
      */
@@ -147,7 +147,7 @@ public class DisplayPanel3D extends JPanel implements MouseListener {
      * If you provide an empty list, there will be no export submenu in the 
      * popup menu.
      * 
-     * @param formats  the list of formats (<code>null</code> not permitted). 
+     * @param formats  the list of formats ({@code null} not permitted). 
      * 
      * @since 1.2
      */
@@ -205,7 +205,7 @@ public class DisplayPanel3D extends JPanel implements MouseListener {
      * is not empty, a submenu of export items.
      * 
      * @param exportFormats  an ordered list of export formats to add to the
-     *     submenu (<code>null</code> not permitted).
+     *     submenu ({@code null} not permitted).
      * 
      * @return A popup menu.
      */
