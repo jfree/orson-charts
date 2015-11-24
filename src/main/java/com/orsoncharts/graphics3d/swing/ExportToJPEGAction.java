@@ -66,7 +66,7 @@ public class ExportToJPEGAction extends AbstractAction {
     /**
      * Creates a new action instance.
      * 
-     * @param panel  the panel (<code>null</code> not permitted).
+     * @param panel  the panel ({@code null} not permitted).
      */
     public ExportToJPEGAction(Panel3D panel) {
         super(Resources.localString("JPG_MENU_LABEL"));

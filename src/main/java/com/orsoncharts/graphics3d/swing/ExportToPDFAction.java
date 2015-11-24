@@ -59,7 +59,7 @@ public class ExportToPDFAction extends AbstractAction {
     /** 
      * Creates a new action.
      * 
-     * @param panel  the panel that the action applies to (<code>null</code> 
+     * @param panel  the panel that the action applies to ({@code null} 
      *     not permitted). 
      */
     public ExportToPDFAction(Panel3D panel) {

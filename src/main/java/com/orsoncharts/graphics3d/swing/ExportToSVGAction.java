@@ -53,13 +53,13 @@ import com.orsoncharts.util.ArgChecks;
 @SuppressWarnings("serial")
 public class ExportToSVGAction extends AbstractAction {
 
-	/** The panel to which this action applies. */
+    /** The panel to which this action applies. */
     private Panel3D panel;
   
     /** 
      * Creates a new action.
      * 
-     * @param panel  the panel that the action applies to (<code>null</code> 
+     * @param panel  the panel that the action applies to ({@code null} 
      *     not permitted). 
      */
     public ExportToSVGAction(Panel3D panel) {

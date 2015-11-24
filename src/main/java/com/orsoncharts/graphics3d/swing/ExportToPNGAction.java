@@ -64,7 +64,7 @@ public class ExportToPNGAction extends AbstractAction {
     /**
      * Creates a new action instance.
      * 
-     * @param panel  the panel (<code>null</code> not permitted).
+     * @param panel  the panel ({@code null} not permitted).
      */
     public ExportToPNGAction(Panel3D panel) {
         super(Resources.localString("PNG_MENU_LABEL"));
