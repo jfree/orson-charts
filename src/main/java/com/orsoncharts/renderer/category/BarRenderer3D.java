@@ -86,7 +86,7 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
     /** 
      * The color source used to fetch the color for the base of bars where
      * the actual base of the bar is *outside* of the current axis range 
-     * (that is, the bar is "cropped").  If this is <code>null</code>, then 
+     * (that is, the bar is "cropped").  If this is {@code null}, then 
      * the regular bar color is used.
      */
     private CategoryColorSource baseColorSource;
@@ -94,7 +94,7 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
     /**
      * The paint source used to fetch the color for the top of bars where
      * the actual top of the bar is *outside* of the current axis range 
-     * (that is, the bar is "cropped"). If this is <code>null</code> then the 
+     * (that is, the bar is "cropped"). If this is {@code null} then the 
      * bar top is always drawn using the series paint.
      */
     private CategoryColorSource topColorSource;
@@ -112,7 +112,7 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
     
     /**
      * Returns the base value for the bars.  The default value 
-     * is <code>0.0</code>.
+     * is {@code 0.0}.
      * 
      * @return The base value for the bars.
      * 
@@ -137,8 +137,8 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
     
     /**
      * Returns the bar width as a percentage of the column width.
-     * The default value is <code>0.8</code> (the total width of each column
-     * in world units is <code>1.0</code>, so the default leaves a small gap
+     * The default value is {@code 0.8} (the total width of each column
+     * in world units is {@code 1.0}, so the default leaves a small gap
      * between each bar).
      * 
      * @return The bar width (in world units). 
@@ -160,7 +160,7 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
 
     /**
      * Returns the bar width as a percentage of the row width.
-     * The default value is <code>0.8</code>.
+     * The default value is {@code 0.8}.
      * 
      * @return The bar width. 
      */
@@ -184,10 +184,10 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
      * where the base of the bar is "cropped" (on account of the base value
      * falling outside of the bounds of the y-axis).  This is used to give a
      * visual indication to the end-user that the bar on display is cropped.
-     * If this paint source is <code>null</code>, the regular series color
+     * If this paint source is {@code null}, the regular series color
      * will be used for the top of the bars.
      * 
-     * @return A paint source (possibly <code>null</code>).
+     * @return A paint source (possibly {@code null}).
      */
     public CategoryColorSource getBaseColorSource() {
         return this.baseColorSource;
@@ -197,12 +197,12 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
      * Sets the object that determines the color to use for the base of bars
      * where the base value falls outside the axis range, and sends a
      * {@link Renderer3DChangeEvent} to all registered listeners.  If you set 
-     * this to <code>null</code>, the regular series color will be used to draw
+     * this to {@code null}, the regular series color will be used to draw
      * the base of the bar, but it will be harder for the end-user to know that 
      * only a section of the bar is visible in the chart.  Note that the 
-     * default base paint source returns <code>Color.WHITE</code> always.
+     * default base paint source returns {@code Color.WHITE} always.
      * 
-     * @param source  the source (<code>null</code> permitted).
+     * @param source  the source ({@code null} permitted).
      * 
      * @see #getBaseColorSource() 
      * @see #getTopColorSource()
@@ -217,10 +217,10 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
      * where the top of the bar is "cropped" (on account of the data value
      * falling outside of the bounds of the y-axis).  This is used to give a
      * visual indication to the end-user that the bar on display is cropped.
-     * If this paint source is <code>null</code>, the regular series color
+     * If this paint source is {@code null}, the regular series color
      * will be used for the top of the bars.
      * 
-     * @return A paint source (possibly <code>null</code>).
+     * @return A paint source (possibly {@code null}).
      */
     public CategoryColorSource getTopColorSource() {
         return this.topColorSource;
@@ -231,7 +231,7 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
      * top of the bar is "cropped", and sends a {@link Renderer3DChangeEvent}
      * to all registered listeners.
      * 
-     * @param source  the source (<code>null</code> permitted).
+     * @param source  the source ({@code null} permitted).
      * 
      * @see #getTopColorSource() 
      * @see #getBaseColorSource() 
@@ -246,9 +246,9 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
      * to see all the data from the dataset.  We override the method to 
      * include in the range the base value for the bars.
      * 
-     * @param data  the data (<code>null</code> not permitted).
+     * @param data  the data ({@code null} not permitted).
      * 
-     * @return The range (possibly <code>null</code>) 
+     * @return The range (possibly {@code null}) 
      */
     @Override
     public Range findValueRange(Values3D<? extends Number> data) {
@@ -260,12 +260,12 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
      * world.  This method will be called by the {@link CategoryPlot3D} class
      * while iterating over the items in the dataset.
      * 
-     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param dataset  the dataset ({@code null} not permitted).
      * @param series  the series index.
      * @param row  the row index.
      * @param column  the column index.
-     * @param world  the world (<code>null</code> not permitted).
-     * @param dimensions  the plot dimensions (<code>null</code> not permitted).
+     * @param world  the world ({@code null} not permitted).
+     * @param dimensions  the plot dimensions ({@code null} not permitted).
      * @param xOffset  the x-offset.
      * @param yOffset  the y-offset.
      * @param zOffset  the z-offset.
@@ -416,7 +416,7 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
     /**
      * Tests this renderer for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean. 
      */
