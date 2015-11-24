@@ -70,9 +70,9 @@ public final class StandardColorSource implements ColorSource,
     /**
      * Creates a new instance with the supplied sequence of colors.  The
      * supplied array must have at least one entry, and all entries must be
-     * non-<code>null</code>.
+     * non-{@code null}.
      * 
-     * @param colors  the colors (<code>null</code> not permitted). 
+     * @param colors  the colors ({@code null} not permitted). 
      */
     public StandardColorSource(Color... colors) {
         ArgChecks.nullNotPermitted(colors, "colors");
@@ -93,9 +93,9 @@ public final class StandardColorSource implements ColorSource,
     /**
      * Returns the color associated with the specified key.
      * 
-     * @param key  the key (<code>null</code> not permitted).
+     * @param key  the key ({@code null} not permitted).
      * 
-     * @return The color (never <code>null</code>). 
+     * @return The color (never {@code null}). 
      */
     @Override
     public Color getColor(Comparable<?> key) {
@@ -113,8 +113,8 @@ public final class StandardColorSource implements ColorSource,
     /**
      * Sets the color for the specified key.
      * 
-     * @param key  the key (<code>null</code> not permitted).
-     * @param color  the color (<code>null</code> permitted).
+     * @param key  the key ({@code null} not permitted).
+     * @param color  the color ({@code null} permitted).
      */
     @Override
     public void setColor(Comparable<?> key, Color color) {
@@ -130,7 +130,7 @@ public final class StandardColorSource implements ColorSource,
      * supplied value.  This method is used by the framework and is not
      * normally called by client code.
      * 
-     * @param colors  the colors (<code>null</code> not permitted).
+     * @param colors  the colors ({@code null} not permitted).
      * 
      * @since 1.2
      */
@@ -143,7 +143,7 @@ public final class StandardColorSource implements ColorSource,
     /**
      * Tests this paint source for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean. 
      */
