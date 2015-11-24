@@ -53,7 +53,7 @@ import com.orsoncharts.util.ArgChecks;
 public final class StandardCategoryDataset3D extends AbstractDataset3D  
         implements CategoryDataset3D, Serializable {
 
-	/**
+    /**
      * Storage for the data.
      */
     private DefaultKeyedValues3D<Number> data;
@@ -132,12 +132,12 @@ public final class StandardCategoryDataset3D extends AbstractDataset3D
     }
 
     /**
-     * Returns the index for the specified series key, or -1 if the key is
-     * not defined in the dataset.
+     * Returns the index for the specified series key, or {@code -1} if the 
+     * key is not defined in the dataset.
      * 
-     * @param serieskey  the series key (<code>null</code> not permitted).
+     * @param serieskey  the series key ({@code null} not permitted).
      * 
-     * @return The series index or -1. 
+     * @return The series index or {@code -1}.
      */
     @Override
     public int getSeriesIndex(Comparable<?> serieskey) {
@@ -145,12 +145,12 @@ public final class StandardCategoryDataset3D extends AbstractDataset3D
     }
 
     /**
-     * Returns the index of the specified row key, or <code>-1</code> if there
+     * Returns the index of the specified row key, or {@code -1} if there
      * is no matching key.
      * 
-     * @param rowkey  the row key (<code>null</code> not permitted).
+     * @param rowkey  the row key ({@code null} not permitted).
      * 
-     * @return The row index or <code>-1</code>. 
+     * @return The row index or {@code -1}. 
      */
     @Override
     public int getRowIndex(Comparable<?> rowkey) {
@@ -159,12 +159,12 @@ public final class StandardCategoryDataset3D extends AbstractDataset3D
     }
 
     /**
-     * Returns the index of the specified column key, or <code>-1</code> if 
+     * Returns the index of the specified column key, or {@code -1} if 
      * there is no matching key.
      * 
-     * @param columnkey  the column key (<code>null</code> not permitted).
+     * @param columnkey  the column key ({@code null} not permitted).
      * 
-     * @return The column index or <code>-1</code>. 
+     * @return The column index or {@code -1}. 
      */
     @Override
     public int getColumnIndex(Comparable<?> columnkey) {
@@ -177,7 +177,7 @@ public final class StandardCategoryDataset3D extends AbstractDataset3D
      * list will have no impact on the underlying dataset.
      * 
      * @return A list of the series keys (possibly empty, but never 
-     *     <code>null</code>). 
+     *     {@code null}). 
      */
     @Override
     public List<Comparable<?>> getSeriesKeys() {
@@ -189,7 +189,7 @@ public final class StandardCategoryDataset3D extends AbstractDataset3D
      * list will have no impact on the underlying dataset.
      * 
      * @return A list of the row keys (possibly empty, but never 
-     *     <code>null</code>). 
+     *     {@code null}). 
      */
     @Override
     public List<Comparable<?>> getRowKeys() {
@@ -201,7 +201,7 @@ public final class StandardCategoryDataset3D extends AbstractDataset3D
      * list will have no impact on the underlying dataset.
      * 
      * @return A list of the column keys (possibly empty, but never 
-     *     <code>null</code>). 
+     *     {@code null}). 
      */
     @Override
     public List<Comparable<?>> getColumnKeys() {
@@ -212,11 +212,11 @@ public final class StandardCategoryDataset3D extends AbstractDataset3D
      * Returns the value for a series at the specified cell (referenced by
      * row key and column key).
      * 
-     * @param seriesKey  the series key (<code>null</code> not permitted).
-     * @param rowKey  the row key (<code>null</code> not permitted).
-     * @param columnKey  the column key (<code>null</code> not permitted).
+     * @param seriesKey  the series key ({@code null} not permitted).
+     * @param rowKey  the row key ({@code null} not permitted).
+     * @param columnKey  the column key ({@code null} not permitted).
      * 
-     * @return The value (possibly <code>null</code>). 
+     * @return The value (possibly {@code null}). 
      */
     @Override
     public Number getValue(Comparable<?> seriesKey, Comparable<?> rowKey, 
@@ -232,7 +232,7 @@ public final class StandardCategoryDataset3D extends AbstractDataset3D
      * @param rowIndex  the row index.
      * @param columnIndex  the column index.
      * 
-     * @return The value (possibly <code>null</code>).
+     * @return The value (possibly {@code null}).
      */
     @Override
     public Number getValue(int seriesIndex, int rowIndex, int columnIndex) {
@@ -243,10 +243,10 @@ public final class StandardCategoryDataset3D extends AbstractDataset3D
      * Sets the value for a series at the specified cell (referenced by row
      * key and column key).
      * 
-     * @param n  the value (<code>null</code> permitted).
-     * @param seriesKey  the series key (<code>null</code> not permitted).
-     * @param rowKey  the row key (<code>null</code> not permitted).
-     * @param columnKey  the column key (<code>null</code> not permitted).
+     * @param n  the value ({@code null} permitted).
+     * @param seriesKey  the series key ({@code null} not permitted).
+     * @param rowKey  the row key ({@code null} not permitted).
+     * @param columnKey  the column key ({@code null} not permitted).
      */
     public void setValue(Number n, Comparable<?> seriesKey, 
             Comparable<?> rowKey, Comparable<?> columnKey) {
@@ -260,10 +260,10 @@ public final class StandardCategoryDataset3D extends AbstractDataset3D
      * java.lang.Number, java.lang.Comparable, java.lang.Comparable, 
      * java.lang.Comparable) }.
      * 
-     * @param n  the value (<code>null</code> permitted).
-     * @param seriesKey  the series key (<code>null</code> not permitted).
-     * @param rowKey  the row key (<code>null</code> not permitted).
-     * @param columnKey  the column key (<code>null</code> not permitted).
+     * @param n  the value ({@code null} permitted).
+     * @param seriesKey  the series key ({@code null} not permitted).
+     * @param rowKey  the row key ({@code null} not permitted).
+     * @param columnKey  the column key ({@code null} not permitted).
      */
     public void addValue(Number n, Comparable<?> seriesKey, 
             Comparable<?> rowKey, Comparable<?> columnKey) {
@@ -273,13 +273,13 @@ public final class StandardCategoryDataset3D extends AbstractDataset3D
     /**
      * Returns the value for a series at the specified cell (referenced by row
      * index and column index) as a double primitive.  If the stored data 
-     * value is <code>null</code>, this method returns <code>Double.NaN</code>.
+     * value is {@code null}, this method returns {@code Double.NaN}.
      * 
      * @param seriesIndex  the series index.
      * @param rowIndex  the row index.
      * @param columnIndex  the column index.
      * 
-     * @return The value (possibly <code>Double.NaN</code>). 
+     * @return The value (possibly {@code Double.NaN}).
      */
     @Override
     public double getDoubleValue(int seriesIndex, int rowIndex, 
@@ -290,8 +290,8 @@ public final class StandardCategoryDataset3D extends AbstractDataset3D
     /**
      * Adds a data series as a single row in the dataset.
      * 
-     * @param seriesKey  the series key (<code>null</code> not permitted).
-     * @param data  the data (<code>null</code> not permitted).
+     * @param seriesKey  the series key ({@code null} not permitted).
+     * @param data  the data ({@code null} not permitted).
      */
     public void addSeriesAsRow(Comparable<?> seriesKey, 
             KeyedValues<? extends Number> data) {
@@ -301,9 +301,9 @@ public final class StandardCategoryDataset3D extends AbstractDataset3D
     /**
      * Adds a data series as a single row in the dataset.
      * 
-     * @param seriesKey  the series key (<code>null</code> not permitted).
-     * @param rowKey  the row key (<code>null</code> not permitted).
-     * @param data  the data (<code>null</code> not permitted).
+     * @param seriesKey  the series key ({@code null} not permitted).
+     * @param rowKey  the row key ({@code null} not permitted).
+     * @param data  the data ({@code null} not permitted).
      */
     public void addSeriesAsRow(Comparable<?> seriesKey, Comparable<?> rowKey, 
             KeyedValues<? extends Number> data) {
@@ -317,7 +317,7 @@ public final class StandardCategoryDataset3D extends AbstractDataset3D
     /**
      * Tests this instance for equality with an arbitrary object.
      * 
-     * @param obj  the object to test against (<code>null</code> permitted).
+     * @param obj  the object to test against ({@code null} permitted).
      * 
      * @return A boolean. 
      */
