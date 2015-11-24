@@ -67,13 +67,13 @@ public abstract class AbstractMarker implements Marker {
     /**
      * Draws a marker label.
      * 
-     * @param g2  the graphics target (<code>null</code> not permitted).
+     * @param g2  the graphics target ({@code null} not permitted).
      * @param label  the label.
      * @param x  the x-coordinate for the anchor point.
      * @param y  the y-cpordinate for the anchor point.
-     * @param anchor  the label anchor (<code>null</code> not permitted).
+     * @param anchor  the label anchor ({@code null} not permitted).
      * @param refLine  a reference line that is used to determine the rotation 
-     *     angle for the label (<code>null</code> not permitted).
+     *     angle for the label ({@code null} not permitted).
      * @param reverse  a flag to indicate reverse orientation.
      */
     protected void drawMarkerLabel(Graphics2D g2, String label, 
@@ -106,15 +106,15 @@ public abstract class AbstractMarker implements Marker {
     /**
      * Draws a marker label.
      * 
-     * @param g2  the graphics target (<code>null</code> not permitted).
+     * @param g2  the graphics target ({@code null} not permitted).
      * @param label  the label.
      * @param x  the x-coordinate for the anchor point.
      * @param y  the y-cpordinate for the anchor point.
-     * @param anchor  the label anchor (<code>null</code> not permitted).
+     * @param anchor  the label anchor ({@code null} not permitted).
      * @param refLine1  a reference line that is used to determine the rotation 
-     *     angle for the label (<code>null</code> not permitted).
+     *     angle for the label ({@code null} not permitted).
      * @param refLine2  a reference line that is used to determine the rotation 
-     *     angle for the label (<code>null</code> not permitted).
+     *     angle for the label ({@code null} not permitted).
      * @param reverse  a flag to indicate reverse orientation.
      */
     protected void drawMarkerLabel(Graphics2D g2, String label, 
@@ -166,7 +166,7 @@ public abstract class AbstractMarker implements Marker {
     /**
      * Registers a listener to receive notification of changes to the marker.
      * 
-     * @param listener  the listener (<code>null</code> not permitted). 
+     * @param listener  the listener ({@code null} not permitted). 
      */
     @Override
     public void addChangeListener(MarkerChangeListener listener) {
@@ -177,7 +177,7 @@ public abstract class AbstractMarker implements Marker {
      * Deregisters a listener so that it no longer receives notification of 
      * changes to the marker.
      * 
-     * @param listener  the listener (<code>null</code> not permitted). 
+     * @param listener  the listener ({@code null} not permitted). 
      */
     @Override
     public void removeChangeListener(MarkerChangeListener listener) {
@@ -201,10 +201,10 @@ public abstract class AbstractMarker implements Marker {
      * A utility method that returns a suitable text anchor for a given
      * reference point. This is used for range marker label positioning.
      * 
-     * @param refPt  the reference point (<code>null</code> not permitted).
+     * @param refPt  the reference point ({@code null} not permitted).
      * @param vflip  is the text flipped vertically?
      * 
-     * @return A text anchor (never <code>null</code>). 
+     * @return A text anchor (never {@code null}). 
      */
     protected static TextAnchor deriveTextAnchor(RefPt2D refPt, boolean vflip) {
         ArgChecks.nullNotPermitted(refPt, "refPt");
@@ -235,10 +235,10 @@ public abstract class AbstractMarker implements Marker {
      * reference point relative to a line (rather than a rectangle which is
      * the normal case).  This is used for value marker label positioning.
      * 
-     * @param refPt  the reference point (<code>null</code> not permitted).
+     * @param refPt  the reference point ({@code null} not permitted).
      * @param vflip  is the text flipped vertically?
      * 
-     * @return A text anchor (never <code>null</code>). 
+     * @return A text anchor (never {@code null}). 
      */
     protected static TextAnchor deriveTextAnchorForLine(RefPt2D refPt, 
             boolean vflip) {
