@@ -67,8 +67,8 @@ public class ShapeElement extends AbstractTableElement
     /**
      * Creates a new shape element.
      * 
-     * @param shape  the shape (<code>null</code> not permitted).
-     * @param fillColor  the fill color (<code>null</code> not permitted).
+     * @param shape  the shape ({@code null} not permitted).
+     * @param fillColor  the fill color ({@code null} not permitted).
      */
     public ShapeElement(Shape shape, Color fillColor) {
         super();
@@ -92,7 +92,7 @@ public class ShapeElement extends AbstractTableElement
     /**
      * Sets the fill color.
      * 
-     * @param color  the fill color (<code>null</code> not permitted).
+     * @param color  the fill color ({@code null} not permitted).
      * 
      * @since 1.2
      */
@@ -131,8 +131,8 @@ public class ShapeElement extends AbstractTableElement
     /**
      * Draws the shape element within the specified bounds.
      * 
-     * @param g2  the graphics target (<code>null</code> not permitted).
-     * @param bounds  the bounds (<code>null</code> not permitted).
+     * @param g2  the graphics target ({@code null} not permitted).
+     * @param bounds  the bounds ({@code null} not permitted).
      */
     @Override
     public void draw(Graphics2D g2, Rectangle2D bounds) {
@@ -141,14 +141,14 @@ public class ShapeElement extends AbstractTableElement
     
     /**
      * Draws the element within the specified bounds.  If the 
-     * <code>recordBounds</code> flag is set, this element and each of its
-     * children will have their <code>BOUNDS_2D</code> property updated with 
+     * {@code recordBounds} flag is set, this element and each of its
+     * children will have their {@code BOUNDS_2D} property updated with 
      * the current bounds.
      * 
-     * @param g2  the graphics target (<code>null</code> not permitted).
-     * @param bounds  the bounds (<code>null</code> not permitted).
+     * @param g2  the graphics target ({@code null} not permitted).
+     * @param bounds  the bounds ({@code null} not permitted).
      * @param onDrawHandler  an object that will receive notification before 
-     *     and after the element is drawn (<code>null</code> permitted).
+     *     and after the element is drawn ({@code null} permitted).
      * 
      * @since 1.3
      */
@@ -175,7 +175,7 @@ public class ShapeElement extends AbstractTableElement
     /**
      * Receives a visitor.
      * 
-     * @param visitor  the visitor (<code>null</code> not permitted).
+     * @param visitor  the visitor ({@code null} not permitted).
      * 
      * @since 1.2
      */
