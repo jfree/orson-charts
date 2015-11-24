@@ -84,7 +84,7 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
     
     /** 
      * The color used to paint the underside of the area object (if 
-     * <code>null</code>, the regular series color is used).
+     * {@code null}, the regular series color is used).
      */
     private Color baseColor;
     
@@ -124,7 +124,7 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
 
     /**
      * Returns the y-value for the base of the area.  The default value is 
-     * <code>0.0</code>.
+     * {@code 0.0}.
      * 
      * @return The base value. 
      */
@@ -144,10 +144,10 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
     
     /**
      * Returns the color used to paint the underside of the area polygons.
-     * The default value is <code>null</code> (which means the undersides are
+     * The default value is {@code null} (which means the undersides are
      * painted using the regular series color).
      * 
-     * @return The color (possibly <code>null</code>). 
+     * @return The color (possibly {@code null}). 
      * 
      * @see #setBaseColor(java.awt.Color) 
      */
@@ -158,10 +158,10 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
     /**
      * Sets the color for the underside of the area shapes and sends a
      * change event to all registered listeners.  If you set
-     * this to <code>null</code> the base will be painted with the regular
+     * this to {@code null} the base will be painted with the regular
      * series color.
      * 
-     * @param color  the color (<code>null</code> permitted). 
+     * @param color  the color ({@code null} permitted). 
      */
     public void setBaseColor(Color color) {
         this.baseColor = color;
@@ -170,7 +170,7 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
     
     /**
      * Returns the depth (in 3D) for the area (in world units).  The 
-     * default value is <code>0.6</code>.
+     * default value is {@code 0.6}.
      * 
      * @return The depth.
      */
@@ -191,10 +191,10 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
 
     /**
      * Returns the color source used to determine the color used to highlight
-     * clipping in the chart elements.  If the source is <code>null</code>,
+     * clipping in the chart elements.  If the source is {@code null},
      * then the regular series color is used instead.
      * 
-     * @return The color source (possibly <code>null</code>).
+     * @return The color source (possibly {@code null}).
      * 
      * @since 1.3
      */
@@ -207,7 +207,7 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
      * clipping in the chart elements, and sends a {@link Renderer3DChangeEvent}
      * to all registered listeners.
      * 
-     * @param source  the source (<code>null</code> permitted). 
+     * @param source  the source ({@code null} permitted). 
      * 
      * @since 1.3
      */
@@ -219,7 +219,7 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
     /**
      * Returns the flag that controls whether or not the faces making up area
      * segments will be drawn with outlines.  The default value is 
-     * <code>true</code>.  When anti-aliasing is on, the fill area for the 
+     * {@code true}.  When anti-aliasing is on, the fill area for the 
      * faces will have some gray shades around the edges, and these will show
      * up on the chart as thin lines (usually not visible if you turn off
      * anti-aliasing).  To mask this, the rendering engine can draw an outline
@@ -255,7 +255,7 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
      * is overridden to ensure that the range includes the base value (normally
      * 0.0) set for the renderer.
      * 
-     * @param data  the data (<code>null</code> not permitted).
+     * @param data  the data ({@code null} not permitted).
      * 
      * @return The range. 
      */
@@ -269,12 +269,12 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
      * world.  This method will be called by the {@link CategoryPlot3D} class
      * while iterating over the items in the dataset.
      * 
-     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param dataset  the dataset ({@code null} not permitted).
      * @param series  the series index.
      * @param row  the row index.
      * @param column  the column index.
-     * @param world  the world (<code>null</code> not permitted).
-     * @param dimensions  the plot dimensions (<code>null</code> not permitted).
+     * @param world  the world ({@code null} not permitted).
+     * @param dimensions  the plot dimensions ({@code null} not permitted).
      * @param xOffset  the x-offset.
      * @param yOffset  the y-offset.
      * @param zOffset  the z-offset.
@@ -517,7 +517,7 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
     }
 
     /**
-     * Returns <code>true</code> if the two values are on opposite sides of 
+     * Returns {@code true} if the two values are on opposite sides of 
      * the baseline.  If the data values cross the baseline, then we need
      * to construct two 3D objects to represent the data, whereas if there is
      * no crossing, a single 3D object will be sufficient.
@@ -617,7 +617,7 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
      * Creates a 3D object to represent a positive "area", taking into account
      * that the visible range can be restricted.
      * 
-     * @param color  the color (<code>null</code> not permitted).
+     * @param color  the color ({@code null} not permitted).
      * @param wx0
      * @param wy0
      * @param wx1
@@ -628,7 +628,7 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
      * @param openingFace
      * @param closingFace
      * 
-     * @return A 3D object or <code>null</code>. 
+     * @return A 3D object or {@code null}. 
      */
     private Object3D createPositiveArea(double wx0, double wy0, 
             double wx1, double wy1, double wbase, double wz, Range range,
@@ -747,7 +747,7 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
      * @param openingFace
      * @param closingFace
      * 
-     * @return An object representing the area shape (or <code>null</code>). 
+     * @return An object representing the area shape (or {@code null}). 
      */
     private Object3D createNegativeArea(double wx0, double wy0, 
             double wx1, double wy1, double wbase, double wz, Range range,
@@ -852,7 +852,7 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
     /**
      * Tests this renderer for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean. 
      */
