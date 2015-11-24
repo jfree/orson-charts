@@ -52,8 +52,8 @@ public class ElementInfo {
     /**
      * Creates a new instance.
      * 
-     * @param element  the element (<code>null</code> not permitted).
-     * @param dimension  the dimension (<code>null</code> not permitted).
+     * @param element  the element ({@code null} not permitted).
+     * @param dimension  the dimension ({@code null} not permitted).
      */
     public ElementInfo(TableElement element, Dimension2D dimension) {
         ArgChecks.nullNotPermitted(element, "element");
@@ -65,7 +65,7 @@ public class ElementInfo {
     /**
      * Returns the element.
      * 
-     * @return The element (never <code>null</code>). 
+     * @return The element (never {@code null}). 
      */
     public TableElement getElement() {
         return this.element;
@@ -74,7 +74,7 @@ public class ElementInfo {
     /**
      * Returns the element's size.
      * 
-     * @return The element's size (never <code>null</code>). 
+     * @return The element's size (never {@code null}). 
      */
     public Dimension2D getDimension() {
         return this.dimension;
