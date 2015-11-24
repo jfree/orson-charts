@@ -53,7 +53,7 @@ public class ChartStyleChangeEvent extends EventObject {
     /**
      * Creates a new event.
      * 
-     * @param style  the style (<code>null</code> not permitted). 
+     * @param style  the style ({@code null} not permitted). 
      */
     public ChartStyleChangeEvent(ChartStyle style) {
         this(style, style);
@@ -63,7 +63,7 @@ public class ChartStyleChangeEvent extends EventObject {
      * Creates a new event.
      * 
      * @param source  the source.
-     * @param style  the style (<code>null</code> not permitted).
+     * @param style  the style ({@code null} not permitted).
      */
     public ChartStyleChangeEvent(Object source, ChartStyle style) {
         super(source);
@@ -74,7 +74,7 @@ public class ChartStyleChangeEvent extends EventObject {
     /**
      * Returns the chart style that this event is associated with.
      * 
-     * @return The style (never <code>null</code>). 
+     * @return The style (never {@code null}). 
      */
     public ChartStyle getChartStyle () {
         return this.style;
