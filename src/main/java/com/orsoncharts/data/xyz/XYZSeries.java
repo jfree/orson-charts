@@ -40,7 +40,7 @@ import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.ObjectUtils;
 
 /**
- * A data series containing a sequence of <code>(x, y, z)</code> data items.  
+ * A data series containing a sequence of {@code (x, y, z)} data items.  
  * The series has a key to identify it, and can be added to an 
  * {@link XYZSeriesCollection} to create a dataset.
  * <br><br>
@@ -51,7 +51,7 @@ import com.orsoncharts.util.ObjectUtils;
 @SuppressWarnings("serial")
 public class XYZSeries implements Serializable {
 
-    /** The series key (never <code>null</code>). */
+    /** The series key (never {@code null}). */
     private final Comparable<?> key;
 
     /** The data items in the series. */
@@ -60,7 +60,7 @@ public class XYZSeries implements Serializable {
     /**
      * Creates a new series with the specified key.
      * 
-     * @param key  the key (<code>null</code> not permitted). 
+     * @param key  the key ({@code null} not permitted). 
      */
     public XYZSeries(Comparable<?> key) {
         ArgChecks.nullNotPermitted(key, "key");
@@ -71,7 +71,7 @@ public class XYZSeries implements Serializable {
     /**
      * Returns the series key.
      * 
-     * @return The series key (never <code>null</code>). 
+     * @return The series key (never {@code null}). 
      */
     public Comparable<?> getKey() {
         return this.key;
@@ -87,7 +87,7 @@ public class XYZSeries implements Serializable {
     }
     
     /**
-     * Returns the x-value for the specified item.
+     * Returns the x-value for the specified item in the series.
      * 
      * @param itemIndex  the item index.
      * 
@@ -98,7 +98,7 @@ public class XYZSeries implements Serializable {
     }
   
     /**
-     * Returns the y-value for the specified item.
+     * Returns the y-value for the specified item in the series.
      * 
      * @param itemIndex  the item index.
      * 
@@ -109,7 +109,7 @@ public class XYZSeries implements Serializable {
     }
 
     /**
-     * Returns the z-value for the specified item.
+     * Returns the z-value for the specified item in the series.
      * 
      * @param itemIndex  the item index.
      * 
@@ -133,7 +133,7 @@ public class XYZSeries implements Serializable {
     /**
      * Adds a new data item to the series.
      * 
-     * @param item  the data item (<code>null</code> not permitted).
+     * @param item  the data item ({@code null} not permitted).
      */
     public void add(XYZDataItem item) {
         ArgChecks.nullNotPermitted(item, "item");
@@ -143,7 +143,7 @@ public class XYZSeries implements Serializable {
     /**
      * Tests this series for equality with an arbitrary object.
      * 
-     * @param obj  the object to test (<code>null</code> permitted).
+     * @param obj  the object to test ({@code null} permitted).
      * 
      * @return A boolean. 
      */
