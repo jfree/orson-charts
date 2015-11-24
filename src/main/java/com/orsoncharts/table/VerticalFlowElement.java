@@ -73,7 +73,7 @@ public class VerticalFlowElement extends AbstractTableElement
     
     /**
      * Creates a new instance (equivalent to 
-     * <code>new VerticalFlowElement(VAlign.MIDDLE, 2)</code>).
+     * {@code new VerticalFlowElement(VAlign.MIDDLE, 2)}).
      */
     public VerticalFlowElement() {
         this(VAlign.MIDDLE, 2);
@@ -82,7 +82,7 @@ public class VerticalFlowElement extends AbstractTableElement
     /**
      * Creates a new instance.
      * 
-     * @param alignment  the vertical alignment of columns (<code>null</code> 
+     * @param alignment  the vertical alignment of columns ({@code null} 
      *         not permitted).
      * @param vgap  the gap between elements. 
      */
@@ -96,7 +96,7 @@ public class VerticalFlowElement extends AbstractTableElement
     /**
      * Returns the vertical alignment for the elements.
      * 
-     * @return The vertical alignment (never <code>null</code>). 
+     * @return The vertical alignment (never {@code null}). 
      */
     public VAlign getVerticalAlignment() {
         return this.verticalAlignment;
@@ -105,7 +105,7 @@ public class VerticalFlowElement extends AbstractTableElement
     /**
      * Sets the vertical alignment of elements within columns,
      * 
-     * @param alignment  the alignment (<code>null</code> not permitted). 
+     * @param alignment  the alignment ({@code null} not permitted). 
      */
     public void setVerticalAlignment(VAlign alignment) {
         ArgChecks.nullNotPermitted(alignment, "alignment");
@@ -134,7 +134,7 @@ public class VerticalFlowElement extends AbstractTableElement
      * Returns a (new) list containing the elements in this flow layout.
      * 
      * @return A list containing the elements (possibly empty, but never 
-     *     <code>null</code>). 
+     *     {@code null}). 
      */
     public List<TableElement> getElements() {
         return new ArrayList<TableElement>(this.elements);
@@ -143,7 +143,7 @@ public class VerticalFlowElement extends AbstractTableElement
     /**
      * Adds a sub-element to the list.
      * 
-     * @param element  the element (<code>null</code> not permitted).
+     * @param element  the element ({@code null} not permitted).
      */
     @Override
     public void addElement(TableElement element) {
@@ -155,7 +155,7 @@ public class VerticalFlowElement extends AbstractTableElement
      * Receives a {@link TableElementVisitor} (the visitor will be received
      * by all the elements in the flow).
      * 
-     * @param visitor  the visitor (<code>null</code> not permitted).
+     * @param visitor  the visitor ({@code null} not permitted).
      * 
      * @since 1.2
      */
@@ -169,11 +169,11 @@ public class VerticalFlowElement extends AbstractTableElement
     /**
      * Returns the preferred size for the element.
      * 
-     * @param g2  the graphics target (<code>null</code> not permitted).
-     * @param bounds  the bounds (<code>null</code> not permitted).
+     * @param g2  the graphics target ({@code null} not permitted).
+     * @param bounds  the bounds ({@code null} not permitted).
      * @param constraints  the layout constraints (ignored here).
      * 
-     * @return The preferred size (never <code>null</code>). 
+     * @return The preferred size (never {@code null}). 
      */
     @Override
     public Dimension2D preferredSize(Graphics2D g2, Rectangle2D bounds, 
@@ -300,8 +300,8 @@ public class VerticalFlowElement extends AbstractTableElement
      * Draws the element and all of its subelements within the specified
      * bounds.
      * 
-     * @param g2  the graphics target (<code>null</code> not permitted).
-     * @param bounds  the bounds (<code>null</code> not permitted).
+     * @param g2  the graphics target ({@code null} not permitted).
+     * @param bounds  the bounds ({@code null} not permitted).
      */
     @Override
     public void draw(Graphics2D g2, Rectangle2D bounds) {
@@ -311,12 +311,12 @@ public class VerticalFlowElement extends AbstractTableElement
     
     /**
      * Draws the element within the specified bounds.  If the 
-     * <code>recordBounds</code> flag is set, this element and each of its
-     * children will have their <code>BOUNDS_2D</code> property updated with 
+     * {@code recordBounds} flag is set, this element and each of its
+     * children will have its {@code BOUNDS_2D} property updated with 
      * the current bounds.
      * 
-     * @param g2  the graphics target (<code>null</code> not permitted).
-     * @param bounds  the bounds (<code>null</code> not permitted).
+     * @param g2  the graphics target ({@code null} not permitted).
+     * @param bounds  the bounds ({@code null} not permitted).
      * @param onDrawHandler  record the bounds?
      * 
      * @since 1.3
@@ -356,7 +356,7 @@ public class VerticalFlowElement extends AbstractTableElement
     /**
      * Tests this element for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean. 
      */
