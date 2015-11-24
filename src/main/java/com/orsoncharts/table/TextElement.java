@@ -66,23 +66,23 @@ public class TextElement extends AbstractTableElement
     public static final Font DEFAULT_FONT = new Font("Dialog", Font.PLAIN, 
             12);
     
-    /** The text (never <code>null</code>). */
+    /** The text (never {@code null}). */
     private String text;
     
-    /** The font (never <code>null</code>). */
+    /** The font (never {@code null}). */
     private Font font;
     
-    /** The color for the text (never <code>null</code>). */
+    /** The color for the text (never {@code null}). */
     private Color color;
     
-    /** The horizontal alignment (never <code>null</code>). */
+    /** The horizontal alignment (never {@code null}). */
     private HAlign alignment;
    
     /**
      * Creates a new element that will display the specified text using the
      * default font ({@link #DEFAULT_FONT}).
      * 
-     * @param text  the text (<code>null</code> not permitted).
+     * @param text  the text ({@code null} not permitted).
      */
     public TextElement(String text) {
         this(text, DEFAULT_FONT);
@@ -91,8 +91,8 @@ public class TextElement extends AbstractTableElement
     /**
      * Creates a new instance.
      * 
-     * @param text  the text (<code>null</code> not permitted).
-     * @param font  the font (<code>null</code> not permitted).
+     * @param text  the text ({@code null} not permitted).
+     * @param font  the font ({@code null} not permitted).
      */
     public TextElement(String text, Font font) {
         super();
@@ -107,7 +107,7 @@ public class TextElement extends AbstractTableElement
     /**
      * Returns the font.  The default value is {@link #DEFAULT_FONT}.
      * 
-     * @return The font (never <code>null</code>). 
+     * @return The font (never {@code null}). 
      */
     public Font getFont() {
         return this.font;
@@ -116,7 +116,7 @@ public class TextElement extends AbstractTableElement
     /**
      * Sets the font.
      * 
-     * @param font  the font (<code>null</code> not permitted). 
+     * @param font  the font ({@code null} not permitted). 
      */
     public void setFont(Font font) {
         ArgChecks.nullNotPermitted(font, "font");
@@ -134,9 +134,9 @@ public class TextElement extends AbstractTableElement
     
     /**
      * Returns the horizontal alignment that will be used when rendering the
-     * text.  The default value is <code>LEFT</code>.
+     * text.  The default value is {@code LEFT}.
      * 
-     * @return The horizontal alignment (never <code>null</code>). 
+     * @return The horizontal alignment (never {@code null}). 
      */
     public HAlign getHorizontalAlignment() {
         return this.alignment;
@@ -145,7 +145,7 @@ public class TextElement extends AbstractTableElement
     /**
      * Sets the horizontal alignment.
      * 
-     * @param align  the alignment (<code>null</code> not permitted). 
+     * @param align  the alignment ({@code null} not permitted). 
      */
     public void setHorizontalAligment(HAlign align) {
         ArgChecks.nullNotPermitted(align, "align");
@@ -220,7 +220,7 @@ public class TextElement extends AbstractTableElement
     /**
      * Receives a visitor.
      * 
-     * @param visitor  the visitor (<code>null</code> not permitted).
+     * @param visitor  the visitor ({@code null} not permitted).
      * 
      * @since 1.2
      */
@@ -242,14 +242,14 @@ public class TextElement extends AbstractTableElement
     
     /**
      * Draws the element within the specified bounds.  If the 
-     * <code>recordBounds</code> flag is set, this element and each of its
-     * children will have their <code>BOUNDS_2D</code> property updated with 
+     * {@code recordBounds} flag is set, this element and each of its
+     * children will have their {@code BOUNDS_2D} property updated with 
      * the current bounds.
      * 
-     * @param g2  the graphics target (<code>null</code> not permitted).
-     * @param bounds  the bounds (<code>null</code> not permitted).
+     * @param g2  the graphics target ({@code null} not permitted).
+     * @param bounds  the bounds ({@code null} not permitted).
      * @param onDrawHandler  an object that will receive notification before 
-     *     and after the element is drawn (<code>null</code> permitted).
+     *     and after the element is drawn ({@code null} permitted).
      */
     @Override
     public void draw(Graphics2D g2, Rectangle2D bounds, 
@@ -276,7 +276,7 @@ public class TextElement extends AbstractTableElement
     /**
      * Tests this element for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean. 
      */
