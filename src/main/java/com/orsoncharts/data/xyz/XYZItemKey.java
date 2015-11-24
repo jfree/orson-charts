@@ -58,7 +58,7 @@ public class XYZItemKey<S extends Comparable<S>> implements ItemKey,
     /**
      * Creates a new instance.
      * 
-     * @param seriesKey  the series key.
+     * @param seriesKey  the series key ({@code null} not permitted).
      * @param itemIndex  the item index.
      */
     public XYZItemKey(S seriesKey, int itemIndex) {
@@ -70,7 +70,7 @@ public class XYZItemKey<S extends Comparable<S>> implements ItemKey,
     /**
      * Returns the series key.
      * 
-     * @return The series key (never <code>null</code>). 
+     * @return The series key (never {@code null}). 
      */
     public S getSeriesKey() {
         return this.seriesKey;
@@ -88,7 +88,7 @@ public class XYZItemKey<S extends Comparable<S>> implements ItemKey,
     /**
      * Tests this instance for equality with an arbitrary object.
      * 
-     * @param obj  the object to test (<code>null</code> permitted).
+     * @param obj  the object to test ({@code null} permitted).
      * 
      * @return A boolean. 
      */
