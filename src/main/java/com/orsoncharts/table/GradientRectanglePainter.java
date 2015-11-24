@@ -77,14 +77,14 @@ public final class GradientRectanglePainter implements RectanglePainter,
      * NOTE:  some useful standard anchor points are defined in the 
      * {@link TitleAnchor} class.
      * 
-     * @param color1  the first color for the gradient (<code>null</code> not 
+     * @param color1  the first color for the gradient ({@code null} not 
      *     permitted).
      * @param anchor1  the anchor point used to determine the starting point 
-     *     for the gradient (<code>null</code> not permitted).
-     * @param color2  the second color for the gradient (<code>null</code> not
+     *     for the gradient ({@code null} not permitted).
+     * @param color2  the second color for the gradient ({@code null} not
      *     permitted).
      * @param anchor2  the anchor point used to determine the ending point for
-     *     the gradient (<code>null</code> not permitted).
+     *     the gradient ({@code null} not permitted).
      */
     public GradientRectanglePainter(Color color1, Anchor2D anchor1, 
             Color color2, Anchor2D anchor2) {
@@ -103,7 +103,7 @@ public final class GradientRectanglePainter implements RectanglePainter,
      * constructor).  There is no setter method because instances of this class
      * are immutable.
      * 
-     * @return The first color for the gradient (never <code>null</code>). 
+     * @return The first color for the gradient (never {@code null}). 
      */
     public Color getColor1() {
         return this.color1;
@@ -114,7 +114,7 @@ public final class GradientRectanglePainter implements RectanglePainter,
      * gradient (as specified via the constructor).  There is no setter method 
      * because instances of this class are immutable.
      * 
-     * @return The anchor point (never <code>null</code>). 
+     * @return The anchor point (never {@code null}). 
      */
     public Anchor2D getAnchor1() {
         return this.anchor1; 
@@ -125,7 +125,7 @@ public final class GradientRectanglePainter implements RectanglePainter,
      * constructor).  There is no setter method because instances of this class
      * are immutable.
      * 
-     * @return The second color for the gradient (never <code>null</code>). 
+     * @return The second color for the gradient (never {@code null}). 
      */
     public Color getColor2() {
         return this.color2;
@@ -136,19 +136,19 @@ public final class GradientRectanglePainter implements RectanglePainter,
      * gradient (as specified via the constructor).  There is no setter method 
      * because instances of this class are immutable.
      * 
-     * @return The anchor point (never <code>null</code>). 
+     * @return The anchor point (never {@code null}). 
      */
     public Anchor2D getAnchor2() {
         return this.anchor2; 
     }
     
     /**
-     * Returns a <code>GradientPaint</code> instance with coordinates based 
+     * Returns a {@code GradientPaint} instance with coordinates based 
      * on the painter's anchor points and the supplied rectangle.
      * 
-     * @param area  the area (<code>null</code> not permitted).
+     * @param area  the area ({@code null} not permitted).
      * 
-     * @return A gradient paint (never <code>null</code>). 
+     * @return A gradient paint (never {@code null}). 
      */
     private GradientPaint createTransformedGradient(Rectangle2D area) {
         // defer arg check
@@ -158,11 +158,11 @@ public final class GradientRectanglePainter implements RectanglePainter,
     }
     
     /**
-     * Fills the specified <code>area</code> with a gradient paint created
+     * Fills the specified {@code area} with a gradient paint created
      * using the colors and anchor points of this painter.
      * 
-     * @param g2  the graphics target (<code>null</code> not permitted).
-     * @param area  the area to fill (<code>null</code> not permitted).
+     * @param g2  the graphics target ({@code null} not permitted).
+     * @param area  the area to fill ({@code null} not permitted).
      */
     @Override
     public void fill(Graphics2D g2, Rectangle2D area) {
@@ -175,7 +175,7 @@ public final class GradientRectanglePainter implements RectanglePainter,
     /**
      * Tests this instance for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> not permitted).
+     * @param obj  the object ({@code null} not permitted).
      * 
      * @return A boolean. 
      */
