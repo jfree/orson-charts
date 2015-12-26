@@ -248,9 +248,9 @@ public class ViewPoint3D implements Serializable {
     
     /**
      * Returns the location of the view point.  Note that a new instance of 
-     * <code>Point3D</code> is created each time this method is called. 
+     * {@code Point3D} is created each time this method is called. 
      * 
-     * @return The viewing point (never <code>null</code>).
+     * @return The viewing point (never {@code null}).
      */
     public final Point3D getPoint() {
         return new Point3D(getX(), getY(), getZ());
@@ -324,7 +324,7 @@ public class ViewPoint3D implements Serializable {
     /**
      * Converts a point in world coordinates to a point in eye coordinates.
      *
-     * @param p  the point (<code>null</code> not permitted).
+     * @param p  the point ({@code null} not permitted).
      *
      * @return The point in eye coordinates.
      */
@@ -358,8 +358,8 @@ public class ViewPoint3D implements Serializable {
      * Calculate the distance that would render a box of the given dimensions 
      * within a screen area of the specified size.
      * 
-     * @param target  the target dimension (<code>null</code> not permitted).
-     * @param dim3D  the dimensions of the 3D content (<code>null</code> not 
+     * @param target  the target dimension ({@code null} not permitted).
+     * @param dim3D  the dimensions of the 3D content ({@code null} not 
      *     permitted).
      * @param projDist  the projection distance.
      * 
@@ -452,7 +452,7 @@ public class ViewPoint3D implements Serializable {
      * the view point.  This vector can be used to rotate the viewing point
      * around the 3D scene (pan left / right).
      * 
-     * @return The vector (never <code>null</code>). 
+     * @return The vector (never {@code null}). 
      */
     public Point3D getVerticalRotationAxis() {
         return this.up;
@@ -462,7 +462,7 @@ public class ViewPoint3D implements Serializable {
      * Returns a vector at right angles to the viewing direction and the "up"
      * vector (this axis can be used to rotate forward and backwards).
      * 
-     * @return A vector (never <code>null</code>). 
+     * @return A vector (never {@code null}). 
      */
     public Point3D getHorizontalRotationAxis() {
         return Utils3D.normal(getPoint(), this.up, Point3D.ORIGIN);
@@ -483,7 +483,7 @@ public class ViewPoint3D implements Serializable {
     /**
      * Tests this view point for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean. 
      */
