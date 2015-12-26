@@ -54,8 +54,7 @@ import com.orsoncharts.util.ObjectUtils;
  * A marker for a category on a {@link CategoryAxis3D}.  This marker could be 
  * used to highlight one selected category.
  * <br><br>
- * For an example, please refer to the demo 
- * <code>CategoryMarkerDemo1.java</code>.
+ * For an example, please refer to the demo {@code CategoryMarkerDemo1.java}.
  * <br><br>
  * NOTE: This class is serializable, but the serialization format is subject 
  * to change in future releases and should not be relied upon for persisting 
