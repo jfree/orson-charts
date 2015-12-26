@@ -62,7 +62,7 @@ public class ZoomOutAction extends AbstractAction {
     /**
      * Creates a new zoom-out action associated with the specified panel.
      * 
-     * @param panel  the panel (<code>null</code> not permitted).
+     * @param panel  the panel ({@code null} not permitted).
      * @param fontAwesome  use the FontAwesome icon text?
      */
     public ZoomOutAction(Panel3D panel, boolean fontAwesome) {
@@ -78,7 +78,7 @@ public class ZoomOutAction extends AbstractAction {
 
     /**
      * Returns the zoom multiplier.  The default value is 
-     * <code>100 / 95</code> (the inverse of the multiplier in the 
+     * {@code 100 / 95} (the inverse of the multiplier in the 
      * {@link ZoomInAction}).
      * 
      * @return The zoom multiplier. 
