@@ -46,7 +46,7 @@ public interface ColorScale {
     /** 
      * Returns the range over which the scale is defined.
      * 
-     * @return The range (never <code>null</code>).
+     * @return The range (never {@code null}).
      */
     Range getRange();
     
@@ -56,7 +56,7 @@ public interface ColorScale {
      * 
      * @param value  the value.
      * 
-     * @return The color (never <code>null</code>).
+     * @return The color (never {@code null}).
      */
     Color valueToColor(double value);
 
