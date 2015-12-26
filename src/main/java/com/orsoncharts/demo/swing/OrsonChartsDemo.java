@@ -63,7 +63,6 @@ import javax.swing.UIManager.LookAndFeelInfo;
 
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DPanel;
-import com.orsoncharts.demo.AreaChart3D1;
 import com.orsoncharts.style.ChartStyle;
 import com.orsoncharts.style.ChartStyles;
 
