@@ -54,7 +54,7 @@ import com.orsoncharts.util.ArgChecks;
  * <object id="ABC" data="../../../../doc-files/ScatterPlot3DDemo2.svg"  
  * type="image/svg+xml" width="500" height="359"></object>
  * </div>
- * (refer to <code>ScatterPlot3DDemo2.java</code> for the code to generate 
+ * (refer to {@code ScatterPlot3DDemo2.java} for the code to generate 
  * the above chart).
  * <br><br>
  * TIP: to create a chart using this renderer, you can use the
@@ -86,7 +86,7 @@ public class ScatterXYZRenderer extends AbstractXYZRenderer
 
     /**
      * Returns the size of the cubes (in world units) used to display each data
-     * item.  The default value is <code>0.10</code>.
+     * item.  The default value is {@code 0.10}.
      * 
      * @return The size (in world units).
      */
@@ -110,7 +110,7 @@ public class ScatterXYZRenderer extends AbstractXYZRenderer
     /**
      * Returns the item label offsets.
      * 
-     * @return The item label offsets (never <code>null</code>).
+     * @return The item label offsets (never {@code null}).
      * 
      * @since 1.3
      */
@@ -122,7 +122,7 @@ public class ScatterXYZRenderer extends AbstractXYZRenderer
      * Sets the item label offsets and sends a change event to all registered
      * listeners.
      * 
-     * @param offset  the new offset (<code>null</code> not permitted).
+     * @param offset  the new offset ({@code null} not permitted).
      * 
      * @since 1.3
      */
@@ -138,11 +138,11 @@ public class ScatterXYZRenderer extends AbstractXYZRenderer
      * and call this method for each item (in other words, you don't need to 
      * call this method directly).
      * 
-     * @param dataset the dataset (<code>null</code> not permitted).
+     * @param dataset the dataset ({@code null} not permitted).
      * @param series  the series index.
      * @param item  the item index.
-     * @param world  the world (<code>null</code> not permitted).
-     * @param dimensions  the dimensions (<code>null</code> not permitted).
+     * @param world  the world ({@code null} not permitted).
+     * @param dimensions  the dimensions ({@code null} not permitted).
      * @param xOffset  the x-offset.
      * @param yOffset  the y-offset.
      * @param zOffset  the z-offset.
@@ -207,7 +207,7 @@ public class ScatterXYZRenderer extends AbstractXYZRenderer
     /**
      * Tests this renderer for equality with an arbitrary object.
      * 
-     * @param obj  the object to test (<code>null</code> permitted).
+     * @param obj  the object to test ({@code null} permitted).
      * 
      * @return A boolean. 
      */
