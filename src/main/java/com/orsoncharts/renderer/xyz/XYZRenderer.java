@@ -51,7 +51,7 @@ public interface XYZRenderer extends Renderer3D {
     /**
      * Returns the plot that this renderer is assigned to.
      * 
-     * @return The plot (possibly <code>null</code>). 
+     * @return The plot (possibly {@code null}). 
      */
     XYZPlot getPlot();
   
@@ -59,7 +59,7 @@ public interface XYZRenderer extends Renderer3D {
      * Sets the plot that the renderer is assigned to.  Although this method
      * is part of the public API, client code should not need to call it.
      * 
-     * @param plot  the plot (<code>null</code> permitted). 
+     * @param plot  the plot ({@code null} permitted). 
      */
     void setPlot(XYZPlot plot);
     
@@ -68,7 +68,7 @@ public interface XYZRenderer extends Renderer3D {
      * is responsible for providing the colors used by the renderer to draw
      * data (and legend) items.
      * 
-     * @return The paint source (never <code>null</code>). 
+     * @return The paint source (never {@code null}). 
      */
     XYZColorSource getColorSource();
 
@@ -76,7 +76,7 @@ public interface XYZRenderer extends Renderer3D {
      * Sets the color source for the renderer and sends a 
      * {@link Renderer3DChangeEvent} to all registered listeners.
      * 
-     * @param source  the color source (<code>null</code> not permitted).
+     * @param source  the color source ({@code null} not permitted).
      * 
      * @since 1.2
      */
@@ -94,20 +94,20 @@ public interface XYZRenderer extends Renderer3D {
     /**
      * Returns the range that should be set on the x-axis in order for this 
      * renderer to be able to display all the data in the supplied dataset.
-     * If the dataset contains no data, this method returns <code>null</code>.
+     * If the dataset contains no data, this method returns {@code null}.
      * 
-     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param dataset  the dataset ({@code null} not permitted).
      * 
-     * @return The range (possibly <code>null</code>). 
+     * @return The range (possibly {@code null}). 
      */
     Range findXRange(XYZDataset dataset);
     
     /**
      * Returns the range that should be set on the y-axis in order for this 
      * renderer to be able to display all the data in the supplied dataset.
-     * If the dataset contains no data, this method returns <code>null</code>.
+     * If the dataset contains no data, this method returns {@code null}.
      * 
-     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param dataset  the dataset ({@code null} not permitted).
      * 
      * @return The range. 
      */
@@ -116,9 +116,9 @@ public interface XYZRenderer extends Renderer3D {
     /**
      * Returns the range that should be set on the z-axis in order for this 
      * renderer to be able to display all the data in the supplied dataset.
-     * If the dataset contains no data, this method returns <code>null</code>.
+     * If the dataset contains no data, this method returns {@code null}.
      * 
-     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param dataset  the dataset ({@code null} not permitted).
      * 
      * @return The range. 
      */
@@ -126,11 +126,11 @@ public interface XYZRenderer extends Renderer3D {
 
     /**
      * Returns the type of composition performed by the renderer.  This
-     * determines whether the plot will call the <code>composeItem()</code>
+     * determines whether the plot will call the {@code composeItem()}
      * method (once for each data item) or just call the 
-     * <code>composeAll()</code> method once.
+     * {@code composeAll()} method once.
      * 
-     * @return The type of composition (never <code>null</code>).
+     * @return The type of composition (never {@code null}).
      * 
      * @since 1.1
      */
@@ -142,11 +142,11 @@ public interface XYZRenderer extends Renderer3D {
      * and call this method for each item (in other words, you don't need to 
      * call this method directly).
      * 
-     * @param dataset the dataset (<code>null</code> not permitted).
+     * @param dataset the dataset ({@code null} not permitted).
      * @param series  the series index.
      * @param item  the item index.
-     * @param world  the world (<code>null</code> not permitted).
-     * @param dimensions  the dimensions (<code>null</code> not permitted).
+     * @param world  the world ({@code null} not permitted).
+     * @param dimensions  the dimensions ({@code null} not permitted).
      * @param xOffset  the x-offset.
      * @param yOffset  the y-offset.
      * @param zOffset  the z-offset.
@@ -157,12 +157,12 @@ public interface XYZRenderer extends Renderer3D {
 
     /**
      * Composes all the 3D objects that this renderer needs to present.  This
-     * method only needs to be implemented if the <code>getComposeType()</code>
-     * method returns <code>ALL</code>, otherwise it can be left empty.
+     * method only needs to be implemented if the {@code getComposeType()}
+     * method returns {@code ALL}, otherwise it can be left empty.
      * 
      * @param plot  the plot.
-     * @param world  the world (<code>null</code> not permitted).
-     * @param dimensions  the dimensions (<code>null</code> not permitted).
+     * @param world  the world ({@code null} not permitted).
+     * @param dimensions  the dimensions ({@code null} not permitted).
      * @param xOffset  the x-offset.
      * @param yOffset  the y-offset.
      * @param zOffset  the z-offset.
