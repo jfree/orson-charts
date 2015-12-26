@@ -47,7 +47,7 @@ public interface ValueMarker extends Marker {
      * represents a single value rather than a range of values, then the range
      * that is returned will have zero length.
      * 
-     * @return The range (never <code>null</code>). 
+     * @return The range (never {@code null}). 
      */
     Range getRange();
     
