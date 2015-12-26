@@ -45,8 +45,8 @@ import com.orsoncharts.util.ArgChecks;
  * the labels, which are typically used as the series labels in the chart
  * legend.  Three values are passed to the formatter for possible inclusion
  * in the resulting label: (1) the key for the series, (2) the count for the 
- * number of items in the series (as an <code>Integer</code>) and (3) the total 
- * of the non-<code>NaN</code> values in the series (as a <code>Double</code>).
+ * number of items in the series (as an {@code Integer}) and (3) the total 
+ * of the non-{@code NaN} values in the series (as a {@code Double}).
  * <br><br>
  * NOTE: This class is serializable, but the serialization format is subject 
  * to change in future releases and should not be relied upon for persisting 
@@ -97,7 +97,7 @@ public class StandardXYZLabelGenerator implements XYZLabelGenerator,
     /**
      * Creates a new instance with the specified label template.
      * 
-     * @param template  the label template (<code>null</code> not permitted). 
+     * @param template  the label template ({@code null} not permitted). 
      */
     public StandardXYZLabelGenerator(String template) {
         ArgChecks.nullNotPermitted(template, "template");
@@ -107,10 +107,10 @@ public class StandardXYZLabelGenerator implements XYZLabelGenerator,
     /**
      * Generates a series label.
      * 
-     * @param dataset  the dataset (<code>null</code> not permitted).
-     * @param seriesKey  the series key (<code>null</code> not permitted).
+     * @param dataset  the dataset ({@code null} not permitted).
+     * @param seriesKey  the series key ({@code null} not permitted).
      * 
-     * @return The series label (possibly <code>null</code>). 
+     * @return The series label (possibly {@code null}). 
      */
     @Override
     public String generateSeriesLabel(XYZDataset dataset, 
@@ -129,7 +129,7 @@ public class StandardXYZLabelGenerator implements XYZLabelGenerator,
     /**
      * Tests this label generator for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean. 
      */
