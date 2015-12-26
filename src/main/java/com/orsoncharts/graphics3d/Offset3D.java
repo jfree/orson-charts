@@ -35,7 +35,7 @@ package com.orsoncharts.graphics3d;
 import java.io.Serializable;
 
 /**
- * An offset <code>(dx, dy, dz)</code> in three dimensional space.  Instances 
+ * An offset {@code (dx, dy, dz)} in three dimensional space.  Instances 
  * of this class are immutable.
  * <br><br>
  * NOTE: This class is serializable, but the serialization format is subject 
@@ -60,7 +60,7 @@ public final class Offset3D implements Serializable {
     private double dz;
     
     /**
-     * Default constructor (<code>(0, 0)</code>).
+     * Default constructor ({@code (0, 0)}).
      */
     public Offset3D() {
         this(0.0, 0.0, 0.0);
@@ -109,7 +109,7 @@ public final class Offset3D implements Serializable {
     /**
      * Tests this instance for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean. 
      */
