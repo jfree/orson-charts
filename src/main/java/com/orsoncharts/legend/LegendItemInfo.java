@@ -48,16 +48,16 @@ public interface LegendItemInfo {
     /**
      * Returns the series key.
      * 
-     * @return The series key (never <code>null</code>). 
+     * @return The series key (never {@code null}). 
      */
     Comparable<?> getSeriesKey();
     
     /**
      * Returns the series label that will be displayed in the legend.  Very
-     * often this is the same as <code>getSeriesKey().toString()</code>, but 
+     * often this is the same as {@code getSeriesKey().toString()}, but 
      * here we have the option to provide some alternative text.
      * 
-     * @return The label (never <code>null</code>).
+     * @return The label (never {@code null}).
      */
     String getLabel();
 
@@ -65,23 +65,23 @@ public interface LegendItemInfo {
      * Returns a longer description of the series (this could be used in 
      * tooltips, for example).
      * 
-     * @return The description (possibly <code>null</code>). 
+     * @return The description (possibly {@code null}). 
      */
     String getDescription();
     
     /**
      * Returns the shape used to represent the series in the legend.  This
-     * may be <code>null</code>, in which case the legend builder should
+     * may be {@code null}, in which case the legend builder should
      * use a default shape.
      * 
-     * @return The shape (possibly <code>null</code>). 
+     * @return The shape (possibly {@code null}). 
      */
     Shape getShape();
 
     /**
      * Returns the color used to represent a series.
      * 
-     * @return The color (never <code>null</code>).
+     * @return The color (never {@code null}).
      */
     Color getColor();
     
@@ -89,7 +89,7 @@ public interface LegendItemInfo {
      * A map containing other properties for the legend item.  Not currently
      * used, but available for future expansion.
      * 
-     * @return A map (never <code>null</code>). 
+     * @return A map (never {@code null}). 
      */
     Map<Comparable<?>, Object> getProperties();
     
