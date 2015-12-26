@@ -52,9 +52,9 @@ public class Resources {
     
     /**
      * Returns the locale that is being used for supplying resources.  The
-     * default value is <code>Locale.getDefault()</code>.
+     * default value is {@code Locale.getDefault()}.
      * 
-     * @return The locale (never <code>null</code>). 
+     * @return The locale (never {@code null}). 
      */
     public static Locale getLocale() {
         return locale;
@@ -63,7 +63,7 @@ public class Resources {
     /**
      * Sets the locale to use for supplying resources.
      * 
-     * @param l  the locale (<code>null</code> not permitted).
+     * @param l  the locale ({@code null} not permitted).
      */
     public static void setLocale(Locale l) {
         ArgChecks.nullNotPermitted(l, "l");
@@ -75,7 +75,7 @@ public class Resources {
     /**
      * Returns a localised string.
      * 
-     * @param key  the key (<code>null</code> not permitted).
+     * @param key  the key ({@code null} not permitted).
      * 
      * @return A localised string. 
      */
