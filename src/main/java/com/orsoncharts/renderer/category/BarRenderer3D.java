@@ -59,7 +59,7 @@ import com.orsoncharts.util.ObjectUtils;
  * width="500" height="359"> 
  * </object>
  * </div>
- * (refer to <code>BarChart3DDemo1.java</code> for the code to generate the
+ * (refer to {@code BarChart3DDemo1.java} for the code to generate the
  * above chart).
  * <br><br>
  * There is a factory method to create a chart using this renderer - see
