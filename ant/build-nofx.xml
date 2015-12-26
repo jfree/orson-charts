@@ -115,7 +115,7 @@
         </copy>
 
         <!-- make the jar -->
-        <jar jarfile="${basedir}/${orsoncharts.name}-${orsoncharts.version}-swing-demo.jar"
+        <jar jarfile="${basedir}/${orsoncharts.name}-${orsoncharts.version}-demo.jar"
              basedir="${basedir}/build" >
             <manifest>
                 <attribute name="Main-Class" value="com.orsoncharts.demo.swing.OrsonChartsDemo" />
@@ -185,7 +185,7 @@
 
         <!-- copy across runtime jar file and demo jar file -->
         <copy file="${basedir}/lib/${orsoncharts.name}-${orsoncharts.version}.jar" tofile="${basedir}/distribution/lib/${orsoncharts.name}-${orsoncharts.version}.jar" />
-        <copy file="${basedir}/${orsoncharts.name}-${orsoncharts.version}-swing-demo.jar" tofile="${basedir}/distribution/${orsoncharts.name}-${orsoncharts.version}-swing-demo.jar" />
+        <copy file="${basedir}/${orsoncharts.name}-${orsoncharts.version}-demo.jar" tofile="${basedir}/distribution/${orsoncharts.name}-${orsoncharts.version}-demo.jar" />
 
         <!-- copy across source files -->
         <copy todir="${basedir}/distribution/src">
@@ -219,7 +219,7 @@
 
         <!-- copy across ant build files -->
         <copy file="${basedir}/ant/build.xml" tofile="${basedir}/distribution/ant/build.xml" />
-        <copy file="${basedir}/ant/buildfx.xml" tofile="${basedir}/distribution/ant/build-nofx.xml" />
+        <copy file="${basedir}/ant/build-nofx.xml" tofile="${basedir}/distribution/ant/build-nofx.xml" />
 
         <!-- convert end-of-line characters in text files -->
         <fixcrlf srcdir="${basedir}/distribution/src"
@@ -232,7 +232,7 @@
     <target name="zip" depends="fill-distribution">
 
         <!-- make the zip file -->
-        <zip zipfile="${basedir}/${orsoncharts.name}-${orsoncharts.version}-nofx.zip">
+        <zip zipfile="${basedir}/${orsoncharts.name}-${orsoncharts.version}.zip">
              <zipfileset dir="${basedir}/distribution"
                          prefix="${orsoncharts.name}-${orsoncharts.version}" />
         </zip>
