@@ -196,7 +196,7 @@
                  windowtitle="Orson Charts version ${orsoncharts.version}"
                  overview="${basedir}/src/main/java/overview.html"
                  use="yes"
-                 linksource="no"
+                 linksource="yes"
                  splitindex="yes"
                  docfilessubdirs="true">
             <classpath refid="build.classpath" />
