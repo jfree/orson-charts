@@ -42,6 +42,13 @@ Two Ant build scripts are provided to build Orson Charts from source code:
 Two additional libraries (JFreeSVG and OrsonPDF) are included in the lib directory.  The libraries are optional dependencies for Orson Charts, providing the ability to export charts to SVG and PDF respectively.  Both of these libraries are licensed under the terms of the GNU General Public License version 3 (commercial licenses are available if required).
 
 
+Reporting Bugs
+--------------
+If you find a bug in Orson Charts, please file a bug report at:
+
+    https://github.com/jfree/orson-charts/issues
+
+
 More Info
 ---------
 You can find out more about Orson Charts at:
