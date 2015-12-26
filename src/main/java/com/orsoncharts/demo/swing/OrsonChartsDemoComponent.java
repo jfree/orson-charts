@@ -275,6 +275,8 @@ public class OrsonChartsDemoComponent extends JPanel
                 ABOUT_PREFIX + "AxisRangeDemo5.html"));
         n.add(createNode(PREFIX + "AxisRangeDemo6", "AxisRangeDemo6.java", 
                 ABOUT_PREFIX + "AxisRangeDemo6.html"));
+        n.add(createNode(PREFIX + "AxisRangeDemo7", "AxisRangeDemo7.java", 
+                ABOUT_PREFIX + "AxisRangeDemo7.html"));
         return n;                
     }
     
