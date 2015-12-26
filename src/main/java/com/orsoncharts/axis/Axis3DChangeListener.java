@@ -46,7 +46,7 @@ public interface Axis3DChangeListener extends EventListener {
     /**
      * Called to inform that an axis change event has occurred.
      * 
-     * @param event  the event (<code>null</code> not permitted). 
+     * @param event  the event ({@code null} not permitted). 
      */
     public void axisChanged(Axis3DChangeEvent event);
 
