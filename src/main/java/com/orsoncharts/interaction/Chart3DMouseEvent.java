@@ -60,11 +60,11 @@ public class Chart3DMouseEvent extends EventObject implements Serializable {
     /**
      * Constructs a new event.
      *
-     * @param chart  the source chart (<code>null</code> not permitted).
+     * @param chart  the source chart ({@code null} not permitted).
      * @param trigger  the mouse event that triggered this event
-     *                 (<code>null</code> not permitted).
+     *                 ({@code null} not permitted).
      * @param element  the element (if any) under the mouse pointer
-     *                (<code>null</code> permitted).
+     *                ({@code null} permitted).
      */
     public Chart3DMouseEvent(Chart3D chart, MouseEvent trigger,
                              RenderedElement element) {
@@ -77,7 +77,7 @@ public class Chart3DMouseEvent extends EventObject implements Serializable {
     /**
      * Returns the chart that the mouse event relates to.
      *
-     * @return The chart (never <code>null</code>).
+     * @return The chart (never {@code null}).
      */
     public Chart3D getChart() {
         return this.chart;
@@ -86,7 +86,7 @@ public class Chart3DMouseEvent extends EventObject implements Serializable {
     /**
      * Returns the mouse event that triggered this event.
      *
-     * @return The event (never <code>null</code>).
+     * @return The event (never {@code null}).
      */
     public MouseEvent getTrigger() {
         return this.trigger;
@@ -95,7 +95,7 @@ public class Chart3DMouseEvent extends EventObject implements Serializable {
     /**
      * Returns the interactive element (if any) under the mouse point.
      *
-     * @return The chart entity (possibly <code>null</code>).
+     * @return The chart entity (possibly {@code null}).
      */
     public RenderedElement getElement() {
         return this.element;
