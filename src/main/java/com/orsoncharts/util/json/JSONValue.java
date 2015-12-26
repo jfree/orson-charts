@@ -81,7 +81,7 @@ public class JSONValue {
      * 
      * @see com.orsoncharts.util.json.parser.JSONParser
      * 
-     * @param in  the input reader (<code>null</code> not permitted).
+     * @param in  the input reader ({@code null} not permitted).
      * 
      * @return Instance of the following:
      *     com.orsoncharts.util.json.JSONObject,
@@ -273,7 +273,7 @@ public class JSONValue {
      * Escape quotes, \, /, \r, \n, \b, \f, \t and other control characters 
      * (U+0000 through U+001F).
      * 
-     * @param s  the string to be escaped (<code>null</code> permitted).
+     * @param s  the string to be escaped ({@code null} permitted).
      * 
      * @return A string.
      */
