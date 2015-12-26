@@ -82,7 +82,7 @@ public class XYZSeriesCollection extends AbstractDataset3D
      * 
      * @param key  the key ({@code null} not permitted).
      * 
-     * @return The series index or <code>-1</code>. 
+     * @return The series index or {@code -1}. 
      */
     @Override
     public int getSeriesIndex(Comparable<?> key) {
