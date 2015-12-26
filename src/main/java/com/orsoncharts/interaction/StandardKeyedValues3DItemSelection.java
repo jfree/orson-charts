@@ -59,11 +59,11 @@ public class StandardKeyedValues3DItemSelection
     }
     
     /**
-     * Adds an item to the selection, returning <code>true</code> if the item
-     * is added and <code>false</code> if the item already existed in the
+     * Adds an item to the selection, returning {@code true} if the item
+     * is added and {@code false} if the item already existed in the
      * selection.
      * 
-     * @param itemKey  the item key (<code>null</code> not permitted).
+     * @param itemKey  the item key ({@code null} not permitted).
      * 
      * @return A boolean.
      */
@@ -73,11 +73,11 @@ public class StandardKeyedValues3DItemSelection
     }
     
     /**
-     * Adds a collection of items to the selection, returning <code>true</code>
-     * if the selection is changed, and <code>false</code> if no changes were
+     * Adds a collection of items to the selection, returning {@code true}
+     * if the selection is changed, and {@code false} if no changes were
      * made.
      * 
-     * @param keys  the keys to add (<code>null</code> not permitted).
+     * @param keys  the keys to add ({@code null} not permitted).
      * 
      * @return A boolean.
      */
@@ -87,11 +87,11 @@ public class StandardKeyedValues3DItemSelection
     }
     
     /**
-     * Removes an item from the selection returning <code>true</code> if the
-     * item was removed and <code>false</code> if it did not exist within the
+     * Removes an item from the selection returning {@code true} if the
+     * item was removed and {@code false} if it did not exist within the
      * selection.
      * 
-     * @param itemKey  the item key (<code>null</code> not permitted).
+     * @param itemKey  the item key ({@code null} not permitted).
      * 
      * @return A boolean. 
      */
@@ -100,10 +100,10 @@ public class StandardKeyedValues3DItemSelection
     }
     
     /**
-     * Returns <code>true</code> if the specified item is in the selection,
-     * and <code>false</code> otherwise.
+     * Returns {@code true} if the specified item is in the selection,
+     * and {@code false} otherwise.
      * 
-     * @param itemKey  the item key (<code>null</code> not permitted).
+     * @param itemKey  the item key ({@code null} not permitted).
      * 
      * @return A boolean.
      */
