@@ -41,8 +41,8 @@ import com.orsoncharts.axis.StandardCategoryAxis3D;
 import com.orsoncharts.data.KeyedValues3DItemKey;
 import com.orsoncharts.data.KeyedValues3DItemKeys;
 import com.orsoncharts.data.category.CategoryDataset3D;
+import com.orsoncharts.demo.CategoryMarker1;
 import com.orsoncharts.demo.HighlightCategoryColorSource;
-import com.orsoncharts.demo.swing.CategoryMarkerDemo1;
 import com.orsoncharts.fx.Chart3DViewer;
 import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.RenderedElement;
@@ -217,8 +217,8 @@ public class CategoryMarkerFXDemo1 extends Application {
     }
 
     public static Node createDemoNode() {
-        CategoryDataset3D dataset = CategoryMarkerDemo1.createDataset();
-        Chart3D chart = CategoryMarkerDemo1.createChart(dataset);
+        CategoryDataset3D dataset = CategoryMarker1.createDataset();
+        Chart3D chart = CategoryMarker1.createChart(dataset);
         CustomDemoNode node = new CustomDemoNode(chart);
         return node;
     }
