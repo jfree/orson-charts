@@ -33,23 +33,24 @@
 package com.orsoncharts.data;
 
 /**
- * A <code>(key, value)</code> pair that is used as a building block for some
+ * A {@code (key, value)} pair that is used as a building block for some
  * data structures for the charts.
+ * @param <T>  The value type.
  */
 public interface KeyedValue<T> {
   
     /**
      * Returns the key (by design, this key is required to be 
-     * non-<code>null</code>).
+     * non-{@code null}).
      * 
-     * @return The key (never <code>null</code>). 
+     * @return The key (never {@code null}). 
      */
     public Comparable<?> getKey();
   
     /**
      * Returns the value.
      * 
-     * @return The value (possibly <code>null</code>). 
+     * @return The value (possibly {@code null}). 
      */
     public T getValue();
   
