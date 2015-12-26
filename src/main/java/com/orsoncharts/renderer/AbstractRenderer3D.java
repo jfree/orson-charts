@@ -63,7 +63,7 @@ public abstract class AbstractRenderer3D implements Renderer3D, Serializable {
 
     /**
      * A flag that controls whether or not the renderer will notify listeners
-     * of changes (defaults to <code>true</code>, but sometimes it is useful 
+     * of changes (defaults to {@code true}, but sometimes it is useful 
      * to disable this).
      */
     private boolean notify;
@@ -82,9 +82,9 @@ public abstract class AbstractRenderer3D implements Renderer3D, Serializable {
 
     /**
      * Returns the font used to display item labels, if there are any.
-     * The default value is <code>Font(Font.SERIF, Font.PLAIN, 8)</code>.
+     * The default value is {@code Font(Font.SERIF, Font.PLAIN, 8)}.
      * 
-     * @return The font (never <code>null</code>).
+     * @return The font (never {@code null}).
      * 
      * @since 1.3
      */
@@ -96,7 +96,7 @@ public abstract class AbstractRenderer3D implements Renderer3D, Serializable {
      * Sets the font used to display item labels and sends a change event
      * to all registered listeners.
      * 
-     * @param itemLabelFont  the font (<code>null</code> not permitted).
+     * @param itemLabelFont  the font ({@code null} not permitted).
      * 
      * @since 1.3
      */
@@ -108,9 +108,9 @@ public abstract class AbstractRenderer3D implements Renderer3D, Serializable {
 
     /**
      * Returns the foreground color used to display item labels.  The default
-     * value is <code>Color.BLACK</code>.
+     * value is {@code Color.BLACK}.
      * 
-     * @return The foreground color (never <code>null</code>).
+     * @return The foreground color (never {@code null}).
      * 
      * @since 1.3
      */
@@ -122,7 +122,7 @@ public abstract class AbstractRenderer3D implements Renderer3D, Serializable {
      * Sets the foreground color used to display item labels and sends a 
      * change event to all registered listeners.
      * 
-     * @param itemLabelColor  the new color (<code>null</code> not permitted).
+     * @param itemLabelColor  the new color ({@code null} not permitted).
      * 
      * @since 1.3
      */
@@ -135,7 +135,7 @@ public abstract class AbstractRenderer3D implements Renderer3D, Serializable {
     /**
      * Returns the background color for item labels.
      * 
-     * @return The background color (never <code>null</code>).
+     * @return The background color (never {@code null}).
      * 
      * @since 1.3
      */
@@ -147,7 +147,7 @@ public abstract class AbstractRenderer3D implements Renderer3D, Serializable {
      * Sets the background color and sends a change event to all registered
      * listeners.
      * 
-     * @param color  the new color (<code>null</code> not permitted).
+     * @param color  the new color ({@code null} not permitted).
      * 
      * @since 1.3
      */
@@ -161,7 +161,7 @@ public abstract class AbstractRenderer3D implements Renderer3D, Serializable {
      * Returns the item label positioning.  The default value is 
      * {@link ItemLabelPositioning#CENTRAL}.
      * 
-     * @return The item label positioning (never <code>null</code>).
+     * @return The item label positioning (never {@code null}).
      * 
      * @since 1.3
      */
@@ -173,7 +173,7 @@ public abstract class AbstractRenderer3D implements Renderer3D, Serializable {
      * Sets the item label positioning and sends a change event to all 
      * registered listeners.
      * 
-     * @param positioning  the new positioning (<code>null</code> not 
+     * @param positioning  the new positioning ({@code null} not 
      *     permitted).
      * 
      * @since 1.3
@@ -218,7 +218,7 @@ public abstract class AbstractRenderer3D implements Renderer3D, Serializable {
      * operations on the elements in the structure.  You won't normally call
      * this method directly.
      * 
-     * @param visitor  the visitor (<code>null</code> not permitted).
+     * @param visitor  the visitor ({@code null} not permitted).
      * 
      * @since 1.2
      */
@@ -284,9 +284,9 @@ public abstract class AbstractRenderer3D implements Renderer3D, Serializable {
     /**
      * Tests this renderer for equality with an arbitrary object.  The 
      * change listeners are NOT considered in the test, but the 
-     * <code>notify</code> flag is taken into account.
+     * {@code notify} flag is taken into account.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean. 
      */
