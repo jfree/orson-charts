@@ -68,13 +68,13 @@ public class HighlightCategoryColorSource extends StandardCategoryColorSource {
     /**
      * Creates a new instance with the supplied sequence of colors.  The
      * supplied array must have at least one entry, and all entries must be
-     * non-<code>null</code>.
+     * non-{@code null}.
      * 
      * @param row  the row index of the item to highlight (or -1).
      * @param column  the column index of the item to highlight (or -1).
-     * @param highlightColor  the highlight color (<code>null</code> not 
+     * @param highlightColor  the highlight color ({@code null} not 
      *     permitted).
-     * @param colors  the colors (<code>null</code> not permitted). 
+     * @param colors  the colors ({@code null} not permitted). 
      */
     public HighlightCategoryColorSource(int row, int column, 
             Color highlightColor, Color... colors) {
@@ -86,7 +86,7 @@ public class HighlightCategoryColorSource extends StandardCategoryColorSource {
 
     /**
      * Returns the row index of the item to be highlighted.  The default 
-     * value is <code>-1</code>.
+     * value is {@code -1}.
      * 
      * @return The row index. 
      */
@@ -106,7 +106,7 @@ public class HighlightCategoryColorSource extends StandardCategoryColorSource {
 
     /**
      * Returns the column index of the item to be highlighted.  The default 
-     * value is <code>-1</code>.
+     * value is {@code -1}.
      * 
      * @return The row index. 
      */
@@ -126,9 +126,9 @@ public class HighlightCategoryColorSource extends StandardCategoryColorSource {
 
     /**
      * Returns the highlight color.  The default value is 
-     * <code>Color.RED</code>.
+     * {@code Color.RED}.
      * 
-     * @return The highlight color (never <code>null</code>). 
+     * @return The highlight color (never {@code null}). 
      */
     public Color getHighlightColor() {
         return highlightColor;
@@ -137,7 +137,7 @@ public class HighlightCategoryColorSource extends StandardCategoryColorSource {
     /**
      * Sets the highlight color.
      * 
-     * @param color  the color (<code>null</code> not permitted). 
+     * @param color  the color ({@code null} not permitted). 
      */
     public void setHighlightColor(Color color) {
         ArgChecks.nullNotPermitted(color, "color");
@@ -151,7 +151,7 @@ public class HighlightCategoryColorSource extends StandardCategoryColorSource {
      * @param row  the row index.
      * @param column  the column index.
      * 
-     * @return The color (never <code>null</code>). 
+     * @return The color (never {@code null}). 
      */
     @Override
     public Color getColor(int series, int row, int column) {
@@ -166,7 +166,7 @@ public class HighlightCategoryColorSource extends StandardCategoryColorSource {
     /**
      * Tests this color source for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean. 
      */
