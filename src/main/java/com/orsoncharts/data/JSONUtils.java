@@ -65,7 +65,7 @@ public class JSONUtils {
      * Implementation note:  this method returns an instance of 
      * {@link StandardPieDataset3D}).
      * 
-     * @param json  the JSON string (<code>null</code> not permitted).
+     * @param json  the JSON string ({@code null} not permitted).
      * 
      * @return A {@link KeyedValues} instance. 
      */
@@ -89,9 +89,9 @@ public class JSONUtils {
      * Implementation note:  this method returns an instance of 
      * {@link StandardPieDataset3D}).
      * 
-     * @param reader  the reader (<code>null</code> not permitted).
+     * @param reader  the reader ({@code null} not permitted).
      * 
-     * @return A <code>KeyedValues</code> instance.
+     * @return A {@code KeyedValues} instance.
      * 
      * @throws IOException if there is an I/O problem.
      */
@@ -119,11 +119,11 @@ public class JSONUtils {
      * an array of arrays, where each sub-array represents one data value.
      * The sub-array should contain two items, first the item key as a string
      * and second the item value as a number.  For example:
-     * <code>[["Key A", 1.0], ["Key B", 2.0]]</code>
+     * {@code [["Key A", 1.0], ["Key B", 2.0]]}
      * <br><br>
      * Note that this method can be used with instances of {@link PieDataset3D}.
      * 
-     * @param data  the data (<code>null</code> not permitted).
+     * @param data  the data ({@code null} not permitted).
      * 
      * @return A string in JSON format. 
      */
@@ -143,8 +143,8 @@ public class JSONUtils {
      * <br><br>
      * Note that this method can be used with instances of {@link PieDataset3D}.
      * 
-     * @param data  the data (<code>null</code> not permitted).
-     * @param writer  the writer (<code>null</code> not permitted).
+     * @param data  the data ({@code null} not permitted).
+     * @param writer  the writer ({@code null} not permitted).
      * 
      * @throws IOException if there is an I/O problem.
      */
@@ -172,7 +172,7 @@ public class JSONUtils {
     /**
      * Reads a data table from a JSON format string.
      * 
-     * @param json  the string (<code>null</code> not permitted).
+     * @param json  the string ({@code null} not permitted).
      * 
      * @return A data table. 
      */
@@ -194,7 +194,7 @@ public class JSONUtils {
      * Reads a data table from a JSON format string coming from the specified
      * reader.
      * 
-     * @param reader  the reader (<code>null</code> not permitted).
+     * @param reader  the reader ({@code null} not permitted).
      * 
      * @return A data table.
      * 
@@ -290,7 +290,7 @@ public class JSONUtils {
     /**
      * Writes a data table to a string in JSON format.
      * 
-     * @param data  the data (<code>null</code> not permitted).
+     * @param data  the data ({@code null} not permitted).
      * 
      * @return The string. 
      */
@@ -309,8 +309,8 @@ public class JSONUtils {
     /**
      * Writes the data in JSON format to the supplied writer.
      * 
-     * @param data  the data (<code>null</code> not permitted).
-     * @param writer  the writer (<code>null</code> not permitted).
+     * @param data  the data ({@code null} not permitted).
+     * @param writer  the writer ({@code null} not permitted).
      * 
      * @throws IOException if there is an I/O problem.
      */
@@ -368,9 +368,9 @@ public class JSONUtils {
      * Parses the supplied string and (if possible) creates a 
      * {@link KeyedValues3D} instance.
      * 
-     * @param json  the JSON string (<code>null</code> not permitted).
+     * @param json  the JSON string ({@code null} not permitted).
      * 
-     * @return A <code>KeyedValues3D</code> instance.
+     * @return A {@code KeyedValues3D} instance.
      */
     public static KeyedValues3D<? extends Number> readKeyedValues3D(
             String json) {
@@ -391,9 +391,9 @@ public class JSONUtils {
      * written by {@link JSONUtils#writeKeyedValues3D(
      * com.orsoncharts.data.KeyedValues3D, java.io.Writer) }.
      * 
-     * @param reader  the reader (<code>null</code> not permitted).
+     * @param reader  the reader ({@code null} not permitted).
      * 
-     * @return A <code>KeyedValues3D</code> instance.
+     * @return A {@code KeyedValues3D} instance.
      * 
      * @throws IOException if there is an I/O problem.  
      */
@@ -518,7 +518,7 @@ public class JSONUtils {
     /**
      * Returns a string containing the data in JSON format.
      * 
-     * @param dataset  the data (<code>null</code> not permitted).
+     * @param dataset  the data ({@code null} not permitted).
      * 
      * @return A string in JSON format. 
      */
@@ -537,8 +537,8 @@ public class JSONUtils {
     /**
      * Writes the dataset in JSON format to the supplied writer.
      * 
-     * @param dataset  the dataset (<code>null</code> not permitted).
-     * @param writer  the writer (<code>null</code> not permitted).
+     * @param dataset  the dataset ({@code null} not permitted).
+     * @param writer  the writer ({@code null} not permitted).
      * 
      * @throws IOException if there is an I/O problem.
      */
@@ -626,12 +626,12 @@ public class JSONUtils {
     }
  
     /**
-     * Returns the number of non-<code>null</code> entries for the specified
+     * Returns the number of non-{@code null} entries for the specified
      * series and row.
      * 
-     * @param data  the dataset (<code>null</code> not permitted).
-     * @param seriesKey  the series key (<code>null</code> not permitted).
-     * @param rowKey  the row key (<code>null</code> not permitted).
+     * @param data  the dataset ({@code null} not permitted).
+     * @param seriesKey  the series key ({@code null} not permitted).
+     * @param rowKey  the row key ({@code null} not permitted).
      * 
      * @return The count. 
      */
@@ -665,7 +665,7 @@ public class JSONUtils {
      * is written by 
      * {@link #writeXYZDataset(com.orsoncharts.data.xyz.XYZDataset)}.
      * 
-     * @param json  a JSON formatted string (<code>null</code> not permitted).
+     * @param json  a JSON formatted string ({@code null} not permitted).
      * 
      * @return A dataset.
      * 
@@ -688,7 +688,7 @@ public class JSONUtils {
      * Parses character data from the reader and (if possible) creates an 
      * {XYZDataset} instance that represents the data.
      * 
-     * @param reader  a reader (<code>null</code> not permitted).
+     * @param reader  a reader ({@code null} not permitted).
      * 
      * @return A dataset.
      * 
@@ -722,7 +722,7 @@ public class JSONUtils {
     /**
      * Returns a string containing the dataset in JSON format.
      * 
-     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param dataset  the dataset ({@code null} not permitted).
      * 
      * @return A string in JSON format. 
      */
@@ -739,8 +739,8 @@ public class JSONUtils {
     /**
      * Writes the dataset in JSON format to the supplied writer.
      * 
-     * @param dataset  the data (<code>null</code> not permitted).
-     * @param writer  the writer (<code>null</code> not permitted).
+     * @param dataset  the data ({@code null} not permitted).
+     * @param writer  the writer ({@code null} not permitted).
      * 
      * @throws IOException if there is an I/O problem.
      */
@@ -782,7 +782,7 @@ public class JSONUtils {
     /**
      * Converts an arbitrary object to a double.
      * 
-     * @param obj  an object (<code>null</code> permitted).
+     * @param obj  an object ({@code null} permitted).
      * 
      * @return A double primitive (possibly Double.NaN). 
      */
