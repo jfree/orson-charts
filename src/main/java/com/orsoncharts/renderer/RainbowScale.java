@@ -52,13 +52,13 @@ public class RainbowScale extends AbstractColorScale implements ColorScale {
     
     /** 
      * A range to include all hues.  This can be used for the 
-     * <code>hueSubrange</code> argument in the constructor.
+     * {@code hueSubrange} argument in the constructor.
      */
     public static final Range ALL_HUES = new Range(0.0, 1.0);
     
     /** 
      * A hue subrange that restricts colors to the blue to red range.  This can
-     * be used for the  <code>hueSubrange</code> argument in the constructor.
+     * be used for the {@code hueSubrange} argument in the constructor.
      */
     public static final Range BLUE_TO_RED_RANGE = new Range(0.0, 0.6666);
     
@@ -75,7 +75,7 @@ public class RainbowScale extends AbstractColorScale implements ColorScale {
      * Creates a new rainbow scale for the specified value range, with 256 
      * color samples in the blue to red range.
      * 
-     * @param range  the range (<code>null</code> not permitted).
+     * @param range  the range ({@code null} not permitted).
      */
     public RainbowScale(Range range) {
         this(range, 256, BLUE_TO_RED_RANGE);
@@ -85,7 +85,7 @@ public class RainbowScale extends AbstractColorScale implements ColorScale {
      * Creates a new rainbow scale for the specified value range, with the
      * given number of samples and hues restricted to the specified range.
      * 
-     * @param range  the range (<code>null</code> not permitted).
+     * @param range  the range ({@code null} not permitted).
      * @param samples  the number of samples.
      * @param hueSubrange  the hue sub-range.
      */
@@ -119,7 +119,7 @@ public class RainbowScale extends AbstractColorScale implements ColorScale {
      * 
      * @param value  the value.
      * 
-     * @return A color (never <code>null</code>). 
+     * @return A color (never {@code null}). 
      */
     @Override
     public Color valueToColor(double value) {
@@ -155,7 +155,7 @@ public class RainbowScale extends AbstractColorScale implements ColorScale {
     /**
      * Tests this color scale for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean. 
      */
