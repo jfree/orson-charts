@@ -66,7 +66,7 @@ public class MarkerData {
      * Creates marker data for the case where there is a single line
      * (for example, the {@link NumberMarker} class).
      * 
-     * @param key  the key for the marker (<code>null</code> not permitted).
+     * @param key  the key for the marker ({@code null} not permitted).
      * @param pos  the relative position along the axis (in the range 0.0 to 
      *     1.0).
      */
@@ -82,7 +82,7 @@ public class MarkerData {
      * Creates marker data for the case where there are two lines.
      * (for example, the {@link RangeMarker} class).
      * 
-     * @param key  the key (<code>null</code> not permitted).
+     * @param key  the key ({@code null} not permitted).
      * @param startPos  the relative start position.
      * @param startPegged  is the start position pegged?
      * @param endPos  the relative end position.
@@ -100,9 +100,9 @@ public class MarkerData {
     
     /**
      * Creates a new instance based on an existing source that has type
-     * <code>MarkerDataType.VALUE</code>.  
+     * {@code MarkerDataType.VALUE}.  
      * 
-     * @param source  the source (<code>null</code> not permitted).
+     * @param source  the source ({@code null} not permitted).
      * @param v0  the vertex index for the start of the line.
      * @param v1  the vertex index for the end of the line.
      */
@@ -121,9 +121,9 @@ public class MarkerData {
     
     /**
      * Creates a new instance based on an existing source that has type
-     * <code>MarkerDataType.Range</code>.  
+     * {@code MarkerDataType.Range}.  
      * 
-     * @param source  the source (<code>null</code> not permitted).
+     * @param source  the source ({@code null} not permitted).
      * @param v0  the vertex index for the start of the first line.
      * @param v1  the vertex index for the end of the first line.
      * @param v2  the vertex index for the start of the second line.
@@ -151,7 +151,7 @@ public class MarkerData {
      * Returns the marker key (allows retrieval of the original marker object
      * when required).
      * 
-     * @return The marker key (never <code>null</code>). 
+     * @return The marker key (never {@code null}). 
      */
     public String getMarkerKey() {
         return this.markerKey;
@@ -160,7 +160,7 @@ public class MarkerData {
     /**
      * Returns the type of marker data (value or range).
      * 
-     * @return The type (never <code>null</code>).
+     * @return The type (never {@code null}).
      */
     public MarkerDataType getType() {
         return this.type;
@@ -169,7 +169,7 @@ public class MarkerData {
     /**
      * A convenience method that returns the value line data for a value marker.
      * 
-     * @return The value line (or <code>null</code>).
+     * @return The value line (or {@code null}).
      */
     public MarkerLine getValueLine() {
         return (MarkerLine) this.data.get("valueLine");
@@ -178,7 +178,7 @@ public class MarkerData {
     /**
      * A convenience method that returns the start line data for a range marker.
      * 
-     * @return The start line (or <code>null</code>).
+     * @return The start line (or {@code null}).
      */
     public MarkerLine getStartLine() {
         return (MarkerLine) this.data.get("startLine");
@@ -187,7 +187,7 @@ public class MarkerData {
     /**
      * A convenience method that returns the end line data for a range marker.
      * 
-     * @return The end line (or <code>null</code>).
+     * @return The end line (or {@code null}).
      */
     public MarkerLine getEndLine() {
         return (MarkerLine) this.data.get("endLine");
@@ -233,7 +233,7 @@ public class MarkerData {
     /**
      * Returns the label projection point.
      * 
-     * @return The label projection point (possibly <code>null</code>). 
+     * @return The label projection point (possibly {@code null}). 
      */
     public Point2D getLabelPoint() {
         return (Point2D) this.data.get("labelPoint");
