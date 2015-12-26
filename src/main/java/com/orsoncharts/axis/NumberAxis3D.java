@@ -81,30 +81,30 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
     
     /**
      * A flag that controls how zero is handled when it falls within the
-     * margins.  If <code>true</code>, the margin is truncated at zero, if
-     * <code>false</code> the margin is not changed.
+     * margins.  If {@code true}, the margin is truncated at zero, if
+     * {@code false} the margin is not changed.
      */
     private boolean autoRangeStickyZero;
         
     /** 
-     * The tick selector (if not <code>null</code>, then auto-tick selection 
-     * is used). 
+     * The tick selector (if not {@code null}, then auto-tick selection is 
+     * used). 
      */
     private TickSelector tickSelector;
 
     /** 
-     * The tick size.  If the tickSelector is not <code>null</code> then it is 
+     * The tick size.  If the tickSelector is not {@code null} then it is 
      * used to auto-select an appropriate tick size and format.
      */
     private double tickSize;
 
-    /** The tick formatter (never <code>null</code>). */
+    /** The tick formatter (never {@code null}). */
     private Format tickLabelFormatter;
 
     /**
      * Creates a new axis with the specified label and default attributes.
      * 
-     * @param label  the axis label (<code>null</code> permitted). 
+     * @param label  the axis label ({@code null} permitted). 
      */
     public NumberAxis3D(String label) {
         this(label, new Range(0.0, 1.0));
@@ -113,8 +113,8 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
     /**
      * Creates a new axis with the specified label and range.
      *
-     * @param label  the axis label (<code>null</code> permitted).
-     * @param range  the range (<code>null</code> not permitted).
+     * @param label  the axis label ({@code null} permitted).
+     * @param range  the range ({@code null} not permitted).
      */
     public NumberAxis3D(String label, Range range) {
         super(label, range);
@@ -128,7 +128,7 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
     /**
      * Returns the flag that determines whether or not the auto range 
      * mechanism should force zero to be included in the range.  The default
-     * value is <code>false</code>.
+     * value is {@code false}.
      * 
      * @return A boolean.
      */
@@ -151,7 +151,7 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
     /**
      * Returns the flag that controls the behaviour of the auto range 
      * mechanism when zero falls into the axis margins.  The default value
-     * is <code>true</code>.
+     * is {@code true}.
      * 
      * @return A boolean. 
      * 
@@ -163,9 +163,9 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
     
     /**
      * Sets the flag that controls the behaviour of the auto range mechanism 
-     * when zero falls into the axis margins.  If <code>true</code>, when
+     * when zero falls into the axis margins.  If {@code true}, when
      * zero is in the axis margin the axis range is truncated at zero.  If
-     * <code>false</code>, there is no special treatment.
+     * {@code false}, there is no special treatment.
      * 
      * @param sticky  the new flag value. 
      */
@@ -191,7 +191,7 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
      * Sets the tick selector and sends an {@link Axis3DChangeEvent} to all
      * registered listeners.
      * 
-     * @param selector  the selector (<code>null</code> permitted).
+     * @param selector  the selector ({@code null} permitted).
      * 
      * @see #getTickSelector() 
      */
@@ -202,7 +202,7 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
     
     /**
      * Returns the tick size (to be used when the tick selector is 
-     * <code>null</code>).
+     * {@code null}).
      * 
      * @return The tick size.
      */
@@ -211,7 +211,8 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
     }
 
     /**
-     * Sets the tick size and sends a change event to all registered listeners.
+     * Sets the tick size and sends an {@link Axis3DChangeEvent} to all 
+     * registered listeners.
      * 
      * @param tickSize  the new tick size.
      */
@@ -222,9 +223,9 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
     
     /**
      * Returns the tick label formatter.  The default value is
-     * <code>DecimalFormat("0.00")</code>.
+     * {@code DecimalFormat("0.00")}.
      * 
-     * @return The tick label formatter (never <code>null</code>). 
+     * @return The tick label formatter (never {@code null}). 
      */
     public Format getTickLabelFormatter() {
         return this.tickLabelFormatter;
@@ -234,7 +235,7 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
      * Sets the formatter for the tick labels and sends an 
      * {@link Axis3DChangeEvent} to all registered listeners.
      * 
-     * @param formatter  the formatter (<code>null</code> not permitted).
+     * @param formatter  the formatter ({@code null} not permitted).
      */
     public void setTickLabelFormatter(Format formatter) {
         ArgChecks.nullNotPermitted(formatter, "formatter");
@@ -244,9 +245,9 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
     
     /**
      * Adjusts the range by adding the lower and upper margins and taking into
-     * account also the 'autoRangeStickyZero' flag.
+     * account also the {@code autoRangeStickyZero} flag.
      * 
-     * @param range  the range (<code>null</code> not permitted).
+     * @param range  the range ({@code null} not permitted).
      * 
      * @return The adjusted range. 
      */
@@ -276,18 +277,18 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
     }
     
     /**
-     * Draws the axis to the supplied graphics target (<code>g2</code>, with the
+     * Draws the axis to the supplied graphics target ({@code g2}, with the
      * specified starting and ending points for the line.  This method is used
      * internally, you should not need to call it directly.
      *
-     * @param g2  the graphics target (<code>null</code> not permitted).
-     * @param pt0  the starting point (<code>null</code> not permitted).
-     * @param pt1  the ending point (<code>null</code> not permitted).
+     * @param g2  the graphics target ({@code null} not permitted).
+     * @param pt0  the starting point ({@code null} not permitted).
+     * @param pt1  the ending point ({@code null} not permitted).
      * @param opposingPt  an opposing point (to determine which side of the 
-     *     axis line the labels should appear, <code>null</code> not permitted).
-     * @param tickData  tick details (<code>null</code> not permitted).
+     *     axis line the labels should appear, {@code null} not permitted).
+     * @param tickData  tick details ({@code null} not permitted).
      * @param info  an object to be populated with rendering info 
-     *     (<code>null</code> permitted).
+     *     ({@code null} permitted).
      * @param hinting  perform element hinting?
      */
     @Override
@@ -360,12 +361,12 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
     /**
      * Draws tick labels parallel to the axis.
      * 
-     * @param g2  the graphics target (<code>null</code> not permitted).
-     * @param axisLine  the axis line (<code>null</code> not permitted).
+     * @param g2  the graphics target ({@code null} not permitted).
+     * @param axisLine  the axis line ({@code null} not permitted).
      * @param opposingPt  an opposing point (to determine on which side the 
-     *     labels appear, <code>null</code> not permitted).
-     * @param tickData  the tick data (<code>null</code> not permitted).
-     * @param info  if not <code>null</code> this object will be updated with
+     *     labels appear, {@code null} not permitted).
+     * @param tickData  the tick data ({@code null} not permitted).
+     * @param info  if not {@code null} this object will be updated with
      *     {@link RenderedElement} instances for each of the tick labels.
      */
     private void drawParallelTickLabels(Graphics2D g2, Line2D axisLine,
@@ -414,12 +415,12 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
     /**
      * Draws tick labels perpendicular to the axis.
      * 
-     * @param g2  the graphics target (<code>null</code> not permitted).
-     * @param axisLine  the axis line (<code>null</code> not permitted).
+     * @param g2  the graphics target ({@code null} not permitted).
+     * @param axisLine  the axis line ({@code null} not permitted).
      * @param opposingPt  an opposing point (to determine on which side the 
-     *     labels appear, <code>null</code> not permitted).
-     * @param tickData  the tick data (<code>null</code> not permitted).
-     * @param info  if not <code>null</code> this object will be updated with
+     *     labels appear, {@code null} not permitted).
+     * @param tickData  the tick data ({@code null} not permitted).
+     * @param info  if not {@code null} this object will be updated with
      *     {@link RenderedElement} instances for each of the tick labels.
      */
     private void drawPerpendicularTickLabels(Graphics2D g2, Line2D axisLine,
@@ -481,14 +482,15 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
      */
     @Override
     public double translateToWorld(double value, double length) {
-        return length * (value - getRange().getMin()) / getRange().getLength();
+        double p = getRange().percent(value, isInverted());
+        return length * p;
     }
   
     /**
      * Selects a tick size that is appropriate for drawing the axis from
-     * <code>pt0</code> to <code>pt1</code>.
+     * {@code pt0} to {@code pt1}.
      * 
-     * @param g2  the graphics target (<code>null</code> not permitted).
+     * @param g2  the graphics target ({@code null} not permitted).
      * @param pt0  the starting point for the axis.
      * @param pt1  the ending point for the axis.
      * @param opposingPt  a point on the opposite side of the line from where
@@ -567,12 +569,12 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
      * projection that can later be used to write the axis tick labels in the
      * appropriate places.
      * <br><br>
-     * If <code>tickUnit</code> is <code>Double.NaN</code>, then tick data is
+     * If {@code tickUnit} is {@code Double.NaN}, then tick data is
      * generated for just the bounds of the axis.
      * 
      * @param tickUnit  the tick unit.
      * 
-     * @return A list of tick data (never <code>null</code>). 
+     * @return A list of tick data (never {@code null}). 
      */
     @Override
     public List<TickData> generateTickData(double tickUnit) {
@@ -583,7 +585,8 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
         } else {
             double x = tickUnit * Math.ceil(this.range.getMin() / tickUnit);
             while (x <= this.range.getMax()) {
-                result.add(new TickData(this.range.percent(x), x));
+                result.add(new TickData(this.range.percent(x, isInverted()), 
+                        x));
                 x += tickUnit;
             }
         }
@@ -593,7 +596,7 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
     /**
      * Tests this instance for equality with an arbitrary object.
      * 
-     * @param obj  the object to test against (<code>null</code> permitted).
+     * @param obj  the object to test against ({@code null} permitted).
      * 
      * @return A boolean. 
      */

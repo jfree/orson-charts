@@ -86,7 +86,7 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
      * The smallest value for the axis.  In general, only positive values 
      * can be plotted against a log axis but to simplify the generation of
      * bar charts (where the base of the bars is typically at 0.0) the axis
-     * will return <code>smallestValue</code> as the translated value for 0.0.
+     * will return {@code smallestValue} as the translated value for 0.0.
      * It is important to make sure there are no real data values smaller 
      * than this value.
      */
@@ -94,7 +94,7 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
     
     /** 
      * The symbol used to represent the log base on the tick labels.  If this
-     * is <code>null</code> the numerical value will be displayed. 
+     * is {@code null} the numerical value will be displayed. 
      */
     private String baseSymbol;
     
@@ -104,24 +104,24 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
     private NumberFormat baseFormatter = new DecimalFormat("0");
     
     /** 
-     * The tick selector (if not <code>null</code>, then auto-tick selection 
-     * is used). 
+     * The tick selector (if not {@code null}, then auto-tick selection is 
+     * used). 
      */
     private TickSelector tickSelector = new NumberTickSelector();
 
     /** 
-     * The tick size.  If the tickSelector is not <code>null</code> then it is 
+     * The tick size.  If the tickSelector is not {@code null} then it is 
      * used to auto-select an appropriate tick size and format.
      */
     private double tickSize = 1.0;
 
-    /** The tick formatter (never <code>null</code>). */
+    /** The tick formatter (never {@code null}). */
     private Format tickLabelFormatter = new DecimalFormat("0.0");
     
     /**
-     * Creates a new log axis with a default base of 10.0.
+     * Creates a new log axis with a default base of 10.
      * 
-     * @param label  the axis label (<code>null</code> permitted). 
+     * @param label  the axis label ({@code null} permitted). 
      */
     public LogAxis3D(String label) {
         super(label, new Range(DEFAULT_SMALLEST_VALUE, 1.0));
@@ -133,7 +133,7 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
     }
 
     /**
-     * Returns the logarithmic base value.  The default is 10.0.
+     * Returns the logarithmic base value.  The default value is {@code 10}.
      * 
      * @return The logarithmic base value. 
      */
@@ -142,8 +142,8 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
     }
     
     /**
-     * Sets the logarithmic base value and sends a change event to all
-     * registered listeners.
+     * Sets the logarithmic base value and sends an {@code Axis3DChangeEvent} 
+     * to all registered listeners.
      * 
      * @param base  the base value. 
      */
@@ -156,21 +156,21 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
     /**
      * Returns the base symbol, used in tick labels for the axis.  A typical 
      * value would be "e" when using a natural logarithm scale.  If this is
-     * <code>null</code>, the tick labels will display the numerical base
-     * value.  The default value is <code>null</code>.
+     * {@code null}, the tick labels will display the numerical base value.  
+     * The default value is {@code null}.
      * 
-     * @return The base symbol (possibly <code>null</code>). 
+     * @return The base symbol (possibly {@code null}). 
      */
     public String getBaseSymbol() {
         return this.baseSymbol;
     }
     
     /**
-     * Sets the base symbol and sends a change event to all registered 
-     * listeners.  If you set this to <code>null</code>, the tick labels will
-     * display a numerical representation of the base value.
+     * Sets the base symbol and sends an {@code Axis3DChangeEvent} to all 
+     * registered listeners.  If you set this to {@code null}, the tick labels 
+     * will display a numerical representation of the base value.
      * 
-     * @param symbol  the base symbol (<code>null</code> permitted).
+     * @param symbol  the base symbol ({@code null} permitted).
      */
     public void setBaseSymbol(String symbol) {
         this.baseSymbol = symbol;
@@ -179,19 +179,19 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
 
     /**
      * Returns the formatter used for the log base value when it is displayed 
-     * in tick labels.  The default value is <code>NumberFormat("0")</code>.
+     * in tick labels.  The default value is {@code NumberFormat("0")}.
      * 
-     * @return The base formatter (never <code>null</code>).
+     * @return The base formatter (never {@code null}).
      */
     public NumberFormat getBaseFormatter() {
         return this.baseFormatter;
     }
     
     /**
-     * Sets the formatter for the log base value and sends a change event to
-     * all registered listeners.
+     * Sets the formatter for the log base value and sends an 
+     * {@code Axis3DChangeEvent} to all registered listeners.
      * 
-     * @param formatter  the formatter (<code>null</code> not permitted). 
+     * @param formatter  the formatter ({@code null} not permitted). 
      */
     public void setBaseFormatter(NumberFormat formatter) {
         ArgChecks.nullNotPermitted(formatter, "formatter");
@@ -202,7 +202,7 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
     /**
      * Returns the smallest positive data value that will be represented on 
      * the axis.  This will be used as the lower bound for the axis if the
-     * data range contains any value from 0.0 up to this value.
+     * data range contains any value from {@code 0.0} up to this value.
      * 
      * @return The smallest value. 
      */
@@ -212,7 +212,7 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
     
     /**
      * Sets the smallest positive data value that will be represented on the 
-     * axis and sends a change event to all registered listeners.
+     * axis and sends an {@code Axis3DChangeEvent} to all registered listeners.
      * 
      * @param smallestValue  the value (must be positive). 
      */
@@ -225,17 +225,17 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
     /**
      * Returns the tick selector for the axis.
      * 
-     * @return The tick selector (possibly <code>null</code>). 
+     * @return The tick selector (possibly {@code null}). 
      */
     public TickSelector getTickSelector() {
         return this.tickSelector;    
     }
     
     /**
-     * Sets the tick selector and sends a change event to all registered
-     * listeners.
+     * Sets the tick selector and sends an {@code Axis3DChangeEvent} to all 
+     * registered listeners.
      * 
-     * @param selector  the selector (<code>null</code> permitted).
+     * @param selector  the selector ({@code null} permitted).
      */
     public void setTickSelector(TickSelector selector) {
         this.tickSelector = selector;
@@ -244,7 +244,7 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
     
     /**
      * Returns the tick size to be used when the tick selector is 
-     * <code>null</code>.
+     * {@code null}.
      * 
      * @return The tick size.
      */
@@ -253,7 +253,8 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
     }
 
     /**
-     * Sets the tick size and sends a change event to all registered listeners.
+     * Sets the tick size and sends an {@code Axis3DChangeEvent} to all 
+     * registered listeners.
      * 
      * @param tickSize  the new tick size.
      */
@@ -264,19 +265,19 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
     
     /**
      * Returns the tick label formatter.  The default value is
-     * <code>DecimalFormat("0.0")</code>.
+     * {@code DecimalFormat("0.0")}.
      * 
-     * @return The tick label formatter (never <code>null</code>). 
+     * @return The tick label formatter (never {@code null}). 
      */
     public Format getTickLabelFormatter() {
         return this.tickLabelFormatter;
     }
     
     /**
-     * Sets the formatter for the tick labels and sends a change event
-     * to all registered listeners.
+     * Sets the formatter for the tick labels and sends an 
+     * {@code Axis3DChangeEvent} to all registered listeners.
      * 
-     * @param formatter  the formatter (<code>null</code> not permitted).
+     * @param formatter  the formatter ({@code null} not permitted).
      */
     public void setTickLabelFormatter(Format formatter) {
         ArgChecks.nullNotPermitted(formatter, "formatter");
@@ -289,7 +290,7 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
      * the range does not contain negative values, and to update the log values
      * for the range.
      * 
-     * @param range  the range (<code>null</code> not permitted). 
+     * @param range  the range ({@code nul} not permitted). 
      */
     @Override
     public void setRange(Range range) {
@@ -326,8 +327,7 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
     }
 
     /**
-     * Calculates the log of the given <code>value</code>, using the current 
-     * base.
+     * Calculates the log of the given {@code value}, using the current base.
      *
      * @param value  the value (negatives not permitted).
      *
@@ -367,13 +367,16 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
     public double translateToWorld(double value, double length) {
         double logv = calculateLog(value);
         double percent = this.logRange.percent(logv);
+        if (isInverted()) {
+            percent = 1.0 - percent;
+        }
         return percent * length;
     }
 
     /**
      * Draws the axis.
      * 
-     * @param g2  the graphics target (<code>null</code> not permitted).
+     * @param g2  the graphics target ({@code null} not permitted).
      * @param startPt  the starting point.
      * @param endPt  the ending point.
      * @param opposingPt  an opposing point (labels will be on the other side 
@@ -381,7 +384,7 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
      * @param tickData  the tick data (including anchor points calculated by
      *     the 3D engine).
      * @param info  an object to be populated with rendering info 
-     *     (<code>null</code> permitted).
+     *     ({@code null} permitted).
      * @param hinting  perform element hinting?
      */
     @Override
@@ -430,7 +433,7 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
 
         // draw the axis label (if any)...
         if (getLabel() != null) {
-            Shape labelBounds = drawAxisLabel(getLabel(), g2, axisLine, 
+            /* Shape labelBounds = */drawAxisLabel(getLabel(), g2, axisLine, 
                     opposingPt, maxTickLabelDim + tickMarkLength 
                     + tickLabelOffset + getLabelOffset(), info, hinting);
         }
@@ -535,7 +538,7 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
      * Adjusts the range by adding the lower and upper margins on the 
      * logarithmic range.
      * 
-     * @param range  the range (<code>null</code> not permitted).
+     * @param range  the range ({@code nul} not permitted).
      * 
      * @return The adjusted range. 
      */
@@ -556,7 +559,7 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
     /**
      * Selects a standard tick unit on the logarithmic range.
      * 
-     * @param g2  the graphics target (<code>null</code> not permitted).
+     * @param g2  the graphics target ({@code null not permitted).
      * @param pt0  the starting point.
      * @param pt1  the ending point.
      * @param opposingPt  an opposing point.

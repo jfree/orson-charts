@@ -91,6 +91,8 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      * The axis range (never <code>null</code>). 
      */
     private Range range;
+    
+    private boolean inverted;
 
     /** The percentage margin to leave at the lower end of the axis. */
     private double lowerMargin;
@@ -689,7 +691,8 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      */
     @Override
     public double translateToWorld(double value, double length) {
-        return length * (value - this.range.getMin()) / this.range.getLength();
+        double p = getRange().percent(value, isInverted());
+        return length * p;
     }
 
     /**
@@ -1098,5 +1101,31 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
         this.tickMarkPaint = SerialUtils.readPaint(stream);
         this.tickMarkStroke = SerialUtils.readStroke(stream);
     }
-
+    
+    /**
+     * Returns {@code true} if the axis inverts the order of the data items,
+     * and {@code false} otherwise.
+     * 
+     * @return A boolean.
+     * 
+     * @since 1.5
+     */
+    @Override
+    public boolean isInverted() {
+        return this.inverted;
+    }
+    
+    /**
+     * Sets the flag that controls whether or not the axis inverts the order
+     * of the data items and sends an {@link Axis3DChangeEvent} to all 
+     * registered listeners.
+     * 
+     * @param inverted  the new flag value. 
+     * 
+     * @since 1.5
+     */
+    public void setInverted(boolean inverted) {
+        this.inverted = inverted;
+        fireChangeEvent(true);
+    }
 }

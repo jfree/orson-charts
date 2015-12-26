@@ -54,7 +54,7 @@ public interface Axis3D extends ChartElement {
      * 
      * @see #setVisible(boolean) 
      */
-    public boolean isVisible();
+    boolean isVisible();
     
     /**
      * Sets the flag that determines whether or not the axis is drawn on the
@@ -64,7 +64,7 @@ public interface Axis3D extends ChartElement {
      * 
      * @see #isVisible() 
      */
-    public void setVisible(boolean visible);
+    void setVisible(boolean visible);
     
     /**
      * Returns the font that is used to display the main axis label.
@@ -135,7 +135,10 @@ public interface Axis3D extends ChartElement {
     void setTickLabelColor(Color color);
 
     /**
-     * Returns the axis range.
+     * Returns the axis range (the minimum and maximum values displayed on 
+     * the axis).  Note that even categorical axes will have a range, although
+     * since numerical values are not displayed the range is often set to
+     * {@code (0.0, 1.0)} for convenience.
      * 
      * @return The axis range (never {@code null}). 
      */
@@ -147,7 +150,7 @@ public interface Axis3D extends ChartElement {
      * 
      * @param range  the range ({@code null} not permitted). 
      */
-    public void setRange(Range range);
+    void setRange(Range range);
   
     /**
      * Sets the axis range and sends an {@link Axis3DChangeEvent} to all
@@ -156,7 +159,28 @@ public interface Axis3D extends ChartElement {
      * @param min  the lower bound for the axis.
      * @param max  the upper bound for the axis.
      */
-    public void setRange(double min, double max);
+    void setRange(double min, double max);
+    
+    /**
+     * Returns the flag that determines whether or not the order of values on 
+     * the axis is inverted.  The default value is {@code false}.
+     * 
+     * @return A boolean.
+     * 
+     * @since 1.5
+     */
+    boolean isInverted();
+    
+    /**
+     * Sets the flag that determines whether or not the order of values on the
+     * axis is inverted, and sends an {@link Axis3DChangeEvent} to all 
+     * registered listeners.
+     * 
+     * @param inverted  the new flag value.
+     * 
+     * @since 1.5
+     */
+    void setInverted(boolean inverted);
     
     /**
      * Translates a data value to a world coordinate.  Since we draw the charts

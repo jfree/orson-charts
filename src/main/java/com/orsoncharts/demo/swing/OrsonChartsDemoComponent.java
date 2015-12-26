@@ -97,7 +97,7 @@ public class OrsonChartsDemoComponent extends JPanel
     private JTextPane chartDescriptionPane;
     
     /** 
-     * The chart style (if non-<code>null</code> this will be applied to 
+     * The chart style (if non-{@code null} this will be applied to 
      * new charts). 
      */
     private ChartStyle style;
@@ -158,7 +158,7 @@ public class OrsonChartsDemoComponent extends JPanel
     }
 
     /**
-     * Creates a <code>TreeModel</code> with references to all the individual
+     * Creates a {@code TreeModel} with references to all the individual
      * demo applications.
      *
      * @return A TreeModel.
@@ -254,6 +254,9 @@ public class OrsonChartsDemoComponent extends JPanel
         n.add(createNode(PREFIX + "XYZBarChart3DDemo1", 
                 "XYZBarChart3DDemo1.java", 
                 ABOUT_PREFIX + "XYZBarChart3D1.html"));
+        n.add(createNode(PREFIX + "XYZLineChart3DDemo1", 
+                "XYZLineChart3DDemo1.java", 
+                ABOUT_PREFIX + "XYZLineChart3D1.html"));
         return n;        
     }
     

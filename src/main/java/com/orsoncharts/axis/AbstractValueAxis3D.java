@@ -75,6 +75,8 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
     /** The axis range. */
     protected Range range;
 
+    private boolean inverted;
+    
     /** 
      * A flag that controls whether or not the axis range is automatically
      * adjusted to display all of the data items in the dataset.
@@ -106,10 +108,10 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
     /** The length of tick marks (in Java2D units).  Can be set to 0.0. */
     private double tickMarkLength;
     
-    /** The tick mark stroke (never <code>null</code>). */
+    /** The tick mark stroke (never {@code null}). */
     private transient Stroke tickMarkStroke;
     
-    /** The tick mark paint (never <code>null</code>). */
+    /** The tick mark paint (never {@code null}). */
     private transient Paint tickMarkPaint;
     
     /** The orientation for the tick labels. */
@@ -124,8 +126,8 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
     /**
      * Creates a new axis instance.
      * 
-     * @param label  the axis label (<code>null</code> permitted).
-     * @param range  the axis range (<code>null</code> not permitted).
+     * @param label  the axis label ({@code null} permitted).
+     * @param range  the axis range ({@code null} not permitted).
      */
     public AbstractValueAxis3D(String label, Range range) {
         super(label);
@@ -149,7 +151,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
     /**
      * Returns the configured type for the axis.
      * 
-     * @return The configured type (<code>null</code> if the axis has not yet
+     * @return The configured type ({@code null} if the axis has not yet
      *     been assigned to a plot).
      * 
      * @since 1.3
@@ -186,7 +188,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
      * rely on the autoAdjustRange feature to set the axis range to match
      * the data being plotted.
      * 
-     * @return the axis range (never <code>null</code>).
+     * @return the axis range (never {@code null}).
      */
     @Override
     public Range getRange() {
@@ -198,7 +200,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
      * all registered listeners.
      * 
      * @param range  the new range (must have positive length and 
-     *     <code>null</code> is not permitted).
+     *     {@code null} is not permitted).
      */
     @Override
     public void setRange(Range range) {
@@ -237,7 +239,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
     /**
      * Returns the flag that controls whether or not the axis range is 
      * automatically updated in response to dataset changes.  The default 
-     * value is <code>true</code>.
+     * value is {@code true}.
      * 
      * @return A boolean. 
      */
@@ -261,7 +263,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
      * Returns the size of the lower margin that is added by the auto-range
      * calculation, as a percentage of the data range.  This margin is used to 
      * prevent data items from being plotted right at the edges of the chart.  
-     * The default value is <code>0.05</code> (five percent).
+     * The default value is {@code 0.05} (five percent).
      * 
      * @return The lower margin.
      */
@@ -288,7 +290,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
      * Returns the size of the upper margin that is added by the auto-range
      * calculation, as a percentage of the data range.  This margin is used to 
      * prevent data items from being plotted right at the edges of the chart.  
-     * The default value is <code>0.05</code> (five percent).
+     * The default value is {@code 0.05} (five percent).
      * 
      * @return The upper margin.
      */
@@ -313,12 +315,12 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
     
     
     /**
-     * Returns the default range used when the <code>autoAdjustRange</code>
-     * flag is <code>true</code> but the dataset contains no values.  The
-     * default range is <code>(0.0 to 1.0)</code>, depending on the context
+     * Returns the default range used when the {@code autoAdjustRange}
+     * flag is {@code true} but the dataset contains no values.  The
+     * default range is {@code (0.0 to 1.0)}, depending on the context
      * you may want to change this.
      * 
-     * @return The default range (never <code>null</code>).
+     * @return The default range (never {@code null}).
      * 
      * @see #setDefaultAutoRange(com.orsoncharts.Range) 
      */
@@ -327,11 +329,11 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
     }
     
     /**
-     * Sets the default range used  when the <code>autoAdjustRange</code>
-     * flag is <code>true</code> but the dataset contains no values, and sends
+     * Sets the default range used  when the {@code autoAdjustRange}
+     * flag is {@code true} but the dataset contains no values, and sends
      * an {@link Axis3DChangeEvent} to all registered listeners.
      * 
-     * @param range  the range (<code>null</code> not permitted).
+     * @param range  the range ({@code null} not permitted).
      *
      * @see #getDefaultAutoRange() 
      */
@@ -368,10 +370,37 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
     }
 
     /**
+     * Returns the flag that determines whether or not the order of values on 
+     * the axis is inverted.  The default value is {@code false}.
+     * 
+     * @return A boolean.
+     * 
+     * @since 1.5
+     */
+    @Override
+    public boolean isInverted() {
+        return this.inverted;
+    }
+    
+    /**
+     * Sets the flag that determines whether or not the order of values on the
+     * axis is inverted, and sends an {@link Axis3DChangeEvent} to all 
+     * registered listeners.
+     * 
+     * @param inverted  the new flag value.
+     * 
+     * @since 1.5
+     */
+    public void setInverted(boolean inverted) {
+        this.inverted = inverted;
+        fireChangeEvent(true);
+    }
+
+    /**
      * Returns the orientation for the tick labels.  The default value is
      * {@link LabelOrientation#PARALLEL}. 
      * 
-     * @return The orientation for the tick labels (never <code>null</code>).
+     * @return The orientation for the tick labels (never {@code null}).
      * 
      * @since 1.2
      */
@@ -381,11 +410,11 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
     
     /**
      * Sets the orientation for the tick labels and sends a change event to
-     * all registered listeners.  In general, <code>PARALLEL</code> is the
-     * best setting for X and Z axes, and <code>PERPENDICULAR</code> is the
+     * all registered listeners.  In general, {@code PARALLEL} is the
+     * best setting for X and Z axes, and {@code PERPENDICULAR} is the
      * best setting for Y axes.
      * 
-     * @param orientation  the orientation (<code>null</code> not permitted).
+     * @param orientation  the orientation ({@code null} not permitted).
      * 
      * @since 1.2
      */
@@ -398,7 +427,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
     /**
      * Returns the tick label factor, a multiplier for the label height to
      * determine the maximum number of tick labels that can be displayed.  
-     * The default value is <code>1.4</code>.
+     * The default value is {@code 1.4}.
      * 
      * @return The tick label factor. 
      */
@@ -420,7 +449,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
     
     /**
      * Returns the tick label offset, the gap between the tick marks and the
-     * tick labels (in Java2D units).  The default value is <code>5.0</code>.
+     * tick labels (in Java2D units).  The default value is {@code 5.0}.
      * 
      * @return The tick label offset.
      */
@@ -440,7 +469,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
     
     /**
      * Returns the length of the tick marks (in Java2D units).  The default
-     * value is <code>3.0</code>.
+     * value is {@code 3.0}.
      * 
      * @return The length of the tick marks. 
      */
@@ -450,7 +479,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
     
     /**
      * Sets the length of the tick marks and sends an {@link Axis3DChangeEvent}
-     * to all registered listeners.  You can set this to <code>0.0</code> if
+     * to all registered listeners.  You can set this to {@code 0.0} if
      * you prefer no tick marks to be displayed on the axis.
      * 
      * @param length  the length (in Java2D units). 
@@ -462,9 +491,9 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
 
     /**
      * Returns the stroke used to draw the tick marks.  The default value is
-     * <code>BasicStroke(0.5f)</code>.
+     * {@code BasicStroke(0.5f)}.
      * 
-     * @return The tick mark stroke (never <code>null</code>).
+     * @return The tick mark stroke (never {@code null}).
      */
     public Stroke getTickMarkStroke() {
         return this.tickMarkStroke;
@@ -474,7 +503,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
      * Sets the stroke used to draw the tick marks and sends an 
      * {@link Axis3DChangeEvent} to all registered listeners.
      * 
-     * @param stroke  the stroke (<code>null</code> not permitted). 
+     * @param stroke  the stroke ({@code null} not permitted). 
      */
     public void setTickMarkStroke(Stroke stroke) {
         ArgChecks.nullNotPermitted(stroke, "stroke");
@@ -484,9 +513,9 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
     
     /**
      * Returns the paint used to draw the tick marks.  The default value is
-     * <code>Color.GRAY</code>.
+     * {@code Color.GRAY}.
      * 
-     * @return The tick mark paint (never <code>null</code>). 
+     * @return The tick mark paint (never {@code null}). 
      */
     public Paint getTickMarkPaint() {
         return this.tickMarkPaint;
@@ -496,7 +525,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
      * Sets the paint used to draw the tick marks and sends an 
      * {@link Axis3DChangeEvent} to all registered listeners.
      * 
-     * @param paint  the paint (<code>null</code> not permitted). 
+     * @param paint  the paint ({@code null} not permitted). 
      */
     public void setTickMarkPaint(Paint paint) {
         ArgChecks.nullNotPermitted(paint, "paint");
@@ -509,7 +538,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
      * plot.  This method is used internally, you should not need to call it
      * directly.
      * 
-     * @param plot  the plot (<code>null</code> not permitted). 
+     * @param plot  the plot ({@code null} not permitted). 
      */
     @Override
     public void configureAsValueAxis(CategoryPlot3D plot) {
@@ -530,7 +559,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
      * This method is used internally, you should not need to call it
      * directly.
      * 
-     * @param plot  the plot (<code>null</code> not permitted). 
+     * @param plot  the plot ({@code null} not permitted). 
      */
     @Override
     public void configureAsXAxis(XYZPlot plot) {
@@ -550,7 +579,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
      * This method is used internally, you should not need to call it
      * directly.
      * 
-     * @param plot  the plot (<code>null</code> not permitted). 
+     * @param plot  the plot ({@code null} not permitted). 
      */
     @Override
     public void configureAsYAxis(XYZPlot plot) {
@@ -570,7 +599,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
      * This method is used internally, you should not need to call it
      * directly.
      * 
-     * @param plot  the plot (<code>null</code> not permitted). 
+     * @param plot  the plot ({@code null} not permitted). 
      */
     @Override
     public void configureAsZAxis(XYZPlot plot) {
@@ -589,7 +618,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
      * Adjusts the range by adding the lower and upper margins and taking into
      * account any other settings.
      * 
-     * @param range  the range (<code>null</code> not permitted).
+     * @param range  the range ({@code null} not permitted).
      * 
      * @return The adjusted range. 
      */
@@ -598,9 +627,9 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
     /**
      * Returns the marker with the specified key, if there is one.
      * 
-     * @param key  the key (<code>null</code> not permitted).
+     * @param key  the key ({@code null} not permitted).
      * 
-     * @return The marker (possibly <code>null</code>). 
+     * @return The marker (possibly {@code null}). 
      * 
      * @since 1.2
      */
@@ -615,9 +644,9 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
      * (the axis will no longer listen for change events on the previous 
      * marker).
      * 
-     * @param key  the key that identifies the marker (<code>null</code> not 
+     * @param key  the key that identifies the marker ({@code null} not 
      *         permitted).
-     * @param marker  the marker (<code>null</code> permitted).
+     * @param marker  the marker ({@code null} permitted).
      * 
      * @since 1.2
      */
@@ -645,7 +674,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
     /**
      * Generates and returns a list of marker data items for the axis.
      * 
-     * @return A list of marker data items (never <code>null</code>). 
+     * @return A list of marker data items (never {@code null}). 
      */
     @Override
     public List<MarkerData> generateMarkerData() {
@@ -697,7 +726,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
      * on each element in the chart.  You will not normally call this method
      * directly.
      * 
-     * @param visitor  the visitor (<code>null</code> not permitted).
+     * @param visitor  the visitor ({@code null} not permitted).
      * 
      * @since 1.2
      */
