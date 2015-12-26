@@ -61,15 +61,15 @@ public class LabelFace extends Face {
     /**
      * Creates a new instance.
      * 
-     * @param owner  the object that this face belongs to (<code>null</code> 
+     * @param owner  the object that this face belongs to ({@code null} 
      *     not permitted).
-     * @param vertices  the vertices that define the face (<code>null</code> 
+     * @param vertices  the vertices that define the face ({@code null} 
      *     not permitted).
-     * @param label  the label (<code>null</code> not permitted).
-     * @param font  the font (<code>null</code> not permitted).
-     * @param textColor  the foreground color (<code>null</code> not permitted).
+     * @param label  the label ({@code null} not permitted).
+     * @param font  the font ({@code null} not permitted).
+     * @param textColor  the foreground color ({@code null} not permitted).
      * @param backgroundColor   the background color for the label 
-     *     (<code>null</code> not permitted).
+     *     ({@code null} not permitted).
      */
     public LabelFace(Object3D owner, int[] vertices, String label, Font font, 
             Color textColor, Color backgroundColor) {
@@ -97,7 +97,7 @@ public class LabelFace extends Face {
     /**
      * Returns the label.
      * 
-     * @return The label (never <code>null</code>). 
+     * @return The label (never {@code null}). 
      */
     public String getLabel() {
         return this.label;
@@ -106,7 +106,7 @@ public class LabelFace extends Face {
     /**
      * Sets the label.
      * 
-     * @param label  the new label (<code>null</code> not permitted). 
+     * @param label  the new label ({@code null} not permitted). 
      */
     public void setLabel(String label) {
         ArgChecks.nullNotPermitted(label, "label");
@@ -116,7 +116,7 @@ public class LabelFace extends Face {
     /**
      * Returns the font.
      * 
-     * @return The font (never <code>null</code>). 
+     * @return The font (never {@code null}). 
      */
     public Font getFont() {
         return this.font;
@@ -125,7 +125,7 @@ public class LabelFace extends Face {
     /**
      * Sets the font.
      * 
-     * @param font  the font (<code>null</code> not permitted). 
+     * @param font  the font ({@code null} not permitted). 
      */
     public void setFont(Font font) {
         ArgChecks.nullNotPermitted(font, "font");
@@ -135,7 +135,7 @@ public class LabelFace extends Face {
     /**
      * Returns the foreground color for the label text.
      * 
-     * @return The foreground color (never <code>null</code>). 
+     * @return The foreground color (never {@code null}). 
      */
     public Color getTextColor() {
         return this.textColor;
@@ -144,7 +144,7 @@ public class LabelFace extends Face {
     /**
      * Sets the foreground color for the label text.
      * 
-     * @param color  the color (<code>null</code> not permitted).
+     * @param color  the color ({@code null} not permitted).
      */
     public void setTextColor(Color color) {
         this.textColor = color;
@@ -154,7 +154,7 @@ public class LabelFace extends Face {
      * Returns the background color.  The default value is a fully transparent
      * color.
      * 
-     * @return The background color (never <code>null</code>). 
+     * @return The background color (never {@code null}). 
      */
     public Color getBackgroundColor() {
         return this.backgroundColor;
@@ -163,7 +163,7 @@ public class LabelFace extends Face {
     /**
      * Sets the background color.
      * 
-     * @param color  the color (<code>null</code> not permitted). 
+     * @param color  the color ({@code null} not permitted). 
      */
     public void setBackgroundColor(Color color) {
         this.backgroundColor = color;
