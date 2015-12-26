@@ -45,8 +45,8 @@ public class XYZItemKeyTest {
     
     @Test
     public void testEquals() {
-        XYZItemKey<String> k1 = new XYZItemKey("S1", 1);
-        XYZItemKey<String> k2 = new XYZItemKey("S1", 1);
+        XYZItemKey<String> k1 = new XYZItemKey<>("S1", 1);
+        XYZItemKey<String> k2 = new XYZItemKey<>("S1", 1);
         assertTrue(k1.equals(k2));
         assertFalse(k1.equals(null));
         
