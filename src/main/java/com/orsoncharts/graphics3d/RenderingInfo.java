@@ -40,7 +40,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * Rendering info returned from the {@link Drawable3D} <code>draw()</code> 
+ * Rendering info returned from the {@link Drawable3D} {@code draw()} 
  * method.
  * 
  * @since 1.3
@@ -131,7 +131,7 @@ public class RenderingInfo {
     /**
      * Adds a rendered element to the rendering info.
      * 
-     * @param element  the element (<code>null</code> not permitted). 
+     * @param element  the element ({@code null} not permitted). 
      */
     public void addElement(RenderedElement element) {
         this.otherElements.add(element);
@@ -140,19 +140,19 @@ public class RenderingInfo {
     /**
      * Adds a rendered element to the list of offset elements.
      * 
-     * @param element  the element (<code>null</code> not permitted). 
+     * @param element  the element ({@code null} not permitted). 
      */
     public void addOffsetElement(RenderedElement element) {
         this.otherOffsetElements.add(element);
     }
     
     /**
-     * Fetches the object, if any, that is rendered at <code>(x, y)</code>.
+     * Fetches the object, if any, that is rendered at {@code (x, y)}.
      * 
      * @param x  the x-coordinate.
      * @param y  the y-coordinate.
      * 
-     * @return The object (or <code>null</code>). 
+     * @return The object (or {@code null}). 
      */
     public Object3D fetchObjectAt(double x, double y) {
         for (int i = this.faces.size() - 1; i >= 0; i--) {
@@ -174,18 +174,18 @@ public class RenderingInfo {
     }
     
     /**
-     * Finds the rendered element, if any, at the location <code>(x, y)</code>.
+     * Finds the rendered element, if any, at the location {@code (x, y)}.
      * The method first calls fetchObjectAt(x, y) to see if there is an
      * object at the specified location and, if there is, returns a new
      * RenderedElement instance for that object.  Otherwise, it searches the
      * otherElements list to see if there is some other element (such as a
      * title, legend, axis label or axis tick label) and returns that item.
-     * Finally, if no element is found, the method returns <code>null</code>.
+     * Finally, if no element is found, the method returns {@code null}.
      * 
      * @param x  the x-coordinate.
      * @param y  the y-coordinate.
      * 
-     * @return The interactive element or <code>null</code>.
+     * @return The interactive element or {@code null}.
      */
     public RenderedElement findElementAt(double x, double y) {
         for (int i = this.otherElements.size() - 1; i >= 0; i--) {
