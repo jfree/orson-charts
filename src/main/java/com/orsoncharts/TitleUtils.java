@@ -64,7 +64,7 @@ public class TitleUtils {
     /**
      * Creates a chart title using the default font and alignment.
      * 
-     * @param title  the chart title (<code>null</code> not permitted).
+     * @param title  the chart title ({@code null} not permitted).
      * 
      * @return The chart title. 
      */
@@ -74,10 +74,10 @@ public class TitleUtils {
     
     /**
      * Creates a chart title and subtitle using default fonts and left 
-     * alignment.  The <code>subtitle</code> is optional.
+     * alignment.  The {@code subtitle} is optional.
      * 
-     * @param title  the title text (<code>null</code> not permitted).
-     * @param subtitle  the subtitle text (<code>null</code> permitted).
+     * @param title  the title text ({@code null} not permitted).
+     * @param subtitle  the subtitle text ({@code null} permitted).
      * 
      * @return A composite title. 
      */
@@ -92,9 +92,9 @@ public class TitleUtils {
      * title is anchored centrally, and right alignment when the title is 
      * anchored to the right).
      * 
-     * @param title  the title text (<code>null</code> not permitted).
-     * @param subtitle  the subtitle text (<code>null</code> permitted).
-     * @param anchor  the anchor point (<code>null</code> not permitted).
+     * @param title  the title text ({@code null} not permitted).
+     * @param subtitle  the subtitle text ({@code null} permitted).
+     * @param anchor  the anchor point ({@code null} not permitted).
      * 
      * @return A composite title. 
      */
@@ -114,14 +114,14 @@ public class TitleUtils {
      * Creates a chart title and subtitle using the specified fonts and 
      * alignment.
      * 
-     * @param title  the title text (<code>null</code> not permitted).
-     * @param titleFont  the title font (<code>null</code> not permitted).
-     * @param subtitle  the subtitle text (<code>null</code> permitted).
-     * @param subtitleFont  the subtitle font (<code>null</code> permitted).
-     * @param alignment  the horizontal alignment (<code>null</code> not 
+     * @param title  the title text ({@code null} not permitted).
+     * @param titleFont  the title font ({@code null} not permitted).
+     * @param subtitle  the subtitle text ({@code null} permitted).
+     * @param subtitleFont  the subtitle font ({@code null} permitted).
+     * @param alignment  the horizontal alignment ({@code null} not 
      *     permitted).
      * 
-     * @return A chart title (never <code>null</code>). 
+     * @return A chart title (never {@code null}). 
      */
     public static TableElement createTitle(String title, Font titleFont,
             String subtitle, Font subtitleFont, HAlign alignment) {
