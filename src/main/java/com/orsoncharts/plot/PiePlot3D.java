@@ -57,7 +57,7 @@ import com.orsoncharts.label.StandardPieLabelGenerator;
 
 /**
  * A plot for creating 3D pie charts.  To create a pie chart, you can use the 
- * <code>createPieChart()</code> method in the {@link Chart3DFactory} class.  
+ * {@code createPieChart()} method in the {@link Chart3DFactory} class.  
  * A typical pie chart will look like this:  
  * <div>
  * <object id="ABC" data="../../../doc-files/PieChart3DDemo1.svg"  
