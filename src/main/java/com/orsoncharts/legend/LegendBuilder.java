@@ -43,12 +43,12 @@ import com.orsoncharts.util.Orientation;
  * A legend builder is responsible for creating a legend for a chart.  The API
  * has been kept to a minimum intentionally, so as not to overly constrain 
  * developers that want to implement a custom legend builder.  The 
- * <code>get/setItemFont()</code> methods have been added for convenience
+ * {@code get/setItemFont()} methods have been added for convenience
  * because changing the font of the legend item text is a very common 
  * operation.
  * <p>
  * Classes that implement this interface should also implement 
- * <code>java.io.Serializable</code> if you intend to serialize and deserialize 
+ * {@code java.io.Serializable} if you intend to serialize and deserialize 
  * chart objects.
  * 
  * @see Chart3D#setLegendBuilder(LegendBuilder) 
@@ -57,15 +57,15 @@ public interface LegendBuilder {
 
     /**
      * Creates a legend for the specified plot.  If this method returns 
-     * <code>null</code>, no legend will be displayed.
+     * {@code null}, no legend will be displayed.
      * 
-     * @param plot  the plot (<code>null</code> not permitted).
-     * @param anchor  the anchor (<code>null</code> not permitted).
-     * @param orientation  the legend orientation (<code>null</code> not 
+     * @param plot  the plot ({@code null} not permitted).
+     * @param anchor  the anchor ({@code null} not permitted).
+     * @param orientation  the legend orientation ({@code null} not 
      *         permitted).
-     * @param style  the style (<code>null</code> not permitted).
+     * @param style  the style ({@code null} not permitted).
      * 
-     * @return A legend (possibly <code>null</code>).
+     * @return A legend (possibly {@code null}).
      * 
      * @since 1.2
      */
