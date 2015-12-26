@@ -39,7 +39,7 @@ import java.util.List;
 import com.orsoncharts.util.ArgChecks;
 
 /**
- * A list of <code>(key, value)</code> pairs.
+ * A list of {@code (key, value)} pairs.
  * <br><br>
  * This is the basic structure of the data required for a pie chart.
  * <br><br>
@@ -63,11 +63,11 @@ public final class DefaultKeyedValues<T> implements KeyedValues<T>,
   
     /**
      * Creates a new instance with the specified keys (each associated with
-     * a <code>null</code> value).  There is usually no need to specify any
+     * a {@code null} value).  There is usually no need to specify any
      * keys in advance, so you will normally use the default constructor.  This
      * constructor is provided for the convenience of some internal code.
      * 
-     * @param keys  the keys (<code>null</code> not permitted).
+     * @param keys  the keys ({@code null} not permitted).
      */
     public DefaultKeyedValues(List<Comparable<?>> keys) {
         ArgChecks.nullNotPermitted(keys, "keys");
@@ -88,7 +88,7 @@ public final class DefaultKeyedValues<T> implements KeyedValues<T>,
      * Adds a value or, if there is an existing value with the same key, updates 
      * an existing value.
      * 
-     * @param key  the key (<code>null</code> not permitted)
+     * @param key  the key ({@code null} not permitted)
      * @param value  the value.
      */
     public void put(Comparable<?> key, T value) {
@@ -106,7 +106,7 @@ public final class DefaultKeyedValues<T> implements KeyedValues<T>,
     /**
      * Removes the item with the specified key, if there is one.
      * 
-     * @param key  the key (<code>null</code> not permitted).
+     * @param key  the key ({@code null} not permitted).
      */
     public void remove(Comparable<?> key) {
         ArgChecks.nullNotPermitted(key, "key");
@@ -139,12 +139,12 @@ public final class DefaultKeyedValues<T> implements KeyedValues<T>,
     }
 
     /**
-     * Returns the index of the item with the specified key, or <code>-1</code>
+     * Returns the index of the item with the specified key, or {@code -1}
      * if there is no such item.
      * 
-     * @param key  the key (<code>null</code> not permitted).
+     * @param key  the key ({@code null} not permitted).
      * 
-     * @return The item index, or <code>-1</code>. 
+     * @return The item index, or {@code -1}. 
      */
     @Override
     public int getIndex(Comparable<?> key) {
@@ -162,7 +162,7 @@ public final class DefaultKeyedValues<T> implements KeyedValues<T>,
      * Returns a list of all the keys.  Note that the list will be a copy, so
      * modifying it will not impact this data structure.
      * 
-     * @return A list of keys (possibly empty, but never <code>null</code>).
+     * @return A list of keys (possibly empty, but never {@code null}).
      */
     @Override
     public List<Comparable<?>> getKeys() {
@@ -176,9 +176,9 @@ public final class DefaultKeyedValues<T> implements KeyedValues<T>,
     /**
      * Returns the value with the specified key.
      * 
-     * @param key  the key (<code>null</code> not permitted).
+     * @param key  the key ({@code null} not permitted).
      * 
-     * @return The value (possibly <code>null</code>). 
+     * @return The value (possibly {@code null}). 
      */
     @Override
     public T getValue(Comparable<?> key) {
@@ -205,7 +205,7 @@ public final class DefaultKeyedValues<T> implements KeyedValues<T>,
      * 
      * @param item  the item index.
      * 
-     * @return The value (possibly <code>null</code>). 
+     * @return The value (possibly {@code null}). 
      */
     @Override
     public T getValue(int item) {
@@ -215,7 +215,7 @@ public final class DefaultKeyedValues<T> implements KeyedValues<T>,
   
     /**
      * Returns the value for the specified item, as a double primitive, 
-     * provided that the data value is an instance of <code>Number</code>.
+     * provided that the data value is an instance of {@code Number}.
      * 
      * @param item  the item index.
      * 
@@ -233,7 +233,7 @@ public final class DefaultKeyedValues<T> implements KeyedValues<T>,
     /**
      * Tests this instance for equality with an arbitrary object.
      * 
-     * @param obj  the object to test against (<code>null</code> permitted).
+     * @param obj  the object to test against ({@code null} permitted).
      * 
      * @return A boolean. 
      */
