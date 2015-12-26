@@ -49,7 +49,7 @@ public interface Dataset3D {
      * Registers a change listener to receive notification of changes to the
      * dataset.
      * 
-     * @param listener  the listener (<code>null</code> not permitted). 
+     * @param listener  the listener ({@code null} not permitted). 
      */
     void addChangeListener(Dataset3DChangeListener listener);  
   
@@ -57,13 +57,13 @@ public interface Dataset3D {
      * De-registers a change listener so that it no longer receives notification
      * of changes to the dataset.
      * 
-     * @param listener  the listener (<code>null</code> not permitted). 
+     * @param listener  the listener ({@code null} not permitted). 
      */
     void removeChangeListener(Dataset3DChangeListener listener);  
 
     /**
-     * Returns <code>true</code> if the specified listener is registered with
-     * the dataset, and <code>false</code> otherwise.  This method is used
+     * Returns {@code true} if the specified listener is registered with
+     * the dataset, and {@code false} otherwise.  This method is used
      * for unit testing to confirm that listeners are removed correctly 
      * following dataset switches.
      * 
