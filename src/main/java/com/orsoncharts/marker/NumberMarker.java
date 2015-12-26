@@ -125,7 +125,7 @@ public class NumberMarker extends AbstractMarker implements ValueMarker,
      * This method is used by the axis to filter out markers that do not touch 
      * the current axis range.
      * 
-     * @return The range for the marker (never <code>null</code>). 
+     * @return The range for the marker (never {@code null}). 
      */
     @Override
     public Range getRange() {
@@ -133,10 +133,10 @@ public class NumberMarker extends AbstractMarker implements ValueMarker,
     }
 
     /**
-     * Returns the label for the marker (if this is <code>null</code> then no
-     * label is displayed).  The default value is <code>null</code>.
+     * Returns the label for the marker (if this is {@code null} then no
+     * label is displayed).  The default value is {@code null}.
      * 
-     * @return The label (possibly <code>null</code>). 
+     * @return The label (possibly {@code null}). 
      */
     public String getLabel() {
         return this.label;
@@ -145,7 +145,7 @@ public class NumberMarker extends AbstractMarker implements ValueMarker,
     /**
      * Sets the label and sends a change event to all registered listeners.
      * 
-     * @param label  the label (<code>null</code> permitted).
+     * @param label  the label ({@code null} permitted).
      */
     public void setLabel(String label) {
         this.label = label;
@@ -156,7 +156,7 @@ public class NumberMarker extends AbstractMarker implements ValueMarker,
      * Returns the font for the label.  The default value is 
      * {@link Marker#DEFAULT_MARKER_FONT}.
      * 
-     * @return The font (never <code>null</code>). 
+     * @return The font (never {@code null}). 
      */
     public Font getFont() {
         return this.font;
@@ -166,7 +166,7 @@ public class NumberMarker extends AbstractMarker implements ValueMarker,
      * Sets the font for the marker label and sends a change event to all 
      * registered listeners.
      * 
-     * @param font  the font (<code>null</code> not permitted). 
+     * @param font  the font ({@code null} not permitted). 
      */
     public void setFont(Font font) {
         ArgChecks.nullNotPermitted(font, "font");
@@ -178,7 +178,7 @@ public class NumberMarker extends AbstractMarker implements ValueMarker,
      * Returns the label color.  The default value is 
      * {@link Marker#DEFAULT_LABEL_COLOR}.
      * 
-     * @return The label color (never <code>null</code>).
+     * @return The label color (never {@code null}).
      */
     public Color getLabelColor() {
         return this.labelColor;
@@ -188,7 +188,7 @@ public class NumberMarker extends AbstractMarker implements ValueMarker,
      * Sets the label color and sends a change event to all registered
      * listeners.
      * 
-     * @param color  the color (<code>null</code> not permitted). 
+     * @param color  the color ({@code null} not permitted). 
      */
     public void setLabelColor(Color color) {
         ArgChecks.nullNotPermitted(color, "color");
@@ -210,7 +210,7 @@ public class NumberMarker extends AbstractMarker implements ValueMarker,
      * Sets the anchor for the label and sends a change event to all registered
      * listeners.
      * 
-     * @param anchor  the anchor (<code>null</code> not permitted). 
+     * @param anchor  the anchor ({@code null} not permitted). 
      */
     public void setLabelAnchor(Anchor2D anchor) {
         ArgChecks.nullNotPermitted(anchor, "anchor");
@@ -222,7 +222,7 @@ public class NumberMarker extends AbstractMarker implements ValueMarker,
      * Returns the stroke for the marker line.  The default value is
      * {@link Marker#DEFAULT_LINE_STROKE}.
      * 
-     * @return The stroke for the marker line (never <code>null</code>).
+     * @return The stroke for the marker line (never {@code null}).
      */
     public Stroke getLineStroke() {
         return this.stroke;    
@@ -232,7 +232,7 @@ public class NumberMarker extends AbstractMarker implements ValueMarker,
      * Sets the stroke for the marker line and sends a change event to all
      * registered listeners.
      * 
-     * @param stroke  the stroke (<code>null</code> not permitted). 
+     * @param stroke  the stroke ({@code null} not permitted). 
      */
     public void setLineStroke(Stroke stroke) {
         ArgChecks.nullNotPermitted(stroke, "stroke");
@@ -244,7 +244,7 @@ public class NumberMarker extends AbstractMarker implements ValueMarker,
      * Returns the color for the marker line.  The default value is 
      * {@link Marker#DEFAULT_LINE_COLOR}.
      * 
-     * @return The color for the marker line (never <code>null</code>). 
+     * @return The color for the marker line (never {@code null}). 
      */
     public Color getLineColor() {
         return this.lineColor;
@@ -254,7 +254,7 @@ public class NumberMarker extends AbstractMarker implements ValueMarker,
      * Sets the color for the marker line and sends a change event to all 
      * registered listeners.
      * 
-     * @param color  the color (<code>null</code> not permitted). 
+     * @param color  the color ({@code null} not permitted). 
      */
     public void setLineColor(Color color) {
         ArgChecks.nullNotPermitted(color, "color");
@@ -266,8 +266,8 @@ public class NumberMarker extends AbstractMarker implements ValueMarker,
      * Draws the marker.  This method is called by the library, you won't 
      * normally call it directly.
      * 
-     * @param g2  the graphics target (<code>null</code> not permitted).
-     * @param markerData  transient marker data (<code>null</code> not 
+     * @param g2  the graphics target ({@code null} not permitted).
+     * @param markerData  transient marker data ({@code null} not 
      *     permitted).
      */
     @Override
