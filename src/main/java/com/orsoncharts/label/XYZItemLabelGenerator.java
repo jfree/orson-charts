@@ -49,11 +49,11 @@ public interface XYZItemLabelGenerator {
     /**
      * Generates an item label for one data item in an {@link XYZDataset}.
      * 
-     * @param dataset  the dataset (<code>null</code> not permitted).
-     * @param seriesKey  the series key (<code>null</code> not permitted).
+     * @param dataset  the dataset ({@code null} not permitted).
+     * @param seriesKey  the series key ({@code null} not permitted).
      * @param itemIndex  the item index.
      * 
-     * @return The item label (possibly <code>null</code>).
+     * @return The item label (possibly {@code null}).
      */
     String generateItemLabel(XYZDataset dataset, Comparable<?> seriesKey,
             int itemIndex);
