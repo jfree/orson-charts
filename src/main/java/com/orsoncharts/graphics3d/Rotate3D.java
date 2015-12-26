@@ -70,9 +70,9 @@ public class Rotate3D implements Serializable {
      * through points a and b, by the specified angle.
      * 
      * @param a  the first point defining the axis of rotation 
-     *     (<code>null</code> not permitted).
+     *     ({@code null} not permitted).
      * @param b  the second point defining the axis of rotation 
-     *     (<code>null</code> not permitted).
+     *     ({@code null} not permitted).
      * @param angle  the rotation angle (in radians).
      */
     public Rotate3D(Point3D a, Point3D b, double angle) {
@@ -99,7 +99,7 @@ public class Rotate3D implements Serializable {
     /**
      * Sets the angle of rotation (in radians) and (internally) updates the 
      * values of the transformation matrix ready for the next call(s) to 
-     * the <code>applyRotation</code> methods.
+     * the {@code applyRotation} methods.
      * 
      * @param angle  the angle (in radians). 
      */
@@ -153,10 +153,10 @@ public class Rotate3D implements Serializable {
     }
     
     /**
-     * Creates and returns a new point that is the rotation of <code>p</code>
+     * Creates and returns a new point that is the rotation of {@code p}
      * about the axis that was specified via the constructor.
      * 
-     * @param p  the point (<code>null</code> not permitted).
+     * @param p  the point ({@code null} not permitted).
      * 
      * @return A new point.
      */
@@ -166,14 +166,14 @@ public class Rotate3D implements Serializable {
     
     /**
      * Creates an returns a new point that is the rotation of the point 
-     * <code>(x, y, z)</code> about the axis that was specified via the 
+     * {@code (x, y, z)} about the axis that was specified via the 
      * constructor.
      * 
      * @param x  the x-coordinate of the point to transform.
      * @param y  the y-coordinate of the point to transform.
      * @param z  the z-coordinate of the point to transform.
      * 
-     * @return The transformed point (never <code>null</code>). 
+     * @return The transformed point (never {@code null}). 
      */
     public Point3D applyRotation(double x, double y, double z) {
         return new Point3D(
@@ -184,15 +184,15 @@ public class Rotate3D implements Serializable {
     
     /**
      * Returns the coordinates of a point that is the rotation of the point
-     * <code>(x, y, z)</code> about the axis that was specified via the 
+     * {@code (x, y, z)} about the axis that was specified via the 
      * constructor.
      * 
      * @param x  the x-coordinate of the point to transform.
      * @param y  the y-coordinate of the point to transform.
      * @param z  the z-coordinate of the point to transform.
-     * @param result  an array to carry the result (<code>null</code> permitted).
+     * @param result  an array to carry the result ({@code null} permitted).
      * 
-     * @return The transformed coordinates (in the <code>result</code> array if 
+     * @return The transformed coordinates (in the {@code result} array if 
      * one was supplied, otherwise in a newly allocated array). 
      */
     public double[] applyRotation(double x, double y, double z, 
