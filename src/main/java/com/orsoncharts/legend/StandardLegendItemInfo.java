@@ -64,9 +64,9 @@ public class StandardLegendItemInfo implements LegendItemInfo {
     /**
      * Creates a new instance.
      * 
-     * @param seriesKey  the series key (<code>null</code> not permitted).
-     * @param label  the label (<code>null</code> not permitted).
-     * @param color  the color (<code>null</code> not permitted).
+     * @param seriesKey  the series key ({@code null} not permitted).
+     * @param label  the label ({@code null} not permitted).
+     * @param color  the color ({@code null} not permitted).
      */
     public StandardLegendItemInfo(Comparable<?> seriesKey, String label, 
             Color color) {
@@ -76,11 +76,11 @@ public class StandardLegendItemInfo implements LegendItemInfo {
     /**
      * Creates a new instance with the specified attributes.
      * 
-     * @param seriesKey  the series key (<code>null</code> not permitted).
-     * @param label  the label (<code>null</code> not permitted).
-     * @param description  the description (<code>null</code> permitted).
-     * @param color  the color (<code>null</code> not permitted).
-     * @param shape the shape (<code>null</code> permitted).
+     * @param seriesKey  the series key ({@code null} not permitted).
+     * @param label  the label ({@code null} not permitted).
+     * @param description  the description ({@code null} permitted).
+     * @param color  the color ({@code null} not permitted).
+     * @param shape the shape ({@code null} permitted).
      */
     public StandardLegendItemInfo(Comparable<?> seriesKey, String label, 
             String description, Color color, Shape shape) {
@@ -98,7 +98,7 @@ public class StandardLegendItemInfo implements LegendItemInfo {
     /**
      * Returns the series key.
      * 
-     * @return The series key (never <code>null</code>). 
+     * @return The series key (never {@code null}). 
      */
     @Override
     public Comparable<?> getSeriesKey() {
@@ -108,7 +108,7 @@ public class StandardLegendItemInfo implements LegendItemInfo {
     /**
      * Returns the label for the legend item.
      * 
-     * @return The label (never <code>null</code>). 
+     * @return The label (never {@code null}). 
      */
     @Override
     public String getLabel() {
@@ -118,7 +118,7 @@ public class StandardLegendItemInfo implements LegendItemInfo {
     /**
      * Returns the description for the legend item.
      * 
-     * @return The description (possibly <code>null</code>). 
+     * @return The description (possibly {@code null}). 
      */
     @Override
     public String getDescription() {
@@ -128,7 +128,7 @@ public class StandardLegendItemInfo implements LegendItemInfo {
     /**
      * Returns the shape for the legend item.
      * 
-     * @return The shape (possibly <code>null</code>). 
+     * @return The shape (possibly {@code null}). 
      */
     @Override
     public Shape getShape() {
@@ -138,7 +138,7 @@ public class StandardLegendItemInfo implements LegendItemInfo {
     /**
      * Returns the color for the legend item.
      * 
-     * @return The color (never <code>null</code>). 
+     * @return The color (never {@code null}). 
      */
     @Override
     public Color getColor() {
