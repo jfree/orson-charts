@@ -43,10 +43,10 @@ public interface PieLabelGenerator {
     /**
      * Returns a label for one data item in a pie chart.
      * 
-     * @param dataset  the dataset (<code>null</code> not permitted).
-     * @param key  the key (<code>null</code> not permitted).
+     * @param dataset  the dataset ({@code null} not permitted).
+     * @param key  the key ({@code null} not permitted).
      * 
-     * @return The label (possibly <code>null</code>).
+     * @return The label (possibly {@code null}).
      */
     String generateLabel(PieDataset3D dataset, Comparable<?> key);
     
