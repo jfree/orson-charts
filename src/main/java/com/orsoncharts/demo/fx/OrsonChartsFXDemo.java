@@ -271,6 +271,13 @@ public class OrsonChartsFXDemo extends Application {
         n = new TreeItem<String>(d.getFileName());        
         xyzChartsNode.getChildren().add(n);
 
+        d = new DemoDescription(PREFIX + "XYZLineChart3DFXDemo1", 
+                "XYZLineChart3DFXDemo1.java", 
+                ABOUT_PREFIX + "XYZLineChart3D1.html");
+        this.descriptions.put(d.getFileName(), d);
+        n = new TreeItem<String>(d.getFileName());        
+        xyzChartsNode.getChildren().add(n);
+        
         TreeView<String> tree = new TreeView<String> (rootItem);
         tree.getSelectionModel().selectedItemProperty().addListener(
             (ObservableValue<? extends TreeItem<String>> observableValue, 
