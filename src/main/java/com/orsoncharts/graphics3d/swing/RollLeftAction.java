@@ -56,7 +56,7 @@ public class RollLeftAction extends AbstractAction {
     /**
      * Creates a new action instance.
      * 
-     * @param panel  the panel (<code>null</code> not permitted). 
+     * @param panel  the panel ({@code null} not permitted). 
      */
     public RollLeftAction(Panel3D panel) {
         super("\uF112");
