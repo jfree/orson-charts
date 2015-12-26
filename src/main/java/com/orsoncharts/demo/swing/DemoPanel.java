@@ -71,7 +71,7 @@ public class DemoPanel extends JPanel {
      * Returns the chart panel for this demo panel.  In the case where there
      * are multiple chart panels, this method will return the first one.
      * 
-     * @return The chart panel (possibly <code>null</code>). 
+     * @return The chart panel (possibly {@code null}). 
      */
     public Chart3DPanel getChartPanel() {
         if (this.chartPanels.isEmpty()) {
