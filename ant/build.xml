@@ -49,7 +49,7 @@
         <!-- create a temp build directory -->
         <mkdir dir="${basedir}/build" />
 
-        <!-- compile the source -->
+        <!-- compile the source, not the demos because this is just for the jar -->
         <javac srcdir="${basedir}/src/main/java"
                excludes="com/orsoncharts/demo/**"
                destdir="${basedir}/build"
@@ -86,8 +86,8 @@
 
     </target>
 
-    <!-- Compile the Orson Charts demo applications -->
-    <target name="compile-demo" depends="compile"
+    <!-- Compile the Orson Charts demo applications (Swing) -->
+    <target name="compile-demo-swing" depends="compile"
             description="Compile the Orson Charts demo applications for Swing.">
 
         <!-- create a temp build directory -->
@@ -220,7 +220,7 @@
     </target>
 
     <!-- Fill the 'distribution' directory. -->
-    <target name="fill-distribution" depends="compile,compile-demo,compile-demo-javafx">
+    <target name="fill-distribution" depends="compile,compile-demo-swing,compile-demo-javafx">
 
         <!-- delete the temporary distribution directory, if there is one -->
         <delete dir="${basedir}/distribution" />
