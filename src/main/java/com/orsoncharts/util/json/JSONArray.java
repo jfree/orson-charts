@@ -46,13 +46,13 @@ public class JSONArray extends ArrayList implements List, JSONAware,
     /**
      * Encode a list into JSON text and write it to out. 
      * If this list is also a {@link JSONStreamAware} or a {@link JSONAware}, 
-     * <code>JSONStreamAware</code> and <code>JSONAware</code> specific 
+     * {@code JSONStreamAware} and {@code JSONAware} specific 
      * behaviours will be ignored at this top level.
      * 
      * @see com.orsoncharts.util.json.JSONValue#writeJSONString(Object, Writer)
      * 
-     * @param list  the list (<code>null</code> permitted).
-     * @param out  the output writer (<code>null</code> not permitted).
+     * @param list  the list ({@code null} permitted).
+     * @param out  the output writer ({@code null} not permitted).
      * 
      * @throws IOException if there is an I/O problem.
      */
@@ -87,7 +87,7 @@ public class JSONArray extends ArrayList implements List, JSONAware,
     /**
      * Writes this array to the specified output writer.
      * 
-     * @param out  the output writer (<code>null</code> not permitted).
+     * @param out  the output writer ({@code null} not permitted).
      * 
      * @throws IOException  if there is an I/O problem.
      */
@@ -103,7 +103,7 @@ public class JSONArray extends ArrayList implements List, JSONAware,
      * 
      * @see com.orsoncharts.util.json.JSONValue#toJSONString(Object)
      * 
-     * @param list  the list (<code>null</code> permitted).
+     * @param list  the list ({@code null} permitted).
      * 
      * @return JSON text, or "null" if list is null.
      */
