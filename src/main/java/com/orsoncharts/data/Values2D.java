@@ -59,15 +59,15 @@ public interface Values2D<T> {
      * @param rowIndex  the row index.
      * @param columnIndex  the column index.
      * 
-     * @return The data value (possibly <code>null</code>).
+     * @return The data value (possibly {@code null}).
      */
     T getValue(int rowIndex, int columnIndex);
 
     /**
      * Returns the data value at the specified position as a double primitive,
-     * or <code>Double.NaN</code> if the value is not an instance of 
-     * <code>Number</code>.  Where the {@link #getValue(int, int)} method 
-     * returns <code>null</code>, this method returns <code>Double.NaN</code>.
+     * or {@code Double.NaN} if the value is not an instance of 
+     * {@code Number}.  Where the {@link #getValue(int, int)} method 
+     * returns {@code null}, this method returns {@code Double.NaN}.
      * 
      * @param rowIndex  the row index.
      * @param columnIndex  the column index.
