@@ -54,7 +54,7 @@ import com.orsoncharts.renderer.category.AreaRenderer3D;
 public class AreaChart3D2 {
   
     /**
-     * Creates an area chart using the specified <code>dataset</code>.
+     * Creates an area chart using the specified {@code dataset}.
      * 
      * @param dataset  the dataset.
      * 
