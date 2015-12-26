@@ -98,7 +98,7 @@ public class CategoryMarker extends AbstractMarker implements Serializable {
     /**
      * Creates a marker for the specified category. 
      * 
-     * @param category  the category key (<code>null</code> not permitted).
+     * @param category  the category key ({@code null} not permitted).
      */
     public CategoryMarker(Comparable<?> category) {
         super();
@@ -116,7 +116,7 @@ public class CategoryMarker extends AbstractMarker implements Serializable {
     /**
      * Returns the category.
      * 
-     * @return The category (never <code>null</code>). 
+     * @return The category (never {@code null}). 
      */
     public Comparable<?> getCategory() {
         return this.category;
@@ -126,7 +126,7 @@ public class CategoryMarker extends AbstractMarker implements Serializable {
      * Sets the category for the marker and sends a change event to all 
      * registered listeners.
      * 
-     * @param category  the new category (<code>null</code> not permitted). 
+     * @param category  the new category ({@code null} not permitted). 
      */
     public void setCategory(Comparable<?> category) {
         ArgChecks.nullNotPermitted(category, "category");
@@ -138,7 +138,7 @@ public class CategoryMarker extends AbstractMarker implements Serializable {
      * Returns the marker type which determines whether the marker is drawn
      * as a band (the default) or a line.
      * 
-     * @return The type (never <code>null</code>). 
+     * @return The type (never {@code null}). 
      */
     public CategoryMarkerType getType() {
         return this.type;
@@ -148,7 +148,7 @@ public class CategoryMarker extends AbstractMarker implements Serializable {
      * Sets the marker type and sends a change event to all registered 
      * listeners. 
      * 
-     * @param type  the type (<code>null</code> not permitted). 
+     * @param type  the type ({@code null} not permitted). 
      */
     public void setType(CategoryMarkerType type) {
         ArgChecks.nullNotPermitted(type, "type");
@@ -157,10 +157,10 @@ public class CategoryMarker extends AbstractMarker implements Serializable {
     }
     
     /**
-     * Returns the label for the marker (if this is <code>null</code> then no
+     * Returns the label for the marker (if this is {@code null} then no
      * label is displayed).
      * 
-     * @return The label (possibly <code>null</code>). 
+     * @return The label (possibly {@code null}). 
      */
     public String getLabel() {
         return this.label;
@@ -169,7 +169,7 @@ public class CategoryMarker extends AbstractMarker implements Serializable {
     /**
      * Sets the label and sends a change event to all registered listeners.
      * 
-     * @param label  the label (<code>null</code> permitted).
+     * @param label  the label ({@code null} permitted).
      */
     public void setLabel(String label) {
         this.label = label;
@@ -180,7 +180,7 @@ public class CategoryMarker extends AbstractMarker implements Serializable {
      * Returns the font for the label.  The default value is 
      * {@link Marker#DEFAULT_MARKER_FONT}.
      * 
-     * @return The font (never <code>null</code>). 
+     * @return The font (never {@code null}). 
      */
     public Font getFont() {
         return this.font;
@@ -190,7 +190,7 @@ public class CategoryMarker extends AbstractMarker implements Serializable {
      * Sets the font for the marker label and sends a change event to all 
      * registered listeners.
      * 
-     * @param font  the font (<code>null</code> not permitted). 
+     * @param font  the font ({@code null} not permitted). 
      */
     public void setFont(Font font) {
         ArgChecks.nullNotPermitted(font, "font");
@@ -202,7 +202,7 @@ public class CategoryMarker extends AbstractMarker implements Serializable {
      * Returns the label color.  The default value is 
      * {@link Marker#DEFAULT_LABEL_COLOR}.
      * 
-     * @return The label color (never <code>null</code>).
+     * @return The label color (never {@code null}).
      */
     public Color getLabelColor() {
         return this.labelColor;
@@ -212,7 +212,7 @@ public class CategoryMarker extends AbstractMarker implements Serializable {
      * Sets the label color and sends a change event to all registered
      * listeners.
      * 
-     * @param color  the color (<code>null</code> not permitted). 
+     * @param color  the color ({@code null} not permitted). 
      */
     public void setLabelColor(Color color) {
         ArgChecks.nullNotPermitted(color, "color");
@@ -234,7 +234,7 @@ public class CategoryMarker extends AbstractMarker implements Serializable {
      * Sets the anchor for the label and sends a change event to all registered
      * listeners.
      * 
-     * @param anchor  the anchor (<code>null</code> not permitted). 
+     * @param anchor  the anchor ({@code null} not permitted). 
      */
     public void setLabelAnchor(Anchor2D anchor) {
         ArgChecks.nullNotPermitted(anchor, "anchor");
@@ -245,7 +245,7 @@ public class CategoryMarker extends AbstractMarker implements Serializable {
     /**
      * Returns the line color for the marker.
      * 
-     * @return The line color (never <code>null</code>). 
+     * @return The line color (never {@code null}). 
      */
     public Color getLineColor() {
         return this.lineColor;
@@ -255,7 +255,7 @@ public class CategoryMarker extends AbstractMarker implements Serializable {
      * Sets the line color for the marker and sends a change event to all 
      * registered listeners.
      * 
-     * @param color  the color (<code>null</code> not permitted).
+     * @param color  the color ({@code null} not permitted).
      */
     public void setLineColor(Color color) {
         ArgChecks.nullNotPermitted(color, "color");
@@ -267,7 +267,7 @@ public class CategoryMarker extends AbstractMarker implements Serializable {
      * Returns the line stroke.  The default value is 
      * {@link Marker#DEFAULT_LINE_STROKE}.
      * 
-     * @return The line stroke (never <code>null</code>).
+     * @return The line stroke (never {@code null}).
      */
     public Stroke getLineStroke() {
         return this.lineStroke;
@@ -277,7 +277,7 @@ public class CategoryMarker extends AbstractMarker implements Serializable {
      * Sets the line stroke and sends a change event to all registered 
      * listeners.
      * 
-     * @param stroke  the stroke (<code>null</code> not permitted). 
+     * @param stroke  the stroke ({@code null} not permitted). 
      */
     public void setLineStroke(Stroke stroke) {
         ArgChecks.nullNotPermitted(stroke, "stroke");
@@ -288,7 +288,7 @@ public class CategoryMarker extends AbstractMarker implements Serializable {
     /**
      * Returns the color used to fill the marker band.
      * 
-     * @return The color (never <code>null</code>). 
+     * @return The color (never {@code null}). 
      */
     public Color getFillColor() {
         return this.fillColor;
@@ -298,7 +298,7 @@ public class CategoryMarker extends AbstractMarker implements Serializable {
      * Sets the color used to fill the marker band and sends a change event
      * to all registered listeners.
      * 
-     * @param color  the color (<code>null</code> not permitted). 
+     * @param color  the color ({@code null} not permitted). 
      */
     public void setFillColor(Color color) {
         ArgChecks.nullNotPermitted(color, "color");
@@ -310,8 +310,8 @@ public class CategoryMarker extends AbstractMarker implements Serializable {
      * Handles drawing of the marker.  This method is called by the library,
      * you won't normally call it directly.
      * 
-     * @param g2  the graphics device (<code>null</code> not permitted).
-     * @param markerData   the marker data (<code>null</code> not permitted).
+     * @param g2  the graphics device ({@code null} not permitted).
+     * @param markerData   the marker data ({@code null} not permitted).
      * @param reverse  a flag to indicate reverse orientation.
      */
     @Override
