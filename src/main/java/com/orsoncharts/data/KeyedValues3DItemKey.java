@@ -61,9 +61,9 @@ public class KeyedValues3DItemKey<S extends Comparable<S>,
     /**
      * Creates a new instance.
      * 
-     * @param seriesKey  the series key (<code>null</code> not permitted).
-     * @param rowKey  the row key (<code>null</code> not permitted).
-     * @param columnKey  the column key (<code>null</code> not permitted).
+     * @param seriesKey  the series key ({@code null} not permitted).
+     * @param rowKey  the row key ({@code null} not permitted).
+     * @param columnKey  the column key ({@code null} not permitted).
      */
     public KeyedValues3DItemKey(S seriesKey, R rowKey, C columnKey) {
         ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
@@ -77,7 +77,7 @@ public class KeyedValues3DItemKey<S extends Comparable<S>,
     /**
      * Returns the series key.
      * 
-     * @return The series key (never <code>null</code>). 
+     * @return The series key (never {@code null}). 
      */
     public S getSeriesKey() {
         return this.seriesKey;
@@ -86,7 +86,7 @@ public class KeyedValues3DItemKey<S extends Comparable<S>,
     /**
      * Returns the row key.
      * 
-     * @return The row key (never <code>null</code>).
+     * @return The row key (never {@code null}).
      */
     public R getRowKey() {
         return this.rowKey;
@@ -95,7 +95,7 @@ public class KeyedValues3DItemKey<S extends Comparable<S>,
     /**
      * Returns the column key.
      * 
-     * @return The column key (never <code>null</code>). 
+     * @return The column key (never {@code null}). 
      */
     public C getColumnKey() {
         return this.columnKey;
@@ -116,7 +116,7 @@ public class KeyedValues3DItemKey<S extends Comparable<S>,
     /**
      * Tests this key for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean. 
      */
