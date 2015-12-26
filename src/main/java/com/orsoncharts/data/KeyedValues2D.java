@@ -36,10 +36,12 @@ import java.util.List;
 
 /**
  * A two dimensional grid of data values where each value is uniquely 
- * identified by two keys (the <code>rowKey</code> and the 
- * <code>columnKey</code>).  Any instance of <code>Comparable</code> can be 
- * used as a key (<code>String</code> objects are instances of 
- * <code>Comparable</code>, making them convenient key objects).
+ * identified by two keys (the {@code rowKey} and the 
+ * {@code columnKey}).  Any instance of {@code Comparable} can be 
+ * used as a key ({@code String} objects are instances of 
+ * {@code Comparable}, making them convenient key objects).
+ * 
+ * @param <T>  The value type.
  */
 public interface KeyedValues2D<T> extends Values2D<T> {
 
@@ -62,22 +64,22 @@ public interface KeyedValues2D<T> extends Values2D<T> {
     public Comparable<?> getColumnKey(int columnIndex);
 
     /**
-     * Returns the index of the specified key, or <code>-1</code> if there
+     * Returns the index of the specified key, or {@code -1} if there
      * is no such key.
      * 
-     * @param rowKey  the row key (<code>null</code> not permitted).
+     * @param rowKey  the row key ({@code null} not permitted).
      * 
-     * @return The index, or <code>-1</code>. 
+     * @return The index, or {@code -1}. 
      */
     public int getRowIndex(Comparable<?> rowKey);
 
     /**
-     * Returns the index of the specified key, or <code>-1</code> if there
+     * Returns the index of the specified key, or {@code -1} if there
      * is no such key.
      * 
-     * @param columnKey  the column key (<code>null</code> not permitted).
+     * @param columnKey  the column key ({@code null} not permitted).
      * 
-     * @return The index, or <code>-1</code>. 
+     * @return The index, or {@code -1}. 
      */
     public int getColumnIndex(Comparable<?> columnKey);
   
@@ -104,14 +106,14 @@ public interface KeyedValues2D<T> extends Values2D<T> {
     public List<Comparable<?>> getColumnKeys();
 
     /**
-     * Returns the value (possibly <code>null</code>) associated with the 
+     * Returns the value (possibly {@code null}) associated with the 
      * specified keys.  If either or both of the keys is not defined in this
      * data structure, a runtime exception will be thrown.
      * 
-     * @param rowKey  the row key (<code>null</code> not permitted).
-     * @param columnKey  the column key (<code>null</code> not permitted).
+     * @param rowKey  the row key ({@code null} not permitted).
+     * @param columnKey  the column key ({@code null} not permitted).
      * 
-     * @return The value (possibly <code>null</code>). 
+     * @return The value (possibly {@code null}). 
      */
     public T getValue(Comparable<?> rowKey, Comparable<?> columnKey);
 
