@@ -136,13 +136,13 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
     /** A flag that determines whether or not the axis will be drawn. */
     private boolean visible;
     
-    /** The axis label (if <code>null</code>, no label is displayed). */
+    /** The axis label (if {@code null}, no label is displayed). */
     private String label;
   
-    /** The label font (never <code>null</code>). */
+    /** The label font (never {@code null}). */
     private Font labelFont;
     
-    /** The color used to draw the axis label (never <code>null</code>). */
+    /** The color used to draw the axis label (never {@code null}). */
     private Color labelColor;
     
     /** The offset between the tick labels and the label. */
@@ -157,10 +157,10 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
     /** Draw the tick labels? */
     private boolean tickLabelsVisible;
     
-    /** The font used to display tick labels (never <code>null</code>) */
+    /** The font used to display tick labels (never {@code null}) */
     private Font tickLabelFont;
     
-    /** The tick label paint (never <code>null</code>). */
+    /** The tick label paint (never {@code null}). */
     private Color tickLabelColor;
 
     /** Storage for registered change listeners. */
@@ -168,9 +168,9 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
     
     /**
      * Creates a new label with the specified label.  If the supplied label
-     * is <code>null</code>, the axis will be shown without a label.
+     * is {@code null}, the axis will be shown without a label.
      * 
-     * @param label  the axis label (<code>null</code> permitted). 
+     * @param label  the axis label ({@code null} permitted). 
      */
     public AbstractAxis3D(String label) {
         this.visible = true;
@@ -214,9 +214,11 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
     }
     
     /**
-     * Returns the axis label.
+     * Returns the axis label - the text that describes what the axis measures.
+     * The description should usually specify the units.  When this attribute
+     * is {@code null}, the axis is drawn without a label.
      * 
-     * @return The axis label (possibly <code>null</code>). 
+     * @return The axis label (possibly {@code null}). 
      */
     public String getLabel() {
         return this.label;
@@ -224,10 +226,10 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
   
     /**
      * Sets the axis label and sends an {@link Axis3DChangeEvent} to all 
-     * registered listeners.  If the supplied label is <code>null</code>,
+     * registered listeners.  If the supplied label is {@code null},
      * the axis will be drawn without a label.
      * 
-     * @param label  the label (<code>null</code> permitted). 
+     * @param label  the label ({@code null} permitted). 
      */
     public void setLabel(String label) {
         this.label = label;
@@ -236,9 +238,9 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
 
     /**
      * Returns the font used to display the main axis label.  The default value
-     * is <code>Font("SansSerif", Font.BOLD, 12)</code>.
+     * is {@code Font("SansSerif", Font.BOLD, 12)}.
      * 
-     * @return The font used to display the axis label (never <code>null</code>). 
+     * @return The font used to display the axis label (never {@code null}). 
      */
     @Override
     public Font getLabelFont() {
@@ -249,7 +251,7 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
      * Sets the font used to display the main axis label and sends an
      * {@link Axis3DChangeEvent} to all registered listeners.
      * 
-     * @param font  the new font (<code>null</code> not permitted). 
+     * @param font  the new font ({@code null} not permitted). 
      */
     @Override
     public void setLabelFont(Font font) {
@@ -260,9 +262,9 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
 
     /**
      * Returns the color used for the label.  The default value is 
-     * <code>Color.BLACK</code>.
+     * {@code Color.BLACK}.
      * 
-     * @return The label paint (never <code>null</code>). 
+     * @return The label paint (never {@code null}). 
      */
     @Override
     public Color getLabelColor() {
@@ -270,10 +272,10 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
     }
     
     /**
-     * Sets the color used to draw the axis label and sends a 
+     * Sets the color used to draw the axis label and sends an
      * {@link Axis3DChangeEvent} to all registered listeners.
      * 
-     * @param color  the color (<code>null</code> not permitted). 
+     * @param color  the color ({@code null} not permitted). 
      */
     @Override
     public void setLabelColor(Color color) {
@@ -283,7 +285,8 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
     }
     
     /**
-     * Returns the offset between the tick labels and the axis label.
+     * Returns the offset between the tick labels and the axis label, measured
+     * in Java2D units.  The default value is {@link #DEFAULT_LABEL_OFFSET}.
      * 
      * @return The offset.
      * 
@@ -295,7 +298,7 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
     
     /**
      * Sets the offset between the tick labels and the axis label and sends
-     * a change event to all registered listeners.
+     * an {@link Axis3DChangeEvent} to all registered listeners.
      * 
      * @param offset  the offset.
      * 
@@ -307,19 +310,20 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
     }
 
     /**
-     * Returns the stroke used to draw the axis line.
+     * Returns the stroke used to draw the axis line.  The default value is
+     * {@link #DEFAULT_LINE_STROKE}.
      * 
-     * @return The stroke used to draw the axis line (never <code>null</code>).
+     * @return The stroke used to draw the axis line (never {@code null}).
      */
     public Stroke getLineStroke() {
         return this.lineStroke;
     } 
   
     /**
-     * Sets the stroke used to draw the axis line and sends a change event
-     * to all registered listeners.
+     * Sets the stroke used to draw the axis line and sends an 
+     * {@link Axis3DChangeEvent} to all registered listeners.
      * 
-     * @param stroke  the new stroke (<code>null</code> not permitted).
+     * @param stroke  the new stroke ({@code null} not permitted).
      */
     public void setLineStroke(Stroke stroke) {
         ArgChecks.nullNotPermitted(stroke, "stroke");
@@ -328,19 +332,20 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
     }
 
     /**
-     * Returns the color used to draw the axis line.
+     * Returns the color used to draw the axis line.  The default value is
+     * {@link #DEFAULT_LINE_COLOR}.
      * 
-     * @return The color used to draw the axis line (never <code>null</code>). 
+     * @return The color used to draw the axis line (never {@code null}). 
      */
     public Color getLineColor() {
         return this.lineColor;
     }
   
     /**
-     * Sets the color used to draw the axis line and sends a change event to 
-     * all registered listeners.
+     * Sets the color used to draw the axis line and sends an 
+     * {@link Axis3DChangeEvent} to all registered listeners.
      * 
-     * @param color  the new color (<code>null</code> not permitted). 
+     * @param color  the new color ({@code null} not permitted). 
      */
     public void setLineColor(Color color) {
         ArgChecks.nullNotPermitted(color, "color");
@@ -350,7 +355,7 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
 
     /**
      * Returns the flag that controls whether or not the tick labels are
-     * drawn.  The default value is <code>true</code>.
+     * drawn.  The default value is {@code true}.
      * 
      * @return A boolean.
      */
@@ -361,7 +366,7 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
     /**
      * Sets the flag that controls whether or not the tick labels are drawn,
      * and sends a change event to all registered listeners.  You should think
-     * carefully before setting this flag to <code>false</code>, because if 
+     * carefully before setting this flag to {@code false}, because if 
      * the tick labels are not shown it will be hard for the reader to 
      * understand the resulting chart.
      * 
@@ -373,9 +378,10 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
     }
     
     /**
-     * Returns the font used to display the tick labels.
+     * Returns the font used to display the tick labels.  The default value
+     * is {@link #DEFAULT_TICK_LABEL_FONT}.
      * 
-     * @return The font (never <code>null</code>). 
+     * @return The font (never {@code null}). 
      */
     @Override
     public Font getTickLabelFont() {
@@ -386,7 +392,7 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
      * Sets the font used to display tick labels and sends an 
      * {@link Axis3DChangeEvent} to all registered listeners.
      * 
-     * @param font  the font (<code>null</code> not permitted). 
+     * @param font  the font ({@code null} not permitted). 
      */
     @Override
     public void setTickLabelFont(Font font) {
@@ -397,9 +403,9 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
     
     /**
      * Returns the foreground color for the tick labels.  The default value
-     * is <code>Color.BLACK</code>.
+     * is {@link #DEFAULT_LABEL_COLOR}.
      * 
-     * @return The foreground color (never <code>null</code>). 
+     * @return The foreground color (never {@code null}). 
      */
     @Override
     public Color getTickLabelColor() {
@@ -410,7 +416,7 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
      * Sets the foreground color for the tick labels and sends an 
      * {@link Axis3DChangeEvent} to all registered listeners.
      * 
-     * @param color  the color (<code>null</code> not permitted).
+     * @param color  the color ({@code null} not permitted).
      */
     @Override
     public void setTickLabelColor(Color color) {
@@ -425,7 +431,7 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
      * on each element in the chart.  You will not normally call this method
      * directly.
      * 
-     * @param visitor  the visitor (<code>null</code> not permitted).
+     * @param visitor  the visitor ({@code null} not permitted).
      * 
      * @since 1.2
      */
@@ -434,14 +440,14 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
     
     /**
      * Draws the specified text as the axis label and returns a bounding 
-     * shape for the text.
+     * shape (2D) for the text.
      * 
-     * @param label  the label (<code>null</code> not permitted).
-     * @param g2  the graphics target (<code>null</code> not permitted).
-     * @param axisLine  the axis line (<code>null</code> not permitted).
-     * @param opposingPt  an opposing point (<code>null</code> not permitted).
+     * @param label  the label ({@code null} not permitted).
+     * @param g2  the graphics target ({@code null} not permitted).
+     * @param axisLine  the axis line ({@code null} not permitted).
+     * @param opposingPt  an opposing point ({@code null} not permitted).
      * @param offset  the offset.
-     * @param info  collects rendering info (<code>null</code> permitted).
+     * @param info  collects rendering info ({@code null} permitted).
      * @param hinting  perform element hinting?
      * 
      * @return A bounding shape.
@@ -495,25 +501,25 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
      * of an x-axis (width), a <em>value</em> axis is in the position of a 
      * y-axis (height).
      * 
-     * @return A string (never <code>null</code>).
+     * @return A string (never {@code null}).
      * 
      * @since 1.3
      */
     protected abstract String axisStr();
     
     /**
-     * Draws the axis along an arbitrary line (between <code>startPt</code> 
-     * and <code>endPt</code>).  The opposing point is used as a reference
+     * Draws the axis along an arbitrary line (between {@code startPt} 
+     * and {@code endPt}).  The opposing point is used as a reference
      * point to know on which side of the axis to draw the labels.
      * 
-     * @param g2  the graphics target (<code>null</code> not permitted).
-     * @param startPt  the starting point (<code>null</code> not permitted).
-     * @param endPt  the end point (<code>null</code> not permitted)
-     * @param opposingPt  an opposing point (<code>null</code> not permitted).
-     * @param tickData  info about the ticks to draw (<code>null</code> not 
+     * @param g2  the graphics target ({@code null} not permitted).
+     * @param startPt  the starting point ({@code null} not permitted).
+     * @param endPt  the end point ({@code null} not permitted)
+     * @param opposingPt  an opposing point ({@code null} not permitted).
+     * @param tickData  info about the ticks to draw ({@code null} not 
      *     permitted).
      * @param info  an object to be populated with rendering info 
-     *     (<code>null</code> permitted).
+     *     ({@code null} permitted).
      * @param hinting  a flag that controls whether or not element hinting 
      *     should be performed.
      */
@@ -525,7 +531,7 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
     /**
      * Tests this instance for equality with an arbitrary object.
      * 
-     * @param obj  the object to test against (<code>null</code> permitted).
+     * @param obj  the object to test against ({@code null} permitted).
      * 
      * @return A boolean. 
      */
@@ -591,7 +597,7 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
     /**
      * Registers a listener so that it will receive axis change events.
      * 
-     * @param listener  the listener (<code>null</code> not permitted). 
+     * @param listener  the listener ({@code null} not permitted). 
      */
     @Override
     public void addChangeListener(Axis3DChangeListener listener) {
@@ -602,7 +608,7 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
      * Deregisters a listener so that it will no longer receive axis
      * change events.
      * 
-     * @param listener  the listener (<code>null</code> not permitted). 
+     * @param listener  the listener ({@code null} not permitted). 
      */
     @Override
     public void removeChangeListener(Axis3DChangeListener listener) {
@@ -624,7 +630,7 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
     }
   
     /**
-     * Sends a {@link Axis3DChangeEvent} to all registered listeners.
+     * Sends an {@link Axis3DChangeEvent} to all registered listeners.
      * 
      * @param requiresWorldUpdate   a flag indicating whether or not this change
      *     requires the 3D world to be updated.
