@@ -49,12 +49,12 @@ public interface KeyedValues<T> extends Values<T> {
     public Comparable<?> getKey(int index);
   
     /**
-     * Returns the index for the specified key, or <code>-1</code> if the key
+     * Returns the index for the specified key, or {@code -1} if the key
      * is not present in the list.
      * 
-     * @param key  the key (<code>null</code> not permitted).
+     * @param key  the key ({@code null} not permitted).
      * 
-     * @return The item index, or <code>-1</code>. 
+     * @return The item index, or {@code -1}. 
      */
     public int getIndex(Comparable<?> key);
   
@@ -62,17 +62,17 @@ public interface KeyedValues<T> extends Values<T> {
      * Returns a list of all the keys.  Note that the list will be a copy, so
      * modifying it will not impact this data structure.
      * 
-     * @return A list of keys (possibly empty, but never <code>null</code>).
+     * @return A list of keys (possibly empty, but never {@code null}).
      */
     public List<Comparable<?>> getKeys();
 
     /**
      * Returns the value associated with the specified key, or 
-     * <code>null</code>.
+     * {@code null}.
      * 
-     * @param key  the key (<code>null</code> not permitted).
+     * @param key  the key ({@code null} not permitted).
      * 
-     * @return The value (possibly <code>null</code>). 
+     * @return The value (possibly {@code null}). 
      */
     public T getValue(Comparable<?> key);
 
