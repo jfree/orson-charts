@@ -66,7 +66,7 @@
         <copy file="${basedir}/src/main/java/com/orsoncharts/Resources.properties" tofile="${basedir}/build/com/orsoncharts/Resources.properties" />
         <copy file="${basedir}/src/main/java/com/orsoncharts/Resources_de.properties" tofile="${basedir}/build/com/orsoncharts/Resources_de.properties" />
         <copy file="${basedir}/src/main/java/com/orsoncharts/Resources_it.properties" tofile="${basedir}/build/com/orsoncharts/Resources_it.properties" />
-        <copy file="${basedir}/src/main/resources/com/orsoncharts/fx/chart3d-viewer.css" tofile="${basedir}/build/com/orsoncharts/fx/chart3d-viewer.css" />
+        <copy file="${basedir}/src/main/java/resources/com/orsoncharts/fx/chart3d-viewer.css" tofile="${basedir}/build/com/orsoncharts/fx/chart3d-viewer.css" />
  
         <!-- make the jar -->
         <jar jarfile="${basedir}/lib/${orsoncharts.name}-${orsoncharts.version}.jar"
