@@ -75,7 +75,7 @@ public class FixedColorScale implements ColorScale, Serializable {
     }
 
     /**
-     * Returns the range {@code 0.0} to <code>1.0</code> always.
+     * Returns the range {@code 0.0} to {@code 1.0} always.
      * 
      * @return The range (never {@code null}). 
      */
