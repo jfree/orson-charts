@@ -41,13 +41,13 @@ import com.orsoncharts.plot.PiePlot3D;
 /**
  * A dataset that can be used with a {@link PiePlot3D}.  This class represents
  * an ordered list of (key, value) items.  The keys can be any instance of
- * {@link Comparable} (<code>String</code> is commonly used) and the values
+ * {@link Comparable} ({@code String} is commonly used) and the values
  * can be any {@link Number} instance (bearing in mind that the downstream 
- * code will use the <code>toDouble()</code> method to read values) or 
- * <code>null</code>.
+ * code will use the {@code toDouble()} method to read values) or 
+ * {@code null}.
  * <br><br>
  * This class provides an implementation of 
- * <code>KeyedValues&lt;Number&gt;</code>, so the following useful utility 
+ * {@code KeyedValues&lt;Number&gt;}, so the following useful utility 
  * methods can be used:
  * <ul>
  * {@link DataUtils#total(com.orsoncharts.data.Values)}
@@ -95,12 +95,12 @@ public final class StandardPieDataset3D extends AbstractDataset3D
     }
 
     /**
-     * Returns the index for the specified key, or <code>-1</code> if the key
+     * Returns the index for the specified key, or {@code -1} if the key
      * is not present in the list.
      * 
-     * @param key  the key (<code>null</code> not permitted).
+     * @param key  the key ({@code null} not permitted).
      * 
-     * @return The item index, or <code>-1</code>. 
+     * @return The item index, or {@code -1}. 
      */
     @Override
     public int getIndex(Comparable<?> key) {
@@ -112,7 +112,7 @@ public final class StandardPieDataset3D extends AbstractDataset3D
      *
      * @param item  the item index.
      *
-     * @return The value for the specified item (possibly <code>null</code>).
+     * @return The value for the specified item (possibly {@code null}).
      */
     @Override
     public Number getValue(int item) {
@@ -121,11 +121,11 @@ public final class StandardPieDataset3D extends AbstractDataset3D
 
     /**
      * Returns the value associated with the specified key, or 
-     * <code>null</code>.
+     * {@code null}.
      * 
-     * @param key  the key (<code>null</code> not permitted).
+     * @param key  the key ({@code null} not permitted).
      * 
-     * @return The value (possibly <code>null</code>). 
+     * @return The value (possibly {@code null}). 
      */
     @Override
     public Number getValue(Comparable<?> key) {
@@ -137,7 +137,7 @@ public final class StandardPieDataset3D extends AbstractDataset3D
      * key, the value is overwritten) and sends a {@link Dataset3DChangeEvent}
      * to all registered listeners.
      * 
-     * @param key  the key (<code>null</code> not permitted).
+     * @param key  the key ({@code null} not permitted).
      * @param value  the value.
      */
     public void add(Comparable<?> key, double value) {
@@ -149,8 +149,8 @@ public final class StandardPieDataset3D extends AbstractDataset3D
      * key, the value is overwritten) and sends a {@link Dataset3DChangeEvent}
      * to all registered listeners.
      * 
-     * @param key  the key (<code>null</code> not permitted).
-     * @param value  the value (<code>null</code> permitted).
+     * @param key  the key ({@code null} not permitted).
+     * @param value  the value ({@code null} permitted).
      */
     public void add(Comparable<?> key, Number value) {
         ArgChecks.nullNotPermitted(key, "key");
@@ -162,7 +162,7 @@ public final class StandardPieDataset3D extends AbstractDataset3D
      * Returns a list of all the keys in the dataset.  Note that the list will 
      * be a copy, so modifying it will not impact this dataset.
      * 
-     * @return A list of keys (possibly empty, but never <code>null</code>).
+     * @return A list of keys (possibly empty, but never {@code null}).
      */
     @Override
     public List<Comparable<?>> getKeys() {
@@ -171,8 +171,8 @@ public final class StandardPieDataset3D extends AbstractDataset3D
 
     /**
      * Returns the value for the specified item as a double primitive.  Where
-     * the {@link #getValue(int)} method returns <code>null</code>, this method
-     * returns <code>Double.NaN</code>.
+     * the {@link #getValue(int)} method returns {@code null}, this method
+     * returns {@code Double.NaN}.
      * 
      * @param item  the item index.
      * 
@@ -186,7 +186,7 @@ public final class StandardPieDataset3D extends AbstractDataset3D
     /**
      * Tests this dataset for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> not permitted).
+     * @param obj  the object ({@code null} not permitted).
      * 
      * @return A boolean. 
      */
