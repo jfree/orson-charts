@@ -102,7 +102,7 @@ public class MarkerLine {
     }
     
     /**
-     * Returns <code>true</code> if the line is pegged, and <code>false</code>
+     * Returns {@code true} if the line is pegged, and {@code false}
      * otherwise.  This is used for range markers to indicate that the value
      * represented by the line falls outside the current axis range, so the
      * line has been moved to the nearest axis boundary ("pegged" to the axis
