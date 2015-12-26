@@ -52,10 +52,10 @@ public class KeyedValues3DItemKeys {
      * Returns a collection containing all the item keys for the specified
      * series.
      * 
-     * @param data  the data (<code>null</code> not permitted).
-     * @param seriesKey  the series key (<code>null</code> not permitted).
+     * @param data  the data ({@code null} not permitted).
+     * @param seriesKey  the series key ({@code null} not permitted).
      * 
-     * @return A collection of item keys (never <code>null</code>).
+     * @return A collection of item keys (never {@code null}).
      */
     public static Collection<KeyedValues3DItemKey> itemKeysForSeries(
             KeyedValues3D data, Comparable<?> seriesKey) {
@@ -81,10 +81,10 @@ public class KeyedValues3DItemKeys {
      * Returns a collection containing all the item keys for the specified
      * row.
      * 
-     * @param data  the data (<code>null</code> not permitted).
-     * @param rowKey  the row key (<code>null</code> not permitted).
+     * @param data  the data ({@code null} not permitted).
+     * @param rowKey  the row key ({@code null} not permitted).
      * 
-     * @return A collection of item keys (never <code>null</code>).
+     * @return A collection of item keys (never {@code null}).
      */
     public static Collection<KeyedValues3DItemKey> itemKeysForRow(
             KeyedValues3D data, Comparable<?> rowKey) {
@@ -111,10 +111,10 @@ public class KeyedValues3DItemKeys {
      * Returns a collection containing all the item keys for the specified
      * column.
      * 
-     * @param data  the data (<code>null</code> not permitted).
-     * @param columnKey  the column key (<code>null</code> not permitted).
+     * @param data  the data ({@code null} not permitted).
+     * @param columnKey  the column key ({@code null} not permitted).
      * 
-     * @return A collection of item keys (never <code>null</code>).
+     * @return A collection of item keys (never {@code null}).
      */
     public static Collection<KeyedValues3DItemKey> itemKeysForColumn(
             KeyedValues3D data, Comparable<?> columnKey) {
