@@ -53,7 +53,7 @@ import com.orsoncharts.util.ObjectUtils;
  * <object id="ABC" data="../../../../doc-files/XYZBarChart3DDemo1.svg"  
  * type="image/svg+xml" width="500" height="359"></object>
  * </div>
- * (refer to <code>XYZBarChart3DDemo1.java</code> for the code to generate 
+ * (refer to {@code XYZBarChart3DDemo1.java} for the code to generate 
  * the above chart).
  * <br><br>
  * NOTE: This class is serializable, but the serialization format is subject 
@@ -76,7 +76,7 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer,
     /** 
      * The color source used to fetch the color for the base of bars where
      * the actual base of the bar is *outside* of the current axis range 
-     * (that is, the bar is "cropped").  If this is <code>null</code>, then 
+     * (that is, the bar is "cropped").  If this is {@code null}, then 
      * the regular bar color is used.
      */
     private XYZColorSource baseColorSource;
@@ -84,7 +84,7 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer,
     /**
      * The color source used to fetch the color for the top of bars where
      * the actual top of the bar is *outside* of the current axis range 
-     * (that is, the bar is "cropped"). If this is <code>null</code> then the 
+     * (that is, the bar is "cropped"). If this is {@code null} then the 
      * bar top is always drawn using the series paint.
      */
     private XYZColorSource topColorSource;
@@ -103,7 +103,7 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer,
     
     /** 
      * Returns the value for the base of the bars.  The default is 
-     * <code>0.0</code>.
+     * {@code 0.0}.
      * 
      * @return The value for the base of the bars.
      */
@@ -124,7 +124,7 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer,
     
     /**
      * Returns the width of the bars in the direction of the x-axis, in the
-     * units of the x-axis.  The default value is <code>0.8</code>.
+     * units of the x-axis.  The default value is {@code 0.8}.
      * 
      * @return The width of the bars. 
      */
@@ -145,7 +145,7 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer,
 
     /**
      * Returns the width of the bars in the direction of the z-axis, in the
-     * units of the z-axis.  The default value is <code>0.8</code>.
+     * units of the z-axis.  The default value is {@code 0.8}.
      * 
      * @return The width of the bars. 
      */
@@ -169,10 +169,10 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer,
      * where the base of the bar is "cropped" (on account of the base value
      * falling outside of the bounds of the y-axis).  This is used to give a
      * visual indication to the end-user that the bar on display is cropped.
-     * If this paint source is <code>null</code>, the regular series color
+     * If this paint source is {@code null}, the regular series color
      * will be used for the top of the bars.
      * 
-     * @return A paint source (possibly <code>null</code>).
+     * @return A paint source (possibly {@code null}).
      */
     public XYZColorSource getBaseColorSource() {
         return this.baseColorSource;
@@ -182,12 +182,12 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer,
      * Sets the object that determines the color to use for the base of bars
      * where the base value falls outside the axis range, and sends a
      * {@link Renderer3DChangeEvent} to all registered listeners.  If you set 
-     * this to <code>null</code>, the regular series color will be used to draw
+     * this to {@code null}, the regular series color will be used to draw
      * the base of the bar, but it will be harder for the end-user to know that 
      * only a section of the bar is visible in the chart.  Note that the 
-     * default base paint source returns <code>Color.WHITE</code> always.
+     * default base paint source returns {@code Color.WHITE} always.
      * 
-     * @param source  the source (<code>null</code> permitted).
+     * @param source  the source ({@code null} permitted).
      * 
      * @see #getBaseColorSource() 
      * @see #getTopColorSource()
@@ -202,10 +202,10 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer,
      * where the top of the bar is "cropped" (on account of the data value
      * falling outside of the bounds of the y-axis).  This is used to give a
      * visual indication to the end-user that the bar on display is cropped.
-     * If this paint source is <code>null</code>, the regular series color
+     * If this paint source is {@code null}, the regular series color
      * will be used for the top of the bars.
      * 
-     * @return A paint source (possibly <code>null</code>).
+     * @return A paint source (possibly {@code null}).
      */
     public XYZColorSource getTopColorSource() {
         return this.topColorSource;
@@ -216,7 +216,7 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer,
      * top of the bar is "cropped", and sends a {@link Renderer3DChangeEvent}
      * to all registered listeners.
      * 
-     * @param source  the source (<code>null</code> permitted).
+     * @param source  the source ({@code null} permitted).
      * 
      * @see #getTopColorSource() 
      * @see #getBaseColorSource() 
@@ -230,9 +230,9 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer,
      * Returns the range that needs to be set on the x-axis in order for this
      * renderer to be able to display all the data in the supplied dataset.
      * 
-     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param dataset  the dataset ({@code null} not permitted).
      * 
-     * @return The range (<code>null</code> if there is no data in the dataset). 
+     * @return The range ({@code null} if there is no data in the dataset). 
      */
     @Override
     public Range findXRange(XYZDataset dataset) {
@@ -250,9 +250,9 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer,
      * are visible on the chart.  This method is overridden to ensure that the
      * base value is included.
      * 
-     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param dataset  the dataset ({@code null} not permitted).
      * 
-     * @return The range (<code>null</code> when there is no data). 
+     * @return The range ({@code null} when there is no data). 
      */
     @Override
     public Range findYRange(XYZDataset dataset) {
@@ -264,9 +264,9 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer,
      * are visible on the chart.  This method is overridden to account for the
      * bar widths.
      * 
-     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param dataset  the dataset ({@code null} not permitted).
      * 
-     * @return The range (<code>null</code> when there is no data). 
+     * @return The range ({@code null} when there is no data). 
      */
     @Override
     public Range findZRange(XYZDataset dataset) {
@@ -356,7 +356,7 @@ public class BarXYZRenderer extends AbstractXYZRenderer implements XYZRenderer,
     /**
      * Tests this renderer for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean. 
      */
