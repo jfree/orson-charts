@@ -88,7 +88,7 @@ public class StandardXYZItemLabelGenerator implements XYZItemLabelGenerator,
     /**
      * Creates a new instance with the specified label template.
      * 
-     * @param template  the label template (<code>null</code> not permitted). 
+     * @param template  the label template ({@code null} not permitted). 
      */
     public StandardXYZItemLabelGenerator(String template) {
         ArgChecks.nullNotPermitted(template, "template");
@@ -97,10 +97,10 @@ public class StandardXYZItemLabelGenerator implements XYZItemLabelGenerator,
     }
 
     /**
-     * Returns the item selection (if this is non-<code>null</code>, labels 
+     * Returns the item selection (if this is non-{@code null}, labels 
      * will only be generated for the items in the selection).
      * 
-     * @return The item selection (possibly <code>null</code>).
+     * @return The item selection (possibly {@code null}).
      */
     public XYZDataItemSelection getItemSelection() {
         return this.itemSelection;
@@ -109,9 +109,9 @@ public class StandardXYZItemLabelGenerator implements XYZItemLabelGenerator,
     /**
      * Sets the item selection, which can be used to specify a subset of the
      * data items that should have item labels generated.  If this is set to 
-     * <code>null</code> then item labels will be generated for all items.
+     * {@code null} then item labels will be generated for all items.
      * 
-     * @param selection  the selection (<code>null</code> permitted). 
+     * @param selection  the selection ({@code null} permitted). 
      */
     public void setItemSelection(XYZDataItemSelection selection) {
         this.itemSelection = selection;
@@ -120,10 +120,10 @@ public class StandardXYZItemLabelGenerator implements XYZItemLabelGenerator,
     /**
      * Generates a label for the specified data item.
      * 
-     * @param dataset  the dataset (<code>null</code> not permitted).
-     * @param seriesKey  the series key (<code>null</code> not permitted).
+     * @param dataset  the dataset ({@code null} not permitted).
+     * @param seriesKey  the series key ({@code null} not permitted).
      * 
-     * @return The series label (possibly <code>null</code>). 
+     * @return The series label (possibly {@code null}). 
      */
     @Override
     public String generateItemLabel(XYZDataset dataset, 
@@ -150,7 +150,7 @@ public class StandardXYZItemLabelGenerator implements XYZItemLabelGenerator,
     /**
      * Tests this label generator for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean. 
      */
