@@ -39,6 +39,7 @@ import com.orsoncharts.axis.Axis3D;
 import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.graphics3d.Dimension3D;
+import com.orsoncharts.graphics3d.Line3D;
 import com.orsoncharts.graphics3d.LineObject3D;
 import com.orsoncharts.graphics3d.World;
 
@@ -49,12 +50,14 @@ import com.orsoncharts.graphics3d.World;
  * <object id="ABC" data="../../../../doc-files/XYZLineChart3DDemo1.svg"  
  * type="image/svg+xml" width="500" height="359"></object>
  * </div>
- * (refer to <code>XYZLineChart3DDemo1.java</code> for the code to generate 
+ * (refer to {@code XYZLineChart3DDemo1.java} for the code to generate 
  * the above chart).
  * <br><br>
  * NOTE: This class is serializable, but the serialization format is subject 
  * to change in future releases and should not be relied upon for persisting 
  * instances of this class.
+ * 
+ * @since 1.5
  */
 @SuppressWarnings("serial")
 public class LineXYZRenderer extends AbstractXYZRenderer implements XYZRenderer,
@@ -104,13 +107,21 @@ public class LineXYZRenderer extends AbstractXYZRenderer implements XYZRenderer,
         double wy1 = yAxis.translateToWorld(y1, dimensions.getHeight());
         double wz0 = zAxis.translateToWorld(z0, dimensions.getDepth());
         double wz1 = zAxis.translateToWorld(z1, dimensions.getDepth());
-    
-        Color color = getColorSource().getColor(series, item);
-        LineObject3D line = new LineObject3D((float) (wx0 + xOffset), 
-                (float) (wy0 + yOffset), (float) (wz0 + zOffset), 
-                (float) (wx1 + xOffset), (float) (wy1 + yOffset), 
-                (float) (wz1 + zOffset), color);
-        world.add(line);
+        Line3D line = new Line3D(wx0, wy0, wz0, wx1, wy1, wz1);
+        line = Line3D.cropLineToAxisAlignedBoundingBox(line, 0, 
+                dimensions.getWidth(), 0, dimensions.getHeight(), 0,
+                dimensions.getDepth());
+        if (line != null) {
+            Color color = getColorSource().getColor(series, item);
+            LineObject3D line3D = new LineObject3D(
+                    (float) (line.getStart().getX() + xOffset), 
+                    (float) (line.getStart().getY() + yOffset), 
+                    (float) (line.getStart().getZ() + zOffset), 
+                    (float) (line.getEnd().getX() + xOffset), 
+                    (float) (line.getEnd().getY() + yOffset), 
+                    (float) (line.getEnd().getZ() + zOffset), color);
+            world.add(line3D);
+        }
     }
 
     /**
