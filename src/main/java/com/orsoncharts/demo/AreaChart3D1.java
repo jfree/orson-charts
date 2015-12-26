@@ -51,7 +51,7 @@ import java.awt.BasicStroke;
 public class AreaChart3D1 {
   
     /**
-     * Creates an area chart using the specified <code>dataset</code>.
+     * Creates an area chart using the specified {@code dataset}.
      * 
      * @param dataset  the dataset.
      * 
