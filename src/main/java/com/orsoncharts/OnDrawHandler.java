@@ -46,8 +46,8 @@ import com.orsoncharts.table.TableElementOnDraw;
  * An 'onDraw' handler that handles two aspects related to chart interactivity:
  * (1) it adds a {@link RenderedElement} instance to the {@link RenderingInfo} 
  * for each element in the chart that requires it, and (2) it adds element 
- * hinting to the <code>Graphics2D</code> output (how this is handled by the
- * <code>Graphics2D</code> instance is implementation dependent).
+ * hinting to the {@code Graphics2D} output (how this is handled by the
+ * {@code Graphics2D} instance is implementation dependent).
  * 
  * @since 1.3
  */
@@ -62,7 +62,7 @@ public class OnDrawHandler implements TableElementOnDraw {
     /**
      * Creates a new handler.
      * 
-     * @param info  the rendering info to be populated (<code>null</code> 
+     * @param info  the rendering info to be populated ({@code null} 
      *     permitted).
      * @param elementHinting  a flag that controls whether or not element 
      *     hinting is performed.
