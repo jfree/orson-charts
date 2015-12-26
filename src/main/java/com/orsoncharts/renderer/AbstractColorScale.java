@@ -56,7 +56,7 @@ public abstract class AbstractColorScale implements Serializable {
     /**
      * Creates a new color scale for the specified data value range.  
      * 
-     * @param range  the data value range (<code>null</code> not permitted).
+     * @param range  the data value range ({@code null} not permitted).
      */
     protected AbstractColorScale(Range range) {
         ArgChecks.nullNotPermitted(range, "range");
@@ -67,7 +67,7 @@ public abstract class AbstractColorScale implements Serializable {
      * Returns the range of data values over which the scale is defined.  This
      * is specified via the constructor and once set cannot be changed.
      * 
-     * @return The range (never <code>null</code>). 
+     * @return The range (never {@code null}). 
      */
     public Range getRange() {
         return this.range;
@@ -76,7 +76,7 @@ public abstract class AbstractColorScale implements Serializable {
     /**
      * Tests this color scale for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean. 
      */
