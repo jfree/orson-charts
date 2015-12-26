@@ -95,7 +95,7 @@ public class StandardCategoryItemLabelGenerator
     private String template;
     
     /** 
-     * If this object is not-<code>null</code>, an item label will only be
+     * If this object is not-{@code null}, an item label will only be
      * returned by this generator if the selection contains the item that
      * the label is to be generated for.
      */
@@ -110,11 +110,11 @@ public class StandardCategoryItemLabelGenerator
     
     /**
      * Creates a new instance with the specified template string (which will
-     * be passed to a <code>java.util.Formatter</code> instance when generating
+     * be passed to a {@code java.util.Formatter} instance when generating
      * labels).  See the class description for an explanation of the values 
      * that are available for use in the template string.
      * 
-     * @param template  the template (<code>null</code> not permitted).
+     * @param template  the template ({@code null} not permitted).
      */
     public StandardCategoryItemLabelGenerator(String template) {
         ArgChecks.nullNotPermitted(template, "template");
@@ -123,7 +123,7 @@ public class StandardCategoryItemLabelGenerator
     }
 
     /**
-     * Returns the item selection.  The default value is <code>null</code>.
+     * Returns the item selection.  The default value is {@code null}.
      * 
      * @return The item selection.
      * 
@@ -136,10 +136,10 @@ public class StandardCategoryItemLabelGenerator
     /**
      * Sets the item selection (labels will be created by this generator only 
      * for data items that are contained in the collection).  If you set the
-     * selection to <code>null</code> then the generator will create labels for
+     * selection to {@code null} then the generator will create labels for
      * all data items.
      * 
-     * @param selection  the selection (<code>null</code> permitted).
+     * @param selection  the selection ({@code null} permitted).
      */
     public void setItemSelection(StandardKeyedValues3DItemSelection selection) {
         this.itemSelection = selection;
@@ -148,12 +148,12 @@ public class StandardCategoryItemLabelGenerator
     /**
      * Generates the item label for one data item in a category chart.
      * 
-     * @param dataset  the dataset (<code>null</code> not permitted).
-     * @param seriesKey  the series key (<code>null</code> not permitted).
-     * @param rowKey  the row key (<code>null</code> not permitted).
-     * @param columnKey  the column key (<code>null</code> not permitted).
+     * @param dataset  the dataset ({@code null} not permitted).
+     * @param seriesKey  the series key ({@code null} not permitted).
+     * @param rowKey  the row key ({@code null} not permitted).
+     * @param columnKey  the column key ({@code null} not permitted).
      * 
-     * @return The label (never <code>null</code> for this implementation). 
+     * @return The label (never {@code null} for this implementation). 
      */
     @Override
     public String generateItemLabel(CategoryDataset3D dataset, 
@@ -185,7 +185,7 @@ public class StandardCategoryItemLabelGenerator
     /**
      * Tests this label generator for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean. 
      */
