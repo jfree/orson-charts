@@ -44,9 +44,9 @@ import com.orsoncharts.util.ArgChecks;
  * The implementation uses a {@link java.util.Formatter} instance to generate
  * the labels.  Three values are passed to the formatter: (1) the key for
  * the series, row or column, (2) the count for the number of 
- * non-<code>null</code> items in the series, row or column (as an 
- * <code>Integer</code>) and (3) the total of the non-<code>null</code> values 
- * (as a <code>Double</code>).
+ * non-{@code null} items in the series, row or column (as an 
+ * {@code Integer}) and (3) the total of the non-{@code null} values 
+ * (as a {@code Double}).
  * <br><br>
  * NOTE: This class is serializable, but the serialization format is subject 
  * to change in future releases and should not be relied upon for persisting 
@@ -97,11 +97,11 @@ public class StandardCategoryLabelGenerator implements CategoryLabelGenerator,
     
     /**
      * Creates a new instance with the specified template string (which will
-     * be passed to a <code>java.util.Formatter</code> instance when generating
+     * be passed to a {@code java.util.Formatter} instance when generating
      * labels).  See the class description for an explanation of the values 
      * that are available for use in the template string.
      * 
-     * @param template  the template (<code>null</code> not permitted).
+     * @param template  the template ({@code null} not permitted).
      */
     public StandardCategoryLabelGenerator(String template) {
         ArgChecks.nullNotPermitted(template, "template");
@@ -111,10 +111,10 @@ public class StandardCategoryLabelGenerator implements CategoryLabelGenerator,
     /**
      * Generates the label for one series in a category chart.
      * 
-     * @param dataset  the dataset (<code>null</code> not permitted).
-     * @param seriesKey  the key (<code>null</code> not permitted).
+     * @param dataset  the dataset ({@code null} not permitted).
+     * @param seriesKey  the key ({@code null} not permitted).
      * 
-     * @return The label (never <code>null</code> for this implementation). 
+     * @return The label (never {@code null} for this implementation). 
      */
     @Override
     public String generateSeriesLabel(CategoryDataset3D dataset, 
@@ -133,10 +133,10 @@ public class StandardCategoryLabelGenerator implements CategoryLabelGenerator,
     /**
      * Generates a label for one row in a {@link CategoryDataset3D}.
      * 
-     * @param dataset  the dataset (<code>null</code> not permitted).
-     * @param rowKey  the key (<code>null</code> not permitted).
+     * @param dataset  the dataset ({@code null} not permitted).
+     * @param rowKey  the key ({@code null} not permitted).
      * 
-     * @return The row label (possibly <code>null</code>).
+     * @return The row label (possibly {@code null}).
      */
     @Override
     public String generateRowLabel(CategoryDataset3D dataset, 
@@ -155,10 +155,10 @@ public class StandardCategoryLabelGenerator implements CategoryLabelGenerator,
     /**
      * Generates a label for one column in a {@link CategoryDataset3D}.
      * 
-     * @param dataset  the dataset (<code>null</code> not permitted).
-     * @param columnKey  the key (<code>null</code> not permitted).
+     * @param dataset  the dataset ({@code null} not permitted).
+     * @param columnKey  the key ({@code null} not permitted).
      * 
-     * @return The column label (possibly <code>null</code>).
+     * @return The column label (possibly {@code null}).
      */
     @Override
     public String generateColumnLabel(CategoryDataset3D dataset, 
@@ -177,7 +177,7 @@ public class StandardCategoryLabelGenerator implements CategoryLabelGenerator,
     /**
      * Tests this label generator for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean. 
      */
