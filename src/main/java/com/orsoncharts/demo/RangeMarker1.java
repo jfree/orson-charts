@@ -56,7 +56,7 @@ import com.orsoncharts.style.ChartStyles;
 import com.orsoncharts.util.Anchor2D;
 
 /**
- *Range marker demo chart configuration.
+ * Range marker demo chart configuration.
  */
 public class RangeMarker1 {
   
