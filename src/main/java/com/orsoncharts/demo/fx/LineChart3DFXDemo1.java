@@ -46,6 +46,7 @@ import javafx.stage.Stage;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.demo.LineChart3D1;
+import com.orsoncharts.fx.Chart3DCanvas;
 import com.orsoncharts.fx.Chart3DViewer;
 
 /**
@@ -57,8 +58,12 @@ public class LineChart3DFXDemo1 extends Application {
         CategoryDataset3D dataset = LineChart3D1.createDataset();
         Chart3D chart = LineChart3D1.createChart(dataset);
         Chart3DViewer viewer = new Chart3DViewer(chart);
-        Platform.runLater(() -> viewer.getCanvas().zoomToFit(viewer.getWidth(), 
-                viewer.getHeight()));
+        Platform.runLater(() -> {
+            Chart3DCanvas c = viewer.getCanvas();
+            if (c != null) {
+                c.zoomToFit(viewer.getWidth(), viewer.getHeight());
+            }
+        });
         return viewer;
     }
 
