@@ -64,9 +64,9 @@ public class FixedColorScale implements ColorScale, Serializable {
     private Range range;
     
     /**
-     * Creates a new <code>FixedColorScale</code> instance.
+     * Creates a new {@code FixedColorScale} instance.
      * 
-     * @param color  the color (<code>null</code> not permitted). 
+     * @param color  the color ({@code null} not permitted). 
      */
     public FixedColorScale(Color color) {
         ArgChecks.nullNotPermitted(color, "color");
@@ -75,9 +75,9 @@ public class FixedColorScale implements ColorScale, Serializable {
     }
 
     /**
-     * Returns the range <code>0.0</code> to <code>1.0</code> always.
+     * Returns the range {@code 0.0} to <code>1.0</code> always.
      * 
-     * @return The range (never <code>null</code>). 
+     * @return The range (never {@code null}). 
      */
     @Override
     public Range getRange() {
@@ -99,7 +99,7 @@ public class FixedColorScale implements ColorScale, Serializable {
     /**
      * Tests this instance for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean. 
      */
