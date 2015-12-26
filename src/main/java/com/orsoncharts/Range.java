@@ -94,8 +94,8 @@ public class Range implements Serializable {
     }
 
     /**
-     * Returns <code>true</code> if the range includes the specified value,
-     * and <code>false</code> otherwise.
+     * Returns {@code true} if the range includes the specified value,
+     * and {@code false} otherwise.
      * 
      * @param value  the value.
      * 
@@ -118,9 +118,9 @@ public class Range implements Serializable {
     }
 
     /**
-     * Returns <code>true</code> if the range intersects the interval defined 
+     * Returns {@code true} if the range intersects the interval defined 
      * by the two bounds (the order of the bounds is not important), and
-     * <code>false</code> otherwise.
+     * {@code false} otherwise.
      * 
      * @param bound1  the first boundary value.
      * @param bound2  the second boundary value.
@@ -140,10 +140,10 @@ public class Range implements Serializable {
     }
     
     /**
-     * Returns <code>true</code> if this range intersects with
-     * the specified range, and <code>false</code> otherwise.
+     * Returns {@code true} if this range intersects with
+     * the specified range, and {@code false} otherwise.
      * 
-     * @param range  the range (<code>null</code> not permitted).
+     * @param range  the range ({@code null} not permitted).
      * 
      * @return A boolean.
      * 
@@ -166,6 +166,25 @@ public class Range implements Serializable {
     }
     
     /**
+     * Returns the value as a percentage along the range, with optionally the
+     * result inverted (that is, p becomes 1.0 - p).
+     * 
+     * @param value  the value.
+     * @param inverted  invert the result?
+     * 
+     * @return The percentage.
+     * 
+     * @since 1.5
+     */
+    public double percent(double value, boolean inverted) {
+        double p = percent(value);
+        if (inverted) {
+            p = 1.0 - p;
+        }
+        return p;
+    }
+    
+    /**
      * Returns the value corresponding to the specified percentage.
      * 
      * @param percent  the percentage along the range.
@@ -181,7 +200,7 @@ public class Range implements Serializable {
     /**
      * Tests this instance for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean. 
      */
