@@ -49,7 +49,7 @@ public class KeyedValuesItemKey implements ItemKey, Serializable {
     /**
      * Creates a new instance.
      * 
-     * @param key  the key (<code>null</code> not permitted).
+     * @param key  the key ({@code null} not permitted).
      */
     public KeyedValuesItemKey(Comparable<? extends Object> key) {
         ArgChecks.nullNotPermitted(key, "key");
@@ -59,7 +59,7 @@ public class KeyedValuesItemKey implements ItemKey, Serializable {
     /**
      * Returns the key.
      * 
-     * @return The key (never <code>null</code>). 
+     * @return The key (never {@code null}). 
      */
     public Comparable<?> getKey() {
         return this.key;
@@ -68,7 +68,7 @@ public class KeyedValuesItemKey implements ItemKey, Serializable {
     /**
      * Tests this instance for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> not permitted).
+     * @param obj  the object ({@code null} not permitted).
      * 
      * @return A boolean.
      */
