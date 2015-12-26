@@ -50,7 +50,7 @@ public class RenderedElement {
     public static final String TYPE = "type";
 
     /** 
-     * A key for the 'bounds' property (the value is a <code>Shape</code>). 
+     * A key for the 'bounds' property (the value is a {@code Shape}). 
      */
     public static final String BOUNDS = "bounds";
     
@@ -60,8 +60,8 @@ public class RenderedElement {
     /**
      * Creates a new interactive element with the specified type.
      * 
-     * @param type  the type (<code>null</code> not permitted). 
-     * @param bounds  the bounds (<code>null</code> permitted).
+     * @param type  the type ({@code null} not permitted). 
+     * @param bounds  the bounds ({@code null} permitted).
      */
     public RenderedElement(Object type, Shape bounds) {
         ArgChecks.nullNotPermitted(type, "type");
@@ -81,9 +81,9 @@ public class RenderedElement {
 
     /**
      * Returns the value of the property with the specified key, or 
-     * <code>null</code>).
+     * {@code null}).
      * 
-     * @param key  the key (<code>null</code> not permitted).
+     * @param key  the key ({@code null} not permitted).
      * 
      * @return The property value. 
      */
@@ -94,7 +94,7 @@ public class RenderedElement {
     /**
      * Sets the value for a property.
      * 
-     * @param key  the property key (<code>null</code> not permitted).
+     * @param key  the property key ({@code null} not permitted).
      * @param value  the property value.
      */
     public void setProperty(String key, Object value) {
