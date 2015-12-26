@@ -51,7 +51,7 @@ public class TestUtils {
      * object to a byte array then deserializing the bytes from the byte
      * array.  
      * 
-     * @param original  the original object (<code>null</code> not permitted).
+     * @param original  the original object ({@code null} not permitted).
      * 
      * @return A copy of the original object. 
      */
