@@ -68,10 +68,10 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D<T>,
     
     /**
      * Creates a new instance with the specified keys and all data values 
-     * initialized to <code>null</code>.
+     * initialized to {@code null}.
      * 
-     * @param rowKeys  the xKeys (<code>null</code> not permitted).
-     * @param columnKeys  the yKeys (<code>null</code> not permitted).
+     * @param rowKeys  the xKeys ({@code null} not permitted).
+     * @param columnKeys  the yKeys ({@code null} not permitted).
      */
     public DefaultKeyedValues2D(List<Comparable<?>> rowKeys, 
             List<Comparable<?>> columnKeys) {
@@ -112,7 +112,7 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D<T>,
     /**
      * Returns the index corresponding to the specified row key.
      * 
-     * @param rowKey  the row key (<code>null</code> not permitted).
+     * @param rowKey  the row key ({@code null} not permitted).
      * 
      * @return The index. 
      */
@@ -125,7 +125,7 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D<T>,
     /**
      * Returns the index corresponding to the specified column key.
      * 
-     * @param columnKey  the column key (<code>null</code> not permitted).
+     * @param columnKey  the column key ({@code null} not permitted).
      * 
      * @return The index. 
      */
@@ -138,7 +138,7 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D<T>,
     /**
      * Returns a copy of the list of row keys.
      * 
-     * @return A copy of the list of row keys (never <code>null</code>). 
+     * @return A copy of the list of row keys (never {@code null}). 
      */
     @Override
     public List<Comparable<?>> getRowKeys() {
@@ -148,7 +148,7 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D<T>,
     /**
      * Returns a copy of the list of column keys.
      * 
-     * @return A copy of the list of column keys (never <code>null</code>). 
+     * @return A copy of the list of column keys (never {@code null}). 
      */
     @Override
     public List<Comparable<?>> getColumnKeys() {
@@ -178,10 +178,10 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D<T>,
     /**
      * Returns a value from one cell in the table.
      * 
-     * @param rowKey  the row-key (<code>null</code> not permitted).
-     * @param columnKey  the column-key (<code>null</code> not permitted).
+     * @param rowKey  the row-key ({@code null} not permitted).
+     * @param columnKey  the column-key ({@code null} not permitted).
      * 
-     * @return The value (possibly <code>null</code>).
+     * @return The value (possibly {@code null}).
      */
     @Override
     public T getValue(Comparable<?> rowKey, Comparable<?> columnKey) {
@@ -197,7 +197,7 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D<T>,
      * @param rowIndex  the row index.
      * @param columnIndex  the column index.
      * 
-     * @return The value (possibly <code>null</code>). 
+     * @return The value (possibly {@code null}). 
      */
     @Override
     public T getValue(int rowIndex, int columnIndex) {
@@ -206,8 +206,8 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D<T>,
 
     /**
      * Returns the data item at the specified position as a double primitive.
-     * Where the {@link #getValue(int, int)} method returns <code>null</code>, 
-     * this method returns <code>Double.NaN</code>.
+     * Where the {@link #getValue(int, int)} method returns {@code null}, 
+     * this method returns {@code Double.NaN}.
      * 
      * @param rowIndex  the row index.
      * @param columnIndex  the column index.
@@ -226,9 +226,9 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D<T>,
     /**
      * Sets a value for one cell in the table.
      * 
-     * @param n  the value (<code>null</code> permitted).
-     * @param rowKey  the row key (<code>null</code> not permitted).
-     * @param columnKey  the column key (<code>null</code> not permitted).
+     * @param n  the value ({@code null} permitted).
+     * @param rowKey  the row key ({@code null} not permitted).
+     * @param columnKey  the column key ({@code null} not permitted).
      */
     public void setValue(T n, Comparable<?> rowKey, Comparable<?> columnKey) {
         ArgChecks.nullNotPermitted(rowKey, "rowKey");
