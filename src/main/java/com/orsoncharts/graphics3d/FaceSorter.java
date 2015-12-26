@@ -45,11 +45,11 @@ public interface FaceSorter {
     /**
      * Returns a list of faces in the order that they should be painted.
      * 
-     * @param faces  the faces before sorting (<code>null</code> not permitted).
+     * @param faces  the faces before sorting ({@code null} not permitted).
      * @param eyePts  the points in 3D space relative to the viewing position.
      * 
      * @return An ordered list (note that the result may be the same list 
-     *     passed in via the <code>faces</code> argument). 
+     *     passed in via the {@code faces} argument). 
      */
     List<Face> sort(List<Face> faces, Point3D[] eyePts);
     
