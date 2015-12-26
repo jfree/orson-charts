@@ -33,20 +33,20 @@
 package com.orsoncharts.data;
 
 /**
- * Options for handling <code>null</code> values during dataset extraction
+ * Options for handling {@code null} values during dataset extraction
  * (SKIP, CONVERT_TO_NAN, CONVERT_TO_ZERO, THROW_EXCEPTION).
  * 
  * @since 1.3
  */
 public enum NullConversion {
     
-    /** Skip the item that contains the <code>null</code> value. */
+    /** Skip the item that contains the {@code null} value. */
     SKIP, 
     
-    /** Convert the <code>null</code> to <code>Double.NaN</code>. */
+    /** Convert the {@code null} to {@code Double.NaN}. */
     CONVERT_TO_NAN, 
     
-    /** Convert the <code>null</code> to zero. */
+    /** Convert the {@code null} to zero. */
     CONVERT_TO_ZERO, 
     
     /** Throw a runtime exception. */
