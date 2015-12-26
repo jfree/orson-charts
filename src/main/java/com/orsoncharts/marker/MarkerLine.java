@@ -153,7 +153,7 @@ public class MarkerLine {
     /**
      * Returns the projected starting point for the line.
      * 
-     * @return The projected starting point (possibly <code>null</code>). 
+     * @return The projected starting point (possibly {@code null}). 
      */
     Point2D getStartPoint() {
         return this.startPoint;
@@ -171,7 +171,7 @@ public class MarkerLine {
     /**
      * Returns the projected ending point for the line.
      * 
-     * @return The projected ending point (possibly <code>null</code>). 
+     * @return The projected ending point (possibly {@code null}). 
      */
     Point2D getEndPoint() {
         return this.endPoint;
