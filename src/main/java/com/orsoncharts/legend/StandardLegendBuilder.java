@@ -71,26 +71,26 @@ import com.orsoncharts.util.Orientation;
 public final class StandardLegendBuilder implements LegendBuilder, 
         Serializable {
 
-    /** An optional header/title for the legend (can be <code>null</code>). */
+    /** An optional header/title for the legend (can be {@code null}). */
     private String header;
     
-    /** The header alignment (never <code>null</code>). */
+    /** The header alignment (never {@code null}). */
     private HAlign headerAlignment;
     
-    /** An optional footer for the legend (can be <code>null</code>). */
+    /** An optional footer for the legend (can be {@code null}). */
     private String footer;
     
-    /** The footer alignment (never <code>null</code>). */
+    /** The footer alignment (never {@code null}). */
     private HAlign footerAlignment;
 
     /** 
-     * The row alignment (if <code>null</code>, the row alignment will be
+     * The row alignment (if {@code null}, the row alignment will be
      * derived from the anchor point).
      */
     private HAlign rowAlignment;
     
     /**
-     * The column alignment (if <code>null</code>, the column alignment will
+     * The column alignment (if {@code null}, the column alignment will
      * be derived from the anchor point).
      */
     private VAlign columnAlignment;
@@ -106,8 +106,8 @@ public final class StandardLegendBuilder implements LegendBuilder,
      * Creates a builder for a simple legend with the specified header and/or
      * footer.
      * 
-     * @param header  the legend header (<code>null</code> permitted).
-     * @param footer  the legend footer (<code>null</code> permitted).
+     * @param header  the legend header ({@code null} permitted).
+     * @param footer  the legend footer ({@code null} permitted).
      */
     public StandardLegendBuilder(String header, String footer) {
         this.header = header;
@@ -121,7 +121,7 @@ public final class StandardLegendBuilder implements LegendBuilder,
     /**
      * Returns the header text.
      * 
-     * @return The header text (possibly <code>null</code>).
+     * @return The header text (possibly {@code null}).
      */
     public String getHeader() {
         return this.header;
@@ -130,7 +130,7 @@ public final class StandardLegendBuilder implements LegendBuilder,
     /**
      * Sets the header text.
      * 
-     * @param header  the header (<code>null</code> permitted). 
+     * @param header  the header ({@code null} permitted). 
      */
     public void setHeader(String header) {
         this.header = header;
@@ -139,7 +139,7 @@ public final class StandardLegendBuilder implements LegendBuilder,
     /**
      * Returns the header alignment.
      * 
-     * @return The header alignment (never <code>null</code>).
+     * @return The header alignment (never {@code null}).
      */
     public HAlign getHeaderAlignment() {
         return this.headerAlignment;
@@ -148,7 +148,7 @@ public final class StandardLegendBuilder implements LegendBuilder,
     /**
      * Sets the header alignment.
      * 
-     * @param align  the header alignment (<code>null</code> not permitted). 
+     * @param align  the header alignment ({@code null} not permitted). 
      */
     public void setHeaderAlignment(HAlign align) {
         ArgChecks.nullNotPermitted(align, "align");
@@ -158,7 +158,7 @@ public final class StandardLegendBuilder implements LegendBuilder,
     /**
      * Returns the footer text.
      * 
-     * @return The footer text (possibly <code>null</code>).
+     * @return The footer text (possibly {@code null}).
      */
     public String getFooter() {
         return this.footer;
@@ -167,7 +167,7 @@ public final class StandardLegendBuilder implements LegendBuilder,
     /**
      * Sets the footer text.
      * 
-     * @param footer  the footer (<code>null</code> permitted). 
+     * @param footer  the footer ({@code null} permitted). 
      */
     public void setFooter(String footer) {
         this.footer = footer;
@@ -176,7 +176,7 @@ public final class StandardLegendBuilder implements LegendBuilder,
     /**
      * Returns the footer alignment.
      * 
-     * @return The footer alignment (never <code>null</code>).
+     * @return The footer alignment (never {@code null}).
      */
     public HAlign getFooterAlignment() {
         return this.footerAlignment;
@@ -185,7 +185,7 @@ public final class StandardLegendBuilder implements LegendBuilder,
     /**
      * Sets the footer alignment.
      * 
-     * @param align  the footer alignment (<code>null</code> not permitted). 
+     * @param align  the footer alignment ({@code null} not permitted). 
      */
     public void setFooterAlignment(HAlign align) {
         ArgChecks.nullNotPermitted(align, "align");
@@ -193,12 +193,12 @@ public final class StandardLegendBuilder implements LegendBuilder,
     }
     
     /**
-     * Returns the row alignment.  The default value is <code>null</code> 
+     * Returns the row alignment.  The default value is {@code null} 
      * which means that the row alignment is derived from the anchor point 
      * (left aligned for anchors on the left side, center alignment for 
      * anchors in the middle, and right aligned for anchors on the right side).
      * 
-     * @return The row alignment (possibly <code>null</code>). 
+     * @return The row alignment (possibly {@code null}). 
      * 
      * @since 1.1
      */
@@ -210,9 +210,9 @@ public final class StandardLegendBuilder implements LegendBuilder,
      * Sets the row alignment (to override the default alignment that is
      * derived from the legend anchor point).  In most circumstances you 
      * should be able to rely on the default behaviour, so leave this
-     * attribute set to <code>null</code>.
+     * attribute set to {@code null}.
      * 
-     * @param alignment  the row alignment (<code>null</code> permitted).
+     * @param alignment  the row alignment ({@code null} permitted).
      * 
      * @since 1.1
      */
@@ -221,12 +221,12 @@ public final class StandardLegendBuilder implements LegendBuilder,
     }
     
     /**
-     * Returns the column alignment.  The default value is <code>null</code> 
+     * Returns the column alignment.  The default value is {@code null} 
      * which means that the column alignment is derived from the anchor point 
      * (top aligned for anchors at the top, center alignment for 
      * anchors in the middle, and bottom aligned for anchors at the bottom).
      * 
-     * @return The column alignment (possibly <code>null</code>). 
+     * @return The column alignment (possibly {@code null}). 
      * 
      * @since 1.1
      */
@@ -238,9 +238,9 @@ public final class StandardLegendBuilder implements LegendBuilder,
      * Sets the column alignment (to override the default alignment that is
      * derived from the legend anchor point).  In most circumstances you 
      * should be able to rely on the default behaviour, so leave this
-     * attribute set to <code>null</code>.
+     * attribute set to {@code null}.
      * 
-     * @param alignment  the column alignment (<code>null</code> permitted).
+     * @param alignment  the column alignment ({@code null} permitted).
      * 
      * @since 1.1
      */
@@ -258,10 +258,10 @@ public final class StandardLegendBuilder implements LegendBuilder,
      * downstream code is able to identify which elements relate to particular
      * data series: CLASS : 'LegendItem', SERIES_KEY : the series key.
      * 
-     * @param plot  the plot (<code>null</code> not permitted).
-     * @param anchor  the anchor (<code>null</code> not permitted).
-     * @param orientation  the orientation (<code>null</code> not permitted).
-     * @param style  the chart style (<code>null</code> not permitted).
+     * @param plot  the plot ({@code null} not permitted).
+     * @param anchor  the anchor ({@code null} not permitted).
+     * @param orientation  the orientation ({@code null} not permitted).
+     * @param style  the chart style ({@code null} not permitted).
      * 
      * @return The legend.
      * 
@@ -301,11 +301,11 @@ public final class StandardLegendBuilder implements LegendBuilder,
      * Creates a simple legend based on a flow layout of the individual legend 
      * items.
      * 
-     * @param items  the items to be added to the legend (<code>null</code> 
+     * @param items  the items to be added to the legend ({@code null} 
      *     not permitted).
-     * @param plot  the plot (<code>null</code> not permitted).
-     * @param anchor  the anchor point (<code>null</code> not permitted).
-     * @param orientation  the orientation (<code>null</code> not permitted).
+     * @param plot  the plot ({@code null} not permitted).
+     * @param anchor  the anchor point ({@code null} not permitted).
+     * @param orientation  the orientation ({@code null} not permitted).
      * 
      * @return The simple legend.
      */
@@ -344,7 +344,7 @@ public final class StandardLegendBuilder implements LegendBuilder,
     /**
      * Returns the horizontal alignment that should be used.
      * 
-     * @param anchor  the anchor (<code>null</code> not permitted).
+     * @param anchor  the anchor ({@code null} not permitted).
      * 
      * @return The horizontal alignment. 
      */
@@ -364,7 +364,7 @@ public final class StandardLegendBuilder implements LegendBuilder,
     /**
      * Returns the vertical alignment that should be used.
      * 
-     * @param anchor  the anchor (<code>null</code> not permitted).
+     * @param anchor  the anchor ({@code null} not permitted).
      * 
      * @return The vertical alignment. 
      */
@@ -385,15 +385,15 @@ public final class StandardLegendBuilder implements LegendBuilder,
      * Creates a single item in the legend (normally this represents one
      * data series from the dataset).
      * 
-     * @param text  the legend item text (<code>null</code> not permitted).
-     * @param font  the font (<code>null</code> not permitted).
-     * @param textcolor  the text color (<code>null</code> not permitted).
-     * @param shape  the shape (<code>null</code> not permitted).
-     * @param shapeColor  the shape color (<code>null</code> not permitted).
-     * @param background  the background color (<code>null</code> not 
+     * @param text  the legend item text ({@code null} not permitted).
+     * @param font  the font ({@code null} not permitted).
+     * @param textcolor  the text color ({@code null} not permitted).
+     * @param shape  the shape ({@code null} not permitted).
+     * @param shapeColor  the shape color ({@code null} not permitted).
+     * @param background  the background color ({@code null} not 
      *     permitted).
      * 
-     * @return A legend item (never <code>null</code>). 
+     * @return A legend item (never {@code null}). 
      */
     private TableElement createLegendItem(String text, Font font, 
             Color textColor, Shape shape, Color shapeColor, Color background) {
@@ -412,7 +412,7 @@ public final class StandardLegendBuilder implements LegendBuilder,
     /**
      * Tests this legend builder for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean. 
      */
