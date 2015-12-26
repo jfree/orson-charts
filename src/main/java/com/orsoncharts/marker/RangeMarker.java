@@ -48,7 +48,7 @@ import com.orsoncharts.util.ObjectUtils;
 /**
  * A marker that marks a range of values on an axis.
  * <br><br>
- * For an example, please refer to the demo <code>RangeMarkerDemo1.java</code>.
+ * For an example, please refer to the demo {@code RangeMarkerDemo1.java}.
  * <br><br>
  * NOTE: This class is serializable, but the serialization format is subject 
  * to change in future releases and should not be relied upon for persisting 
@@ -96,7 +96,7 @@ public class RangeMarker extends AbstractMarker implements ValueMarker,
      * 
      * @param lowerBound  the lower bound.
      * @param upperBound  the upper bound.
-     * @param label  the label (<code>null</code> permitted).
+     * @param label  the label ({@code null} permitted).
      */
     public RangeMarker(double lowerBound, double upperBound, String label) {
              super();
@@ -140,10 +140,10 @@ public class RangeMarker extends AbstractMarker implements ValueMarker,
     }
 
     /**
-     * Returns the label for the marker (if this is <code>null</code> then no
+     * Returns the label for the marker (if this is {@code null} then no
      * label is displayed).
      * 
-     * @return The label (possibly <code>null</code>). 
+     * @return The label (possibly {@code null}). 
      */
     public String getLabel() {
         return this.label;
@@ -151,10 +151,10 @@ public class RangeMarker extends AbstractMarker implements ValueMarker,
     
     /**
      * Sets the label and sends a change event to all registered listeners.  If
-     * the label is set to <code>null</code> then no label is displayed for 
+     * the label is set to {@code null} then no label is displayed for 
      * the marker.
      * 
-     * @param label  the label (<code>null</code> permitted).
+     * @param label  the label ({@code null} permitted).
      */
     public void setLabel(String label) {
         this.label = label;
@@ -165,7 +165,7 @@ public class RangeMarker extends AbstractMarker implements ValueMarker,
      * Returns the font for the label.  The default value is 
      * {@link Marker#DEFAULT_MARKER_FONT}.
      * 
-     * @return The font (never <code>null</code>). 
+     * @return The font (never {@code null}). 
      */
     public Font getFont() {
         return this.font;
@@ -175,7 +175,7 @@ public class RangeMarker extends AbstractMarker implements ValueMarker,
      * Sets the font for the marker label and sends a change event to all 
      * registered listeners.
      * 
-     * @param font  the font (<code>null</code> not permitted). 
+     * @param font  the font ({@code null} not permitted). 
      */
     public void setFont(Font font) {
         ArgChecks.nullNotPermitted(font, "font");
@@ -187,7 +187,7 @@ public class RangeMarker extends AbstractMarker implements ValueMarker,
      * Returns the label color.  The default value is 
      * {@link Marker#DEFAULT_LABEL_COLOR}.
      * 
-     * @return The label color (never <code>null</code>).
+     * @return The label color (never {@code null}).
      */
     public Color getLabelColor() {
         return this.labelColor;
@@ -197,7 +197,7 @@ public class RangeMarker extends AbstractMarker implements ValueMarker,
      * Sets the label color and sends a change event to all registered
      * listeners.
      * 
-     * @param color  the color (<code>null</code> not permitted). 
+     * @param color  the color ({@code null} not permitted). 
      */
     public void setLabelColor(Color color) {
         ArgChecks.nullNotPermitted(color, "color");
@@ -219,7 +219,7 @@ public class RangeMarker extends AbstractMarker implements ValueMarker,
      * Sets the anchor for the label and sends a change event to all registered
      * listeners.
      * 
-     * @param anchor  the anchor (<code>null</code> not permitted). 
+     * @param anchor  the anchor ({@code null} not permitted). 
      */
     public void setLabelAnchor(Anchor2D anchor) {
         ArgChecks.nullNotPermitted(anchor, "anchor");
@@ -231,7 +231,7 @@ public class RangeMarker extends AbstractMarker implements ValueMarker,
      * Returns the color used to fill the band representing the range for 
      * the marker.  The default value is {@link Marker#DEFAULT_FILL_COLOR}.
      * 
-     * @return The fill color (never <code>null</code>). 
+     * @return The fill color (never {@code null}). 
      */
     public Color getFillColor() {
         return this.fillColor;
@@ -241,7 +241,7 @@ public class RangeMarker extends AbstractMarker implements ValueMarker,
      * Sets the color used to fill the band representing the range for the
      * marker and sends a change event to all registered listeners.
      * 
-     * @param color  the color (<code>null</code> not permitted).
+     * @param color  the color ({@code null} not permitted).
      */
     public void setFillColor(Color color) {
         ArgChecks.nullNotPermitted(color, "color");
@@ -292,7 +292,7 @@ public class RangeMarker extends AbstractMarker implements ValueMarker,
      * Receives notification of a change to the start or end marker for the
      * range.
      * 
-     * @param event  the event (<code>null</code> not permitted). 
+     * @param event  the event ({@code null} not permitted). 
      */
     @Override
     public void markerChanged(MarkerChangeEvent event) {
@@ -311,7 +311,7 @@ public class RangeMarker extends AbstractMarker implements ValueMarker,
     /**
      * Tests this marker for equality with an arbitrary object.
      * 
-     * @param obj  the object to test against (<code>null</code> permitted).
+     * @param obj  the object to test against ({@code null} permitted).
      * 
      * @return A boolean. 
      */
