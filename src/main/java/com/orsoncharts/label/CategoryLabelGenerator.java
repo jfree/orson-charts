@@ -51,10 +51,10 @@ public interface CategoryLabelGenerator {
     /**
      * Generates a label for one series in a {@link CategoryDataset3D}.
      * 
-     * @param dataset  the dataset (<code>null</code> not permitted).
-     * @param seriesKey  the series key (<code>null</code> not permitted).
+     * @param dataset  the dataset ({@code null} not permitted).
+     * @param seriesKey  the series key ({@code null} not permitted).
      * 
-     * @return The series label (possibly <code>null</code>).
+     * @return The series label (possibly {@code null}).
      */
     String generateSeriesLabel(CategoryDataset3D dataset, 
             Comparable<?> seriesKey);
@@ -62,20 +62,20 @@ public interface CategoryLabelGenerator {
     /**
      * Generates a label for one row in a {@link CategoryDataset3D}.
      * 
-     * @param dataset  the dataset (<code>null</code> not permitted).
-     * @param rowKey  the key (<code>null</code> not permitted).
+     * @param dataset  the dataset ({@code null} not permitted).
+     * @param rowKey  the key ({@code null} not permitted).
      * 
-     * @return The row label (possibly <code>null</code>).
+     * @return The row label (possibly {@code null}).
      */
     String generateRowLabel(CategoryDataset3D dataset, Comparable<?> rowKey);
     
     /**
      * Generates a label for one column in a {@link CategoryDataset3D}.
      * 
-     * @param dataset  the dataset (<code>null</code> not permitted).
-     * @param columnKey  the key (<code>null</code> not permitted).
+     * @param dataset  the dataset ({@code null} not permitted).
+     * @param columnKey  the key ({@code null} not permitted).
      * 
-     * @return The column label (possibly <code>null</code>).
+     * @return The column label (possibly {@code null}).
      */
     String generateColumnLabel(CategoryDataset3D dataset, 
             Comparable<?> columnKey);
