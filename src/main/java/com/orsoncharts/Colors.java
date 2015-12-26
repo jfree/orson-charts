@@ -62,7 +62,7 @@ public class Colors {
      * instance is created for each call to this method.  A link to the 
      * "i want hue" utility is given in the class description.
      * 
-     * @return An array of ten colors (never <code>null</code>). 
+     * @return An array of ten colors (never {@code null}). 
      * 
      * @since 1.2
      */
@@ -87,7 +87,7 @@ public class Colors {
      * instance is created for each call to this method.  A link to the 
      * "i want hue" utility is given in the class description.
      * 
-     * @return An array of ten colors (never <code>null</code>). 
+     * @return An array of ten colors (never {@code null}). 
      * 
      * @since 1.2
      */
@@ -112,7 +112,7 @@ public class Colors {
      * each call to this method.  A link to the "i want hue" utility is given 
      * in the class description.
      * 
-     * @return An array of ten colors (never <code>null</code>). 
+     * @return An array of ten colors (never {@code null}). 
      * 
      * @since 1.2
      */
@@ -137,7 +137,7 @@ public class Colors {
      * each call to this method.  A link to the "i want hue" utility is given 
      * in the class description.
      * 
-     * @return An array of ten colors (never <code>null</code>). 
+     * @return An array of ten colors (never {@code null}). 
      * 
      * @since 1.2
      */
@@ -162,7 +162,7 @@ public class Colors {
      * each call to this method.  A link to the "i want hue" utility is given 
      * in the class description.
      * 
-     * @return An array of ten colors (never <code>null</code>). 
+     * @return An array of ten colors (never {@code null}). 
      * 
      * @since 1.2
      */
@@ -187,7 +187,7 @@ public class Colors {
      * each call to this method.  A link to the "i want hue" utility is given 
      * in the class description.
      * 
-     * @return An array of ten colors (never <code>null</code>). 
+     * @return An array of ten colors (never {@code null}). 
      * 
      * @since 1.2
      */
@@ -212,7 +212,7 @@ public class Colors {
      * each call to this method.  A link to the "i want hue" utility is given 
      * in the class description.
      * 
-     * @return An array of ten colors (never <code>null</code>). 
+     * @return An array of ten colors (never {@code null}). 
      * 
      * @since 1.2
      */
@@ -237,7 +237,7 @@ public class Colors {
      * each call to this method.  A link to the "i want hue" utility is given 
      * in the class description.
      * 
-     * @return An array of ten colors (never <code>null</code>). 
+     * @return An array of ten colors (never {@code null}). 
      * 
      * @since 1.2
      */
@@ -262,7 +262,7 @@ public class Colors {
      * for each call to this method.  A link to the "i want hue" utility is 
      * given in the class description.
      * 
-     * @return An array of ten colors (never <code>null</code>). 
+     * @return An array of ten colors (never {@code null}). 
      * 
      * @since 1.2
      */
@@ -287,7 +287,7 @@ public class Colors {
      * for each call to this method.  A link to the "i want hue" utility is 
      * given in the class description.
      * 
-     * @return An array of ten colors (never <code>null</code>). 
+     * @return An array of ten colors (never {@code null}). 
      * 
      * @since 1.2
      */
@@ -312,7 +312,7 @@ public class Colors {
      * for each call to this method.  A link to the "i want hue" utility is 
      * given in the class description.
      * 
-     * @return An array of ten colors (never <code>null</code>). 
+     * @return An array of ten colors (never {@code null}). 
      * 
      * @since 1.2
      */
@@ -337,7 +337,7 @@ public class Colors {
      * for each call to this method.  A link to the "i want hue" utility is 
      * given in the class description.
      * 
-     * @return An array of ten colors (never <code>null</code>). 
+     * @return An array of ten colors (never {@code null}). 
      * 
      * @since 1.2
      */
@@ -362,7 +362,7 @@ public class Colors {
      * for each call to this method.  A link to the "i want hue" utility is 
      * given in the class description.
      * 
-     * @return An array of ten colors (never <code>null</code>). 
+     * @return An array of ten colors (never {@code null}). 
      * 
      * @since 1.2
      */
@@ -387,7 +387,7 @@ public class Colors {
      * for each call to this method.  A link to the "i want hue" utility is 
      * given in the class description.
      * 
-     * @return An array of ten colors (never <code>null</code>). 
+     * @return An array of ten colors (never {@code null}). 
      * 
      * @since 1.2
      */
@@ -412,7 +412,7 @@ public class Colors {
      * created for each call to this method.  A link to the "i want hue" 
      * utility is given in the class description.
      * 
-     * @return An array of ten colors (never <code>null</code>). 
+     * @return An array of ten colors (never {@code null}). 
      * 
      * @since 1.2
      */
@@ -437,7 +437,7 @@ public class Colors {
      * for each call to this method.  A link to the "i want hue" utility is 
      * given in the class description.
      * 
-     * @return An array of ten colors (never <code>null</code>). 
+     * @return An array of ten colors (never {@code null}). 
      * 
      * @since 1.2
      */
@@ -459,7 +459,7 @@ public class Colors {
     /**
      * Returns a palette of 7 colors with earth tones.
      * 
-     * @return An array of 7 colors (never <code>null</code>). 
+     * @return An array of 7 colors (never {@code null}). 
      */
      public static Color[] getEarthColors() {
          Color[] result = new Color[7];
