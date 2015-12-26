@@ -67,7 +67,7 @@
         <copy file="${basedir}/src/main/java/com/orsoncharts/Resources_it.properties" tofile="${basedir}/build/com/orsoncharts/Resources_it.properties" />
  
         <!-- make the jar -->
-        <jar jarfile="${basedir}/lib/${orsoncharts.name}-${orsoncharts.version}.jar"
+        <jar jarfile="${basedir}/lib/${orsoncharts.name}-${orsoncharts.version}-nofx.jar"
              basedir="${basedir}/build" >
             <manifest>
                 <attribute name="Specification-Title" value="Orson Charts" />
@@ -119,7 +119,7 @@
              basedir="${basedir}/build" >
             <manifest>
                 <attribute name="Main-Class" value="com.orsoncharts.demo.swing.OrsonChartsDemo" />
-                <attribute name="Class-Path" value="lib/${orsoncharts.name}-${orsoncharts.version}.jar lib/${orsonpdf.name}-${orsonpdf.version}.jar lib/${jfreesvg.name}-${jfreesvg.version}.jar" />
+                <attribute name="Class-Path" value="lib/${orsoncharts.name}-${orsoncharts.version}-nofx.jar lib/${orsonpdf.name}-${orsonpdf.version}.jar lib/${jfreesvg.name}-${jfreesvg.version}.jar" />
                 <attribute name="Specification-Title" value="Orson Charts Demo (Swing)" />
                 <attribute name="Specification-Version" value="${orsoncharts.version}" />
                 <attribute name="Specification-Vendor" value="Object Refinery Limited" />
@@ -142,10 +142,10 @@
         <delete dir="${basedir}/javadoc" />
         <mkdir dir="${basedir}/javadoc" />
         <javadoc destdir="${basedir}/javadoc"
-                 windowtitle="Orson Charts version ${orsoncharts.version}"
+                 windowtitle="Orson Charts version ${orsoncharts.version} (no FX)"
                  overview="${basedir}/src/main/java/overview.html"
                  use="yes"
-                 linksource="no"
+                 linksource="yes"
                  splitindex="yes"
                  docfilessubdirs="true">
             <classpath refid="build.classpath" />
@@ -183,8 +183,6 @@
         <!-- copy across README -->
         <copy file="${basedir}/README.md" tofile="${basedir}/distribution/README.md" />
 
-        <!-- copy across licence -->
-        <copy file="${basedir}/Orson Charts Software Licence.pdf" tofile="${basedir}/distribution/Orson Charts Software Licence.pdf" />
         <!-- copy across runtime jar file and demo jar file -->
         <copy file="${basedir}/lib/${orsoncharts.name}-${orsoncharts.version}.jar" tofile="${basedir}/distribution/lib/${orsoncharts.name}-${orsoncharts.version}.jar" />
         <copy file="${basedir}/${orsoncharts.name}-${orsoncharts.version}-swing-demo.jar" tofile="${basedir}/distribution/${orsoncharts.name}-${orsoncharts.version}-swing-demo.jar" />
@@ -221,7 +219,7 @@
 
         <!-- copy across ant build files -->
         <copy file="${basedir}/ant/build.xml" tofile="${basedir}/distribution/ant/build.xml" />
-        <copy file="${basedir}/ant/buildfx.xml" tofile="${basedir}/distribution/ant/buildfx.xml" />
+        <copy file="${basedir}/ant/buildfx.xml" tofile="${basedir}/distribution/ant/build-nofx.xml" />
 
         <!-- convert end-of-line characters in text files -->
         <fixcrlf srcdir="${basedir}/distribution/src"
@@ -234,7 +232,7 @@
     <target name="zip" depends="fill-distribution">
 
         <!-- make the zip file -->
-        <zip zipfile="${basedir}/${orsoncharts.name}-${orsoncharts.version}.zip">
+        <zip zipfile="${basedir}/${orsoncharts.name}-${orsoncharts.version}-nofx.zip">
              <zipfileset dir="${basedir}/distribution"
                          prefix="${orsoncharts.name}-${orsoncharts.version}" />
         </zip>
