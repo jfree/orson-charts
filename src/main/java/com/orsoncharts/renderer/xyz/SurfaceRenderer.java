@@ -61,8 +61,8 @@ import com.orsoncharts.util.ArgChecks;
  * those values.  By default 900 samples are taken (30 x-values by 30 z-values)
  * although this can be modified.
  * <br><br>
- * For the fastest rendering, the <code>drawFaceOutlines</code> flag can be set 
- * to <code>false</code> (the default is <code>true</code>) but this may 
+ * For the fastest rendering, the {@code drawFaceOutlines} flag can be set 
+ * to {@code false} (the default is {@code true}) but this may 
  * cause slight rendering artifacts if anti-aliasing is on (note that switching
  * off anti-aliasing as well also improves rendering performance).
  * <br><br>
@@ -91,7 +91,7 @@ public class SurfaceRenderer extends AbstractXYZRenderer implements XYZRenderer,
     /** 
      * A flag that controls whether the faces that make up the surface have
      * their outlines drawn (in addition to the shape being filled).  The
-     * default value is <code>true</code> which renders a solid surface but
+     * default value is {@code true} which renders a solid surface but
      * is slower.
      */
     private boolean drawFaceOutlines;
@@ -101,7 +101,7 @@ public class SurfaceRenderer extends AbstractXYZRenderer implements XYZRenderer,
      * renderer will take 30 samples along the x-axis and 30 samples along the 
      * z-axis (this is configurable).
      * 
-     * @param function  the function (<code>null</code> not permitted). 
+     * @param function  the function ({@code null} not permitted). 
      */
     public SurfaceRenderer(Function3D function) {
         ArgChecks.nullNotPermitted(function, "function");
@@ -166,12 +166,12 @@ public class SurfaceRenderer extends AbstractXYZRenderer implements XYZRenderer,
     
     /**
      * Returns the compose-type for the renderer.  Here the value is
-     * <code>ComposeType.ALL</code> which means the plot will call the 
+     * {@code ComposeType.ALL} which means the plot will call the 
      * {@link #composeAll(com.orsoncharts.plot.XYZPlot, 
      * com.orsoncharts.graphics3d.World, com.orsoncharts.graphics3d.Dimension3D,
      * double, double, double)} method for composing the chart.
      * 
-     * @return The compose type (never <code>null</code>). 
+     * @return The compose type (never {@code null}). 
      */
     @Override
     public ComposeType getComposeType() {
@@ -182,7 +182,7 @@ public class SurfaceRenderer extends AbstractXYZRenderer implements XYZRenderer,
      * Returns the color scale.  This determines the color of the surface
      * according to the y-value.
      * 
-     * @return The color scale (never <code>null</code>). 
+     * @return The color scale (never {@code null}). 
      */
     @Override
     public ColorScale getColorScale() {
@@ -193,7 +193,7 @@ public class SurfaceRenderer extends AbstractXYZRenderer implements XYZRenderer,
      * Sets the color scale and sends a {@link Renderer3DChangeEvent} to all 
      * registered listeners.
      * 
-     * @param colorScale  the color scale (<code>null</code> not permitted). 
+     * @param colorScale  the color scale ({@code null} not permitted). 
      */
     public void setColorScale(ColorScale colorScale) {
         ArgChecks.nullNotPermitted(colorScale, "colorScale");
@@ -204,7 +204,7 @@ public class SurfaceRenderer extends AbstractXYZRenderer implements XYZRenderer,
     /**
      * Returns the flag that controls whether or not the faces that make
      * up the surface have their outlines drawn during rendering.  The
-     * default value is <code>true</code>.  
+     * default value is {@code true}.  
      * 
      * @return A boolean. 
      */
@@ -230,7 +230,7 @@ public class SurfaceRenderer extends AbstractXYZRenderer implements XYZRenderer,
     
     /**
      * Composes the entire representation of the function in the supplied
-     * <code>world</code>.
+     * {@code world}.
      * 
      * @param plot  the plot.
      * @param world  the world.
@@ -489,14 +489,14 @@ public class SurfaceRenderer extends AbstractXYZRenderer implements XYZRenderer,
     }
 
     /**
-     * Throws an <code>UnsupportedOperationException</code> because this 
+     * Throws an {@code UnsupportedOperationException} because this 
      * renderer does not support per-item rendering.
      * 
-     * @param dataset the dataset (<code>null</code> not permitted).
+     * @param dataset the dataset ({@code null} not permitted).
      * @param series  the series index.
      * @param item  the item index.
-     * @param world  the world (<code>null</code> not permitted).
-     * @param dimensions  the dimensions (<code>null</code> not permitted).
+     * @param world  the world ({@code null} not permitted).
+     * @param dimensions  the dimensions ({@code null} not permitted).
      * @param xOffset  the x-offset.
      * @param yOffset  the y-offset.
      * @param zOffset  the z-offset.
@@ -516,7 +516,7 @@ public class SurfaceRenderer extends AbstractXYZRenderer implements XYZRenderer,
      * 
      * @param dataset  the dataset (ignored).
      * 
-     * @return The x-range (never <code>null</code>). 
+     * @return The x-range (never {@code null}). 
      */
     @Override
     public Range findXRange(XYZDataset dataset) {
@@ -546,7 +546,7 @@ public class SurfaceRenderer extends AbstractXYZRenderer implements XYZRenderer,
      * 
      * @param dataset  the dataset (ignored).
      * 
-     * @return The z-range (never <code>null</code>). 
+     * @return The z-range (never {@code null}). 
      */
     @Override
     public Range findZRange(XYZDataset dataset) {
@@ -556,7 +556,7 @@ public class SurfaceRenderer extends AbstractXYZRenderer implements XYZRenderer,
     /**
      * Tests this renderer for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> not permitted).
+     * @param obj  the object ({@code null} not permitted).
      * 
      * @return A boolean. 
      */
