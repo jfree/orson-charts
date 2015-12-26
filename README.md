@@ -36,8 +36,8 @@ Building
 --------
 Two Ant build scripts are provided to build Orson Charts from source code:
 
-- ant/build.xml : builds Orson Charts without JavaFX support (requires JDK 1.6 or later);
-- ant/buildfx.xml : builds Orson Charts with JavaFX support (requires JDK 1.8 or later);
+- ant/build.xml : builds Orson Charts with JavaFX support (requires JDK 1.8 or later);
+- ant/build-nofx.xml : builds Orson Charts without JavaFX support (requires JDK 1.6 or later);
 
 
 More Info
@@ -52,11 +52,15 @@ If you have any questions, don't hesitate to send a mail to info@object-refinery
 History
 -------
 
-??-Dec-2015 : Version 1.5
+26-Dec-2015 : Version 1.5
 
+- added new LineXYZRenderer;
+- added option to invert axes;
 - fix exception when setting a new dataset using CategoryPlot3D.setDataset():
 - fix direction of mouse wheel zooming in JavaFX;
 - updated OrsonPDF to version 1.7;
+- updated JFreeSVG to version 3.0;
+- added pom.xml for Maven builds;
 - JavaFX demos brought up to match the Swing demos;
 - various Javadoc improvements.
 
