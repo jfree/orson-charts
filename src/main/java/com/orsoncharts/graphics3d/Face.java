@@ -69,7 +69,7 @@ public class Face {
      *
      * @param owner  the object that owns the face ({@code null} not 
      *     permitted).
-     * @param vertices  the indices of the vertices (array length >= 2).
+     * @param vertices  the indices of the vertices (array length &gt;= 2).
      * 
      * @since 1.3
      */
