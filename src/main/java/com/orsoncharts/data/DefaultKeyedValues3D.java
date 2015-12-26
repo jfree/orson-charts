@@ -112,12 +112,12 @@ public final class DefaultKeyedValues3D<V> implements KeyedValues3D<V>,
     }
 
     /**
-     * Returns the index for the specified series key, or <code>-1</code> if 
+     * Returns the index for the specified series key, or {@code -1} if 
      * the key is not present in this data structure.
      * 
-     * @param seriesKey  the series key (<code>null</code> not permitted).
+     * @param seriesKey  the series key ({@code null} not permitted).
      * 
-     * @return The series index or <code>-1</code>. 
+     * @return The series index or {@code -1}. 
      */
     @Override
     public int getSeriesIndex(Comparable<?> seriesKey) {
@@ -126,12 +126,12 @@ public final class DefaultKeyedValues3D<V> implements KeyedValues3D<V>,
     }
 
     /**
-     * Returns the index for the specified row key, or <code>-1</code> if 
+     * Returns the index for the specified row key, or {@code -1} if 
      * the key is not present in this data structure.
      * 
-     * @param rowKey  the row key (<code>null</code> not permitted).
+     * @param rowKey  the row key ({@code null} not permitted).
      * 
-     * @return The row index or <code>-1</code>. 
+     * @return The row index or {@code -1}. 
      */
     @Override
     public int getRowIndex(Comparable<?> rowKey) {
@@ -140,12 +140,12 @@ public final class DefaultKeyedValues3D<V> implements KeyedValues3D<V>,
     }
 
     /**
-     * Returns the index for the specified column key, or <code>-1</code> if 
+     * Returns the index for the specified column key, or {@code -1} if 
      * the key is not present in this data structure.
      * 
-     * @param columnKey  the column key (<code>null</code> not permitted).
+     * @param columnKey  the column key ({@code null} not permitted).
      * 
-     * @return The column index or <code>-1</code>. 
+     * @return The column index or {@code -1}. 
      */
     @Override
     public int getColumnIndex(Comparable<?> columnKey) {
@@ -158,7 +158,7 @@ public final class DefaultKeyedValues3D<V> implements KeyedValues3D<V>,
      * list will have no impact on the underlying data.
      * 
      * @return A list of the series keys (possibly empty, but never 
-     *     <code>null</code>). 
+     *     {@code null}). 
      */
     @Override
     public List<Comparable<?>> getSeriesKeys() {
@@ -170,7 +170,7 @@ public final class DefaultKeyedValues3D<V> implements KeyedValues3D<V>,
      * list will have no impact on the underlying data.
      * 
      * @return A list of the row keys (possibly empty, but never 
-     *     <code>null</code>). 
+     *     {@code null}). 
      */
     @Override
     public List<Comparable<?>> getRowKeys() {
@@ -182,7 +182,7 @@ public final class DefaultKeyedValues3D<V> implements KeyedValues3D<V>,
      * list will have no impact on the underlying data.
      * 
      * @return A list of the column keys (possibly empty, but never 
-     *     <code>null</code>). 
+     *     {@code null}). 
      */
     @Override
     public List<Comparable<?>> getColumnKeys() {
@@ -211,14 +211,14 @@ public final class DefaultKeyedValues3D<V> implements KeyedValues3D<V>,
     
     /**
      * Returns the value for the specified data item.  This method will 
-     * throw an <code>IllegalArgumentException</code> if the dataset does not 
+     * throw an {@code IllegalArgumentException} if the dataset does not 
      * contain the specified keys.
      * 
-     * @param seriesKey  the series key (<code>null</code> not permitted).
-     * @param rowKey  the row key (<code>null</code> not permitted).
-     * @param columnKey  the column key (<code>null</code> not permitted).
+     * @param seriesKey  the series key ({@code null} not permitted).
+     * @param rowKey  the row key ({@code null} not permitted).
+     * @param columnKey  the column key ({@code null} not permitted).
      * 
-     * @return The value (possibly <code>null</code>). 
+     * @return The value (possibly {@code null}). 
      */
     @Override
     public V getValue(Comparable<?> seriesKey, Comparable<?> rowKey, 
@@ -253,10 +253,10 @@ public final class DefaultKeyedValues3D<V> implements KeyedValues3D<V>,
     /**
      * Sets the value for an item in a series, overwriting any existing value.
      * 
-     * @param n  the value (<code>null</code> permitted).
-     * @param seriesKey  the series key (<code>null</code> not permitted).
-     * @param rowKey  the row key (<code>null</code> not permitted).
-     * @param columnKey  the column key (<code>null</code> not permitted).
+     * @param n  the value ({@code null} permitted).
+     * @param seriesKey  the series key ({@code null} not permitted).
+     * @param rowKey  the row key ({@code null} not permitted).
+     * @param columnKey  the column key ({@code null} not permitted).
      */
     public void setValue(V n, Comparable<?> seriesKey, Comparable<?> rowKey, 
             Comparable<?> columnKey) {
@@ -306,7 +306,7 @@ public final class DefaultKeyedValues3D<V> implements KeyedValues3D<V>,
     /**
      * Tests this instance for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean. 
      */
