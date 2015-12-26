@@ -47,7 +47,7 @@ public class AbstractDataset3D implements Dataset3D {
   
     /**
      * A flag that controls whether or not the dataset will notify listeners
-     * of changes (defaults to <code>true</code>, but sometimes it is useful 
+     * of changes (defaults to {@code true}, but sometimes it is useful 
      * to disable this).
      */
     private boolean notify;
@@ -114,7 +114,7 @@ public class AbstractDataset3D implements Dataset3D {
     }
 
     /**
-     * Returns <code>true</code> if the specified object is registered with
+     * Returns {@code true} if the specified object is registered with
      * the dataset as a listener.  Most applications won't need to call this
      * method, it exists mainly for use by unit testing code.
      *
@@ -142,7 +142,7 @@ public class AbstractDataset3D implements Dataset3D {
 
     /**
      * Notifies all registered listeners that the dataset has changed, unless
-     * the <code>notify</code> flag is set to <code>false</code> in which 
+     * the {@code notify} flag is set to {@code false} in which 
      * case this method does nothing.
      *
      * @param event  contains information about the event that triggered the
@@ -168,7 +168,7 @@ public class AbstractDataset3D implements Dataset3D {
     
     /**
      * Sends a {@link Dataset3DChangeEvent} to all registered listeners, unless
-     * the <code>notify</code> flag is set to <code>false</code> in which 
+     * the {@code notify} flag is set to {@code false} in which 
      * case this method does nothing.
      */
     protected void fireChangeEvent() {
