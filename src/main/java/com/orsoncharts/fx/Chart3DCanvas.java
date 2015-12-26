@@ -240,7 +240,7 @@ public class Chart3DCanvas extends Canvas implements Chart3DChangeListener {
     /**
      * Sets the multiplier used to calculate the maximum viewing distance.
      * 
-     * @param multiplier  the multiplier (must be > 1.0).
+     * @param multiplier  the multiplier (must be &gt; 1.0).
      */
     public void setMaxViewingDistanceMultiplier(double multiplier) {
         if (multiplier < 1.0) {
