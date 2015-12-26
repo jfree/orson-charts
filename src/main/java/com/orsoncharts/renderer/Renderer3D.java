@@ -49,7 +49,7 @@ import com.orsoncharts.plot.XYZPlot;
  * Typically the plot that the renderer is assigned to will listen for 
  * change events, and pass these events along to the {@link Chart3D} object.
  * <p>
- * Renderers should implement the <code>java.io.Serializable</code> interface,
+ * Renderers should implement the {@code java.io.Serializable} interface,
  * so that charts can be serialized and deserialized, but this is not a forced
  * requirement (if you never use serialization, it won't matter if you 
  * implement a renderer that does not support it).
@@ -67,7 +67,7 @@ public interface Renderer3D extends ChartElement {
      * Registers a listener to receive notification of changes to the
      * renderer.
      * 
-     * @param listener  the listener (<code>null</code> not permitted).
+     * @param listener  the listener ({@code null} not permitted).
      */
     void addChangeListener(Renderer3DChangeListener listener);
     
@@ -75,7 +75,7 @@ public interface Renderer3D extends ChartElement {
      * Deregisters a listener so that it no longer receives notification of
      * changes to the renderer.
      * 
-     * @param listener  the listener (<code>null</code> not permitted).
+     * @param listener  the listener ({@code null} not permitted).
      */
     void removeChangeListener(Renderer3DChangeListener listener);
 
