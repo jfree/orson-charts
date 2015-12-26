@@ -44,9 +44,9 @@ import com.orsoncharts.util.ArgChecks;
  * implementation uses a {@link java.util.Formatter} instance to generate
  * the labels.  Three values are passed to the formatter: (1) the key for
  * the current pie section, (2) the data value for the section (as a 
- * <code>Double</code>, possibly <code>null</code>) and (3) the calculated 
- * percentage value (as a <code>Double</code>, <code>Double.NaN</code> if the 
- * value is <code>null</code>).
+ * {@code Double}, possibly {@code null}) and (3) the calculated 
+ * percentage value (as a {@code Double}, {@code Double.NaN} if the 
+ * value is {@code null}).
  * <br><br>
  * NOTE: This class is serializable, but the serialization format is subject 
  * to change in future releases and should not be relied upon for persisting 
@@ -118,11 +118,11 @@ public class StandardPieLabelGenerator implements PieLabelGenerator,
     
     /**
      * Creates a new instance with the specified template string (which will
-     * be passed to a <code>java.util.Formatter</code> instance when generating
+     * be passed to a {@code java.util.Formatter} instance when generating
      * labels).  See the class description for an explanation of the values 
      * that are available for use in the template string.
      * 
-     * @param template  the template (<code>null</code> not permitted).
+     * @param template  the template ({@code null} not permitted).
      */
     public StandardPieLabelGenerator(String template) {
         ArgChecks.nullNotPermitted(template, "template");
@@ -132,10 +132,10 @@ public class StandardPieLabelGenerator implements PieLabelGenerator,
     /**
      * Generates the label for one section in a pie chart.
      * 
-     * @param dataset  the dataset (<code>null</code> not permitted).
-     * @param key  the key (<code>null</code> not permitted).
+     * @param dataset  the dataset ({@code null} not permitted).
+     * @param key  the key ({@code null} not permitted).
      * 
-     * @return The label (never <code>null</code> for this implementation). 
+     * @return The label (never {@code null} for this implementation). 
      */
     @Override
     public String generateLabel(PieDataset3D dataset, Comparable<?> key) {
@@ -157,7 +157,7 @@ public class StandardPieLabelGenerator implements PieLabelGenerator,
     /**
      * Tests this label generator for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean. 
      */
