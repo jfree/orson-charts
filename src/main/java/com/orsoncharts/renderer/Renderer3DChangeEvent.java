@@ -55,8 +55,7 @@ public class Renderer3DChangeEvent extends EventObject {
     /**
      * Creates a new change event.
      * 
-     * @param renderer  the renderer that changed (<code>null</code> not 
-     *         permitted). 
+     * @param renderer  the renderer that changed ({@code null} not permitted). 
      * @param requiresWorldUpdate  a flag indicating whether or not the change
      *     requires the 3D world to be updated.
      */
