@@ -41,10 +41,10 @@ import com.orsoncharts.data.xyz.XYZItemKey;
 public interface XYZDataItemSelection {
    
     /**
-     * Returns <code>true</code> if the specified item is present in the 
-     * selection, and <code>false</code> otherwise.
+     * Returns {@code true} if the specified item is present in the 
+     * selection, and {@code false} otherwise.
      * 
-     * @param item  the item key (<code>null</code> not permitted).
+     * @param item  the item key ({@code null} not permitted).
      * 
      * @return A boolean. 
      */
