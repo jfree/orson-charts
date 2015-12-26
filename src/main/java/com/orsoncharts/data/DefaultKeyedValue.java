@@ -56,7 +56,7 @@ public final class DefaultKeyedValue<T> implements KeyedValue<T>, Serializable {
     /**
      * Creates a new instance.
      * 
-     * @param key  the key (<code>null</code> not permitted).
+     * @param key  the key ({@code null} not permitted).
      * @param value  the value.
      */
     public DefaultKeyedValue(Comparable<?> key, T value) {
@@ -68,7 +68,7 @@ public final class DefaultKeyedValue<T> implements KeyedValue<T>, Serializable {
     /**
      * Returns the key.
      * 
-     * @return The key (never <code>null</code>). 
+     * @return The key (never {@code null}). 
      */
     @Override
     public Comparable<?> getKey() {
@@ -78,7 +78,7 @@ public final class DefaultKeyedValue<T> implements KeyedValue<T>, Serializable {
     /**
      * Returns the value.
      * 
-     * @return The value (possibly <code>null</code>). 
+     * @return The value (possibly {@code null}). 
      */
     @Override
     public T getValue() {
@@ -88,7 +88,7 @@ public final class DefaultKeyedValue<T> implements KeyedValue<T>, Serializable {
     /**
      * Sets the value.
      * 
-     * @param value  the value (<code>null</code> permitted).
+     * @param value  the value ({@code null} permitted).
      */
     public void setValue(T value) {
         this.value = value;
@@ -97,7 +97,7 @@ public final class DefaultKeyedValue<T> implements KeyedValue<T>, Serializable {
     /**
      * Tests this instance for equality with an arbitrary object.
      * 
-     * @param obj  the object to test (<code>null</code> permitted).
+     * @param obj  the object to test ({@code null} permitted).
      * 
      * @return A boolean.
      */
