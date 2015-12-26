@@ -96,7 +96,7 @@ public class TickData {
      * Creates a new instance by copying an existing instance but altering 
      * the vertex index.
      * 
-     * @param source  a source to copy (<code>null</code> not permitted).
+     * @param source  a source to copy ({@code null} not permitted).
      * @param vertexIndex  the vertex index.
      */
     public TickData(TickData source, int vertexIndex) {
@@ -121,9 +121,9 @@ public class TickData {
     
     /**
      * Returns the key when the tick data is for a {@link CategoryAxis3D}, 
-     * and <code>null</code> otherwise.
+     * and {@code null} otherwise.
      * 
-     * @return The key (possibly <code>null</code>).  
+     * @return The key (possibly {@code null}).  
      */
     public Comparable<?> getKey() {
         return this.key;
@@ -132,7 +132,7 @@ public class TickData {
     /**
      * Returns the key label.
      * 
-     * @return The key label (possibly <code>null</code>).
+     * @return The key label (possibly {@code null}).
      * 
      * @since 1.2
      */
@@ -142,7 +142,7 @@ public class TickData {
     
     /**
      * Returns the data value when the tick data is for a {@link NumberAxis3D},
-     * and <code>Double.NaN</code> otherwise.
+     * and {@code Double.NaN} otherwise.
      * 
      * @return The data value.
      */
