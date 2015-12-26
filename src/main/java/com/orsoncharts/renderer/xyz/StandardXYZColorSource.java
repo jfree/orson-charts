@@ -62,9 +62,9 @@ public class StandardXYZColorSource implements XYZColorSource, Serializable {
     /**
      * Creates a new instance with the supplied sequence of colors.  The
      * supplied array must have at least one entry, and all entries must be
-     * non-<code>null</code>.
+     * non-{@code null}.
      * 
-     * @param colors  the colors (<code>null</code> not permitted). 
+     * @param colors  the colors ({@code null} not permitted). 
      */
     public StandardXYZColorSource(Color... colors) {
         ArgChecks.nullNotPermitted(colors, "colors");
@@ -87,7 +87,7 @@ public class StandardXYZColorSource implements XYZColorSource, Serializable {
      * @param series  the series index.
      * @param item  the item index.
      * 
-     * @return The color (never <code>null</code>). 
+     * @return The color (never {@code null}). 
      */
     @Override
     public Color getColor(int series, int item) {
@@ -99,7 +99,7 @@ public class StandardXYZColorSource implements XYZColorSource, Serializable {
      * 
      * @param series  the series index.
      * 
-     * @return The color (never <code>null</code>).
+     * @return The color (never {@code null}).
      */
     @Override
     public Color getLegendColor(int series) {
@@ -135,7 +135,7 @@ public class StandardXYZColorSource implements XYZColorSource, Serializable {
     /**
      * Tests this paint source for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean. 
      */
