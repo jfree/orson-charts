@@ -62,11 +62,11 @@ public class GradientColorScale extends AbstractColorScale
     /**
      * Creates a new instance with the specified value range and colors.
      * 
-     * @param range  the data value range (<code>null</code> not permitted).
+     * @param range  the data value range ({@code null} not permitted).
      * @param lowColor  the color for the low end of the data range 
-     *     (<code>null</code> not permitted).
+     *     ({@code null} not permitted).
      * @param highColor  the color for the high end of the data range 
-     *     (<code>null</code> not permitted).
+     *     ({@code null} not permitted).
      */
     public GradientColorScale(Range range, Color lowColor, Color highColor) {
         super(range);
@@ -80,7 +80,7 @@ public class GradientColorScale extends AbstractColorScale
     /**
      * Returns the color for the low end of the data value range.
      * 
-     * @return The color (never <code>null</code>). 
+     * @return The color (never {@code null}). 
      */
     public Color getLowColor() {
         return this.lowColor;
@@ -89,7 +89,7 @@ public class GradientColorScale extends AbstractColorScale
     /**
      * Returns the color for the high end of the data value range.
      * 
-     * @return The color (never <code>null</code>). 
+     * @return The color (never {@code null}). 
      */
     public Color getHighColor() {
         return this.highColor;
@@ -109,7 +109,7 @@ public class GradientColorScale extends AbstractColorScale
      * 
      * @param value  the data value.
      * 
-     * @return The color (never <code>null</code>). 
+     * @return The color (never {@code null}). 
      */
     @Override
     public Color valueToColor(double value) {
@@ -137,7 +137,7 @@ public class GradientColorScale extends AbstractColorScale
     /**
      * Tests this instance for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean. 
      */
