@@ -64,11 +64,11 @@ public interface Marker extends ChartElement {
     public static final Color DEFAULT_LABEL_COLOR = Color.BLACK;
     
     /** 
-     * Draws the marker based on the <code>markerData</code> which has been 
+     * Draws the marker based on the {@code markerData} which has been 
      * passed to the 3D engine to generate the required 2D projection points.
      * 
-     * @param g2  the graphics target (<code>null</code> not permitted).
-     * @param markerData  transient data for the marker (<code>null</code> not 
+     * @param g2  the graphics target ({@code null} not permitted).
+     * @param markerData  transient data for the marker ({@code null} not 
      *     permitted).
      * @param reverse  a flag to indicate reverse orientation.
      */
@@ -77,7 +77,7 @@ public interface Marker extends ChartElement {
     /**
      * Registers a listener to receive notification of changes to the marker.
      * 
-     * @param listener  the listener (<code>null</code> not permitted). 
+     * @param listener  the listener ({@code null} not permitted). 
      */
     void addChangeListener(MarkerChangeListener listener);
     
@@ -85,7 +85,7 @@ public interface Marker extends ChartElement {
      * Deregisters a listener so that it no longer receives notification of 
      * changes to the marker.
      * 
-     * @param listener  the listener (<code>null</code> not permitted). 
+     * @param listener  the listener ({@code null} not permitted). 
      */
     void removeChangeListener(MarkerChangeListener listener);
     
