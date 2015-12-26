@@ -57,7 +57,7 @@ public class ZoomToFitAction extends AbstractAction {
     /**
      * Creates a new action associated with the specified panel.  
      * 
-     * @param panel  the panel (<code>null</code> not permitted).
+     * @param panel  the panel ({@code null} not permitted).
      * @param fontAwesome  use icon? 
      */
     public ZoomToFitAction(Panel3D panel, boolean fontAwesome) {
