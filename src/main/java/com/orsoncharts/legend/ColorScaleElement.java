@@ -98,15 +98,15 @@ public class ColorScaleElement extends AbstractTableElement
     private NumberFormat formatter;
     
     /**
-     * Creates a new <code>ColorScaleElement</code> with the specified 
+     * Creates a new {@code ColorScaleElement} with the specified 
      * attributes.
      * 
-     * @param scale  the color scale (<code>null</code> not permitted).
-     * @param orientation  the orientation (<code>null</code> not permitted).
+     * @param scale  the color scale ({@code null} not permitted).
+     * @param orientation  the orientation ({@code null} not permitted).
      * @param barWidth  the bar width (in Java2D units).
      * @param barLength  the bar length (in Java2D units).
-     * @param font  the font (<code>null</code> not permitted).
-     * @param textColor  the text color (<code>null</code> not permitted).
+     * @param font  the font ({@code null} not permitted).
+     * @param textColor  the text color ({@code null} not permitted).
      * 
      * @since 1.2
      */
@@ -129,7 +129,7 @@ public class ColorScaleElement extends AbstractTableElement
     /**
      * Returns the color scale.
      * 
-     * @return The color scale (never <code>null</code>). 
+     * @return The color scale (never {@code null}). 
      */
     public ColorScale getColorScale() {
         return this.scale;
@@ -138,7 +138,7 @@ public class ColorScaleElement extends AbstractTableElement
     /**
      * Returns the orientation.
      * 
-     * @return The orientation (never <code>null</code>). 
+     * @return The orientation (never {@code null}). 
      */
     public Orientation getOrientation() {
         return this.orientation;
@@ -165,7 +165,7 @@ public class ColorScaleElement extends AbstractTableElement
     /**
      * Returns the font used to display the labels on the color scale.
      * 
-     * @return The font (never <code>null</code>). 
+     * @return The font (never {@code null}). 
      */
     public Font getFont() {
         return this.font;
@@ -174,7 +174,7 @@ public class ColorScaleElement extends AbstractTableElement
     /**
      * Returns the text color.
      * 
-     * @return The text color (never <code>null</code>). 
+     * @return The text color (never {@code null}). 
      */
     public Color getTextColor() {
         return this.textColor;
@@ -185,7 +185,7 @@ public class ColorScaleElement extends AbstractTableElement
      * operations on an arbitrary hierarchy of table elements.  You will not 
      * normally call this method directly.
      * 
-     * @param visitor  the visitor (<code>null</code> not permitted). 
+     * @param visitor  the visitor ({@code null} not permitted). 
      * 
      * @since 1.2
      */
@@ -200,7 +200,7 @@ public class ColorScaleElement extends AbstractTableElement
      * @param g2  the graphics target.
      * @param bounds  the available drawing space.
      * 
-     * @return The preferred size (never <code>null</code>). 
+     * @return The preferred size (never {@code null}). 
      */
     @Override
     public Dimension2D preferredSize(Graphics2D g2, Rectangle2D bounds) {
@@ -214,7 +214,7 @@ public class ColorScaleElement extends AbstractTableElement
      * @param bounds  the available drawing space.
      * @param constraints  layout constraints (ignored here).
      * 
-     * @return The preferred size (never <code>null</code>). 
+     * @return The preferred size (never {@code null}). 
      */
     @Override
     public Dimension2D preferredSize(Graphics2D g2, Rectangle2D bounds, 
@@ -261,8 +261,8 @@ public class ColorScaleElement extends AbstractTableElement
     /**
      * Draws the element within the specified bounds.
      * 
-     * @param g2  the graphics target (<code>null</code> not permitted).
-     * @param bounds  the bounds (<code>null</code> not permitted).
+     * @param g2  the graphics target ({@code null} not permitted).
+     * @param bounds  the bounds ({@code null} not permitted).
      */
     @Override
     public void draw(Graphics2D g2, Rectangle2D bounds) {
@@ -272,10 +272,10 @@ public class ColorScaleElement extends AbstractTableElement
     /**
      * Draws the element within the specified bounds.
      * 
-     * @param g2  the graphics target (<code>null</code> not permitted).
-     * @param bounds  the bounds (<code>null</code> not permitted).
+     * @param g2  the graphics target ({@code null} not permitted).
+     * @param bounds  the bounds ({@code null} not permitted).
      * @param onDrawHandler  receives notification before and after the element
-     *     is drawn (<code>null</code> permitted);
+     *     is drawn ({@code null} permitted);
      * 
      * @since 1.3
      */
