@@ -49,15 +49,15 @@ public interface Values<T> {
      *
      * @param item  the item index.
      *
-     * @return The value for the specified item (possibly <code>null</code>).
+     * @return The value for the specified item (possibly {@code null}).
      */
     T getValue(int item);
   
     /**
      * Returns the value for the specified item as a double primitive, provided
-     * that the data type is a subclass of <code>Number</code>.  Where
-     * the {@link #getValue(int)} method returns <code>null</code>, this method
-     * returns <code>Double.NaN</code>.
+     * that the data type is a subclass of {@code Number}.  Where
+     * the {@link #getValue(int)} method returns {@code null}, this method
+     * returns {@code Double.NaN}.
      * 
      * @param item  the item index.
      * 
