@@ -73,7 +73,7 @@ public class ColorScaleLegendBuilder implements LegendBuilder, Serializable {
     
     /** 
      * A flag to determine whether or not FixedColorScale is ignored (defaults 
-     * to <code>true</code>). 
+     * to {@code true}). 
      */
     private boolean ignoreFixedColorScale;
     
@@ -145,15 +145,15 @@ public class ColorScaleLegendBuilder implements LegendBuilder, Serializable {
     /**
      * Creates a new color scale legend with the specified orientation.
      * If the plot does not use a renderer that implements 
-     * {@link ColorScaleRenderer} then this method will return <code>null</code>
+     * {@link ColorScaleRenderer} then this method will return {@code null}
      * and no legend will be drawn on the chart.
      * 
-     * @param plot  the plot (<code>null</code> not permitted).
-     * @param anchor  the anchor (<code>null</code> not permitted).
-     * @param orientation  the orientation (<code>null</code> not permitted).
-     * @param style  the chart style (<code>null</code> not permitted).
+     * @param plot  the plot ({@code null} not permitted).
+     * @param anchor  the anchor ({@code null} not permitted).
+     * @param orientation  the orientation ({@code null} not permitted).
+     * @param style  the chart style ({@code null} not permitted).
      * 
-     * @return A color scale legend (possibly <code>null</code>). 
+     * @return A color scale legend (possibly {@code null}). 
      */
     @Override
     public TableElement createLegend(Plot3D plot, Anchor2D anchor,
@@ -198,7 +198,7 @@ public class ColorScaleLegendBuilder implements LegendBuilder, Serializable {
     /**
      * Tests this builder for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean. 
      */
