@@ -559,7 +559,7 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
     /**
      * Selects a standard tick unit on the logarithmic range.
      * 
-     * @param g2  the graphics target ({@code null not permitted).
+     * @param g2  the graphics target ({@code null} not permitted).
      * @param pt0  the starting point.
      * @param pt1  the ending point.
      * @param opposingPt  an opposing point.
