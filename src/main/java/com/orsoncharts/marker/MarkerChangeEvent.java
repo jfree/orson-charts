@@ -57,7 +57,7 @@ public class MarkerChangeEvent extends EventObject {
     /**
      * Creates a new event.
      * 
-     * @param marker  the marker (<code>null</code> not permitted).
+     * @param marker  the marker ({@code null} not permitted).
      */
     public MarkerChangeEvent(Marker marker) {
         this(marker, marker);
@@ -67,7 +67,7 @@ public class MarkerChangeEvent extends EventObject {
      * Creates a new event.
      * 
      * @param source  the event source.
-     * @param marker  the marker (<code>null</code> not permitted).
+     * @param marker  the marker ({@code null} not permitted).
      */
     public MarkerChangeEvent(Object source, Marker marker) {
         super(source);
@@ -78,7 +78,7 @@ public class MarkerChangeEvent extends EventObject {
     /**
      * Returns the marker associated with this event.
      * 
-     * @return The marker (never <code>null</code>). 
+     * @return The marker (never {@code null}). 
      */
     public Marker getMarker() {
         return this.marker;
