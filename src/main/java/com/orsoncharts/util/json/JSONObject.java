@@ -40,13 +40,13 @@ public class JSONObject extends HashMap implements Map, JSONAware,
     /**
      * Encode a map into JSON text and write it to out.
      * If this map is also a {@link JSONAware} or {@link JSONStreamAware}, 
-     * <code>JSONAware</code> or <code>JSONStreamAware</code> specific 
+     * {@code JSONAware} or {@code JSONStreamAware} specific 
      * behaviours will be ignored at this top level.
      * 
      * @see com.orsoncharts.util.json.JSONValue#writeJSONString(Object, Writer)
      * 
-     * @param map  the map to write (<code>null</code> permitted).
-     * @param out  the output writer (<code>null</code> not permitted).
+     * @param map  the map to write ({@code null} permitted).
+     * @param out  the output writer ({@code null} not permitted).
      * 
      * @throws IOException if there is an I/O problem.
      */
@@ -79,7 +79,7 @@ public class JSONObject extends HashMap implements Map, JSONAware,
      * Writes a JSON string representing this object instance to the specified
      * output writer.
      * 
-     * @param out  the output writer (<code>null</code> not permitted).
+     * @param out  the output writer ({@code null} not permitted).
      * 
      * @throws IOException if there is an I/O problem.
      */
@@ -90,12 +90,12 @@ public class JSONObject extends HashMap implements Map, JSONAware,
     
     /**
      * Convert a map to JSON text. The result is a JSON object. 
-     * If this map is also a {@link JSONAware}, <code>JSONAware</code> specific 
+     * If this map is also a {@link JSONAware}, {@code JSONAware} specific 
      * behaviours will be omitted at this top level.
      * 
      * @see com.orsoncharts.util.json.JSONValue#toJSONString(Object)
      * 
-     * @param map  the map (<code>null</code> permitted).
+     * @param map  the map ({@code null} permitted).
      * 
      * @return JSON text, or "null" if map is null.
      */
@@ -137,9 +137,9 @@ public class JSONObject extends HashMap implements Map, JSONAware,
     /**
      * Writes a key and value to a JSON string.
      * 
-     * @param key  the key (<code>null</code> permitted).
-     * @param value  the value (<code>null</code> permitted).
-     * @param sb  a string buffer (<code>null</code> not permitted).
+     * @param key  the key ({@code null} permitted).
+     * @param value  the value ({@code null} permitted).
+     * @param sb  a string buffer ({@code null} not permitted).
      * 
      * @return A JSON string fragment representing the key and value. 
      */
@@ -172,8 +172,8 @@ public class JSONObject extends HashMap implements Map, JSONAware,
     /**
      * Returns a JSON string fragment containing the key and value.
      * 
-     * @param key  the key (<code>null</code> permitted).
-     * @param value  the value (<code>null</code> permitted).
+     * @param key  the key ({@code null} permitted).
+     * @param value  the value ({@code null} permitted).
      * 
      * @return A JSON string fragment. 
      */
