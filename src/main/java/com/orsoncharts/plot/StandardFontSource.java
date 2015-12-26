@@ -53,7 +53,7 @@ public final class StandardFontSource implements FontSource, Serializable {
     /** Storage for the fonts assigned to keys. */
     private DefaultKeyedValues<Font> fonts;
 
-    /** The default font (never <code>null</code>). */
+    /** The default font (never {@code null}). */
     private Font defaultFont;
     
     /**
@@ -66,7 +66,7 @@ public final class StandardFontSource implements FontSource, Serializable {
     /**
      * Creates a new font source with the specified default font.
      * 
-     * @param defaultFont  the default font (<code>null</code> not permitted). 
+     * @param defaultFont  the default font ({@code null} not permitted). 
      */
     public StandardFontSource(Font defaultFont) {
         ArgChecks.nullNotPermitted(defaultFont, "defaultFont");
@@ -77,7 +77,7 @@ public final class StandardFontSource implements FontSource, Serializable {
     /**
      * Returns the default font.  The default value is {@link #DEFAULT_FONT}.
      * 
-     * @return The default font (never <code>null</code>). 
+     * @return The default font (never {@code null}). 
      */
     public Font getDefaultFont() {
         return this.defaultFont;
@@ -86,7 +86,7 @@ public final class StandardFontSource implements FontSource, Serializable {
     /**
      * Sets the default font.
      * 
-     * @param font  the font (<code>null</code> not permitted).
+     * @param font  the font ({@code null} not permitted).
      */
     public void setDefaultFont(Font font) {
         ArgChecks.nullNotPermitted(font, "font");
@@ -96,9 +96,9 @@ public final class StandardFontSource implements FontSource, Serializable {
     /**
      * Returns the font for the specified key.
      * 
-     * @param key  the key (<code>null</code> not permitted).
+     * @param key  the key ({@code null} not permitted).
      * 
-     * @return The font (never <code>null</code>). 
+     * @return The font (never {@code null}). 
      */
     @Override
     public Font getFont(Comparable<?> key) {
@@ -113,8 +113,8 @@ public final class StandardFontSource implements FontSource, Serializable {
     /**
      * Sets the font associated with the specified key.
      * 
-     * @param key  the key (<code>null</code> not permitted).
-     * @param font  the font (<code>null</code> permitted).
+     * @param key  the key ({@code null} not permitted).
+     * @param font  the font ({@code null} permitted).
      */
     @Override
     public void setFont(Comparable<?> key, Font font) {
@@ -130,7 +130,7 @@ public final class StandardFontSource implements FontSource, Serializable {
      * supplied value.  This method is used by the framework and is not
      * normally called by client code.
      * 
-     * @param font  the font (<code>null</code> not permitted).
+     * @param font  the font ({@code null} not permitted).
      * 
      * @since 1.2
      */
@@ -144,7 +144,7 @@ public final class StandardFontSource implements FontSource, Serializable {
     /**
      * Tests this paint source for equality with an arbitrary object.
      * 
-     * @param obj  the object (<code>null</code> permitted).
+     * @param obj  the object ({@code null} permitted).
      * 
      * @return A boolean. 
      */
