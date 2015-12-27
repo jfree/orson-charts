@@ -14,7 +14,7 @@
     <version>9</version>
   </parent>
 
-  <name>Orson Charts</name>
+  <name>OrsonCharts</name>
   <url>http://www.object-refinery.com/orsoncharts</url>
  
   <licenses>
@@ -30,7 +30,19 @@
   </properties>
  
   <dependencies>
-    <dependency>
+     <!-- JFreeSVG is required for the demo code only -->
+      <dependency>
+          <groupId>org.jfree</groupId>
+          <artifactId>jfreesvg</artifactId>
+          <version>3.0</version>
+      </dependency>
+      <!-- OrsonPDF is required for the demo code only -->
+      <dependency>
+          <groupId>com.orsonpdf</groupId>
+          <artifactId>orsonpdf</artifactId>
+          <version>1.7</version>
+      </dependency>
+      <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.11</version>
@@ -56,7 +68,6 @@
        
         </configuration>
       </plugin>
-
     </plugins>
   </build>
 
