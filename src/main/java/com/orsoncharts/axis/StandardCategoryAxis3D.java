@@ -88,7 +88,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     private List<Comparable<?>> categories;
   
     /** 
-     * The axis range (never <code>null</code>). 
+     * The axis range (never {@code null}). 
      */
     private Range range;
     
@@ -120,10 +120,10 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      */
     private double tickMarkLength;
     
-    /** The tick mark stroke (never <code>null</code>). */
+    /** The tick mark stroke (never {@code null}). */
     private transient Stroke tickMarkStroke;
     
-    /** The tick mark paint (never <code>null</code>). */
+    /** The tick mark paint (never {@code null}). */
     private transient Paint tickMarkPaint;
     
     /** The tick label generator. */
@@ -150,7 +150,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     private double tickLabelFactor = 1.2;
     
     /** 
-     * The markers for the axis (this may be empty, but not <code>null</code>). 
+     * The markers for the axis (this may be empty, but not {@code null}). 
      */
     private Map<String, CategoryMarker> markers;
     
@@ -173,7 +173,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     /**
      * Creates a new axis with the specified label.
      * 
-     * @param label  the axis label (<code>null</code> permitted). 
+     * @param label  the axis label ({@code null} permitted). 
      */
     public StandardCategoryAxis3D(String label) {
         super(label);
@@ -197,8 +197,8 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     }
 
     /**
-     * Returns <code>true</code> if this axis has been configured as a 
-     * row axis for the plot that it belongs to, and <code>false</code> 
+     * Returns {@code true} if this axis has been configured as a 
+     * row axis for the plot that it belongs to, and {@code false} 
      * otherwise.
      * 
      * @return A boolean.
@@ -211,8 +211,8 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     }
 
     /**
-     * Returns <code>true</code> if this axis has been configred as a
-     * column axis for the plot that it belongs to, and <code>false</code>
+     * Returns {@code true} if this axis has been configured as a
+     * column axis for the plot that it belongs to, and {@code false}
      * otherwise.
      * 
      * @return A boolean.
@@ -252,7 +252,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      * all registered listeners. Note that changing the range for the 
      * category axis will have no visible effect.
      * 
-     * @param range  the range (<code>null</code> not permitted). 
+     * @param range  the range ({@code null} not permitted). 
      */
     @Override
     public void setRange(Range range) {
@@ -263,7 +263,8 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     
     /**
      * Returns the margin to leave at the lower end of the axis, as a 
-     * percentage of the axis length.  The default is <code>0.05</code>.
+     * percentage of the axis length.  The default is {@code 0.05} (five 
+     * percent).
      * 
      * @return The lower margin.
      */
@@ -284,7 +285,8 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     
     /**
      * Returns the margin to leave at the upper end of the axis, as a 
-     * percentage of the axis length.  The default is <code>0.05</code>.
+     * percentage of the axis length.  The default is {@code 0.05} (five 
+     * percent).
      * 
      * @return The lower margin.
      */
@@ -304,8 +306,8 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     }
     
     /**
-     * Returns <code>true</code> if the first category on the axis should
-     * occupy half the normal width, and <code>false</code> otherwise.
+     * Returns {@code true} if the first category on the axis should
+     * occupy half the normal width, and {@code false} otherwise.
      * 
      * @return A boolean.
      * 
@@ -332,8 +334,8 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     }
     
     /**
-     * Returns <code>true</code> if the last category on the axis should
-     * occupy half the normal width, and <code>false</code> otherwise.
+     * Returns {@code true} if the last category on the axis should
+     * occupy half the normal width, and {@code false} otherwise.
      * 
      * @return A boolean.
      * 
@@ -361,7 +363,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
 
     /**
      * Returns the tick mark length (in Java2D units).  The default value
-     * is <code>3.0</code>.
+     * is {@code 3.0}.
      * 
      * @return The tick mark length. 
      */
@@ -372,7 +374,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     /**
      * Sets the tick mark length (in Java2D units) and sends an 
      * {@link Axis3DChangeEvent} to all registered listeners.  You can set
-     * the length to <code>0.0</code> if you don't want any tick marks on the
+     * the length to {@code 0.0} if you don't want any tick marks on the
      * axis.
      * 
      * @param length  the length (in Java2D units).
@@ -384,9 +386,9 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     
     /**
      * Returns the paint used to draw the tick marks, if they are visible.  
-     * The default value is <code>Color.GRAY</code>.
+     * The default value is {@code Color.GRAY}.
      * 
-     * @return The paint used to draw the tick marks (never <code>null</code>). 
+     * @return The paint used to draw the tick marks (never {@code null}). 
      */
     public Paint getTickMarkPaint() {
         return this.tickMarkPaint;
@@ -396,7 +398,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      * Sets the paint used to draw the tick marks and sends an 
      * {@link Axis3DChangeEvent} to all registered listeners.
      * 
-     * @param paint  the paint (<code>null</code> not permitted). 
+     * @param paint  the paint ({@code null} not permitted). 
      */
     public void setTickMarkPaint(Paint paint) {
         ArgChecks.nullNotPermitted(paint, "paint");
@@ -406,9 +408,9 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     
     /**
      * Returns the stroke used to draw the tick marks, if they are visible.  
-     * The default value is <code>new BasicStroke(0.5f)</code>.
+     * The default value is {@code new BasicStroke(0.5f)}.
      * 
-     * @return The stroke used to draw the tick marks (never <code>null</code>). 
+     * @return The stroke used to draw the tick marks (never {@code null}). 
      */
     public Stroke getTickMarkStroke() {
         return this.tickMarkStroke;
@@ -418,7 +420,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      * Sets the stroke used to draw the tick marks and sends an 
      * {@link Axis3DChangeEvent} to all registered listeners.
      * 
-     * @param stroke  the stroke (<code>null</code> not permitted). 
+     * @param stroke  the stroke ({@code null} not permitted). 
      */
     public void setTickMarkStroke(Stroke stroke) {
         ArgChecks.nullNotPermitted(stroke, "stroke");
@@ -432,7 +434,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      * plug in your own instance to take full control over the generation
      * of category labels.
      * 
-     * @return The tick label generator for the axis (never <code>null</code>). 
+     * @return The tick label generator for the axis (never {@code null}). 
      * 
      * @since 1.2
      */
@@ -444,7 +446,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      * Sets the tick label generator for the axis and sends a change event to 
      * all registered listeners.
      * 
-     * @param generator  the generator (<code>null</code> not permitted).
+     * @param generator  the generator ({@code null} not permitted).
      * 
      * @since 1.2
      */
@@ -456,7 +458,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     
     /**
      * Returns the offset between the tick marks and the tick labels.  The
-     * default value is <code>5.0</code>.
+     * default value is {@code 5.0}.
      * 
      * @return The offset between the tick marks and the tick labels (in Java2D
      *     units).
@@ -480,7 +482,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      * Returns the orientation for the tick labels.  The default value is
      * {@link LabelOrientation#PARALLEL}.
      * 
-     * @return The orientation for the tick labels (never <code>null</code>).
+     * @return The orientation for the tick labels (never {@code null}).
      * 
      * @since 1.2
      */
@@ -492,7 +494,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      * Sets the orientation for the tick labels and sends a change event to
      * all registered listeners.
      * 
-     * @param orientation  the orientation (<code>null</code> not permitted).
+     * @param orientation  the orientation ({@code null} not permitted).
      * 
      * @since 1.2
      */
@@ -528,7 +530,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     }
  
     /**
-     * Returns the tick label factor.  The default value is <code>1.4</code>.
+     * Returns the tick label factor.  The default value is {@code 1.4}.
      * 
      * @return The tick label factor.
      * 
@@ -554,9 +556,9 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     /**
      * Returns the marker with the specified key, if there is one.
      * 
-     * @param key  the key (<code>null</code> not permitted).
+     * @param key  the key ({@code null} not permitted).
      * 
-     * @return The marker (possibly <code>null</code>). 
+     * @return The marker (possibly {@code null}). 
      * 
      * @since 1.2
      */
@@ -571,9 +573,9 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      * (and the axis will no longer listen for change events on the previous 
      * marker).
      * 
-     * @param key  the key that identifies the marker (<code>null</code> not 
+     * @param key  the key that identifies the marker ({@code null} not 
      *         permitted).
-     * @param marker  the marker (<code>null</code> permitted).
+     * @param marker  the marker ({@code null} permitted).
      * 
      * @since 1.2
      */
@@ -619,7 +621,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      * Configures the axis to be used as a row axis for the specified
      * plot.  This method is for internal use, you should not call it directly.
      * 
-     * @param plot  the plot (<code>null</code> not permitted).
+     * @param plot  the plot ({@code null} not permitted).
      */
     @Override
     public void configureAsRowAxis(CategoryPlot3D plot) {
@@ -634,7 +636,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      * plot.  This method is for internal use, you won't normally need to call
      * it directly.
      * 
-     * @param plot  the plot (<code>null</code> not permitted).
+     * @param plot  the plot ({@code null} not permitted).
      */
     @Override
     public void configureAsColumnAxis(CategoryPlot3D plot) {
@@ -645,10 +647,10 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     }
 
     /**
-     * Returns the value for the specified category, or <code>Double.NaN</code>
+     * Returns the value for the specified category, or {@code Double.NaN}
      * if the category is not registered on the axis.
      * 
-     * @param category  the category (<code>null</code> not permitted).
+     * @param category  the category ({@code null} not permitted).
      * 
      * @return The value.
      */
@@ -696,20 +698,20 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     }
 
     /**
-     * Draws the axis between the two points <code>pt0</code> and 
-     * <code>pt1</code> in Java2D space.
+     * Draws the axis between the two points {@code pt0} and {@code pt1} in 
+     * Java2D space.
      * 
-     * @param g2  the graphics target (<code>null</code> not permitted).
-     * @param pt0  the starting point for the axis (<code>null</code> not 
+     * @param g2  the graphics target ({@code null} not permitted).
+     * @param pt0  the starting point for the axis ({@code null} not 
      *     permitted).
-     * @param pt1  the ending point for the axis (<code>null</code> not 
+     * @param pt1  the ending point for the axis ({@code null} not 
      *     permitted).
      * @param opposingPt  a point on the opposite side of the line from the 
-     *         labels (<code>null</code> not permitted).
+     *         labels ({@code null} not permitted).
      * @param tickData  the tick data, contains positioning anchors calculated 
-     *     by the 3D engine (<code>null</code> not permitted).
+     *     by the 3D engine ({@code null} not permitted).
      * @param info  an object to be populated with rendering info 
-     *     (<code>null</code> permitted).
+     *     ({@code null} permitted).
      * @param hinting  perform element hinting?
      */
     @Override
@@ -777,7 +779,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      * the axis has been configured as a column axis, and the empty string ("")
      * if the axis has not yet been configured.
      * 
-     * @return A string (never <code>null</code>).
+     * @return A string (never {@code null}).
      * 
      * @since 1.3
      */
@@ -864,7 +866,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      * @param opposingPt  an opposing point (used to indicate which side the
      *     labels will appear on).
      * @param tickData  the tick data.
-     * @param info  if not <code>null</code> this will be populated with 
+     * @param info  if not {@code null} this will be populated with 
      *     {@link RenderedElement} instances for the tick labels.
      * @param hinting  
      */
@@ -916,7 +918,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      * example, a row label might show the total for that row in the dataset)
      * ---whether or not this is used depends on the axis implementation.
      * 
-     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param dataset  the dataset ({@code null} not permitted).
      * 
      * @return The tick data.
      * 
@@ -942,7 +944,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      * example, a row label might show the total for that row in the dataset)
      * ---whether or not this is used depends on the axis implementation.
      * 
-     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param dataset  the dataset ({@code null} not permitted).
      * 
      * @return The tick data.
      * 
@@ -965,7 +967,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     /**
      * Generates and returns a list of marker data items for the axis.
      * 
-     * @return A list of marker data items (never <code>null</code>). 
+     * @return A list of marker data items (never {@code null}). 
      */
     @Override
     public List<MarkerData> generateMarkerData() {
@@ -1004,7 +1006,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      * on each element in the chart.  You will not normally call this method
      * directly.
      * 
-     * @param visitor  the visitor (<code>null</code> not permitted).
+     * @param visitor  the visitor ({@code null} not permitted).
      * 
      * @since 1.2
      */
@@ -1019,7 +1021,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     /**
      * Tests this instance for equality with an arbitrary object.
      * 
-     * @param obj  the object to test against (<code>null</code> not permitted).
+     * @param obj  the object to test against ({@code null} not permitted).
      * 
      * @return A boolean.
      */
