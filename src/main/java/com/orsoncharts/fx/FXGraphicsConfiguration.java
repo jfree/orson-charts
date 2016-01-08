@@ -86,7 +86,7 @@ public class FXGraphicsConfiguration extends GraphicsConfiguration {
 
     /**
      * Returns the color model for the specified transparency type, or 
-     * <code>null</code>.
+     * {@code null}.
      * 
      * @param transparency  the transparency type.
      * 
