@@ -33,7 +33,10 @@
 package com.orsoncharts.util;
 
 import java.awt.GradientPaint;
+import java.awt.LinearGradientPaint;
 import java.awt.Paint;
+import java.awt.RadialGradientPaint;
+import java.util.Arrays;
 
 /**
  * Some general utility methods for working with objects.
@@ -73,8 +76,10 @@ public class ObjectUtils {
     
     /**
      * Returns {@code true} if the two {@code Paint} objects are equal 
-     * OR both {@code null}.  This method handles {@code GradientPaint} as a 
-     * special case.
+     * OR both {@code null}.  This method handles
+     * {@code GradientPaint}, {@code LinearGradientPaint} and 
+     * {@code RadialGradientPaint} as a special cases, since those classes do
+     * not override the {@code equals()} method.
      *
      * @param p1  paint 1 ({@code null} permitted).
      * @param p2  paint 2 ({@code null} permitted).
@@ -82,7 +87,10 @@ public class ObjectUtils {
      * @return A boolean.
      */
     public static boolean equalsPaint(Paint p1, Paint p2) {
-
+        if (p1 == p2) {
+            return true;
+        }
+            
         // handle cases where either or both arguments are null
         if (p1 == null) {
             return (p2 == null);   
@@ -90,19 +98,43 @@ public class ObjectUtils {
         if (p2 == null) {
             return false;   
         }
-        
+
         // handle GradientPaint as a special case...
         if (p1 instanceof GradientPaint && p2 instanceof GradientPaint) {
             GradientPaint gp1 = (GradientPaint) p1;
             GradientPaint gp2 = (GradientPaint) p2;
             return gp1.getColor1().equals(gp2.getColor1()) 
-                && gp1.getColor2().equals(gp2.getColor2())
-                && gp1.getPoint1().equals(gp2.getPoint1())    
-                && gp1.getPoint2().equals(gp2.getPoint2())
-                && gp1.isCyclic() == gp2.isCyclic()
-                && gp1.getTransparency() == gp1.getTransparency(); 
+                    && gp1.getColor2().equals(gp2.getColor2())
+                    && gp1.getPoint1().equals(gp2.getPoint1())    
+                    && gp1.getPoint2().equals(gp2.getPoint2())
+                    && gp1.isCyclic() == gp2.isCyclic()
+                    && gp1.getTransparency() == gp1.getTransparency(); 
+        } else if (p1 instanceof LinearGradientPaint 
+                && p2 instanceof LinearGradientPaint) {
+            LinearGradientPaint lgp1 = (LinearGradientPaint) p1;
+            LinearGradientPaint lgp2 = (LinearGradientPaint) p2;
+            return lgp1.getStartPoint().equals(lgp2.getStartPoint())
+                    && lgp1.getEndPoint().equals(lgp2.getEndPoint()) 
+                    && Arrays.equals(lgp1.getFractions(), lgp2.getFractions())
+                    && Arrays.equals(lgp1.getColors(), lgp2.getColors())
+                    && lgp1.getCycleMethod() == lgp2.getCycleMethod()
+                    && lgp1.getColorSpace() == lgp2.getColorSpace()
+                    && lgp1.getTransform().equals(lgp2.getTransform());
+        } else if (p1 instanceof RadialGradientPaint 
+                && p2 instanceof RadialGradientPaint) {
+            RadialGradientPaint rgp1 = (RadialGradientPaint) p1;
+            RadialGradientPaint rgp2 = (RadialGradientPaint) p2;
+            return rgp1.getCenterPoint().equals(rgp2.getCenterPoint())
+                    && rgp1.getRadius() == rgp2.getRadius() 
+                    && rgp1.getFocusPoint().equals(rgp2.getFocusPoint())
+                    && Arrays.equals(rgp1.getFractions(), rgp2.getFractions())
+                    && Arrays.equals(rgp1.getColors(), rgp2.getColors())
+                    && rgp1.getCycleMethod() == rgp2.getCycleMethod()
+                    && rgp1.getColorSpace() == rgp2.getColorSpace()
+                    && rgp1.getTransform().equals(rgp2.getTransform());
+        } else {
+            return p1.equals(p2);
         }
-        return p1.equals(p2);
     }
 
 }
