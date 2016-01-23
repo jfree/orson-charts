@@ -30,7 +30,12 @@
   </properties>
  
   <dependencies>
-     <!-- JFreeSVG is required for the demo code only -->
+    <dependency>
+        <groupId>org.jfree</groupId>
+        <artifactId>fxgraphics2d</artifactId>
+        <version>1.2</version>
+    </dependency>
+      <!-- JFreeSVG is required for the demo code only -->
       <dependency>
           <groupId>org.jfree</groupId>
           <artifactId>jfreesvg</artifactId>
@@ -43,14 +48,19 @@
           <version>1.7</version>
       </dependency>
       <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
-      <scope>test</scope>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+          <version>4.11</version>
+          <scope>test</scope>
     </dependency>
   </dependencies>
 
   <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+      </resource>
+    </resources>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -62,9 +72,9 @@
           <compilerArgument>-Xlint:unchecked</compilerArgument>
           <encoding>${project.build.sourceEncoding}</encoding>
 
-          <excludes>
+<!--          <excludes>
             <exclude>com/orsoncharts/demo/**</exclude>
-          </excludes>
+          </excludes>-->
        
         </configuration>
       </plugin>
@@ -98,7 +108,7 @@
             </executions>
             <configuration>
               <sourceFileExcludes>
-                <exclude>com/orsonpdf/demo/**</exclude>
+                <exclude>com/orsoncharts/demo/**</exclude>
               </sourceFileExcludes>
             </configuration>
           </plugin>
