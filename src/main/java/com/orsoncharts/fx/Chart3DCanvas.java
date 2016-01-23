@@ -52,6 +52,7 @@ import com.orsoncharts.graphics3d.Offset2D;
 import com.orsoncharts.graphics3d.RenderingInfo;
 import com.orsoncharts.graphics3d.ViewPoint3D;
 import com.orsoncharts.util.ArgChecks;
+import org.jfree.fx.FXGraphics2D;
 
 /**
  * A canvas node for displaying a {@link Chart3D} in JavaFX.  This node
