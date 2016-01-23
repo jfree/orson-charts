@@ -34,14 +34,18 @@ If there are topics that are not covered or not clear in the documentation, plea
 
 Building
 --------
-Orson Charts can be built with Maven or Ant. 
+Orson Charts can be built with Maven or Ant.  The default builds include JavaFX support and require JDK 1.8.0_40 or later to compile.  We also provide an Ant script that will build Orson Charts without JavaFX support, and this should required only JDK 1.6 or later.
 
 Two Ant build scripts are provided to build Orson Charts from source code:
 
-- ant/build.xml : builds Orson Charts with JavaFX support (requires JDK 1.8 or later);
+- ant/build.xml : builds Orson Charts with JavaFX support (requires JDK 1.8.0_40 or later);
 - ant/build-nofx.xml : builds Orson Charts without JavaFX support (requires JDK 1.6 or later);
 
-Two additional libraries (JFreeSVG and OrsonPDF) are included in the lib directory.  The libraries are optional dependencies for Orson Charts, providing the ability to export charts to SVG and PDF respectively.  Both of these libraries are licensed under the terms of the GNU General Public License version 3 (commercial licenses are available if required).
+There are three main dependencies for Orson Charts:
+
+- FXGraphics2D : used to provide JavaFX support;
+- JFreeSVG : provides the ability to export charts to SVG format (it is an optional dependency, if present at runtime then SVG export is enabled);
+- OrsonPDF : provides the ability to export charts to PDF format (also an optional dependency, if present at runtime then PDF export is enabled);
 
 
 Reporting Bugs
