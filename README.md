@@ -1,7 +1,7 @@
 Orson Charts
 ============
 
-(C)opyright 2013-2015, by Object Refinery Limited.  All rights reserved.
+(C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
 
 
 Overview
@@ -34,6 +34,8 @@ If there are topics that are not covered or not clear in the documentation, plea
 
 Building
 --------
+Orson Charts can be built with Maven or Ant. 
+
 Two Ant build scripts are provided to build Orson Charts from source code:
 
 - ant/build.xml : builds Orson Charts with JavaFX support (requires JDK 1.8 or later);
@@ -61,12 +63,13 @@ If you have any questions, don't hesitate to send a mail to info@object-refinery
 History
 -------
 
-26-Dec-2015 : Version 1.5
+23-Jan-2016 : Version 1.5 (not yet released)
 
 - added new LineXYZRenderer;
 - added option to invert axes;
 - fix exception when setting a new dataset using CategoryPlot3D.setDataset():
 - fix direction of mouse wheel zooming in JavaFX;
+- included FXGraphics2D version 1.2 as a dependency;
 - updated OrsonPDF to version 1.7;
 - updated JFreeSVG to version 3.0;
 - added pom.xml for Maven builds;
