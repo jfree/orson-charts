@@ -34,7 +34,7 @@
         <dependency>
             <groupId>org.jfree</groupId>
             <artifactId>fxgraphics2d</artifactId>
-            <version>1.2</version>
+            <version>1.2.1</version>
         </dependency>
       
         <!-- JFreeSVG is useful at runtime (enables SVG export) -->
