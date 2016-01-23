@@ -33,7 +33,7 @@
             </fileset>
         </path>
         <path id="demo.build.classpath">
-            <fileset dir="${basedir}/lib/">
+            <fileset dir="${basedir}/lib">
                 <include name="${orsoncharts.name}-${orsoncharts.version}.jar"/>
                 <include name="${jfreesvg.name}-${jfreesvg.version}.jar"/>
                 <include name="${orsonpdf.name}-${orsonpdf.version}.jar"/>
@@ -60,14 +60,14 @@
             <include name="**"/>
         </javac>
 
-        <!-- copy across Font Awesome -->
-        <copy file="${basedir}/src/main/java/com/orsoncharts/graphics3d/swing/fontawesome-webfont.ttf" tofile="${basedir}/build/com/orsoncharts/graphics3d/swing/fontawesome-webfont.ttf" />
-        <copy file="${basedir}/src/main/java/com/orsoncharts/Resources.properties" tofile="${basedir}/build/com/orsoncharts/Resources.properties" />
-        <copy file="${basedir}/src/main/java/com/orsoncharts/Resources_de.properties" tofile="${basedir}/build/com/orsoncharts/Resources_de.properties" />
-        <copy file="${basedir}/src/main/java/com/orsoncharts/Resources_it.properties" tofile="${basedir}/build/com/orsoncharts/Resources_it.properties" />
+        <!-- copy across resource files -->
+        <copy file="${basedir}/src/main/resources/com/orsoncharts/graphics3d/swing/fontawesome-webfont.ttf" tofile="${basedir}/build/com/orsoncharts/graphics3d/swing/fontawesome-webfont.ttf" />
+        <copy file="${basedir}/src/main/resources/com/orsoncharts/Resources.properties" tofile="${basedir}/build/com/orsoncharts/Resources.properties" />
+        <copy file="${basedir}/src/main/resources/com/orsoncharts/Resources_de.properties" tofile="${basedir}/build/com/orsoncharts/Resources_de.properties" />
+        <copy file="${basedir}/src/main/resources/com/orsoncharts/Resources_it.properties" tofile="${basedir}/build/com/orsoncharts/Resources_it.properties" />
  
         <!-- make the jar -->
-        <jar jarfile="${basedir}/lib/${orsoncharts.name}-${orsoncharts.version}-nofx.jar"
+        <jar jarfile="${basedir}/lib/${orsoncharts.name}-${orsoncharts.version}.jar"
              basedir="${basedir}/build" >
             <manifest>
                 <attribute name="Specification-Title" value="Orson Charts" />
@@ -105,9 +105,9 @@
         </javac>
 
         <!-- copy across about.html, images, and data files -->
-        <copy file="${basedir}/src/main/java/com/orsoncharts/demo/about.html" tofile="${basedir}/build/com/orsoncharts/demo/about.html" />
+        <copy file="${basedir}/src/main/resources/com/orsoncharts/demo/about.html" tofile="${basedir}/build/com/orsoncharts/demo/about.html" />
         <copy todir="${basedir}/build/com/orsoncharts/demo">
-            <fileset dir="${basedir}/src/main/java/com/orsoncharts/demo">
+            <fileset dir="${basedir}/src/main/resources/com/orsoncharts/demo">
                 <include name="*.html"/>
                 <include name="*.jpg"/>
                 <include name="*.txt"/>
@@ -119,7 +119,7 @@
              basedir="${basedir}/build" >
             <manifest>
                 <attribute name="Main-Class" value="com.orsoncharts.demo.swing.OrsonChartsDemo" />
-                <attribute name="Class-Path" value="lib/${orsoncharts.name}-${orsoncharts.version}-nofx.jar lib/${orsonpdf.name}-${orsonpdf.version}.jar lib/${jfreesvg.name}-${jfreesvg.version}.jar" />
+                <attribute name="Class-Path" value="lib/${orsoncharts.name}-${orsoncharts.version}.jar lib/${orsonpdf.name}-${orsonpdf.version}.jar lib/${jfreesvg.name}-${jfreesvg.version}.jar" />
                 <attribute name="Specification-Title" value="Orson Charts Demo (Swing)" />
                 <attribute name="Specification-Version" value="${orsoncharts.version}" />
                 <attribute name="Specification-Vendor" value="Object Refinery Limited" />
