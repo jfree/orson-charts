@@ -39,16 +39,11 @@ package com.orsoncharts.demo;
 import java.awt.Color;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
-import com.orsoncharts.axis.IntegerTickSelector;
-import com.orsoncharts.axis.NumberAxis3D;
 import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.data.xyz.XYZSeries;
 import com.orsoncharts.data.xyz.XYZSeriesCollection;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.plot.XYZPlot;
-import java.text.FieldPosition;
-import java.text.Format;
-import java.text.ParsePosition;
 
 /**
  * 3D line chart configuration for demo applications.
@@ -61,28 +56,6 @@ public class XYZLineChart3D2 {
         chart.setChartBoxColor(new Color(255, 255, 255, 128));
         XYZPlot plot = (XYZPlot) chart.getPlot();
         plot.setDimensions(new Dimension3D(15, 10, 8));
-        NumberAxis3D zAxis = (NumberAxis3D) plot.getZAxis();
-        zAxis.setTickSelector(new IntegerTickSelector() {
-
-            @Override
-            public Format getCurrentTickLabelFormat() {
-                return new Format() {
-
-                    @Override
-                    public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos) {
-                        toAppendTo.append("CHF");
-                        return toAppendTo;
-                    }
-
-                    @Override
-                    public Object parseObject(String source, ParsePosition pos) {
-                        throw new UnsupportedOperationException("Not supported yet."); 
-                    }
-            
-                };
-            }
-            
-        });
         return chart;    
     }
     
