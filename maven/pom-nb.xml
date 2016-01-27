@@ -112,6 +112,7 @@
                             <sourceFileExcludes>
                                 <exclude>com/orsoncharts/demo/**</exclude>
                             </sourceFileExcludes>
+                            <additionalparam>-Xdoclint:none</additionalparam>
                         </configuration>
                     </plugin>
                     <plugin>
