@@ -44,8 +44,8 @@ Two Ant build scripts are provided to build Orson Charts from source code:
 There are three main dependencies for Orson Charts:
 
 - FXGraphics2D : used to provide JavaFX support;
-- JFreeSVG : provides the ability to export charts to SVG format (it is an optional dependency, if present at runtime then SVG export is enabled);
-- OrsonPDF : provides the ability to export charts to PDF format (also an optional dependency, if present at runtime then PDF export is enabled);
+- JFreeSVG : provides the ability to export charts to SVG format;
+- OrsonPDF : provides the ability to export charts to PDF format;
 
 
 Reporting Bugs
@@ -67,13 +67,13 @@ If you have any questions, don't hesitate to send a mail to info@object-refinery
 History
 -------
 
-23-Jan-2016 : Version 1.5 (not yet released)
+27-Jan-2016 : Version 1.5 (not yet released)
 
 - added new LineXYZRenderer;
 - added option to invert axes;
 - fix exception when setting a new dataset using CategoryPlot3D.setDataset():
 - fix direction of mouse wheel zooming in JavaFX;
-- included FXGraphics2D version 1.2 as a dependency;
+- included FXGraphics2D version 1.3 as a dependency;
 - updated OrsonPDF to version 1.7;
 - updated JFreeSVG to version 3.0;
 - added pom.xml for Maven builds;
