@@ -67,7 +67,7 @@ If you have any questions, don't hesitate to send a mail to info@object-refinery
 History
 -------
 
-27-Jan-2016 : Version 1.5 (not yet released)
+27-Jan-2016 : Version 1.5
 
 - added new LineXYZRenderer;
 - added option to invert axes;
