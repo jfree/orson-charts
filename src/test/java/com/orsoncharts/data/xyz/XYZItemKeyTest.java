@@ -45,19 +45,19 @@ public class XYZItemKeyTest {
     
     @Test
     public void testEquals() {
-        XYZItemKey<String> k1 = new XYZItemKey<>("S1", 1);
-        XYZItemKey<String> k2 = new XYZItemKey<>("S1", 1);
+        XYZItemKey<String> k1 = new XYZItemKey<String>("S1", 1);
+        XYZItemKey<String> k2 = new XYZItemKey<String>("S1", 1);
         assertTrue(k1.equals(k2));
         assertFalse(k1.equals(null));
         
-        k1 = new XYZItemKey<>("S2", 1);
+        k1 = new XYZItemKey<String>("S2", 1);
         assertFalse(k1.equals(k2));
-        k2 = new XYZItemKey<>("S2", 1);
+        k2 = new XYZItemKey<String>("S2", 1);
         assertTrue(k1.equals(k2));
         
-        k1 = new XYZItemKey<>("S2", 2);
+        k1 = new XYZItemKey<String>("S2", 2);
         assertFalse(k1.equals(k2));
-        k2 = new XYZItemKey<>("S2", 2);
+        k2 = new XYZItemKey<String>("S2", 2);
         assertTrue(k1.equals(k2));
     }
 
@@ -66,7 +66,7 @@ public class XYZItemKeyTest {
      */
     @Test
     public void testSerialization() {
-        XYZItemKey<String> k1 = new XYZItemKey<>("S1", 1);
+        XYZItemKey<String> k1 = new XYZItemKey<String>("S1", 1);
         XYZItemKey<String> k2 = (XYZItemKey<String>) TestUtils.serialized(k1);
         assertEquals(k1, k2);
     }
