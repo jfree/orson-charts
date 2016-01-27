@@ -39,6 +39,7 @@
         <path id="demo.build.classpath">
             <fileset dir="${basedir}/lib/">
                 <include name="${orsoncharts.name}-${orsoncharts.version}.jar"/>
+                <include name="${fxgraphics2d.name}-${fxgraphics2d.version}.jar"/>
                 <include name="${jfreesvg.name}-${jfreesvg.version}.jar"/>
                 <include name="${orsonpdf.name}-${orsonpdf.version}.jar"/>
             </fileset>
