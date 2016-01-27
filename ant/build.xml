@@ -174,7 +174,7 @@
              basedir="${basedir}/build" >
             <manifest>
                 <attribute name="Main-Class" value="com.orsoncharts.demo.fx.OrsonChartsFXDemo" />
-                <attribute name="Class-Path" value="lib/${orsoncharts.name}-${orsoncharts.version}.jar lib/${orsonpdf.name}-${orsonpdf.version}.jar lib/${jfreesvg.name}-${jfreesvg.version}.jar" />
+                <attribute name="Class-Path" value="lib/${orsoncharts.name}-${orsoncharts.version}.jar lib/${fxgraphics2d.jar}-${fxgraphics2d.version}.jar lib/${orsonpdf.name}-${orsonpdf.version}.jar lib/${jfreesvg.name}-${jfreesvg.version}.jar" />
                 <attribute name="Specification-Title" value="Orson Charts Demo (JavaFX)" />
                 <attribute name="Specification-Version" value="${orsoncharts.version}" />
                 <attribute name="Specification-Vendor" value="Object Refinery Limited" />
