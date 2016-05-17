@@ -389,7 +389,7 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
             String tickLabel = this.tickLabelFormatter.format(
                     t.getDataValue());
             if (hinting) {
-                Map m = new HashMap<String, String>();
+                Map<String, String> m = new HashMap<String, String>();
                 m.put("ref", "{\"type\": \"valueTickLabel\", \"axis\": \"" 
                         + axisStr() + "\", \"value\": \"" 
                         + t.getDataValue() + "\"}");
@@ -447,7 +447,7 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
             String tickLabel = this.tickLabelFormatter.format(
                     t.getDataValue());
             if (hinting) {
-                Map m = new HashMap<String, String>();
+                Map<String, String> m = new HashMap<String, String>();
                 m.put("ref", "{\"type\": \"valueTickLabel\", \"axis\": \"" 
                         + axisStr() + "\", \"value\": \"" 
                         + t.getDataValue() + "\"}");
