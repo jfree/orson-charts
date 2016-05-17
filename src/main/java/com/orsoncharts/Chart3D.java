@@ -984,7 +984,7 @@ public class Chart3D implements Drawable3D, ChartElement,
         Object3D owner = face.getOwner();
         ItemKey itemKey = (ItemKey) owner.getProperty(Object3D.ITEM_KEY);
         if (itemKey != null) {
-            Map m = new HashMap();
+            Map<String, String> m = new HashMap<String, String>();
             m.put("ref", itemKey.toJSONString());
             g2.setRenderingHint(Chart3DHints.KEY_BEGIN_ELEMENT, m);
         }
@@ -1418,7 +1418,7 @@ public class Chart3D implements Drawable3D, ChartElement,
     
     private void beginElement(Graphics2D g2, String id, String ref) {
         if (this.elementHinting) {
-            Map m = new HashMap<String, String>();
+            Map<String, String> m = new HashMap<String, String>();
             if (id != null) {
                 m.put("id", id);
             }
