@@ -833,7 +833,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
             }
             String tickLabel = t.getKeyLabel();
             if (hinting) {
-                Map m = new HashMap<String, String>();
+                Map<String, String> m = new HashMap<String, String>();
                 m.put("ref", "{\"type\": \"categoryTickLabel\", \"axis\": \"" 
                         + axisStr() + "\", \"key\": \"" 
                         + t.getKey() + "\"}");
