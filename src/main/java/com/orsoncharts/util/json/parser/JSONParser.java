@@ -2,7 +2,7 @@
  * Orson Charts
  * ============
  * 
- * (C)opyright 2013, 2014, by Object Refinery Limited.
+ * (C)opyright 2013-2016, by Object Refinery Limited.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -130,8 +130,8 @@ public class JSONParser {
     public Object parse(Reader in, ContainerFactory containerFactory) 
             throws IOException, ParseException{
         reset(in);
-        LinkedList statusStack = new LinkedList();
-        LinkedList valueStack = new LinkedList();
+        LinkedList<Integer> statusStack = new LinkedList<Integer>();
+        LinkedList<Object> valueStack = new LinkedList<Object>();
         
         try {
             do {
@@ -373,7 +373,7 @@ public class JSONParser {
             }
         }
         
-        LinkedList statusStack = handlerStatusStack;    
+        LinkedList<Integer> statusStack = handlerStatusStack;    
         
         try {
             do {
