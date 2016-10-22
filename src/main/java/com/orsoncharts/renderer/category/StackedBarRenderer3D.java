@@ -107,6 +107,7 @@ public class StackedBarRenderer3D extends BarRenderer3D {
      * @param zOffset  the z-offset.
      */
     @Override
+    @SuppressWarnings("unchecked")
     public void composeItem(CategoryDataset3D dataset, int series, int row, 
             int column, World world, Dimension3D dimensions,  
             double xOffset, double yOffset, double zOffset) {

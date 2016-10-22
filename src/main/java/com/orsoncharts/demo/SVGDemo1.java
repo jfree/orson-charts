@@ -1,4 +1,4 @@
-/* ===================
+ /* ===================
  * Orson Charts - Demo
  * ===================
  * 
@@ -99,8 +99,8 @@ public class SVGDemo1 {
      * 
      * @return A sample dataset.
      */
-    static PieDataset3D createPieChartDataset() {
-        StandardPieDataset3D dataset = new StandardPieDataset3D();
+    static PieDataset3D<String> createPieChartDataset() {
+        StandardPieDataset3D<String> dataset = new StandardPieDataset3D<String>();
         dataset.add("Milk Products", 11625);
         dataset.add("Meat", 5114);
         dataset.add("Wood/Logs", 3060);
@@ -133,9 +133,11 @@ public class SVGDemo1 {
      * @return A sample dataset.
      */
     private static CategoryDataset3D createBarChartDataset() {    
-        StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
+        StandardCategoryDataset3D<String, String, String> dataset 
+                = new StandardCategoryDataset3D<String, String, String>();
 
-        DefaultKeyedValues<Double> s1 = new DefaultKeyedValues<Double>();
+        DefaultKeyedValues<String, Double> s1 
+                = new DefaultKeyedValues<String, Double>();
         s1.put("Q2/11", 8.181);
         s1.put("Q3/11", 8.792);
         s1.put("Q4/11", 9.039);
@@ -148,7 +150,8 @@ public class SVGDemo1 {
         s1.put("Q3/13", 9.275);
         dataset.addSeriesAsRow("Oracle", s1);
 
-        DefaultKeyedValues<Double> s2 = new DefaultKeyedValues<Double>();
+        DefaultKeyedValues<String, Double> s2 
+                = new DefaultKeyedValues<String, Double>();
         s2.put("Q2/11", 9.03);
         s2.put("Q3/11", 9.72);
         s2.put("Q4/11", 10.58);
@@ -162,7 +165,8 @@ public class SVGDemo1 {
         s2.put("Q4/13", 16.858);
         dataset.addSeriesAsRow("Google", s2);
         
-        DefaultKeyedValues<Double> s3 = new DefaultKeyedValues<Double>();
+        DefaultKeyedValues<String, Double> s3 
+                = new DefaultKeyedValues<String, Double>();
         s3.put("Q2/11", 17.37);
         s3.put("Q3/11", 17.37);
         s3.put("Q4/11", 20.89);
@@ -176,7 +180,8 @@ public class SVGDemo1 {
         s3.put("Q4/13", 24.519);
         dataset.addSeriesAsRow("Microsoft", s3);
         
-        DefaultKeyedValues<Double> s4 = new DefaultKeyedValues<Double>();
+        DefaultKeyedValues<String, Double> s4 
+                = new DefaultKeyedValues<String, Double>();
         s4.put("Q2/11", 28.57);
         s4.put("Q3/11", 28.27);
         s4.put("Q4/11", 46.33);
@@ -218,8 +223,9 @@ public class SVGDemo1 {
      * 
      * @return A sample dataset.
      */
-    private static XYZDataset createScatterDataset(Comparable<?> xKey, 
-            Comparable<?> yKey, Comparable<?> zKey) {
+    @SuppressWarnings("unchecked")
+    private static XYZDataset<String> createScatterDataset(String xKey, 
+            String yKey, String zKey) {
         Reader in = new InputStreamReader(
                 SVGDemo1.class.getResourceAsStream("iris.txt"));
         KeyedValues3D data;
@@ -251,6 +257,7 @@ public class SVGDemo1 {
         return chart;
     }
 
+    @SuppressWarnings("unchecked")
     public static void main(String[] args) throws Exception {
                 BufferedWriter writer = null;
         try {

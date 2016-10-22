@@ -45,34 +45,39 @@ import com.orsoncharts.util.ArgChecks;
  * NOTE: This class is serializable, but the serialization format is subject 
  * to change in future releases and should not be relied upon for persisting 
  * instances of this class. 
+ * 
+ * @param <S>  the series key (must implement Comparable).
+ * @param <R>  the row key (must implement Comparable).
+ * @param <C>  the column key (must implement Comparable).
+ * @param <V>  the value type.
  */
 @SuppressWarnings("serial")
-public final class DefaultKeyedValues3D<V> implements KeyedValues3D<V>, 
-        Serializable {
+public final class DefaultKeyedValues3D<S extends Comparable<S>, R extends Comparable<R>, C extends Comparable<C>, V> 
+        implements KeyedValues3D<S, R, C, V>, Serializable {
 
     /** The series keys. */
-    private List<Comparable<?>> seriesKeys;
+    private List<S> seriesKeys;
   
     /** The row keys. */
-    private List<Comparable<?>> rowKeys;
+    private List<R> rowKeys;
   
     /** The column keys. */
-    private List<Comparable<?>> columnKeys;
+    private List<C> columnKeys;
 
     /**
      * The data, one entry per series.  Each series *must* contain the same
      * row and column keys.
      */
-    private List<DefaultKeyedValues2D<V>> data; // one entry per series
+    private List<DefaultKeyedValues2D<R, C, V>> data; // one entry per series
   
     /**
      * Creates a new (empty) table.
      */
     public DefaultKeyedValues3D() {
-        this.seriesKeys = new ArrayList<Comparable<?>>();
-        this.rowKeys = new ArrayList<Comparable<?>>();
-        this.columnKeys = new ArrayList<Comparable<?>>();
-        this.data = new ArrayList<DefaultKeyedValues2D<V>>();
+        this.seriesKeys = new ArrayList<S>();
+        this.rowKeys = new ArrayList<R>();
+        this.columnKeys = new ArrayList<C>();
+        this.data = new ArrayList<DefaultKeyedValues2D<R, C, V>>();
     }
   
     /**
@@ -83,7 +88,7 @@ public final class DefaultKeyedValues3D<V> implements KeyedValues3D<V>,
      * @return The series key. 
      */
     @Override
-    public Comparable<?> getSeriesKey(int seriesIndex) {
+    public S getSeriesKey(int seriesIndex) {
         return this.seriesKeys.get(seriesIndex);
     }
 
@@ -95,7 +100,7 @@ public final class DefaultKeyedValues3D<V> implements KeyedValues3D<V>,
      * @return The row key. 
      */
     @Override
-    public Comparable<?> getRowKey(int rowIndex) {
+    public R getRowKey(int rowIndex) {
         return this.rowKeys.get(rowIndex);
     }
 
@@ -107,7 +112,7 @@ public final class DefaultKeyedValues3D<V> implements KeyedValues3D<V>,
      * @return The column key. 
      */
     @Override
-    public Comparable<?> getColumnKey(int columnIndex) {
+    public C getColumnKey(int columnIndex) {
         return this.columnKeys.get(columnIndex);
     }
 
@@ -120,7 +125,7 @@ public final class DefaultKeyedValues3D<V> implements KeyedValues3D<V>,
      * @return The series index or {@code -1}. 
      */
     @Override
-    public int getSeriesIndex(Comparable<?> seriesKey) {
+    public int getSeriesIndex(S seriesKey) {
         ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
         return this.seriesKeys.indexOf(seriesKey);
     }
@@ -134,7 +139,7 @@ public final class DefaultKeyedValues3D<V> implements KeyedValues3D<V>,
      * @return The row index or {@code -1}. 
      */
     @Override
-    public int getRowIndex(Comparable<?> rowKey) {
+    public int getRowIndex(R rowKey) {
         ArgChecks.nullNotPermitted(rowKey, "rowKey");
         return this.rowKeys.indexOf(rowKey);
     }
@@ -148,7 +153,7 @@ public final class DefaultKeyedValues3D<V> implements KeyedValues3D<V>,
      * @return The column index or {@code -1}. 
      */
     @Override
-    public int getColumnIndex(Comparable<?> columnKey) {
+    public int getColumnIndex(C columnKey) {
         ArgChecks.nullNotPermitted(columnKey, "columnKey");
         return this.columnKeys.indexOf(columnKey);
     }
@@ -161,8 +166,8 @@ public final class DefaultKeyedValues3D<V> implements KeyedValues3D<V>,
      *     {@code null}). 
      */
     @Override
-    public List<Comparable<?>> getSeriesKeys() {
-        return new ArrayList<Comparable<?>>(this.seriesKeys);
+    public List<S> getSeriesKeys() {
+        return new ArrayList<S>(this.seriesKeys);
     }
 
     /**
@@ -173,8 +178,8 @@ public final class DefaultKeyedValues3D<V> implements KeyedValues3D<V>,
      *     {@code null}). 
      */
     @Override
-    public List<Comparable<?>> getRowKeys() {
-        return new ArrayList<Comparable<?>>(this.rowKeys);
+    public List<R> getRowKeys() {
+        return new ArrayList<R>(this.rowKeys);
     }
 
     /**
@@ -185,8 +190,8 @@ public final class DefaultKeyedValues3D<V> implements KeyedValues3D<V>,
      *     {@code null}). 
      */
     @Override
-    public List<Comparable<?>> getColumnKeys() {
-        return new ArrayList<Comparable<?>>(this.columnKeys);
+    public List<C> getColumnKeys() {
+        return new ArrayList<C>(this.columnKeys);
     }
 
     @Override
@@ -221,8 +226,7 @@ public final class DefaultKeyedValues3D<V> implements KeyedValues3D<V>,
      * @return The value (possibly {@code null}). 
      */
     @Override
-    public V getValue(Comparable<?> seriesKey, Comparable<?> rowKey, 
-            Comparable<?> columnKey) {
+    public V getValue(S seriesKey, R rowKey, C columnKey) {
         int seriesIndex = getSeriesIndex(seriesKey);
         if (seriesIndex < 0) {
             throw new IllegalArgumentException("Series '" + seriesKey.toString() 
@@ -242,7 +246,8 @@ public final class DefaultKeyedValues3D<V> implements KeyedValues3D<V>,
     }
 
     @Override
-    public double getDoubleValue(int seriesIndex, int rowIndex, int columnIndex) {
+    public double getDoubleValue(int seriesIndex, int rowIndex, 
+            int columnIndex) {
         V n = getValue(seriesIndex, rowIndex, columnIndex);
         if (n != null && n instanceof Number) {
             return ((Number) n).doubleValue();
@@ -258,8 +263,7 @@ public final class DefaultKeyedValues3D<V> implements KeyedValues3D<V>,
      * @param rowKey  the row key ({@code null} not permitted).
      * @param columnKey  the column key ({@code null} not permitted).
      */
-    public void setValue(V n, Comparable<?> seriesKey, Comparable<?> rowKey, 
-            Comparable<?> columnKey) {
+    public void setValue(V n, S seriesKey, R rowKey, C columnKey) {
         
         ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
         ArgChecks.nullNotPermitted(rowKey, "rowKey");
@@ -272,7 +276,8 @@ public final class DefaultKeyedValues3D<V> implements KeyedValues3D<V>,
             this.seriesKeys.add(seriesKey);
             this.rowKeys.add(rowKey);
             this.columnKeys.add(columnKey);
-            DefaultKeyedValues2D<V> d = new DefaultKeyedValues2D<V>();
+            DefaultKeyedValues2D<R, C, V> d 
+                    = new DefaultKeyedValues2D<R, C, V>();
             d.setValue(n, rowKey, columnKey);
             this.data.add(d);
         }
@@ -287,16 +292,17 @@ public final class DefaultKeyedValues3D<V> implements KeyedValues3D<V>,
             this.columnKeys.add(columnKey);
         }
         if (rowIndex < 0 || columnIndex < 0) {
-            for (DefaultKeyedValues2D<V> d : this.data) {
+            for (DefaultKeyedValues2D<R, C, V> d : this.data) {
                 d.setValue(null, rowKey, columnKey);
             } 
         } 
         if (seriesIndex >= 0) {
-            DefaultKeyedValues2D<V> d = this.data.get(seriesIndex);
+            DefaultKeyedValues2D<R, C, V> d = this.data.get(seriesIndex);
             d.setValue(n, rowKey, columnKey);
         } else {
             this.seriesKeys.add(seriesKey);
-            DefaultKeyedValues2D<V> d = new DefaultKeyedValues2D<V>(this.rowKeys, 
+            DefaultKeyedValues2D<R, C, V> d 
+                    = new DefaultKeyedValues2D<R, C, V>(this.rowKeys, 
                     this.columnKeys);
             d.setValue(n, rowKey, columnKey);
             this.data.add(d);
@@ -315,10 +321,10 @@ public final class DefaultKeyedValues3D<V> implements KeyedValues3D<V>,
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof DefaultKeyedValues3D<?>)) {
+        if (!(obj instanceof DefaultKeyedValues3D)) {
             return false;
         }
-        DefaultKeyedValues3D<?> that = (DefaultKeyedValues3D<?>) obj;
+        DefaultKeyedValues3D that = (DefaultKeyedValues3D) obj;
         if (!this.seriesKeys.equals(that.seriesKeys)) {
             return false;
         }

@@ -125,7 +125,7 @@ public class StandardXYZItemLabelGenerator implements XYZItemLabelGenerator,
      * 
      * @return The series label (possibly {@code null}). 
      */
-    @Override
+    @Override @SuppressWarnings("unchecked")
     public String generateItemLabel(XYZDataset dataset, 
             Comparable<?> seriesKey, int itemIndex) {
         ArgChecks.nullNotPermitted(dataset, "dataset");

@@ -148,6 +148,7 @@ public class ScatterXYZRenderer extends AbstractXYZRenderer
      * @param zOffset  the z-offset.
      */
     @Override
+    @SuppressWarnings("unchecked")
     public void composeItem(XYZDataset dataset, int series, int item, 
         World world, Dimension3D dimensions, double xOffset, double yOffset, 
         double zOffset) {

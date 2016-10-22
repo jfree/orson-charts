@@ -50,19 +50,21 @@ public class XYZItemKeys {
      * @param dataset  the dataset ({@code null} not permitted).
      * @param seriesKey  the series key ({@code null} not permitted).
      * 
+     * @param <S>  the type of the series key.
+     * 
      * @return A boolean. 
      */
-    public static Collection<XYZItemKey> itemKeysForSeries(XYZDataset dataset, 
-            Comparable<?> seriesKey) {
+    public static <S extends Comparable<S>> Collection<XYZItemKey<S>> 
+            itemKeysForSeries(XYZDataset<S> dataset, S seriesKey) {
         ArgChecks.nullNotPermitted(dataset, "dataset");
         ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
-        Collection<XYZItemKey> result = new ArrayList<XYZItemKey>();
+        Collection<XYZItemKey<S>> result = new ArrayList<XYZItemKey<S>>();
         int seriesIndex = dataset.getSeriesIndex(seriesKey);
         if (seriesIndex > 0) {
             return result;
         }
         for (int i = 0; i < dataset.getItemCount(seriesIndex); i++) {
-            XYZItemKey key = new XYZItemKey(seriesKey, i);
+            XYZItemKey<S> key = new XYZItemKey<S>(seriesKey, i);
             result.add(key);
         }
         return result;

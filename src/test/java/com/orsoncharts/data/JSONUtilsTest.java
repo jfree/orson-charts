@@ -52,7 +52,8 @@ public class JSONUtilsTest {
     @Test
     public void checkReadKeyedValues() {
         String json = "[]";
-        KeyedValues<? extends Number> dkv = JSONUtils.readKeyedValues(json);
+        KeyedValues<String, ? extends Number> dkv 
+                = JSONUtils.readKeyedValues(json);
         assertTrue(dkv.getItemCount() == 0);
         
         json = "[[\"Key 1\", 1.23], [\"Key 2\", null], [\"NaN\", null], " 
@@ -79,7 +80,8 @@ public class JSONUtilsTest {
     public void checkWriteKeyedValues() {
         // some standard cases are already checked in the tests for the
         // toString() method in StandardPieDataset3D
-        DefaultKeyedValues dkv = new DefaultKeyedValues();
+        DefaultKeyedValues<String, Number> dkv 
+                = new DefaultKeyedValues<String, Number>();
         dkv.put("\"", 1.0);
         assertEquals("[[\"\\\"\", 1.0]]", JSONUtils.writeKeyedValues(dkv));
         dkv.clear();
@@ -116,7 +118,7 @@ public class JSONUtilsTest {
     @Test
     public void checkReadKeyedValues2D() {
         String json = "{}";
-        KeyedValues2D<? extends Number> dkv2d 
+        KeyedValues2D<String, String, ? extends Number> dkv2d 
                 = JSONUtils.readKeyedValues2D(json);
         assertEquals(0, dkv2d.getRowCount());
         assertEquals(0, dkv2d.getColumnCount());
@@ -136,7 +138,8 @@ public class JSONUtilsTest {
     
     @Test 
     public void checkWriteKeyedValues2D() {
-        DefaultKeyedValues2D dkv2d = new DefaultKeyedValues2D();
+        DefaultKeyedValues2D<String, String, Number> dkv2d 
+                = new DefaultKeyedValues2D<String, String, Number>();
         String expected = "{}";
         assertEquals(expected, JSONUtils.writeKeyedValues2D(dkv2d));
         
@@ -148,7 +151,8 @@ public class JSONUtilsTest {
     @Test
     public void checkReadKeyedValues3D() {
         String json = "{}";
-        KeyedValues3D<? extends Number> dkv3d = JSONUtils.readKeyedValues3D(json);
+        KeyedValues3D<String, String, String, ? extends Number> dkv3d 
+                = JSONUtils.readKeyedValues3D(json);
         assertEquals(0, dkv3d.getRowCount());
         assertEquals(0, dkv3d.getColumnCount());
         
@@ -176,7 +180,8 @@ public class JSONUtilsTest {
     
     @Test
     public void checkWriteKeyedValues3D() {
-        StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
+        StandardCategoryDataset3D<String, String, String> dataset 
+                = new StandardCategoryDataset3D<String, String, String>();
         dataset.addValue(1.0, "S1", "R1", "C1");
         dataset.addValue(2.0, "S1", "R1", "C2");
         dataset.addValue(3.0, "S1", "R2", "C1");
@@ -234,10 +239,10 @@ public class JSONUtilsTest {
      */
     @Test
     public void checkWriteXYZDataset() {
-        XYZSeriesCollection dataset = new XYZSeriesCollection();
+        XYZSeriesCollection<String> dataset = new XYZSeriesCollection<String>();
         assertEquals("[]", JSONUtils.writeXYZDataset(dataset));
         
-        XYZSeries s1 = new XYZSeries("S1");
+        XYZSeries<String> s1 = new XYZSeries<String>("S1");
         dataset.add(s1);
         assertEquals("[[\"S1\", []]]", JSONUtils.writeXYZDataset(dataset));
 
@@ -245,7 +250,7 @@ public class JSONUtilsTest {
         assertEquals("[[\"S1\", [[1.0, 2.0, 3.0]]]]", 
                 JSONUtils.writeXYZDataset(dataset));
         
-        XYZSeries s2 = new XYZSeries("S2");
+        XYZSeries<String> s2 = new XYZSeries<String>("S2");
         dataset.add(s2);
         assertEquals("[[\"S1\", [[1.0, 2.0, 3.0]]], [\"S2\", []]]", 
                 JSONUtils.writeXYZDataset(dataset));

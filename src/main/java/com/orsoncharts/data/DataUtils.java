@@ -74,6 +74,7 @@ public class DataUtils {
      * for the specified series.  An {@code IllegalArgumentException} is
      * thrown if the {@code seriesKey} is not present in the data.
      * 
+     * @param <S>  the series key (must implement Comparable).
      * @param data  the dataset ({@code null} not permitted).
      * @param seriesKey  the series key ({@code null} not permitted).
      * 
@@ -81,7 +82,8 @@ public class DataUtils {
      * 
      * @since 1.2
      */
-    public static int count(KeyedValues3D<?> data, Comparable<?> seriesKey) {
+    public static <S extends Comparable<S>> int count(
+            KeyedValues3D<S,?,?,?> data, S seriesKey) {
         ArgChecks.nullNotPermitted(data, "data");
         ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
         int seriesIndex = data.getSeriesIndex(seriesKey);
@@ -107,6 +109,7 @@ public class DataUtils {
      * Returns the count of the non-{@code null} entries in the dataset
      * for the specified row (all series).
      * 
+     * @param <R>  the row key (must implement Comparable).
      * @param data  the dataset ({@code null} not permitted).
      * @param rowKey  the row key ({@code null} not permitted).
      * 
@@ -114,7 +117,8 @@ public class DataUtils {
      * 
      * @since 1.2
      */
-    public static int countForRow(KeyedValues3D<?> data, Comparable<?> rowKey) {
+    public static <R extends Comparable<R>> int countForRow(
+            KeyedValues3D<?, R, ?, ?> data, R rowKey) {
         ArgChecks.nullNotPermitted(data, "data");
         ArgChecks.nullNotPermitted(rowKey, "rowKey");
         int rowIndex = data.getRowIndex(rowKey);
@@ -139,6 +143,7 @@ public class DataUtils {
      * Returns the count of the non-{@code null} entries in the dataset
      * for the specified column (all series).
      * 
+     * @param <C>  the column key (must implement Comparable).
      * @param data  the dataset ({@code null} not permitted).
      * @param columnKey  the column key ({@code null} not permitted).
      * 
@@ -146,8 +151,8 @@ public class DataUtils {
      * 
      * @since 1.2
      */
-    public static int countForColumn(KeyedValues3D<?> data, 
-            Comparable<?> columnKey) {
+    public static <C extends Comparable<C>> int countForColumn(
+            KeyedValues3D<?, ?, C, ?> data, C columnKey) {
         ArgChecks.nullNotPermitted(data, "data");
         ArgChecks.nullNotPermitted(columnKey, "columnKey");
         int columnIndex = data.getColumnIndex(columnKey);
@@ -174,6 +179,7 @@ public class DataUtils {
      * for the specified series.  If there is no series with the specified 
      * key, this method will throw an {@code IllegalArgumentException}.
      * 
+     * @param <S>  the series key (must implement Comparable).
      * @param data  the dataset ({@code null} not permitted).
      * @param seriesKey  the series key ({@code null} not permitted).
      * 
@@ -181,8 +187,8 @@ public class DataUtils {
      * 
      * @since 1.2
      */
-    public static double total(KeyedValues3D<? extends Number> data, 
-            Comparable<?> seriesKey) {
+    public static <S extends Comparable<S>> double total(
+            KeyedValues3D<S, ?, ?, ? extends Number> data, S seriesKey) {
         ArgChecks.nullNotPermitted(data, "data");
         ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
         int seriesIndex = data.getSeriesIndex(seriesKey);
@@ -208,6 +214,7 @@ public class DataUtils {
      * Returns the total of the non-{@code null} entries in the dataset
      * for the specified row (all series).
      * 
+     * @param <R>  the row key (must implement Comparable).
      * @param data  the dataset ({@code null} not permitted).
      * @param rowKey  the row key ({@code null} not permitted).
      * 
@@ -215,8 +222,8 @@ public class DataUtils {
      * 
      * @since 1.2
      */
-    public static double totalForRow(KeyedValues3D<? extends Number> data, 
-            Comparable<?> rowKey) {
+    public static <R extends Comparable<R>> double totalForRow(
+            KeyedValues3D<?, R, ?, ? extends Number> data, R rowKey) {
         ArgChecks.nullNotPermitted(data, "data");
         ArgChecks.nullNotPermitted(rowKey, "rowKey");
         int rowIndex = data.getRowIndex(rowKey);
@@ -241,6 +248,7 @@ public class DataUtils {
      * Returns the total of the non-{@code null} entries in the dataset
      * for the specified column (all series).
      * 
+     * @param <C>  the column key (must implement Comparable).
      * @param data  the dataset ({@code null} not permitted).
      * @param columnKey  the row key ({@code null} not permitted).
      * 
@@ -248,8 +256,8 @@ public class DataUtils {
      * 
      * @since 1.2
      */
-    public static double totalForColumn(KeyedValues3D<? extends Number> data, 
-            Comparable<?> columnKey) {
+    public static <C extends Comparable<C>> double totalForColumn(
+            KeyedValues3D<?, ?, C, ? extends Number> data, C columnKey) {
         ArgChecks.nullNotPermitted(data, "data");
         ArgChecks.nullNotPermitted(columnKey, "columnKey");
         int columnIndex = data.getColumnIndex(columnKey);
@@ -427,6 +435,7 @@ public class DataUtils {
      * Returns the total of the non-{@code NaN} entries in the dataset
      * for the specified series.
      * 
+     * @param <S>  the series key (must implement Comparable).
      * @param data  the dataset ({@code null} not permitted).
      * @param seriesKey  the series key ({@code null} not permitted).
      * 
@@ -434,7 +443,8 @@ public class DataUtils {
      * 
      * @since 1.2
      */
-    public static double total(XYZDataset data, Comparable<?> seriesKey) {
+    public static <S extends Comparable<S>> double total(XYZDataset<S> data, 
+            S seriesKey) {
         ArgChecks.nullNotPermitted(data, "data");
         ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
         int seriesIndex = data.getSeriesIndex(seriesKey);
@@ -690,23 +700,23 @@ public class DataUtils {
      * {@link KeyedValues3D} so you can use this method for any implementation
      * of the {@code CategoryDataset3D} interface.
      * 
+     * @param <S>  the series key (must implement Comparable).
+     * @param <R>  the row key (must implement Comparable).
+     * @param <C>  the column key (must implement Comparable).
      * @param source  the source data ({@code null} not permitted).
-     * @param xRowKey  the row key for x-values ({@code null} not 
-     *         permitted).
-     * @param yRowKey  the row key for y-values ({@code null} not 
-     *         permitted).
-     * @param zRowKey  the row key for z-values ({@code null} not 
-     *         permitted).
+     * @param xRowKey  the row key for x-values ({@code null} not permitted).
+     * @param yRowKey  the row key for y-values ({@code null} not permitted).
+     * @param zRowKey  the row key for z-values ({@code null} not permitted).
      * 
      * @return A new dataset. 
      * 
      * @since 1.3
      */
-    public static XYZDataset extractXYZDatasetFromRows(
-            KeyedValues3D<? extends Number> source,
-            Comparable<?> xRowKey, Comparable<?> yRowKey, 
-            Comparable<?> zRowKey) {
-        return extractXYZDatasetFromColumns(source, xRowKey, yRowKey, zRowKey,
+    public static <S extends Comparable<S>, R extends Comparable<R>, 
+            C extends Comparable<C>> XYZDataset extractXYZDatasetFromRows(
+            KeyedValues3D<S, R, C, ? extends Number> source,
+            R xRowKey, R yRowKey, R zRowKey) {
+        return extractXYZDatasetFromRows(source, xRowKey, yRowKey, zRowKey,
                 NullConversion.SKIP, null);
     }
 
@@ -722,13 +732,13 @@ public class DataUtils {
      * normally empty) that will be populated with the keys of the items that
      * receive special handling, if any.
      * 
+     * @param <S>  the series key (must implement Comparable).
+     * @param <R>  the row key (must implement Comparable).
+     * @param <C>  the column key (must implement Comparable).
      * @param source  the source data ({@code null} not permitted).
-     * @param xRowKey  the row key for x-values ({@code null} not 
-     *         permitted).
-     * @param yRowKey  the row key for y-values ({@code null} not 
-     *         permitted).
-     * @param zRowKey  the row key for z-values ({@code null} not 
-     *         permitted).
+     * @param xRowKey  the row key for x-values ({@code null} not permitted).
+     * @param yRowKey  the row key for y-values ({@code null} not permitted).
+     * @param zRowKey  the row key for z-values ({@code null} not permitted).
      * @param nullConversion  specifies the treatment for {@code null} 
      *         values in the dataset ({@code null} not permitted).
      * @param exceptions  a list that, if not null, will be populated with 
@@ -739,20 +749,20 @@ public class DataUtils {
      * 
      * @since 1.3
      */
-    public static XYZDataset extractXYZDatasetFromRows(
-            KeyedValues3D<? extends Number> source,
-            Comparable<?> xRowKey, Comparable<?> yRowKey, 
-            Comparable<?> zRowKey, NullConversion nullConversion, 
+    public static <S extends Comparable<S>, R extends Comparable<R>, 
+            C extends Comparable<C>> XYZDataset extractXYZDatasetFromRows(
+            KeyedValues3D<S, R, C, ? extends Number> source,
+            R xRowKey, R yRowKey, R zRowKey, NullConversion nullConversion, 
             List<KeyedValues3DItemKey> exceptions) {
 
         ArgChecks.nullNotPermitted(source, "source");
         ArgChecks.nullNotPermitted(xRowKey, "xRowKey");
         ArgChecks.nullNotPermitted(yRowKey, "yRowKey");
         ArgChecks.nullNotPermitted(zRowKey, "zRowKey");
-        XYZSeriesCollection dataset = new XYZSeriesCollection();
-        for (Comparable<?> seriesKey : source.getSeriesKeys()) {
-            XYZSeries series = new XYZSeries(seriesKey);
-            for (Comparable<?> colKey : source.getColumnKeys()) {
+        XYZSeriesCollection<S> dataset = new XYZSeriesCollection<S>();
+        for (S seriesKey : source.getSeriesKeys()) {
+            XYZSeries<S> series = new XYZSeries<S>(seriesKey);
+            for (C colKey : source.getColumnKeys()) {
                 Number x = source.getValue(seriesKey, xRowKey, colKey);
                 Number y = source.getValue(seriesKey, yRowKey, colKey);
                 Number z = source.getValue(seriesKey, zRowKey, colKey);
@@ -762,13 +772,13 @@ public class DataUtils {
                 } else {
                     if (exceptions != null) {
                         // add only one exception per data value
-                        Comparable rrKey = zRowKey;
+                        R rrKey = zRowKey;
                         if (x == null) {
                             rrKey = xRowKey;
                         } else if (y == null) {
                             rrKey = yRowKey;
                         }
-                        exceptions.add(new KeyedValues3DItemKey(seriesKey, 
+                        exceptions.add(new KeyedValues3DItemKey<S, R, C>(seriesKey, 
                                 rrKey, colKey));
                     }
                     if (nullConversion.equals(NullConversion.THROW_EXCEPTION)) {
@@ -806,22 +816,22 @@ public class DataUtils {
      * {@link KeyedValues3D} so you can use this method for any implementation
      * of the {@code CategoryDataset3D} interface.
      * 
+     * @param <S>  the series key (must implement Comparable).
+     * @param <R>  the row key (must implement Comparable).
+     * @param <C>  the column key (must implement Comparable).
      * @param source  the source data ({@code null} not permitted).
-     * @param xColKey  the column key for x-values ({@code null} not 
-     *         permitted).
-     * @param yColKey  the column key for y-values ({@code null} not 
-     *         permitted).
-     * @param zColKey  the column key for z-values ({@code null} not 
-     *         permitted).
+     * @param xColKey  the column key for x-values ({@code null} not permitted).
+     * @param yColKey  the column key for y-values ({@code null} not permitted).
+     * @param zColKey  the column key for z-values ({@code null} not permitted).
      * 
      * @return A new dataset. 
      * 
      * @since 1.3
      */
-    public static XYZDataset extractXYZDatasetFromColumns(
-            KeyedValues3D<? extends Number> source,
-            Comparable<?> xColKey, Comparable<?> yColKey, 
-            Comparable<?> zColKey) {
+    public static <S extends Comparable<S>, R extends Comparable<R>, 
+            C extends Comparable<C>> XYZDataset<S> extractXYZDatasetFromColumns(
+            KeyedValues3D<S, R, C, ? extends Number> source,
+            C xColKey, C yColKey, C zColKey) {
         return extractXYZDatasetFromColumns(source, xColKey, yColKey, zColKey,
                 NullConversion.SKIP, null);
     }
@@ -838,13 +848,13 @@ public class DataUtils {
      * normally empty) that will be populated with the keys of the items that
      * receive special handling, if any.
      * 
+     * @param <S>  the series key (must implement Comparable).
+     * @param <R>  the row key (must implement Comparable).
+     * @param <C>  the column key (must implement Comparable).
      * @param source  the source data ({@code null} not permitted).
-     * @param xColKey  the column key for x-values ({@code null} not 
-     *         permitted).
-     * @param yColKey  the column key for y-values ({@code null} not 
-     *         permitted).
-     * @param zColKey  the column key for z-values ({@code null} not 
-     *         permitted).
+     * @param xColKey  the column key for x-values ({@code null} not permitted).
+     * @param yColKey  the column key for y-values ({@code null} not permitted).
+     * @param zColKey  the column key for z-values ({@code null} not permitted).
      * @param nullConversion  specifies the treatment for {@code null} 
      *         values in the dataset ({@code null} not permitted).
      * @param exceptions  a list that, if not null, will be populated with 
@@ -855,20 +865,21 @@ public class DataUtils {
      * 
      * @since 1.3
      */
-    public static XYZDataset extractXYZDatasetFromColumns(
-            KeyedValues3D<? extends Number> source,
-            Comparable<?> xColKey, Comparable<?> yColKey, 
-            Comparable<?> zColKey, NullConversion nullConversion, 
+    public static <S extends Comparable<S>, R extends Comparable<R>, 
+            C extends Comparable<C>> 
+            XYZDataset<S> extractXYZDatasetFromColumns(
+            KeyedValues3D<S, R, C, ? extends Number> source,
+            C xColKey, C yColKey, C zColKey, NullConversion nullConversion, 
             List<KeyedValues3DItemKey> exceptions) {
 
         ArgChecks.nullNotPermitted(source, "source");
         ArgChecks.nullNotPermitted(xColKey, "xColKey");
         ArgChecks.nullNotPermitted(yColKey, "yColKey");
         ArgChecks.nullNotPermitted(zColKey, "zColKey");
-        XYZSeriesCollection dataset = new XYZSeriesCollection();
-        for (Comparable<?> seriesKey : source.getSeriesKeys()) {
-            XYZSeries series = new XYZSeries(seriesKey);
-            for (Comparable<?> rowKey : source.getRowKeys()) {
+        XYZSeriesCollection<S> dataset = new XYZSeriesCollection<S>();
+        for (S seriesKey : source.getSeriesKeys()) {
+            XYZSeries<S> series = new XYZSeries<S>(seriesKey);
+            for (R rowKey : source.getRowKeys()) {
                 Number x = source.getValue(seriesKey, rowKey, xColKey);
                 Number y = source.getValue(seriesKey, rowKey, yColKey);
                 Number z = source.getValue(seriesKey, rowKey, zColKey);
@@ -878,14 +889,14 @@ public class DataUtils {
                 } else {
                     if (exceptions != null) {
                         // add only one key ref out of the possible 3 per item
-                        Comparable<?> ccKey = zColKey;
+                        C ccKey = zColKey;
                         if (x == null) {
                             ccKey = xColKey;
                         } else if (y == null) {
                             ccKey = yColKey;
                         }
-                        exceptions.add(new KeyedValues3DItemKey(seriesKey, 
-                                rowKey, ccKey));
+                        exceptions.add(new KeyedValues3DItemKey<S, R, C>(
+                                seriesKey, rowKey, ccKey));
                     }
                     if (nullConversion.equals(NullConversion.THROW_EXCEPTION)) {
                         Comparable<?> ccKey = zColKey;

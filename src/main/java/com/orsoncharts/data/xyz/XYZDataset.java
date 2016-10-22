@@ -40,8 +40,10 @@ import com.orsoncharts.plot.XYZPlot;
  * Defines the methods used to access data in the form of multiple series
  * containing {@code (x, y, z)} data items.  This is the standard
  * dataset format used by the {@link XYZPlot} class.
+ * 
+ * @param <S> The series key type (which must implement Comparable).
  */
-public interface XYZDataset extends Dataset3D {
+public interface XYZDataset<S extends Comparable<S>> extends Dataset3D {
 
     /**
      * Returns the number of series in the dataset.
@@ -57,7 +59,7 @@ public interface XYZDataset extends Dataset3D {
      * @return A list of the series-keys (possibly empty, but never 
      *     {@code null}). 
      */
-    List<Comparable<?>> getSeriesKeys();
+    List<S> getSeriesKeys();
     
     /**
      * Returns the key for the specified series.
@@ -68,7 +70,7 @@ public interface XYZDataset extends Dataset3D {
      * 
      * @since 1.3
      */
-    Comparable<?> getSeriesKey(int index);
+    S getSeriesKey(int index);
     
     /**
      * Returns the index of the specified series key, or {@code -1} if
@@ -78,7 +80,7 @@ public interface XYZDataset extends Dataset3D {
      * 
      * @return The index of the key, or {@code -1}. 
      */
-    int getSeriesIndex(Comparable<?> key);
+    int getSeriesIndex(S key);
     
     /**
      * Returns the number of items in a given series.

@@ -49,10 +49,10 @@ import com.orsoncharts.util.ObjectUtils;
  * instances of this class. 
  */
 @SuppressWarnings("serial")
-public class XYZSeries implements Serializable {
+public class XYZSeries<K extends Comparable<K>> implements Serializable {
 
     /** The series key (never {@code null}). */
-    private final Comparable<?> key;
+    private final K key;
 
     /** The data items in the series. */
     private final List<XYZDataItem> items;
@@ -62,7 +62,7 @@ public class XYZSeries implements Serializable {
      * 
      * @param key  the key ({@code null} not permitted). 
      */
-    public XYZSeries(Comparable<?> key) {
+    public XYZSeries(K key) {
         ArgChecks.nullNotPermitted(key, "key");
         this.key = key;
         this.items = new ArrayList<XYZDataItem>();
@@ -73,7 +73,7 @@ public class XYZSeries implements Serializable {
      * 
      * @return The series key (never {@code null}). 
      */
-    public Comparable<?> getKey() {
+    public K getKey() {
         return this.key;
     }
     

@@ -113,8 +113,8 @@ public class StandardXYZLabelGenerator implements XYZLabelGenerator,
      * @return The series label (possibly {@code null}). 
      */
     @Override
-    public String generateSeriesLabel(XYZDataset dataset, 
-            Comparable<?> seriesKey) {
+    public <S extends Comparable<S>> String generateSeriesLabel(
+            XYZDataset<S> dataset, S seriesKey) {
         ArgChecks.nullNotPermitted(dataset, "dataset");
         ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
         Formatter formatter = new Formatter(new StringBuilder());

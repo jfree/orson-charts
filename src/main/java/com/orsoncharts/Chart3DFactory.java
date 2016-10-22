@@ -121,7 +121,7 @@ public class Chart3DFactory {
      * @return A pie chart (never {@code null}). 
      */
     public static Chart3D createPieChart(String title, String subtitle, 
-            PieDataset3D dataset) {
+            PieDataset3D<? extends Comparable> dataset) {
         PiePlot3D plot = new PiePlot3D(dataset);
         return new Chart3D(title, subtitle, plot);
     }

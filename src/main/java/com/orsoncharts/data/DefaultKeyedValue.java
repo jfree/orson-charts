@@ -45,10 +45,11 @@ import com.orsoncharts.util.ObjectUtils;
  * instances of this class. 
  */
 @SuppressWarnings("serial")
-public final class DefaultKeyedValue<T> implements KeyedValue<T>, Serializable {
+public final class DefaultKeyedValue<K extends Comparable<K>, T> 
+        implements KeyedValue<K, T>, Serializable {
 
     /** The key. */
-    private Comparable<?> key;
+    private K key;
 
     /** The value. */
     private T value;
@@ -59,7 +60,7 @@ public final class DefaultKeyedValue<T> implements KeyedValue<T>, Serializable {
      * @param key  the key ({@code null} not permitted).
      * @param value  the value.
      */
-    public DefaultKeyedValue(Comparable<?> key, T value) {
+    public DefaultKeyedValue(K key, T value) {
         ArgChecks.nullNotPermitted(key, "key");
         this.key = key;
         this.value = value;
@@ -71,7 +72,7 @@ public final class DefaultKeyedValue<T> implements KeyedValue<T>, Serializable {
      * @return The key (never {@code null}). 
      */
     @Override
-    public Comparable<?> getKey() {
+    public K getKey() {
         return this.key;
     }
 
@@ -109,7 +110,7 @@ public final class DefaultKeyedValue<T> implements KeyedValue<T>, Serializable {
         if (!(obj instanceof DefaultKeyedValue)) {
             return false;
         }
-        DefaultKeyedValue<?> that = (DefaultKeyedValue<?>) obj;
+        DefaultKeyedValue<?, ?> that = (DefaultKeyedValue<?, ?>) obj;
         if (!this.key.equals(that.key)) {
             return false;
         }

@@ -80,9 +80,10 @@ public class StackedBarChart3D2 {
      * 
      * @return A sample dataset.
      */
-    public static CategoryDataset3D createDataset() {
+    public static CategoryDataset3D<String, String, String> createDataset() {
         
-        StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
+        StandardCategoryDataset3D<String, String, String> dataset 
+                = new StandardCategoryDataset3D<String, String, String>();
 
         dataset.addValue(197, "Agricultural", "R1", "Brazil");
         dataset.addValue(64, "Domestic", "R1", "Brazil");

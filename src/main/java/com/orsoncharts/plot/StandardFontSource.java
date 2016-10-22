@@ -46,12 +46,13 @@ import com.orsoncharts.util.ArgChecks;
  * instances of this class.
  */
 @SuppressWarnings("serial")
-public final class StandardFontSource implements FontSource, Serializable {
+public final class StandardFontSource<K extends Comparable<K>> 
+        implements FontSource<K>, Serializable {
 
     private static Font DEFAULT_FONT = new Font("Dialog", Font.PLAIN, 12);
     
     /** Storage for the fonts assigned to keys. */
-    private DefaultKeyedValues<Font> fonts;
+    private DefaultKeyedValues<K, Font> fonts;
 
     /** The default font (never {@code null}). */
     private Font defaultFont;
@@ -71,7 +72,7 @@ public final class StandardFontSource implements FontSource, Serializable {
     public StandardFontSource(Font defaultFont) {
         ArgChecks.nullNotPermitted(defaultFont, "defaultFont");
         this.defaultFont = defaultFont;
-        this.fonts = new DefaultKeyedValues<Font>();
+        this.fonts = new DefaultKeyedValues<K, Font>();
     }
     
     /**
@@ -101,7 +102,7 @@ public final class StandardFontSource implements FontSource, Serializable {
      * @return The font (never {@code null}). 
      */
     @Override
-    public Font getFont(Comparable<?> key) {
+    public Font getFont(K key) {
         Font result = this.fonts.getValue(key);
         if (result != null) {
             return result;
@@ -117,7 +118,7 @@ public final class StandardFontSource implements FontSource, Serializable {
      * @param font  the font ({@code null} permitted).
      */
     @Override
-    public void setFont(Comparable<?> key, Font font) {
+    public void setFont(K key, Font font) {
         if (font != null) {
             this.fonts.put(key, font);
         } else {

@@ -45,8 +45,8 @@ public class StandardPieDataset3DTest {
     
     @Test
     public void testEquals() {
-        StandardPieDataset3D d1 = new StandardPieDataset3D();
-        StandardPieDataset3D d2 = new StandardPieDataset3D();
+        StandardPieDataset3D<String> d1 = new StandardPieDataset3D<String>();
+        StandardPieDataset3D<String> d2 = new StandardPieDataset3D<String>();
         assertTrue(d1.equals(d2));
         assertFalse(d1.equals(null));
         
@@ -62,9 +62,10 @@ public class StandardPieDataset3DTest {
     }
     
     @Test
+    @SuppressWarnings("unchecked")
     public void testSerialization() {
-        StandardPieDataset3D d1 = new StandardPieDataset3D();
-        StandardPieDataset3D d2 
+        StandardPieDataset3D<String> d1 = new StandardPieDataset3D<String>();
+        StandardPieDataset3D<String> d2 
                 = (StandardPieDataset3D) TestUtils.serialized(d1);
         assertTrue(d1.equals(d2));
         
@@ -84,7 +85,8 @@ public class StandardPieDataset3DTest {
      */
     @Test
     public void checkToString() {
-        StandardPieDataset3D dataset = new StandardPieDataset3D();
+        StandardPieDataset3D<String> dataset 
+                = new StandardPieDataset3D<String>();
         assertEquals("[]", dataset.toString());
         dataset.add("key", 1.0);
         assertEquals("[[\"key\", 1.0]]", dataset.toString());

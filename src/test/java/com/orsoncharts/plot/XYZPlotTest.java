@@ -175,8 +175,8 @@ public class XYZPlotTest implements Plot3DChangeListener {
      * 
      * @return A new dataset.
      */
-    private XYZDataset createNewDataset() {
-        XYZSeriesCollection dataset = new XYZSeriesCollection();
+    private XYZDataset<String> createNewDataset() {
+        XYZSeriesCollection<String> dataset = new XYZSeriesCollection<String>();
         return dataset;
     }
   

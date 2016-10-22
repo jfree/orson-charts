@@ -48,9 +48,10 @@ public interface XYZLabelGenerator {
      * 
      * @param dataset  the dataset ({@code null} not permitted).
      * @param seriesKey  the series key ({@code null} not permitted).
-     * 
+     *
      * @return The series label (possibly {@code null}).
      */
-    String generateSeriesLabel(XYZDataset dataset, Comparable<?> seriesKey);
+    public <S extends Comparable<S>> String generateSeriesLabel(
+            XYZDataset<S> dataset, S seriesKey);
 
 }

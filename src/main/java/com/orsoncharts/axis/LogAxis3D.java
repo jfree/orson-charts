@@ -464,7 +464,7 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
                     this.tickLabelFormatter);
             Rectangle2D nonRotatedBounds = new Rectangle2D.Double();
             if (hinting) {
-                Map m = new HashMap<String, String>();
+                Map<String, String> m = new HashMap<String, String>();
                 m.put("ref", "{\"type\": \"valueTickLabel\", \"axis\": " 
                         + axisStr() + ", \"value\": \"" 
                         + t.getDataValue() + "\"}");
@@ -503,7 +503,7 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
             AttributedString as = createTickLabelAttributedString(logy, 
                     this.tickSelector.getCurrentTickLabelFormat());
             if (hinting) {
-                Map m = new HashMap<String, String>();
+                Map<String, String> m = new HashMap<String, String>();
                 m.put("ref", "{\"type\": \"valueTickLabel\", \"axis\": " 
                         + axisStr() + ", \"value\": \"" 
                         + t.getDataValue() + "\"}");

@@ -654,7 +654,8 @@ public class CategoryPlot3D extends AbstractPlot3D
      * @return A list containing legend item info (possibly empty but never 
      *     {@code null}).
      */
-    @Override
+    @Override 
+    @SuppressWarnings("unchecked") // we don't know the dataset generic types
     public List<LegendItemInfo> getLegendInfo() {
         List<LegendItemInfo> result = new ArrayList<LegendItemInfo>();
         List<Comparable<?>> keys = this.dataset.getSeriesKeys();

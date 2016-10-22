@@ -77,6 +77,7 @@ public class PiePlot3DTest implements Plot3DChangeListener {
     }
   
     @Test
+    @SuppressWarnings("unchecked")
     public void checkSetDatasetFiresChangeEvent() {
         PiePlot3D plot = createPiePlot3D();
         plot.addChangeListener(this);
@@ -88,11 +89,12 @@ public class PiePlot3DTest implements Plot3DChangeListener {
     }
   
     @Test
+    @SuppressWarnings("unchecked")
     public void checkSetDatasetRemovesPreviousListener() {
-        StandardPieDataset3D dataset1 = createNewDataset();
+        StandardPieDataset3D<String> dataset1 = createNewDataset();
         PiePlot3D plot = new PiePlot3D(dataset1);
         assertTrue(dataset1.hasListener(plot));
-        StandardPieDataset3D dataset2 = createNewDataset();
+        StandardPieDataset3D<String> dataset2 = createNewDataset();
         plot.setDataset(dataset2);
         assertFalse(dataset1.hasListener(plot));
         assertTrue(dataset2.hasListener(plot));
@@ -104,7 +106,7 @@ public class PiePlot3DTest implements Plot3DChangeListener {
      */
     @Test
     public void checkEquals() {
-        StandardPieDataset3D dataset1 = createNewDataset();
+        StandardPieDataset3D<String> dataset1 = createNewDataset();
         PiePlot3D p1 = new PiePlot3D(dataset1);
         PiePlot3D p2 = new PiePlot3D(dataset1);
         assertEquals(p1, p2);
@@ -183,8 +185,8 @@ public class PiePlot3DTest implements Plot3DChangeListener {
      * 
      * @return A new dataset. 
      */
-    private StandardPieDataset3D createNewDataset() {
-        StandardPieDataset3D dataset = new StandardPieDataset3D();
+    private StandardPieDataset3D<String> createNewDataset() {
+        StandardPieDataset3D<String> dataset = new StandardPieDataset3D<String>();
         dataset.add("A", 123.4);
         return dataset;
     }

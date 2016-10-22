@@ -46,7 +46,8 @@ public class DataValuesTest {
 
     @Test
     public void testFindValueRange() {
-        DefaultKeyedValues3D data = new DefaultKeyedValues3D();
+        DefaultKeyedValues3D<String, String, String, Number> data 
+                = new DefaultKeyedValues3D<String, String, String, Number>();
         assertNull(DataUtils.findValueRange(data));
         data.setValue(1.5, "S1", "R1", "C1");
         assertEquals(new Range(1.5, 1.5), DataUtils.findValueRange(data));
@@ -56,7 +57,8 @@ public class DataValuesTest {
     
     @Test
     public void testFindValueRangeWithBase() {
-        DefaultKeyedValues3D data = new DefaultKeyedValues3D();
+        DefaultKeyedValues3D<String, String, String, Number> data 
+                = new DefaultKeyedValues3D<String, String, String, Number>();
         assertNull(DataUtils.findValueRange(data));
         data.setValue(1.5, "S1", "R1", "C1");
         assertEquals(new Range(1.0, 1.5), DataUtils.findValueRange(data, 

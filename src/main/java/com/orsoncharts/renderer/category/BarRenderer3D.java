@@ -302,6 +302,7 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
      * @param yOffset  the y-offset.
      * @param zOffset  the z-offset.
      */
+    @SuppressWarnings("unchecked")
     protected void composeItem(double value, double barBase, 
             CategoryDataset3D dataset, int series, int row, int column,
             World world, Dimension3D dimensions, double xOffset, 

@@ -43,22 +43,43 @@ import com.orsoncharts.TestUtils;
 /**
  * Tests for the {@link XYZSeries} class.
  */
-public class XYZSeriesTest {
+public class XYZSeriesTest  {
+    
+    private static final double EPSILON = 0.00000001;
+    
+    @Test
+    public void testGeneral() {
+        XYZSeries<String> s = new XYZSeries<String>("S1");
+        assertEquals("S1", s.getKey());
+        assertEquals(0, s.getItemCount());
+        
+        s.add(1.0, 2.0, 3.0);
+        assertEquals(1, s.getItemCount());
+        assertEquals(1.0, s.getXValue(0), EPSILON);
+        assertEquals(2.0, s.getYValue(0), EPSILON);
+        assertEquals(3.0, s.getZValue(0), EPSILON);
+
+        s.add(4.0, 5.0, 6.0);
+        assertEquals(2, s.getItemCount());
+        assertEquals(4.0, s.getXValue(1), EPSILON);
+        assertEquals(5.0, s.getYValue(1), EPSILON);
+        assertEquals(6.0, s.getZValue(1), EPSILON);
+    }
     
     /**
      * Tests for the equals() method.
      */
     @Test
     public void testEquals() {
-        XYZSeries s1 = new XYZSeries("S");
-        XYZSeries s2 = new XYZSeries("S");
+        XYZSeries<String> s1 = new XYZSeries<String>("S");
+        XYZSeries<String> s2 = new XYZSeries<String>("S");
         assertTrue(s1.equals(s2));
         assertFalse(s1.equals(null));
         
         // key
-        s1 = new XYZSeries("SS");
+        s1 = new XYZSeries<String>("SS");
         assertFalse(s1.equals(s2));
-        s2 = new XYZSeries("SS");
+        s2 = new XYZSeries<String>("SS");
         assertTrue(s1.equals(s2));
         
         // data items
@@ -72,9 +93,10 @@ public class XYZSeriesTest {
      * Checks for serialization support.
      */
     @Test
+    @SuppressWarnings("unchecked")
     public void testSerialization() {
-        XYZSeries s1 = new XYZSeries("S");
-        XYZSeries s2 = (XYZSeries) TestUtils.serialized(s1);
+        XYZSeries<String> s1 = new XYZSeries<String>("S");
+        XYZSeries<String> s2 = (XYZSeries) TestUtils.serialized(s1);
         assertEquals(s1, s2);
 
         s1.add(1.0, 2.0, 3.0);

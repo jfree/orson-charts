@@ -103,9 +103,10 @@ public class BarChart3D2 {
      * @return A sample dataset.
      */
     public static CategoryDataset3D createDataset() {    
-        StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
+        StandardCategoryDataset3D<String, String, String> dataset = new StandardCategoryDataset3D<String, String, String>();
                 
-        DefaultKeyedValues<Number> s3 = new DefaultKeyedValues<Number>();
+        DefaultKeyedValues<String, Number> s3 = new DefaultKeyedValues<String, 
+                Number>();
         s3.put("Jan", 7);
         s3.put("Feb", 7);
         s3.put("Mar", 10);
@@ -120,7 +121,8 @@ public class BarChart3D2 {
         s3.put("Dec", 8);
         dataset.addSeriesAsRow("London", s3);
 
-        DefaultKeyedValues<Number> s1 = new DefaultKeyedValues<Number>();
+        DefaultKeyedValues<String, Number> s1 = new DefaultKeyedValues<String, 
+                Number>();
         s1.put("Jan", 3);
         s1.put("Feb", 5);
         s1.put("Mar", 9);
@@ -135,7 +137,8 @@ public class BarChart3D2 {
         s1.put("Dec", 4);
         dataset.addSeriesAsRow("Geneva", s1);
         
-        DefaultKeyedValues<Number> s2 = new DefaultKeyedValues<Number>();
+        DefaultKeyedValues<String, Number> s2 = new DefaultKeyedValues<String,
+                Number>();
         s2.put("Jan", 9);
         s2.put("Feb", 11);
         s2.put("Mar", 13);
@@ -150,7 +153,8 @@ public class BarChart3D2 {
         s2.put("Dec", 9);
         dataset.addSeriesAsRow("Bergerac", s2);
 
-        DefaultKeyedValues<Number> s4 = new DefaultKeyedValues<Number>();
+        DefaultKeyedValues<String, Number> s4 = new DefaultKeyedValues<String, 
+                Number>();
         s4.put("Jan", 22);
         s4.put("Feb", 22);
         s4.put("Mar", 20);
@@ -165,7 +169,8 @@ public class BarChart3D2 {
         s4.put("Dec", 21);
         dataset.addSeriesAsRow("Christchurch", s4);
 
-        DefaultKeyedValues<Number> s5 = new DefaultKeyedValues<Number>();
+        DefaultKeyedValues<String, Number> s5 = new DefaultKeyedValues<String, 
+                Number>();
         s5.put("Jan", 20);
         s5.put("Feb", 20);
         s5.put("Mar", 19);

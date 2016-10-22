@@ -83,9 +83,11 @@ public class AreaChart3D2 {
      * @return A sample dataset.
      */
     public static CategoryDataset3D createDataset() {    
-        StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
+        StandardCategoryDataset3D<String, String, String> dataset 
+                = new StandardCategoryDataset3D<String, String, String>();
                 
-        DefaultKeyedValues<Number> s1 = new DefaultKeyedValues<Number>();
+        DefaultKeyedValues<String, Number> s1 = new DefaultKeyedValues<String, 
+                Number>();
         s1.put("A", -1);
         s1.put("B", -4);
         s1.put("C", -9);
@@ -98,7 +100,8 @@ public class AreaChart3D2 {
         s1.put("J", -1);
         dataset.addSeriesAsRow("Series 1", s1);
         
-        DefaultKeyedValues<Number> s2 = new DefaultKeyedValues<Number>();
+        DefaultKeyedValues<String, Number> s2 = new DefaultKeyedValues<String, 
+                Number>();
         s2.put("A", 1);
         s2.put("B", 12);
         s2.put("C", 14);
@@ -111,7 +114,8 @@ public class AreaChart3D2 {
         s2.put("J", 4);
         dataset.addSeriesAsRow("Series 2", s2);
         
-        DefaultKeyedValues<Number> s3 = new DefaultKeyedValues<Number>();
+        DefaultKeyedValues<String, Number> s3 = new DefaultKeyedValues<String, 
+                Number>();
         s3.put("A", 5);
         s3.put("B", 13);
         s3.put("C", 19);
@@ -124,7 +128,8 @@ public class AreaChart3D2 {
         s3.put("J", -20);
         dataset.addSeriesAsRow("Series 3", s3);
 
-        DefaultKeyedValues<Number> s4 = new DefaultKeyedValues<Number>();
+        DefaultKeyedValues<String, Number> s4 = new DefaultKeyedValues<String, 
+                Number>();
         s4.put("A", 5);
         s4.put("B", 18);
         s4.put("C", 20);

@@ -65,6 +65,7 @@ public class XYZItemKeyTest {
      * Check for serialization support.
      */
     @Test
+    @SuppressWarnings("unchecked")
     public void testSerialization() {
         XYZItemKey<String> k1 = new XYZItemKey<String>("S1", 1);
         XYZItemKey<String> k2 = (XYZItemKey<String>) TestUtils.serialized(k1);

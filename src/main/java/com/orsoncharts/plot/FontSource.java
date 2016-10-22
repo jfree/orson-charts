@@ -40,7 +40,7 @@ import java.awt.Font;
  * fonts for each data item(segment) in the chart.  A default implementation
  * ({@link StandardFontSource}) is provided.
  */
-public interface FontSource {
+public interface FontSource<K> {
 
     /**
      * Returns a font based on the supplied key.
@@ -49,7 +49,7 @@ public interface FontSource {
      * 
      * @return A font (never {@code null}). 
      */
-    Font getFont(Comparable<?> key);
+    Font getFont(K key);
     
     /**
      * Sets the font associated with a key.
@@ -57,7 +57,7 @@ public interface FontSource {
      * @param key  the key ({@code null} not permitted).
      * @param font  the font ({@code null} not permitted).
      */
-    void setFont(Comparable<?> key, Font font);
+    void setFont(K key, Font font);
     
     /**
      * Restyles the source using the specified font.  Refer to the implementing

@@ -60,8 +60,8 @@ public class PieChart3D2 {
      * 
      * @return A sample dataset.
      */
-    public static PieDataset3D createDataset() {
-        StandardPieDataset3D dataset = new StandardPieDataset3D();
+    public static PieDataset3D<String> createDataset() {
+        StandardPieDataset3D<String> dataset = new StandardPieDataset3D<String>();
         dataset.add("United States", Math.random() * 30);
         dataset.add("France", Math.random() * 20);
         dataset.add("New Zealand", Math.random() * 12);
@@ -78,7 +78,7 @@ public class PieChart3D2 {
      * 
      * @return A pie chart. 
      */
-    public static Chart3D createChart(PieDataset3D dataset) {
+    public static Chart3D createChart(PieDataset3D<String> dataset) {
         final Chart3D chart = Chart3DFactory.createPieChart("Orson Charts 3D", 
             "For more info see: http://www.object-refinery.com/orsoncharts/", 
             createDataset());

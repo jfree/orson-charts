@@ -44,9 +44,14 @@ import com.orsoncharts.plot.CategoryPlot3D;
  * a {@link CategoryPlot3D} - see the {@link CategoryItemLabelGenerator} 
  * interface.
  * 
+ * @param <S> The series key type (must implement Comparable).
+ * @param <R> The row key type (must implement Comparable).
+ * @param <C> The column key type (must implement Comparable).
+ * 
  * @since 1.2
  */
-public interface CategoryLabelGenerator {
+public interface CategoryLabelGenerator<S extends Comparable<S>, 
+        R extends Comparable<R>, C extends Comparable<C>>  {
 
     /**
      * Generates a label for one series in a {@link CategoryDataset3D}.
@@ -56,8 +61,7 @@ public interface CategoryLabelGenerator {
      * 
      * @return The series label (possibly {@code null}).
      */
-    String generateSeriesLabel(CategoryDataset3D dataset, 
-            Comparable<?> seriesKey);
+    String generateSeriesLabel(CategoryDataset3D<S, R, C> dataset, S seriesKey);
 
     /**
      * Generates a label for one row in a {@link CategoryDataset3D}.
@@ -67,7 +71,7 @@ public interface CategoryLabelGenerator {
      * 
      * @return The row label (possibly {@code null}).
      */
-    String generateRowLabel(CategoryDataset3D dataset, Comparable<?> rowKey);
+    String generateRowLabel(CategoryDataset3D<S, R, C> dataset, R rowKey);
     
     /**
      * Generates a label for one column in a {@link CategoryDataset3D}.
@@ -77,7 +81,6 @@ public interface CategoryLabelGenerator {
      * 
      * @return The column label (possibly {@code null}).
      */
-    String generateColumnLabel(CategoryDataset3D dataset, 
-            Comparable<?> columnKey);
+    String generateColumnLabel(CategoryDataset3D<S, R, C> dataset, C columnKey);
 
 }

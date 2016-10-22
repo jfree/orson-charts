@@ -156,6 +156,7 @@ public class StandardCategoryItemLabelGenerator
      * @return The label (never {@code null} for this implementation). 
      */
     @Override
+    @SuppressWarnings("unchecked")
     public String generateItemLabel(CategoryDataset3D dataset, 
             Comparable<?> seriesKey, Comparable<?> rowKey, 
             Comparable<?> columnKey) {
@@ -171,7 +172,7 @@ public class StandardCategoryItemLabelGenerator
             }
         }
         Formatter formatter = new Formatter(new StringBuilder());
-        Number value = dataset.getValue(seriesKey, rowKey, columnKey);
+        Number value = (Number) dataset.getValue(seriesKey, rowKey, columnKey);
         Double d = null;
         if (value != null) {
             d = Double.valueOf(value.doubleValue());

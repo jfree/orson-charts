@@ -41,9 +41,12 @@ import java.util.List;
  * used as a key ({@code String} objects are instances of 
  * {@code Comparable}, making them convenient key objects).
  * 
+ * @param <R>  The row key type.
+ * @param <C>  The column key type.
  * @param <T>  The value type.
  */
-public interface KeyedValues2D<T> extends Values2D<T> {
+public interface KeyedValues2D<R extends Comparable<R>, 
+        C extends Comparable<C>, T> extends Values2D<T> {
 
     /**
      * Returns the row key with the specified index.
@@ -52,7 +55,7 @@ public interface KeyedValues2D<T> extends Values2D<T> {
      * 
      * @return The key. 
      */
-    public Comparable<?> getRowKey(int rowIndex);
+    public R getRowKey(int rowIndex);
 
     /**
      * Returns the column key with the specified index.
@@ -61,7 +64,7 @@ public interface KeyedValues2D<T> extends Values2D<T> {
      * 
      * @return The key. 
      */
-    public Comparable<?> getColumnKey(int columnIndex);
+    public C getColumnKey(int columnIndex);
 
     /**
      * Returns the index of the specified key, or {@code -1} if there
@@ -71,7 +74,7 @@ public interface KeyedValues2D<T> extends Values2D<T> {
      * 
      * @return The index, or {@code -1}. 
      */
-    public int getRowIndex(Comparable<?> rowKey);
+    public int getRowIndex(R rowKey);
 
     /**
      * Returns the index of the specified key, or {@code -1} if there
@@ -81,7 +84,7 @@ public interface KeyedValues2D<T> extends Values2D<T> {
      * 
      * @return The index, or {@code -1}. 
      */
-    public int getColumnIndex(Comparable<?> columnKey);
+    public int getColumnIndex(C columnKey);
   
     /**
      * Returns a list of the row keys (the order is significant, since data 
@@ -92,7 +95,7 @@ public interface KeyedValues2D<T> extends Values2D<T> {
      * 
      * @return A list of row keys.
      */
-    public List<Comparable<?>> getRowKeys();
+    public List<R> getRowKeys();
 
     /**
      * Returns a list of the column keys (the order is significant, since data 
@@ -103,7 +106,7 @@ public interface KeyedValues2D<T> extends Values2D<T> {
      * 
      * @return A list of column keys.
      */
-    public List<Comparable<?>> getColumnKeys();
+    public List<C> getColumnKeys();
 
     /**
      * Returns the value (possibly {@code null}) associated with the 
@@ -115,6 +118,6 @@ public interface KeyedValues2D<T> extends Values2D<T> {
      * 
      * @return The value (possibly {@code null}). 
      */
-    public T getValue(Comparable<?> rowKey, Comparable<?> columnKey);
+    public T getValue(R rowKey, C columnKey);
 
 }

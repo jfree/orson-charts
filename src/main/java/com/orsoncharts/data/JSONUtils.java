@@ -69,10 +69,10 @@ public class JSONUtils {
      * 
      * @return A {@link KeyedValues} instance. 
      */
-    public static KeyedValues<? extends Number> readKeyedValues(String json) {
+    public static KeyedValues<String, ? extends Number> readKeyedValues(String json) {
         ArgChecks.nullNotPermitted(json, "json");
         StringReader in = new StringReader(json);
-        KeyedValues<? extends Number> result;
+        KeyedValues<String, ? extends Number> result;
         try {
             result = readKeyedValues(in);
         } catch (IOException ex) {
@@ -95,18 +95,17 @@ public class JSONUtils {
      * 
      * @throws IOException if there is an I/O problem.
      */
-    public static KeyedValues<? extends Number> readKeyedValues(Reader reader) 
-            throws IOException {
+    public static KeyedValues<String, ? extends Number> readKeyedValues(
+            Reader reader) throws IOException {
         ArgChecks.nullNotPermitted(reader, "reader");
         try {
             JSONParser parser = new JSONParser();
             // parse with custom containers (to preserve item order)
             List list = (List) parser.parse(reader, createContainerFactory());
-            StandardPieDataset3D result = new StandardPieDataset3D();
+            StandardPieDataset3D<String> result = new StandardPieDataset3D<String>();
             for (Object item : list) {
                 List itemAsList = (List) item;
-                result.add((Comparable) itemAsList.get(0), 
-                        (Number) itemAsList.get(1));
+                result.add(itemAsList.get(0).toString(), (Number) itemAsList.get(1));
             }
             return result;        
         } catch (ParseException ex) {
@@ -127,7 +126,8 @@ public class JSONUtils {
      * 
      * @return A string in JSON format. 
      */
-    public static String writeKeyedValues(KeyedValues<? extends Number> data) {
+    public static <K extends Comparable<K>> String writeKeyedValues(
+            KeyedValues<K, ? extends Number> data) {
         ArgChecks.nullNotPermitted(data, "data");
         StringWriter sw = new StringWriter();
         try {
@@ -148,13 +148,14 @@ public class JSONUtils {
      * 
      * @throws IOException if there is an I/O problem.
      */
-    public static void writeKeyedValues(KeyedValues<? extends Number> data, 
-            Writer writer) throws IOException {
+    public static <K extends Comparable<K>> void writeKeyedValues(
+            KeyedValues<K, ? extends Number> data, Writer writer) 
+            throws IOException {
         ArgChecks.nullNotPermitted(data, "data");
         ArgChecks.nullNotPermitted(writer, "writer");
         writer.write("[");
         boolean first = true;
-        for (Comparable<?> key : data.getKeys()) {
+        for (K key : data.getKeys()) {
             if (!first) {
                 writer.write(", ");
             } else {
@@ -176,11 +177,11 @@ public class JSONUtils {
      * 
      * @return A data table. 
      */
-    public static KeyedValues2D<? extends Number> readKeyedValues2D(
-            String json) {
+    public static <R extends Comparable<R>, C extends Comparable<C>> 
+            KeyedValues2D<R, C, ? extends Number> readKeyedValues2D(String json) {
         ArgChecks.nullNotPermitted(json, "json");
         StringReader in = new StringReader(json);
-        KeyedValues2D<? extends Number> result;
+        KeyedValues2D<R, C, ? extends Number> result;
         try { 
             result = readKeyedValues2D(in);
         } catch (IOException ex) {
@@ -200,22 +201,25 @@ public class JSONUtils {
      * 
      * @throws java.io.IOException if there is an I/O problem.
      */
-    public static KeyedValues2D<? extends Number> readKeyedValues2D(
-            Reader reader) throws IOException {
+    @SuppressWarnings("unchecked")
+    public static <R extends Comparable<R>, C extends Comparable<C>> 
+            KeyedValues2D<R, C, ? extends Number> 
+            readKeyedValues2D(Reader reader) throws IOException {
         
         JSONParser parser = new JSONParser();
         try {
             Map map = (Map) parser.parse(reader, createContainerFactory());
-            DefaultKeyedValues2D result = new DefaultKeyedValues2D();
+            DefaultKeyedValues2D<R, C, Number> result 
+                    = new DefaultKeyedValues2D<R, C, Number>();
             if (map.isEmpty()) {
                 return result;
             }
             
             // read the keys
             Object keysObj = map.get("columnKeys");
-            List<?> keys = null;
-            if (keysObj instanceof List<?>) {
-                keys = (List<?>) keysObj;
+            List<C> keys = null;
+            if (keysObj instanceof List) {
+                keys = (List<C>) keysObj;
             } else {
                 if (keysObj == null) {
                     throw new RuntimeException("No 'columnKeys' defined.");    
@@ -227,7 +231,7 @@ public class JSONUtils {
             
             Object dataObj = map.get("rows");
             if (dataObj instanceof List) {
-                List<?> rowList = (List<?>) dataObj;
+                List<R> rowList = (List<R>) dataObj;
                 // each entry in the map has the row key and an array of
                 // values (the length should match the list of keys above
                 for (Object rowObj : rowList) {
@@ -249,11 +253,13 @@ public class JSONUtils {
     }
 
     /**
-     * Processes an entry for one row in a KeyedValues2D.
+     * Processes an entry for one row in a {@link KeyedValues2D}.
      * 
      * @param rowObj  the series object.
      * @param columnKeys  the required column keys.
+     * @param dataset  the dataset.
      */
+    @SuppressWarnings("unchecked")
     static void processRow(Object rowObj, List<?> columnKeys, 
             DefaultKeyedValues2D dataset) {
         
@@ -294,8 +300,8 @@ public class JSONUtils {
      * 
      * @return The string. 
      */
-    public static String writeKeyedValues2D(
-            KeyedValues2D<? extends Number> data) {
+    public static <R extends Comparable<R>, C extends Comparable<C>> 
+            String writeKeyedValues2D(KeyedValues2D<R, C, ? extends Number> data) {
         ArgChecks.nullNotPermitted(data, "data");
         StringWriter sw = new StringWriter();
         try {
@@ -314,17 +320,19 @@ public class JSONUtils {
      * 
      * @throws IOException if there is an I/O problem.
      */
-    public static void writeKeyedValues2D(KeyedValues2D<? extends Number> data, 
-            Writer writer) throws IOException {
+    public static <R extends Comparable<R>, C extends Comparable<C>> 
+            void writeKeyedValues2D(
+            KeyedValues2D<R, C, ? extends Number> data, Writer writer) 
+            throws IOException {
         ArgChecks.nullNotPermitted(data, "data");
         ArgChecks.nullNotPermitted(writer, "writer");
-        List<Comparable<?>> columnKeys = data.getColumnKeys();
-        List<Comparable<?>> rowKeys = data.getRowKeys();
+        List<C> columnKeys = data.getColumnKeys();
+        List<R> rowKeys = data.getRowKeys();
         writer.write("{");
         if (!columnKeys.isEmpty()) {
             writer.write("\"columnKeys\": [");
             boolean first = true;
-            for (Comparable<?> columnKey : columnKeys) {
+            for (C columnKey : columnKeys) {
                 if (!first) {
                     writer.write(", ");
                 } else {
@@ -337,7 +345,7 @@ public class JSONUtils {
         if (!rowKeys.isEmpty()) {
             writer.write(", \"rows\": [");
             boolean firstRow = true;
-            for (Comparable<?> rowKey : rowKeys) {   
+            for (R rowKey : rowKeys) {   
                 if (!firstRow) {
                     writer.write(", [");
                 } else {
@@ -348,7 +356,7 @@ public class JSONUtils {
                 writer.write(JSONValue.toJSONString(rowKey.toString()));
                 writer.write(", [");
                 boolean first = true;
-                for (Comparable<?> columnKey : columnKeys) {
+                for (C columnKey : columnKeys) {
                     if (!first) {
                         writer.write(", ");
                     } else {
@@ -372,10 +380,11 @@ public class JSONUtils {
      * 
      * @return A {@code KeyedValues3D} instance.
      */
-    public static KeyedValues3D<? extends Number> readKeyedValues3D(
-            String json) {
+    public static <S extends Comparable<S>, R extends Comparable<R>, C extends Comparable<C>> 
+            KeyedValues3D<S, R, C, ? extends Number> 
+            readKeyedValues3D(String json) {
         StringReader in = new StringReader(json);
-        KeyedValues3D<? extends Number> result;
+        KeyedValues3D<S, R, C, ? extends Number> result;
         try { 
             result = readKeyedValues3D(in);
         } catch (IOException ex) {
@@ -397,8 +406,10 @@ public class JSONUtils {
      * 
      * @throws IOException if there is an I/O problem.  
      */
-    public static KeyedValues3D<? extends Number> readKeyedValues3D(
-            Reader reader) throws IOException {
+    @SuppressWarnings("unchecked")
+    public static <S extends Comparable<S>, R extends Comparable<R>, C extends Comparable<C>> 
+            KeyedValues3D<S, R, C, ? extends Number> 
+            readKeyedValues3D(Reader reader) throws IOException {
         JSONParser parser = new JSONParser();
         try {
             Map map = (Map) parser.parse(reader, createContainerFactory());
@@ -410,9 +421,9 @@ public class JSONUtils {
             // read the row keys, we'll use these to validate the row keys
             // supplied with the data
             Object rowKeysObj = map.get("rowKeys");
-            List<?> rowKeys;
-            if (rowKeysObj instanceof List<?>) {
-                rowKeys = (List<?>) rowKeysObj;
+            List<R> rowKeys;
+            if (rowKeysObj instanceof List) {
+                rowKeys = (List<R>) rowKeysObj;
             } else {
                 if (rowKeysObj == null) {
                     throw new RuntimeException("No 'rowKeys' defined.");    
@@ -425,9 +436,9 @@ public class JSONUtils {
             // read the column keys, the data is provided later in rows that
             // should have the same number of entries as the columnKeys list
             Object columnKeysObj = map.get("columnKeys");
-            List<?> columnKeys;
-            if (columnKeysObj instanceof List<?>) {
-                columnKeys = (List<?>) columnKeysObj;
+            List<C> columnKeys;
+            if (columnKeysObj instanceof List) {
+                columnKeys = (List<C>) columnKeysObj;
             } else {
                 if (columnKeysObj == null) {
                     throw new RuntimeException("No 'columnKeys' defined.");    
@@ -440,7 +451,7 @@ public class JSONUtils {
             // the data object should be a list of data series
             Object dataObj = map.get("data");
             if (dataObj instanceof List) {
-                List<?> seriesList = (List<?>) dataObj;
+                List<S> seriesList = (List<S>) dataObj;
                 // each entry in the map has the series name as the key, and
                 // the value is a map of row data (rowKey, list of values)
                 for (Object seriesObj : seriesList) {
@@ -468,8 +479,10 @@ public class JSONUtils {
      * @param rowKeys  the expected row keys.
      * @param columnKeys  the required column keys.
      */
-    static void processSeries(Object seriesObj, List<?> rowKeys, 
-            List<?> columnKeys, StandardCategoryDataset3D dataset) {
+    static <R extends Comparable<R>, C extends Comparable<C>> 
+            void processSeries(Object seriesObj, List<R> rowKeys, 
+            List<C> columnKeys, 
+            StandardCategoryDataset3D<String, String, String> dataset) {
         
         if (!(seriesObj instanceof Map)) {
             throw new RuntimeException("Check the 'data' section it contains "
@@ -522,8 +535,9 @@ public class JSONUtils {
      * 
      * @return A string in JSON format. 
      */
-    public static String writeKeyedValues3D(
-            KeyedValues3D<? extends Number> dataset) {
+    public static <S extends Comparable<S>, R extends Comparable<R>, C extends Comparable<C>> 
+            String writeKeyedValues3D(
+            KeyedValues3D<S, R, C, ? extends Number> dataset) {
         ArgChecks.nullNotPermitted(dataset, "dataset");
         StringWriter sw = new StringWriter();
         try {
@@ -542,8 +556,9 @@ public class JSONUtils {
      * 
      * @throws IOException if there is an I/O problem.
      */
-    public static void writeKeyedValues3D(
-            KeyedValues3D<? extends Number> dataset, Writer writer) 
+    public static <S extends Comparable<S>, R extends Comparable<R>, C extends Comparable<C>> 
+            void writeKeyedValues3D(
+            KeyedValues3D<S, R, C, ? extends Number> dataset, Writer writer) 
             throws IOException {
         ArgChecks.nullNotPermitted(dataset, "dataset");
         ArgChecks.nullNotPermitted(writer, "writer");
@@ -552,7 +567,7 @@ public class JSONUtils {
         if (!dataset.getColumnKeys().isEmpty()) {
             writer.write("\"columnKeys\": [");
             boolean first = true;
-            for (Comparable<?> key : dataset.getColumnKeys()) {
+            for (C key : dataset.getColumnKeys()) {
                 if (!first) {
                     writer.write(", ");
                 } else {
@@ -567,7 +582,7 @@ public class JSONUtils {
         if (!dataset.getRowKeys().isEmpty()) {
             writer.write("\"rowKeys\": [");
             boolean first = true;
-            for (Comparable<?> key : dataset.getRowKeys()) {
+            for (R key : dataset.getRowKeys()) {
                 if (!first) {
                     writer.write(", ");
                 } else {
@@ -584,7 +599,7 @@ public class JSONUtils {
         if (dataset.getSeriesCount() != 0) {
             writer.write("\"series\": [");
             boolean first = true;
-            for (Comparable<?> seriesKey : dataset.getSeriesKeys()) {
+            for (S seriesKey : dataset.getSeriesKeys()) {
                 if (!first) {
                     writer.write(", ");
                 } else {
@@ -595,7 +610,7 @@ public class JSONUtils {
                 writer.write(", \"rows\": [");
             
                 boolean firstRow = true;
-                for (Comparable<?> rowKey : dataset.getRowKeys()) {
+                for (R rowKey : dataset.getRowKeys()) {
                     if (countForRowInSeries(dataset, seriesKey, rowKey) > 0) {
                         if (!firstRow) {
                             writer.write(", [");
@@ -607,7 +622,7 @@ public class JSONUtils {
                         writer.write(JSONValue.toJSONString(rowKey.toString()) 
                                 + ", [");
                         for (int c = 0; c < dataset.getColumnCount(); c++) {
-                            Comparable columnKey = dataset.getColumnKey(c);
+                            C columnKey = dataset.getColumnKey(c);
                             if (c != 0) {
                                 writer.write(", ");
                             }
@@ -635,8 +650,9 @@ public class JSONUtils {
      * 
      * @return The count. 
      */
-    private static int countForRowInSeries(KeyedValues3D<?> data, 
-            Comparable<?> seriesKey, Comparable<?> rowKey) {
+    private static <S extends Comparable<S>, R extends Comparable<R>, T> 
+            int countForRowInSeries(KeyedValues3D<S, R, ?, T> data, 
+            S seriesKey, R rowKey) {
         ArgChecks.nullNotPermitted(data, "data");
         ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
         ArgChecks.nullNotPermitted(rowKey, "rowKey");
@@ -651,7 +667,7 @@ public class JSONUtils {
         }
         int count = 0;
         for (int c = 0; c < data.getColumnCount(); c++) {
-            Number n = (Number) data.getValue(seriesIndex, rowIndex, c);
+            T n = data.getValue(seriesIndex, rowIndex, c);
             if (n != null) {
                 count++;
             }
@@ -694,6 +710,7 @@ public class JSONUtils {
      * 
      * @throws IOException if there is an I/O problem.
      */
+    @SuppressWarnings("unchecked")
     public static XYZDataset readXYZDataset(Reader reader) throws IOException {
         JSONParser parser = new JSONParser();
         XYZSeriesCollection result = new XYZSeriesCollection();
@@ -726,7 +743,8 @@ public class JSONUtils {
      * 
      * @return A string in JSON format. 
      */
-    public static String writeXYZDataset(XYZDataset dataset) {
+    public static <S extends Comparable<S>> 
+            String writeXYZDataset(XYZDataset<S> dataset) {
         StringWriter sw = new StringWriter();
         try {
             writeXYZDataset(dataset, sw);
@@ -744,11 +762,11 @@ public class JSONUtils {
      * 
      * @throws IOException if there is an I/O problem.
      */
-    public static void writeXYZDataset(XYZDataset dataset, Writer writer) 
-            throws IOException {
+    public static <S extends Comparable<S>> void writeXYZDataset(
+            XYZDataset<S> dataset, Writer writer) throws IOException {
         writer.write("[");
         boolean first = true;
-        for (Comparable<?> seriesKey : dataset.getSeriesKeys()) {
+        for (S seriesKey : dataset.getSeriesKeys()) {
             if (!first) {
                 writer.write(", [");
             } else {
@@ -812,6 +830,7 @@ public class JSONUtils {
      * 
      * @return A data series. 
      */
+    @SuppressWarnings("unchecked")
     private static XYZSeries createSeries(List<?> sArray) {
         Comparable<?> key = (Comparable<?>) sArray.get(0);
         List<?> dataItems = (List<?>) sArray.get(1);

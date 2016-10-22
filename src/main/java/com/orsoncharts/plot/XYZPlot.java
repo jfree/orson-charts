@@ -533,12 +533,13 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
      * @return A list containing legend item info.
      */
     @Override
+    @SuppressWarnings("unchecked") // we don't know the generic types of the dataset
     public List<LegendItemInfo> getLegendInfo() {
         List<LegendItemInfo> result = new ArrayList<LegendItemInfo>();
         List<Comparable<?>> keys = this.dataset.getSeriesKeys();
-        for (Comparable<?> key : keys) {
+        for (Comparable key : keys) {
             String label = this.legendLabelGenerator.generateSeriesLabel(
-                    this.dataset, key);
+                    this.dataset, (Comparable) key);
             int series = this.dataset.getSeriesIndex(key);
             Color color = this.renderer.getColorSource().getLegendColor(series);
             LegendItemInfo info = new StandardLegendItemInfo(key, label, color);

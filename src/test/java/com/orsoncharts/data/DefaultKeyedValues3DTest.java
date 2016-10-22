@@ -50,7 +50,8 @@ public class DefaultKeyedValues3DTest {
     
     @Test
     public void testSetValue() {
-        DefaultKeyedValues3D<Number> data = new DefaultKeyedValues3D<Number>();
+        DefaultKeyedValues3D<String, String, String, Number> data 
+                = new DefaultKeyedValues3D<String, String, String, Number>();
         
         // adding to an empty dataset...
         data.setValue(1.0, "S1", "R1", "C1");
@@ -140,8 +141,10 @@ public class DefaultKeyedValues3DTest {
     
     @Test
     public void testEquals() {
-        DefaultKeyedValues3D<Number> d1 = new DefaultKeyedValues3D<Number>();
-        DefaultKeyedValues3D<Number> d2 = new DefaultKeyedValues3D<Number>();
+        DefaultKeyedValues3D<String, String, String, Number> d1 
+                = new DefaultKeyedValues3D<String, String, String, Number>();
+        DefaultKeyedValues3D<String, String, String, Number> d2 
+                = new DefaultKeyedValues3D<String, String, String, Number>();
         assertTrue(d1.equals(d2));
         assertFalse(d1.equals(null));
         
@@ -155,11 +158,14 @@ public class DefaultKeyedValues3DTest {
      * Check for serialization support.
      */
     @Test
+    @SuppressWarnings("unchecked")
     public void testSerialization() {
-        DefaultKeyedValues3D<Number> d1 = new DefaultKeyedValues3D<Number>();
+        DefaultKeyedValues3D<String, String, String, Number> d1 
+                = new DefaultKeyedValues3D<String, String, String, Number>();
         d1.setValue(1.0, "S1", "R1", "C1");
-        DefaultKeyedValues3D<Number> d2 
-                = (DefaultKeyedValues3D<Number>) TestUtils.serialized(d1);
+        DefaultKeyedValues3D<String, String, String, Number> d2 
+                = (DefaultKeyedValues3D<String, String, String, Number>) 
+                TestUtils.serialized(d1);
         assertEquals(d1, d2);
     }
 

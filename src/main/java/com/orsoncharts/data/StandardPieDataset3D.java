@@ -56,20 +56,22 @@ import com.orsoncharts.plot.PiePlot3D;
  * <br><br>
  * NOTE: This class is serializable, but the serialization format is subject 
  * to change in future releases and should not be relied upon for persisting 
- * instances of this class. 
+ * instances of this class.
+ * 
+ * @param <K> the key type.
  */
 @SuppressWarnings("serial")
-public final class StandardPieDataset3D extends AbstractDataset3D 
-        implements PieDataset3D, Serializable {
+public final class StandardPieDataset3D<K extends Comparable<K>> extends AbstractDataset3D 
+        implements PieDataset3D<K>, Serializable {
 
     /** Storage for the data. */
-    private DefaultKeyedValues<Number> data;
+    private DefaultKeyedValues<K, Number> data;
 
     /**
      * Creates a new (empty) dataset.
      */
     public StandardPieDataset3D() {
-        this.data = new DefaultKeyedValues<Number>();
+        this.data = new DefaultKeyedValues<K, Number>();
     }
 
     /**
@@ -90,7 +92,7 @@ public final class StandardPieDataset3D extends AbstractDataset3D
      * @return The key. 
      */
     @Override
-    public Comparable<?> getKey(int item) {
+    public K getKey(int item) {
         return this.data.getKey(item);
     }
 
@@ -103,7 +105,7 @@ public final class StandardPieDataset3D extends AbstractDataset3D
      * @return The item index, or {@code -1}. 
      */
     @Override
-    public int getIndex(Comparable<?> key) {
+    public int getIndex(K key) {
         return this.data.getIndex(key);
     }
 
@@ -128,7 +130,7 @@ public final class StandardPieDataset3D extends AbstractDataset3D
      * @return The value (possibly {@code null}). 
      */
     @Override
-    public Number getValue(Comparable<?> key) {
+    public Number getValue(K key) {
         return this.data.getValue(key);
     }
 
@@ -140,7 +142,7 @@ public final class StandardPieDataset3D extends AbstractDataset3D
      * @param key  the key ({@code null} not permitted).
      * @param value  the value.
      */
-    public void add(Comparable<?> key, double value) {
+    public void add(K key, double value) {
         add(key, Double.valueOf(value));
     }
     
@@ -152,7 +154,7 @@ public final class StandardPieDataset3D extends AbstractDataset3D
      * @param key  the key ({@code null} not permitted).
      * @param value  the value ({@code null} permitted).
      */
-    public void add(Comparable<?> key, Number value) {
+    public void add(K key, Number value) {
         ArgChecks.nullNotPermitted(key, "key");
         this.data.put(key, value);
         fireDatasetChanged();
@@ -165,7 +167,7 @@ public final class StandardPieDataset3D extends AbstractDataset3D
      * @return A list of keys (possibly empty, but never {@code null}).
      */
     @Override
-    public List<Comparable<?>> getKeys() {
+    public List<K> getKeys() {
         return this.data.getKeys();
     }
 

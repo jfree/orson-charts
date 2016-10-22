@@ -40,7 +40,7 @@ import java.awt.Color;
  * (segment) in the chart.  A default implementation
  * ({@link StandardColorSource}) is provided.
  */
-public interface ColorSource {
+public interface ColorSource<K extends Comparable<K>> {
 
     /**
      * Returns the color for one data item in the chart.  We return a 
@@ -52,7 +52,7 @@ public interface ColorSource {
      * 
      * @return The color.
      */
-    Color getColor(Comparable<?> key);
+    Color getColor(K key);
     
     /**
      * Sets the color associated with the specified key.  If the supplied
@@ -62,7 +62,7 @@ public interface ColorSource {
      * @param key  the key ({@code null} not permitted).
      * @param color  the color ({@code null} permitted).
      */
-    void setColor(Comparable<?> key, Color color);
+    void setColor(K key, Color color);
     
     /**
      * Restyles the source using the specified colors.  Refer to the 

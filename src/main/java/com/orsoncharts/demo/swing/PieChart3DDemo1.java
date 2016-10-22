@@ -78,7 +78,7 @@ public class PieChart3DDemo1 extends JFrame {
     public static JPanel createDemoPanel() {
         final DemoPanel content = new DemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
-        PieDataset3D dataset = PieChart3D1.createDataset();
+        PieDataset3D<String> dataset = PieChart3D1.createDataset();
         Chart3D chart = PieChart3D1.createChart(dataset);
         Chart3DPanel chartPanel = new Chart3DPanel(chart);
         chartPanel.setMargin(0.05);

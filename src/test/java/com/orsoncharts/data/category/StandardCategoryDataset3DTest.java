@@ -57,8 +57,10 @@ public class StandardCategoryDataset3DTest {
     
     @Test
     public void checkEquals() {
-        StandardCategoryDataset3D d1 = new StandardCategoryDataset3D();
-        StandardCategoryDataset3D d2 = new StandardCategoryDataset3D();
+        StandardCategoryDataset3D<String, String, String> d1 
+                = new StandardCategoryDataset3D<String, String, String>();
+        StandardCategoryDataset3D<String, String, String> d2 
+                = new StandardCategoryDataset3D<String, String, String>();
         assertTrue(d1.equals(d2));
         assertFalse(d1.equals(null));
         
@@ -77,17 +79,20 @@ public class StandardCategoryDataset3DTest {
      * A check for serialization.
      */
     @Test
+    @SuppressWarnings("unchecked")
     public void checkSerialization() {
-        StandardCategoryDataset3D d1 = new StandardCategoryDataset3D();
+        StandardCategoryDataset3D<String, String, String> d1 
+                = new StandardCategoryDataset3D<String, String, String>();
         d1.addValue(1.0, "S1", "R1", "C1");
-        StandardCategoryDataset3D d2 
+        StandardCategoryDataset3D<String, String, String> d2 
                 = (StandardCategoryDataset3D) TestUtils.serialized(d1);
         assertEquals(d1, d2);
     }
     
     @Test
     public void checkToString() {
-        StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
+        StandardCategoryDataset3D<String, String, String> dataset 
+                = new StandardCategoryDataset3D<String, String, String>();
         assertEquals("{}", dataset.toString());
         
         dataset.addValue(1.0, "S1", "R1", "C1");

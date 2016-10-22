@@ -215,17 +215,18 @@ public class AxisRangeDemo7 extends JFrame {
      * 
      * @return A sample dataset.
      */
-    private static XYZDataset createDataset() {
-        XYZSeriesCollection dataset = new XYZSeriesCollection();
+    private static XYZDataset<String> createDataset() {
+        XYZSeriesCollection<String> dataset = new XYZSeriesCollection<String>();
         for (int s = 1; s <= 10; s++) {
-            XYZSeries s1 = createRandomSeries("S" + s, s, 100);
+            XYZSeries<String> s1 = createRandomSeries("S" + s, s, 100);
             dataset.add(s1);
         }
         return dataset;
     }
    
-    private static XYZSeries createRandomSeries(String name, int series, int count) {
-        XYZSeries s = new XYZSeries(name);
+    private static XYZSeries<String> createRandomSeries(String name, int series,
+            int count) {
+        XYZSeries<String> s = new XYZSeries<String>(name);
         double y = 10.0;
         for (int i = 0; i < count; i++) {
             y = y + (Math.random() - 0.48) * 2.0;

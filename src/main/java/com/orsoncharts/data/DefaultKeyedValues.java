@@ -45,20 +45,23 @@ import com.orsoncharts.util.ArgChecks;
  * <br><br>
  * NOTE: This class is serializable, but the serialization format is subject 
  * to change in future releases and should not be relied upon for persisting 
- * instances of this class. 
+ * instances of this class.
+ * 
+ * @param <K>  the key type (must implement Comparable).
+ * @param <T>  the value type.
  */
 @SuppressWarnings("serial")
-public final class DefaultKeyedValues<T> implements KeyedValues<T>, 
-        Serializable {
+public final class DefaultKeyedValues<K extends Comparable<K>, T> 
+        implements KeyedValues<K, T>, Serializable {
 
     /** Storage for the data items. */
-    private List<KeyedValue<T>> data;
+    private List<KeyedValue<K, T>> data;
   
     /**
      * Creates a new (empty) list of keyed values.
      */
     public DefaultKeyedValues() {
-        this(new ArrayList<Comparable<?>>());
+        this(new ArrayList<K>());
     }
   
     /**
@@ -69,11 +72,11 @@ public final class DefaultKeyedValues<T> implements KeyedValues<T>,
      * 
      * @param keys  the keys ({@code null} not permitted).
      */
-    public DefaultKeyedValues(List<Comparable<?>> keys) {
+    public DefaultKeyedValues(List<K> keys) {
         ArgChecks.nullNotPermitted(keys, "keys");
-        this.data = new ArrayList<KeyedValue<T>>();
-        for (Comparable<?> key : keys) {
-            this.data.add(new DefaultKeyedValue<T>(key, null));
+        this.data = new ArrayList<KeyedValue<K, T>>();
+        for (K key : keys) {
+            this.data.add(new DefaultKeyedValue<K, T>(key, null));
         }
     }
   
@@ -91,15 +94,15 @@ public final class DefaultKeyedValues<T> implements KeyedValues<T>,
      * @param key  the key ({@code null} not permitted)
      * @param value  the value.
      */
-    public void put(Comparable<?> key, T value) {
+    public void put(K key, T value) {
         ArgChecks.nullNotPermitted(key, "key");
-        DefaultKeyedValue<T> dkv;
+        DefaultKeyedValue<K, T> dkv;
         int index = getIndex(key);
         if (index >= 0) {
-            dkv = (DefaultKeyedValue<T>) this.data.get(index);
+            dkv = (DefaultKeyedValue<K, T>) this.data.get(index);
             dkv.setValue(value);
         } else {
-            this.data.add(new DefaultKeyedValue<T>(key, value));
+            this.data.add(new DefaultKeyedValue<K, T>(key, value));
         }
     }
   
@@ -108,7 +111,7 @@ public final class DefaultKeyedValues<T> implements KeyedValues<T>,
      * 
      * @param key  the key ({@code null} not permitted).
      */
-    public void remove(Comparable<?> key) {
+    public void remove(K key) {
         ArgChecks.nullNotPermitted(key, "key");
         int index = getIndex(key);
         if (index >= 0) {
@@ -133,8 +136,8 @@ public final class DefaultKeyedValues<T> implements KeyedValues<T>,
      * @return The key. 
      */
     @Override
-    public Comparable<?> getKey(int index) {
-        KeyedValue<T> kv = this.data.get(index);
+    public K getKey(int index) {
+        KeyedValue<K, T> kv = this.data.get(index);
         return kv.getKey();
     }
 
@@ -147,10 +150,10 @@ public final class DefaultKeyedValues<T> implements KeyedValues<T>,
      * @return The item index, or {@code -1}. 
      */
     @Override
-    public int getIndex(Comparable<?> key) {
+    public int getIndex(K key) {
         ArgChecks.nullNotPermitted(key, "key");
         for (int i = 0; i < this.data.size(); i++) {
-            KeyedValue<T> kv = this.data.get(i);
+            KeyedValue<K, T> kv = this.data.get(i);
             if (kv.getKey().equals(key)) {
                 return i;
             }
@@ -165,9 +168,9 @@ public final class DefaultKeyedValues<T> implements KeyedValues<T>,
      * @return A list of keys (possibly empty, but never {@code null}).
      */
     @Override
-    public List<Comparable<?>> getKeys() {
-        List<Comparable<?>> keys = new ArrayList<Comparable<?>>();
-        for (KeyedValue<T> kv : this.data) {
+    public List<K> getKeys() {
+        List<K> keys = new ArrayList<K>();
+        for (KeyedValue<K, T> kv : this.data) {
             keys.add(kv.getKey());
         }
         return keys;
@@ -181,7 +184,7 @@ public final class DefaultKeyedValues<T> implements KeyedValues<T>,
      * @return The value (possibly {@code null}). 
      */
     @Override
-    public T getValue(Comparable<?> key) {
+    public T getValue(K key) {
         // arg checking is performed by getIndex()
         int index = getIndex(key);
         if (index < 0) {
@@ -209,7 +212,7 @@ public final class DefaultKeyedValues<T> implements KeyedValues<T>,
      */
     @Override
     public T getValue(int item) {
-        KeyedValue<T> kv = this.data.get(item);
+        KeyedValue<K, T> kv = this.data.get(item);
         return kv.getValue();
     }
   
@@ -242,10 +245,10 @@ public final class DefaultKeyedValues<T> implements KeyedValues<T>,
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof DefaultKeyedValues<?>)) {
+        if (!(obj instanceof DefaultKeyedValues<?, ?>)) {
             return false;
         }
-        DefaultKeyedValues<?> that = (DefaultKeyedValues<?>) obj;
+        DefaultKeyedValues<?, ?> that = (DefaultKeyedValues<?, ?>) obj;
         if (!this.data.equals(that.data)) {
             return false;
         }

@@ -35,9 +35,11 @@ package com.orsoncharts.data;
 /**
  * A {@code (key, value)} pair that is used as a building block for some
  * data structures for the charts.
+ * 
+ * @param <K>  The key type.
  * @param <T>  The value type.
  */
-public interface KeyedValue<T> {
+public interface KeyedValue<K extends Comparable<K>, T> {
   
     /**
      * Returns the key (by design, this key is required to be 
@@ -45,7 +47,7 @@ public interface KeyedValue<T> {
      * 
      * @return The key (never {@code null}). 
      */
-    public Comparable<?> getKey();
+    public K getKey();
   
     /**
      * Returns the value.

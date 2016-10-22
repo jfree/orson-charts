@@ -34,39 +34,90 @@ package com.orsoncharts.data.xyz;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import org.junit.Test;
 import com.orsoncharts.TestUtils;
+import com.orsoncharts.data.Dataset3DChangeEvent;
+import com.orsoncharts.data.Dataset3DChangeListener;
 
 /**
  * Tests for the {@link XYZSeriesCollection} class.
  */
-public class XYZSeriesCollectionTest {
+public class XYZSeriesCollectionTest implements Dataset3DChangeListener {
+
+    private Dataset3DChangeEvent lastEvent;
+    
+    @Override
+    public void datasetChanged(Dataset3DChangeEvent event) {
+        this.lastEvent = event;
+    }
     
     @Test
+    public void testAdd() {
+        XYZSeriesCollection<String> dataset = new XYZSeriesCollection<String>();
+        XYZSeries<String> s = new XYZSeries<String>("S1");
+        dataset.add(s);
+        
+        assertEquals(1, dataset.getSeriesCount());
+        
+        try {
+            dataset.add(new XYZSeries<String>("S1"));
+            fail("Adding a series with the same name not permitted.");
+        } catch (IllegalArgumentException e) {
+            // expected
+        }
+    }
+    
+    /**
+     * Modifying a dataset should trigger a dataset change event.
+     */
+    @Test
+    public void testEventNotification() {
+        XYZSeriesCollection<String> dataset = new XYZSeriesCollection<String>();
+        dataset.addChangeListener(this);
+
+        this.lastEvent = null;
+        XYZSeries<String> s = new XYZSeries<String>("S1");
+        dataset.add(s);
+        assertNotNull(this.lastEvent);
+        
+        this.lastEvent = null;
+        s.add(1.0, 2.0, 3.0);
+        assertNotNull(this.lastEvent);
+        
+        this.lastEvent = null;
+        s.add(new XYZDataItem(1.0, 2.0, 3.0));
+        assertNotNull(this.lastEvent);        
+    }
+
+    @Test
     public void testEquals() {
-        XYZSeriesCollection c1 = new XYZSeriesCollection();
-        XYZSeriesCollection c2 = new XYZSeriesCollection();
+        XYZSeriesCollection<String> c1 = new XYZSeriesCollection<String>();
+        XYZSeriesCollection<String> c2 = new XYZSeriesCollection<String>();
         assertTrue(c1.equals(c2));
         assertFalse(c1.equals(null));
     }
     
     @Test
+    @SuppressWarnings("unchecked")
     public void testSerialization() {
-        XYZSeries s1 = new XYZSeries("S");
+        XYZSeries<String> s1 = new XYZSeries<String>("S");
         s1.add(1.0, 2.0, 3.0);
-        XYZSeriesCollection c1 = new XYZSeriesCollection();
+        XYZSeriesCollection<String> c1 = new XYZSeriesCollection<String>();
         c1.add(s1);
-        XYZSeriesCollection c2 = (XYZSeriesCollection) TestUtils.serialized(c1);
+        XYZSeriesCollection<String> c2 = (XYZSeriesCollection) TestUtils.serialized(c1);
         assertEquals(c1, c2);
     }
     
     @Test
     public void checkToString() {
-        XYZSeriesCollection c = new XYZSeriesCollection();
+        XYZSeriesCollection<String> c = new XYZSeriesCollection<String>();
         assertEquals("[]", c.toString());
         
-        XYZSeries s1 = new XYZSeries("S1");
+        XYZSeries<String> s1 = new XYZSeries<String>("S1");
         c.add(s1);
         assertEquals("[[\"S1\", []]]", c.toString());
         
@@ -77,7 +128,7 @@ public class XYZSeriesCollectionTest {
         assertEquals("[[\"S1\", [[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]]]]", 
                 c.toString());
         
-        XYZSeries s2 = new XYZSeries("S2");
+        XYZSeries<String> s2 = new XYZSeries<String>("S2");
         c.add(s2);
         assertEquals("[[\"S1\", [[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]]], "
                 + "[\"S2\", []]]", c.toString());
@@ -86,5 +137,5 @@ public class XYZSeriesCollectionTest {
         assertEquals("[[\"S1\", [[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]]], " 
                 + "[\"S2\", [[7.0, null, 9.0]]]]", c.toString());
     }
-    
+
 }

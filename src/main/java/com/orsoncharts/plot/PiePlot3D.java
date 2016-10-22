@@ -77,7 +77,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
             = new Font("Dialog", Font.PLAIN, 14);
     
     /** The dataset. */
-    private PieDataset3D dataset;
+    private PieDataset3D<? extends Comparable> dataset;
 
     /** The radius of the pie chart. */
     private double radius; 
@@ -119,7 +119,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
      * 
      * @param dataset  the dataset ({@code null} not permitted). 
      */
-    public PiePlot3D(PieDataset3D dataset) {
+    public PiePlot3D(PieDataset3D<? extends Comparable> dataset) {
         ArgChecks.nullNotPermitted(dataset, "dataset");
         this.dataset = dataset;
         this.dataset.addChangeListener(this);
@@ -141,7 +141,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
      * 
      * @return The dataset (never {@code null}). 
      */
-    public PieDataset3D getDataset() {
+    public PieDataset3D<? extends Comparable> getDataset() {
         return this.dataset;
     }
 
@@ -151,7 +151,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
      * 
      * @param dataset  the dataset ({@code null} not permitted). 
      */
-    public void setDataset(PieDataset3D dataset) {
+    public void setDataset(PieDataset3D<? extends Comparable> dataset) {
         ArgChecks.nullNotPermitted(dataset, "dataset");
         this.dataset.removeChangeListener(this);
         this.dataset = dataset;
@@ -402,10 +402,11 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
      * 
      * @return A list containing legend item info.
      */
-    @Override
+    @Override @SuppressWarnings("unchecked")
     public List<LegendItemInfo> getLegendInfo() {
         List<LegendItemInfo> result = new ArrayList<LegendItemInfo>();
-        for (Comparable<?> key : this.dataset.getKeys()) {
+        for (Comparable<?> key : (List<Comparable<?>>)
+                this.dataset.getKeys()) {
             String label = this.legendLabelGenerator.generateLabel(dataset, 
                     key);
             LegendItemInfo info = new StandardLegendItemInfo(key, 
@@ -427,6 +428,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
      * @param zOffset  the z-offset.
      */
     @Override
+    @SuppressWarnings("unchecked")
     public void compose(World world, double xOffset, double yOffset, 
             double zOffset) {
         double total = DataUtils.total(this.dataset);
@@ -434,7 +436,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
         int count = this.dataset.getItemCount();
         for (int i = 0; i < count; i++) {
             Comparable<?> key = this.dataset.getKey(i);
-            Number n = this.dataset.getValue(i);
+            Number n = (Number) this.dataset.getValue(i);
             if (n != null) {
                 double angle = Math.PI * 2 * (n.doubleValue() / total);
                 Color c = this.sectionColorSource.getColor(
@@ -474,7 +476,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
         double r = 0.0;
         int count = this.dataset.getItemCount();
         for (int i = 0; i < count; i++) {
-            Number n = this.dataset.getValue(i);
+            Number n = (Number) this.dataset.getValue(i);
             double angle = 0.0;
             if (n != null) {
                 angle = Math.PI * 2 * (n.doubleValue() / total);

@@ -44,7 +44,7 @@ import com.orsoncharts.util.ArgChecks;
  * 
  * @since 1.3
  */
-public class StandardXYZDataItemSelection implements XYZDataItemSelection {
+public class StandardXYZDataItemSelection<S> implements XYZDataItemSelection {
     
     /** The selected items. */
     Set<XYZItemKey> selectedItems;

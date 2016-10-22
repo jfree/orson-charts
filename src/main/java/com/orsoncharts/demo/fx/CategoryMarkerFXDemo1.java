@@ -104,6 +104,7 @@ public class CategoryMarkerFXDemo1 extends Application {
             setBottom(container);
         }
         
+        @SuppressWarnings("unchecked")
         private void updateColorSource(String selectedRow, 
                 String selectedColumn) {
             HighlightCategoryColorSource colorSource 
@@ -116,6 +117,7 @@ public class CategoryMarkerFXDemo1 extends Application {
             colorSource.setHighlightColumnIndex(columnIndex);
         }
         
+        @SuppressWarnings("unchecked")
         private void updateItemSelection(String selectedRow, 
                 String selectedColumn) {
             StandardKeyedValues3DItemSelection itemSelection 

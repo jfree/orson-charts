@@ -53,7 +53,7 @@ import com.orsoncharts.fx.Chart3DViewer;
 public class PieChart3DFXDemo2 extends Application {
 
     public static Node createDemoNode() {
-        PieDataset3D dataset = PieChart3D2.createDataset();
+        PieDataset3D<String> dataset = PieChart3D2.createDataset();
         Chart3D chart = PieChart3D2.createChart(dataset);
         Chart3DViewer viewer = new Chart3DViewer(chart);
         return viewer;

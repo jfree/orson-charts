@@ -50,7 +50,8 @@ public class DefaultKeyedValues2DTest {
     
     @Test
     public void testGetValue() {
-        DefaultKeyedValues2D<Number> kv2d = new DefaultKeyedValues2D<Number>();
+        DefaultKeyedValues2D<String, String, Number> kv2d 
+                = new DefaultKeyedValues2D<String, String, Number>();
         kv2d.setValue(1.0, "R1", "C1");
         kv2d.setValue(2.0, "R1", "C2");
         kv2d.setValue(3.0, "R1", "C3");
@@ -69,7 +70,8 @@ public class DefaultKeyedValues2DTest {
     @Test
     public void testSetValue() {
         // empty data
-        DefaultKeyedValues2D<Number> data = new DefaultKeyedValues2D<Number>();
+        DefaultKeyedValues2D<String, String, Number> data 
+                = new DefaultKeyedValues2D<String, String, Number>();
         data.setValue(1.0, "R1", "C1");
         assertEquals(1.0, data.getValue("R1", "C1").doubleValue(), EPSILON);
         assertEquals(1, data.getRowCount());
@@ -104,8 +106,10 @@ public class DefaultKeyedValues2DTest {
     
     @Test
     public void testEquals() {
-        DefaultKeyedValues2D<Number> d1 = new DefaultKeyedValues2D<Number>();
-        DefaultKeyedValues2D<Number> d2 = new DefaultKeyedValues2D<Number>();
+        DefaultKeyedValues2D<String, String, Number> d1 
+                = new DefaultKeyedValues2D<String, String, Number>();
+        DefaultKeyedValues2D<String, String, Number> d2 
+                = new DefaultKeyedValues2D<String, String, Number>();
         assertTrue(d1.equals(d2));
         assertFalse(d1.equals(null));
         
@@ -119,11 +123,14 @@ public class DefaultKeyedValues2DTest {
      * Check for serialization support.
      */
     @Test
+    @SuppressWarnings("unchecked")
     public void testSerialization() {
-        DefaultKeyedValues2D<Number> d1 = new DefaultKeyedValues2D<Number>();
+        DefaultKeyedValues2D<String, String, Number> d1 
+                = new DefaultKeyedValues2D<String, String, Number>();
         d1.setValue(1.0, "R1", "C1");
-        DefaultKeyedValues2D<Number> d2 
-                = (DefaultKeyedValues2D<Number>) TestUtils.serialized(d1);
+        DefaultKeyedValues2D<String, String, Number> d2 
+                = (DefaultKeyedValues2D<String, String, Number>) 
+                TestUtils.serialized(d1);
         assertEquals(d1, d2);
     }
     

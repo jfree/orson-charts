@@ -63,9 +63,11 @@ public class CategoryMarker1 {
      * @return A sample dataset.
      */
     public static CategoryDataset3D createDataset() {    
-        StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
+        StandardCategoryDataset3D<String, String, String> dataset 
+                = new StandardCategoryDataset3D<String, String, String>();
 
-        DefaultKeyedValues<Double> s1 = new DefaultKeyedValues<Double>();
+        DefaultKeyedValues<String, Double> s1 = new DefaultKeyedValues<String, 
+                Double>();
         s1.put("Q2/11", 8.181);
         s1.put("Q3/11", 8.792);
         s1.put("Q4/11", 9.039);
@@ -78,7 +80,8 @@ public class CategoryMarker1 {
         s1.put("Q3/13", 9.275);
         dataset.addSeriesAsRow("Oracle", s1);
 
-        DefaultKeyedValues<Double> s2 = new DefaultKeyedValues<Double>();
+        DefaultKeyedValues<String, Double> s2 = new DefaultKeyedValues<String,
+                Double>();
         s2.put("Q2/11", 9.03);
         s2.put("Q3/11", 9.72);
         s2.put("Q4/11", 10.58);
@@ -92,7 +95,8 @@ public class CategoryMarker1 {
         s2.put("Q4/13", 16.858);
         dataset.addSeriesAsRow("Google", s2);
         
-        DefaultKeyedValues<Double> s3 = new DefaultKeyedValues<Double>();
+        DefaultKeyedValues<String, Double> s3 = new DefaultKeyedValues<String,
+                Double>();
         s3.put("Q2/11", 17.37);
         s3.put("Q3/11", 17.37);
         s3.put("Q4/11", 20.89);
@@ -106,7 +110,8 @@ public class CategoryMarker1 {
         s3.put("Q4/13", 24.519);
         dataset.addSeriesAsRow("Microsoft", s3);
         
-        DefaultKeyedValues<Double> s4 = new DefaultKeyedValues<Double>();
+        DefaultKeyedValues<String, Double> s4 = new DefaultKeyedValues<String,
+                Double>();
         s4.put("Q2/11", 28.57);
         s4.put("Q3/11", 28.27);
         s4.put("Q4/11", 46.33);

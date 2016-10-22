@@ -66,11 +66,11 @@ public class XYZLineChart3D2 {
      * 
      * @return A sample dataset.
      */
-    public static XYZDataset createDataset() {    
-        XYZSeriesCollection dataset = new XYZSeriesCollection();
+    public static XYZDataset<String> createDataset() {    
+        XYZSeriesCollection<String> dataset = new XYZSeriesCollection<String>();
         
         for (int s = 1; s < 24; s++) {
-            XYZSeries series = new XYZSeries("Series " + s);
+            XYZSeries<String> series = new XYZSeries<String>("Series " + s);
             double y = 1.0;
             for (int i = 0; i < 3000; i++) {
                 y = y * (1.0 + (Math.random() - 0.499) / 10.0);

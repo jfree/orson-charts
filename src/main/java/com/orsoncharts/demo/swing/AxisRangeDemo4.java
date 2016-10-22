@@ -156,30 +156,35 @@ public class AxisRangeDemo4 extends JFrame {
      */
     private static CategoryDataset3D createDataset() {    
 
-        StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
+        StandardCategoryDataset3D<String, String, String> dataset 
+                = new StandardCategoryDataset3D<String, String, String>();
         
-        DefaultKeyedValues<Integer> s0 = new DefaultKeyedValues<Integer>();
+        DefaultKeyedValues<String, Integer> s0 = new DefaultKeyedValues<String,
+                Integer>();
         s0.put("A", -500);
         s0.put("B", -200);
         s0.put("C", -400);
         s0.put("D", -150);
         dataset.addSeriesAsRow("S1", "A", s0);
         
-        DefaultKeyedValues<Integer> s1 = new DefaultKeyedValues<Integer>();
+        DefaultKeyedValues<String, Integer> s1 = new DefaultKeyedValues<String,
+                Integer>();
         s1.put("A", -500);
         s1.put("B", 500);
         s1.put("C", 0);
         s1.put("D", -150);
         dataset.addSeriesAsRow("S2", "A", s1);
 
-        DefaultKeyedValues<Integer> s2 = new DefaultKeyedValues<Integer>();
+        DefaultKeyedValues<String, Integer> s2 
+                = new DefaultKeyedValues<String, Integer>();
         s2.put("A", 500);
         s2.put("B", -500);
         s2.put("C", 0);
         s2.put("D", 150);
         dataset.addSeriesAsRow("S3", "B", s2);
 
-        DefaultKeyedValues<Integer> s3 = new DefaultKeyedValues<Integer>();
+        DefaultKeyedValues<String, Integer> s3 
+                = new DefaultKeyedValues<String, Integer>();
         s3.put("A", 500);
         s3.put("B", 200);
         s3.put("C", 400);

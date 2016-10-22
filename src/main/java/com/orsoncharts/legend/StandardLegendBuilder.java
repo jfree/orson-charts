@@ -274,7 +274,8 @@ public final class StandardLegendBuilder implements LegendBuilder,
         TableElement legend = createSimpleLegend(plot.getLegendInfo(), anchor,
                 orientation, style);
         if (this.header != null || this.footer != null) {
-            GridElement compositeLegend = new GridElement();
+            GridElement<String, String> compositeLegend 
+                    = new GridElement<String, String>();
             compositeLegend.setBackground(null);
             if (header != null) {
                 TextElement he = new TextElement(this.header, 
@@ -403,7 +404,7 @@ public final class StandardLegendBuilder implements LegendBuilder,
         TextElement te = new TextElement(text, font);
         te.setColor(textColor);
         te.setBackgroundColor(background);
-        GridElement ge = new GridElement();
+        GridElement<String, String> ge = new GridElement<String, String>();
         ge.setElement(se, "R1", "C1");
         ge.setElement(te, "R1", "C2");
         return ge;

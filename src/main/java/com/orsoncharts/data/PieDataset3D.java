@@ -39,7 +39,10 @@ import com.orsoncharts.plot.PiePlot3D;
  * pie charts.  The interface defines methods for reading data only, not for
  * updating the data (however, classes that implement the interface will
  * typically provide their own methods for updating the dataset).
+ * 
+ * @param <K> The key type (must implement Comparable)
  */
-public interface PieDataset3D extends KeyedValues<Number>, Dataset3D {
+public interface PieDataset3D<K extends Comparable<K>> 
+        extends KeyedValues<K, Number>, Values<Number>, Dataset3D {
 
 }

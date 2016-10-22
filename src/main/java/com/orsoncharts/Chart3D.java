@@ -890,6 +890,7 @@ public class Chart3D implements Drawable3D, ChartElement,
             }
             boolean drawOutline = f.getOutline();
             double[] plane = f.calculateNormal(eyePts);
+            System.out.println(world);
             double inprod = plane[0] * world.getSunX() + plane[1]
                     * world.getSunY() + plane[2] * world.getSunZ();
             double shade = (inprod + 1) / 2.0;
@@ -1368,6 +1369,7 @@ public class Chart3D implements Drawable3D, ChartElement,
      * @param depth  the depth.
      * @param info  the rendering info ({@code null} permitted).
      */
+    @SuppressWarnings("unchecked")
     private void drawPieLabels(Graphics2D g2, double w, double h, 
             double depth, RenderingInfo info) {
         PiePlot3D p = (PiePlot3D) this.plot;

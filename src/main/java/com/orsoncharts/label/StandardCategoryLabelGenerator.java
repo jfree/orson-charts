@@ -55,8 +55,8 @@ import com.orsoncharts.util.ArgChecks;
  * @since 1.2
  */
 @SuppressWarnings("serial")
-public class StandardCategoryLabelGenerator implements CategoryLabelGenerator,
-        Serializable {
+public class StandardCategoryLabelGenerator<S extends Comparable<S>, R extends Comparable<R>, C extends Comparable<C>> 
+        implements CategoryLabelGenerator<S, R, C>, Serializable {
 
     /** 
      * A template string that will show the series, row or column key only.
@@ -117,8 +117,8 @@ public class StandardCategoryLabelGenerator implements CategoryLabelGenerator,
      * @return The label (never {@code null} for this implementation). 
      */
     @Override
-    public String generateSeriesLabel(CategoryDataset3D dataset, 
-            Comparable<?> seriesKey) {
+    public String generateSeriesLabel(CategoryDataset3D<S, R, C> dataset, 
+            S seriesKey) {
         ArgChecks.nullNotPermitted(dataset, "dataset");
         ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
         Formatter formatter = new Formatter(new StringBuilder());
@@ -139,8 +139,8 @@ public class StandardCategoryLabelGenerator implements CategoryLabelGenerator,
      * @return The row label (possibly {@code null}).
      */
     @Override
-    public String generateRowLabel(CategoryDataset3D dataset, 
-            Comparable<?> rowKey) {
+    public String generateRowLabel(CategoryDataset3D<S, R, C> dataset, 
+            R rowKey) {
         ArgChecks.nullNotPermitted(dataset, "dataset");
         ArgChecks.nullNotPermitted(rowKey, "rowKey");
         Formatter formatter = new Formatter(new StringBuilder());
@@ -161,8 +161,8 @@ public class StandardCategoryLabelGenerator implements CategoryLabelGenerator,
      * @return The column label (possibly {@code null}).
      */
     @Override
-    public String generateColumnLabel(CategoryDataset3D dataset, 
-            Comparable<?> columnKey) {
+    public String generateColumnLabel(CategoryDataset3D<S, R, C> dataset, 
+            C columnKey) {
         ArgChecks.nullNotPermitted(dataset, "dataset");
         ArgChecks.nullNotPermitted(columnKey, "columnKey");
         Formatter formatter = new Formatter(new StringBuilder());

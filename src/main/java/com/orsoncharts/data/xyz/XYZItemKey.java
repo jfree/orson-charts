@@ -44,6 +44,8 @@ import com.orsoncharts.util.ObjectUtils;
  * any (and later that link is used for chart interaction).  Instances of
  * this class are immutable.
  * 
+ * @param <S> The series key type.
+ * 
  * @since 1.3
  */
 public class XYZItemKey<S extends Comparable<S>> implements ItemKey, 

@@ -213,6 +213,7 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
      * @param zOffset  the z-offset.
      */
     @Override
+    @SuppressWarnings("unchecked")
     public void composeItem(CategoryDataset3D dataset, int series, int row, 
             int column, World world, Dimension3D dimensions, 
             double xOffset, double yOffset, double zOffset) {
@@ -220,14 +221,14 @@ public class LineRenderer3D extends AbstractCategoryRenderer3D
         // there is a lot of brute force code underneath this compose method
         // because I haven't seen the pattern yet that will let me reduce it
         // to something more elegant...probably I'm not smart enough.
-        Number y = dataset.getValue(series, row, column);
+        Number y = (Number) dataset.getValue(series, row, column);
         Number yprev = null;
         if (column > 0) {
-            yprev = dataset.getValue(series, row, column - 1);
+            yprev = (Number) dataset.getValue(series, row, column - 1);
         }
         Number ynext = null;
         if (column < dataset.getColumnCount() - 1) {
-            ynext = dataset.getValue(series, row, column + 1);
+            ynext = (Number) dataset.getValue(series, row, column + 1);
         }
 
         CategoryPlot3D plot = getPlot();

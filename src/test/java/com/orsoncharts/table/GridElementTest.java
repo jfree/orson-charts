@@ -44,8 +44,8 @@ public class GridElementTest {
     
     @Test
     public void testEquals() {
-        GridElement e1 = new GridElement();
-        GridElement e2 = new GridElement();
+        GridElement<String, String> e1 = new GridElement<String, String>();
+        GridElement<String, String> e2 = new GridElement<String, String>();
         assertTrue(e1.equals(e2));
         
         e1.setElement(new TextElement("A"), "R1", "C1");
@@ -58,9 +58,10 @@ public class GridElementTest {
      * A check for serialization.
      */
     @Test
+    @SuppressWarnings("unchecked")
     public void testSerialization() {
-        GridElement e1 = new GridElement();
-        GridElement e2 = (GridElement) TestUtils.serialized(e1);
+        GridElement<String, String> e1 = new GridElement<String, String>();
+        GridElement<String, String> e2 = (GridElement) TestUtils.serialized(e1);
         assertTrue(e1.equals(e2));        
     }
 }

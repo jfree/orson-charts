@@ -65,10 +65,12 @@ public class LineChart3D2 {
      * @return A sample dataset.
      */
     public static CategoryDataset3D createDataset() {    
-        StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
+        StandardCategoryDataset3D<String, String, String> dataset 
+                = new StandardCategoryDataset3D<String, String, String>();
         
         // http://investor.bankofamerica.com/phoenix.zhtml?c=71595&p=quarterlyearnings#fbid=Ke_-yRMOTA4
-        DefaultKeyedValues<Number> s0 = new DefaultKeyedValues<Number>();
+        DefaultKeyedValues<String, Number> s0 
+                = new DefaultKeyedValues<String, Number>();
         s0.put("Q3/11", 5889);
         s0.put("Q4/11", 1584);
         s0.put("Q1/12", 328);
@@ -81,7 +83,8 @@ public class LineChart3D2 {
         dataset.addSeriesAsRow("Bank of America", s0);
 
         // http://www.citigroup.com/citi/investor/data/qer313s.pdf
-        DefaultKeyedValues<Number> s1 = new DefaultKeyedValues<Number>();
+        DefaultKeyedValues<String, Number> s1 
+                = new DefaultKeyedValues<String, Number>();
         s1.put("Q3/11", 3771);
         s1.put("Q4/11", 956);
         s1.put("Q1/12", 2931);
@@ -94,7 +97,8 @@ public class LineChart3D2 {
         dataset.addSeriesAsRow("Citigroup", s1);
         
         // https://www.wellsfargo.com/downloads/pdf/press/3q13pr.pdf 
-        DefaultKeyedValues<Number> s3 = new DefaultKeyedValues<Number>();
+        DefaultKeyedValues<String, Number> s3 
+                = new DefaultKeyedValues<String, Number>();
         s3.put("Q3/11", 4055);
         s3.put("Q4/11", 4107);
         s3.put("Q1/12", 4248);
@@ -108,7 +112,8 @@ public class LineChart3D2 {
         dataset.addSeriesAsRow("Wells Fargo", s3);
 
         // http://files.shareholder.com/downloads/ONE/2724973994x0x696270/df38c408-0315-43dd-b896-6fe6bc895050/3Q13_Earnings_Earnings_Supplement.pdf
-        DefaultKeyedValues<Number> s2 = new DefaultKeyedValues<Number>();
+        DefaultKeyedValues<String, Number> s2 
+                = new DefaultKeyedValues<String, Number>();
         s2.put("Q3/11", 4262);
         s2.put("Q4/11", 3728);
         s2.put("Q1/12", 4924);

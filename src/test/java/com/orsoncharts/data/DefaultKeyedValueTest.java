@@ -46,39 +46,40 @@ public class DefaultKeyedValueTest {
     
     @Test
     public void testEquals() {
-        DefaultKeyedValue<Number> kv1 = new DefaultKeyedValue<Number>("K1", 
-                Double.valueOf(1.0));
-        DefaultKeyedValue<Number> kv2 = new DefaultKeyedValue<Number>("K1", 
-                Double.valueOf(1.0));
+        DefaultKeyedValue<String, Number> kv1 = new DefaultKeyedValue<String, 
+                Number>("K1", Double.valueOf(1.0));
+        DefaultKeyedValue<String, Number> kv2 = new DefaultKeyedValue<String, 
+                Number>("K1", Double.valueOf(1.0));
         assertEquals(kv1, kv2);
         assertFalse(kv1.equals(null));
         
-        kv1 = new DefaultKeyedValue<Number>("K2", Double.valueOf(1.0));
+        kv1 = new DefaultKeyedValue<String, Number>("K2", Double.valueOf(1.0));
         assertFalse(kv1.equals(kv2));
-        kv2 = new DefaultKeyedValue<Number>("K2", Double.valueOf(1.0));
+        kv2 = new DefaultKeyedValue<String, Number>("K2", Double.valueOf(1.0));
         assertTrue(kv1.equals(kv2));
        
-        kv1 = new DefaultKeyedValue<Number>("K2", Double.valueOf(2.0));
+        kv1 = new DefaultKeyedValue<String, Number>("K2", Double.valueOf(2.0));
         assertFalse(kv1.equals(kv2));
-        kv2 = new DefaultKeyedValue<Number>("K2", Double.valueOf(2.0));
+        kv2 = new DefaultKeyedValue<String, Number>("K2", Double.valueOf(2.0));
         assertTrue(kv1.equals(kv2));
         
-        kv1 = new DefaultKeyedValue<Number>("K2", null);
+        kv1 = new DefaultKeyedValue<String, Number>("K2", null);
         assertFalse(kv1.equals(kv2));
-        kv2 = new DefaultKeyedValue<Number>("K2", null);
+        kv2 = new DefaultKeyedValue<String, Number>("K2", null);
         assertTrue(kv1.equals(kv2));
     }
     
     @Test
+    @SuppressWarnings("unchecked")
     public void testSerialization() {
-        DefaultKeyedValue<Number> kv1 = new DefaultKeyedValue<Number>("K1", 
-                1.0);
-        DefaultKeyedValue<Number> kv2 = (DefaultKeyedValue<Number>) 
-                TestUtils.serialized(kv1);
+        DefaultKeyedValue<String, Number> kv1 = new DefaultKeyedValue<String, 
+                Number>("K1", 1.0);
+        DefaultKeyedValue<String, Number> kv2 = (DefaultKeyedValue<String, 
+                Number>) TestUtils.serialized(kv1);
         assertTrue(kv1.equals(kv2));
         
-        kv1 = new DefaultKeyedValue<Number>("K1", null);
-        kv2 = (DefaultKeyedValue<Number>) TestUtils.serialized(kv1);
+        kv1 = new DefaultKeyedValue<String, Number>("K1", null);
+        kv2 = (DefaultKeyedValue<String, Number>) TestUtils.serialized(kv1);
         assertTrue(kv1.equals(kv2));
     }
     

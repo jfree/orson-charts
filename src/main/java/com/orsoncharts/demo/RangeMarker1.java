@@ -116,19 +116,19 @@ public class RangeMarker1 {
      * 
      * @return A sample dataset.
      */
-    public static XYZDataset createDataset() {
-        XYZSeries s1 = createRandomSeries("S1", 10);
-        XYZSeries s2 = createRandomSeries("S2", 50);
-        XYZSeries s3 = createRandomSeries("S3", 150);
-        XYZSeriesCollection dataset = new XYZSeriesCollection();
+    public static XYZDataset<String> createDataset() {
+        XYZSeries<String> s1 = createRandomSeries("S1", 10);
+        XYZSeries<String> s2 = createRandomSeries("S2", 50);
+        XYZSeries<String> s3 = createRandomSeries("S3", 150);
+        XYZSeriesCollection<String> dataset = new XYZSeriesCollection<String>();
         dataset.add(s1);
         dataset.add(s2);
         dataset.add(s3);
         return dataset;
     }
     
-    private static XYZSeries createRandomSeries(String name, int count) {
-        XYZSeries s = new XYZSeries(name);
+    private static XYZSeries<String> createRandomSeries(String name, int count) {
+        XYZSeries<String> s = new XYZSeries<String>(name);
         for (int i = 0; i < count; i++) {
             s.add(Math.random() * 100, Math.random() / 100, Math.random() * 100);
         }

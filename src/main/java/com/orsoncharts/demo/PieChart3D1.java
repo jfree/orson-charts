@@ -56,7 +56,7 @@ public class PieChart3D1 {
      * 
      * @return A pie chart. 
      */
-    public static Chart3D createChart(PieDataset3D dataset) {
+    public static Chart3D createChart(PieDataset3D<String> dataset) {
         Chart3D chart = Chart3DFactory.createPieChart(
                 "New Zealand Exports 2012", 
                 "http://www.stats.govt.nz/browse_for_stats/snapshots-of-nz/nz-in-profile-2013.aspx", 
@@ -74,8 +74,8 @@ public class PieChart3D1 {
      * 
      * @return A sample dataset.
      */
-    public static PieDataset3D createDataset() {
-        StandardPieDataset3D dataset = new StandardPieDataset3D();
+    public static PieDataset3D<String> createDataset() {
+        StandardPieDataset3D<String> dataset = new StandardPieDataset3D<String>();
         dataset.add("Milk Products", 11625);
         dataset.add("Meat", 5114);
         dataset.add("Wood/Logs", 3060);

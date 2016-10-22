@@ -137,12 +137,12 @@ public class StandardPieLabelGenerator implements PieLabelGenerator,
      * 
      * @return The label (never {@code null} for this implementation). 
      */
-    @Override
+    @Override @SuppressWarnings("unchecked")
     public String generateLabel(PieDataset3D dataset, Comparable<?> key) {
         ArgChecks.nullNotPermitted(dataset, "dataset");
         ArgChecks.nullNotPermitted(key, "key");
         Formatter formatter = new Formatter(new StringBuilder());
-        Number value = dataset.getValue(key);
+        Number value = (Number) dataset.getValue(key);
         Number percent = Double.NaN;
         if (value != null) {
             double total = DataUtils.total(dataset);

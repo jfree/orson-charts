@@ -83,8 +83,9 @@ public class LineChart3D1 {
      * 
      * @return A sample dataset.
      */
-    public static CategoryDataset3D createDataset() {
-        StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
+    public static CategoryDataset3D<String, String, String> createDataset() {
+        StandardCategoryDataset3D<String, String, String> dataset 
+                = new StandardCategoryDataset3D<String, String, String>();
         dataset.addSeriesAsRow("Safari", createSafariData());
         dataset.addSeriesAsRow("Firefox", createFirefoxData());
         dataset.addSeriesAsRow("Internet Explorer", createInternetExplorerData());
@@ -92,8 +93,9 @@ public class LineChart3D1 {
         return dataset;
     }
 
-    private static KeyedValues<Double> createChromeData() {
-        DefaultKeyedValues<Double> series = new DefaultKeyedValues<Double>();
+    private static KeyedValues<String, Double> createChromeData() {
+        DefaultKeyedValues<String, Double> series 
+                = new DefaultKeyedValues<String, Double>();
         series.put("Nov-12", 0.3697);
         series.put("Dec-12", 0.3782);
         series.put("Jan-13", 0.3808);
@@ -133,8 +135,9 @@ public class LineChart3D1 {
         return series;
     }
 
-    private static KeyedValues<Double> createFirefoxData() {
-        DefaultKeyedValues<Double> series = new DefaultKeyedValues<Double>();
+    private static KeyedValues<String, Double> createFirefoxData() {
+        DefaultKeyedValues<String, Double> series 
+                = new DefaultKeyedValues<String, Double>();
         series.put("Nov-12", 0.2324);
         series.put("Dec-12", 0.2284);
         series.put("Jan-13", 0.2247);
@@ -174,8 +177,9 @@ public class LineChart3D1 {
         return series;
     }
 
-    private static KeyedValues<Double> createInternetExplorerData() {
-        DefaultKeyedValues<Double> series = new DefaultKeyedValues<Double>();
+    private static KeyedValues<String, Double> createInternetExplorerData() {
+        DefaultKeyedValues<String, Double> series 
+                = new DefaultKeyedValues<String, Double>();
         series.put("Nov-12", 0.3246);
         series.put("Dec-12", 0.3214);
         series.put("Jan-13", 0.3225);
@@ -215,8 +219,9 @@ public class LineChart3D1 {
         return series;
     }
 //
-    private static KeyedValues<Double> createSafariData() {
-        DefaultKeyedValues<Double> series = new DefaultKeyedValues<Double>();
+    private static KeyedValues<String, Double> createSafariData() {
+        DefaultKeyedValues<String, Double> series 
+                = new DefaultKeyedValues<String, Double>();
         series.put("Nov-12", 0.051);
         series.put("Dec-12", 0.0499);
         series.put("Jan-13", 0.0512);

@@ -44,30 +44,36 @@ public class KeyedValues3DItemKeyTest {
     
     @Test
     public void testEquals() {
-        KeyedValues3DItemKey k1 = new KeyedValues3DItemKey("A", "B", "C");
-        KeyedValues3DItemKey k2 = new KeyedValues3DItemKey("A", "B", "C");
+        KeyedValues3DItemKey<String, String, String> k1 
+                = new KeyedValues3DItemKey<String, String, String>("A", "B", 
+                        "C");
+        KeyedValues3DItemKey<String, String, String> k2 
+                = new KeyedValues3DItemKey<String, String, String>("A", "B", 
+                        "C");
         assertTrue(k1.equals(k2));
         assertFalse(k1.equals(null));
         
-        k1 = new KeyedValues3DItemKey("AA", "B", "C");
+        k1 = new KeyedValues3DItemKey<String, String, String>("AA", "B", "C");
         assertFalse(k1.equals(k2));
-        k2 = new KeyedValues3DItemKey("AA", "B", "C");
+        k2 = new KeyedValues3DItemKey<String, String, String>("AA", "B", "C");
         assertTrue(k1.equals(k2));
 
-        k1 = new KeyedValues3DItemKey("AA", "BB", "C");
+        k1 = new KeyedValues3DItemKey<String, String, String>("AA", "BB", "C");
         assertFalse(k1.equals(k2));
-        k2 = new KeyedValues3DItemKey("AA", "BB", "C");
+        k2 = new KeyedValues3DItemKey<String, String, String>("AA", "BB", "C");
         assertTrue(k1.equals(k2));
 
-        k1 = new KeyedValues3DItemKey("AA", "BB", "CC");
+        k1 = new KeyedValues3DItemKey<String, String, String>("AA", "BB", "CC");
         assertFalse(k1.equals(k2));
-        k2 = new KeyedValues3DItemKey("AA", "BB", "CC");
+        k2 = new KeyedValues3DItemKey<String, String, String>("AA", "BB", "CC");
         assertTrue(k1.equals(k2));
     }
     
     @Test
     public void testSerialization() {
-        KeyedValues3DItemKey k1 = new KeyedValues3DItemKey("A", "B", "C");
+        KeyedValues3DItemKey<String, String, String> k1 
+                = new KeyedValues3DItemKey<String, String, String>("A", "B", 
+                        "C");
         KeyedValues3DItemKey k2 = (KeyedValues3DItemKey) 
                 TestUtils.serialized(k1);
         assertTrue(k1.equals(k2));

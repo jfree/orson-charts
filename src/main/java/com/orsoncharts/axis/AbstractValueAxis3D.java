@@ -540,7 +540,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
      * 
      * @param plot  the plot ({@code null} not permitted). 
      */
-    @Override
+    @Override @SuppressWarnings("unchecked")
     public void configureAsValueAxis(CategoryPlot3D plot) {
         this.configuredType = ValueAxis3DType.VALUE;
         if (this.autoAdjustRange) {

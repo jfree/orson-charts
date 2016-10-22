@@ -70,30 +70,35 @@ public class StackedBarChart3D1 {
      */
     public static CategoryDataset3D createDataset() {
         
-        StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
+        StandardCategoryDataset3D<String, String, String> dataset 
+                = new StandardCategoryDataset3D<String, String, String>();
 
-        DefaultKeyedValues<Double> s1 = new DefaultKeyedValues<Double>();
+        DefaultKeyedValues<String, Double> s1 
+                = new DefaultKeyedValues<String, Double>();
         s1.put("A", 4.0);
         s1.put("B", 2.0);
         s1.put("C", 3.0);
         s1.put("D", 5.0);
         s1.put("E", 2.0);
         s1.put("F", 1.0);
-        DefaultKeyedValues<Double> s2 = new DefaultKeyedValues<Double>();
+        DefaultKeyedValues<String, Double> s2 
+                = new DefaultKeyedValues<String, Double>();
         s2.put("A", 1.0);
         s2.put("B", 2.0);
         s2.put("C", 3.0);
         s2.put("D", 2.0);
         s2.put("E", 3.0);
         s2.put("F", 1.0);
-        DefaultKeyedValues<Double> s3 = new DefaultKeyedValues<Double>();
+        DefaultKeyedValues<String, Double> s3 
+                = new DefaultKeyedValues<String, Double>();
         s3.put("A", 6.0);
         s3.put("B", 6.0);
         s3.put("C", 6.0);
         s3.put("D", 4.0);
         s3.put("E", 4.0);
         s3.put("F", 4.0);
-        DefaultKeyedValues<Double> s4 = new DefaultKeyedValues<Double>();
+        DefaultKeyedValues<String, Double> s4 
+                = new DefaultKeyedValues<String, Double>();
         s4.put("A", 9.0);
         s4.put("B", 8.0);
         s4.put("C", 7.0);
@@ -101,7 +106,8 @@ public class StackedBarChart3D1 {
         s4.put("D", 3.0);
         s4.put("E", 4.0);
         s4.put("F", 6.0);
-        DefaultKeyedValues<Double> s5 = new DefaultKeyedValues<Double>();
+        DefaultKeyedValues<String, Double> s5 
+                = new DefaultKeyedValues<String, Double>();
         s5.put("A", 9.0);
         s5.put("B", 8.0);
         s5.put("C", 7.0);

@@ -96,10 +96,10 @@ public class CategoryMarkerDemo1 extends JFrame {
             add(controlPanel, BorderLayout.SOUTH);
         }
         
+        @SuppressWarnings("unchecked")
         private void updateColorSource(String selectedRow, 
                 String selectedColumn) {
-            HighlightCategoryColorSource colorSource 
-                    = (HighlightCategoryColorSource) 
+            HighlightCategoryColorSource colorSource = (HighlightCategoryColorSource) 
                     getRenderer().getColorSource();
             int rowIndex = getPlot().getDataset().getRowIndex(selectedRow);
             int columnIndex = getPlot().getDataset().getColumnIndex(
@@ -108,6 +108,7 @@ public class CategoryMarkerDemo1 extends JFrame {
             colorSource.setHighlightColumnIndex(columnIndex);
         }
         
+        @SuppressWarnings("unchecked")
         private void updateItemSelection(String selectedRow, 
                 String selectedColumn) {
             StandardKeyedValues3DItemSelection itemSelection 

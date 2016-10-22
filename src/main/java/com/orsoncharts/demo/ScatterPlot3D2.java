@@ -78,18 +78,18 @@ public class ScatterPlot3D2 {
      * 
      * @return A sample dataset.
      */
-    public static XYZDataset createDataset() {
-        XYZSeries s1 = new XYZSeries("S1");
+    public static XYZDataset<String> createDataset() {
+        XYZSeries<String> s1 = new XYZSeries<String>("S1");
         for (int i = 0; i < 1000; i++) {
             s1.add(Math.random() * 100, Math.pow(10, Math.random() * 5), 
                     Math.random() * 100);
         }
-        XYZSeries s2 = new XYZSeries("S2");
+        XYZSeries<String> s2 = new XYZSeries<String>("S2");
         for (int i = 0; i < 1000; i++) {
             s2.add(Math.random() * 100, Math.random() * 100000, 
                     Math.random() * 100);
         }
-        XYZSeriesCollection dataset = new XYZSeriesCollection();
+        XYZSeriesCollection<String> dataset = new XYZSeriesCollection<String>();
         dataset.add(s1);
         dataset.add(s2);
         return dataset;

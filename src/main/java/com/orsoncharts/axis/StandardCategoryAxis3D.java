@@ -623,7 +623,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      * 
      * @param plot  the plot ({@code null} not permitted).
      */
-    @Override
+    @Override @SuppressWarnings("unchecked")
     public void configureAsRowAxis(CategoryPlot3D plot) {
         ArgChecks.nullNotPermitted(plot, "plot");
         this.categories = plot.getDataset().getRowKeys();
@@ -638,7 +638,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      * 
      * @param plot  the plot ({@code null} not permitted).
      */
-    @Override
+    @Override @SuppressWarnings("unchecked")
     public void configureAsColumnAxis(CategoryPlot3D plot) {
         ArgChecks.nullNotPermitted(plot, "plot");
         this.categories = plot.getDataset().getColumnKeys();
@@ -870,6 +870,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      *     {@link RenderedElement} instances for the tick labels.
      * @param hinting  
      */
+    @SuppressWarnings("unchecked")
     private void drawPerpendicularTickLabels(Graphics2D g2, Line2D axisLine,
             Point2D opposingPt, List<TickData> tickData, RenderingInfo info,
             boolean hinting) {
@@ -924,7 +925,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      * 
      * @since 1.2
      */
-    @Override
+    @Override @SuppressWarnings("unchecked")
     public List<TickData> generateTickDataForRows(CategoryDataset3D dataset) {
         ArgChecks.nullNotPermitted(dataset, "dataset");
         List<TickData> result = new ArrayList<TickData>(this.categories.size());
@@ -950,7 +951,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      * 
      * @since 1.2
      */
-    @Override
+    @Override @SuppressWarnings("unchecked")
     public List<TickData> generateTickDataForColumns(
             CategoryDataset3D dataset) {
         ArgChecks.nullNotPermitted(dataset, "dataset");

@@ -279,19 +279,19 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
      * @param yOffset  the y-offset.
      * @param zOffset  the z-offset.
      */
-    @Override
+    @Override @SuppressWarnings("unchecked")
     public void composeItem(CategoryDataset3D dataset, int series, int row, 
             int column, World world, Dimension3D dimensions, 
             double xOffset, double yOffset, double zOffset) {
         
-        Number y = dataset.getValue(series, row, column);
+        Number y = (Number) dataset.getValue(series, row, column);
         Number yprev = null;
         if (column > 0) {
-            yprev = dataset.getValue(series, row, column - 1);
+            yprev = (Number) dataset.getValue(series, row, column - 1);
         }
         Number ynext = null;
         if (column < dataset.getColumnCount() - 1) {
-            ynext = dataset.getValue(series, row, column + 1);
+            ynext = (Number) dataset.getValue(series, row, column + 1);
         }
 
         CategoryPlot3D plot = getPlot();

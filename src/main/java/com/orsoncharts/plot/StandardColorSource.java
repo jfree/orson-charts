@@ -48,8 +48,8 @@ import com.orsoncharts.Colors;
  * instances of this class.
  */
 @SuppressWarnings("serial")
-public final class StandardColorSource implements ColorSource, 
-        Serializable {
+public final class StandardColorSource<K extends Comparable<K>>
+        implements ColorSource<K>, Serializable {
 
     /** 
      * An array of standard colors from which a color will be assigned if
@@ -58,7 +58,7 @@ public final class StandardColorSource implements ColorSource,
     private Color[] standardColors;
     
     /** Storage for the colors assigned to keys. */
-    private DefaultKeyedValues<Color> colors;
+    private DefaultKeyedValues<K, Color> colors;
     
     /**
      * Creates a new instance with default colors.
@@ -87,7 +87,7 @@ public final class StandardColorSource implements ColorSource,
             }
         }
         this.standardColors = colors.clone();
-        this.colors = new DefaultKeyedValues<Color>();
+        this.colors = new DefaultKeyedValues<K, Color>();
     }
  
     /**
@@ -98,7 +98,7 @@ public final class StandardColorSource implements ColorSource,
      * @return The color (never {@code null}). 
      */
     @Override
-    public Color getColor(Comparable<?> key) {
+    public Color getColor(K key) {
         // defer argument check
         Color c = this.colors.getValue(key);
         if (c != null) {
@@ -117,7 +117,7 @@ public final class StandardColorSource implements ColorSource,
      * @param color  the color ({@code null} permitted).
      */
     @Override
-    public void setColor(Comparable<?> key, Color color) {
+    public void setColor(K key, Color color) {
         if (color != null) {
             this.colors.put(key, color);
         } else {

@@ -53,17 +53,18 @@ import com.orsoncharts.util.ObjectUtils;
  * instances of this class. 
  */
 @SuppressWarnings("serial")
-public class XYZSeriesCollection extends AbstractDataset3D 
-        implements XYZDataset, Serializable {
+public class XYZSeriesCollection<S extends Comparable<S>> 
+        extends AbstractDataset3D 
+        implements XYZDataset<S>, Serializable {
 
     /** Storage for the data series. */
-    private final List<XYZSeries> series;
+    private final List<XYZSeries<S>> series;
 
     /**
      * Creates a new (empty) {@code XYZSeriesCollection} instance.
      */
     public XYZSeriesCollection() {
-        this.series = new ArrayList<XYZSeries>();
+        this.series = new ArrayList<XYZSeries<S>>();
     }
 
     /**
@@ -85,7 +86,7 @@ public class XYZSeriesCollection extends AbstractDataset3D
      * @return The series index or {@code -1}. 
      */
     @Override
-    public int getSeriesIndex(Comparable<?> key) {
+    public int getSeriesIndex(S key) {
         ArgChecks.nullNotPermitted(key, "key");
         return getSeriesKeys().indexOf(key);
     }
@@ -98,9 +99,9 @@ public class XYZSeriesCollection extends AbstractDataset3D
      *     {@code null}).
      */
     @Override
-    public List<Comparable<?>> getSeriesKeys() {
-        List<Comparable<?>> result = new ArrayList<Comparable<?>>();
-        for (XYZSeries s : this.series) {
+    public List<S> getSeriesKeys() {
+        List<S> result = new ArrayList<S>();
+        for (XYZSeries<S> s : this.series) {
             result.add(s.getKey());
         }
         return result;
@@ -116,8 +117,8 @@ public class XYZSeriesCollection extends AbstractDataset3D
      * @since 1.3
      */
     @Override
-    public Comparable<?> getSeriesKey(int seriesIndex) {
-        return getSeries(seriesIndex).getKey();
+    public S getSeriesKey(int seriesIndex) {
+        return (S) getSeries(seriesIndex).getKey();
     }
 
     /**
@@ -126,7 +127,7 @@ public class XYZSeriesCollection extends AbstractDataset3D
      * 
      * @param series  the series ({@code null} not permitted). 
      */
-    public void add(XYZSeries series) {
+    public void add(XYZSeries<S> series) {
         ArgChecks.nullNotPermitted(series, "series");
         if (getSeriesIndex(series.getKey()) >= 0) {
             throw new IllegalArgumentException("Another series with the same key already exists within the collection.");
@@ -143,7 +144,7 @@ public class XYZSeriesCollection extends AbstractDataset3D
      * 
      * @since 1.2
      */
-    public XYZSeries getSeries(int index) {
+    public XYZSeries<S> getSeries(int index) {
         ArgChecks.checkArrayBounds(index, "index", this.series.size());
         return this.series.get(index);
     }

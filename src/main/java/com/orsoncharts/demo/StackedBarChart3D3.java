@@ -111,7 +111,8 @@ public class StackedBarChart3D3 {
      */
     public static CategoryDataset3D createDataset() {
         
-        StandardCategoryDataset3D dataset = new StandardCategoryDataset3D();
+        StandardCategoryDataset3D<String, String, String> dataset 
+                = new StandardCategoryDataset3D<String, String, String>();
         
         dataset.addValue(146, "Survivors", "Women/Children", "1st");
         dataset.addValue(104, "Survivors", "Women/Children", "2nd");

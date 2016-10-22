@@ -53,19 +53,20 @@ import com.orsoncharts.data.DefaultKeyedValues2D;
  * instances of this class.
  */
 @SuppressWarnings("serial")
-public class GridElement extends AbstractTableElement implements TableElement,
-        Serializable {
+public class GridElement<R extends Comparable<R>, C extends Comparable<C>> 
+        extends AbstractTableElement 
+        implements TableElement, Serializable {
 
     private static final Color TRANSPARENT_COLOR = new Color(0, 0, 0, 0);
     
     /** Storage for the cell elements. */
-    private DefaultKeyedValues2D<TableElement> elements;
+    private DefaultKeyedValues2D<R, C, TableElement> elements;
     
     /**
      * Creates a new empty grid.
      */
     public GridElement() {
-        this.elements = new DefaultKeyedValues2D<TableElement>();
+        this.elements = new DefaultKeyedValues2D<R, C, TableElement>();
         setBackgroundColor(TRANSPARENT_COLOR);
     }
     
@@ -76,8 +77,7 @@ public class GridElement extends AbstractTableElement implements TableElement,
      * @param rowKey  the row key ({@code null} not permitted).
      * @param columnKey  the column key ({@code null} not permitted).
      */
-    public void setElement(TableElement element, Comparable<?> rowKey, 
-            Comparable<?> columnKey) {
+    public void setElement(TableElement element, R rowKey, C columnKey) {
         // defer argument checking
         this.elements.setValue(element, rowKey, columnKey);
     }

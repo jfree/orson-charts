@@ -50,19 +50,21 @@ import com.orsoncharts.util.ArgChecks;
  * instances of this class.
  */
 @SuppressWarnings("serial")
-public final class StandardCategoryDataset3D extends AbstractDataset3D  
-        implements CategoryDataset3D, Serializable {
+public final class StandardCategoryDataset3D
+        <S extends Comparable<S>, R extends Comparable<R>, C extends Comparable<C>> 
+        extends AbstractDataset3D  
+        implements CategoryDataset3D<S, R, C>, Serializable {
 
     /**
      * Storage for the data.
      */
-    private DefaultKeyedValues3D<Number> data;
+    private DefaultKeyedValues3D<S, R, C, Number> data;
     
     /**
      * Creates a new (empty) dataset.
      */
     public StandardCategoryDataset3D() {
-        this.data = new DefaultKeyedValues3D<Number>();  
+        this.data = new DefaultKeyedValues3D<S, R, C, Number>();  
     }
 
     /**
@@ -103,7 +105,7 @@ public final class StandardCategoryDataset3D extends AbstractDataset3D
      * @return The series key. 
      */
     @Override
-    public Comparable<?> getSeriesKey(int seriesIndex) {
+    public S getSeriesKey(int seriesIndex) {
         return this.data.getSeriesKey(seriesIndex);
     }
 
@@ -115,7 +117,7 @@ public final class StandardCategoryDataset3D extends AbstractDataset3D
      * @return The row key. 
      */
     @Override
-    public Comparable<?> getRowKey(int rowIndex) {
+    public R getRowKey(int rowIndex) {
         return this.data.getRowKey(rowIndex);
     }
 
@@ -127,7 +129,7 @@ public final class StandardCategoryDataset3D extends AbstractDataset3D
      * @return The column key. 
      */
     @Override
-    public Comparable<?> getColumnKey(int columnIndex) {
+    public C getColumnKey(int columnIndex) {
         return this.data.getColumnKey(columnIndex);
     }
 
@@ -140,7 +142,7 @@ public final class StandardCategoryDataset3D extends AbstractDataset3D
      * @return The series index or {@code -1}.
      */
     @Override
-    public int getSeriesIndex(Comparable<?> serieskey) {
+    public int getSeriesIndex(S serieskey) {
         return this.data.getSeriesIndex(serieskey);
     }
 
@@ -153,7 +155,7 @@ public final class StandardCategoryDataset3D extends AbstractDataset3D
      * @return The row index or {@code -1}. 
      */
     @Override
-    public int getRowIndex(Comparable<?> rowkey) {
+    public int getRowIndex(R rowkey) {
         // arg checking is covered
         return this.data.getRowIndex(rowkey);
     }
@@ -167,7 +169,7 @@ public final class StandardCategoryDataset3D extends AbstractDataset3D
      * @return The column index or {@code -1}. 
      */
     @Override
-    public int getColumnIndex(Comparable<?> columnkey) {
+    public int getColumnIndex(C columnkey) {
         // arg checking is covered
         return this.data.getColumnIndex(columnkey);
     }
@@ -180,7 +182,7 @@ public final class StandardCategoryDataset3D extends AbstractDataset3D
      *     {@code null}). 
      */
     @Override
-    public List<Comparable<?>> getSeriesKeys() {
+    public List<S> getSeriesKeys() {
         return this.data.getSeriesKeys();
     }
 
@@ -192,7 +194,7 @@ public final class StandardCategoryDataset3D extends AbstractDataset3D
      *     {@code null}). 
      */
     @Override
-    public List<Comparable<?>> getRowKeys() {
+    public List<R> getRowKeys() {
         return this.data.getRowKeys();
     }
 
@@ -204,7 +206,7 @@ public final class StandardCategoryDataset3D extends AbstractDataset3D
      *     {@code null}). 
      */
     @Override
-    public List<Comparable<?>> getColumnKeys() {
+    public List<C> getColumnKeys() {
         return this.data.getColumnKeys();
     }
 
@@ -219,8 +221,7 @@ public final class StandardCategoryDataset3D extends AbstractDataset3D
      * @return The value (possibly {@code null}). 
      */
     @Override
-    public Number getValue(Comparable<?> seriesKey, Comparable<?> rowKey, 
-            Comparable<?> columnKey) {
+    public Number getValue(S seriesKey, R rowKey, C columnKey) {
         return this.data.getValue(seriesKey, rowKey, columnKey);
     }
 
@@ -248,8 +249,7 @@ public final class StandardCategoryDataset3D extends AbstractDataset3D
      * @param rowKey  the row key ({@code null} not permitted).
      * @param columnKey  the column key ({@code null} not permitted).
      */
-    public void setValue(Number n, Comparable<?> seriesKey, 
-            Comparable<?> rowKey, Comparable<?> columnKey) {
+    public void setValue(Number n, S seriesKey, R rowKey, C columnKey) {
         this.data.setValue(n, seriesKey, rowKey, columnKey);
         fireDatasetChanged();
     }
@@ -265,8 +265,7 @@ public final class StandardCategoryDataset3D extends AbstractDataset3D
      * @param rowKey  the row key ({@code null} not permitted).
      * @param columnKey  the column key ({@code null} not permitted).
      */
-    public void addValue(Number n, Comparable<?> seriesKey, 
-            Comparable<?> rowKey, Comparable<?> columnKey) {
+    public void addValue(Number n, S seriesKey, R rowKey, C columnKey) {
         setValue(n, seriesKey, rowKey, columnKey);
     }
 
@@ -293,9 +292,10 @@ public final class StandardCategoryDataset3D extends AbstractDataset3D
      * @param seriesKey  the series key ({@code null} not permitted).
      * @param data  the data ({@code null} not permitted).
      */
-    public void addSeriesAsRow(Comparable<?> seriesKey, 
-            KeyedValues<? extends Number> data) {
-        addSeriesAsRow(seriesKey, seriesKey, data);    
+    @SuppressWarnings("unchecked")
+    public void addSeriesAsRow(S seriesKey, 
+            KeyedValues<C, ? extends Number> data) {
+        addSeriesAsRow(seriesKey, (R) seriesKey, data);
     }
     
     /**
@@ -305,11 +305,11 @@ public final class StandardCategoryDataset3D extends AbstractDataset3D
      * @param rowKey  the row key ({@code null} not permitted).
      * @param data  the data ({@code null} not permitted).
      */
-    public void addSeriesAsRow(Comparable<?> seriesKey, Comparable<?> rowKey, 
-            KeyedValues<? extends Number> data) {
+    public void addSeriesAsRow(S seriesKey, R rowKey, 
+            KeyedValues<C, ? extends Number> data) {
         ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
         ArgChecks.nullNotPermitted(data, "data");
-        for (Comparable<?> key : data.getKeys()) {
+        for (C key : data.getKeys()) {
             setValue(data.getValue(key), seriesKey, rowKey, key);
         }
     }

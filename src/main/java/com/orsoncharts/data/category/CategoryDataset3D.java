@@ -40,7 +40,13 @@ import com.orsoncharts.plot.CategoryPlot3D;
  * An interface for a dataset with multiple series of data in the form of
  * {@code (rowKey, columnKey, value)}.  This is the standard data 
  * interface used by the {@link CategoryPlot3D} class. 
+ * 
+ * @param <S>  the series key type (must implement Comparable)
+ * @param <R>  the row key type (must implement Comparable)
+ * @param <C>  the column key type (must implement Comparable)
  */
-public interface CategoryDataset3D extends KeyedValues3D<Number>, Dataset3D {
+public interface CategoryDataset3D<S extends Comparable<S>, 
+        R extends Comparable<R>, C extends Comparable<C>> 
+        extends KeyedValues3D<S, R, C, Number>, Dataset3D {
 
 }

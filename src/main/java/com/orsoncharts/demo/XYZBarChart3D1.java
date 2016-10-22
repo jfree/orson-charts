@@ -69,14 +69,14 @@ public class XYZBarChart3D1 {
      * 
      * @return A sample dataset.
      */
-    public static XYZDataset createDataset() {
-        XYZSeries series1 = new XYZSeries("Series 1");
+    public static XYZDataset<String> createDataset() {
+        XYZSeries<String> series1 = new XYZSeries<String>("Series 1");
         series1.add(1.0, 5.0, 1.0);
-        XYZSeries series2 = new XYZSeries("Series 2");
+        XYZSeries<String> series2 = new XYZSeries<String>("Series 2");
         series2.add(2.0, 8.0, 2.0);
-        XYZSeries series3 = new XYZSeries("Series 3");
+        XYZSeries<String> series3 = new XYZSeries<String>("Series 3");
         series3.add(1.0, 10.0, 2.0);
-        XYZSeriesCollection dataset = new XYZSeriesCollection();
+        XYZSeriesCollection<String> dataset = new XYZSeriesCollection<String>();
         dataset.add(series1);
         dataset.add(series2);
         dataset.add(series3);

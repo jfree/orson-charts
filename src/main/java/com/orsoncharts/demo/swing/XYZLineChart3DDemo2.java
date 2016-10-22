@@ -37,25 +37,72 @@
 package com.orsoncharts.demo.swing;
 
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import com.orsoncharts.Chart3DPanel;
 import com.orsoncharts.Chart3D;
-import com.orsoncharts.data.PieDataset3D;
-import com.orsoncharts.demo.PieChart3D2;
-import com.orsoncharts.plot.PiePlot3D;
+import com.orsoncharts.Chart3DFactory;
+import com.orsoncharts.data.xyz.XYZDataset;
+import com.orsoncharts.data.xyz.XYZSeries;
+import com.orsoncharts.data.xyz.XYZSeriesCollection;
 import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
+import com.orsoncharts.plot.XYZPlot;
+import java.awt.Color;
 
 /**
- * A demo of a pie chart.
+ * A demo of a 3D line chart.
  */
 @SuppressWarnings("serial")
-public class PieChart3DDemo2 extends JFrame {
+public class XYZLineChart3DDemo2 extends JFrame {
+
+    /**
+     * Creates a new test app.
+     *
+     * @param title  the frame title.
+     */
+    public XYZLineChart3DDemo2(String title) {
+        super(title);
+        addWindowListener(new ExitOnClose());
+        getContentPane().add(createDemoPanel());
+    }
+
+    private static XYZDataset createDataset() {
+        XYZSeriesCollection<String> dataset = new XYZSeriesCollection<String>();
+        XYZSeries<String> series = new XYZSeries<String>("Series 1");
+        series.add(5, 5, 5);
+        series.add(15, 5, 5);
+        series.add(15, 15, 5);
+        series.add(5, 15, 5);
+        series.add(5, 5, 5);
+        series.add(5, 5, 15);
+        series.add(15, 5, 15);
+        series.add(15, 15, 15);
+        series.add(5, 15, 15);
+        series.add(5, 5, 15);
+        series.add(5, 15, 15);
+        series.add(5, 15, 5);
+        series.add(15, 15, 5);
+        series.add(15, 15, 15);
+        series.add(15, 5, 15);
+        series.add(15, 5, 5);
+        dataset.add(series);
+    
+        
+        return dataset;
+    }
+    
+    private static Chart3D createChart(XYZDataset dataset) {
+        Chart3D chart = Chart3DFactory.createXYZLineChart("XYZ Line Chart Demo", 
+                "Orson Charts", dataset, "X", "Y", "Z");
+        chart.setChartBoxColor(new Color(255, 255, 255, 128));
+        XYZPlot plot = (XYZPlot) chart.getPlot();
+        plot.getXAxis().setRange(0, 20);
+        plot.getYAxis().setRange(0, 20);
+        plot.getZAxis().setRange(0, 20);
+        return chart;    
+    }
     
     /**
      * Returns a panel containing the content for the demo.  This method is
@@ -67,35 +114,13 @@ public class PieChart3DDemo2 extends JFrame {
     public static JPanel createDemoPanel() {
         DemoPanel content = new DemoPanel(new BorderLayout());
         content.setPreferredSize(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
-        PieDataset3D<String> dataset = PieChart3D2.createDataset();
-        final Chart3D chart = PieChart3D2.createChart(dataset);
+        XYZDataset dataset = createDataset();
+        Chart3D chart = createChart(dataset);
         Chart3DPanel chartPanel = new Chart3DPanel(chart);
-        chartPanel.setMargin(0.15);
         content.setChartPanel(chartPanel);
         chartPanel.zoomToFit(OrsonChartsDemo.DEFAULT_CONTENT_SIZE);
         content.add(new DisplayPanel3D(chartPanel));
-        JButton button = new JButton("Change the Data");
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                PieDataset3D<String> dataset = PieChart3D2.createDataset();
-                PiePlot3D plot = (PiePlot3D) chart.getPlot();
-                plot.setDataset(dataset);
-            }
-        });
-        content.add(button, BorderLayout.SOUTH);
         return content;
-    }
-    
-    /**
-     * Creates a new test app.
-     *
-     * @param title  the frame title.
-     */
-    public PieChart3DDemo2(String title) {
-        super(title);
-        addWindowListener(new ExitOnClose());
-        getContentPane().add(createDemoPanel());
     }
 
     /**
@@ -104,10 +129,9 @@ public class PieChart3DDemo2 extends JFrame {
      * @param args  command line arguments (ignored).
      */
     public static void main(String[] args) {
-        PieChart3DDemo2 app = new PieChart3DDemo2(
-                "OrsonCharts: PieChart3DDemo2.java");
+        XYZLineChart3DDemo2 app = new XYZLineChart3DDemo2(
+                "OrsonCharts: XYZLineChart3DDemo2.java");
         app.pack();
         app.setVisible(true);
     }
-
 }

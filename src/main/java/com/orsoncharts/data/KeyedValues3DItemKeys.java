@@ -55,10 +55,17 @@ public class KeyedValues3DItemKeys {
      * @param data  the data ({@code null} not permitted).
      * @param seriesKey  the series key ({@code null} not permitted).
      * 
+     * @param <S> the series key type
+     * @param <R> the row key type
+     * @param <C> the column key type
+     * @param <T> the value type
+     * 
      * @return A collection of item keys (never {@code null}).
      */
-    public static Collection<KeyedValues3DItemKey> itemKeysForSeries(
-            KeyedValues3D data, Comparable<?> seriesKey) {
+    public static <S extends Comparable<S>, R extends Comparable<R>, 
+             C extends Comparable<C>, T> 
+             Collection<KeyedValues3DItemKey> itemKeysForSeries(
+             KeyedValues3D<S, R, C, T> data, S seriesKey) {
         ArgChecks.nullNotPermitted(data, "data");
         ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
         Collection<KeyedValues3DItemKey> result 
@@ -66,11 +73,11 @@ public class KeyedValues3DItemKeys {
         if (!data.getSeriesKeys().contains(seriesKey)) {
             return result;
         }
-        for (Comparable<?> rowKey: (List<Comparable<?>>) data.getRowKeys()) {
-            for (Comparable columnKey: 
-                    (List<Comparable<?>>) data.getColumnKeys()) {
-                KeyedValues3DItemKey key = new KeyedValues3DItemKey(seriesKey, 
-                        rowKey, columnKey);
+        for (R rowKey: data.getRowKeys()) {
+            for (C columnKey: data.getColumnKeys()) {
+                KeyedValues3DItemKey<S, R, C> key 
+                        = new KeyedValues3DItemKey<S, R, C>(seriesKey, rowKey, 
+                                columnKey);
                 result.add(key);
             }
         }
@@ -81,13 +88,19 @@ public class KeyedValues3DItemKeys {
      * Returns a collection containing all the item keys for the specified
      * row.
      * 
+     * @param <S> the series key type
+     * @param <R> the row key type
+     * @param <C> the column key type
+     * @param <T> the value type
+     * 
      * @param data  the data ({@code null} not permitted).
      * @param rowKey  the row key ({@code null} not permitted).
      * 
      * @return A collection of item keys (never {@code null}).
      */
-    public static Collection<KeyedValues3DItemKey> itemKeysForRow(
-            KeyedValues3D data, Comparable<?> rowKey) {
+    public static <S extends Comparable<S>, R extends Comparable<R>, 
+            C extends Comparable<C>, T> Collection<KeyedValues3DItemKey> 
+            itemKeysForRow(KeyedValues3D<S, R, C, T> data, R rowKey) {
         ArgChecks.nullNotPermitted(data, "data");
         ArgChecks.nullNotPermitted(rowKey, "rowKey");
         Collection<KeyedValues3DItemKey> result 
@@ -95,11 +108,10 @@ public class KeyedValues3DItemKeys {
         if (!data.getRowKeys().contains(rowKey)) {
             return result;
         }
-        for (Comparable<?> seriesKey: 
-                (List<Comparable<?>>) data.getSeriesKeys()) {
-            for (Comparable columnKey: (List<Comparable<?>>) 
-                    data.getColumnKeys()) {
-                KeyedValues3DItemKey key = new KeyedValues3DItemKey(seriesKey, 
+        for (S seriesKey: data.getSeriesKeys()) {
+            for (C columnKey: data.getColumnKeys()) {
+                KeyedValues3DItemKey<S, R, C> key 
+                        = new KeyedValues3DItemKey<S, R, C>(seriesKey, 
                         rowKey, columnKey);
                 result.add(key);
             }
@@ -111,13 +123,20 @@ public class KeyedValues3DItemKeys {
      * Returns a collection containing all the item keys for the specified
      * column.
      * 
+     * @param <S> the series key type
+     * @param <R> the row key type
+     * @param <C> the column key type.
+     * @param <T> the value type.
+     * 
      * @param data  the data ({@code null} not permitted).
      * @param columnKey  the column key ({@code null} not permitted).
      * 
      * @return A collection of item keys (never {@code null}).
      */
-    public static Collection<KeyedValues3DItemKey> itemKeysForColumn(
-            KeyedValues3D data, Comparable<?> columnKey) {
+    public static <S extends Comparable<S>, R extends Comparable<R>, 
+            C extends Comparable<C>, T> 
+            Collection<KeyedValues3DItemKey> itemKeysForColumn(
+            KeyedValues3D<S, R, C, T> data, C columnKey) {
         ArgChecks.nullNotPermitted(data, "data");
         ArgChecks.nullNotPermitted(columnKey, "columnKey");
         Collection<KeyedValues3DItemKey> result 
@@ -125,10 +144,10 @@ public class KeyedValues3DItemKeys {
         if (!data.getColumnKeys().contains(columnKey)) {
             return result;
         }
-        for (Comparable<?> seriesKey: 
-                (List<Comparable<?>>) data.getSeriesKeys()) {
-            for (Comparable rowKey: (List<Comparable<?>>) data.getRowKeys()) {
-                KeyedValues3DItemKey key = new KeyedValues3DItemKey(seriesKey, 
+        for (S seriesKey: data.getSeriesKeys()) {
+            for (R rowKey: data.getRowKeys()) {
+                KeyedValues3DItemKey<S, R, C> key 
+                        = new KeyedValues3DItemKey<S, R, C>(seriesKey, 
                         rowKey, columnKey);
                 result.add(key);
             }

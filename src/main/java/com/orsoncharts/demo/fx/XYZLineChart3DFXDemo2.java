@@ -65,18 +65,18 @@ public class XYZLineChart3DFXDemo2 extends Application {
         return viewer;
     }
     
-    private static XYZDataset createDataset() {
+    private static XYZDataset<String> createDataset() {
         BufferedReader in = new BufferedReader(new InputStreamReader(
                 XYZLineChart3D2.class.getResourceAsStream("fxrates.csv")));
         String line;
-        XYZSeriesCollection dataset = new XYZSeriesCollection();
-        XYZSeries aud = new XYZSeries("AUD");
-        XYZSeries brl = new XYZSeries("BRL");
-        XYZSeries chf = new XYZSeries("CHF");
-        XYZSeries cny = new XYZSeries("CNY");
-        XYZSeries eur = new XYZSeries("EUR");
-        XYZSeries gbp = new XYZSeries("GBP");
-        XYZSeries jpy = new XYZSeries("JPY");
+        XYZSeriesCollection<String> dataset = new XYZSeriesCollection<String>();
+        XYZSeries<String> aud = new XYZSeries<String>("AUD");
+        XYZSeries<String> brl = new XYZSeries<String>("BRL");
+        XYZSeries<String> chf = new XYZSeries<String>("CHF");
+        XYZSeries<String> cny = new XYZSeries<String>("CNY");
+        XYZSeries<String> eur = new XYZSeries<String>("EUR");
+        XYZSeries<String> gbp = new XYZSeries<String>("GBP");
+        XYZSeries<String> jpy = new XYZSeries<String>("JPY");
         try {
             line = in.readLine();  // ignore the first line
 	    while ((line = in.readLine()) != null) {

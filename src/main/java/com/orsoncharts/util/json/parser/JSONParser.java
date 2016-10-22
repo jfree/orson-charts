@@ -47,7 +47,7 @@ public class JSONParser {
     public static final int S_END = 6;
     public static final int S_IN_ERROR = -1;
     
-    private LinkedList handlerStatusStack;
+    private LinkedList<Integer> handlerStatusStack;
     private Yylex lexer = new Yylex((Reader)null);
     private Yytoken token = null;
     private int status = S_INIT;
@@ -127,6 +127,7 @@ public class JSONParser {
      * @throws IOException if there is an I/O problem.
      * @throws ParseException if there is a parsing problem.
      */
+    @SuppressWarnings("unchecked")
     public Object parse(Reader in, ContainerFactory containerFactory) 
             throws IOException, ParseException{
         reset(in);
@@ -363,13 +364,13 @@ public class JSONParser {
             boolean isResume) throws IOException, ParseException {
         if (!isResume) {
             reset(in);
-            handlerStatusStack = new LinkedList();
+            handlerStatusStack = new LinkedList<Integer>();
         }
         else{
             if (handlerStatusStack == null) {
                 isResume = false;
                 reset(in);
-                handlerStatusStack = new LinkedList();
+                handlerStatusStack = new LinkedList<Integer>();
             }
         }
         

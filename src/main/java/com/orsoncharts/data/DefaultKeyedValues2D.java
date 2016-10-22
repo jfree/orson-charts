@@ -45,25 +45,30 @@ import com.orsoncharts.util.ArgChecks;
  * NOTE: This class is serializable, but the serialization format is subject 
  * to change in future releases and should not be relied upon for persisting 
  * instances of this class. 
+ * 
+ * @param <R> the row key type
+ * @param <C> the column key type
+ * @param <T> the value type.
+ * 
  */
 @SuppressWarnings("serial")
-public final class DefaultKeyedValues2D<T> implements KeyedValues2D<T>, 
-        Serializable {
+public final class DefaultKeyedValues2D<R extends Comparable<R>, C extends Comparable<C>, T> 
+        implements KeyedValues2D<R, C, T>, Serializable {
 
     /** The row keys. */
-    List<Comparable<?>> rowKeys;
+    List<R> rowKeys;
     
     /** The column keys. */
-    List<Comparable<?>> columnKeys;
+    List<C> columnKeys;
     
     /** The data values. */
-    List<DefaultKeyedValues<T>> data;  // one entry per row key
+    List<DefaultKeyedValues<C, T>> data;  // one entry per row key
   
     /**
      * Creates a new (empty) instance.
      */
     public DefaultKeyedValues2D() {
-        this(new ArrayList<Comparable<?>>(), new ArrayList<Comparable<?>>());
+        this(new ArrayList<R>(), new ArrayList<C>());
     }
     
     /**
@@ -73,15 +78,14 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D<T>,
      * @param rowKeys  the xKeys ({@code null} not permitted).
      * @param columnKeys  the yKeys ({@code null} not permitted).
      */
-    public DefaultKeyedValues2D(List<Comparable<?>> rowKeys, 
-            List<Comparable<?>> columnKeys) {
+    public DefaultKeyedValues2D(List<R> rowKeys, List<C> columnKeys) {
         ArgChecks.nullNotPermitted(rowKeys, "rowKeys");
         ArgChecks.nullNotPermitted(columnKeys, "columnKeys");
-        this.rowKeys = new ArrayList<Comparable<?>>(rowKeys);
-        this.columnKeys = new ArrayList<Comparable<?>>(columnKeys);
-        this.data = new ArrayList<DefaultKeyedValues<T>>();    
+        this.rowKeys = new ArrayList<R>(rowKeys);
+        this.columnKeys = new ArrayList<C>(columnKeys);
+        this.data = new ArrayList<DefaultKeyedValues<C, T>>();    
         for (int i = 0; i < rowKeys.size(); i++) {
-            this.data.add(new DefaultKeyedValues<T>(columnKeys));
+            this.data.add(new DefaultKeyedValues<C, T>(columnKeys));
         }
     }
 
@@ -93,7 +97,7 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D<T>,
      * @return The key. 
      */
     @Override
-    public Comparable<?> getRowKey(int rowIndex) {
+    public R getRowKey(int rowIndex) {
         return this.rowKeys.get(rowIndex);
     }
 
@@ -105,7 +109,7 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D<T>,
      * @return The key. 
      */
     @Override
-    public Comparable<?> getColumnKey(int columnIndex) {
+    public C getColumnKey(int columnIndex) {
         return this.columnKeys.get(columnIndex);
     }
 
@@ -117,7 +121,7 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D<T>,
      * @return The index. 
      */
     @Override
-    public int getRowIndex(Comparable<?> rowKey) {
+    public int getRowIndex(R rowKey) {
         ArgChecks.nullNotPermitted(rowKey, "rowKey");
         return this.rowKeys.indexOf(rowKey);
     }
@@ -130,7 +134,7 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D<T>,
      * @return The index. 
      */
     @Override
-    public int getColumnIndex(Comparable<?> columnKey) {
+    public int getColumnIndex(C columnKey) {
         ArgChecks.nullNotPermitted(columnKey, "columnKey");
         return this.columnKeys.indexOf(columnKey);
     }
@@ -141,8 +145,8 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D<T>,
      * @return A copy of the list of row keys (never {@code null}). 
      */
     @Override
-    public List<Comparable<?>> getRowKeys() {
-        return new ArrayList<Comparable<?>>(this.rowKeys);
+    public List<R> getRowKeys() {
+        return new ArrayList<R>(this.rowKeys);
     }
 
     /**
@@ -151,8 +155,8 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D<T>,
      * @return A copy of the list of column keys (never {@code null}). 
      */
     @Override
-    public List<Comparable<?>> getColumnKeys() {
-        return new ArrayList<Comparable<?>>(this.columnKeys);
+    public List<C> getColumnKeys() {
+        return new ArrayList<C>(this.columnKeys);
     }
 
     /**
@@ -184,7 +188,7 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D<T>,
      * @return The value (possibly {@code null}).
      */
     @Override
-    public T getValue(Comparable<?> rowKey, Comparable<?> columnKey) {
+    public T getValue(R rowKey, C columnKey) {
         // arg checking is handled in getXIndex() and getYIndex()
         int rowIndex = getRowIndex(rowKey);
         int columnIndex = getColumnIndex(columnKey);
@@ -230,21 +234,21 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D<T>,
      * @param rowKey  the row key ({@code null} not permitted).
      * @param columnKey  the column key ({@code null} not permitted).
      */
-    public void setValue(T n, Comparable<?> rowKey, Comparable<?> columnKey) {
+    public void setValue(T n, R rowKey, C columnKey) {
         ArgChecks.nullNotPermitted(rowKey, "rowKey");
         ArgChecks.nullNotPermitted(columnKey, "columnKey");
         
         if (this.data.isEmpty()) {  // 1. no data - just add one new entry
             this.rowKeys.add(rowKey);
             this.columnKeys.add(columnKey);
-            DefaultKeyedValues<T> dkvs = new DefaultKeyedValues<T>();
+            DefaultKeyedValues<C, T> dkvs = new DefaultKeyedValues<C, T>();
             dkvs.put(columnKey, n);
             this.data.add(dkvs);
         } else {
             int rowIndex = getRowIndex(rowKey);
             int columnIndex = getColumnIndex(columnKey);
             if (rowIndex >= 0) {
-                DefaultKeyedValues<T> dkvs = this.data.get(rowIndex);
+                DefaultKeyedValues<C, T> dkvs = this.data.get(rowIndex);
                 if (columnIndex >= 0) {
                     // 2.  Both keys exist - just update the value
                     dkvs.put(columnKey, n);
@@ -252,7 +256,7 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D<T>,
                     // 3.  rowKey exists, but columnKey does not (add the 
                     //     columnKey to each series)
                     this.columnKeys.add(columnKey);
-                    for (DefaultKeyedValues<T> kv : this.data) {
+                    for (DefaultKeyedValues<C, T> kv : this.data) {
                         kv.put(columnKey, null);
                     }
                     dkvs.put(columnKey, n);
@@ -261,7 +265,7 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D<T>,
                 if (columnIndex >= 0) {
                     // 4.  rowKey does not exist, but columnKey does
                     this.rowKeys.add(rowKey);
-                    DefaultKeyedValues<T> d = new DefaultKeyedValues<T>(
+                    DefaultKeyedValues<C, T> d = new DefaultKeyedValues<C, T>(
                             this.columnKeys);
                     d.put(columnKey, n);
                     this.data.add(d);
@@ -270,10 +274,10 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D<T>,
                     //     plus the new entry in every series
                     this.rowKeys.add(rowKey);
                     this.columnKeys.add(columnKey);
-                    for (DefaultKeyedValues<T> kv : this.data) {
+                    for (DefaultKeyedValues<C, T> kv : this.data) {
                         kv.put(columnKey, null);
                     }
-                    DefaultKeyedValues<T> d = new DefaultKeyedValues<T>(
+                    DefaultKeyedValues<C, T> d = new DefaultKeyedValues<C, T>(
                             this.columnKeys);
                     d.put(columnKey, n);
                     this.data.add(d);
@@ -290,7 +294,7 @@ public final class DefaultKeyedValues2D<T> implements KeyedValues2D<T>,
         if (!(obj instanceof DefaultKeyedValues2D)) {
             return false;
         }
-        DefaultKeyedValues2D<?> that = (DefaultKeyedValues2D<?>) obj;
+        DefaultKeyedValues2D that = (DefaultKeyedValues2D) obj;
         if (!this.rowKeys.equals(that.rowKeys)) {
             return false;
         }

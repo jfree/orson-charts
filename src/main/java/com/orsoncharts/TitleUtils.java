@@ -138,7 +138,8 @@ public class TitleUtils {
             throw new IllegalArgumentException(
                     "A subtitleFont is required when there is a subtitle.");
         }
-        GridElement compositeTitle = new GridElement();
+        GridElement<String, String> compositeTitle 
+                = new GridElement<String, String>();
         TextElement st = new TextElement(subtitle, subtitleFont);
         st.setHorizontalAligment(alignment);
         st.setColor(DEFAULT_TITLE_COLOR);

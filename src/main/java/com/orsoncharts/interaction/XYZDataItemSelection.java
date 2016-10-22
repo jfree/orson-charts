@@ -38,7 +38,7 @@ import com.orsoncharts.data.xyz.XYZItemKey;
 /**
  * An object representing a selection of items from an {@link XYZDataset}.
  */
-public interface XYZDataItemSelection {
+public interface XYZDataItemSelection<S extends Comparable<S>> {
    
     /**
      * Returns {@code true} if the specified item is present in the 
@@ -48,6 +48,6 @@ public interface XYZDataItemSelection {
      * 
      * @return A boolean. 
      */
-    boolean isSelected(XYZItemKey item);
+    boolean isSelected(XYZItemKey<S> item);
 
 }
