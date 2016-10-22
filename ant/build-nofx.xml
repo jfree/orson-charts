@@ -16,7 +16,7 @@
         <property name="orsoncharts.name" value="orsoncharts" />
         <property name="orsoncharts.version" value="1.5-nofx" />
         <property name="jfreesvg.name" value="jfreesvg" />
-        <property name="jfreesvg.version" value="3.0" />
+        <property name="jfreesvg.version" value="3.2" />
         <property name="jfreesvg.jar" value="${basedir}/lib/${jfreesvg.name}-${jfreesvg.version}.jar"/>
         <property name="orsonpdf.name" value="orsonpdf" />
         <property name="orsonpdf.version" value="1.7" />
