@@ -57,7 +57,8 @@ public class AbstractDataset3D implements Dataset3D {
      * be registered with the dataset.
      */
     protected AbstractDataset3D() {
-        this.listenerList = new EventListenerList();  
+        this.listenerList = new EventListenerList();
+        this.notify = true;
     }
   
     /**
