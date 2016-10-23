@@ -69,12 +69,14 @@ History
 
 Version 1.6 : not yet released
 
-- added generics;
-- updated FXGraphics2D to version 1.5;
-- updated JFreeSVG to version 3.2.
+- added `remove()` method to `XYZSeries` and added change notification mechanism;
+- added `remove()` and `removeAll()` methods to `XYZSeriesCollection` and added change notification;
+- added generics to source files;
+- updated `FXGraphics2D` to version 1.5;
+- updated `JFreeSVG` to version 3.2.
 
 
-28-Jan-2016 : Version 1.5
+Version 1.5 : 28-Jan-2016
 
 - added new `LineXYZRenderer`;
 - added option to invert axes;
@@ -88,7 +90,7 @@ Version 1.6 : not yet released
 - various Javadoc improvements.
 
 
-27-May-2014 : Version 1.4
+Version 1.4 : 27-May-2014
 
 - added JavaFX support;
 - added support to marker elements and item labels for `KEY_BEGIN_ELEMENT` and `KEY_END_ELEMENT` rendering hints;
@@ -99,7 +101,7 @@ Version 1.6 : not yet released
 - fixed `Utils.js` functions that didn't work with Internet Explorer 9.
 
 
-11-Apr-2014 : Version 1.3
+Version 1.3 : 11-Apr-2014
 
 - added chart mouse event and tooltip support for the chart viewer in Swing;
 - added item label support;
@@ -111,7 +113,7 @@ and mouse events on chart elements);
 - added JavaScript utility library to support JFreeSVG export;
 
 
-7-Mar-2014 : Version 1.2
+Version 1.2 : 7-Mar-2014
 
 - added value and range markers for numerical axes, and category markers for category axes;
 - added a `tickLabelOrientation` attribute for axes so that tick labels can be drawn either perpendicular or parallel to the axis line;
@@ -128,7 +130,7 @@ and mouse events on chart elements);
 - incorporated various other bug fixes.
 
 
-23-Dec-2013 : Version 1.1
+Version 1.1 : 23-Dec-2013
 
 - added surface plots (via the new `SurfaceRenderer` class and `Chart3DFactory.createSurfaceChart()`);
 - added `ColorScale` and supporting classes for use by the surface charts;
@@ -139,6 +141,6 @@ and mouse events on chart elements);
 - added `setColors(Color...)` to `AbstractCategoryRenderer3D` and `AbstractXYZRenderer3D`;
 
 
-17-Nov-2013 : Version 1.0
+Version 1.0 : 17-Nov-2013
 
 This is the first public release of Orson Charts, we welcome your feedback and suggestions.
