@@ -32,12 +32,14 @@
 
 package com.orsoncharts.data.xyz;
 
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import org.junit.Before;
 import org.junit.Test;
 import com.orsoncharts.TestUtils;
 import com.orsoncharts.data.Dataset3DChangeEvent;
@@ -49,6 +51,11 @@ import com.orsoncharts.data.Dataset3DChangeListener;
 public class XYZSeriesCollectionTest implements Dataset3DChangeListener {
 
     private Dataset3DChangeEvent lastEvent;
+    
+    @Before
+    public void setup() {
+        this.lastEvent = null;
+    }
     
     @Override
     public void datasetChanged(Dataset3DChangeEvent event) {
@@ -66,7 +73,6 @@ public class XYZSeriesCollectionTest implements Dataset3DChangeListener {
         XYZSeriesCollection<String> dataset = new XYZSeriesCollection<String>();
         XYZSeries<String> s = new XYZSeries<String>("S1");
         dataset.add(s);
-        
         assertEquals(1, dataset.getSeriesCount());
         
         try {
@@ -85,7 +91,7 @@ public class XYZSeriesCollectionTest implements Dataset3DChangeListener {
         XYZSeriesCollection<String> dataset = new XYZSeriesCollection<String>();
         dataset.addChangeListener(this);
 
-        this.lastEvent = null;
+        assertNull(this.lastEvent);
         XYZSeries<String> s = new XYZSeries<String>("S1");
         dataset.add(s);
         assertNotNull(this.lastEvent);
@@ -97,6 +103,10 @@ public class XYZSeriesCollectionTest implements Dataset3DChangeListener {
         this.lastEvent = null;
         s.add(new XYZDataItem(1.0, 2.0, 3.0));
         assertNotNull(this.lastEvent);        
+
+        this.lastEvent = null;
+        s.remove(1);
+        assertNotNull(this.lastEvent);        
     }
 
     @Test
@@ -105,6 +115,15 @@ public class XYZSeriesCollectionTest implements Dataset3DChangeListener {
         XYZSeriesCollection<String> c2 = new XYZSeriesCollection<String>();
         assertTrue(c1.equals(c2));
         assertFalse(c1.equals(null));
+        
+        XYZSeries<String> s1 = new XYZSeries<String>("S");
+        s1.add(1.0, 2.0, 3.0);
+        c1.add(s1);
+        assertFalse(c1.equals(c2));
+        XYZSeries<String> s2 = new XYZSeries<String>("S");
+        s2.add(1.0, 2.0, 3.0);
+        c2.add(s2);
+        assertEquals(c1, c2);
     }
     
     @Test

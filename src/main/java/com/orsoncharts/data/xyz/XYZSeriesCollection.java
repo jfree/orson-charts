@@ -39,6 +39,8 @@ import java.util.List;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.data.AbstractDataset3D;
 import com.orsoncharts.data.JSONUtils;
+import com.orsoncharts.data.Series3DChangeEvent;
+import com.orsoncharts.data.Series3DChangeListener;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.renderer.xyz.XYZRenderer;
 import com.orsoncharts.util.ObjectUtils;
@@ -55,7 +57,7 @@ import com.orsoncharts.util.ObjectUtils;
 @SuppressWarnings("serial")
 public class XYZSeriesCollection<S extends Comparable<S>> 
         extends AbstractDataset3D 
-        implements XYZDataset<S>, Serializable {
+        implements XYZDataset<S>, Series3DChangeListener, Serializable {
 
     /** Storage for the data series. */
     private final List<XYZSeries<S>> series;
@@ -133,8 +135,54 @@ public class XYZSeriesCollection<S extends Comparable<S>>
             throw new IllegalArgumentException("Another series with the same key already exists within the collection.");
         }
         this.series.add(series);
+        series.addChangeListener(this);
+        fireDatasetChanged();
     }
     
+    /**
+     * Removes a series from the collection and sends a
+     * {@link Dataset3DChangeEvent} to all registered listeners.
+     * 
+     * @param seriesIndex  the series index.
+     * 
+     * @since 1.6
+     */
+    public void remove(int seriesIndex) {
+        XYZSeries s = getSeries(seriesIndex);
+        remove(s);
+    }
+    
+    /**
+     * Removes a series from the collection and sends a
+     * {@link Dataset3DChangeEvent} to all registered listeners.
+     *
+     * @param series  the series ({@code null} not permitted).
+     * 
+     * @since 1.6
+     */
+    public void remove(XYZSeries series) {
+        ArgChecks.nullNotPermitted(series, "series");
+        if (this.series.contains(series)) {
+            series.removeChangeListener(this);
+            this.series.remove(series);
+            fireDatasetChanged();
+        }
+    }
+
+    /**
+     * Removes all the series from the collection and sends a
+     * {@link Dataset3DChangeEvent} to all registered listeners.
+     */
+    public void removeAll() {
+        if (!this.series.isEmpty()) {
+            for (XYZSeries s : this.series) {
+                s.removeChangeListener(this);
+            }
+            this.series.clear();
+            fireDatasetChanged();
+        }
+    }
+
     /**
      * Returns the series with the specified index.
      * 
@@ -222,6 +270,18 @@ public class XYZSeriesCollection<S extends Comparable<S>>
     public double getZ(int seriesIndex, int itemIndex) {
         XYZSeries s = this.series.get(seriesIndex);
         return s.getZValue(itemIndex);
+    }
+
+    /**
+     * Called when an observed series changes in some way.
+     *
+     * @param event  information about the change.
+     * 
+     * @since 1.6
+     */
+    @Override
+    public void seriesChanged(Series3DChangeEvent event) {
+        fireDatasetChanged();
     }
 
     /**

@@ -35,17 +35,22 @@ package com.orsoncharts.data.xyz;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
 import com.orsoncharts.TestUtils;
+import com.orsoncharts.data.Series3DChangeEvent;
+import com.orsoncharts.data.Series3DChangeListener;
 
 /**
  * Tests for the {@link XYZSeries} class.
  */
-public class XYZSeriesTest  {
+public class XYZSeriesTest implements Series3DChangeListener {
     
     private static final double EPSILON = 0.00000001;
+    
+    private Series3DChangeEvent lastEvent;
     
     @Test
     public void testGeneral() {
@@ -64,8 +69,27 @@ public class XYZSeriesTest  {
         assertEquals(4.0, s.getXValue(1), EPSILON);
         assertEquals(5.0, s.getYValue(1), EPSILON);
         assertEquals(6.0, s.getZValue(1), EPSILON);
+        
+        s.remove(0);
+        assertEquals(1, s.getItemCount());
+        assertEquals(4.0, s.getXValue(0), EPSILON);
+        assertEquals(5.0, s.getYValue(0), EPSILON);
+        assertEquals(6.0, s.getZValue(0), EPSILON);        
     }
     
+    @Test
+    public void testEventNotification() {
+        XYZSeries<String> s = new XYZSeries<String>("S1");
+        this.lastEvent = null;
+        s.addChangeListener(this);
+        s.add(1.0, 2.0, 3.0);
+        assertNotNull(this.lastEvent);
+        
+        this.lastEvent = null;
+        s.remove(0);
+        assertNotNull(this.lastEvent);
+    }
+
     /**
      * Tests for the equals() method.
      */
@@ -102,6 +126,11 @@ public class XYZSeriesTest  {
         s1.add(1.0, 2.0, 3.0);
         s2 = (XYZSeries) TestUtils.serialized(s1);
         assertEquals(s1, s2);
+    }
+
+    @Override
+    public void seriesChanged(Series3DChangeEvent event) {
+        this.lastEvent = event;
     }
 
 }

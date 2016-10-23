@@ -32,10 +32,12 @@
 
 package com.orsoncharts.data.xyz;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.Serializable;
-
+import javax.swing.event.EventListenerList;
+import com.orsoncharts.data.Series3DChangeEvent;
+import com.orsoncharts.data.Series3DChangeListener;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.ObjectUtils;
 
@@ -46,7 +48,10 @@ import com.orsoncharts.util.ObjectUtils;
  * <br><br>
  * NOTE: This class is serializable, but the serialization format is subject 
  * to change in future releases and should not be relied upon for persisting 
- * instances of this class. 
+ * instances of this class.
+ * 
+ * @param <K> the type for the series key (it is recommended that this is a
+ *     class of immutable objects).
  */
 @SuppressWarnings("serial")
 public class XYZSeries<K extends Comparable<K>> implements Serializable {
@@ -57,8 +62,18 @@ public class XYZSeries<K extends Comparable<K>> implements Serializable {
     /** The data items in the series. */
     private final List<XYZDataItem> items;
 
+    /** Storage for registered change listeners. */
+    private EventListenerList listeners;
+    
+    /** A flag that controls whether or not changes are notified. */
+    private boolean notify;
+    
     /**
-     * Creates a new series with the specified key.
+     * Creates a new series with the specified key.  Note that the series key
+     * cannot be changed after it has been set in the constructor - this is by 
+     * design, to ensure that each series in a {@link XYZSeriesCollection}
+     * always has a unique key.  For the same reason, the key type should be
+     * an immutable class.
      * 
      * @param key  the key ({@code null} not permitted). 
      */
@@ -66,6 +81,8 @@ public class XYZSeries<K extends Comparable<K>> implements Serializable {
         ArgChecks.nullNotPermitted(key, "key");
         this.key = key;
         this.items = new ArrayList<XYZDataItem>();
+        this.listeners = new EventListenerList();
+        this.notify = true;
     }
 
     /**
@@ -84,6 +101,19 @@ public class XYZSeries<K extends Comparable<K>> implements Serializable {
      */
     public int getItemCount() {
         return this.items.size();
+    }
+    
+    /**
+     * Returns a list containing all the items for the dataset (a new list
+     * is created each time this method is called, so the list can be freely
+     * modified without affecting the state of this series).
+     * 
+     * @return A list of all items.
+     * 
+     * @since 1.6
+     */
+    public List<XYZDataItem> getItems() {
+        return new ArrayList<XYZDataItem>(this.items);
     }
     
     /**
@@ -131,13 +161,118 @@ public class XYZSeries<K extends Comparable<K>> implements Serializable {
     }
 
     /**
-     * Adds a new data item to the series.
+     * Adds a new data item to the series and sends a 
+     * {@link Series3DChangeEvent} to all registered listeners.
      * 
      * @param item  the data item ({@code null} not permitted).
      */
     public void add(XYZDataItem item) {
         ArgChecks.nullNotPermitted(item, "item");
         this.items.add(item);
+        fireSeriesChanged();
+    }
+    
+    /**
+     * Removes a data item from the series and sends a 
+     * {@link Series3DChangeEvent} to all registered listeners.
+     * 
+     * @param itemIndex  the item index.
+     * 
+     * @since 1.6
+     */
+    public void remove(int itemIndex) {
+        this.items.remove(itemIndex);
+        fireSeriesChanged();
+    }
+
+    /**
+     * Registers an object with this series, to receive notification whenever
+     * the series changes.
+     * <P>
+     * Objects being registered must implement the {@link SeriesChangeListener}
+     * interface.
+     *
+     * @param listener  the listener to register.
+     * 
+     * @since 1.6
+     */
+    public void addChangeListener(Series3DChangeListener listener) {
+        this.listeners.add(Series3DChangeListener.class, listener);
+    }
+
+    /**
+     * Deregisters an object, so that it not longer receives notification
+     * whenever the series changes.
+     *
+     * @param listener  the listener to deregister.
+     * 
+     * @since 1.6
+     */
+    public void removeChangeListener(Series3DChangeListener listener) {
+        this.listeners.remove(Series3DChangeListener.class, listener);
+    }
+
+    /**
+     * Returns the flag that controls whether or not change events are sent to
+     * registered listeners.
+     *
+     * @return A boolean.
+     *
+     * @see #setNotify(boolean)
+     * @since 1.6
+     */
+    public boolean getNotify() {
+        return this.notify;
+    }
+
+    /**
+     * Sets the flag that controls whether or not change events are sent to
+     * registered listeners.
+     *
+     * @param notify  the new value of the flag.
+     *
+     * @see #getNotify()
+     * @since 1.6
+     */
+    public void setNotify(boolean notify) {
+        if (this.notify != notify) {
+            this.notify = notify;
+            if (notify) {
+                fireSeriesChanged();
+            }
+        }
+    }
+    
+    /**
+     * General method for signaling to registered listeners that the series
+     * has been changed.
+     * 
+     * @since 1.6
+     */
+    public void fireSeriesChanged() {
+        if (this.notify) {
+            notifyListeners(new Series3DChangeEvent(this));
+        }
+    }
+
+    /**
+     * Sends a change event to all registered listeners.
+     *
+     * @param event  contains information about the event that triggered the
+     *               notification.
+     * 
+     * @since 1.6
+     */
+    protected void notifyListeners(Series3DChangeEvent event) {
+
+        Object[] listenerList = this.listeners.getListenerList();
+        for (int i = listenerList.length - 2; i >= 0; i -= 2) {
+            if (listenerList[i] == Series3DChangeListener.class) {
+                ((Series3DChangeListener) listenerList[i + 1]).seriesChanged(
+                        event);
+            }
+        }
+
     }
 
     /**
