@@ -890,7 +890,6 @@ public class Chart3D implements Drawable3D, ChartElement,
             }
             boolean drawOutline = f.getOutline();
             double[] plane = f.calculateNormal(eyePts);
-            System.out.println(world);
             double inprod = plane[0] * world.getSunX() + plane[1]
                     * world.getSunY() + plane[2] * world.getSunZ();
             double shade = (inprod + 1) / 2.0;
