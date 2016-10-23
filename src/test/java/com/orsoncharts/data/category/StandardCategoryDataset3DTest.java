@@ -53,6 +53,7 @@ public class StandardCategoryDataset3DTest {
         assertTrue(dataset.getSeriesKeys().isEmpty());
         assertTrue(dataset.getRowKeys().isEmpty());
         assertTrue(dataset.getColumnKeys().isEmpty());
+        assertTrue(dataset.isNotify());
     }
     
     @Test

@@ -56,6 +56,12 @@ public class XYZSeriesCollectionTest implements Dataset3DChangeListener {
     }
     
     @Test
+    public void testGeneral() {
+        XYZSeriesCollection<String> dataset = new XYZSeriesCollection<String>();
+        assertTrue(dataset.isNotify());               
+    }
+    
+    @Test
     public void testAdd() {
         XYZSeriesCollection<String> dataset = new XYZSeriesCollection<String>();
         XYZSeries<String> s = new XYZSeries<String>("S1");

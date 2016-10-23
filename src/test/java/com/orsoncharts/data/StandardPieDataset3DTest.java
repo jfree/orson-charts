@@ -44,6 +44,12 @@ import com.orsoncharts.TestUtils;
 public class StandardPieDataset3DTest {
     
     @Test
+    public void testGeneral() {
+        StandardPieDataset3D<String> d1 = new StandardPieDataset3D<String>();
+        assertTrue(d1.isNotify());
+    }
+    
+    @Test
     public void testEquals() {
         StandardPieDataset3D<String> d1 = new StandardPieDataset3D<String>();
         StandardPieDataset3D<String> d2 = new StandardPieDataset3D<String>();
