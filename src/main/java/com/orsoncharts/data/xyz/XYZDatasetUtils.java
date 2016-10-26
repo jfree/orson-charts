@@ -53,9 +53,8 @@ public class XYZDatasetUtils {
      * 
      * @return A dataset containing sampled values from the function.
      */
-    public static <S extends Comparable<S>> XYZDataset<S> sampleFunction(
-            Function3D f, S key, Range xrange, double xcount, Range zrange, 
-            double zcount) {
+    public static XYZDataset<String> sampleFunction(Function3D f, String key, 
+            Range xrange, double xcount, Range zrange, double zcount) {
         return sampleFunction(f, key, xrange.getMin(), xrange.getMax(),
                 xcount, zrange.getMin(), zrange.getMax(), zcount);
     }
@@ -75,16 +74,16 @@ public class XYZDatasetUtils {
      * 
      * @return A dataset containing sampled values from the function.
      */
-    public static <S extends Comparable<S>> XYZDataset<S> sampleFunction(
-            Function3D f, S key, double xmin, double xmax, double xcount, 
+    public static XYZDataset<String> sampleFunction(Function3D f, String key, 
+            double xmin, double xmax, double xcount, 
             double zmin, double zmax, double zcount) {
-        XYZSeries<S> s = new XYZSeries<S>(key);
+        XYZSeries<String> s = new XYZSeries<String>(key);
         for (double x = xmin; x <= xmax; x += (xmax - xmin) / xcount) {
             for (double z = zmin; z <= zmax; z += (zmax - zmin) / zcount) {
                 s.add(x, f.getValue(x, z), z);
             }
         }
-        XYZSeriesCollection<S> dataset = new XYZSeriesCollection<S>();
+        XYZSeriesCollection<String> dataset = new XYZSeriesCollection<String>();
         dataset.add(s);
         return dataset;
     }
