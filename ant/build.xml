@@ -14,7 +14,7 @@
     <target name="initialise" description="Initialise required settings.">
         <tstamp />
         <property name="orsoncharts.name" value="orsoncharts" />
-        <property name="orsoncharts.version" value="1.5" />
+        <property name="orsoncharts.version" value="1.6" />
         <property name="fxgraphics2d.name" value="fxgraphics2d" />
         <property name="fxgraphics2d.version" value="1.5" />
         <property name="fxgraphics2d.jar" value="${basedir}/lib/${fxgraphics2d.name}-${fxgraphics2d.version}.jar"/>
