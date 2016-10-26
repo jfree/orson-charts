@@ -38,6 +38,7 @@ import java.util.List;
 
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.data.AbstractDataset3D;
+import com.orsoncharts.data.Dataset3DChangeEvent;
 import com.orsoncharts.data.JSONUtils;
 import com.orsoncharts.data.Series3DChangeEvent;
 import com.orsoncharts.data.Series3DChangeListener;
