@@ -319,6 +319,7 @@ public class JSONUtils {
      * 
      * @throws IOException if there is an I/O problem.
      */
+    @SuppressWarnings("unchecked")
     public static void writeKeyedValues2D(KeyedValues2D data, Writer writer) 
             throws IOException {
         ArgChecks.nullNotPermitted(data, "data");
@@ -549,6 +550,7 @@ public class JSONUtils {
      * 
      * @throws IOException if there is an I/O problem.
      */
+    @SuppressWarnings("unchecked")
     public static void writeKeyedValues3D(KeyedValues3D dataset, Writer writer) 
             throws IOException {
         ArgChecks.nullNotPermitted(dataset, "dataset");
@@ -643,6 +645,7 @@ public class JSONUtils {
      * 
      * @return The count. 
      */
+    @SuppressWarnings("unchecked")
     private static int countForRowInSeries(KeyedValues3D data, 
             Comparable seriesKey, Comparable rowKey) {
         ArgChecks.nullNotPermitted(data, "data");
@@ -682,7 +685,7 @@ public class JSONUtils {
     public static XYZDataset<String> readXYZDataset(String json) {
         ArgChecks.nullNotPermitted(json, "json");
         StringReader in = new StringReader(json);
-        XYZDataset result;
+        XYZDataset<String> result;
         try {
             result = readXYZDataset(in);
         } catch (IOException ex) {
@@ -753,6 +756,7 @@ public class JSONUtils {
      * 
      * @throws IOException if there is an I/O problem.
      */
+    @SuppressWarnings("unchecked")
     public static void writeXYZDataset(XYZDataset dataset, Writer writer)
             throws IOException {
         writer.write("[");
