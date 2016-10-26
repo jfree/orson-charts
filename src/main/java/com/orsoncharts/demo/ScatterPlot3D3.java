@@ -96,11 +96,11 @@ public class ScatterPlot3D3 {
      * 
      * @return A sample dataset.
      */
-    private static <S extends Comparable<S>, R extends Comparable<R>, C extends Comparable<C>> 
-            XYZDataset<S> createDataset(C xKey, C yKey, C zKey) {
+    private static XYZDataset<String> createDataset(String xKey, String yKey, 
+            String zKey) {
         Reader in = new InputStreamReader(
                 ScatterPlot3D3.class.getResourceAsStream("iris.txt"));
-        KeyedValues3D<S, R, C, ? extends Number> data;
+        KeyedValues3D<String, String, String, Number> data;
         try {
             data = JSONUtils.readKeyedValues3D(in);
         } catch (IOException ex) {
