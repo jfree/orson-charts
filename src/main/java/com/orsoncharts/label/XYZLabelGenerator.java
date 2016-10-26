@@ -46,6 +46,7 @@ public interface XYZLabelGenerator {
     /**
      * Generates a label for one series in a {@link XYZDataset}.
      * 
+     * @param <S> The type of the series keys in the dataset.
      * @param dataset  the dataset ({@code null} not permitted).
      * @param seriesKey  the series key ({@code null} not permitted).
      *
