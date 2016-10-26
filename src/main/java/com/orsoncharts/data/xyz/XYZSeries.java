@@ -189,8 +189,8 @@ public class XYZSeries<K extends Comparable<K>> implements Serializable {
      * Registers an object with this series, to receive notification whenever
      * the series changes.
      * <P>
-     * Objects being registered must implement the {@link SeriesChangeListener}
-     * interface.
+     * Objects being registered must implement the 
+     * {@link Series3DChangeListener} interface.
      *
      * @param listener  the listener to register.
      * 
