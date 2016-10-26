@@ -118,7 +118,7 @@ public class JSONUtilsTest {
     @Test
     public void checkReadKeyedValues2D() {
         String json = "{}";
-        KeyedValues2D<String, String, ? extends Number> dkv2d 
+        KeyedValues2D<String, String, Number> dkv2d 
                 = JSONUtils.readKeyedValues2D(json);
         assertEquals(0, dkv2d.getRowCount());
         assertEquals(0, dkv2d.getColumnCount());
