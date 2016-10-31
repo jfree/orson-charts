@@ -126,7 +126,9 @@ public class XYZSeriesCollection<S extends Comparable<S>>
 
     /**
      * Adds a series to the collection (note that the series key must be
-     * unique within the collection).
+     * unique within the collection).  The collection will automatically
+     * register to receive change events from the series, and fire a 
+     * {@link Dataset3DChangeEvent} whenever the data in the series changes.
      * 
      * @param series  the series ({@code null} not permitted). 
      */
@@ -155,7 +157,8 @@ public class XYZSeriesCollection<S extends Comparable<S>>
     
     /**
      * Removes a series from the collection and sends a
-     * {@link Dataset3DChangeEvent} to all registered listeners.
+     * {@link Dataset3DChangeEvent} to all registered listeners.  If the series
+     * is not part of the collection, this method does nothing.
      *
      * @param series  the series ({@code null} not permitted).
      * 
@@ -172,7 +175,8 @@ public class XYZSeriesCollection<S extends Comparable<S>>
 
     /**
      * Removes all the series from the collection and sends a
-     * {@link Dataset3DChangeEvent} to all registered listeners.
+     * {@link Dataset3DChangeEvent} to all registered listeners.  If the
+     * collection is already empty, this method does nothing.
      */
     public void removeAll() {
         if (!this.series.isEmpty()) {
