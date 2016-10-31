@@ -75,7 +75,7 @@ public class Chart3DViewer extends Control implements Skinnable {
     
     /** 
      * The zoom multiplier (applicable for the zoom in and out options in 
-     * the context menu.
+     * the context menu).
      */
     private double zoomMultiplier = 0.95;
 
