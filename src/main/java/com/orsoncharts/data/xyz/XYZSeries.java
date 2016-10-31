@@ -43,15 +43,19 @@ import com.orsoncharts.util.ObjectUtils;
 
 /**
  * A data series containing a sequence of {@code (x, y, z)} data items.  
- * The series has a key to identify it, and can be added to an 
- * {@link XYZSeriesCollection} to create a dataset.
+ * The series has an immutable key to identify it, and can be added to an 
+ * {@link XYZSeriesCollection} to create a dataset.  When a series is part
+ * of an {@link XYZSeriesCollection}, the collection will register with the
+ * series to receive change events - in this way, the collection can notify
+ * its own listeners when a change is made to the series.
  * <br><br>
  * NOTE: This class is serializable, but the serialization format is subject 
  * to change in future releases and should not be relied upon for persisting 
  * instances of this class.
  * 
  * @param <K> the type for the series key (it is recommended that this is a
- *     class of immutable objects).
+ *     class of immutable objects, because the series key should never be
+ *     modified).
  */
 @SuppressWarnings("serial")
 public class XYZSeries<K extends Comparable<K>> implements Serializable {
@@ -113,7 +117,7 @@ public class XYZSeries<K extends Comparable<K>> implements Serializable {
      * @since 1.6
      */
     public List<XYZDataItem> getItems() {
-        return new ArrayList<XYZDataItem>(this.items);
+        return new ArrayList<XYZDataItem>(this.items); // leave redundant generics for Java 1.6
     }
     
     /**
@@ -150,7 +154,8 @@ public class XYZSeries<K extends Comparable<K>> implements Serializable {
     }
 
     /**
-     * Adds a new data item to the series.
+     * Adds a new data item to the series and sends a 
+     * {@link Series3DChangeEvent} to all registered listeners.
      * 
      * @param x  the x-value.
      * @param y  the y-value.
@@ -264,7 +269,6 @@ public class XYZSeries<K extends Comparable<K>> implements Serializable {
      * @since 1.6
      */
     protected void notifyListeners(Series3DChangeEvent event) {
-
         Object[] listenerList = this.listeners.getListenerList();
         for (int i = listenerList.length - 2; i >= 0; i -= 2) {
             if (listenerList[i] == Series3DChangeListener.class) {
@@ -272,7 +276,6 @@ public class XYZSeries<K extends Comparable<K>> implements Serializable {
                         event);
             }
         }
-
     }
 
     /**
