@@ -4,7 +4,7 @@
  
     <groupId>com.object-refinery</groupId>
     <artifactId>orsoncharts</artifactId>
-    <version>1.5-SNAPSHOT</version>
+    <version>1.6-SNAPSHOT</version>
     <packaging>jar</packaging>
  
     <!-- this is required to host it on Sonatype's OSSRH -->
@@ -45,7 +45,7 @@
             <version>3.2</version>
             <optional>true</optional>
         </dependency>
-
+        
         <!-- OrsonPDF is used to provide PDF export -->
         <dependency>
             <groupId>com.orsonpdf</groupId>
