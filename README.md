@@ -3,6 +3,8 @@ Orson Charts
 
 (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
 
+Version 1.6 released 2 November 2016
+
 
 Overview
 --------
@@ -67,7 +69,7 @@ If you have any questions, don't hesitate to send a mail to info@object-refinery
 History
 -------
 
-Version 1.6 : not yet released
+Version 1.6 : 2-Nov-2016
 
 - added `remove()` method to `XYZSeries` and added change notification mechanism;
 - added `remove()` and `removeAll()` methods to `XYZSeriesCollection` and added change notification;
