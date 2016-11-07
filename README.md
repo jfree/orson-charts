@@ -3,7 +3,7 @@ Orson Charts
 
 (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
 
-Version 1.6 released 2 November 2016
+Version 1.6, 2 November 2016.
 
 
 Overview
