@@ -8,7 +8,11 @@ Version 1.6, 2 November 2016.
 
 Overview
 --------
-Orson Charts is a 3D chart library for the Java(tm) platform that can generate a wide variety of 3D charts for use in client-side applications (JavaFX and Swing) and server-side applications (with export to PDF, SVG, PNG and JPEG). Key features include:
+Orson Charts is a 3D chart library for the Java(tm) platform that can generate a wide variety of 3D charts for use in client-side applications (JavaFX and Swing) and server-side applications (with export to PDF, SVG, PNG and JPEG). 
+
+![Orson Charts sample](http://www.object-refinery.com/orsoncharts/images/orsoncharts_fx.png)
+
+Key features include:
 
 - multiple chart types: pie charts, bar charts (regular and stacked), line charts, area charts, scatter charts and surface plots;
 - mouse-enabled chart viewers in JavaFX and Swing provide 360 degree rotation and zooming for precise end-user view control;
