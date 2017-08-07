@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2017, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -141,7 +141,7 @@ public class ViewPoint3D implements Serializable {
         this.phi = phi;
         this.rho = rho;
         updateMatrixElements();
-        this.rotation = new Rotate3D( Point3D.ORIGIN, Point3D.UNIT_Z, 
+        this.rotation = new Rotate3D(Point3D.ORIGIN, Point3D.UNIT_Z, 
                 orientation);
         this.up = this.rotation.applyRotation(Point3D.createPoint3D(this.theta, 
                 this.phi - Math.PI / 2, this.rho));
@@ -168,6 +168,24 @@ public class ViewPoint3D implements Serializable {
         this.workspace = new double[3];
     }
 
+    /**
+     * Creates a new instance that is an exact copy of the supplied viewpoint.
+     * 
+     * @param vp  the view point ({@code null} not permitted).
+     * 
+     * @since 1.6.1
+     */
+    public ViewPoint3D(ViewPoint3D vp) {
+        this.theta = vp.theta;
+        this.phi = vp.phi;
+        this.rho = vp.rho;
+        updateMatrixElements();
+        this.rotation = new Rotate3D(Point3D.ORIGIN, Point3D.UNIT_Z, 
+                vp.rotation.angle);
+        this.up = vp.up;
+        this.workspace = new double[3];  
+    }
+    
    /**
      * Returns the angle of rotation from the x-axis about the z-axis, 
      * in radians.  This attribute is set via the constructor and updated
