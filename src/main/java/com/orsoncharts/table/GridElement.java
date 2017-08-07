@@ -182,7 +182,10 @@ public class GridElement<R extends Comparable<R>, C extends Comparable<C>>
         for (int r = 0; r < elements.getRowCount(); r++) {
             double x = bounds.getX() + getInsets().left;
             for (int c = 0; c < this.elements.getColumnCount(); c++) {
-                result.add(new Rectangle2D.Double(x, y, widths[c], heights[r]));
+                Rectangle2D cellBounds = new Rectangle2D.Double(x, y, widths[c], heights[r]);
+                TableElement element = this.elements.getValue(r, c);
+                element.layoutElements(g2, cellBounds, null);
+                result.add(cellBounds);
                 x += widths[c];
             }
             y = y + heights[r];
