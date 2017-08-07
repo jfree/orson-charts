@@ -168,6 +168,9 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
      */
     @Override
     protected String axisStr() {
+        if (this.configuredType == null) {
+            return "";
+        }
         if (this.configuredType.equals(ValueAxis3DType.VALUE)) {
             return "value";
         }
