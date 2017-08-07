@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2017, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -121,7 +121,8 @@ public class GradientColorScale extends AbstractColorScale
             return valueToColor(r.getMax());
         }
         double fraction = getRange().percent(value);
-        int i = (int) (fraction * this.colors.length);
+        int i = Math.min((int) (fraction * this.colors.length), 
+                this.colors.length - 1);
         if (this.colors[i] == null) {
             float[] lrgba = this.lowColor.getRGBComponents(null);
             float[] hrgba = this.highColor.getRGBComponents(null);
