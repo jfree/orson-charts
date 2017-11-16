@@ -26,7 +26,7 @@ Key features include:
 - support for PDF, SVG, PNG and JPG export of charts for reporting;
 - a clean and well-documented API with a high degree of chart configurability.
 
-Orson Charts is very easy to use, and includes comprehensive Javadocs.  It is licensed under the terms of the GNU General Public License version 3 or later.  For companies that do not wish to be bound by the terms of the GPLv3, a commercial license can be purchased from Object Refinery Limited.  The license permits royalty-free redistribution of the Orson Charts runtime jar file.  Orson Charts requires JDK/JRE 1.6 or later.  To use Orson Charts with JavaFX requires the Orson Charts FX extension project (and JDK/JRE 1.8 or later.
+Orson Charts is very easy to use, and includes comprehensive Javadocs.  It is licensed under the terms of the GNU General Public License version 3 or later.  For companies that do not wish to be bound by the terms of the GPLv3, a commercial license can be purchased from Object Refinery Limited.  The license permits royalty-free redistribution of the Orson Charts runtime jar file.  Orson Charts requires JDK/JRE 1.6 or later.  To use Orson Charts with JavaFX requires the Orson Charts FX extension project (and JDK/JRE 1.8 or later).
 
 
 Documentation
@@ -38,6 +38,14 @@ http://www.object-refinery.com/orsoncharts/javadoc/index.html
 If there are topics that are not covered or not clear in the documentation, please let us know so that we can improve the coverage.
 
 
+Demos
+-----
+Demo applications can be found in the following projects at GitHub:
+
+* [JFree-Demos](https://github.com/jfree/jfree-demos "JFree-Demos Project Page at GitHub")
+* [JFree-FXDemos](https://github.com/jfree/jfree-fxdemos "JFree-FXDemos Project Page at GitHub")
+
+
 Building
 --------
 You can build Orson Charts using Maven by issuing the following command from the root directory of the project:
@@ -47,26 +55,18 @@ You can build Orson Charts using Maven by issuing the following command from the
 The build requires JDK 1.6 or later.  
 
 
-Demos
------
-Demo applications can be found in the following projects at GitHub:
-
-* [JFree-Demos](https://github.com/jfree/jfree-demos "JFree-Demos Project Page at GitHub")
-* [JFree-FXDemos](https://github.com/jfree/jfree-fxdemos "JFree-FXDemos Project Page at GitHub")
-
-
 Reporting Bugs
 --------------
 If you find a bug in Orson Charts, please file a bug report at:
 
-    https://github.com/jfree/orson-charts/issues
+https://github.com/jfree/orson-charts/issues
 
 
 More Info
 ---------
 You can find out more about Orson Charts at:
 
-    http://www.object-refinery.com/orsoncharts/
+http://www.object-refinery.com/orsoncharts/
 
 If you have any questions, don't hesitate to send a mail to info@object-refinery.com.
 
@@ -78,10 +78,9 @@ Version 1.7 : 17-Nov-2017
 
 - removed JavaFX support to a separate project Orson Charts FX;
 - fixed cell content bug in `GridElement`;
-- fixed bug in GradientColorScale;
-- protect from NPE in AbstractValueAxis3D;
-- removed Ant build support;
-- moved demo code to external projects.
+- fixed bug in `GradientColorScale`;
+- protect from `NullPointerException` in `AbstractValueAxis3D`;
+- streamline build by removing Ant build support and moving demo code to external projects.
 
 
 Version 1.6 : 2-Nov-2016
