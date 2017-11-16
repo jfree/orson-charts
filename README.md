@@ -1,9 +1,9 @@
 Orson Charts
 ============
 
-(C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+(C)opyright 2013-2017, by Object Refinery Limited.  All rights reserved.
 
-Version 1.6, 2 November 2016.
+Version 1.7, 17 November 2017.
 
 
 Overview
@@ -26,32 +26,33 @@ Key features include:
 - support for PDF, SVG, PNG and JPG export of charts for reporting;
 - a clean and well-documented API with a high degree of chart configurability.
 
-Orson Charts is very easy to use, and includes comprehensive Javadocs.  It is licensed under the terms of the GNU General Public License version 3 or later.  For companies that do not wish to be bound by the terms of the GPLv3, a commercial license can be purchased from Object Refinery Limited.  The license permits royalty-free redistribution of the Orson Charts runtime jar file.  Orson Charts requires JDK/JRE 1.6 or later.  To use Orson Charts with JavaFX requires JDK/JRE 1.8 or later.
+Orson Charts is very easy to use, and includes comprehensive Javadocs.  It is licensed under the terms of the GNU General Public License version 3 or later.  For companies that do not wish to be bound by the terms of the GPLv3, a commercial license can be purchased from Object Refinery Limited.  The license permits royalty-free redistribution of the Orson Charts runtime jar file.  Orson Charts requires JDK/JRE 1.6 or later.  To use Orson Charts with JavaFX requires the Orson Charts FX extension project (and JDK/JRE 1.8 or later.
 
 
 Documentation
 -------------
 The Javadoc generated documentation is the principal source of documentation for Orson Charts:
 
-    http://www.object-refinery.com/orsoncharts/javadoc/index.html
+http://www.object-refinery.com/orsoncharts/javadoc/index.html
 
 If there are topics that are not covered or not clear in the documentation, please let us know so that we can improve the coverage.
 
 
 Building
 --------
-Orson Charts can be built with Maven or Ant.  The default builds include JavaFX support and require JDK 1.8.0_40 or later to compile.  We also provide an Ant script that will build Orson Charts without JavaFX support, and this requires only JDK 1.6 or later.
+You can build Orson Charts using Maven by issuing the following command from the root directory of the project:
 
-Two Ant build scripts are provided to build Orson Charts from source code:
+    mvn clean install
 
-- ant/build.xml : builds Orson Charts with JavaFX support (requires JDK 1.8.0_40 or later);
-- ant/build-nofx.xml : builds Orson Charts without JavaFX support (requires JDK 1.6 or later);
+The build requires JDK 1.6 or later.  
 
-There are three main dependencies for Orson Charts:
 
-- FXGraphics2D : used to provide JavaFX support;
-- JFreeSVG : provides the ability to export charts to SVG format;
-- OrsonPDF : provides the ability to export charts to PDF format;
+Demos
+-----
+Demo applications can be found in the following projects at GitHub:
+
+* [JFree-Demos](https://github.com/jfree/jfree-demos "JFree-Demos Project Page at GitHub")
+* [JFree-FXDemos](https://github.com/jfree/jfree-fxdemos "JFree-FXDemos Project Page at GitHub")
 
 
 Reporting Bugs
@@ -72,6 +73,16 @@ If you have any questions, don't hesitate to send a mail to info@object-refinery
 
 History
 -------
+
+Version 1.7 : 17-Nov-2017
+
+- removed JavaFX support to a separate project Orson Charts FX;
+- fixed cell content bug in `GridElement`;
+- fixed bug in GradientColorScale;
+- protect from NPE in AbstractValueAxis3D;
+- removed Ant build support;
+- moved demo code to external projects.
+
 
 Version 1.6 : 2-Nov-2016
 
