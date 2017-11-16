@@ -8,7 +8,7 @@
     
     <groupId>com.object-refinery</groupId>
     <artifactId>orsoncharts</artifactId>
-    <version>1.7-SNAPSHOT</version>
+    <version>1.7</version>
     <packaging>jar</packaging>
  
     <developers>
@@ -110,6 +110,9 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
                         <version>2.9.1</version>
+                        <configuration>
+                            <linksource>true</linksource>
+                        </configuration>
                         <executions>
                             <execution>
                                 <id>attach-javadoc</id>
@@ -118,12 +121,6 @@
                                 </goals>
                             </execution>
                         </executions>
-                        <configuration>
-                            <sourceFileExcludes>
-                                <exclude>com/orsoncharts/demo/**</exclude>
-                            </sourceFileExcludes>
-                            <additionalparam>-Xdoclint:none</additionalparam>
-                        </configuration>
                     </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
