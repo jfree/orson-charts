@@ -34,7 +34,7 @@
     </issueManagement>
     <scm>
         <connection>scm:git:git:https://github.com/jfree/orson-charts.git</connection>
-        <url>https://github.com/jfree/jfreechart-fx</url>
+        <url>https://github.com/jfree/orson-charts</url>
     </scm>
 
     <properties>
@@ -112,6 +112,7 @@
                         <version>2.9.1</version>
                         <configuration>
                             <linksource>true</linksource>
+                            <additionalparam>-Xdoclint:none</additionalparam>
                         </configuration>
                         <executions>
                             <execution>
