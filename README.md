@@ -76,7 +76,7 @@ History
 
 Version 1.7 : 17-Nov-2017
 
-- removed JavaFX support to a separate project Orson Charts FX;
+- removed JavaFX support to a separate project [Orson Charts FX](https://github.com/jfree/orson-charts-fx);
 - fixed cell content bug in `GridElement`;
 - fixed bug in `GradientColorScale`;
 - protect from `NullPointerException` in `AbstractValueAxis3D`;
