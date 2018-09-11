@@ -74,6 +74,11 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
         Serializable {
 
     /** 
+     * Default formatter for axis number values. Can be overwritten.
+     */
+    private static final Format DEFAULT_TICKLABELFORMATTER = new DecimalFormat("0.00");
+    
+    /** 
      * A flag indicating whether or not the auto-range calculation should
      * include zero.
      */
@@ -122,7 +127,7 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
         this.autoRangeStickyZero = true;
         this.tickSelector = new NumberTickSelector();
         this.tickSize = range.getLength() / 10.0;
-        this.tickLabelFormatter = new DecimalFormat("0.00");
+        this.tickLabelFormatter = DEFAULT_TICKLABELFORMATTER;
     }
       
     /**
@@ -528,8 +533,11 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
                 }
                 this.tickSelector.next();
                 this.tickSize = this.tickSelector.getCurrentTickSize();
-                this.tickLabelFormatter 
-                        = this.tickSelector.getCurrentTickLabelFormat();
+                // TFE, 20180911: don't overwritte any formatter explicitly set
+                if (DEFAULT_TICKLABELFORMATTER.equals(this.tickLabelFormatter)) {
+                    this.tickLabelFormatter 
+                            = this.tickSelector.getCurrentTickLabelFormat();
+                }
             } else {
                 this.tickSize = Double.NaN;
             }
@@ -557,8 +565,11 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
                 }
             }
             this.tickSize = this.tickSelector.getCurrentTickSize();
-            this.tickLabelFormatter 
-                    = this.tickSelector.getCurrentTickLabelFormat();
+            // TFE, 20180911: don't overwritte any formatter explicitly set
+            if (DEFAULT_TICKLABELFORMATTER.equals(this.tickLabelFormatter)) {
+                this.tickLabelFormatter 
+                        = this.tickSelector.getCurrentTickLabelFormat();
+            }
         }
         return this.tickSize;
     }
