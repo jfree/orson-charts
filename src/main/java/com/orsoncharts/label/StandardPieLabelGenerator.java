@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -146,7 +146,7 @@ public class StandardPieLabelGenerator implements PieLabelGenerator,
         Number percent = Double.NaN;
         if (value != null) {
             double total = DataUtils.total(dataset);
-            percent = Double.valueOf(100.0 * value.doubleValue() / total);
+            percent = 100.0 * value.doubleValue() / total;
         }
         formatter.format(this.template, key, value, percent);
         String result = formatter.toString();
