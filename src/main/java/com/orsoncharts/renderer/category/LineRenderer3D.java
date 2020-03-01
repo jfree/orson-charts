@@ -57,8 +57,8 @@ import com.orsoncharts.util.ObjectUtils;
  * {@code createLineChart()} method in the {@link Chart3DFactory} class 
  * will construct a chart that uses this renderer.  Here is a sample:
  * <div>
- * <object id="ABC" data="../../../../doc-files/LineChart3DDemo1.svg"  
- * type="image/svg+xml" width="500" height="359"></object>
+ * <img src="../../../../doc-files/LineChart3DDemo1.svg" 
+ * alt="LineChart3DDemo1.svg" width="500" height="359">
  * </div>
  * (refer to {@code LineChart3DDemo1.java} for the code to generate the
  * above chart).

@@ -55,9 +55,8 @@ import com.orsoncharts.util.ObjectUtils;
  * A renderer for creating 3D bar charts from a {@link CategoryDataset3D} (for 
  * use with a {@link CategoryPlot3D}).  For example:
  * <div>
- * <object id="ABC" data="../../../../doc-files/BarChart3DDemo1.svg" type="image/svg+xml" 
- * width="500" height="359"> 
- * </object>
+ * <img src="../../../../doc-files/BarChart3DDemo1.svg" alt="BarChart3DDemo1.svg" 
+ * width="500" height="359">
  * </div>
  * (refer to {@code BarChart3DDemo1.java} for the code to generate the
  * above chart).
