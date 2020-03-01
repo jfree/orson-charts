@@ -36,6 +36,7 @@ import java.awt.Color;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 
+import com.orsoncharts.graphics3d.internal.TaggedFace;
 import com.orsoncharts.graphics3d.internal.Utils2D;
 import com.orsoncharts.util.ArgChecks;
 
