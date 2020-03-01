@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -58,13 +58,13 @@ public final class StandardCategoryDataset3D
     /**
      * Storage for the data.
      */
-    private DefaultKeyedValues3D<S, R, C, Number> data;
+    private final DefaultKeyedValues3D<S, R, C, Number> data;
     
     /**
      * Creates a new (empty) dataset.
      */
     public StandardCategoryDataset3D() {
-        this.data = new DefaultKeyedValues3D<S, R, C, Number>();  
+        this.data = new DefaultKeyedValues3D<>();  
     }
 
     /**
