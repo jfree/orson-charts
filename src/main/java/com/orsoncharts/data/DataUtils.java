@@ -33,7 +33,6 @@
 package com.orsoncharts.data;
 
 import java.util.List;
-import com.orsoncharts.data.Range;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.data.xyz.XYZSeries;
@@ -759,9 +758,9 @@ public class DataUtils {
         ArgChecks.nullNotPermitted(xRowKey, "xRowKey");
         ArgChecks.nullNotPermitted(yRowKey, "yRowKey");
         ArgChecks.nullNotPermitted(zRowKey, "zRowKey");
-        XYZSeriesCollection<S> dataset = new XYZSeriesCollection<S>();
+        XYZSeriesCollection<S> dataset = new XYZSeriesCollection<>();
         for (S seriesKey : source.getSeriesKeys()) {
-            XYZSeries<S> series = new XYZSeries<S>(seriesKey);
+            XYZSeries<S> series = new XYZSeries<>(seriesKey);
             for (C colKey : source.getColumnKeys()) {
                 Number x = source.getValue(seriesKey, xRowKey, colKey);
                 Number y = source.getValue(seriesKey, yRowKey, colKey);
@@ -876,9 +875,9 @@ public class DataUtils {
         ArgChecks.nullNotPermitted(xColKey, "xColKey");
         ArgChecks.nullNotPermitted(yColKey, "yColKey");
         ArgChecks.nullNotPermitted(zColKey, "zColKey");
-        XYZSeriesCollection<S> dataset = new XYZSeriesCollection<S>();
+        XYZSeriesCollection<S> dataset = new XYZSeriesCollection<>();
         for (S seriesKey : source.getSeriesKeys()) {
-            XYZSeries<S> series = new XYZSeries<S>(seriesKey);
+            XYZSeries<S> series = new XYZSeries<>(seriesKey);
             for (R rowKey : source.getRowKeys()) {
                 Number x = source.getValue(seriesKey, rowKey, xColKey);
                 Number y = source.getValue(seriesKey, rowKey, yColKey);

@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -81,11 +81,11 @@ public final class DefaultKeyedValues2D<R extends Comparable<R>, C extends Compa
     public DefaultKeyedValues2D(List<R> rowKeys, List<C> columnKeys) {
         ArgChecks.nullNotPermitted(rowKeys, "rowKeys");
         ArgChecks.nullNotPermitted(columnKeys, "columnKeys");
-        this.rowKeys = new ArrayList<R>(rowKeys);
-        this.columnKeys = new ArrayList<C>(columnKeys);
-        this.data = new ArrayList<DefaultKeyedValues<C, T>>();    
+        this.rowKeys = new ArrayList<>(rowKeys);
+        this.columnKeys = new ArrayList<>(columnKeys);
+        this.data = new ArrayList<>();    
         for (int i = 0; i < rowKeys.size(); i++) {
-            this.data.add(new DefaultKeyedValues<C, T>(columnKeys));
+            this.data.add(new DefaultKeyedValues<>(columnKeys));
         }
     }
 
@@ -146,7 +146,7 @@ public final class DefaultKeyedValues2D<R extends Comparable<R>, C extends Compa
      */
     @Override
     public List<R> getRowKeys() {
-        return new ArrayList<R>(this.rowKeys);
+        return new ArrayList<>(this.rowKeys);
     }
 
     /**
@@ -156,7 +156,7 @@ public final class DefaultKeyedValues2D<R extends Comparable<R>, C extends Compa
      */
     @Override
     public List<C> getColumnKeys() {
-        return new ArrayList<C>(this.columnKeys);
+        return new ArrayList<>(this.columnKeys);
     }
 
     /**
@@ -241,7 +241,7 @@ public final class DefaultKeyedValues2D<R extends Comparable<R>, C extends Compa
         if (this.data.isEmpty()) {  // 1. no data - just add one new entry
             this.rowKeys.add(rowKey);
             this.columnKeys.add(columnKey);
-            DefaultKeyedValues<C, T> dkvs = new DefaultKeyedValues<C, T>();
+            DefaultKeyedValues<C, T> dkvs = new DefaultKeyedValues<>();
             dkvs.put(columnKey, n);
             this.data.add(dkvs);
         } else {
@@ -265,7 +265,7 @@ public final class DefaultKeyedValues2D<R extends Comparable<R>, C extends Compa
                 if (columnIndex >= 0) {
                     // 4.  rowKey does not exist, but columnKey does
                     this.rowKeys.add(rowKey);
-                    DefaultKeyedValues<C, T> d = new DefaultKeyedValues<C, T>(
+                    DefaultKeyedValues<C, T> d = new DefaultKeyedValues<>(
                             this.columnKeys);
                     d.put(columnKey, n);
                     this.data.add(d);
@@ -277,7 +277,7 @@ public final class DefaultKeyedValues2D<R extends Comparable<R>, C extends Compa
                     for (DefaultKeyedValues<C, T> kv : this.data) {
                         kv.put(columnKey, null);
                     }
-                    DefaultKeyedValues<C, T> d = new DefaultKeyedValues<C, T>(
+                    DefaultKeyedValues<C, T> d = new DefaultKeyedValues<>(
                             this.columnKeys);
                     d.put(columnKey, n);
                     this.data.add(d);

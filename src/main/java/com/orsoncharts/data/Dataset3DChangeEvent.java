@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -47,7 +47,7 @@ import java.util.EventObject;
 @SuppressWarnings("serial")
 public class Dataset3DChangeEvent extends EventObject {
 
-    private Object dataset;
+    private final Object dataset;
   
     /**
      * Creates a new dataset change event.  The source can be the same as the

@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -43,7 +43,7 @@ import javax.swing.event.EventListenerList;
 public class AbstractDataset3D implements Dataset3D {
  
     /** Storage for registered change listeners. */
-    private transient EventListenerList listenerList; 
+    private final transient EventListenerList listenerList; 
   
     /**
      * A flag that controls whether or not the dataset will notify listeners

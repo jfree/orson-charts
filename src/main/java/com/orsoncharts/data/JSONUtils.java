@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -102,7 +102,7 @@ public class JSONUtils {
             JSONParser parser = new JSONParser();
             // parse with custom containers (to preserve item order)
             List list = (List) parser.parse(reader, createContainerFactory());
-            StandardPieDataset3D<String> result = new StandardPieDataset3D<String>();
+            StandardPieDataset3D<String> result = new StandardPieDataset3D<>();
             for (Object item : list) {
                 List itemAsList = (List) item;
                 result.add(itemAsList.get(0).toString(), (Number) itemAsList.get(1));
@@ -210,7 +210,7 @@ public class JSONUtils {
         try {
             Map map = (Map) parser.parse(reader, createContainerFactory());
             DefaultKeyedValues2D<String, String, Number> result 
-                    = new DefaultKeyedValues2D<String, String, Number>();
+                    = new DefaultKeyedValues2D<>();
             if (map.isEmpty()) {
                 return result;
             }
@@ -708,7 +708,7 @@ public class JSONUtils {
     @SuppressWarnings("unchecked")
     public static XYZDataset<String> readXYZDataset(Reader reader) throws IOException {
         JSONParser parser = new JSONParser();
-        XYZSeriesCollection<String> result = new XYZSeriesCollection<String>();
+        XYZSeriesCollection<String> result = new XYZSeriesCollection<>();
         try {
             List<?> list = (List<?>) parser.parse(reader, 
                     createContainerFactory());
@@ -777,14 +777,14 @@ public class JSONUtils {
                     writer.write(", ");
                 }
                 writer.write("[");
-                writer.write(JSONValue.toJSONString(Double.valueOf(
-                        dataset.getX(seriesIndex, i))));
+                writer.write(JSONValue.toJSONString(
+                        dataset.getX(seriesIndex, i)));
                 writer.write(", ");
-                writer.write(JSONValue.toJSONString(Double.valueOf(
-                        dataset.getY(seriesIndex, i))));
+                writer.write(JSONValue.toJSONString(
+                        dataset.getY(seriesIndex, i)));
                 writer.write(", ");
-                writer.write(JSONValue.toJSONString(Double.valueOf(
-                        dataset.getZ(seriesIndex, i))));
+                writer.write(JSONValue.toJSONString(
+                        dataset.getZ(seriesIndex, i)));
                 writer.write("]");
             }
             writer.write("]]");

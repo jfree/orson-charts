@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -34,7 +34,6 @@ package com.orsoncharts.data;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import com.orsoncharts.util.ArgChecks;
 
 /**
@@ -68,16 +67,14 @@ public class KeyedValues3DItemKeys {
              KeyedValues3D<S, R, C, T> data, S seriesKey) {
         ArgChecks.nullNotPermitted(data, "data");
         ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
-        Collection<KeyedValues3DItemKey> result 
-                = new ArrayList<KeyedValues3DItemKey>();
+        Collection<KeyedValues3DItemKey> result = new ArrayList<>();
         if (!data.getSeriesKeys().contains(seriesKey)) {
             return result;
         }
         for (R rowKey: data.getRowKeys()) {
             for (C columnKey: data.getColumnKeys()) {
-                KeyedValues3DItemKey<S, R, C> key 
-                        = new KeyedValues3DItemKey<S, R, C>(seriesKey, rowKey, 
-                                columnKey);
+                KeyedValues3DItemKey<S, R, C> key = new KeyedValues3DItemKey<>(
+                        seriesKey, rowKey, columnKey);
                 result.add(key);
             }
         }
@@ -103,15 +100,14 @@ public class KeyedValues3DItemKeys {
             itemKeysForRow(KeyedValues3D<S, R, C, T> data, R rowKey) {
         ArgChecks.nullNotPermitted(data, "data");
         ArgChecks.nullNotPermitted(rowKey, "rowKey");
-        Collection<KeyedValues3DItemKey> result 
-                = new ArrayList<KeyedValues3DItemKey>();
+        Collection<KeyedValues3DItemKey> result = new ArrayList<>();
         if (!data.getRowKeys().contains(rowKey)) {
             return result;
         }
         for (S seriesKey: data.getSeriesKeys()) {
             for (C columnKey: data.getColumnKeys()) {
                 KeyedValues3DItemKey<S, R, C> key 
-                        = new KeyedValues3DItemKey<S, R, C>(seriesKey, 
+                        = new KeyedValues3DItemKey<>(seriesKey, 
                         rowKey, columnKey);
                 result.add(key);
             }
@@ -139,16 +135,14 @@ public class KeyedValues3DItemKeys {
             KeyedValues3D<S, R, C, T> data, C columnKey) {
         ArgChecks.nullNotPermitted(data, "data");
         ArgChecks.nullNotPermitted(columnKey, "columnKey");
-        Collection<KeyedValues3DItemKey> result 
-                = new ArrayList<KeyedValues3DItemKey>();
+        Collection<KeyedValues3DItemKey> result = new ArrayList<>();
         if (!data.getColumnKeys().contains(columnKey)) {
             return result;
         }
         for (S seriesKey: data.getSeriesKeys()) {
             for (R rowKey: data.getRowKeys()) {
-                KeyedValues3DItemKey<S, R, C> key 
-                        = new KeyedValues3DItemKey<S, R, C>(seriesKey, 
-                        rowKey, columnKey);
+                KeyedValues3DItemKey<S, R, C> key = new KeyedValues3DItemKey<>(
+                        seriesKey, rowKey, columnKey);
                 result.add(key);
             }
         }

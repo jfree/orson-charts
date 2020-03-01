@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -74,9 +74,9 @@ public final class DefaultKeyedValues<K extends Comparable<K>, T>
      */
     public DefaultKeyedValues(List<K> keys) {
         ArgChecks.nullNotPermitted(keys, "keys");
-        this.data = new ArrayList<KeyedValue<K, T>>();
+        this.data = new ArrayList<>();
         for (K key : keys) {
-            this.data.add(new DefaultKeyedValue<K, T>(key, null));
+            this.data.add(new DefaultKeyedValue<>(key, null));
         }
     }
   
@@ -102,7 +102,7 @@ public final class DefaultKeyedValues<K extends Comparable<K>, T>
             dkv = (DefaultKeyedValue<K, T>) this.data.get(index);
             dkv.setValue(value);
         } else {
-            this.data.add(new DefaultKeyedValue<K, T>(key, value));
+            this.data.add(new DefaultKeyedValue<>(key, value));
         }
     }
   
@@ -169,7 +169,7 @@ public final class DefaultKeyedValues<K extends Comparable<K>, T>
      */
     @Override
     public List<K> getKeys() {
-        List<K> keys = new ArrayList<K>();
+        List<K> keys = new ArrayList<>();
         for (KeyedValue<K, T> kv : this.data) {
             keys.add(kv.getKey());
         }

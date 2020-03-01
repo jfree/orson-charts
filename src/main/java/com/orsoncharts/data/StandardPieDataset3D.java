@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -61,8 +61,8 @@ import com.orsoncharts.plot.PiePlot3D;
  * @param <K> the key type.
  */
 @SuppressWarnings("serial")
-public final class StandardPieDataset3D<K extends Comparable<K>> extends AbstractDataset3D 
-        implements PieDataset3D<K>, Serializable {
+public final class StandardPieDataset3D<K extends Comparable<K>> 
+        extends AbstractDataset3D implements PieDataset3D<K>, Serializable {
 
     /** Storage for the data. */
     private DefaultKeyedValues<K, Number> data;
@@ -71,7 +71,7 @@ public final class StandardPieDataset3D<K extends Comparable<K>> extends Abstrac
      * Creates a new (empty) dataset.
      */
     public StandardPieDataset3D() {
-        this.data = new DefaultKeyedValues<K, Number>();
+        this.data = new DefaultKeyedValues<>();
     }
 
     /**

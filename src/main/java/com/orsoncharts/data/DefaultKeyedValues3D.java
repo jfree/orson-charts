@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -56,10 +56,10 @@ public final class DefaultKeyedValues3D<S extends Comparable<S>, R extends Compa
         implements KeyedValues3D<S, R, C, V>, Serializable {
 
     /** The series keys. */
-    private List<S> seriesKeys;
+    private final List<S> seriesKeys;
   
     /** The row keys. */
-    private List<R> rowKeys;
+    private final List<R> rowKeys;
   
     /** The column keys. */
     private List<C> columnKeys;
@@ -74,10 +74,10 @@ public final class DefaultKeyedValues3D<S extends Comparable<S>, R extends Compa
      * Creates a new (empty) table.
      */
     public DefaultKeyedValues3D() {
-        this.seriesKeys = new ArrayList<S>();
-        this.rowKeys = new ArrayList<R>();
-        this.columnKeys = new ArrayList<C>();
-        this.data = new ArrayList<DefaultKeyedValues2D<R, C, V>>();
+        this.seriesKeys = new ArrayList<>();
+        this.rowKeys = new ArrayList<>();
+        this.columnKeys = new ArrayList<>();
+        this.data = new ArrayList<>();
     }
   
     /**
@@ -167,7 +167,7 @@ public final class DefaultKeyedValues3D<S extends Comparable<S>, R extends Compa
      */
     @Override
     public List<S> getSeriesKeys() {
-        return new ArrayList<S>(this.seriesKeys);
+        return new ArrayList<>(this.seriesKeys);
     }
 
     /**
@@ -179,7 +179,7 @@ public final class DefaultKeyedValues3D<S extends Comparable<S>, R extends Compa
      */
     @Override
     public List<R> getRowKeys() {
-        return new ArrayList<R>(this.rowKeys);
+        return new ArrayList<>(this.rowKeys);
     }
 
     /**
@@ -191,7 +191,7 @@ public final class DefaultKeyedValues3D<S extends Comparable<S>, R extends Compa
      */
     @Override
     public List<C> getColumnKeys() {
-        return new ArrayList<C>(this.columnKeys);
+        return new ArrayList<>(this.columnKeys);
     }
 
     @Override
@@ -276,8 +276,7 @@ public final class DefaultKeyedValues3D<S extends Comparable<S>, R extends Compa
             this.seriesKeys.add(seriesKey);
             this.rowKeys.add(rowKey);
             this.columnKeys.add(columnKey);
-            DefaultKeyedValues2D<R, C, V> d 
-                    = new DefaultKeyedValues2D<R, C, V>();
+            DefaultKeyedValues2D<R, C, V> d = new DefaultKeyedValues2D<>();
             d.setValue(n, rowKey, columnKey);
             this.data.add(d);
         }
@@ -301,9 +300,8 @@ public final class DefaultKeyedValues3D<S extends Comparable<S>, R extends Compa
             d.setValue(n, rowKey, columnKey);
         } else {
             this.seriesKeys.add(seriesKey);
-            DefaultKeyedValues2D<R, C, V> d 
-                    = new DefaultKeyedValues2D<R, C, V>(this.rowKeys, 
-                    this.columnKeys);
+            DefaultKeyedValues2D<R, C, V> d = new DefaultKeyedValues2D<>(
+                    this.rowKeys, this.columnKeys);
             d.setValue(n, rowKey, columnKey);
             this.data.add(d);
         }
