@@ -177,7 +177,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      */
     public StandardCategoryAxis3D(String label) {
         super(label);
-        this.categories = new ArrayList<Comparable<?>>();
+        this.categories = new ArrayList<>();
         this.range = new Range(0.0, 1.0);
         this.lowerMargin = 0.05;
         this.upperMargin = 0.05;
@@ -599,7 +599,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      * @since 1.2
      */
     public Map<String, CategoryMarker> getMarkers() {
-        return new LinkedHashMap<String, CategoryMarker>(this.markers);    
+        return new LinkedHashMap<>(this.markers);    
     }
     
     /**
@@ -833,7 +833,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
             }
             String tickLabel = t.getKeyLabel();
             if (hinting) {
-                Map<String, String> m = new HashMap<String, String>();
+                Map<String, String> m = new HashMap<>();
                 m.put("ref", "{\"type\": \"categoryTickLabel\", \"axis\": \"" 
                         + axisStr() + "\", \"key\": \"" 
                         + t.getKey() + "\"}");
@@ -928,7 +928,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     @Override @SuppressWarnings("unchecked")
     public List<TickData> generateTickDataForRows(CategoryDataset3D dataset) {
         ArgChecks.nullNotPermitted(dataset, "dataset");
-        List<TickData> result = new ArrayList<TickData>(this.categories.size());
+        List<TickData> result = new ArrayList<>(this.categories.size());
         for (Comparable<?> key : this.categories) {
             double pos = this.range.percent(getCategoryValue(key));
             String label = this.tickLabelGenerator.generateRowLabel(dataset, 
@@ -955,7 +955,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     public List<TickData> generateTickDataForColumns(
             CategoryDataset3D dataset) {
         ArgChecks.nullNotPermitted(dataset, "dataset");
-        List<TickData> result = new ArrayList<TickData>(this.categories.size());
+        List<TickData> result = new ArrayList<>(this.categories.size());
         for (Comparable<?> key : this.categories) {
             double pos = this.range.percent(getCategoryValue(key));
             String label = this.tickLabelGenerator.generateColumnLabel(dataset, 
@@ -972,7 +972,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      */
     @Override
     public List<MarkerData> generateMarkerData() {
-        List<MarkerData> result = new ArrayList<MarkerData>();
+        List<MarkerData> result = new ArrayList<>();
         for (Map.Entry<String, CategoryMarker> entry 
                 : this.markers.entrySet()) {
             CategoryMarker cm = entry.getValue();
@@ -1127,6 +1127,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      * 
      * @since 1.5
      */
+    @Override
     public void setInverted(boolean inverted) {
         this.inverted = inverted;
         fireChangeEvent(true);

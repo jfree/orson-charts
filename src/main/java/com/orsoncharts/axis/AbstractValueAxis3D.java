@@ -121,7 +121,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
     private double tickLabelFactor;    
 
     /** Storage for value markers for the axis (empty by default). */
-    private Map<String, ValueMarker> valueMarkers;
+    private final Map<String, ValueMarker> valueMarkers;
     
     /**
      * Creates a new axis instance.
@@ -145,7 +145,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
         this.tickMarkLength = 3.0;
         this.tickMarkStroke = new BasicStroke(0.5f);
         this.tickMarkPaint = Color.GRAY;
-        this.valueMarkers = new LinkedHashMap<String, ValueMarker>();
+        this.valueMarkers = new LinkedHashMap<>();
     }
     
     /**
@@ -394,6 +394,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
      * 
      * @since 1.5
      */
+    @Override
     public void setInverted(boolean inverted) {
         this.inverted = inverted;
         fireChangeEvent(true);
@@ -671,7 +672,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
      * @since 1.2
      */
     public Map<String, ValueMarker> getMarkers() {
-        return new LinkedHashMap<String, ValueMarker>(this.valueMarkers);    
+        return new LinkedHashMap<>(this.valueMarkers);    
     }
 
     /**
@@ -681,7 +682,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
      */
     @Override
     public List<MarkerData> generateMarkerData() {
-        List<MarkerData> result = new ArrayList<MarkerData>();
+        List<MarkerData> result = new ArrayList<>();
         Range range = getRange();
         for (Map.Entry<String, ValueMarker> entry 
                 : this.valueMarkers.entrySet()) {

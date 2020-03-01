@@ -34,7 +34,6 @@ package com.orsoncharts.axis;
 
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
-import java.awt.Shape;
 import java.awt.font.TextAttribute;
 import java.awt.font.TextLayout;
 import java.awt.geom.Line2D;
@@ -464,7 +463,7 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
                     this.tickLabelFormatter);
             Rectangle2D nonRotatedBounds = new Rectangle2D.Double();
             if (hinting) {
-                Map<String, String> m = new HashMap<String, String>();
+                Map<String, String> m = new HashMap<>();
                 m.put("ref", "{\"type\": \"valueTickLabel\", \"axis\": " 
                         + axisStr() + ", \"value\": \"" 
                         + t.getDataValue() + "\"}");
@@ -503,7 +502,7 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
             AttributedString as = createTickLabelAttributedString(logy, 
                     this.tickSelector.getCurrentTickLabelFormat());
             if (hinting) {
-                Map<String, String> m = new HashMap<String, String>();
+                Map<String, String> m = new HashMap<>();
                 m.put("ref", "{\"type\": \"valueTickLabel\", \"axis\": " 
                         + axisStr() + ", \"value\": \"" 
                         + t.getDataValue() + "\"}");
@@ -652,7 +651,7 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
      */
     @Override
     public List<TickData> generateTickData(double tickUnit) {
-        List<TickData> result = new ArrayList<TickData>();
+        List<TickData> result = new ArrayList<>();
         if (Double.isNaN(tickUnit)) {
             result.add(new TickData(0, getRange().getMin()));
             result.add(new TickData(1, getRange().getMax()));

@@ -389,7 +389,7 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
             String tickLabel = this.tickLabelFormatter.format(
                     t.getDataValue());
             if (hinting) {
-                Map<String, String> m = new HashMap<String, String>();
+                Map<String, String> m = new HashMap<>();
                 m.put("ref", "{\"type\": \"valueTickLabel\", \"axis\": \"" 
                         + axisStr() + "\", \"value\": \"" 
                         + t.getDataValue() + "\"}");
@@ -405,8 +405,7 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
                 RenderedElement tickLabelElement = new RenderedElement(
                         InteractiveElementType.VALUE_AXIS_TICK_LABEL, bounds);
                 tickLabelElement.setProperty("axis", axisStr());
-                tickLabelElement.setProperty("value", 
-                        Double.valueOf(t.getDataValue()));
+                tickLabelElement.setProperty("value",  t.getDataValue());
                 info.addOffsetElement(tickLabelElement);
             }
         }
@@ -447,7 +446,7 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
             String tickLabel = this.tickLabelFormatter.format(
                     t.getDataValue());
             if (hinting) {
-                Map<String, String> m = new HashMap<String, String>();
+                Map<String, String> m = new HashMap<>();
                 m.put("ref", "{\"type\": \"valueTickLabel\", \"axis\": \"" 
                         + axisStr() + "\", \"value\": \"" 
                         + t.getDataValue() + "\"}");
@@ -463,8 +462,7 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
                 RenderedElement tickLabelElement = new RenderedElement(
                         InteractiveElementType.VALUE_AXIS_TICK_LABEL, bounds);
                 tickLabelElement.setProperty("axis", axisStr());
-                tickLabelElement.setProperty("value", 
-                        Double.valueOf(t.getDataValue()));
+                tickLabelElement.setProperty("value", t.getDataValue());
                 info.addOffsetElement(tickLabelElement);
             }
         }   
@@ -578,7 +576,7 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
      */
     @Override
     public List<TickData> generateTickData(double tickUnit) {
-        List<TickData> result = new ArrayList<TickData>();
+        List<TickData> result = new ArrayList<>();
         if (Double.isNaN(tickUnit)) {
             result.add(new TickData(0, getRange().getMin()));
             result.add(new TickData(1, getRange().getMax()));

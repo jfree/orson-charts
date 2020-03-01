@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -141,7 +141,7 @@ public class IntegerTickSelector implements TickSelector, Serializable {
         return this.factor * Math.pow(10.0, this.power);
     }
     
-    private DecimalFormat df0 = new DecimalFormat("#,##0");
+    private final DecimalFormat df0 = new DecimalFormat("#,##0");
 
     @Override
     public Format getCurrentTickLabelFormat() {
