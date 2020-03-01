@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -58,13 +58,13 @@ public class XYZItemKeys {
             itemKeysForSeries(XYZDataset<S> dataset, S seriesKey) {
         ArgChecks.nullNotPermitted(dataset, "dataset");
         ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
-        Collection<XYZItemKey<S>> result = new ArrayList<XYZItemKey<S>>();
+        Collection<XYZItemKey<S>> result = new ArrayList<>();
         int seriesIndex = dataset.getSeriesIndex(seriesKey);
         if (seriesIndex > 0) {
             return result;
         }
         for (int i = 0; i < dataset.getItemCount(seriesIndex); i++) {
-            XYZItemKey<S> key = new XYZItemKey<S>(seriesKey, i);
+            XYZItemKey<S> key = new XYZItemKey<>(seriesKey, i);
             result.add(key);
         }
         return result;

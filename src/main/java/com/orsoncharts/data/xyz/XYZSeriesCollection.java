@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -67,7 +67,7 @@ public class XYZSeriesCollection<S extends Comparable<S>>
      * Creates a new (empty) {@code XYZSeriesCollection} instance.
      */
     public XYZSeriesCollection() {
-        this.series = new ArrayList<XYZSeries<S>>();
+        this.series = new ArrayList<>();
     }
 
     /**
@@ -103,7 +103,7 @@ public class XYZSeriesCollection<S extends Comparable<S>>
      */
     @Override
     public List<S> getSeriesKeys() {
-        List<S> result = new ArrayList<S>();
+        List<S> result = new ArrayList<>();
         for (XYZSeries<S> s : this.series) {
             result.add(s.getKey());
         }

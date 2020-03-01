@@ -77,13 +77,13 @@ public class XYZDatasetUtils {
     public static XYZDataset<String> sampleFunction(Function3D f, String key, 
             double xmin, double xmax, double xcount, 
             double zmin, double zmax, double zcount) {
-        XYZSeries<String> s = new XYZSeries<String>(key);
+        XYZSeries<String> s = new XYZSeries<>(key);
         for (double x = xmin; x <= xmax; x += (xmax - xmin) / xcount) {
             for (double z = zmin; z <= zmax; z += (zmax - zmin) / zcount) {
                 s.add(x, f.getValue(x, z), z);
             }
         }
-        XYZSeriesCollection<String> dataset = new XYZSeriesCollection<String>();
+        XYZSeriesCollection<String> dataset = new XYZSeriesCollection<>();
         dataset.add(s);
         return dataset;
     }
