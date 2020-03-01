@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -35,8 +35,6 @@ package com.orsoncharts.data;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertEquals;
 
-import com.orsoncharts.Range;
-
 import org.junit.Test;
 
 /**
@@ -47,7 +45,7 @@ public class DataValuesTest {
     @Test
     public void testFindValueRange() {
         DefaultKeyedValues3D<String, String, String, Number> data 
-                = new DefaultKeyedValues3D<String, String, String, Number>();
+                = new DefaultKeyedValues3D<>();
         assertNull(DataUtils.findValueRange(data));
         data.setValue(1.5, "S1", "R1", "C1");
         assertEquals(new Range(1.5, 1.5), DataUtils.findValueRange(data));
@@ -58,7 +56,7 @@ public class DataValuesTest {
     @Test
     public void testFindValueRangeWithBase() {
         DefaultKeyedValues3D<String, String, String, Number> data 
-                = new DefaultKeyedValues3D<String, String, String, Number>();
+                = new DefaultKeyedValues3D<>();
         assertNull(DataUtils.findValueRange(data));
         data.setValue(1.5, "S1", "R1", "C1");
         assertEquals(new Range(1.0, 1.5), DataUtils.findValueRange(data, 

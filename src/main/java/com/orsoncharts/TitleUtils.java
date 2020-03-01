@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -138,8 +138,7 @@ public class TitleUtils {
             throw new IllegalArgumentException(
                     "A subtitleFont is required when there is a subtitle.");
         }
-        GridElement<String, String> compositeTitle 
-                = new GridElement<String, String>();
+        GridElement<String, String> compositeTitle = new GridElement<>();
         TextElement st = new TextElement(subtitle, subtitleFont);
         st.setHorizontalAligment(alignment);
         st.setColor(DEFAULT_TITLE_COLOR);

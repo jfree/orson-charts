@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts;
+package com.orsoncharts.internal;
 
 import java.awt.Color;
 import java.awt.geom.Point2D;
@@ -121,12 +121,12 @@ public class ChartBox3D {
         this.yOffset = yOffset;
         this.zOffset = zOffset;
         this.color = color;
-        this.xTicks = new ArrayList<TickData>(0);
-        this.yTicks = new ArrayList<TickData>(0);
-        this.zTicks = new ArrayList<TickData>(0);
-        this.xMarkers = new ArrayList<MarkerData>(0);
-        this.yMarkers = new ArrayList<MarkerData>(0);
-        this.zMarkers = new ArrayList<MarkerData>(0);
+        this.xTicks = new ArrayList<>(0);
+        this.yTicks = new ArrayList<>(0);
+        this.zTicks = new ArrayList<>(0);
+        this.xMarkers = new ArrayList<>(0);
+        this.yMarkers = new ArrayList<>(0);
+        this.zMarkers = new ArrayList<>(0);
     }
 
     /**
@@ -1012,15 +1012,15 @@ public class ChartBox3D {
          */
         public ChartBoxFace(Object3D owner, int[] vertices) {
             super(owner, vertices);
-            this.xTicksA = new ArrayList<TickData>();
-            this.xTicksB = new ArrayList<TickData>();
-            this.yTicksA = new ArrayList<TickData>();
-            this.yTicksB = new ArrayList<TickData>();
-            this.zTicksA = new ArrayList<TickData>();
-            this.zTicksB = new ArrayList<TickData>();
-            this.xMarkers = new ArrayList<MarkerData>();
-            this.yMarkers = new ArrayList<MarkerData>();
-            this.zMarkers = new ArrayList<MarkerData>();
+            this.xTicksA = new ArrayList<>();
+            this.xTicksB = new ArrayList<>();
+            this.yTicksA = new ArrayList<>();
+            this.yTicksB = new ArrayList<>();
+            this.zTicksA = new ArrayList<>();
+            this.zTicksB = new ArrayList<>();
+            this.xMarkers = new ArrayList<>();
+            this.yMarkers = new ArrayList<>();
+            this.zMarkers = new ArrayList<>();
         }
         
         /**

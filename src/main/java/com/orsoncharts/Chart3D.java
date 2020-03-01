@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -57,7 +57,6 @@ import java.util.Map;
 
 import javax.swing.event.EventListenerList;
 
-import com.orsoncharts.ChartBox3D.ChartBoxFace;
 import com.orsoncharts.axis.Axis3D;
 import com.orsoncharts.axis.TickData;
 import com.orsoncharts.axis.ValueAxis3D;
@@ -85,6 +84,9 @@ import com.orsoncharts.graphics3d.RenderingInfo;
 import com.orsoncharts.graphics3d.StandardFaceSorter;
 import com.orsoncharts.graphics3d.RenderedElement;
 import com.orsoncharts.interaction.InteractiveElementType;
+import com.orsoncharts.internal.ChartBox3D;
+import com.orsoncharts.internal.ChartBox3D.ChartBoxFace;
+import com.orsoncharts.internal.OnDrawHandler;
 import com.orsoncharts.legend.LegendBuilder;
 import com.orsoncharts.legend.StandardLegendBuilder;
 import com.orsoncharts.marker.Marker;
@@ -94,8 +96,6 @@ import com.orsoncharts.style.ChartStyleChangeEvent;
 import com.orsoncharts.style.ChartStyleChangeListener;
 import com.orsoncharts.style.ChartStyler;
 import com.orsoncharts.table.GradientRectanglePainter;
-import com.orsoncharts.table.GridElement;
-import com.orsoncharts.table.HAlign;
 import com.orsoncharts.table.TableElement;
 import com.orsoncharts.table.TextElement;
 import com.orsoncharts.table.StandardRectanglePainter;
@@ -869,7 +869,7 @@ public class Chart3D implements Drawable3D, ChartElement,
                 this.projDist);
         
         // sort faces by z-order
-        List<Face> facesInPaintOrder = new ArrayList<Face>(world.getFaces());
+        List<Face> facesInPaintOrder = new ArrayList<>(world.getFaces());
         facesInPaintOrder = this.faceSorter.sort(facesInPaintOrder, eyePts);
         Line2D line = null;
         Stroke stroke = new BasicStroke(1.0f);
@@ -1085,7 +1085,7 @@ public class Chart3D implements Drawable3D, ChartElement,
         if (plot instanceof XYZPlot) {
              return ((XYZPlot) plot).getXAxis().generateMarkerData();
         }
-        return new ArrayList<MarkerData>(0);    
+        return new ArrayList<>(0);    
     }
     
     /**
@@ -1121,7 +1121,7 @@ public class Chart3D implements Drawable3D, ChartElement,
         if (plot instanceof XYZPlot) {
              return ((XYZPlot) plot).getZAxis().generateMarkerData();
         }
-        return new ArrayList<MarkerData>(0);    
+        return new ArrayList<>(0);    
     }
     
     /**
@@ -1419,7 +1419,7 @@ public class Chart3D implements Drawable3D, ChartElement,
     
     private void beginElement(Graphics2D g2, String id, String ref) {
         if (this.elementHinting) {
-            Map<String, String> m = new HashMap<String, String>();
+            Map<String, String> m = new HashMap<>();
             if (id != null) {
                 m.put("id", id);
             }

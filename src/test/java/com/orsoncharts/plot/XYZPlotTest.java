@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -45,7 +45,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import com.orsoncharts.axis.NumberAxis3D;
-import com.orsoncharts.Range;
+import com.orsoncharts.data.Range;
 import com.orsoncharts.TestUtils;
 import com.orsoncharts.axis.ValueAxis3D;
 import com.orsoncharts.data.xyz.XYZDataset;
@@ -176,7 +176,7 @@ public class XYZPlotTest implements Plot3DChangeListener {
      * @return A new dataset.
      */
     private XYZDataset<String> createNewDataset() {
-        XYZSeriesCollection<String> dataset = new XYZSeriesCollection<String>();
+        XYZSeriesCollection<String> dataset = new XYZSeriesCollection<>();
         return dataset;
     }
   

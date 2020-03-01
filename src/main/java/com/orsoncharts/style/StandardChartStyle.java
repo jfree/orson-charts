@@ -46,8 +46,8 @@ import java.util.Arrays;
 
 import javax.swing.event.EventListenerList;
 
-import com.orsoncharts.ChartBox3D;
 import com.orsoncharts.Colors;
+import com.orsoncharts.internal.ChartBox3D;
 import com.orsoncharts.table.RectanglePainter;
 import com.orsoncharts.table.StandardRectanglePainter;
 import com.orsoncharts.util.ArgChecks;

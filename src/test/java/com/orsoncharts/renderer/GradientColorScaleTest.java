@@ -39,7 +39,7 @@ import org.junit.Test;
 
 import java.awt.Color;
 import com.orsoncharts.TestUtils;
-import com.orsoncharts.Range;
+import com.orsoncharts.data.Range;
 
 /**
  * Tests for the {@link GradientColorScale} class.
