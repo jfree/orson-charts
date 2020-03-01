@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -50,13 +50,13 @@ public class RenderingInfo {
     /**
      * A list of the faces drawn in order of rendering.
      */
-    private List<Face> faces;
+    private final List<Face> faces;
     
     /** The projected points for the vertices in the faces. */
     Point2D[] projPts;
     
     /** The x-translation. */
-    private double dx;
+    private final double dx;
     
     /** The y-translation. */
     public double dy;
@@ -83,8 +83,8 @@ public class RenderingInfo {
         this.projPts = projPts;
         this.dx = dx;
         this.dy = dy;
-        this.otherElements = new ArrayList<RenderedElement>();
-        this.otherOffsetElements = new ArrayList<RenderedElement>();
+        this.otherElements = new ArrayList<>();
+        this.otherOffsetElements = new ArrayList<>();
     }
     
     /**

@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -120,8 +120,8 @@ public class Object3D {
         ArgChecks.nullNotPermitted(color, "color");
         this.color = color;
         this.outline = outline;
-        this.vertices = new java.util.ArrayList<Point3D>();
-        this.faces = new java.util.ArrayList<Face>();
+        this.vertices = new java.util.ArrayList<>();
+        this.faces = new java.util.ArrayList<>();
     }
 
     /**
@@ -191,7 +191,7 @@ public class Object3D {
     public void setProperty(String key, Object value) {
         ArgChecks.nullNotPermitted(key, "key");
         if (this.properties == null) {
-            this.properties = new HashMap<String, Object>();
+            this.properties = new HashMap<>();
         }
         this.properties.put(key, value);
     }
@@ -701,7 +701,7 @@ public class Object3D {
     public static List<Object3D> createPieLabelMarkers(double radius, 
             double explodeRadius, double base, double height, 
             double angle1, double angle2) {
-        List<Object3D> result = new ArrayList<Object3D>();
+        List<Object3D> result = new ArrayList<>();
         double angle = (angle1 + angle2) / 2.0;
         Point3D centre = new Point3D(explodeRadius * Math.cos(angle), 
                 base, explodeRadius * Math.sin(angle));

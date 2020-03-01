@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -46,13 +46,13 @@ import java.io.Serializable;
 public final class Dimension3D implements Serializable {
   
     /** The width. */
-    private double width;
+    private final double width;
   
     /** The height. */
-    private double height;
+    private final double height;
   
     /** The depth. */
-    private double depth;
+    private final double depth;
   
     /**
      * Creates a new {@code Dimension3D} instance.  Instances of this 

@@ -54,7 +54,7 @@ import com.orsoncharts.Chart3DHints;
 import com.orsoncharts.ChartElementVisitor;
 import com.orsoncharts.graphics3d.RenderedElement;
 import com.orsoncharts.graphics3d.RenderingInfo;
-import com.orsoncharts.graphics3d.Utils2D;
+import com.orsoncharts.graphics3d.internal.Utils2D;
 import com.orsoncharts.interaction.InteractiveElementType;
 import com.orsoncharts.marker.MarkerChangeEvent;
 import com.orsoncharts.marker.MarkerChangeListener;

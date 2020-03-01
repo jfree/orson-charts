@@ -65,11 +65,9 @@ import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.DoubleSidedFace;
 import com.orsoncharts.graphics3d.Drawable3D;
 import com.orsoncharts.graphics3d.Face;
-import com.orsoncharts.graphics3d.FaceSorter;
 import com.orsoncharts.graphics3d.LabelFace;
 import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.Point3D;
-import com.orsoncharts.graphics3d.Utils2D;
 import com.orsoncharts.graphics3d.ViewPoint3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.legend.LegendAnchor;
@@ -81,8 +79,10 @@ import com.orsoncharts.plot.Plot3D;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.graphics3d.Offset2D;
 import com.orsoncharts.graphics3d.RenderingInfo;
-import com.orsoncharts.graphics3d.StandardFaceSorter;
 import com.orsoncharts.graphics3d.RenderedElement;
+import com.orsoncharts.graphics3d.internal.FaceSorter;
+import com.orsoncharts.graphics3d.internal.StandardFaceSorter;
+import com.orsoncharts.graphics3d.internal.Utils2D;
 import com.orsoncharts.interaction.InteractiveElementType;
 import com.orsoncharts.internal.ChartBox3D;
 import com.orsoncharts.internal.ChartBox3D.ChartBoxFace;
@@ -984,7 +984,7 @@ public class Chart3D implements Drawable3D, ChartElement,
         Object3D owner = face.getOwner();
         ItemKey itemKey = (ItemKey) owner.getProperty(Object3D.ITEM_KEY);
         if (itemKey != null) {
-            Map<String, String> m = new HashMap<String, String>();
+            Map<String, String> m = new HashMap<>();
             m.put("ref", itemKey.toJSONString());
             g2.setRenderingHint(Chart3DHints.KEY_BEGIN_ELEMENT, m);
         }
@@ -1103,7 +1103,7 @@ public class Chart3D implements Drawable3D, ChartElement,
         if (plot instanceof XYZPlot) {
              return ((XYZPlot) plot).getYAxis().generateMarkerData();
         }
-        return new ArrayList<MarkerData>(0);    
+        return new ArrayList<>(0);    
     }
     
     /**

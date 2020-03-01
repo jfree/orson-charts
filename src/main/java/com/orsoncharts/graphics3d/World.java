@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -32,6 +32,7 @@
 
 package com.orsoncharts.graphics3d;
 
+import com.orsoncharts.graphics3d.internal.Utils3D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -73,8 +74,8 @@ public class World {
      * Creates a new empty world.
      */
     public World() {
-        this.objects = new java.util.TreeMap<String, List<Object3D>>();
-        this.objects.put(DEFAULT_PARTITION_KEY, new ArrayList<Object3D>());
+        this.objects = new java.util.TreeMap<>();
+        this.objects.put(DEFAULT_PARTITION_KEY, new ArrayList<>());
         setSunSource(new Point3D(2, -1, 10));
     }
 
@@ -157,7 +158,7 @@ public class World {
         ArgChecks.nullNotPermitted(object, "object");
         List<Object3D> list = this.objects.get(partition);
         if (list == null) {
-            list = new ArrayList<Object3D>();
+            list = new ArrayList<>();
             this.objects.put(partition, list);
         }
         list.add(object);
@@ -256,7 +257,7 @@ public class World {
      * @return A list of faces.
      */
     public List<Face> getFaces() {
-        List<Face> result = new java.util.ArrayList<Face>();
+        List<Face> result = new java.util.ArrayList<>();
         int offset = 0;
         for (Entry<String, List<Object3D>> entry : this.objects.entrySet()) {
             List<Object3D> objs = entry.getValue();    
@@ -280,7 +281,7 @@ public class World {
      * @since 1.2
      */
     public List<Object3D> getObjects() {
-        List<Object3D> result = new ArrayList<Object3D>();
+        List<Object3D> result = new ArrayList<>();
         for (Entry<String, List<Object3D>> entry : this.objects.entrySet()) {
             List<Object3D> objs = entry.getValue();    
             result.addAll(objs);

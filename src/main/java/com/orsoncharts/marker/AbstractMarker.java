@@ -39,7 +39,7 @@ import java.awt.geom.Rectangle2D;
 import javax.swing.event.EventListenerList;
 import com.orsoncharts.Chart3DChangeListener;
 import com.orsoncharts.ChartElementVisitor;
-import com.orsoncharts.graphics3d.Utils2D;
+import com.orsoncharts.graphics3d.internal.Utils2D;
 import com.orsoncharts.util.Anchor2D;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.RefPt2D;

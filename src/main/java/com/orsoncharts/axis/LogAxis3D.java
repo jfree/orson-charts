@@ -51,7 +51,7 @@ import java.util.Map;
 import com.orsoncharts.Chart3DHints;
 import com.orsoncharts.data.Range;
 import com.orsoncharts.graphics3d.RenderingInfo;
-import com.orsoncharts.graphics3d.Utils2D;
+import com.orsoncharts.graphics3d.internal.Utils2D;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.ObjectUtils;
 import com.orsoncharts.util.TextAnchor;

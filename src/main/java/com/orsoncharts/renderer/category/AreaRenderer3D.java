@@ -48,8 +48,8 @@ import com.orsoncharts.data.KeyedValues3DItemKey;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.Offset3D;
-import com.orsoncharts.graphics3d.Utils2D;
 import com.orsoncharts.graphics3d.World;
+import com.orsoncharts.graphics3d.internal.Utils2D;
 import com.orsoncharts.label.ItemLabelPositioning;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.Renderer3DChangeEvent;
@@ -501,7 +501,7 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
             Color color, Color baseColor, Color clipColor, boolean openingFace, 
             boolean closingFace) {
         
-        List<Object3D> result = new ArrayList<Object3D>(2);
+        List<Object3D> result = new ArrayList<>(2);
         // either there is a crossing or there is not
         if (!isBaselineCrossed(y0, y1, base)) {
             Object3D segment = createSegmentWithoutCrossing(x0, y0, x1, y1, 
@@ -555,7 +555,7 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
             double x1, double y1, double z, double base, double ymin, 
             double ymax, Color color, Color baseColor, Color clipColor, 
             boolean openingFace, boolean closingFace) {
-        List<Object3D> result = new ArrayList<Object3D>(2);
+        List<Object3D> result = new ArrayList<>(2);
         Range range = new Range(ymin, ymax);
         // find the crossing point
         double ydelta = Math.abs(y1 - y0);

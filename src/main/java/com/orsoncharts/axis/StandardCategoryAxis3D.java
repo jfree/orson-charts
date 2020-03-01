@@ -57,7 +57,7 @@ import com.orsoncharts.data.Range;
 import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.graphics3d.RenderedElement;
 import com.orsoncharts.graphics3d.RenderingInfo;
-import com.orsoncharts.graphics3d.Utils2D;
+import com.orsoncharts.graphics3d.internal.Utils2D;
 import com.orsoncharts.interaction.InteractiveElementType;
 import com.orsoncharts.label.CategoryLabelGenerator;
 import com.orsoncharts.label.StandardCategoryLabelGenerator;

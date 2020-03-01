@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -36,6 +36,7 @@ import java.awt.Color;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 
+import com.orsoncharts.graphics3d.internal.Utils2D;
 import com.orsoncharts.util.ArgChecks;
 
 /**
