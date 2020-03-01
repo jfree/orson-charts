@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -51,7 +51,7 @@ import com.orsoncharts.util.ArgChecks;
 @SuppressWarnings("serial")
 public class RollRightAction extends AbstractAction {
 
-    private Panel3D panel;
+    private final Panel3D panel;
   
     /**
      * Creates a new action instance.

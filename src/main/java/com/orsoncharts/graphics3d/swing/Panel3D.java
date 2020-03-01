@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -75,12 +75,12 @@ public class Panel3D extends JPanel implements MouseListener,
     /**
      * The object that is displayed in the panel.
      */
-    private Drawable3D drawable;
+    private final Drawable3D drawable;
     
     /** 
      * The minimum viewing distance (zooming in will not go closer than this).
      */
-    private double minViewingDistance;
+    private final double minViewingDistance;
 
     private double maxViewingDistanceMultiplier;
 
