@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -42,6 +42,8 @@ import com.orsoncharts.util.ArgChecks;
 /**
  * An object that tracks selected items from an {@link XYZDataset}.
  * 
+ * @param <S>
+ * 
  * @since 1.3
  */
 public class StandardXYZDataItemSelection<S> implements XYZDataItemSelection {
@@ -53,7 +55,7 @@ public class StandardXYZDataItemSelection<S> implements XYZDataItemSelection {
      * Creates a new (empty) selection.
      */
     public StandardXYZDataItemSelection() {
-        this.selectedItems = new TreeSet<XYZItemKey>();    
+        this.selectedItems = new TreeSet<>();    
     }
     
     /**

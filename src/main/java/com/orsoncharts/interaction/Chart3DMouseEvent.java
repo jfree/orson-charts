@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -49,13 +49,13 @@ import com.orsoncharts.graphics3d.RenderedElement;
 public class Chart3DMouseEvent extends EventObject implements Serializable {
 
     /** The chart that the mouse event relates to. */
-    private Chart3D chart;
+    private final Chart3D chart;
 
     /** The Java mouse event that triggered this event. */
-    private MouseEvent trigger;
+    private final MouseEvent trigger;
 
     /** The chart element (if any). */
-    private RenderedElement element;
+    private final RenderedElement element;
 
     /**
      * Constructs a new event.
