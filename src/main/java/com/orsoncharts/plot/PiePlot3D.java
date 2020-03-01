@@ -60,9 +60,8 @@ import com.orsoncharts.label.StandardPieLabelGenerator;
  * {@code createPieChart()} method in the {@link Chart3DFactory} class.  
  * A typical pie chart will look like this:  
  * <div>
- * <object id="ABC" data="../../../doc-files/PieChart3DDemo1.svg"  
- * type="image/svg+xml" width="500" height="359"> 
- * </object>
+ * <img src="../../../doc-files/PieChart3DDemo1.svg" alt="PieChart3DDemo1.svg" 
+ * width="500" height="359">
  * </div>
  * <br><br>
  * NOTE: This class is serializable, but the serialization format is subject 
