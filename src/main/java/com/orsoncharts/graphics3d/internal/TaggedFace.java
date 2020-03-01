@@ -30,8 +30,10 @@
  * 
  */
 
-package com.orsoncharts.graphics3d;
+package com.orsoncharts.graphics3d.internal;
 
+import com.orsoncharts.graphics3d.Face;
+import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.util.ArgChecks;
 
 /**

@@ -32,6 +32,7 @@
 
 package com.orsoncharts.graphics3d;
 
+import com.orsoncharts.graphics3d.internal.TaggedFace;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.geom.Point2D;
