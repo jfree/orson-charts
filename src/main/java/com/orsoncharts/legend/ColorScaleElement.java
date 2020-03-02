@@ -74,28 +74,28 @@ public class ColorScaleElement extends AbstractTableElement
         implements TableElement {
 
     /** The color scale. */
-    private ColorScale scale;
+    private final ColorScale scale;
     
     /** The orientation (horizontal or vertical). */
-    private Orientation orientation;
+    private final Orientation orientation;
     
     /** The length of the bar. */
-    private double barLength;
+    private final double barLength;
     
     /** The width of the bar. */
-    private double barWidth;
+    private final double barWidth;
     
     /** The gap between the color scale bar and the text labels. */
-    private double textOffset;
+    private final double textOffset;
     
     /** The font for the text labels. */
-    private Font font;
+    private final Font font;
     
     /** The text color. */
-    private Color textColor;
+    private final Color textColor;
     
     /** The number formatter. */
-    private NumberFormat formatter;
+    private final NumberFormat formatter;
     
     /**
      * Creates a new {@code ColorScaleElement} with the specified 
@@ -250,7 +250,7 @@ public class ColorScaleElement extends AbstractTableElement
     @Override
     public List<Rectangle2D> layoutElements(Graphics2D g2, Rectangle2D bounds, 
             Map<String, Object> constraints) {
-        List<Rectangle2D> result = new ArrayList<Rectangle2D>(1);
+        List<Rectangle2D> result = new ArrayList<>(1);
         Dimension2D prefDim = preferredSize(g2, bounds);
         Fit2D fitter = Fit2D.getNoScalingFitter(getRefPoint());
         Rectangle2D dest = fitter.fit(prefDim, bounds);

@@ -60,7 +60,7 @@ import com.orsoncharts.util.ObjectUtils;
  * {@link CategoryDataset3D} (for use with a {@link CategoryPlot3D}). For 
  * example:
  * <div>
- * <img src="../../../../doc-files/AreaChart3DDemo1.svg"  
+ * <img src="../../../../../doc-files/AreaChart3DDemo1.svg"  
  * alt="image/AreaChart3DDemo1.svg" width="500" height="359">
  * </div>
  * (refer to {@code AreaChart3DDemo1.java} for the code to generate the

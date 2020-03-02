@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -47,8 +47,8 @@ import com.orsoncharts.graphics3d.World;
  * A renderer that draws 3D lines on an {@link XYZPlot} using data from an
  * {@link XYZDataset}.  Here is a sample:
  * <div>
- * <object id="ABC" data="../../../../doc-files/XYZLineChart3DDemo1.svg"  
- * type="image/svg+xml" width="500" height="359"></object>
+ * <img src="../../../../../doc-files/XYZLineChart3DDemo1.svg"  
+ * alt="XYZLineChart3DDemo1.svg" width="500" height="359">
  * </div>
  * (refer to {@code XYZLineChart3DDemo1.java} for the code to generate 
  * the above chart).

@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -51,8 +51,8 @@ import com.orsoncharts.util.ArgChecks;
  * A renderer for 3D scatter plots.  This renderer is used with an
  * {@link XYZPlot} and any {@link XYZDataset} instance.  Here is a sample:
  * <div>
- * <object id="ABC" data="../../../../doc-files/ScatterPlot3DDemo2.svg"  
- * type="image/svg+xml" width="500" height="359"></object>
+ * <img src="../../../../../doc-files/ScatterPlot3DDemo2.svg"  
+ * alt="ScatterPlot3DDemo2.svg" width="500" height="359">
  * </div>
  * (refer to {@code ScatterPlot3DDemo2.java} for the code to generate 
  * the above chart).

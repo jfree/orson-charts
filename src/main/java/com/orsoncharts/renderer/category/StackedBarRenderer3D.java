@@ -51,7 +51,7 @@ import com.orsoncharts.label.ItemLabelPositioning;
  * {@code createStackedBarChart()} method in the {@link Chart3DFactory} 
  * class will construct a chart that uses this renderer.  Here is a sample:
  * <div>
- * <img src="../../../../doc-files/StackedBarChart3DDemo1.svg"  
+ * <img src="../../../../../doc-files/StackedBarChart3DDemo1.svg"  
  * alt="StackedBarChart3DDemo1.svg" width="500" height="359">
  * </div>
  * (refer to {@code StackedBarChart3DDemo1.java} for the code to generate 

@@ -42,7 +42,7 @@ import com.orsoncharts.util.ArgChecks;
 /**
  * An object that tracks selected items from an {@link XYZDataset}.
  * 
- * @param <S>
+ * @param <S> S
  * 
  * @since 1.3
  */

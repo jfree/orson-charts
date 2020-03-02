@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -274,8 +274,7 @@ public final class StandardLegendBuilder implements LegendBuilder,
         TableElement legend = createSimpleLegend(plot.getLegendInfo(), anchor,
                 orientation, style);
         if (this.header != null || this.footer != null) {
-            GridElement<String, String> compositeLegend 
-                    = new GridElement<String, String>();
+            GridElement<String, String> compositeLegend = new GridElement<>();
             compositeLegend.setBackground(null);
             if (header != null) {
                 TextElement he = new TextElement(this.header, 
@@ -404,7 +403,7 @@ public final class StandardLegendBuilder implements LegendBuilder,
         TextElement te = new TextElement(text, font);
         te.setColor(textColor);
         te.setBackgroundColor(background);
-        GridElement<String, String> ge = new GridElement<String, String>();
+        GridElement<String, String> ge = new GridElement<>();
         ge.setElement(se, "R1", "C1");
         ge.setElement(te, "R1", "C2");
         return ge;

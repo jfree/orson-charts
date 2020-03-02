@@ -50,8 +50,8 @@ import com.orsoncharts.util.ObjectUtils;
  * A renderer that draws 3D bars on an {@link XYZPlot} using data from an
  * {@link XYZDataset}.  Here is a sample:
  * <div>
- * <object id="ABC" data="../../../../doc-files/XYZBarChart3DDemo1.svg"  
- * type="image/svg+xml" width="500" height="359"></object>
+ * <img src="../../../../../doc-files/XYZBarChart3DDemo1.svg"  
+ * alt="XYZBarChart3DDemo1.svg" width="500" height="359">
  * </div>
  * (refer to {@code XYZBarChart3DDemo1.java} for the code to generate 
  * the above chart).

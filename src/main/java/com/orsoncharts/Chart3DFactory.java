@@ -110,9 +110,8 @@ public class Chart3DFactory {
      * <br><br>
      * For reference, here is a sample pie chart:
      * <div>
-     * <object id="ABC" data="../../doc-files/PieChart3DDemo1.svg"  
-     * type="image/svg+xml" width="500" height="359"> 
-     * </object>
+     * <img src="../../doc-files/PieChart3DDemo1.svg"  
+     * alt="PieChart3DDemo1.svg" width="500" height="359">
      * </div>
      * 
      * @param title  the chart title ({@code null} permitted).
@@ -136,9 +135,8 @@ public class Chart3DFactory {
      * <br><br>
      * For reference, here is a sample bar chart:
      * <div>
-     * <object id="ABC" data="../../doc-files/BarChart3DDemo1.svg"  
-     * type="image/svg+xml" width="500" height="359"> 
-     * </object>
+     * <img src="../../doc-files/BarChart3DDemo1.svg"  
+     * alt="BarChart3DDemo1.svg" width="500" height="359">
      * </div>
      * 
      * @param title  the chart title ({@code null} permitted).
@@ -176,9 +174,8 @@ public class Chart3DFactory {
      * <br><br>
      * For reference, here is a sample stacked bar chart:
      * <div>
-     * <object id="ABC" data="../../doc-files/StackedBarChart3DDemo1.svg"  
-     * type="image/svg+xml" width="500" height="359"> 
-     * </object>
+     * <img src="../../doc-files/StackedBarChart3DDemo1.svg"  
+     * alt="StackedBarChart3DDemo1.svg" width="500" height="359">
      * </div>
      * 
      * @param title  the chart title ({@code null} permitted).
@@ -215,9 +212,8 @@ public class Chart3DFactory {
      * <br><br>
      * For reference, here is a sample area chart:
      * <div>
-     * <object id="ABC" data="../../doc-files/AreaChart3DDemo1.svg"  
-     * type="image/svg+xml" width="500" height="359"> 
-     * </object>
+     * <img src="../../doc-files/AreaChart3DDemo1.svg"  
+     * alt="AreaChart3DDemo1.svg" width="500" height="359">
      * </div>
      * 
      * @param title  the chart title ({@code null} permitted).
@@ -257,9 +253,8 @@ public class Chart3DFactory {
      * <br><br>
      * For reference, here is a sample line chart:
      * <div>
-     * <object id="ABC" data="../../doc-files/LineChart3DDemo1.svg"  
-     * type="image/svg+xml" width="500" height="359"> 
-     * </object>
+     * <img src="../../doc-files/LineChart3DDemo1.svg"  
+     * alt="LineChart3DDemo1.svg" width="500" height="359">
      * </div>
      * 
      * @param title  the chart title ({@code null} permitted).
@@ -300,9 +295,8 @@ public class Chart3DFactory {
      * <br><br>
      * For reference, here is a sample scatter chart:
      * <div>
-     * <object id="ABC" data="../../doc-files/ScatterPlot3DDemo1.svg"  
-     * type="image/svg+xml" width="564" height="351"> 
-     * </object>
+     * <img src="../../doc-files/ScatterPlot3DDemo1.svg"  
+     * alt="ScatterPlot3DDemo1.svg" width="564" height="351">
      * </div>
      * 
      * @param title  the chart title ({@code null} permitted).
@@ -331,9 +325,8 @@ public class Chart3DFactory {
      * <br><br>
      * For reference, here is a sample surface chart:
      * <div>
-     * <object id="SurfaceRenderer3DDemo2" data="../../doc-files/SurfaceRendererDemo2.svg"  
-     * type="image/svg+xml" width="562" height="408"> 
-     * </object>
+     * <img src="../../doc-files/SurfaceRendererDemo2.svg"  
+     * alt="SurfaceRendererDemo2.svg" width="562" height="408">
      * </div>
      * 
      * @param title  the chart title ({@code null} permitted).
@@ -376,9 +369,8 @@ public class Chart3DFactory {
      * <br><br>
      * For reference, here is a sample XYZ bar chart:
      * <div>
-     * <object id="ABC" data="../../doc-files/XYZBarChart3DDemo1.svg"  
-     * type="image/svg+xml" width="500" height="359"> 
-     * </object>
+     * <img src="../../doc-files/XYZBarChart3DDemo1.svg"  
+     * alt="XYZBarChart3DDemo1.svg" width="500" height="359">
      * </div>
      * 
      * @param title  the chart title ({@code null} permitted).
