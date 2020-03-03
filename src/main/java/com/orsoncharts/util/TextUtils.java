@@ -32,6 +32,7 @@
 
 package com.orsoncharts.util;
 
+import com.orsoncharts.internal.Args;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
@@ -240,8 +241,8 @@ public class TextUtils {
      */
     public static Rectangle2D getTextBounds(String text, double x, double y,
             FontMetrics fm) {
-        ArgChecks.nullNotPermitted(text, "text");
-        ArgChecks.nullNotPermitted(fm, "fm");
+        Args.nullNotPermitted(text, "text");
+        Args.nullNotPermitted(fm, "fm");
         double width = fm.stringWidth(text);
         double height = fm.getHeight();
         return new Rectangle2D.Double(x, y - fm.getAscent(), width, height);
@@ -265,7 +266,7 @@ public class TextUtils {
     public static Shape drawRotatedString(String text, Graphics2D g2, float x,
             float y, TextAnchor textAnchor, double angle,
             float rotationX, float rotationY) {
-        ArgChecks.nullNotPermitted(text, "text");
+        Args.nullNotPermitted(text, "text");
         float[] textAdj = deriveTextBoundsAnchorOffsets(g2, text, textAnchor);
         return drawRotatedString(text, g2, x + textAdj[0], y + textAdj[1], 
                 angle, rotationX, rotationY);
@@ -289,7 +290,7 @@ public class TextUtils {
             float x, float y, TextAnchor textAnchor,
             double angle, TextAnchor rotationAnchor) {
 
-        ArgChecks.nullNotPermitted(text, "text");
+        Args.nullNotPermitted(text, "text");
         float[] textAdj = deriveTextBoundsAnchorOffsets(g2, text, textAnchor);
         float[] rotateAdj = deriveRotationAnchorOffsets(g2, text,
                 rotationAnchor);
@@ -386,7 +387,7 @@ public class TextUtils {
     public static Shape drawRotatedString(String text, Graphics2D g2,
             float textX, float textY, double angle,
             float rotateX, float rotateY) {
-        ArgChecks.nullNotPermitted(text, "text");
+        Args.nullNotPermitted(text, "text");
         AffineTransform saved = g2.getTransform();
         Rectangle2D rect = TextUtils.getTextBounds(text, textX, textY, 
                 g2.getFontMetrics());
@@ -438,7 +439,7 @@ public class TextUtils {
             float textX, float textY, double angle, float rotateX, 
             float rotateY) {
         
-        ArgChecks.nullNotPermitted(text, "text");
+        Args.nullNotPermitted(text, "text");
         AffineTransform saved = g2.getTransform();
         AffineTransform rotate = AffineTransform.getRotateInstance(angle, 
                 rotateX, rotateY);
@@ -475,7 +476,7 @@ public class TextUtils {
             float x, float y, TextAnchor textAnchor,
             double angle, TextAnchor rotationAnchor, 
             Rectangle2D nonRotatedBounds) {
-        ArgChecks.nullNotPermitted(text, "text");
+        Args.nullNotPermitted(text, "text");
         float[] textAdj = deriveTextBoundsAnchorOffsets(g2, text, textAnchor, 
                 nonRotatedBounds);
         float[] rotateAdj = deriveRotationAnchorOffsets(g2, text, 

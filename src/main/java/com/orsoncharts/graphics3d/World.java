@@ -39,7 +39,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * A world is a model containing a collection of objects in 3D space and a 
@@ -128,7 +128,7 @@ public class World {
      * @since 1.2
      */
     public final void setSunSource(Point3D p) {
-        ArgChecks.nullNotPermitted(p, "p");
+        Args.nullNotPermitted(p, "p");
         Point3D normal = Utils3D.normalise(p);
         this.sunX = normal.getX();
         this.sunY = normal.getY();
@@ -154,8 +154,8 @@ public class World {
      * @since 1.2
      */
     public void add(String partition, Object3D object) {
-        ArgChecks.nullNotPermitted(partition, "partition");
-        ArgChecks.nullNotPermitted(object, "object");
+        Args.nullNotPermitted(partition, "partition");
+        Args.nullNotPermitted(object, "object");
         List<Object3D> list = this.objects.get(partition);
         if (list == null) {
             list = new ArrayList<>();
@@ -171,7 +171,7 @@ public class World {
      * @param objects  the objects ({@code null} not permitted). 
      */
     public void addAll(Collection<Object3D> objects) {
-        ArgChecks.nullNotPermitted(objects, "objects");
+        Args.nullNotPermitted(objects, "objects");
         for (Object3D object : objects) {
             add(object);
         }
@@ -185,7 +185,7 @@ public class World {
      * @since 1.2
      */
     public void clear(String partitionKey) {
-        ArgChecks.nullNotPermitted(partitionKey, "partitionKey");
+        Args.nullNotPermitted(partitionKey, "partitionKey");
         this.objects.put(partitionKey, null);
     }
     

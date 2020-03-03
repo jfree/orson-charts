@@ -33,7 +33,7 @@
 package com.orsoncharts.table;
 
 import java.awt.geom.Dimension2D;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * An object that pairs an element with its dimension for one specific
@@ -56,8 +56,8 @@ public class ElementInfo {
      * @param dimension  the dimension ({@code null} not permitted).
      */
     public ElementInfo(TableElement element, Dimension2D dimension) {
-        ArgChecks.nullNotPermitted(element, "element");
-        ArgChecks.nullNotPermitted(dimension, "dimension");
+        Args.nullNotPermitted(element, "element");
+        Args.nullNotPermitted(dimension, "dimension");
         this.element = element;
         this.dimension = dimension;
     }

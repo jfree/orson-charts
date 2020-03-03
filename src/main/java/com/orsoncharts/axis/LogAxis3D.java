@@ -52,7 +52,7 @@ import com.orsoncharts.Chart3DHints;
 import com.orsoncharts.data.Range;
 import com.orsoncharts.graphics3d.RenderingInfo;
 import com.orsoncharts.graphics3d.internal.Utils2D;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 import com.orsoncharts.util.ObjectUtils;
 import com.orsoncharts.util.TextAnchor;
 import com.orsoncharts.util.TextUtils;
@@ -193,7 +193,7 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
      * @param formatter  the formatter ({@code null} not permitted). 
      */
     public void setBaseFormatter(NumberFormat formatter) {
-        ArgChecks.nullNotPermitted(formatter, "formatter");
+        Args.nullNotPermitted(formatter, "formatter");
         this.baseFormatter = formatter;
         fireChangeEvent(false);
     }
@@ -216,7 +216,7 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
      * @param smallestValue  the value (must be positive). 
      */
     public void setSmallestValue(double smallestValue) {
-        ArgChecks.positiveRequired(smallestValue, "smallestValue");
+        Args.positiveRequired(smallestValue, "smallestValue");
         this.smallestValue = smallestValue;
         fireChangeEvent(true);
     }
@@ -279,7 +279,7 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
      * @param formatter  the formatter ({@code null} not permitted).
      */
     public void setTickLabelFormatter(Format formatter) {
-        ArgChecks.nullNotPermitted(formatter, "formatter");
+        Args.nullNotPermitted(formatter, "formatter");
         this.tickLabelFormatter = formatter;
         fireChangeEvent(false);
     }
@@ -293,7 +293,7 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
      */
     @Override
     public void setRange(Range range) {
-        ArgChecks.nullNotPermitted(range, "range");
+        Args.nullNotPermitted(range, "range");
         this.range = new Range(Math.max(range.getMin(), this.smallestValue), 
                 range.getMax());
         this.logRange = new Range(calculateLog(this.range.getMin()), 
@@ -311,7 +311,7 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
      */
     @Override
     public void setRange(double min, double max) {
-        ArgChecks.negativeNotPermitted(min, "min");
+        Args.negativeNotPermitted(min, "min");
         this.range = new Range(Math.max(min, this.smallestValue), max);
         this.logRange = new Range(calculateLog(this.range.getMin()), 
                 calculateLog(this.range.getMax()));
@@ -543,7 +543,7 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
      */
     @Override
     protected Range adjustedDataRange(Range range) {
-        ArgChecks.nullNotPermitted(range, "range");
+        Args.nullNotPermitted(range, "range");
         double logmin = calculateLog(Math.max(range.getMin(), 
                 this.smallestValue));
         double logmax = calculateLog(range.getMax());

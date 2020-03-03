@@ -36,7 +36,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * A list of {@code (key, value)} pairs.
@@ -73,7 +73,7 @@ public final class DefaultKeyedValues<K extends Comparable<K>, T>
      * @param keys  the keys ({@code null} not permitted).
      */
     public DefaultKeyedValues(List<K> keys) {
-        ArgChecks.nullNotPermitted(keys, "keys");
+        Args.nullNotPermitted(keys, "keys");
         this.data = new ArrayList<>();
         for (K key : keys) {
             this.data.add(new DefaultKeyedValue<>(key, null));
@@ -95,7 +95,7 @@ public final class DefaultKeyedValues<K extends Comparable<K>, T>
      * @param value  the value.
      */
     public void put(K key, T value) {
-        ArgChecks.nullNotPermitted(key, "key");
+        Args.nullNotPermitted(key, "key");
         DefaultKeyedValue<K, T> dkv;
         int index = getIndex(key);
         if (index >= 0) {
@@ -112,7 +112,7 @@ public final class DefaultKeyedValues<K extends Comparable<K>, T>
      * @param key  the key ({@code null} not permitted).
      */
     public void remove(K key) {
-        ArgChecks.nullNotPermitted(key, "key");
+        Args.nullNotPermitted(key, "key");
         int index = getIndex(key);
         if (index >= 0) {
             remove(index);
@@ -151,7 +151,7 @@ public final class DefaultKeyedValues<K extends Comparable<K>, T>
      */
     @Override
     public int getIndex(K key) {
-        ArgChecks.nullNotPermitted(key, "key");
+        Args.nullNotPermitted(key, "key");
         for (int i = 0; i < this.data.size(); i++) {
             KeyedValue<K, T> kv = this.data.get(i);
             if (kv.getKey().equals(key)) {

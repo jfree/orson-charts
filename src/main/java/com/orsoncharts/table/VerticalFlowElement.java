@@ -42,7 +42,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 import com.orsoncharts.util.Fit2D;
 
 /**
@@ -87,7 +87,7 @@ public class VerticalFlowElement extends AbstractTableElement
      * @param vgap  the gap between elements. 
      */
     public VerticalFlowElement(VAlign alignment, int vgap) {
-        ArgChecks.nullNotPermitted(alignment, null);
+        Args.nullNotPermitted(alignment, null);
         this.elements = new ArrayList<TableElement>();
         this.verticalAlignment = alignment;
         this.vgap = vgap;
@@ -108,7 +108,7 @@ public class VerticalFlowElement extends AbstractTableElement
      * @param alignment  the alignment ({@code null} not permitted). 
      */
     public void setVerticalAlignment(VAlign alignment) {
-        ArgChecks.nullNotPermitted(alignment, "alignment");
+        Args.nullNotPermitted(alignment, "alignment");
         this.verticalAlignment = alignment;
     }
     
@@ -147,7 +147,7 @@ public class VerticalFlowElement extends AbstractTableElement
      */
     @Override
     public void addElement(TableElement element) {
-        ArgChecks.nullNotPermitted(element, "element");
+        Args.nullNotPermitted(element, "element");
         this.elements.add(element);
     }
 

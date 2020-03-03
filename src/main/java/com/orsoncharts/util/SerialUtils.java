@@ -32,6 +32,7 @@
 
 package com.orsoncharts.util;
 
+import com.orsoncharts.internal.Args;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.GradientPaint;
@@ -65,7 +66,7 @@ public class SerialUtils {
     public static Paint readPaint(ObjectInputStream stream) throws IOException,
             ClassNotFoundException {
 
-        ArgChecks.nullNotPermitted(stream, "stream");
+        Args.nullNotPermitted(stream, "stream");
         Paint result = null;
         boolean isNull = stream.readBoolean();
         if (!isNull) {
@@ -97,7 +98,7 @@ public class SerialUtils {
     public static void writePaint(Paint paint, ObjectOutputStream stream)
         throws IOException {
 
-        ArgChecks.nullNotPermitted(stream, "stream");
+        Args.nullNotPermitted(stream, "stream");
         if (paint != null) {
             stream.writeBoolean(false);
             stream.writeObject(paint.getClass());
@@ -132,7 +133,7 @@ public class SerialUtils {
     public static Stroke readStroke(ObjectInputStream stream)
         throws IOException, ClassNotFoundException {
 
-        ArgChecks.nullNotPermitted(stream, "stream");
+        Args.nullNotPermitted(stream, "stream");
         Stroke result = null;
         boolean isNull = stream.readBoolean();
         if (!isNull) {
@@ -167,7 +168,7 @@ public class SerialUtils {
     public static void writeStroke(Stroke stroke, ObjectOutputStream stream)
             throws IOException {
 
-        ArgChecks.nullNotPermitted(stream, "stream");
+        Args.nullNotPermitted(stream, "stream");
         if (stroke != null) {
             stream.writeBoolean(false);
             if (stroke instanceof BasicStroke) {

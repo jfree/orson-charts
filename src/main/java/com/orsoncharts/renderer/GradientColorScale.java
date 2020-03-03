@@ -35,7 +35,7 @@ package com.orsoncharts.renderer;
 import java.awt.Color;
 
 import com.orsoncharts.data.Range;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * A color scale that runs a linear gradient between two colors.
@@ -70,8 +70,8 @@ public class GradientColorScale extends AbstractColorScale
      */
     public GradientColorScale(Range range, Color lowColor, Color highColor) {
         super(range);
-        ArgChecks.nullNotPermitted(lowColor, "lowColor");
-        ArgChecks.nullNotPermitted(highColor, "highColor");
+        Args.nullNotPermitted(lowColor, "lowColor");
+        Args.nullNotPermitted(highColor, "highColor");
         this.lowColor = lowColor;
         this.highColor = highColor;
         this.colors = new Color[255];

@@ -40,7 +40,7 @@ import java.util.List;
 
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.data.PieDataset3D;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.Dot3D;
 import com.orsoncharts.graphics3d.Object3D;
@@ -119,7 +119,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
      * @param dataset  the dataset ({@code null} not permitted). 
      */
     public PiePlot3D(PieDataset3D<? extends Comparable> dataset) {
-        ArgChecks.nullNotPermitted(dataset, "dataset");
+        Args.nullNotPermitted(dataset, "dataset");
         this.dataset = dataset;
         this.dataset.addChangeListener(this);
         this.radius = 4.0;    
@@ -151,7 +151,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
      * @param dataset  the dataset ({@code null} not permitted). 
      */
     public void setDataset(PieDataset3D<? extends Comparable> dataset) {
-        ArgChecks.nullNotPermitted(dataset, "dataset");
+        Args.nullNotPermitted(dataset, "dataset");
         this.dataset.removeChangeListener(this);
         this.dataset = dataset;
         this.dataset.addChangeListener(this);
@@ -214,7 +214,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
      * @param source  the color source ({@code null} not permitted). 
      */
     public void setSectionColorSource(ColorSource source) {
-        ArgChecks.nullNotPermitted(source, "source");
+        Args.nullNotPermitted(source, "source");
         this.sectionColorSource = source;
         fireChangeEvent(true);
     }
@@ -254,7 +254,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
      * @since 1.2
      */
     public void setSectionLabelGenerator(PieLabelGenerator generator) {
-        ArgChecks.nullNotPermitted(generator, "generator");
+        Args.nullNotPermitted(generator, "generator");
         this.sectionLabelGenerator = generator;
         fireChangeEvent(false);
     }
@@ -276,7 +276,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
      * @param source  the source ({@code null} not permitted). 
      */
     public void setSectionLabelFontSource(FontSource source) {
-        ArgChecks.nullNotPermitted(source, "source");
+        Args.nullNotPermitted(source, "source");
         this.sectionLabelFontSource = source;
         fireChangeEvent(false);
     }
@@ -303,7 +303,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
      * @see #getSectionLabelColorSource() 
      */
     public void setSectionLabelColorSource(ColorSource source) {
-        ArgChecks.nullNotPermitted(source, "source");
+        Args.nullNotPermitted(source, "source");
         this.sectionLabelColorSource = source;
         fireChangeEvent(false);
     }
@@ -330,7 +330,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
      * @since 1.2
      */
     public void setLegendLabelGenerator(PieLabelGenerator generator) {
-        ArgChecks.nullNotPermitted(generator, "generator");
+        Args.nullNotPermitted(generator, "generator");
         this.legendLabelGenerator = generator;
         fireChangeEvent(false);
     }

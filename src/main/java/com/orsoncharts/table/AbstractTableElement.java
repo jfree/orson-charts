@@ -41,7 +41,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 import com.orsoncharts.util.ObjectUtils;
 import com.orsoncharts.util.RefPt2D;
 
@@ -107,7 +107,7 @@ public abstract class AbstractTableElement implements Serializable {
      * @since 1.1
      */
     public void setRefPoint(RefPt2D refPt) {
-        ArgChecks.nullNotPermitted(refPt, "refPt");
+        Args.nullNotPermitted(refPt, "refPt");
         this.refPt = refPt;
     }
 
@@ -126,7 +126,7 @@ public abstract class AbstractTableElement implements Serializable {
      * @param insets  the insets ({@code null} not permitted). 
      */
     public void setInsets(Insets insets) {
-        ArgChecks.nullNotPermitted(insets, "insets");
+        Args.nullNotPermitted(insets, "insets");
         this.insets = insets;
     }
 
@@ -184,7 +184,7 @@ public abstract class AbstractTableElement implements Serializable {
      * @since 1.2
      */
     public void setTag(String tag) {
-        ArgChecks.nullNotPermitted(tag, "tag");
+        Args.nullNotPermitted(tag, "tag");
         this.tag = tag;
     }
     
@@ -211,7 +211,7 @@ public abstract class AbstractTableElement implements Serializable {
      * @since 1.3
      */
     public void setProperty(String key, Object value) {
-        ArgChecks.nullNotPermitted(key, "key");
+        Args.nullNotPermitted(key, "key");
         this.properties.put(key, value);
     }
     

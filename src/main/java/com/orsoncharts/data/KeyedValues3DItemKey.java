@@ -34,7 +34,7 @@ package com.orsoncharts.data;
 
 import java.io.Serializable;
 
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 import com.orsoncharts.util.ObjectUtils;
 
 /**
@@ -66,9 +66,9 @@ public class KeyedValues3DItemKey<S extends Comparable<S>,
      * @param columnKey  the column key ({@code null} not permitted).
      */
     public KeyedValues3DItemKey(S seriesKey, R rowKey, C columnKey) {
-        ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
-        ArgChecks.nullNotPermitted(rowKey, "rowKey");
-        ArgChecks.nullNotPermitted(columnKey, "columnKey");
+        Args.nullNotPermitted(seriesKey, "seriesKey");
+        Args.nullNotPermitted(rowKey, "rowKey");
+        Args.nullNotPermitted(columnKey, "columnKey");
         this.seriesKey = seriesKey;
         this.rowKey = rowKey;
         this.columnKey = columnKey;

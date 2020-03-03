@@ -36,7 +36,7 @@ import java.util.EventObject;
 
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.data.Dataset3DChangeEvent;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * An event used to signal a change to a {@link Plot3D}.  Any object that
@@ -71,7 +71,7 @@ public class Plot3DChangeEvent extends EventObject {
     public Plot3DChangeEvent(Object source, Plot3D plot, 
             boolean requiresWorldUpdate) {
         super(source);
-        ArgChecks.nullNotPermitted(plot, "plot");
+        Args.nullNotPermitted(plot, "plot");
         this.plot = plot;
         this.requiresWorldUpdate = requiresWorldUpdate;
     }

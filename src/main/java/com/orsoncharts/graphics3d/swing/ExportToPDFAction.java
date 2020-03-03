@@ -40,7 +40,7 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.orsoncharts.Resources;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * An action that handles saving the content of a panel to a PDF file using
@@ -64,7 +64,7 @@ public class ExportToPDFAction extends AbstractAction {
      */
     public ExportToPDFAction(Panel3D panel) {
         super(Resources.localString("PDF_MENU_LABEL"));
-        ArgChecks.nullNotPermitted(panel, NAME);
+        Args.nullNotPermitted(panel, NAME);
         this.panel = panel;
     }
 

@@ -53,7 +53,7 @@ import com.orsoncharts.data.ItemKey;
 import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.data.xyz.XYZItemKey;
 import com.orsoncharts.renderer.xyz.XYZRenderer;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.label.StandardXYZLabelGenerator;
@@ -143,11 +143,11 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
      */
     public XYZPlot(XYZDataset dataset, XYZRenderer renderer, ValueAxis3D xAxis, 
             ValueAxis3D yAxis, ValueAxis3D zAxis) {
-        ArgChecks.nullNotPermitted(dataset, "dataset");
-        ArgChecks.nullNotPermitted(renderer, "renderer");
-        ArgChecks.nullNotPermitted(xAxis, "xAxis");
-        ArgChecks.nullNotPermitted(yAxis, "yAxis");
-        ArgChecks.nullNotPermitted(zAxis, "zAxis");
+        Args.nullNotPermitted(dataset, "dataset");
+        Args.nullNotPermitted(renderer, "renderer");
+        Args.nullNotPermitted(xAxis, "xAxis");
+        Args.nullNotPermitted(yAxis, "yAxis");
+        Args.nullNotPermitted(zAxis, "zAxis");
         this.dimensions = new Dimension3D(10, 10, 10);
         this.dataset = dataset;
         this.dataset.addChangeListener(this);
@@ -183,7 +183,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
      * @param dim  the new dimensions ({@code null} not permitted).
      */
     public void setDimensions(Dimension3D dim) {
-        ArgChecks.nullNotPermitted(dim, "dim");
+        Args.nullNotPermitted(dim, "dim");
         this.dimensions = dim;
         fireChangeEvent(true);
     }
@@ -204,7 +204,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
      * @param dataset  the new dataset ({@code null} not permitted).
      */
     public void setDataset(XYZDataset dataset) {
-        ArgChecks.nullNotPermitted(dataset, "dataset");
+        Args.nullNotPermitted(dataset, "dataset");
         this.dataset.removeChangeListener(this);
         this.dataset = dataset;
         this.dataset.addChangeListener(this);
@@ -227,7 +227,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
      * @param xAxis  the x-axis ({@code null} not permitted). 
      */
     public void setXAxis(ValueAxis3D xAxis) {
-        ArgChecks.nullNotPermitted(xAxis, "xAxis");
+        Args.nullNotPermitted(xAxis, "xAxis");
         this.xAxis.removeChangeListener(this);
         xAxis.configureAsXAxis(this);
         xAxis.addChangeListener(this);
@@ -251,7 +251,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
      * @param yAxis  the y-axis ({@code null} not permitted). 
      */
     public void setYAxis(ValueAxis3D yAxis) {
-        ArgChecks.nullNotPermitted(yAxis, "yAxis");
+        Args.nullNotPermitted(yAxis, "yAxis");
         this.yAxis.removeChangeListener(this);
         yAxis.configureAsYAxis(this);
         yAxis.addChangeListener(this);
@@ -275,7 +275,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
      * @param zAxis  the z-axis ({@code null} not permitted). 
      */
     public void setZAxis(ValueAxis3D zAxis) {
-        ArgChecks.nullNotPermitted(zAxis, "zAxis");
+        Args.nullNotPermitted(zAxis, "zAxis");
         this.zAxis.removeChangeListener(this);
         zAxis.configureAsZAxis(this);
         zAxis.addChangeListener(this);
@@ -345,7 +345,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
      * @param paint  the paint ({@code null} not permitted).
      */
     public void setGridlinePaintX(Paint paint) {
-        ArgChecks.nullNotPermitted(paint, "paint");
+        Args.nullNotPermitted(paint, "paint");
         this.gridlinePaintX = paint;
         fireChangeEvent(false);
     }
@@ -366,7 +366,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
      * @param stroke  the stroke ({@code null} not permitted).
      */
     public void setGridlineStrokeX(Stroke stroke) {
-        ArgChecks.nullNotPermitted(stroke, "stroke");
+        Args.nullNotPermitted(stroke, "stroke");
         this.gridlineStrokeX = stroke;
         fireChangeEvent(false);
     }
@@ -409,7 +409,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
      * @param paint  the paint ({@code null} not permitted).
      */
     public void setGridlinePaintY(Paint paint) {
-        ArgChecks.nullNotPermitted(paint, "paint");
+        Args.nullNotPermitted(paint, "paint");
         this.gridlinePaintY = paint;
         fireChangeEvent(false);
     }
@@ -430,7 +430,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
      * @param stroke  the stroke ({@code null} not permitted).
      */
     public void setGridlineStrokeY(Stroke stroke) {
-        ArgChecks.nullNotPermitted(stroke, "stroke");
+        Args.nullNotPermitted(stroke, "stroke");
         this.gridlineStrokeY = stroke;
         fireChangeEvent(false);
     }
@@ -473,7 +473,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
      * @param paint  the paint ({@code null} not permitted).
      */
     public void setGridlinePaintZ(Paint paint) {
-        ArgChecks.nullNotPermitted(paint, "paint");
+        Args.nullNotPermitted(paint, "paint");
         this.gridlinePaintZ = paint;
         fireChangeEvent(false);
     }
@@ -494,7 +494,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
      * @param stroke  the stroke ({@code null} not permitted).
      */
     public void setGridlineStrokeZ(Stroke stroke) {
-        ArgChecks.nullNotPermitted(stroke, "stroke");
+        Args.nullNotPermitted(stroke, "stroke");
         this.gridlineStrokeZ = stroke;
         fireChangeEvent(false);
     }
@@ -520,7 +520,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
      * @since 1.2
      */
     public void setLegendLabelGenerator(XYZLabelGenerator generator) {
-        ArgChecks.nullNotPermitted(generator, "generator");
+        Args.nullNotPermitted(generator, "generator");
         this.legendLabelGenerator = generator;
         fireChangeEvent(false);
     }

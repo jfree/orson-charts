@@ -36,7 +36,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * A two dimensional grid of (typically numerical) data that is accessible by 
@@ -79,8 +79,8 @@ public final class DefaultKeyedValues2D<R extends Comparable<R>, C extends Compa
      * @param columnKeys  the yKeys ({@code null} not permitted).
      */
     public DefaultKeyedValues2D(List<R> rowKeys, List<C> columnKeys) {
-        ArgChecks.nullNotPermitted(rowKeys, "rowKeys");
-        ArgChecks.nullNotPermitted(columnKeys, "columnKeys");
+        Args.nullNotPermitted(rowKeys, "rowKeys");
+        Args.nullNotPermitted(columnKeys, "columnKeys");
         this.rowKeys = new ArrayList<>(rowKeys);
         this.columnKeys = new ArrayList<>(columnKeys);
         this.data = new ArrayList<>();    
@@ -122,7 +122,7 @@ public final class DefaultKeyedValues2D<R extends Comparable<R>, C extends Compa
      */
     @Override
     public int getRowIndex(R rowKey) {
-        ArgChecks.nullNotPermitted(rowKey, "rowKey");
+        Args.nullNotPermitted(rowKey, "rowKey");
         return this.rowKeys.indexOf(rowKey);
     }
 
@@ -135,7 +135,7 @@ public final class DefaultKeyedValues2D<R extends Comparable<R>, C extends Compa
      */
     @Override
     public int getColumnIndex(C columnKey) {
-        ArgChecks.nullNotPermitted(columnKey, "columnKey");
+        Args.nullNotPermitted(columnKey, "columnKey");
         return this.columnKeys.indexOf(columnKey);
     }
 
@@ -235,8 +235,8 @@ public final class DefaultKeyedValues2D<R extends Comparable<R>, C extends Compa
      * @param columnKey  the column key ({@code null} not permitted).
      */
     public void setValue(T n, R rowKey, C columnKey) {
-        ArgChecks.nullNotPermitted(rowKey, "rowKey");
-        ArgChecks.nullNotPermitted(columnKey, "columnKey");
+        Args.nullNotPermitted(rowKey, "rowKey");
+        Args.nullNotPermitted(columnKey, "columnKey");
         
         if (this.data.isEmpty()) {  // 1. no data - just add one new entry
             this.rowKeys.add(rowKey);

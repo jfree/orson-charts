@@ -38,7 +38,7 @@ import java.awt.geom.Point2D;
 
 import com.orsoncharts.graphics3d.internal.TaggedFace;
 import com.orsoncharts.graphics3d.internal.Utils2D;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * Represents a face in one {@link Object3D}, defined in terms of vertex
@@ -80,7 +80,7 @@ public class Face {
             throw new IllegalArgumentException(
                     "Faces must have at least two vertices.");
         }
-        ArgChecks.nullNotPermitted(owner, "owner");
+        Args.nullNotPermitted(owner, "owner");
         this.owner = owner;
         this.vertices = vertices;
         this.offset = 0;

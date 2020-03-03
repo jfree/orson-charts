@@ -42,7 +42,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 import com.orsoncharts.util.Fit2D;
 
 /**
@@ -87,7 +87,7 @@ public class FlowElement extends AbstractTableElement
      */
     public FlowElement(HAlign alignment, int hgap) {
         super();
-        ArgChecks.nullNotPermitted(alignment, "alignment");
+        Args.nullNotPermitted(alignment, "alignment");
         this.elements = new ArrayList<TableElement>();
         this.horizontalAlignment = alignment;
         this.hgap = hgap;
@@ -132,7 +132,7 @@ public class FlowElement extends AbstractTableElement
      * @since 1.1
      */
     public void setHorizontalAlignment(HAlign alignment) {
-        ArgChecks.nullNotPermitted(alignment, "alignment");
+        Args.nullNotPermitted(alignment, "alignment");
         this.horizontalAlignment = alignment;
     }
     
@@ -153,7 +153,7 @@ public class FlowElement extends AbstractTableElement
      */
     @Override
     public void addElement(TableElement element) {
-        ArgChecks.nullNotPermitted(element, "element");
+        Args.nullNotPermitted(element, "element");
         this.elements.add(element);
     }
 

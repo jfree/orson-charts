@@ -35,7 +35,7 @@ package com.orsoncharts.renderer;
 import java.awt.Color;
 
 import com.orsoncharts.data.Range;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * A color scale that returns all the colors of the rainbow.  Instances of 
@@ -91,7 +91,7 @@ public class RainbowScale extends AbstractColorScale implements ColorScale {
      */
     public RainbowScale(Range range, int samples, Range hueSubrange) {
         super(range);
-        ArgChecks.nullNotPermitted(hueSubrange, "hueSubrange");
+        Args.nullNotPermitted(hueSubrange, "hueSubrange");
         this.colors = new Color[samples];
         this.hueSubrange = hueSubrange;
     }

@@ -67,7 +67,7 @@ import com.orsoncharts.marker.Marker;
 import com.orsoncharts.marker.MarkerData;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.category.AreaRenderer3D;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 import com.orsoncharts.util.ObjectUtils;
 import com.orsoncharts.util.SerialUtils;
 import com.orsoncharts.util.TextAnchor;
@@ -256,7 +256,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      */
     @Override
     public void setRange(Range range) {
-        ArgChecks.nullNotPermitted(range, "range");
+        Args.nullNotPermitted(range, "range");
         this.range = range;
         fireChangeEvent(true);
     }
@@ -401,7 +401,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      * @param paint  the paint ({@code null} not permitted). 
      */
     public void setTickMarkPaint(Paint paint) {
-        ArgChecks.nullNotPermitted(paint, "paint");
+        Args.nullNotPermitted(paint, "paint");
         this.tickMarkPaint = paint;
         fireChangeEvent(false);
     }
@@ -423,7 +423,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      * @param stroke  the stroke ({@code null} not permitted). 
      */
     public void setTickMarkStroke(Stroke stroke) {
-        ArgChecks.nullNotPermitted(stroke, "stroke");
+        Args.nullNotPermitted(stroke, "stroke");
         this.tickMarkStroke = stroke;
         fireChangeEvent(false);
     }
@@ -451,7 +451,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      * @since 1.2
      */
     public void setTickLabelGenerator(CategoryLabelGenerator generator) {
-        ArgChecks.nullNotPermitted(generator, "generator");
+        Args.nullNotPermitted(generator, "generator");
         this.tickLabelGenerator = generator;
         fireChangeEvent(false);
     }
@@ -499,7 +499,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      * @since 1.2
      */
     public void setTickLabelOrientation(LabelOrientation orientation) {
-        ArgChecks.nullNotPermitted(orientation, "orientation");
+        Args.nullNotPermitted(orientation, "orientation");
         this.tickLabelOrientation = orientation;
         fireChangeEvent(false);
     }
@@ -625,7 +625,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      */
     @Override @SuppressWarnings("unchecked")
     public void configureAsRowAxis(CategoryPlot3D plot) {
-        ArgChecks.nullNotPermitted(plot, "plot");
+        Args.nullNotPermitted(plot, "plot");
         this.categories = plot.getDataset().getRowKeys();
         this.isColumnAxis = false;
         this.isRowAxis = true;
@@ -640,7 +640,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      */
     @Override @SuppressWarnings("unchecked")
     public void configureAsColumnAxis(CategoryPlot3D plot) {
-        ArgChecks.nullNotPermitted(plot, "plot");
+        Args.nullNotPermitted(plot, "plot");
         this.categories = plot.getDataset().getColumnKeys();
         this.isColumnAxis = true;
         this.isRowAxis = false;
@@ -927,7 +927,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      */
     @Override @SuppressWarnings("unchecked")
     public List<TickData> generateTickDataForRows(CategoryDataset3D dataset) {
-        ArgChecks.nullNotPermitted(dataset, "dataset");
+        Args.nullNotPermitted(dataset, "dataset");
         List<TickData> result = new ArrayList<>(this.categories.size());
         for (Comparable<?> key : this.categories) {
             double pos = this.range.percent(getCategoryValue(key));
@@ -954,7 +954,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     @Override @SuppressWarnings("unchecked")
     public List<TickData> generateTickDataForColumns(
             CategoryDataset3D dataset) {
-        ArgChecks.nullNotPermitted(dataset, "dataset");
+        Args.nullNotPermitted(dataset, "dataset");
         List<TickData> result = new ArrayList<>(this.categories.size());
         for (Comparable<?> key : this.categories) {
             double pos = this.range.percent(getCategoryValue(key));

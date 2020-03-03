@@ -35,7 +35,7 @@ package com.orsoncharts.data;
 import java.io.Serializable;
 import java.util.List;
 
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 import com.orsoncharts.plot.PiePlot3D;
 
 /**
@@ -155,7 +155,7 @@ public final class StandardPieDataset3D<K extends Comparable<K>>
      * @param value  the value ({@code null} permitted).
      */
     public void add(K key, Number value) {
-        ArgChecks.nullNotPermitted(key, "key");
+        Args.nullNotPermitted(key, "key");
         this.data.put(key, value);
         fireDatasetChanged();
     }

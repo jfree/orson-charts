@@ -43,7 +43,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * A table element that displays a shape.
@@ -72,8 +72,8 @@ public class ShapeElement extends AbstractTableElement
      */
     public ShapeElement(Shape shape, Color fillColor) {
         super();
-        ArgChecks.nullNotPermitted(shape, "shape");
-        ArgChecks.nullNotPermitted(fillColor, "fillColor");
+        Args.nullNotPermitted(shape, "shape");
+        Args.nullNotPermitted(fillColor, "fillColor");
         this.shape = shape;
         this.fillColor = fillColor;
     }
@@ -97,7 +97,7 @@ public class ShapeElement extends AbstractTableElement
      * @since 1.2
      */
     public void setFillColor(Color color) {
-        ArgChecks.nullNotPermitted(color, "color");
+        Args.nullNotPermitted(color, "color");
         this.fillColor = color;
     }
     

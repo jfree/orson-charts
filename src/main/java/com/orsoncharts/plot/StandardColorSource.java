@@ -36,7 +36,7 @@ import java.awt.Color;
 import java.io.Serializable;
 import java.util.Arrays;
 
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 import com.orsoncharts.data.DefaultKeyedValues;
 import com.orsoncharts.Colors;
 
@@ -75,7 +75,7 @@ public final class StandardColorSource<K extends Comparable<K>>
      * @param colors  the colors ({@code null} not permitted). 
      */
     public StandardColorSource(Color... colors) {
-        ArgChecks.nullNotPermitted(colors, "colors");
+        Args.nullNotPermitted(colors, "colors");
         if (colors.length == 0) {
             throw new IllegalArgumentException(
                     "Zero length array not permitted.");

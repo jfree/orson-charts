@@ -55,7 +55,7 @@ import com.orsoncharts.table.TextElement;
 import com.orsoncharts.table.VAlign;
 import com.orsoncharts.table.VerticalFlowElement;
 import com.orsoncharts.Anchor2D;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 import com.orsoncharts.util.ObjectUtils;
 import com.orsoncharts.Orientation;
 
@@ -151,7 +151,7 @@ public final class StandardLegendBuilder implements LegendBuilder,
      * @param align  the header alignment ({@code null} not permitted). 
      */
     public void setHeaderAlignment(HAlign align) {
-        ArgChecks.nullNotPermitted(align, "align");
+        Args.nullNotPermitted(align, "align");
         this.headerAlignment = align;
     }
     
@@ -188,7 +188,7 @@ public final class StandardLegendBuilder implements LegendBuilder,
      * @param align  the footer alignment ({@code null} not permitted). 
      */
     public void setFooterAlignment(HAlign align) {
-        ArgChecks.nullNotPermitted(align, "align");
+        Args.nullNotPermitted(align, "align");
         this.footerAlignment = align;
     }
     
@@ -311,8 +311,8 @@ public final class StandardLegendBuilder implements LegendBuilder,
      */
     private TableElement createSimpleLegend(List<LegendItemInfo> items,
             Anchor2D anchor, Orientation orientation, ChartStyle style) {
-        ArgChecks.nullNotPermitted(items, "items");
-        ArgChecks.nullNotPermitted(orientation, "orientation");
+        Args.nullNotPermitted(items, "items");
+        Args.nullNotPermitted(orientation, "orientation");
         ContainerElement legend;
         if (orientation == Orientation.HORIZONTAL) {
             FlowElement fe = new FlowElement(horizontalAlignment(anchor), 2);

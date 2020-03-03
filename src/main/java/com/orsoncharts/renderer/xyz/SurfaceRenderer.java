@@ -52,7 +52,7 @@ import com.orsoncharts.renderer.ColorScaleRenderer;
 import com.orsoncharts.renderer.ComposeType;
 import com.orsoncharts.renderer.FixedColorScale;
 import com.orsoncharts.renderer.Renderer3DChangeEvent;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * A renderer that plots a surface based on a function (any implementation
@@ -104,7 +104,7 @@ public class SurfaceRenderer extends AbstractXYZRenderer implements XYZRenderer,
      * @param function  the function ({@code null} not permitted). 
      */
     public SurfaceRenderer(Function3D function) {
-        ArgChecks.nullNotPermitted(function, "function");
+        Args.nullNotPermitted(function, "function");
         this.function = function;
         this.xSamples = 30;
         this.zSamples = 30;
@@ -196,7 +196,7 @@ public class SurfaceRenderer extends AbstractXYZRenderer implements XYZRenderer,
      * @param colorScale  the color scale ({@code null} not permitted). 
      */
     public void setColorScale(ColorScale colorScale) {
-        ArgChecks.nullNotPermitted(colorScale, "colorScale");
+        Args.nullNotPermitted(colorScale, "colorScale");
         this.colorScale = colorScale;
         fireChangeEvent(true);
     }

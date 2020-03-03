@@ -36,7 +36,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * A three dimensional table of numerical values, implementing the 
@@ -126,7 +126,7 @@ public final class DefaultKeyedValues3D<S extends Comparable<S>, R extends Compa
      */
     @Override
     public int getSeriesIndex(S seriesKey) {
-        ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
+        Args.nullNotPermitted(seriesKey, "seriesKey");
         return this.seriesKeys.indexOf(seriesKey);
     }
 
@@ -140,7 +140,7 @@ public final class DefaultKeyedValues3D<S extends Comparable<S>, R extends Compa
      */
     @Override
     public int getRowIndex(R rowKey) {
-        ArgChecks.nullNotPermitted(rowKey, "rowKey");
+        Args.nullNotPermitted(rowKey, "rowKey");
         return this.rowKeys.indexOf(rowKey);
     }
 
@@ -154,7 +154,7 @@ public final class DefaultKeyedValues3D<S extends Comparable<S>, R extends Compa
      */
     @Override
     public int getColumnIndex(C columnKey) {
-        ArgChecks.nullNotPermitted(columnKey, "columnKey");
+        Args.nullNotPermitted(columnKey, "columnKey");
         return this.columnKeys.indexOf(columnKey);
     }
 
@@ -265,9 +265,9 @@ public final class DefaultKeyedValues3D<S extends Comparable<S>, R extends Compa
      */
     public void setValue(V n, S seriesKey, R rowKey, C columnKey) {
         
-        ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
-        ArgChecks.nullNotPermitted(rowKey, "rowKey");
-        ArgChecks.nullNotPermitted(columnKey, "columnKey");
+        Args.nullNotPermitted(seriesKey, "seriesKey");
+        Args.nullNotPermitted(rowKey, "rowKey");
+        Args.nullNotPermitted(columnKey, "columnKey");
         
         // cases:
         // 1 - the dataset is empty, so we just need to add a new layer with the

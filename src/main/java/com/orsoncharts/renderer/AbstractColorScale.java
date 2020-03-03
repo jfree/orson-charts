@@ -35,7 +35,7 @@ package com.orsoncharts.renderer;
 import java.io.Serializable;
 
 import com.orsoncharts.data.Range;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * An abstract class from which a {@link ColorScale} implementation can be
@@ -59,7 +59,7 @@ public abstract class AbstractColorScale implements Serializable {
      * @param range  the data value range ({@code null} not permitted).
      */
     protected AbstractColorScale(Range range) {
-        ArgChecks.nullNotPermitted(range, "range");
+        Args.nullNotPermitted(range, "range");
         this.range = range;
     }
 

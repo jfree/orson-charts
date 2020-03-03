@@ -37,7 +37,7 @@ import java.util.TreeSet;
 import java.util.Collection;
 import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.data.xyz.XYZItemKey;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * An object that tracks selected items from an {@link XYZDataset}.
@@ -67,7 +67,7 @@ public class StandardXYZDataItemSelection<S> implements XYZDataItemSelection {
      * @return A boolean.
      */
     public boolean add(XYZItemKey item) {
-        ArgChecks.nullNotPermitted(item, "item");
+        Args.nullNotPermitted(item, "item");
         return this.selectedItems.add(item);
     }
     
@@ -81,7 +81,7 @@ public class StandardXYZDataItemSelection<S> implements XYZDataItemSelection {
      * @return A boolean. 
      */
     public boolean addAll(Collection<XYZItemKey> keys) {
-        ArgChecks.nullNotPermitted(keys, "keys");
+        Args.nullNotPermitted(keys, "keys");
         return this.selectedItems.addAll(keys);
     }
     

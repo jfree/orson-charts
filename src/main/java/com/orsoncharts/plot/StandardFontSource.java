@@ -36,7 +36,7 @@ import java.awt.Font;
 import java.io.Serializable;
 
 import com.orsoncharts.data.DefaultKeyedValues;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * A standard implementation of the {@link FontSource} interface.
@@ -70,7 +70,7 @@ public final class StandardFontSource<K extends Comparable<K>>
      * @param defaultFont  the default font ({@code null} not permitted). 
      */
     public StandardFontSource(Font defaultFont) {
-        ArgChecks.nullNotPermitted(defaultFont, "defaultFont");
+        Args.nullNotPermitted(defaultFont, "defaultFont");
         this.defaultFont = defaultFont;
         this.fonts = new DefaultKeyedValues<K, Font>();
     }
@@ -90,7 +90,7 @@ public final class StandardFontSource<K extends Comparable<K>>
      * @param font  the font ({@code null} not permitted).
      */
     public void setDefaultFont(Font font) {
-        ArgChecks.nullNotPermitted(font, "font");
+        Args.nullNotPermitted(font, "font");
         this.defaultFont = font;
     }
     
@@ -137,7 +137,7 @@ public final class StandardFontSource<K extends Comparable<K>>
      */
     @Override
     public void style(Font font) {
-        ArgChecks.nullNotPermitted(font, "font");
+        Args.nullNotPermitted(font, "font");
         this.defaultFont = font;
         this.fonts.clear();
     }

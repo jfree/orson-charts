@@ -34,7 +34,7 @@ package com.orsoncharts.data;
 
 import java.io.Serializable;
 
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * Represents a range of data values (instances are immutable).
@@ -150,7 +150,7 @@ public class Range implements Serializable {
      * @since 1.2
      */
     public boolean intersects(Range range) {
-        ArgChecks.nullNotPermitted(range, "range");
+        Args.nullNotPermitted(range, "range");
         return intersects(range.getMin(), range.getMax());
     }
     

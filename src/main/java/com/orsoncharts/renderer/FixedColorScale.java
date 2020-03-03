@@ -37,7 +37,7 @@ import java.io.Serializable;
 
 import com.orsoncharts.data.Range;
 import com.orsoncharts.renderer.xyz.SurfaceRenderer;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * A {@link ColorScale} that returns the same color for every value on the
@@ -69,7 +69,7 @@ public class FixedColorScale implements ColorScale, Serializable {
      * @param color  the color ({@code null} not permitted). 
      */
     public FixedColorScale(Color color) {
-        ArgChecks.nullNotPermitted(color, "color");
+        Args.nullNotPermitted(color, "color");
         this.color = color;
         this.range = new Range(0, 1);
     }

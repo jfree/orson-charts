@@ -42,7 +42,7 @@ import java.io.Serializable;
 
 import com.orsoncharts.data.Range;
 import com.orsoncharts.Anchor2D;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 import com.orsoncharts.util.ObjectUtils;
 
 /**
@@ -178,7 +178,7 @@ public class RangeMarker extends AbstractMarker implements ValueMarker,
      * @param font  the font ({@code null} not permitted). 
      */
     public void setFont(Font font) {
-        ArgChecks.nullNotPermitted(font, "font");
+        Args.nullNotPermitted(font, "font");
         this.font = font;
         fireChangeEvent();
     }
@@ -200,7 +200,7 @@ public class RangeMarker extends AbstractMarker implements ValueMarker,
      * @param color  the color ({@code null} not permitted). 
      */
     public void setLabelColor(Color color) {
-        ArgChecks.nullNotPermitted(color, "color");
+        Args.nullNotPermitted(color, "color");
         this.labelColor = color;
         fireChangeEvent();
     }
@@ -222,7 +222,7 @@ public class RangeMarker extends AbstractMarker implements ValueMarker,
      * @param anchor  the anchor ({@code null} not permitted). 
      */
     public void setLabelAnchor(Anchor2D anchor) {
-        ArgChecks.nullNotPermitted(anchor, "anchor");
+        Args.nullNotPermitted(anchor, "anchor");
         this.labelAnchor = anchor;
         fireChangeEvent();
     }
@@ -244,7 +244,7 @@ public class RangeMarker extends AbstractMarker implements ValueMarker,
      * @param color  the color ({@code null} not permitted).
      */
     public void setFillColor(Color color) {
-        ArgChecks.nullNotPermitted(color, "color");
+        Args.nullNotPermitted(color, "color");
         this.fillColor = color;
         fireChangeEvent();
     }

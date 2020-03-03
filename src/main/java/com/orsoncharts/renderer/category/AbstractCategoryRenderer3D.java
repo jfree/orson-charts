@@ -34,7 +34,7 @@ package com.orsoncharts.renderer.category;
 
 import java.awt.Color;
 import java.io.Serializable;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 import com.orsoncharts.data.Range;
 import com.orsoncharts.data.DataUtils;
 import com.orsoncharts.data.Values3D;
@@ -120,7 +120,7 @@ public abstract class AbstractCategoryRenderer3D extends AbstractRenderer3D
      */
     @Override
     public void setColorSource(CategoryColorSource colorSource) {
-        ArgChecks.nullNotPermitted(colorSource, "colorSource");
+        Args.nullNotPermitted(colorSource, "colorSource");
         this.colorSource = colorSource;
         fireChangeEvent(true);
     }
@@ -185,7 +185,7 @@ public abstract class AbstractCategoryRenderer3D extends AbstractRenderer3D
      * @since 1.3
      */
     public void setItemLabelOffsets(Offset3D offsets) {
-        ArgChecks.nullNotPermitted(offsets, "offsets");
+        Args.nullNotPermitted(offsets, "offsets");
         this.itemLabelOffsets = offsets;
         fireChangeEvent(true);
     }

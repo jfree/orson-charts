@@ -59,7 +59,7 @@ import com.orsoncharts.interaction.InteractiveElementType;
 import com.orsoncharts.marker.MarkerChangeEvent;
 import com.orsoncharts.marker.MarkerChangeListener;
 import com.orsoncharts.plot.CategoryPlot3D;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 import com.orsoncharts.util.ObjectUtils;
 import com.orsoncharts.util.SerialUtils;
 import com.orsoncharts.util.TextAnchor;
@@ -255,7 +255,7 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
      */
     @Override
     public void setLabelFont(Font font) {
-        ArgChecks.nullNotPermitted(font, "font");
+        Args.nullNotPermitted(font, "font");
         this.labelFont = font;
         fireChangeEvent(false);
     }
@@ -279,7 +279,7 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
      */
     @Override
     public void setLabelColor(Color color) {
-        ArgChecks.nullNotPermitted(color, "color");
+        Args.nullNotPermitted(color, "color");
         this.labelColor = color;
         fireChangeEvent(false);
     }
@@ -326,7 +326,7 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
      * @param stroke  the new stroke ({@code null} not permitted).
      */
     public void setLineStroke(Stroke stroke) {
-        ArgChecks.nullNotPermitted(stroke, "stroke");
+        Args.nullNotPermitted(stroke, "stroke");
         this.lineStroke = stroke;
         fireChangeEvent(false);
     }
@@ -348,7 +348,7 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
      * @param color  the new color ({@code null} not permitted). 
      */
     public void setLineColor(Color color) {
-        ArgChecks.nullNotPermitted(color, "color");
+        Args.nullNotPermitted(color, "color");
         this.lineColor = color;
         fireChangeEvent(false);
     }
@@ -396,7 +396,7 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
      */
     @Override
     public void setTickLabelFont(Font font) {
-        ArgChecks.nullNotPermitted(font, "font");
+        Args.nullNotPermitted(font, "font");
         this.tickLabelFont = font;
         fireChangeEvent(false);
     }
@@ -420,7 +420,7 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
      */
     @Override
     public void setTickLabelColor(Color color) {
-        ArgChecks.nullNotPermitted(color, "color");
+        Args.nullNotPermitted(color, "color");
         this.tickLabelColor = color;
         fireChangeEvent(false);
     }
@@ -455,10 +455,10 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
     protected Shape drawAxisLabel(String label, Graphics2D g2, 
             Line2D axisLine, Point2D opposingPt, double offset, 
             RenderingInfo info, boolean hinting) {
-        ArgChecks.nullNotPermitted(label, "label");
-        ArgChecks.nullNotPermitted(g2, "g2");
-        ArgChecks.nullNotPermitted(axisLine, "axisLine");
-        ArgChecks.nullNotPermitted(opposingPt, "opposingPt");
+        Args.nullNotPermitted(label, "label");
+        Args.nullNotPermitted(g2, "g2");
+        Args.nullNotPermitted(axisLine, "axisLine");
+        Args.nullNotPermitted(opposingPt, "opposingPt");
         g2.setFont(getLabelFont());
         g2.setPaint(getLabelColor());
         Line2D labelPosLine = Utils2D.createPerpendicularLine(axisLine, 0.5, 

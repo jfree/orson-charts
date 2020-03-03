@@ -37,7 +37,7 @@ import java.util.Formatter;
 
 import com.orsoncharts.data.DataUtils;
 import com.orsoncharts.data.PieDataset3D;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * A default implementation of the {@link PieLabelGenerator} interface.  The
@@ -125,7 +125,7 @@ public class StandardPieLabelGenerator implements PieLabelGenerator,
      * @param template  the template ({@code null} not permitted).
      */
     public StandardPieLabelGenerator(String template) {
-        ArgChecks.nullNotPermitted(template, "template");
+        Args.nullNotPermitted(template, "template");
         this.template = template;
     }
     
@@ -139,8 +139,8 @@ public class StandardPieLabelGenerator implements PieLabelGenerator,
      */
     @Override @SuppressWarnings("unchecked")
     public String generateLabel(PieDataset3D dataset, Comparable<?> key) {
-        ArgChecks.nullNotPermitted(dataset, "dataset");
-        ArgChecks.nullNotPermitted(key, "key");
+        Args.nullNotPermitted(dataset, "dataset");
+        Args.nullNotPermitted(key, "key");
         Formatter formatter = new Formatter(new StringBuilder());
         Number value = (Number) dataset.getValue(key);
         Number percent = Double.NaN;

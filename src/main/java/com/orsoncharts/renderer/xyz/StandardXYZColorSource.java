@@ -36,7 +36,7 @@ import java.awt.Color;
 import java.io.Serializable;
 
 import com.orsoncharts.Colors;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 import com.orsoncharts.util.ObjectUtils;
 
 /**
@@ -67,7 +67,7 @@ public class StandardXYZColorSource implements XYZColorSource, Serializable {
      * @param colors  the colors ({@code null} not permitted). 
      */
     public StandardXYZColorSource(Color... colors) {
-        ArgChecks.nullNotPermitted(colors, "colors");
+        Args.nullNotPermitted(colors, "colors");
         if (colors.length == 0) {
             throw new IllegalArgumentException(
                     "Zero length array not permitted.");
@@ -118,7 +118,7 @@ public class StandardXYZColorSource implements XYZColorSource, Serializable {
      */
     @Override
     public void style(Color... colors) {
-        ArgChecks.nullNotPermitted(colors, "colors");
+        Args.nullNotPermitted(colors, "colors");
         if (colors.length == 0) {
             throw new IllegalArgumentException(
                     "Zero length array not permitted.");

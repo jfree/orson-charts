@@ -37,7 +37,7 @@ import java.util.Formatter;
 
 import com.orsoncharts.data.DataUtils;
 import com.orsoncharts.data.xyz.XYZDataset;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * A default implementation of the {@link XYZLabelGenerator} interface.  
@@ -100,7 +100,7 @@ public class StandardXYZLabelGenerator implements XYZLabelGenerator,
      * @param template  the label template ({@code null} not permitted). 
      */
     public StandardXYZLabelGenerator(String template) {
-        ArgChecks.nullNotPermitted(template, "template");
+        Args.nullNotPermitted(template, "template");
         this.template = template;
     }
 
@@ -115,8 +115,8 @@ public class StandardXYZLabelGenerator implements XYZLabelGenerator,
     @Override
     public <S extends Comparable<S>> String generateSeriesLabel(
             XYZDataset<S> dataset, S seriesKey) {
-        ArgChecks.nullNotPermitted(dataset, "dataset");
-        ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
+        Args.nullNotPermitted(dataset, "dataset");
+        Args.nullNotPermitted(seriesKey, "seriesKey");
         Formatter formatter = new Formatter(new StringBuilder());
         int count = dataset.getItemCount(dataset.getSeriesIndex(seriesKey));
         double total = DataUtils.total(dataset, seriesKey);

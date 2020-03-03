@@ -64,7 +64,7 @@ import com.orsoncharts.legend.StandardLegendItemInfo;
 import com.orsoncharts.renderer.Renderer3DChangeEvent;
 import com.orsoncharts.renderer.Renderer3DChangeListener;
 import com.orsoncharts.renderer.category.CategoryRenderer3D;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 import com.orsoncharts.util.ObjectUtils;
 import com.orsoncharts.util.SerialUtils;
 
@@ -166,11 +166,11 @@ public class CategoryPlot3D extends AbstractPlot3D
     public CategoryPlot3D(CategoryDataset3D dataset, 
             CategoryRenderer3D renderer, CategoryAxis3D rowAxis, 
             CategoryAxis3D columnAxis, ValueAxis3D valueAxis) {
-        ArgChecks.nullNotPermitted(dataset, "dataset");
-        ArgChecks.nullNotPermitted(renderer, "renderer");
-        ArgChecks.nullNotPermitted(rowAxis, "rowAxis");
-        ArgChecks.nullNotPermitted(columnAxis, "columnAxis");
-        ArgChecks.nullNotPermitted(valueAxis, "valueAxis");
+        Args.nullNotPermitted(dataset, "dataset");
+        Args.nullNotPermitted(renderer, "renderer");
+        Args.nullNotPermitted(rowAxis, "rowAxis");
+        Args.nullNotPermitted(columnAxis, "columnAxis");
+        Args.nullNotPermitted(valueAxis, "valueAxis");
         this.dataset = dataset;
         this.dataset.addChangeListener(this);
         this.dimensions = calculateDimensions();
@@ -227,7 +227,7 @@ public class CategoryPlot3D extends AbstractPlot3D
      * @see Plot3D#getDimensions() 
      */
     public void setDimensions(Dimension3D dimensions) {
-        ArgChecks.nullNotPermitted(dimensions, "dimensions");
+        Args.nullNotPermitted(dimensions, "dimensions");
         this.dimensions = dimensions;
         this.autoAdjustDimensions = false;
         fireChangeEvent(true);
@@ -250,7 +250,7 @@ public class CategoryPlot3D extends AbstractPlot3D
      * @param dataset  the dataset ({@code null} not permitted). 
      */
     public void setDataset(CategoryDataset3D dataset) {
-        ArgChecks.nullNotPermitted(dataset, "dataset");
+        Args.nullNotPermitted(dataset, "dataset");
         this.dataset.removeChangeListener(this);
         this.dataset = dataset;
         this.dataset.addChangeListener(this);
@@ -275,7 +275,7 @@ public class CategoryPlot3D extends AbstractPlot3D
      * @param renderer  the renderer ({@code null} not permitted).
      */
     public void setRenderer(CategoryRenderer3D renderer) {
-        ArgChecks.nullNotPermitted(renderer, "renderer");
+        Args.nullNotPermitted(renderer, "renderer");
         this.renderer.removeChangeListener(this);
         this.renderer = renderer;
         this.renderer.addChangeListener(this);
@@ -300,7 +300,7 @@ public class CategoryPlot3D extends AbstractPlot3D
      * @param axis  the row axis ({@code null} not permitted).
      */
     public void setRowAxis(CategoryAxis3D axis) {
-        ArgChecks.nullNotPermitted(axis, "axis");
+        Args.nullNotPermitted(axis, "axis");
         this.rowAxis.removeChangeListener(this);
         this.rowAxis = axis;
         this.rowAxis.addChangeListener(this);
@@ -327,7 +327,7 @@ public class CategoryPlot3D extends AbstractPlot3D
      * 
      */
     public void setColumnAxis(CategoryAxis3D axis) {
-        ArgChecks.nullNotPermitted(axis, "axis");
+        Args.nullNotPermitted(axis, "axis");
         this.columnAxis.removeChangeListener(this);
         this.columnAxis = axis;
         this.columnAxis.addChangeListener(this);
@@ -350,7 +350,7 @@ public class CategoryPlot3D extends AbstractPlot3D
      * @param axis  the axis ({@code null} not permitted). 
      */
     public void setValueAxis(ValueAxis3D axis) {
-        ArgChecks.nullNotPermitted(axis, "axis");
+        Args.nullNotPermitted(axis, "axis");
         this.valueAxis.removeChangeListener(this);
         this.valueAxis = axis;
         this.valueAxis.configureAsValueAxis(this);
@@ -397,7 +397,7 @@ public class CategoryPlot3D extends AbstractPlot3D
      * @param paint  the paint ({@code null} not permitted). 
      */
     public void setGridlinePaintForRows(Paint paint) {
-        ArgChecks.nullNotPermitted(paint, "paint");
+        Args.nullNotPermitted(paint, "paint");
         this.gridlinePaintForRows = paint;
         fireChangeEvent(false);
     }
@@ -421,7 +421,7 @@ public class CategoryPlot3D extends AbstractPlot3D
      * @param stroke  the stroke ({@code null} not permitted). 
      */
     public void setGridlineStrokeForRows(Stroke stroke) {
-        ArgChecks.nullNotPermitted(stroke, "stroke");
+        Args.nullNotPermitted(stroke, "stroke");
         this.gridlineStrokeForRows = stroke;
         fireChangeEvent(false);
     }
@@ -487,7 +487,7 @@ public class CategoryPlot3D extends AbstractPlot3D
      * @param paint  the paint ({@code null} not permitted). 
      */
     public void setGridlinePaintForValues(Paint paint) {
-        ArgChecks.nullNotPermitted(paint, "paint");
+        Args.nullNotPermitted(paint, "paint");
         this.gridlinePaintForValues = paint;
         fireChangeEvent(false);
     }
@@ -511,7 +511,7 @@ public class CategoryPlot3D extends AbstractPlot3D
      * @param stroke  the stroke ({@code null} not permitted).
      */
     public void setGridlineStrokeForValues(Stroke stroke) {
-        ArgChecks.nullNotPermitted(stroke, "stroke");
+        Args.nullNotPermitted(stroke, "stroke");
         this.gridlineStrokeForValues = stroke;
         fireChangeEvent(false);
     }
@@ -534,7 +534,7 @@ public class CategoryPlot3D extends AbstractPlot3D
      * @param paint  the paint ({@code null} not permitted). 
      */
     public void setGridlinePaintForColumns(Paint paint) {
-        ArgChecks.nullNotPermitted(paint, "paint");
+        Args.nullNotPermitted(paint, "paint");
         this.gridlinePaintForColumns = paint;
         fireChangeEvent(false);
     }
@@ -558,7 +558,7 @@ public class CategoryPlot3D extends AbstractPlot3D
      * @param stroke  the stroke ({@code null} not permitted).
      */
     public void setGridlineStrokeForColumns(Stroke stroke) {
-        ArgChecks.nullNotPermitted(stroke, "stroke");
+        Args.nullNotPermitted(stroke, "stroke");
         this.gridlineStrokeForColumns = stroke;
         fireChangeEvent(false);
     }
@@ -584,7 +584,7 @@ public class CategoryPlot3D extends AbstractPlot3D
      * @since 1.2
      */
     public void setLegendLabelGenerator(CategoryLabelGenerator generator) {
-        ArgChecks.nullNotPermitted(generator, "generator");
+        Args.nullNotPermitted(generator, "generator");
         this.legendLabelGenerator = generator;
         fireChangeEvent(false);
     }

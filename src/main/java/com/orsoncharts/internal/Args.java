@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.util;
+package com.orsoncharts.internal;
 
 /**
  * Utility methods for argument checking.  Throughout Orson Charts, arguments
@@ -38,9 +38,9 @@ package com.orsoncharts.util;
  * (the idea is to fail fast, which usually helps when tracking down errors
  * in programming logic).
  */
-public final class ArgChecks {
+public final class Args {
 
-    private ArgChecks() {
+    private Args() {
         // no need to instantiate this ever
     }
  

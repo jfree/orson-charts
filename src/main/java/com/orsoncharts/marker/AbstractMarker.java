@@ -41,7 +41,7 @@ import com.orsoncharts.Chart3DChangeListener;
 import com.orsoncharts.ChartElementVisitor;
 import com.orsoncharts.graphics3d.internal.Utils2D;
 import com.orsoncharts.Anchor2D;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 import com.orsoncharts.util.RefPt2D;
 import com.orsoncharts.util.TextAnchor;
 import com.orsoncharts.util.TextUtils;
@@ -207,7 +207,7 @@ public abstract class AbstractMarker implements Marker {
      * @return A text anchor (never {@code null}). 
      */
     protected static TextAnchor deriveTextAnchor(RefPt2D refPt, boolean vflip) {
-        ArgChecks.nullNotPermitted(refPt, "refPt");
+        Args.nullNotPermitted(refPt, "refPt");
         if (refPt.equals(RefPt2D.TOP_LEFT)) {
             return vflip ? TextAnchor.TOP_LEFT : TextAnchor.BOTTOM_RIGHT;
         } else if (refPt.equals(RefPt2D.TOP_CENTER)) {

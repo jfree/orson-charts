@@ -34,7 +34,7 @@ package com.orsoncharts.data;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * Utility methods related to the {@link KeyedValues3DItemKey} class.
@@ -65,8 +65,8 @@ public class KeyedValues3DItemKeys {
              C extends Comparable<C>, T> 
              Collection<KeyedValues3DItemKey> itemKeysForSeries(
              KeyedValues3D<S, R, C, T> data, S seriesKey) {
-        ArgChecks.nullNotPermitted(data, "data");
-        ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
+        Args.nullNotPermitted(data, "data");
+        Args.nullNotPermitted(seriesKey, "seriesKey");
         Collection<KeyedValues3DItemKey> result = new ArrayList<>();
         if (!data.getSeriesKeys().contains(seriesKey)) {
             return result;
@@ -98,8 +98,8 @@ public class KeyedValues3DItemKeys {
     public static <S extends Comparable<S>, R extends Comparable<R>, 
             C extends Comparable<C>, T> Collection<KeyedValues3DItemKey> 
             itemKeysForRow(KeyedValues3D<S, R, C, T> data, R rowKey) {
-        ArgChecks.nullNotPermitted(data, "data");
-        ArgChecks.nullNotPermitted(rowKey, "rowKey");
+        Args.nullNotPermitted(data, "data");
+        Args.nullNotPermitted(rowKey, "rowKey");
         Collection<KeyedValues3DItemKey> result = new ArrayList<>();
         if (!data.getRowKeys().contains(rowKey)) {
             return result;
@@ -133,8 +133,8 @@ public class KeyedValues3DItemKeys {
             C extends Comparable<C>, T> 
             Collection<KeyedValues3DItemKey> itemKeysForColumn(
             KeyedValues3D<S, R, C, T> data, C columnKey) {
-        ArgChecks.nullNotPermitted(data, "data");
-        ArgChecks.nullNotPermitted(columnKey, "columnKey");
+        Args.nullNotPermitted(data, "data");
+        Args.nullNotPermitted(columnKey, "columnKey");
         Collection<KeyedValues3DItemKey> result = new ArrayList<>();
         if (!data.getColumnKeys().contains(columnKey)) {
             return result;

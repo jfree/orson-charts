@@ -35,7 +35,7 @@ package com.orsoncharts.marker;
 import java.awt.geom.Point2D;
 import java.util.Map;
 import java.util.HashMap;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 import com.orsoncharts.Anchor2D;
 
 /**
@@ -71,7 +71,7 @@ public class MarkerData {
      *     1.0).
      */
     public MarkerData(String key, double pos) {
-        ArgChecks.nullNotPermitted(key, "key");
+        Args.nullNotPermitted(key, "key");
         this.markerKey = key;
         this.type = MarkerDataType.VALUE;
         this.data = new HashMap<String, Object>();
@@ -90,7 +90,7 @@ public class MarkerData {
      */
     public MarkerData(String key, double startPos, boolean startPegged, 
             double endPos, boolean endPegged) {
-        ArgChecks.nullNotPermitted(key, "key");
+        Args.nullNotPermitted(key, "key");
         this.markerKey = key;
         this.type = MarkerDataType.RANGE;
         this.data = new HashMap<String, Object>();
@@ -107,7 +107,7 @@ public class MarkerData {
      * @param v1  the vertex index for the end of the line.
      */
     public MarkerData(MarkerData source, int v0, int v1) {
-        ArgChecks.nullNotPermitted(source, "source");
+        Args.nullNotPermitted(source, "source");
         if (!source.getType().equals(MarkerDataType.VALUE)) {
             throw new IllegalArgumentException("Must be MarkerDataType.VALUE");
         }
@@ -130,7 +130,7 @@ public class MarkerData {
      * @param v3  the vertex index for the end of the second line.
      */
     public MarkerData(MarkerData source, int v0, int v1, int v2, int v3) {
-        ArgChecks.nullNotPermitted(source, "source");
+        Args.nullNotPermitted(source, "source");
         if (!source.getType().equals(MarkerDataType.RANGE)) {
             throw new IllegalArgumentException("Must be MarkerDataType.RANGE");
         }

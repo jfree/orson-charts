@@ -35,7 +35,7 @@ package com.orsoncharts.axis;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.text.Format;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * A {@link TickSelector} implementation that selects tick units in multiples 
@@ -95,7 +95,7 @@ public class NumberTickSelector implements TickSelector, Serializable {
      */
     @Override
     public double select(double reference) {
-        ArgChecks.finitePositiveRequired(reference, "reference");
+        Args.finitePositiveRequired(reference, "reference");
         this.power = (int) Math.ceil(Math.log10(reference));
         this.factor = 1;
         return getCurrentTickSize();

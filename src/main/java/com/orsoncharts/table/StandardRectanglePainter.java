@@ -44,7 +44,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 import com.orsoncharts.util.Fit2D;
 import com.orsoncharts.util.ObjectUtils;
 import com.orsoncharts.util.Scale2D;
@@ -93,7 +93,7 @@ public class StandardRectanglePainter implements RectanglePainter,
      * @param imageFit  the fit ({@code null} permitted).
      */
     public StandardRectanglePainter(Paint paint, Image image, Fit2D imageFit) {
-        ArgChecks.nullNotPermitted(paint, "paint");
+        Args.nullNotPermitted(paint, "paint");
         this.paint = paint;
         this.image = image;
         this.imageFit = new Fit2D(Anchor2D.TOP_CENTER, Scale2D.SCALE_BOTH);

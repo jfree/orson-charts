@@ -43,7 +43,7 @@ import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.renderer.AbstractRenderer3D;
 import com.orsoncharts.renderer.ComposeType;
 import com.orsoncharts.renderer.Renderer3DChangeEvent;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 import com.orsoncharts.util.ObjectUtils;
 
 /**
@@ -165,7 +165,7 @@ public class AbstractXYZRenderer extends AbstractRenderer3D {
      * @param colorSource  the color source ({@code null} not permitted). 
      */
     public void setColorSource(XYZColorSource colorSource) {
-        ArgChecks.nullNotPermitted(colorSource, "colorSource");
+        Args.nullNotPermitted(colorSource, "colorSource");
         this.colorSource = colorSource;
         fireChangeEvent(true);
     }

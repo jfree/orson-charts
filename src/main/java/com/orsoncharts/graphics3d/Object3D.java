@@ -40,7 +40,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * An object defined in 3D space by (a) a list of coordinates, and (b) a list
@@ -118,7 +118,7 @@ public class Object3D {
      * @since 1.3
      */
     public Object3D(Color color, boolean outline) {
-        ArgChecks.nullNotPermitted(color, "color");
+        Args.nullNotPermitted(color, "color");
         this.color = color;
         this.outline = outline;
         this.vertices = new java.util.ArrayList<>();
@@ -170,7 +170,7 @@ public class Object3D {
      * @since 1.3
      */
     public Object getProperty(String key) {
-        ArgChecks.nullNotPermitted(key, "key");
+        Args.nullNotPermitted(key, "key");
         if (this.properties == null) {
             return null;
         } else {
@@ -190,7 +190,7 @@ public class Object3D {
      * @since 1.3
      */
     public void setProperty(String key, Object value) {
-        ArgChecks.nullNotPermitted(key, "key");
+        Args.nullNotPermitted(key, "key");
         if (this.properties == null) {
             this.properties = new HashMap<>();
         }
@@ -260,7 +260,7 @@ public class Object3D {
      * @param vertex  the vertex ({@code null} not permitted).
      */
     public void addVertex(Point3D vertex) {
-        ArgChecks.nullNotPermitted(vertex, "vertex");
+        Args.nullNotPermitted(vertex, "vertex");
         this.vertices.add(vertex);
     }
 
@@ -315,7 +315,7 @@ public class Object3D {
      * @param face  the face ({@code null} not permitted).
      */
     public void addFace(Face face) {
-        ArgChecks.nullNotPermitted(face, "face");
+        Args.nullNotPermitted(face, "face");
         this.faces.add(face);
     }
 
@@ -341,7 +341,7 @@ public class Object3D {
      * @return The projected points.
      */
     public Point2D[] calculateProjectedPoints(ViewPoint3D viewPoint, double d) {
-        ArgChecks.nullNotPermitted(viewPoint, "viewPoint");
+        Args.nullNotPermitted(viewPoint, "viewPoint");
         Point2D[] result = new Point2D[this.vertices.size()];
         int vertexCount = this.vertices.size();
         for (int i = 0; i < vertexCount; i++) {
@@ -359,7 +359,7 @@ public class Object3D {
      * @return The eye coordinates.
      */
     public Point3D[] calculateEyeCoordinates(ViewPoint3D viewPoint) {
-        ArgChecks.nullNotPermitted(viewPoint, "viewPoint");
+        Args.nullNotPermitted(viewPoint, "viewPoint");
         Point3D[] result = new Point3D[this.vertices.size()];
         int i = 0;
         for (Point3D vertex : this.vertices) {
@@ -384,7 +384,7 @@ public class Object3D {
      */
     public static Object3D createYSheet(double size, double x, double y, 
             double z, Color color, boolean invert) {
-        ArgChecks.nullNotPermitted(color, "color");
+        Args.nullNotPermitted(color, "color");
         Object3D sheet = new Object3D(color);
         double delta = size / 2.0;
         sheet.addVertex(new Point3D(x + delta, y, z - delta));
@@ -458,7 +458,7 @@ public class Object3D {
     public static Object3D createBox(double x, double xdim, 
             double y, double ydim, double z, double zdim, 
             Color color) {
-        ArgChecks.nullNotPermitted(color, "color");
+        Args.nullNotPermitted(color, "color");
         Object3D box = new Object3D(color);
         double xdelta = xdim / 2.0;
         double ydelta = ydim / 2.0;
@@ -493,7 +493,7 @@ public class Object3D {
      */
     public static Object3D createTetrahedron(double size, double xOffset,
             double yOffset, double zOffset, Color color) {
-        ArgChecks.nullNotPermitted(color, "color");
+        Args.nullNotPermitted(color, "color");
         Object3D tetra = new Object3D(color);
         tetra.addVertex(new Point3D(size + xOffset, -size + yOffset, 
                 -size + zOffset));
@@ -523,7 +523,7 @@ public class Object3D {
      */
     public static Object3D createOctahedron(double size, double xOffset,
             double yOffset, double zOffset, Color color) {
-        ArgChecks.nullNotPermitted(color, "color");
+        Args.nullNotPermitted(color, "color");
         Object3D octa = new Object3D(color);
         octa.addVertex(new Point3D(size + xOffset, 0 + yOffset, 0 + zOffset));
         octa.addVertex(new Point3D(0 + xOffset, size + yOffset, 0 + zOffset));
@@ -625,7 +625,7 @@ public class Object3D {
     public static Object3D createPieSegment(double radius, double explodeRadius, 
             double base, double height, double angle1, double angle2, 
             double inc, Color color) {
-        ArgChecks.nullNotPermitted(color, "color");
+        Args.nullNotPermitted(color, "color");
         Object3D segment = new Object3D(color, true);
         double angleCentre = (angle1 + angle2) / 2.0;
         Point3D centre = new Point3D(explodeRadius * Math.cos(angleCentre), 
@@ -742,7 +742,7 @@ public class Object3D {
     public static Object3D createBar(double xWidth, double zWidth, double x, 
             double y, double z, double zero, Color barColor, Color baseColor,
             Color topColor, boolean inverted) {
-        ArgChecks.nullNotPermitted(barColor, "barColor");
+        Args.nullNotPermitted(barColor, "barColor");
         Color c0 = baseColor;
         Color c1 = topColor;
         if (inverted) {

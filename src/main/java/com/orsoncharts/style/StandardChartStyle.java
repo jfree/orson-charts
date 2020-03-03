@@ -50,7 +50,7 @@ import com.orsoncharts.Colors;
 import com.orsoncharts.internal.ChartBox3D;
 import com.orsoncharts.table.RectanglePainter;
 import com.orsoncharts.table.StandardRectanglePainter;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 import com.orsoncharts.util.SerialUtils;
 
 /**
@@ -372,7 +372,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      *         permitted).
      */
     public StandardChartStyle(StandardChartStyle source) {
-        ArgChecks.nullNotPermitted(source, "source");
+        Args.nullNotPermitted(source, "source");
         this.backgroundPainter = source.getBackgroundPainter();
         this.titleFont = source.getTitleFont();
         this.titleColor = source.getTitleColor();
@@ -430,7 +430,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * @param painter  the painter ({@code null} not permitted). 
      */
     public void setBackgroundPainter(RectanglePainter painter) {
-        ArgChecks.nullNotPermitted(painter, "painter");
+        Args.nullNotPermitted(painter, "painter");
         this.backgroundPainter = painter;
         fireChangeEvent();
     }
@@ -453,7 +453,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * @param font  the font ({@code null} not permitted). 
      */
     public void setTitleFont(Font font) {
-        ArgChecks.nullNotPermitted(font, "font");
+        Args.nullNotPermitted(font, "font");
         this.titleFont = font;
         fireChangeEvent();
     }
@@ -519,7 +519,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * @param font  the font ({@code null} not permitted). 
      */
     public void setSubtitleFont(Font font) {
-        ArgChecks.nullNotPermitted(font, "font");
+        Args.nullNotPermitted(font, "font");
         this.subtitleFont = font;
         fireChangeEvent();
     }
@@ -542,7 +542,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * @param color  the color ({@code null} not permitted). 
      */
     public void setSubtitleColor(Color color) {
-        ArgChecks.nullNotPermitted(color, "color");
+        Args.nullNotPermitted(color, "color");
         this.subtitleColor = color;
         fireChangeEvent();
     }
@@ -565,7 +565,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * @param color  the color ({@code null} not permitted). 
      */
     public void setSubtitleBackgroundColor(Color color) {
-        ArgChecks.nullNotPermitted(color, "color");
+        Args.nullNotPermitted(color, "color");
         this.subtitleBackgroundColor = color;
         fireChangeEvent();
     }
@@ -588,7 +588,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * @param color  the color ({@code null} not permitted). 
      */
     public void setChartBoxColor(Color color) {
-        ArgChecks.nullNotPermitted(color, "color");
+        Args.nullNotPermitted(color, "color");
         this.chartBoxColor = color;
         fireChangeEvent();
     }
@@ -702,7 +702,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * @param color  the color ({@code null} not permitted). 
      */
     public void setGridlineColor(Color color) {
-        ArgChecks.nullNotPermitted(color, "color");
+        Args.nullNotPermitted(color, "color");
         this.gridlineColor = color;
         fireChangeEvent();
     }
@@ -725,7 +725,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * @param stroke  the stroke ({@code null} not permitted).
      */
     public void setGridlineStroke(Stroke stroke) {
-        ArgChecks.nullNotPermitted(stroke, "stroke");
+        Args.nullNotPermitted(stroke, "stroke");
         this.gridlineStroke = stroke;
         fireChangeEvent();
     }
@@ -747,7 +747,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * @param font  the font ({@code null} not permitted). 
      */
     public void setSectionLabelFont(Font font) {
-        ArgChecks.nullNotPermitted(font, "font");
+        Args.nullNotPermitted(font, "font");
         this.sectionLabelFont = font;
         fireChangeEvent();
     }
@@ -770,7 +770,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * @param color  the color ({@code null} not permitted). 
      */
     public void setSectionLabelColor(Color color) {
-        ArgChecks.nullNotPermitted(color, "color");
+        Args.nullNotPermitted(color, "color");
         this.sectionLabelColor = color;
         fireChangeEvent();
     }
@@ -815,7 +815,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * @param font  the font ({@code null} not permitted). 
      */
     public void setAxisLabelFont(Font font) {
-        ArgChecks.nullNotPermitted(font, "font");
+        Args.nullNotPermitted(font, "font");
         this.axisLabelFont = font;
         fireChangeEvent();
     }
@@ -839,7 +839,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * @param color  the color ({@code null} not permitted). 
      */
     public void setAxisLabelColor(Color color) {
-        ArgChecks.nullNotPermitted(color, "color");
+        Args.nullNotPermitted(color, "color");
         this.axisLabelColor = color;
         fireChangeEvent();
     }
@@ -862,7 +862,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * @param font  the font ({@code null} not permitted). 
      */
     public void setAxisTickLabelFont(Font font) {
-        ArgChecks.nullNotPermitted(font, "font");
+        Args.nullNotPermitted(font, "font");
         this.axisTickLabelFont = font;
         fireChangeEvent();
     }    
@@ -885,7 +885,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * @param color  the color ({@code null} not permitted). 
      */
     public void setAxisTickLabelColor(Color color) {
-        ArgChecks.nullNotPermitted(color, "color");
+        Args.nullNotPermitted(color, "color");
         this.axisTickLabelColor = color;
         fireChangeEvent();
     }
@@ -908,7 +908,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * @param font  the font ({@code null} not permitted). 
      */
     public void setLegendHeaderFont(Font font) {
-        ArgChecks.nullNotPermitted(font, "font");
+        Args.nullNotPermitted(font, "font");
         this.legendHeaderFont = font;
         fireChangeEvent();
     }
@@ -931,7 +931,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * @param color  the color ({@code null} not permitted). 
      */
     public void setLegendHeaderColor(Color color) {
-        ArgChecks.nullNotPermitted(color, "color");
+        Args.nullNotPermitted(color, "color");
         this.legendHeaderColor = color;
         fireChangeEvent();
     }
@@ -954,7 +954,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * @param color  the color ({@code null} not permitted).
      */
     public void setLegendHeaderBackgroundColor(Color color) {
-        ArgChecks.nullNotPermitted(color, "color");
+        Args.nullNotPermitted(color, "color");
         this.legendHeaderBackgroundColor = color;
         fireChangeEvent();
     }
@@ -977,7 +977,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * @param shape  the shape ({@code null} not permitted). 
      */
     public void setLegendItemShape(Shape shape) {
-        ArgChecks.nullNotPermitted(shape, "shape");
+        Args.nullNotPermitted(shape, "shape");
         this.legendItemShape = shape;
         fireChangeEvent();
     }
@@ -1000,7 +1000,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * @param font  the font ({@code null} not permitted). 
      */
     public void setLegendItemFont(Font font) {
-        ArgChecks.nullNotPermitted(font, "font");
+        Args.nullNotPermitted(font, "font");
         this.legendItemFont = font;
         fireChangeEvent();
     }
@@ -1023,7 +1023,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * @param color  the color ({@code null} not permitted).
      */
     public void setLegendItemColor(Color color) {
-        ArgChecks.nullNotPermitted(color, "color");
+        Args.nullNotPermitted(color, "color");
         this.legendItemColor = color;
         fireChangeEvent();
     }
@@ -1046,7 +1046,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * @param color  the color ({@code null} not permitted). 
      */
     public void setLegendItemBackgroundColor(Color color) {
-        ArgChecks.nullNotPermitted(color, "color");
+        Args.nullNotPermitted(color, "color");
         this.legendItemBackgroundColor = color;
         fireChangeEvent();
     }
@@ -1069,7 +1069,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * @param font  the font ({@code null} not permitted). 
      */
     public void setLegendFooterFont(Font font) {
-        ArgChecks.nullNotPermitted(font, "font");
+        Args.nullNotPermitted(font, "font");
         this.legendFooterFont = font;
         fireChangeEvent();
     }
@@ -1092,7 +1092,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * @param color  the color ({@code null} not permitted). 
      */
     public void setLegendFooterColor(Color color) {
-        ArgChecks.nullNotPermitted(color, "color");
+        Args.nullNotPermitted(color, "color");
         this.legendFooterColor = color;
         fireChangeEvent();
     }
@@ -1115,7 +1115,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * @param color  the color ({@code null} not permitted).
      */
     public void setLegendFooterBackgroundColor(Color color) {
-        ArgChecks.nullNotPermitted(color, "color");
+        Args.nullNotPermitted(color, "color");
         this.legendFooterBackgroundColor = color;
         fireChangeEvent();
     }
@@ -1137,7 +1137,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * @param font  the font ({@code null} not permitted). 
      */
     public void setMarkerLabelFont(Font font) {
-        ArgChecks.nullNotPermitted(font, "font");
+        Args.nullNotPermitted(font, "font");
         this.markerLabelFont = font;
         fireChangeEvent();
     }
@@ -1159,7 +1159,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * @param color  the color ({@code null} not permitted). 
      */
     public void setMarkerLabelColor(Color color) {
-        ArgChecks.nullNotPermitted(color, "color");
+        Args.nullNotPermitted(color, "color");
         this.markerLabelColor = color;
         fireChangeEvent();
     }
@@ -1181,7 +1181,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * @param stroke  the stroke ({@code null} not permitted). 
      */
     public void setMarkerLineStroke(Stroke stroke) {
-        ArgChecks.nullNotPermitted(stroke, "stroke");
+        Args.nullNotPermitted(stroke, "stroke");
         this.markerLineStroke = stroke;
         fireChangeEvent();
     }
@@ -1203,7 +1203,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * @param color  the color ({@code null} not permitted). 
      */
     public void setMarkerLineColor(Color color) {
-        ArgChecks.nullNotPermitted(color, "color");
+        Args.nullNotPermitted(color, "color");
         this.markerLineColor = color;
         fireChangeEvent();
     }
@@ -1225,7 +1225,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
      * @param color  the color ({@code null} not permitted).
      */
     public void setMarkerFillColor(Color color) {
-        ArgChecks.nullNotPermitted(color, "color");
+        Args.nullNotPermitted(color, "color");
         this.markerFillColor = color;
         fireChangeEvent();
     }

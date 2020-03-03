@@ -34,7 +34,7 @@ package com.orsoncharts.data;
 
 import java.io.Serializable;
 
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 import com.orsoncharts.util.ObjectUtils;
 
 /**
@@ -61,7 +61,7 @@ public final class DefaultKeyedValue<K extends Comparable<K>, T>
      * @param value  the value.
      */
     public DefaultKeyedValue(K key, T value) {
-        ArgChecks.nullNotPermitted(key, "key");
+        Args.nullNotPermitted(key, "key");
         this.key = key;
         this.value = value;
     }

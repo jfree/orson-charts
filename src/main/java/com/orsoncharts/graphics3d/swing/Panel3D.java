@@ -51,7 +51,7 @@ import java.io.File;
 import javax.swing.JPanel;
 import javax.swing.ToolTipManager;
 
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 import com.orsoncharts.graphics3d.Drawable3D;
 import com.orsoncharts.graphics3d.Offset2D;
 import com.orsoncharts.graphics3d.ViewPoint3D;
@@ -128,7 +128,7 @@ public class Panel3D extends JPanel implements MouseListener,
      */
     public Panel3D(Drawable3D drawable) {
         super(new BorderLayout());
-        ArgChecks.nullNotPermitted(drawable, "drawable");
+        Args.nullNotPermitted(drawable, "drawable");
         this.drawable = drawable;
         this.margin = 0.25;
         this.minViewingDistance 
@@ -285,7 +285,7 @@ public class Panel3D extends JPanel implements MouseListener,
      * @param vp  the view point ({@code null} not permitted).
      */
     public void setViewPoint(ViewPoint3D vp) {
-        ArgChecks.nullNotPermitted(vp, "vp");
+        Args.nullNotPermitted(vp, "vp");
         this.drawable.setViewPoint(vp);  // 
         repaint();
     }

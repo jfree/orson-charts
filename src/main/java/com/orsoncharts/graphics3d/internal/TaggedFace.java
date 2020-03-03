@@ -34,7 +34,7 @@ package com.orsoncharts.graphics3d.internal;
 
 import com.orsoncharts.graphics3d.Face;
 import com.orsoncharts.graphics3d.Object3D;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * A face belonging to an {@link Object3D} that has a tag.
@@ -55,7 +55,7 @@ public class TaggedFace extends Face {
      */
     public TaggedFace(Object3D owner, int[] vertices, String tag) {
         super(owner, vertices);
-        ArgChecks.nullNotPermitted(tag, "tag");
+        Args.nullNotPermitted(tag, "tag");
         this.tag = tag;
     }
     

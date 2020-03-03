@@ -57,7 +57,7 @@ import com.orsoncharts.util.TextUtils;
 import com.orsoncharts.data.Range;
 import com.orsoncharts.table.TableElementOnDraw;
 import com.orsoncharts.table.TableElementVisitor;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 import com.orsoncharts.util.Fit2D;
 
 /**
@@ -113,9 +113,9 @@ public class ColorScaleElement extends AbstractTableElement
     public ColorScaleElement(ColorScale scale, Orientation orientation, 
             double barWidth, double barLength, Font font, Color textColor) {
         super();
-        ArgChecks.nullNotPermitted(scale, "scale");
-        ArgChecks.nullNotPermitted(orientation, "orientation");
-        ArgChecks.nullNotPermitted(font, "font");
+        Args.nullNotPermitted(scale, "scale");
+        Args.nullNotPermitted(orientation, "orientation");
+        Args.nullNotPermitted(font, "font");
         this.scale = scale;
         this.orientation = orientation;
         this.barWidth = barWidth;

@@ -38,7 +38,7 @@ import java.util.Formatter;
 import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.data.xyz.XYZItemKey;
 import com.orsoncharts.interaction.XYZDataItemSelection;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * A default implementation of the {@link XYZItemLabelGenerator} interface.  
@@ -91,7 +91,7 @@ public class StandardXYZItemLabelGenerator implements XYZItemLabelGenerator,
      * @param template  the label template ({@code null} not permitted). 
      */
     public StandardXYZItemLabelGenerator(String template) {
-        ArgChecks.nullNotPermitted(template, "template");
+        Args.nullNotPermitted(template, "template");
         this.template = template;
         this.itemSelection = null;
     }
@@ -128,8 +128,8 @@ public class StandardXYZItemLabelGenerator implements XYZItemLabelGenerator,
     @Override @SuppressWarnings("unchecked")
     public String generateItemLabel(XYZDataset dataset, 
             Comparable<?> seriesKey, int itemIndex) {
-        ArgChecks.nullNotPermitted(dataset, "dataset");
-        ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
+        Args.nullNotPermitted(dataset, "dataset");
+        Args.nullNotPermitted(seriesKey, "seriesKey");
         if (this.itemSelection != null) {
             XYZItemKey key = new XYZItemKey(seriesKey, itemIndex);
             if (!this.itemSelection.isSelected(key)) {

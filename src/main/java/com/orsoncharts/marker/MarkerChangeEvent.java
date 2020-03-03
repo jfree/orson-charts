@@ -34,7 +34,7 @@ package com.orsoncharts.marker;
 
 import java.util.EventObject;
 
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * An event associated with a change to a {@link Marker}.  These change 
@@ -71,7 +71,7 @@ public class MarkerChangeEvent extends EventObject {
      */
     public MarkerChangeEvent(Object source, Marker marker) {
         super(source);
-        ArgChecks.nullNotPermitted(marker, "marker");
+        Args.nullNotPermitted(marker, "marker");
         this.marker = marker;
     }
   

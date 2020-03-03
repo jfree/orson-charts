@@ -37,7 +37,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 import com.orsoncharts.Colors;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * A standard implementation of the {@link CategoryColorSource} interface.
@@ -68,7 +68,7 @@ public class StandardCategoryColorSource implements CategoryColorSource,
      * @param colors  the colors ({@code null} not permitted). 
      */
     public StandardCategoryColorSource(Color... colors) {
-        ArgChecks.nullNotPermitted(colors, "colors");
+        Args.nullNotPermitted(colors, "colors");
         if (colors.length == 0) {
             throw new IllegalArgumentException(
                     "Zero length array not permitted.");
@@ -120,7 +120,7 @@ public class StandardCategoryColorSource implements CategoryColorSource,
      */
     @Override
     public void style(Color... colors) {
-        ArgChecks.nullNotPermitted(colors, "colors");
+        Args.nullNotPermitted(colors, "colors");
         if (colors.length == 0) {
             throw new IllegalArgumentException(
                     "Zero length array not permitted.");

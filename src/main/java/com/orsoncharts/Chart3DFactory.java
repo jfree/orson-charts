@@ -59,7 +59,7 @@ import com.orsoncharts.renderer.xyz.ScatterXYZRenderer;
 import com.orsoncharts.renderer.xyz.SurfaceRenderer;
 import com.orsoncharts.style.ChartStyle;
 import com.orsoncharts.style.StandardChartStyle;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * Utility methods for constructing common chart types.  Charts can be 
@@ -98,7 +98,7 @@ public class Chart3DFactory {
      * @since 1.2
      */
     public static void setDefaultChartStyle(ChartStyle style) {
-        ArgChecks.nullNotPermitted(style, "style");
+        Args.nullNotPermitted(style, "style");
         defaultStyle = style.clone();    
     }
     

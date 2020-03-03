@@ -36,7 +36,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 import com.orsoncharts.data.AbstractDataset3D;
 import com.orsoncharts.data.Dataset3DChangeEvent;
 import com.orsoncharts.data.JSONUtils;
@@ -90,7 +90,7 @@ public class XYZSeriesCollection<S extends Comparable<S>>
      */
     @Override
     public int getSeriesIndex(S key) {
-        ArgChecks.nullNotPermitted(key, "key");
+        Args.nullNotPermitted(key, "key");
         return getSeriesKeys().indexOf(key);
     }
 
@@ -133,7 +133,7 @@ public class XYZSeriesCollection<S extends Comparable<S>>
      * @param series  the series ({@code null} not permitted). 
      */
     public void add(XYZSeries<S> series) {
-        ArgChecks.nullNotPermitted(series, "series");
+        Args.nullNotPermitted(series, "series");
         if (getSeriesIndex(series.getKey()) >= 0) {
             throw new IllegalArgumentException("Another series with the same key already exists within the collection.");
         }
@@ -165,7 +165,7 @@ public class XYZSeriesCollection<S extends Comparable<S>>
      * @since 1.6
      */
     public void remove(XYZSeries series) {
-        ArgChecks.nullNotPermitted(series, "series");
+        Args.nullNotPermitted(series, "series");
         if (this.series.contains(series)) {
             series.removeChangeListener(this);
             this.series.remove(series);
@@ -198,7 +198,7 @@ public class XYZSeriesCollection<S extends Comparable<S>>
      * @since 1.2
      */
     public XYZSeries<S> getSeries(int index) {
-        ArgChecks.checkArrayBounds(index, "index", this.series.size());
+        Args.checkArrayBounds(index, "index", this.series.size());
         return this.series.get(index);
     }
     
@@ -213,7 +213,7 @@ public class XYZSeriesCollection<S extends Comparable<S>>
      * @since 1.2
      */
     public XYZSeries getSeries(Comparable<?> key) {
-        ArgChecks.nullNotPermitted(key, "key");
+        Args.nullNotPermitted(key, "key");
         for (XYZSeries s : this.series) {
             if (s.getKey().equals(key)) {
                 return s;

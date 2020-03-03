@@ -45,7 +45,6 @@ import com.orsoncharts.axis.TickData;
 import com.orsoncharts.marker.MarkerData;
 import com.orsoncharts.marker.MarkerDataType;
 import com.orsoncharts.Anchor2D;
-import com.orsoncharts.util.ArgChecks;
 
 /**
  * A chart box is the container within which the chart elements are drawn.
@@ -113,7 +112,7 @@ public class ChartBox3D {
      */
     public ChartBox3D(double xLength, double yLength, double zLength, 
             double xOffset, double yOffset, double zOffset, Color color) {
-        ArgChecks.nullNotPermitted(color, "color");
+        Args.nullNotPermitted(color, "color");
         this.xLength = xLength;
         this.yLength = yLength;
         this.zLength = zLength;
@@ -149,7 +148,7 @@ public class ChartBox3D {
      * @since 1.2
      */
     public void setXTicks(List<TickData> ticks) {
-        ArgChecks.nullNotPermitted(ticks, "ticks");
+        Args.nullNotPermitted(ticks, "ticks");
         this.xTicks = ticks;
     }
     
@@ -173,7 +172,7 @@ public class ChartBox3D {
      * @since 1.2
      */
     public void setYTicks(List<TickData> ticks) {
-        ArgChecks.nullNotPermitted(ticks, "ticks");
+        Args.nullNotPermitted(ticks, "ticks");
         this.yTicks = ticks;
     }
     
@@ -197,7 +196,7 @@ public class ChartBox3D {
      * @since 1.2
      */
     public void setZTicks(List<TickData> ticks) {
-        ArgChecks.nullNotPermitted(ticks, "ticks");
+        Args.nullNotPermitted(ticks, "ticks");
         this.zTicks = ticks;
     }
     
@@ -222,7 +221,7 @@ public class ChartBox3D {
      * @since 1.2
      */
     public void setXMarkers(List<MarkerData> markers) {
-        ArgChecks.nullNotPermitted(markers, "markers");
+        Args.nullNotPermitted(markers, "markers");
         this.xMarkers = markers;
     }
  
@@ -247,7 +246,7 @@ public class ChartBox3D {
      * @since 1.2
      */
     public void setYMarkers(List<MarkerData> markers) {
-        ArgChecks.nullNotPermitted(markers, "markers");
+        Args.nullNotPermitted(markers, "markers");
         this.yMarkers = markers;
     }
  
@@ -272,7 +271,7 @@ public class ChartBox3D {
      * @since 1.2
      */
     public void setZMarkers(List<MarkerData> markers) {
-        ArgChecks.nullNotPermitted(markers, "markers");
+        Args.nullNotPermitted(markers, "markers");
         this.zMarkers = markers;
     }
 
@@ -1124,7 +1123,7 @@ public class ChartBox3D {
          * @param marker  the marker data ({@code null} not permitted). 
          */
         public void addXMarker(MarkerData marker) {
-            ArgChecks.nullNotPermitted(marker, "marker");
+            Args.nullNotPermitted(marker, "marker");
             this.xMarkers.add(marker);
         }
 
@@ -1144,7 +1143,7 @@ public class ChartBox3D {
          * @param marker  the marker data ({@code null} not permitted). 
          */
         public void addYMarker(MarkerData marker) {
-            ArgChecks.nullNotPermitted(marker, "marker");
+            Args.nullNotPermitted(marker, "marker");
             this.yMarkers.add(marker);
         }
         
@@ -1164,7 +1163,7 @@ public class ChartBox3D {
          * @param marker  the marker data ({@code null} not permitted). 
          */
         public void addZMarker(MarkerData marker) {
-            ArgChecks.nullNotPermitted(marker, "marker");
+            Args.nullNotPermitted(marker, "marker");
             this.zMarkers.add(marker);
         }
         

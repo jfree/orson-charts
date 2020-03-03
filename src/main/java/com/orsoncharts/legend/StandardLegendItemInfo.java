@@ -36,7 +36,7 @@ import java.awt.Shape;
 import java.util.HashMap;
 import java.util.Map;
 import java.awt.Color;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * A standard implementation of the {@link LegendItemInfo} interface.
@@ -84,9 +84,9 @@ public class StandardLegendItemInfo implements LegendItemInfo {
      */
     public StandardLegendItemInfo(Comparable<?> seriesKey, String label, 
             String description, Color color, Shape shape) {
-        ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
-        ArgChecks.nullNotPermitted(label, "label");
-        ArgChecks.nullNotPermitted(color, "color");
+        Args.nullNotPermitted(seriesKey, "seriesKey");
+        Args.nullNotPermitted(label, "label");
+        Args.nullNotPermitted(color, "color");
         this.seriesKey = seriesKey;  
         this.label = label;
         this.description = description;

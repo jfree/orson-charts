@@ -39,7 +39,7 @@ import javax.swing.event.EventListenerList;
 
 import com.orsoncharts.ChartElementVisitor;
 import com.orsoncharts.label.ItemLabelPositioning;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * A base class for 3D renderers.
@@ -101,7 +101,7 @@ public abstract class AbstractRenderer3D implements Renderer3D, Serializable {
      * @since 1.3
      */
     public void setItemLabelFont(Font itemLabelFont) {
-        ArgChecks.nullNotPermitted(itemLabelFont, "itemLabelFont");
+        Args.nullNotPermitted(itemLabelFont, "itemLabelFont");
         this.itemLabelFont = itemLabelFont;
         fireChangeEvent(true);
     }
@@ -127,7 +127,7 @@ public abstract class AbstractRenderer3D implements Renderer3D, Serializable {
      * @since 1.3
      */
     public void setItemLabelColor(Color itemLabelColor) {
-        ArgChecks.nullNotPermitted(itemLabelColor, "itemLabelColor");
+        Args.nullNotPermitted(itemLabelColor, "itemLabelColor");
         this.itemLabelColor = itemLabelColor;
         fireChangeEvent(true);
     }
@@ -152,7 +152,7 @@ public abstract class AbstractRenderer3D implements Renderer3D, Serializable {
      * @since 1.3
      */
     public void setItemLabelBackgroundColor(Color color) {
-        ArgChecks.nullNotPermitted(color, "color");
+        Args.nullNotPermitted(color, "color");
         this.itemLabelBackgroundColor = color ;
         fireChangeEvent(true);
     }
@@ -179,7 +179,7 @@ public abstract class AbstractRenderer3D implements Renderer3D, Serializable {
      * @since 1.3
      */
     public void setItemLabelPositioning(ItemLabelPositioning positioning) {
-        ArgChecks.nullNotPermitted(positioning, "positioning");
+        Args.nullNotPermitted(positioning, "positioning");
         this.itemLabelPositioning = positioning;
         fireChangeEvent(true);
     }

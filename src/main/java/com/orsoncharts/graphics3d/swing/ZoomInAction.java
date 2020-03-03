@@ -39,7 +39,7 @@ import javax.swing.Action;
 
 import com.orsoncharts.Resources;
 import com.orsoncharts.graphics3d.ViewPoint3D;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * An action that performs a zoom-in operation.
@@ -67,7 +67,7 @@ public class ZoomInAction extends AbstractAction {
      */
     public ZoomInAction(Panel3D panel, boolean fontAwesome) {
         super("\uf00e");
-        ArgChecks.nullNotPermitted(panel, "panel");
+        Args.nullNotPermitted(panel, "panel");
         this.panel = panel;
         this.zoomMultiplier = 0.95; 
         if (!fontAwesome) {

@@ -50,7 +50,7 @@ import javax.swing.JToolBar;
 import javax.swing.JMenu;
 
 import com.orsoncharts.Resources;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 import com.orsoncharts.util.ExportFormat;
 import com.orsoncharts.util.ExportFormats;
 
@@ -210,7 +210,7 @@ public class DisplayPanel3D extends JPanel implements MouseListener {
      * @return A popup menu.
      */
     private JPopupMenu createPopupMenu(ExportFormat... exportFormats) {
-        ArgChecks.nullNotPermitted(exportFormats, "exportFormats");
+        Args.nullNotPermitted(exportFormats, "exportFormats");
         JPopupMenu popupMenu = new JPopupMenu();
         popupMenu.add(new JMenuItem(new ZoomInAction(this.content, false)));
         popupMenu.add(new JMenuItem(new ZoomOutAction(this.content, false)));

@@ -34,7 +34,7 @@ package com.orsoncharts.axis;
 
 import java.util.EventObject;
 
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * An event associated with a change to an {@link Axis3D}.  These change 
@@ -80,7 +80,7 @@ public class Axis3DChangeEvent extends EventObject {
     public Axis3DChangeEvent(Object source, Axis3D axis, 
             boolean requiresWorldUpdate) {
         super(source);
-        ArgChecks.nullNotPermitted(axis, "axis");
+        Args.nullNotPermitted(axis, "axis");
         this.axis = axis;
         this.requiresWorldUpdate = requiresWorldUpdate;
     }

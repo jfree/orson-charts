@@ -37,7 +37,7 @@ import java.util.Formatter;
 
 import com.orsoncharts.data.DataUtils;
 import com.orsoncharts.data.category.CategoryDataset3D;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * A default implementation of the {@link CategoryLabelGenerator} interface.  
@@ -104,7 +104,7 @@ public class StandardCategoryLabelGenerator<S extends Comparable<S>, R extends C
      * @param template  the template ({@code null} not permitted).
      */
     public StandardCategoryLabelGenerator(String template) {
-        ArgChecks.nullNotPermitted(template, "template");
+        Args.nullNotPermitted(template, "template");
         this.template = template;
     }
     
@@ -119,8 +119,8 @@ public class StandardCategoryLabelGenerator<S extends Comparable<S>, R extends C
     @Override
     public String generateSeriesLabel(CategoryDataset3D<S, R, C> dataset, 
             S seriesKey) {
-        ArgChecks.nullNotPermitted(dataset, "dataset");
-        ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
+        Args.nullNotPermitted(dataset, "dataset");
+        Args.nullNotPermitted(seriesKey, "seriesKey");
         Formatter formatter = new Formatter(new StringBuilder());
         int count = DataUtils.count(dataset, seriesKey);
         double total = DataUtils.total(dataset, seriesKey);
@@ -141,8 +141,8 @@ public class StandardCategoryLabelGenerator<S extends Comparable<S>, R extends C
     @Override
     public String generateRowLabel(CategoryDataset3D<S, R, C> dataset, 
             R rowKey) {
-        ArgChecks.nullNotPermitted(dataset, "dataset");
-        ArgChecks.nullNotPermitted(rowKey, "rowKey");
+        Args.nullNotPermitted(dataset, "dataset");
+        Args.nullNotPermitted(rowKey, "rowKey");
         Formatter formatter = new Formatter(new StringBuilder());
         int count = DataUtils.countForRow(dataset, rowKey);
         double total = DataUtils.totalForRow(dataset, rowKey);
@@ -163,8 +163,8 @@ public class StandardCategoryLabelGenerator<S extends Comparable<S>, R extends C
     @Override
     public String generateColumnLabel(CategoryDataset3D<S, R, C> dataset, 
             C columnKey) {
-        ArgChecks.nullNotPermitted(dataset, "dataset");
-        ArgChecks.nullNotPermitted(columnKey, "columnKey");
+        Args.nullNotPermitted(dataset, "dataset");
+        Args.nullNotPermitted(columnKey, "columnKey");
         Formatter formatter = new Formatter(new StringBuilder());
         int count = DataUtils.countForColumn(dataset, columnKey);
         double total = DataUtils.totalForColumn(dataset, columnKey);

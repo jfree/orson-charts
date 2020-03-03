@@ -100,7 +100,7 @@ import com.orsoncharts.table.TableElement;
 import com.orsoncharts.table.TextElement;
 import com.orsoncharts.table.StandardRectanglePainter;
 import com.orsoncharts.table.RectanglePainter;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 import com.orsoncharts.util.ObjectUtils;
 import com.orsoncharts.util.RefPt2D;
 import com.orsoncharts.util.TextUtils;
@@ -276,8 +276,8 @@ public class Chart3D implements Drawable3D, ChartElement,
      */
     public Chart3D(String title, String subtitle, Plot3D plot, 
             ChartStyle style) {
-        ArgChecks.nullNotPermitted(plot, "plot");
-        ArgChecks.nullNotPermitted(style, "style");
+        Args.nullNotPermitted(plot, "plot");
+        Args.nullNotPermitted(style, "style");
         plot.setChart(this);
         this.background = new StandardRectanglePainter(Color.WHITE);
         if (title != null) {
@@ -400,8 +400,8 @@ public class Chart3D implements Drawable3D, ChartElement,
      */
     public void setTitle(String title, Font font, Color color) {
         // defer 'title' null check
-        ArgChecks.nullNotPermitted(font, "font");
-        ArgChecks.nullNotPermitted(color, "color");
+        Args.nullNotPermitted(font, "font");
+        Args.nullNotPermitted(color, "color");
         TextElement te = new TextElement(title);
         te.setTag("CHART_TITLE");
         te.setFont(font);
@@ -443,7 +443,7 @@ public class Chart3D implements Drawable3D, ChartElement,
      * @see #getTitleAnchor() 
      */
     public void setTitleAnchor(Anchor2D anchor) {
-        ArgChecks.nullNotPermitted(anchor, "anchor");
+        Args.nullNotPermitted(anchor, "anchor");
         this.titleAnchor = anchor;
         fireChangeEvent();
     }
@@ -483,7 +483,7 @@ public class Chart3D implements Drawable3D, ChartElement,
      * @see #getChartBoxColor()
      */
     public void setChartBoxColor(Color color) {
-        ArgChecks.nullNotPermitted(color, "color");
+        Args.nullNotPermitted(color, "color");
         this.chartBoxColor = color;
         fireChangeEvent();
     }
@@ -515,7 +515,7 @@ public class Chart3D implements Drawable3D, ChartElement,
      */
     @Override
     public void setViewPoint(ViewPoint3D viewPoint) {
-        ArgChecks.nullNotPermitted(viewPoint, "viewPoint");
+        Args.nullNotPermitted(viewPoint, "viewPoint");
         this.viewPoint = viewPoint;
         fireChangeEvent();
     }    
@@ -570,7 +570,7 @@ public class Chart3D implements Drawable3D, ChartElement,
      */
     @Override
     public void setTranslate2D(Offset2D offset) {
-        ArgChecks.nullNotPermitted(offset, "offset");
+        Args.nullNotPermitted(offset, "offset");
         this.translate2D = offset;
         fireChangeEvent();
     }
@@ -624,7 +624,7 @@ public class Chart3D implements Drawable3D, ChartElement,
      * @see #getLegendAnchor() 
      */
     public void setLegendAnchor(Anchor2D anchor) {
-        ArgChecks.nullNotPermitted(anchor, "anchor");
+        Args.nullNotPermitted(anchor, "anchor");
         this.legendAnchor = anchor;
         fireChangeEvent();
     }
@@ -649,7 +649,7 @@ public class Chart3D implements Drawable3D, ChartElement,
      * @since 1.1
      */
     public void setLegendOrientation(Orientation orientation) {
-        ArgChecks.nullNotPermitted(orientation, "orientation");
+        Args.nullNotPermitted(orientation, "orientation");
         this.legendOrientation = orientation;
         fireChangeEvent();
     }
@@ -701,7 +701,7 @@ public class Chart3D implements Drawable3D, ChartElement,
      * @since 1.1
      */
     public void setRenderingHints(RenderingHints hints) {
-        ArgChecks.nullNotPermitted(hints, "hints");
+        Args.nullNotPermitted(hints, "hints");
         this.renderingHints = hints;
         fireChangeEvent();
     }
@@ -788,7 +788,7 @@ public class Chart3D implements Drawable3D, ChartElement,
      * @since 1.2
      */
     public void setStyle(ChartStyle style) {
-        ArgChecks.nullNotPermitted(style, "style");
+        Args.nullNotPermitted(style, "style");
         this.style.removeChangeListener(this);
         this.style = style;
         this.style.addChangeListener(this);
@@ -1858,9 +1858,9 @@ public class Chart3D implements Drawable3D, ChartElement,
      */
     private Rectangle2D calculateDrawArea(Dimension2D dim, Anchor2D anchor, 
             Rectangle2D bounds) {
-        ArgChecks.nullNotPermitted(dim, "dim");
-        ArgChecks.nullNotPermitted(anchor, "anchor");
-        ArgChecks.nullNotPermitted(bounds, "bounds");
+        Args.nullNotPermitted(dim, "dim");
+        Args.nullNotPermitted(anchor, "anchor");
+        Args.nullNotPermitted(bounds, "bounds");
         double x, y;
         double w = Math.min(dim.getWidth(), bounds.getWidth());
         double h = Math.min(dim.getHeight(), bounds.getHeight());

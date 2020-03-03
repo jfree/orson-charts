@@ -56,7 +56,7 @@ import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.util.TextUtils;
 import com.orsoncharts.util.TextAnchor;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 import com.orsoncharts.util.ObjectUtils;
 
 /**
@@ -238,7 +238,7 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
      * @param formatter  the formatter ({@code null} not permitted).
      */
     public void setTickLabelFormatter(Format formatter) {
-        ArgChecks.nullNotPermitted(formatter, "formatter");
+        Args.nullNotPermitted(formatter, "formatter");
         this.tickLabelFormatter = formatter;
         fireChangeEvent(false);
     }
@@ -253,7 +253,7 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
      */
     @Override
     protected Range adjustedDataRange(Range range) {
-        ArgChecks.nullNotPermitted(range, "range");
+        Args.nullNotPermitted(range, "range");
         double lm = range.getLength() * getLowerMargin();
         double um = range.getLength() * getUpperMargin();
         double lowerBound = range.getMin() - lm;

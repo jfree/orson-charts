@@ -45,7 +45,7 @@ import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.Offset3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.renderer.Renderer3DChangeEvent;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * A renderer for 3D scatter plots.  This renderer is used with an
@@ -102,7 +102,7 @@ public class ScatterXYZRenderer extends AbstractXYZRenderer
      * @param size  the size (in world units, must be positive).
      */
     public void setSize(double size) {
-        ArgChecks.positiveRequired(size, "size");
+        Args.positiveRequired(size, "size");
         this.size = size;
         fireChangeEvent(true);
     }
@@ -127,7 +127,7 @@ public class ScatterXYZRenderer extends AbstractXYZRenderer
      * @since 1.3
      */
     public void setItemLabelOffsetPercent(Offset3D offset) {
-        ArgChecks.nullNotPermitted(offset, "offset");
+        Args.nullNotPermitted(offset, "offset");
         this.itemLabelOffsetPercent = offset;
         fireChangeEvent(true);
     }

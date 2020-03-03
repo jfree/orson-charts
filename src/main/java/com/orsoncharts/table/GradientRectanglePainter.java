@@ -43,7 +43,7 @@ import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 
 import com.orsoncharts.Anchor2D;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 import com.orsoncharts.util.ObjectUtils;
 
 /**
@@ -88,10 +88,10 @@ public final class GradientRectanglePainter implements RectanglePainter,
      */
     public GradientRectanglePainter(Color color1, Anchor2D anchor1, 
             Color color2, Anchor2D anchor2) {
-        ArgChecks.nullNotPermitted(color1, "color1");
-        ArgChecks.nullNotPermitted(anchor1, "anchor1");
-        ArgChecks.nullNotPermitted(color2, "color2");
-        ArgChecks.nullNotPermitted(anchor2, "anchor2");
+        Args.nullNotPermitted(color1, "color1");
+        Args.nullNotPermitted(anchor1, "anchor1");
+        Args.nullNotPermitted(color2, "color2");
+        Args.nullNotPermitted(anchor2, "anchor2");
         this.color1 = color1;
         this.anchor1 = anchor1;
         this.color2 = color2;

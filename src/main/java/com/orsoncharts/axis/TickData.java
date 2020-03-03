@@ -33,7 +33,7 @@
 package com.orsoncharts.axis;
 
 import java.awt.geom.Point2D;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * Data related to the tick marks and labels on a chart.
@@ -100,7 +100,7 @@ public class TickData {
      * @param vertexIndex  the vertex index.
      */
     public TickData(TickData source, int vertexIndex) {
-        ArgChecks.nullNotPermitted(source, "source");
+        Args.nullNotPermitted(source, "source");
         this.pos = source.pos;
         this.dataValue = source.dataValue;
         this.key = source.key;

@@ -34,7 +34,7 @@ package com.orsoncharts.style;
 
 import java.util.EventObject;
 
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * An event that signals a change to a {@link ChartStyle}.
@@ -67,7 +67,7 @@ public class ChartStyleChangeEvent extends EventObject {
      */
     public ChartStyleChangeEvent(Object source, ChartStyle style) {
         super(source);
-        ArgChecks.nullNotPermitted(style, "style");
+        Args.nullNotPermitted(style, "style");
         this.style = style;
     }
   

@@ -45,7 +45,7 @@ import java.io.Serializable;
 
 import com.orsoncharts.data.Range;
 import com.orsoncharts.Anchor2D;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 import com.orsoncharts.util.ObjectUtils;
 import com.orsoncharts.util.SerialUtils;
 
@@ -169,7 +169,7 @@ public class NumberMarker extends AbstractMarker implements ValueMarker,
      * @param font  the font ({@code null} not permitted). 
      */
     public void setFont(Font font) {
-        ArgChecks.nullNotPermitted(font, "font");
+        Args.nullNotPermitted(font, "font");
         this.font = font;
         fireChangeEvent();
     }
@@ -191,7 +191,7 @@ public class NumberMarker extends AbstractMarker implements ValueMarker,
      * @param color  the color ({@code null} not permitted). 
      */
     public void setLabelColor(Color color) {
-        ArgChecks.nullNotPermitted(color, "color");
+        Args.nullNotPermitted(color, "color");
         this.labelColor = color;
         fireChangeEvent();
     }
@@ -213,7 +213,7 @@ public class NumberMarker extends AbstractMarker implements ValueMarker,
      * @param anchor  the anchor ({@code null} not permitted). 
      */
     public void setLabelAnchor(Anchor2D anchor) {
-        ArgChecks.nullNotPermitted(anchor, "anchor");
+        Args.nullNotPermitted(anchor, "anchor");
         this.labelAnchor = anchor;
         fireChangeEvent();
     }
@@ -235,7 +235,7 @@ public class NumberMarker extends AbstractMarker implements ValueMarker,
      * @param stroke  the stroke ({@code null} not permitted). 
      */
     public void setLineStroke(Stroke stroke) {
-        ArgChecks.nullNotPermitted(stroke, "stroke");
+        Args.nullNotPermitted(stroke, "stroke");
         this.stroke = stroke;
         fireChangeEvent();
     }
@@ -257,7 +257,7 @@ public class NumberMarker extends AbstractMarker implements ValueMarker,
      * @param color  the color ({@code null} not permitted). 
      */
     public void setLineColor(Color color) {
-        ArgChecks.nullNotPermitted(color, "color");
+        Args.nullNotPermitted(color, "color");
         this.lineColor = color;
         fireChangeEvent();
     }

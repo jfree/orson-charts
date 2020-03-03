@@ -32,7 +32,7 @@
 
 package com.orsoncharts.data.xyz;
 
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -56,8 +56,8 @@ public class XYZItemKeys {
      */
     public static <S extends Comparable<S>> Collection<XYZItemKey<S>> 
             itemKeysForSeries(XYZDataset<S> dataset, S seriesKey) {
-        ArgChecks.nullNotPermitted(dataset, "dataset");
-        ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
+        Args.nullNotPermitted(dataset, "dataset");
+        Args.nullNotPermitted(seriesKey, "seriesKey");
         Collection<XYZItemKey<S>> result = new ArrayList<>();
         int seriesIndex = dataset.getSeriesIndex(seriesKey);
         if (seriesIndex > 0) {

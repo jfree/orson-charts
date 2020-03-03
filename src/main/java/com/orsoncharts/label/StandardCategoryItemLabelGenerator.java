@@ -39,7 +39,7 @@ import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.KeyedValues3DItemKey;
 import com.orsoncharts.interaction.KeyedValues3DItemSelection;
 import com.orsoncharts.interaction.StandardKeyedValues3DItemSelection;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 import com.orsoncharts.util.ObjectUtils;
 
 /**
@@ -117,7 +117,7 @@ public class StandardCategoryItemLabelGenerator
      * @param template  the template ({@code null} not permitted).
      */
     public StandardCategoryItemLabelGenerator(String template) {
-        ArgChecks.nullNotPermitted(template, "template");
+        Args.nullNotPermitted(template, "template");
         this.template = template;
         this.itemSelection = null;
     }
@@ -160,10 +160,10 @@ public class StandardCategoryItemLabelGenerator
     public String generateItemLabel(CategoryDataset3D dataset, 
             Comparable<?> seriesKey, Comparable<?> rowKey, 
             Comparable<?> columnKey) {
-        ArgChecks.nullNotPermitted(dataset, "dataset");
-        ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
-        ArgChecks.nullNotPermitted(rowKey, "rowKey");
-        ArgChecks.nullNotPermitted(columnKey, "columnKey");
+        Args.nullNotPermitted(dataset, "dataset");
+        Args.nullNotPermitted(seriesKey, "seriesKey");
+        Args.nullNotPermitted(rowKey, "rowKey");
+        Args.nullNotPermitted(columnKey, "columnKey");
         if (this.itemSelection != null) {
             KeyedValues3DItemKey key = new KeyedValues3DItemKey(seriesKey, 
                     rowKey, columnKey);

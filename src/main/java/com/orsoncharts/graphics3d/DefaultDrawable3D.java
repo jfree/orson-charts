@@ -43,7 +43,7 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.graphics3d.internal.Utils2D;
 import com.orsoncharts.graphics3d.internal.ZOrderComparator;
@@ -82,7 +82,7 @@ public class DefaultDrawable3D implements Drawable3D {
      * @param world  the world to view ({@code null} not permitted). 
      */
     public DefaultDrawable3D(World world) {
-        ArgChecks.nullNotPermitted(world, "world");
+        Args.nullNotPermitted(world, "world");
         this.viewPoint = new ViewPoint3D((float) (3 * Math.PI / 2.0), 
                 (float) Math.PI / 6, 40.0f, 0.0);
         this.projDist = DEFAULT_PROJ_DIST;
@@ -117,7 +117,7 @@ public class DefaultDrawable3D implements Drawable3D {
      */
     @Override
     public void setViewPoint(ViewPoint3D viewPoint) {
-        ArgChecks.nullNotPermitted(viewPoint, "viewPoint");
+        Args.nullNotPermitted(viewPoint, "viewPoint");
         this.viewPoint = viewPoint;
     }
 
@@ -154,7 +154,7 @@ public class DefaultDrawable3D implements Drawable3D {
 
     @Override
     public void setTranslate2D(Offset2D offset) {
-        ArgChecks.nullNotPermitted(offset, "offset");
+        Args.nullNotPermitted(offset, "offset");
         this.offset = offset;
     }
     
@@ -168,7 +168,7 @@ public class DefaultDrawable3D implements Drawable3D {
      */
     @Override
     public RenderingInfo draw(Graphics2D g2, Rectangle2D bounds) {
-        ArgChecks.nullNotPermitted(g2, "g2");
+        Args.nullNotPermitted(g2, "g2");
         g2.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_ROUND,
                 BasicStroke.JOIN_ROUND));
         g2.setPaint(Color.WHITE);

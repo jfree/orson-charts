@@ -32,7 +32,7 @@
 
 package com.orsoncharts.graphics3d;
 
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * A line segment in 3D space.
@@ -52,8 +52,8 @@ public class Line3D {
      * @param end  the ending point ({@code null} not permitted).
      */
     public Line3D(Point3D start, Point3D end) {
-        ArgChecks.nullNotPermitted(start, "start");
-        ArgChecks.nullNotPermitted(end, "end");
+        Args.nullNotPermitted(start, "start");
+        Args.nullNotPermitted(end, "end");
         this.start = start;
         this.end = end;
     }

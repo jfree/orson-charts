@@ -34,7 +34,7 @@ package com.orsoncharts.graphics3d;
 
 import java.awt.Color;
 import java.awt.Font;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * A face that carries a label (and is itself invisible).
@@ -74,10 +74,10 @@ public class LabelFace extends Face {
     public LabelFace(Object3D owner, int[] vertices, String label, Font font, 
             Color textColor, Color backgroundColor) {
         super(owner, vertices);
-        ArgChecks.nullNotPermitted(label, "label");
-        ArgChecks.nullNotPermitted(font, "font");
-        ArgChecks.nullNotPermitted(textColor, "textColor");
-        ArgChecks.nullNotPermitted(backgroundColor, "backgroundColor");
+        Args.nullNotPermitted(label, "label");
+        Args.nullNotPermitted(font, "font");
+        Args.nullNotPermitted(textColor, "textColor");
+        Args.nullNotPermitted(backgroundColor, "backgroundColor");
         this.label = label;
         this.font = font;
         this.textColor = textColor;
@@ -109,7 +109,7 @@ public class LabelFace extends Face {
      * @param label  the new label ({@code null} not permitted). 
      */
     public void setLabel(String label) {
-        ArgChecks.nullNotPermitted(label, "label");
+        Args.nullNotPermitted(label, "label");
         this.label = label;
     }
 
@@ -128,7 +128,7 @@ public class LabelFace extends Face {
      * @param font  the font ({@code null} not permitted). 
      */
     public void setFont(Font font) {
-        ArgChecks.nullNotPermitted(font, "font");
+        Args.nullNotPermitted(font, "font");
         this.font = font;
     }
 

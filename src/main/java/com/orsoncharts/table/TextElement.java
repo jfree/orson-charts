@@ -43,7 +43,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 import com.orsoncharts.util.TextAnchor;
 import com.orsoncharts.util.TextUtils;
 
@@ -96,8 +96,8 @@ public class TextElement extends AbstractTableElement
      */
     public TextElement(String text, Font font) {
         super();
-        ArgChecks.nullNotPermitted(text, "text");
-        ArgChecks.nullNotPermitted(font, "font");
+        Args.nullNotPermitted(text, "text");
+        Args.nullNotPermitted(font, "font");
         this.text = text;
         this.font = font;
         this.color = Color.BLACK;
@@ -119,7 +119,7 @@ public class TextElement extends AbstractTableElement
      * @param font  the font ({@code null} not permitted). 
      */
     public void setFont(Font font) {
-        ArgChecks.nullNotPermitted(font, "font");
+        Args.nullNotPermitted(font, "font");
         this.font = font;
     }
     
@@ -128,7 +128,7 @@ public class TextElement extends AbstractTableElement
     }
     
     public void setColor(Color color) {
-        ArgChecks.nullNotPermitted(color, "color");
+        Args.nullNotPermitted(color, "color");
         this.color = color;
     }
     
@@ -148,7 +148,7 @@ public class TextElement extends AbstractTableElement
      * @param align  the alignment ({@code null} not permitted). 
      */
     public void setHorizontalAligment(HAlign align) {
-        ArgChecks.nullNotPermitted(align, "align");
+        Args.nullNotPermitted(align, "align");
         this.alignment = align;
     }
 

@@ -38,7 +38,7 @@ import java.util.List;
 import javax.swing.event.EventListenerList;
 import com.orsoncharts.data.Series3DChangeEvent;
 import com.orsoncharts.data.Series3DChangeListener;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 import com.orsoncharts.util.ObjectUtils;
 
 /**
@@ -82,7 +82,7 @@ public class XYZSeries<K extends Comparable<K>> implements Serializable {
      * @param key  the key ({@code null} not permitted). 
      */
     public XYZSeries(K key) {
-        ArgChecks.nullNotPermitted(key, "key");
+        Args.nullNotPermitted(key, "key");
         this.key = key;
         this.items = new ArrayList<>();
         this.listeners = new EventListenerList();
@@ -172,7 +172,7 @@ public class XYZSeries<K extends Comparable<K>> implements Serializable {
      * @param item  the data item ({@code null} not permitted).
      */
     public void add(XYZDataItem item) {
-        ArgChecks.nullNotPermitted(item, "item");
+        Args.nullNotPermitted(item, "item");
         this.items.add(item);
         fireSeriesChanged();
     }

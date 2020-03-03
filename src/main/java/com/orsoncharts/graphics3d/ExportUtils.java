@@ -46,7 +46,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import javax.imageio.ImageIO;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 import com.orsoncharts.util.ExportFormats;
 
 /**
@@ -76,8 +76,8 @@ public class ExportUtils {
             throw new IllegalStateException(
                     "JFreeSVG is not present on the classpath.");
         }
-        ArgChecks.nullNotPermitted(drawable, "drawable");
-        ArgChecks.nullNotPermitted(file, "file");
+        Args.nullNotPermitted(drawable, "drawable");
+        Args.nullNotPermitted(file, "file");
         try {
             Class<?> svg2Class = Class.forName(
                     "org.jfree.graphics2d.svg.SVGGraphics2D");
@@ -130,8 +130,8 @@ public class ExportUtils {
             throw new IllegalStateException(
                     "OrsonPDF is not present on the classpath.");
         }
-        ArgChecks.nullNotPermitted(drawable, "drawable");
-        ArgChecks.nullNotPermitted(file, "file");
+        Args.nullNotPermitted(drawable, "drawable");
+        Args.nullNotPermitted(file, "file");
         try {
             Class<?> pdfDocClass = Class.forName("com.orsonpdf.PDFDocument");
             Object pdfDoc = pdfDocClass.newInstance();

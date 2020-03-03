@@ -34,7 +34,7 @@ package com.orsoncharts;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * Provides centralised access to localised resources.
@@ -66,7 +66,7 @@ public class Resources {
      * @param l  the locale ({@code null} not permitted).
      */
     public static void setLocale(Locale l) {
-        ArgChecks.nullNotPermitted(l, "l");
+        Args.nullNotPermitted(l, "l");
         locale = l;
         resources = ResourceBundle.getBundle("com.orsoncharts.Resources",
                 locale);

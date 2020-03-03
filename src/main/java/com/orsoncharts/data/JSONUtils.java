@@ -45,7 +45,7 @@ import com.orsoncharts.data.category.StandardCategoryDataset3D;
 import com.orsoncharts.util.json.JSONValue;
 import com.orsoncharts.util.json.parser.JSONParser;
 import com.orsoncharts.util.json.parser.ParseException;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 import com.orsoncharts.util.json.parser.ContainerFactory;
 import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.data.xyz.XYZSeries;
@@ -70,7 +70,7 @@ public class JSONUtils {
      * @return A {@link KeyedValues} instance. 
      */
     public static KeyedValues<String, Number> readKeyedValues(String json) {
-        ArgChecks.nullNotPermitted(json, "json");
+        Args.nullNotPermitted(json, "json");
         StringReader in = new StringReader(json);
         KeyedValues<String, Number> result;
         try {
@@ -97,7 +97,7 @@ public class JSONUtils {
      */
     public static KeyedValues<String, Number> readKeyedValues(
             Reader reader) throws IOException {
-        ArgChecks.nullNotPermitted(reader, "reader");
+        Args.nullNotPermitted(reader, "reader");
         try {
             JSONParser parser = new JSONParser();
             // parse with custom containers (to preserve item order)
@@ -128,7 +128,7 @@ public class JSONUtils {
      */
     @SuppressWarnings("unchecked")
     public static String writeKeyedValues(KeyedValues data) {
-        ArgChecks.nullNotPermitted(data, "data");
+        Args.nullNotPermitted(data, "data");
         StringWriter sw = new StringWriter();
         try {
             writeKeyedValues(data, sw);
@@ -151,8 +151,8 @@ public class JSONUtils {
     @SuppressWarnings("unchecked")
     public static void writeKeyedValues(KeyedValues data, Writer writer) 
             throws IOException {
-        ArgChecks.nullNotPermitted(data, "data");
-        ArgChecks.nullNotPermitted(writer, "writer");
+        Args.nullNotPermitted(data, "data");
+        Args.nullNotPermitted(writer, "writer");
         writer.write("[");
         boolean first = true;
         for (Object key : data.getKeys()) {
@@ -180,7 +180,7 @@ public class JSONUtils {
     @SuppressWarnings("unchecked")
     public static KeyedValues2D<String, String, Number> 
             readKeyedValues2D(String json) {
-        ArgChecks.nullNotPermitted(json, "json");
+        Args.nullNotPermitted(json, "json");
         StringReader in = new StringReader(json);
         KeyedValues2D<String, String, Number> result;
         try { 
@@ -301,7 +301,7 @@ public class JSONUtils {
      * @return The string. 
      */
     public static String writeKeyedValues2D(KeyedValues2D data) {
-        ArgChecks.nullNotPermitted(data, "data");
+        Args.nullNotPermitted(data, "data");
         StringWriter sw = new StringWriter();
         try {
             writeKeyedValues2D(data, sw);
@@ -322,8 +322,8 @@ public class JSONUtils {
     @SuppressWarnings("unchecked")
     public static void writeKeyedValues2D(KeyedValues2D data, Writer writer) 
             throws IOException {
-        ArgChecks.nullNotPermitted(data, "data");
-        ArgChecks.nullNotPermitted(writer, "writer");
+        Args.nullNotPermitted(data, "data");
+        Args.nullNotPermitted(writer, "writer");
         List<Comparable> columnKeys = data.getColumnKeys();
         List<Comparable> rowKeys = data.getRowKeys();
         writer.write("{");
@@ -532,7 +532,7 @@ public class JSONUtils {
      * @return A string in JSON format. 
      */
     public static String writeKeyedValues3D(KeyedValues3D dataset) {
-        ArgChecks.nullNotPermitted(dataset, "dataset");
+        Args.nullNotPermitted(dataset, "dataset");
         StringWriter sw = new StringWriter();
         try {
             writeKeyedValues3D(dataset, sw);
@@ -553,8 +553,8 @@ public class JSONUtils {
     @SuppressWarnings("unchecked")
     public static void writeKeyedValues3D(KeyedValues3D dataset, Writer writer) 
             throws IOException {
-        ArgChecks.nullNotPermitted(dataset, "dataset");
-        ArgChecks.nullNotPermitted(writer, "writer");
+        Args.nullNotPermitted(dataset, "dataset");
+        Args.nullNotPermitted(writer, "writer");
 
         writer.write("{");
         if (!dataset.getColumnKeys().isEmpty()) {
@@ -648,9 +648,9 @@ public class JSONUtils {
     @SuppressWarnings("unchecked")
     private static int countForRowInSeries(KeyedValues3D data, 
             Comparable seriesKey, Comparable rowKey) {
-        ArgChecks.nullNotPermitted(data, "data");
-        ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
-        ArgChecks.nullNotPermitted(rowKey, "rowKey");
+        Args.nullNotPermitted(data, "data");
+        Args.nullNotPermitted(seriesKey, "seriesKey");
+        Args.nullNotPermitted(rowKey, "rowKey");
         int seriesIndex = data.getSeriesIndex(seriesKey);
         if (seriesIndex < 0) {
             throw new IllegalArgumentException("Series not found: " 
@@ -683,7 +683,7 @@ public class JSONUtils {
      * @see #writeXYZDataset(com.orsoncharts.data.xyz.XYZDataset) 
      */
     public static XYZDataset<String> readXYZDataset(String json) {
-        ArgChecks.nullNotPermitted(json, "json");
+        Args.nullNotPermitted(json, "json");
         StringReader in = new StringReader(json);
         XYZDataset<String> result;
         try {

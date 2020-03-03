@@ -39,7 +39,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * An action that performs a zoom-to-fit operation.
@@ -62,7 +62,7 @@ public class ZoomToFitAction extends AbstractAction {
      */
     public ZoomToFitAction(Panel3D panel, boolean fontAwesome) {
         super("\uf065");
-        ArgChecks.nullNotPermitted(panel, "panel");
+        Args.nullNotPermitted(panel, "panel");
         this.panel = panel;
         if (!fontAwesome) {
             putValue(Action.NAME, Resources.localString("ZOOM_TO_FIT"));

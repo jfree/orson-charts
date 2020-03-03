@@ -54,7 +54,7 @@ import com.orsoncharts.marker.RangeMarker;
 import com.orsoncharts.marker.ValueMarker;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.plot.XYZPlot;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 import com.orsoncharts.util.ObjectUtils;
 import com.orsoncharts.util.SerialUtils;
 
@@ -131,7 +131,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
      */
     public AbstractValueAxis3D(String label, Range range) {
         super(label);
-        ArgChecks.nullNotPermitted(range, "range");
+        Args.nullNotPermitted(range, "range");
         this.configuredType = null;
         this.range = range;
         this.autoAdjustRange = true;
@@ -207,7 +207,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
      */
     @Override
     public void setRange(Range range) {
-        ArgChecks.nullNotPermitted(range, "range");
+        Args.nullNotPermitted(range, "range");
         if (range.getLength() <= 0.0) {
             throw new IllegalArgumentException(
                     "Requires a range with length > 0");
@@ -341,7 +341,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
      * @see #getDefaultAutoRange() 
      */
     public void setDefaultAutoRange(Range range) {
-        ArgChecks.nullNotPermitted(range, "range");
+        Args.nullNotPermitted(range, "range");
         this.defaultAutoRange = range;
         fireChangeEvent(true);
     }
@@ -367,7 +367,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
      * @since 1.4
      */
     public void setMinAutoRangeLength(double length) {
-        ArgChecks.positiveRequired(length, "length");
+        Args.positiveRequired(length, "length");
         this.minAutoRangeLength = length;
         fireChangeEvent(this.range.getLength() < length);
     }
@@ -423,7 +423,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
      * @since 1.2
      */
     public void setTickLabelOrientation(LabelOrientation orientation) {
-        ArgChecks.nullNotPermitted(orientation, "orientation");
+        Args.nullNotPermitted(orientation, "orientation");
         this.tickLabelOrientation = orientation;
         fireChangeEvent(false);
     }
@@ -510,7 +510,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
      * @param stroke  the stroke ({@code null} not permitted). 
      */
     public void setTickMarkStroke(Stroke stroke) {
-        ArgChecks.nullNotPermitted(stroke, "stroke");
+        Args.nullNotPermitted(stroke, "stroke");
         this.tickMarkStroke = stroke;
         fireChangeEvent(false);
     }
@@ -532,7 +532,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
      * @param paint  the paint ({@code null} not permitted). 
      */
     public void setTickMarkPaint(Paint paint) {
-        ArgChecks.nullNotPermitted(paint, "paint");
+        Args.nullNotPermitted(paint, "paint");
         this.tickMarkPaint = paint;
         fireChangeEvent(false);
     }

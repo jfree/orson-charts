@@ -35,7 +35,7 @@ package com.orsoncharts.data.xyz;
 import java.io.Serializable;
 
 import com.orsoncharts.data.ItemKey;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 import com.orsoncharts.util.ObjectUtils;
 
 /**
@@ -64,7 +64,7 @@ public class XYZItemKey<S extends Comparable<S>> implements ItemKey,
      * @param itemIndex  the item index.
      */
     public XYZItemKey(S seriesKey, int itemIndex) {
-        ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
+        Args.nullNotPermitted(seriesKey, "seriesKey");
         this.seriesKey = seriesKey;
         this.itemIndex = itemIndex;
     }

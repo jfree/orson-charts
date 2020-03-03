@@ -38,7 +38,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import com.orsoncharts.data.KeyedValues3D;
 import com.orsoncharts.data.KeyedValues3DItemKey;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * An object that tracks selected items from a {@link KeyedValues3D} dataset.
@@ -68,7 +68,7 @@ public class StandardKeyedValues3DItemSelection
      * @return A boolean.
      */
     public boolean add(KeyedValues3DItemKey itemKey) {
-        ArgChecks.nullNotPermitted(itemKey, "itemKey");
+        Args.nullNotPermitted(itemKey, "itemKey");
         return this.selectedItems.add(itemKey);
     }
     
@@ -82,7 +82,7 @@ public class StandardKeyedValues3DItemSelection
      * @return A boolean.
      */
     public boolean addAll(Collection<? extends KeyedValues3DItemKey> keys) {
-        ArgChecks.nullNotPermitted(keys, "keys");
+        Args.nullNotPermitted(keys, "keys");
         return this.selectedItems.addAll(keys);
     }
     

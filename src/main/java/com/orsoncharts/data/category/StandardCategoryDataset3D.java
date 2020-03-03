@@ -39,7 +39,7 @@ import com.orsoncharts.data.AbstractDataset3D;
 import com.orsoncharts.data.DefaultKeyedValues3D;
 import com.orsoncharts.data.JSONUtils;
 import com.orsoncharts.data.KeyedValues;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * A standard implementation of the {@link CategoryDataset3D} interface.
@@ -307,8 +307,8 @@ public final class StandardCategoryDataset3D
      */
     public void addSeriesAsRow(S seriesKey, R rowKey, 
             KeyedValues<C, ? extends Number> data) {
-        ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
-        ArgChecks.nullNotPermitted(data, "data");
+        Args.nullNotPermitted(seriesKey, "seriesKey");
+        Args.nullNotPermitted(data, "data");
         for (C key : data.getKeys()) {
             setValue(data.getValue(key), seriesKey, rowKey, key);
         }

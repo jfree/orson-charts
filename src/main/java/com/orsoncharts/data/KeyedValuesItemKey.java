@@ -33,7 +33,7 @@
 package com.orsoncharts.data;
 
 import java.io.Serializable;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * An object that references one data item in a {@link KeyedValues3D} data
@@ -52,7 +52,7 @@ public class KeyedValuesItemKey implements ItemKey, Serializable {
      * @param key  the key ({@code null} not permitted).
      */
     public KeyedValuesItemKey(Comparable<? extends Object> key) {
-        ArgChecks.nullNotPermitted(key, "key");
+        Args.nullNotPermitted(key, "key");
         this.key = key;
     }
     

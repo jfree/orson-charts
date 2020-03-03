@@ -37,7 +37,7 @@ import com.orsoncharts.data.category.CategoryDataset3D;
 import com.orsoncharts.data.xyz.XYZDataset;
 import com.orsoncharts.data.xyz.XYZSeries;
 import com.orsoncharts.data.xyz.XYZSeriesCollection;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * Some utility methods for working with the various datasets and data
@@ -83,8 +83,8 @@ public class DataUtils {
      */
     public static <S extends Comparable<S>> int count(
             KeyedValues3D<S,?,?,?> data, S seriesKey) {
-        ArgChecks.nullNotPermitted(data, "data");
-        ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
+        Args.nullNotPermitted(data, "data");
+        Args.nullNotPermitted(seriesKey, "seriesKey");
         int seriesIndex = data.getSeriesIndex(seriesKey);
         if (seriesIndex < 0) {
             throw new IllegalArgumentException("Series not found: " 
@@ -118,8 +118,8 @@ public class DataUtils {
      */
     public static <R extends Comparable<R>> int countForRow(
             KeyedValues3D<?, R, ?, ?> data, R rowKey) {
-        ArgChecks.nullNotPermitted(data, "data");
-        ArgChecks.nullNotPermitted(rowKey, "rowKey");
+        Args.nullNotPermitted(data, "data");
+        Args.nullNotPermitted(rowKey, "rowKey");
         int rowIndex = data.getRowIndex(rowKey);
         if (rowIndex < 0) {
             throw new IllegalArgumentException("Row not found: " + rowKey);
@@ -152,8 +152,8 @@ public class DataUtils {
      */
     public static <C extends Comparable<C>> int countForColumn(
             KeyedValues3D<?, ?, C, ?> data, C columnKey) {
-        ArgChecks.nullNotPermitted(data, "data");
-        ArgChecks.nullNotPermitted(columnKey, "columnKey");
+        Args.nullNotPermitted(data, "data");
+        Args.nullNotPermitted(columnKey, "columnKey");
         int columnIndex = data.getColumnIndex(columnKey);
         if (columnIndex < 0) {
             throw new IllegalArgumentException("Column not found: " 
@@ -188,8 +188,8 @@ public class DataUtils {
      */
     public static <S extends Comparable<S>> double total(
             KeyedValues3D<S, ?, ?, ? extends Number> data, S seriesKey) {
-        ArgChecks.nullNotPermitted(data, "data");
-        ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
+        Args.nullNotPermitted(data, "data");
+        Args.nullNotPermitted(seriesKey, "seriesKey");
         int seriesIndex = data.getSeriesIndex(seriesKey);
         if (seriesIndex < 0) {
             throw new IllegalArgumentException("Series not found: " 
@@ -223,8 +223,8 @@ public class DataUtils {
      */
     public static <R extends Comparable<R>> double totalForRow(
             KeyedValues3D<?, R, ?, ? extends Number> data, R rowKey) {
-        ArgChecks.nullNotPermitted(data, "data");
-        ArgChecks.nullNotPermitted(rowKey, "rowKey");
+        Args.nullNotPermitted(data, "data");
+        Args.nullNotPermitted(rowKey, "rowKey");
         int rowIndex = data.getRowIndex(rowKey);
         if (rowIndex < 0) {
             throw new IllegalArgumentException("Row not found: " + rowKey);
@@ -257,8 +257,8 @@ public class DataUtils {
      */
     public static <C extends Comparable<C>> double totalForColumn(
             KeyedValues3D<?, ?, C, ? extends Number> data, C columnKey) {
-        ArgChecks.nullNotPermitted(data, "data");
-        ArgChecks.nullNotPermitted(columnKey, "columnKey");
+        Args.nullNotPermitted(data, "data");
+        Args.nullNotPermitted(columnKey, "columnKey");
         int columnIndex = data.getColumnIndex(columnKey);
         if (columnIndex < 0) {
             throw new IllegalArgumentException("Column not found: " 
@@ -326,7 +326,7 @@ public class DataUtils {
      */
     public static Range findValueRange(Values3D<? extends Number> data,
             double base, boolean finite) {
-        ArgChecks.nullNotPermitted(data, "data");
+        Args.nullNotPermitted(data, "data");
         double min = Double.POSITIVE_INFINITY;
         double max = Double.NEGATIVE_INFINITY;
         for (int series = 0; series < data.getSeriesCount(); series++) {
@@ -377,7 +377,7 @@ public class DataUtils {
      */
     public static Range findStackedValueRange(Values3D<? extends Number> data, 
             double base) {
-        ArgChecks.nullNotPermitted(data, "data");
+        Args.nullNotPermitted(data, "data");
         double min = base;
         double max = base;
         int seriesCount = data.getSeriesCount();
@@ -444,8 +444,8 @@ public class DataUtils {
      */
     public static <S extends Comparable<S>> double total(XYZDataset<S> data, 
             S seriesKey) {
-        ArgChecks.nullNotPermitted(data, "data");
-        ArgChecks.nullNotPermitted(seriesKey, "seriesKey");
+        Args.nullNotPermitted(data, "data");
+        Args.nullNotPermitted(seriesKey, "seriesKey");
         int seriesIndex = data.getSeriesIndex(seriesKey);
         if (seriesIndex < 0) {
             throw new IllegalArgumentException("Series not found: " 
@@ -512,7 +512,7 @@ public class DataUtils {
      */
     public static Range findXRange(XYZDataset dataset, double inc, 
             boolean finite) {
-        ArgChecks.nullNotPermitted(dataset, "dataset");
+        Args.nullNotPermitted(dataset, "dataset");
         double min = Double.POSITIVE_INFINITY;
         double max = Double.NEGATIVE_INFINITY;
         for (int s = 0; s < dataset.getSeriesCount(); s++) {
@@ -587,7 +587,7 @@ public class DataUtils {
      */
     public static Range findYRange(XYZDataset dataset, double inc, 
             boolean finite) {
-        ArgChecks.nullNotPermitted(dataset, "dataset");
+        Args.nullNotPermitted(dataset, "dataset");
         double min = Double.POSITIVE_INFINITY;
         double max = Double.NEGATIVE_INFINITY;
         for (int s = 0; s < dataset.getSeriesCount(); s++) {
@@ -662,8 +662,8 @@ public class DataUtils {
      */
     public static Range findZRange(XYZDataset dataset, double inc, 
             boolean finite) {
-        ArgChecks.nullNotPermitted(dataset, "dataset");
-        ArgChecks.finiteRequired(inc, "inc");
+        Args.nullNotPermitted(dataset, "dataset");
+        Args.finiteRequired(inc, "inc");
         double min = Double.POSITIVE_INFINITY;
         double max = Double.NEGATIVE_INFINITY;
         for (int s = 0; s < dataset.getSeriesCount(); s++) {
@@ -754,10 +754,10 @@ public class DataUtils {
             R xRowKey, R yRowKey, R zRowKey, NullConversion nullConversion, 
             List<KeyedValues3DItemKey> exceptions) {
 
-        ArgChecks.nullNotPermitted(source, "source");
-        ArgChecks.nullNotPermitted(xRowKey, "xRowKey");
-        ArgChecks.nullNotPermitted(yRowKey, "yRowKey");
-        ArgChecks.nullNotPermitted(zRowKey, "zRowKey");
+        Args.nullNotPermitted(source, "source");
+        Args.nullNotPermitted(xRowKey, "xRowKey");
+        Args.nullNotPermitted(yRowKey, "yRowKey");
+        Args.nullNotPermitted(zRowKey, "zRowKey");
         XYZSeriesCollection<S> dataset = new XYZSeriesCollection<>();
         for (S seriesKey : source.getSeriesKeys()) {
             XYZSeries<S> series = new XYZSeries<>(seriesKey);
@@ -871,10 +871,10 @@ public class DataUtils {
             C xColKey, C yColKey, C zColKey, NullConversion nullConversion, 
             List<KeyedValues3DItemKey> exceptions) {
 
-        ArgChecks.nullNotPermitted(source, "source");
-        ArgChecks.nullNotPermitted(xColKey, "xColKey");
-        ArgChecks.nullNotPermitted(yColKey, "yColKey");
-        ArgChecks.nullNotPermitted(zColKey, "zColKey");
+        Args.nullNotPermitted(source, "source");
+        Args.nullNotPermitted(xColKey, "xColKey");
+        Args.nullNotPermitted(yColKey, "yColKey");
+        Args.nullNotPermitted(zColKey, "zColKey");
         XYZSeriesCollection<S> dataset = new XYZSeriesCollection<>();
         for (S seriesKey : source.getSeriesKeys()) {
             XYZSeries<S> series = new XYZSeries<>(seriesKey);

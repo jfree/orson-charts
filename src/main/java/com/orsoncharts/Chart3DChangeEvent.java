@@ -34,7 +34,7 @@ package com.orsoncharts;
 
 import java.util.EventObject;
 
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * An event indicating some change in the attributes of a chart.  Typically 
@@ -71,7 +71,7 @@ public class Chart3DChangeEvent extends EventObject {
      */
     public Chart3DChangeEvent(Object source, Chart3D chart) {
         super(source);
-        ArgChecks.nullNotPermitted(chart, "chart");
+        Args.nullNotPermitted(chart, "chart");
         this.chart = chart;
     }
   

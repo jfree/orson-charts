@@ -33,7 +33,7 @@
 package com.orsoncharts.graphics3d.swing;
 
 import com.orsoncharts.Resources;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 import java.awt.event.ActionEvent;
 
@@ -60,7 +60,7 @@ public class UpAction extends AbstractAction {
      */
     public UpAction(Panel3D panel) {
         super("\uF062");
-        ArgChecks.nullNotPermitted(panel, "panel");
+        Args.nullNotPermitted(panel, "panel");
         this.panel = panel;
         putValue(Action.SHORT_DESCRIPTION, 
                 Resources.localString("UP_ACTION_SHORT_DESCRIPTION"));

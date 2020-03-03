@@ -32,6 +32,7 @@
 
 package com.orsoncharts.util;
 
+import com.orsoncharts.internal.Args;
 import com.orsoncharts.Anchor2D;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
@@ -179,8 +180,8 @@ public class Fit2D implements Serializable {
      * @param scale  the scaling ({@code null} not permitted).
      */
     public Fit2D(Anchor2D anchor, Scale2D scale) {
-        ArgChecks.nullNotPermitted(anchor, "anchor");
-        ArgChecks.nullNotPermitted(scale, "scale");
+        Args.nullNotPermitted(anchor, "anchor");
+        Args.nullNotPermitted(scale, "scale");
         this.anchor = anchor;
         this.scale = scale;
     }

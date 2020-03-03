@@ -48,7 +48,7 @@ import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.interaction.Chart3DMouseEvent;
 import com.orsoncharts.interaction.Chart3DMouseListener;
 import com.orsoncharts.graphics3d.RenderedElement;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * A panel designed to display a {@link Chart3D} in a Swing-based desktop
@@ -216,7 +216,7 @@ public class Chart3DPanel extends Panel3D implements Chart3DChangeListener,
      * @since 1.3
      */
     public void addChartMouseListener(Chart3DMouseListener listener) {
-        ArgChecks.nullNotPermitted(listener, "listener");
+        Args.nullNotPermitted(listener, "listener");
         this.chartMouseListeners.add(Chart3DMouseListener.class, listener);
     }
 
@@ -229,7 +229,7 @@ public class Chart3DPanel extends Panel3D implements Chart3DChangeListener,
      * @since 1.3
      */
     public void removeChartMouseListener(Chart3DMouseListener listener) {
-        ArgChecks.nullNotPermitted(listener, "listener");
+        Args.nullNotPermitted(listener, "listener");
         this.chartMouseListeners.remove(Chart3DMouseListener.class, listener);
     }
 

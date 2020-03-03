@@ -39,7 +39,7 @@ import java.io.Serializable;
 import com.orsoncharts.TitleAnchor;
 import com.orsoncharts.graphics3d.Offset2D;
 import com.orsoncharts.legend.LegendAnchor;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 import com.orsoncharts.util.RefPt2D;
 
 /**
@@ -173,8 +173,8 @@ public final class Anchor2D implements Serializable {
      * @param offset  the offset ({@code null} not permitted).
      */
     public Anchor2D(RefPt2D refPt, Offset2D offset) {
-        ArgChecks.nullNotPermitted(refPt, "refPt");
-        ArgChecks.nullNotPermitted(offset, "offset");
+        Args.nullNotPermitted(refPt, "refPt");
+        Args.nullNotPermitted(offset, "offset");
         this.refPt = refPt;
         this.offset = offset;
     }
@@ -205,7 +205,7 @@ public final class Anchor2D implements Serializable {
      * @return The anchor point. 
      */
     public Point2D getAnchorPoint(Rectangle2D rect) {
-        ArgChecks.nullNotPermitted(rect, "rect");
+        Args.nullNotPermitted(rect, "rect");
         double x = 0.0;
         double y = 0.0;
         if (this.refPt.isLeft()) {

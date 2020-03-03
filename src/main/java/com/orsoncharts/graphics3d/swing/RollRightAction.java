@@ -38,7 +38,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 
 import com.orsoncharts.Resources;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * An action that handles rolling the 3D view clockwise around an
@@ -60,7 +60,7 @@ public class RollRightAction extends AbstractAction {
      */
     public RollRightAction(Panel3D panel) {
         super("\uF064");
-        ArgChecks.nullNotPermitted(panel, "panel");
+        Args.nullNotPermitted(panel, "panel");
         this.panel = panel;
         putValue(Action.SHORT_DESCRIPTION, 
                 Resources.localString("ROLL_RIGHT_ACTION_SHORT_DESCRIPTION"));

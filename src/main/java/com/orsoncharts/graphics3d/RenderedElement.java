@@ -35,7 +35,7 @@ package com.orsoncharts.graphics3d;
 import java.awt.Shape;
 import java.util.HashMap;
 import java.util.Map;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * Represents an item or element that has been rendered by the graphics engine.
@@ -64,7 +64,7 @@ public class RenderedElement {
      * @param bounds  the bounds ({@code null} permitted).
      */
     public RenderedElement(Object type, Shape bounds) {
-        ArgChecks.nullNotPermitted(type, "type");
+        Args.nullNotPermitted(type, "type");
         this.properties = new HashMap<>();
         this.properties.put(TYPE, type);
         this.properties.put(RenderedElement.BOUNDS, bounds);

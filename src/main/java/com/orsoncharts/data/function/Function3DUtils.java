@@ -33,7 +33,7 @@
 package com.orsoncharts.data.function;
 
 import com.orsoncharts.data.Range;
-import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.internal.Args;
 
 /**
  * Utility methods related to {@link Function3D}.
@@ -62,9 +62,9 @@ public class Function3DUtils {
      */
     public static Range findYRange(Function3D f, Range xRange, Range zRange, 
             int xSamples, int zSamples, boolean ignoreNaN) {
-        ArgChecks.nullNotPermitted(f, "f");
-        ArgChecks.nullNotPermitted(xRange, "xRange");
-        ArgChecks.nullNotPermitted(zRange, "zRange");
+        Args.nullNotPermitted(f, "f");
+        Args.nullNotPermitted(xRange, "xRange");
+        Args.nullNotPermitted(zRange, "zRange");
         double min = Double.POSITIVE_INFINITY;
         double max = Double.NEGATIVE_INFINITY;
         for (int xIndex = 0; xIndex <= xSamples - 1; xIndex++) {
