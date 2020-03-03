@@ -63,7 +63,7 @@ import com.orsoncharts.internal.Args;
 import com.orsoncharts.util.ObjectUtils;
 import com.orsoncharts.internal.SerialUtils;
 import com.orsoncharts.util.TextAnchor;
-import com.orsoncharts.util.TextUtils;
+import com.orsoncharts.internal.TextUtils;
 
 /**
  * A base class that can be used to create an {@link Axis3D} implementation.

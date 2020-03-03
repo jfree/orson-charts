@@ -103,7 +103,7 @@ import com.orsoncharts.table.RectanglePainter;
 import com.orsoncharts.internal.Args;
 import com.orsoncharts.util.ObjectUtils;
 import com.orsoncharts.util.RefPt2D;
-import com.orsoncharts.util.TextUtils;
+import com.orsoncharts.internal.TextUtils;
 import com.orsoncharts.util.TextAnchor;
 
 /**

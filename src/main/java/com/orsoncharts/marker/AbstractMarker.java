@@ -44,7 +44,7 @@ import com.orsoncharts.Anchor2D;
 import com.orsoncharts.internal.Args;
 import com.orsoncharts.util.RefPt2D;
 import com.orsoncharts.util.TextAnchor;
-import com.orsoncharts.util.TextUtils;
+import com.orsoncharts.internal.TextUtils;
 
 /**
  * A base class for implementing markers (includes the event notification 

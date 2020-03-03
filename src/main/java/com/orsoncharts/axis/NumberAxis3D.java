@@ -54,7 +54,7 @@ import com.orsoncharts.graphics3d.internal.Utils2D;
 import com.orsoncharts.interaction.InteractiveElementType;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.plot.XYZPlot;
-import com.orsoncharts.util.TextUtils;
+import com.orsoncharts.internal.TextUtils;
 import com.orsoncharts.util.TextAnchor;
 import com.orsoncharts.internal.Args;
 import com.orsoncharts.util.ObjectUtils;

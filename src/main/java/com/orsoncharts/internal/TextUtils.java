@@ -30,9 +30,10 @@
  * 
  */
 
-package com.orsoncharts.util;
+package com.orsoncharts.internal;
 
 import com.orsoncharts.internal.Args;
+import com.orsoncharts.util.TextAnchor;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;

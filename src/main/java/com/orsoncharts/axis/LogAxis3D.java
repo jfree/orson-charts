@@ -55,7 +55,7 @@ import com.orsoncharts.graphics3d.internal.Utils2D;
 import com.orsoncharts.internal.Args;
 import com.orsoncharts.util.ObjectUtils;
 import com.orsoncharts.util.TextAnchor;
-import com.orsoncharts.util.TextUtils;
+import com.orsoncharts.internal.TextUtils;
 
 /**
  * A numerical axis with a logarithmic scale.

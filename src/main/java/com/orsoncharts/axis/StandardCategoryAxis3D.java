@@ -71,7 +71,7 @@ import com.orsoncharts.internal.Args;
 import com.orsoncharts.util.ObjectUtils;
 import com.orsoncharts.internal.SerialUtils;
 import com.orsoncharts.util.TextAnchor;
-import com.orsoncharts.util.TextUtils;
+import com.orsoncharts.internal.TextUtils;
 
 /**
  * An axis that displays categories.

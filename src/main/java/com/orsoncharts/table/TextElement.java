@@ -45,7 +45,7 @@ import java.util.Map;
 
 import com.orsoncharts.internal.Args;
 import com.orsoncharts.util.TextAnchor;
-import com.orsoncharts.util.TextUtils;
+import com.orsoncharts.internal.TextUtils;
 
 /**
  * A table element consisting of some text that will be drawn on one line.

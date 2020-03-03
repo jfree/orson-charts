@@ -53,7 +53,7 @@ import com.orsoncharts.table.ElementDimension;
 import com.orsoncharts.table.TableElement;
 import com.orsoncharts.Orientation;
 import com.orsoncharts.util.TextAnchor;
-import com.orsoncharts.util.TextUtils;
+import com.orsoncharts.internal.TextUtils;
 import com.orsoncharts.data.Range;
 import com.orsoncharts.table.TableElementOnDraw;
 import com.orsoncharts.table.TableElementVisitor;
