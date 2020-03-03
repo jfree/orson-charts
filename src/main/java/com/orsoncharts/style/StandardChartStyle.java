@@ -51,7 +51,7 @@ import com.orsoncharts.internal.ChartBox3D;
 import com.orsoncharts.table.RectanglePainter;
 import com.orsoncharts.table.StandardRectanglePainter;
 import com.orsoncharts.internal.Args;
-import com.orsoncharts.util.SerialUtils;
+import com.orsoncharts.internal.SerialUtils;
 
 /**
  * A standard implementation of the {@link ChartStyle} interface.

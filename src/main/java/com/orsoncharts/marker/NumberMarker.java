@@ -47,7 +47,7 @@ import com.orsoncharts.data.Range;
 import com.orsoncharts.Anchor2D;
 import com.orsoncharts.internal.Args;
 import com.orsoncharts.util.ObjectUtils;
-import com.orsoncharts.util.SerialUtils;
+import com.orsoncharts.internal.SerialUtils;
 
 /**
  * A marker used to mark one value on an axis.

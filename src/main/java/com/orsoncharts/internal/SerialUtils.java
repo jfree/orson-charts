@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.util;
+package com.orsoncharts.internal;
 
 import com.orsoncharts.internal.Args;
 import java.awt.BasicStroke;

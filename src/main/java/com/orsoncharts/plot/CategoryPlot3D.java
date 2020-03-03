@@ -66,7 +66,7 @@ import com.orsoncharts.renderer.Renderer3DChangeListener;
 import com.orsoncharts.renderer.category.CategoryRenderer3D;
 import com.orsoncharts.internal.Args;
 import com.orsoncharts.util.ObjectUtils;
-import com.orsoncharts.util.SerialUtils;
+import com.orsoncharts.internal.SerialUtils;
 
 /**
  * A 3D plot with two category axes (x and z) and a numerical y-axis that can

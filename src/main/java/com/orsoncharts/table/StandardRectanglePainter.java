@@ -48,7 +48,7 @@ import com.orsoncharts.internal.Args;
 import com.orsoncharts.util.Fit2D;
 import com.orsoncharts.util.ObjectUtils;
 import com.orsoncharts.util.Scale2D;
-import com.orsoncharts.util.SerialUtils;
+import com.orsoncharts.internal.SerialUtils;
 
 /**
  * A {@link RectanglePainter} that fills the rectangle with a 

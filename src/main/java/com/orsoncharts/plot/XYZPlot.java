@@ -66,7 +66,7 @@ import com.orsoncharts.renderer.ComposeType;
 import com.orsoncharts.renderer.Renderer3DChangeEvent;
 import com.orsoncharts.renderer.Renderer3DChangeListener;
 import com.orsoncharts.util.ObjectUtils;
-import com.orsoncharts.util.SerialUtils;
+import com.orsoncharts.internal.SerialUtils;
 
 /**
  * A 3D plot with three numerical axes that displays data from an

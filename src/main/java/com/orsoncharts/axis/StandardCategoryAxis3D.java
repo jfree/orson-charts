@@ -69,7 +69,7 @@ import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.category.AreaRenderer3D;
 import com.orsoncharts.internal.Args;
 import com.orsoncharts.util.ObjectUtils;
-import com.orsoncharts.util.SerialUtils;
+import com.orsoncharts.internal.SerialUtils;
 import com.orsoncharts.util.TextAnchor;
 import com.orsoncharts.util.TextUtils;
 
