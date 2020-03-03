@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -212,7 +212,7 @@ public class TextElement extends AbstractTableElement
         double w = Math.min(width, bounds.getWidth());
         double h = Math.min(textBounds.getHeight() + insets.top + insets.bottom,
                 bounds.getHeight());
-        List<Rectangle2D> result = new ArrayList<Rectangle2D>(1);        
+        List<Rectangle2D> result = new ArrayList<>(1);        
         result.add(new Rectangle2D.Double(x, y, w, h));
         return result;
     }

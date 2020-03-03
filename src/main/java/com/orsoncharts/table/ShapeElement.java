@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -60,7 +60,7 @@ public class ShapeElement extends AbstractTableElement
      * The shape (by convention, the shape should be centered on the point
      * (0, 0)). 
      */
-    private Shape shape;
+    private final Shape shape;
     
     private Color fillColor;
     
@@ -115,7 +115,7 @@ public class ShapeElement extends AbstractTableElement
     @Override
     public List<Rectangle2D> layoutElements(Graphics2D g2, Rectangle2D bounds, 
             Map<String, Object> constraints) {
-        List<Rectangle2D> result = new ArrayList<Rectangle2D>(1);
+        List<Rectangle2D> result = new ArrayList<>(1);
         Insets insets = getInsets();
         Rectangle2D shapeBounds = this.shape.getBounds2D();
         double w = Math.min(shapeBounds.getWidth() + insets.left + insets.right,

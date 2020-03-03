@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -44,11 +44,11 @@ import java.util.Map;
  */
 public class TableElementStyler implements TableElementVisitor {
 
-    private Map<String, Font> fontChanges;
+    private final Map<String, Font> fontChanges;
     
-    private Map<String, Color> foregroundColorChanges;
+    private final Map<String, Color> foregroundColorChanges;
     
-    private Map<String, Color> backgroundColorChanges;
+    private final Map<String, Color> backgroundColorChanges;
     
     /**
      * Creates a new styler.  The keys in each map are tag values - each 
@@ -61,7 +61,7 @@ public class TableElementStyler implements TableElementVisitor {
      */
     public TableElementStyler(Map<String, Font> fontChanges, 
             Map<String, Color> fgChanges, Map<String, Color> bgChanges) {
-        this.fontChanges = new HashMap<String, Font>(fontChanges);
+        this.fontChanges = new HashMap<>(fontChanges);
         this.foregroundColorChanges = fgChanges;
         this.backgroundColorChanges = bgChanges;
     }

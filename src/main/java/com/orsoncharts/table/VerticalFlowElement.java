@@ -88,7 +88,7 @@ public class VerticalFlowElement extends AbstractTableElement
      */
     public VerticalFlowElement(VAlign alignment, int vgap) {
         Args.nullNotPermitted(alignment, null);
-        this.elements = new ArrayList<TableElement>();
+        this.elements = new ArrayList<>();
         this.verticalAlignment = alignment;
         this.vgap = vgap;
     }
@@ -137,7 +137,7 @@ public class VerticalFlowElement extends AbstractTableElement
      *     {@code null}). 
      */
     public List<TableElement> getElements() {
-        return new ArrayList<TableElement>(this.elements);
+        return new ArrayList<>(this.elements);
     }
     
     /**
@@ -209,7 +209,7 @@ public class VerticalFlowElement extends AbstractTableElement
      */
     private List<ElementInfo> columnOfElements(int first, 
             Graphics2D g2, Rectangle2D bounds) {
-        List<ElementInfo> result = new ArrayList<ElementInfo>();
+        List<ElementInfo> result = new ArrayList<>();
         int index = first;
         boolean full = false;
         double h = getInsets().top + getInsets().bottom;
@@ -267,7 +267,7 @@ public class VerticalFlowElement extends AbstractTableElement
     public List<Rectangle2D> layoutElements(Graphics2D g2, Rectangle2D bounds, 
             Map<String, Object> constraints) {
         int elementCount = this.elements.size();
-        List<Rectangle2D> result = new ArrayList<Rectangle2D>(elementCount);
+        List<Rectangle2D> result = new ArrayList<>(elementCount);
         int i = 0;
         double x = bounds.getX() + getInsets().left;
         double y = bounds.getY() + getInsets().top;

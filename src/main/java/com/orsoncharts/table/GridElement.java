@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -66,7 +66,7 @@ public class GridElement<R extends Comparable<R>, C extends Comparable<C>>
      * Creates a new empty grid.
      */
     public GridElement() {
-        this.elements = new DefaultKeyedValues2D<R, C, TableElement>();
+        this.elements = new DefaultKeyedValues2D<>();
         setBackgroundColor(TRANSPARENT_COLOR);
     }
     
@@ -176,7 +176,7 @@ public class GridElement<R extends Comparable<R>, C extends Comparable<C>>
         double[][] cellDimensions = findCellDimensions(g2, bounds);
         double[] widths = cellDimensions[0];
         double[] heights = cellDimensions[1];
-        List<Rectangle2D> result = new ArrayList<Rectangle2D>(
+        List<Rectangle2D> result = new ArrayList<>(
                 this.elements.getRowCount() * this.elements.getColumnCount());
         double y = bounds.getY() + getInsets().top;
         for (int r = 0; r < elements.getRowCount(); r++) {

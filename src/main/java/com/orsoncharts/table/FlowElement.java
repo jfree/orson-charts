@@ -88,7 +88,7 @@ public class FlowElement extends AbstractTableElement
     public FlowElement(HAlign alignment, int hgap) {
         super();
         Args.nullNotPermitted(alignment, "alignment");
-        this.elements = new ArrayList<TableElement>();
+        this.elements = new ArrayList<>();
         this.horizontalAlignment = alignment;
         this.hgap = hgap;
     }
@@ -143,7 +143,7 @@ public class FlowElement extends AbstractTableElement
      *     {@code null}). 
      */
     public List<TableElement> getElements() {
-        return new ArrayList<TableElement>(this.elements);
+        return new ArrayList<>(this.elements);
     }
 
     /**
@@ -183,7 +183,7 @@ public class FlowElement extends AbstractTableElement
      */
     private List<ElementInfo> rowOfElements(int first, 
             Graphics2D g2, Rectangle2D bounds) {
-        List<ElementInfo> result = new ArrayList<ElementInfo>();
+        List<ElementInfo> result = new ArrayList<>();
         int index = first;
         boolean full = false;
         double w = getInsets().left + getInsets().right;
@@ -283,7 +283,7 @@ public class FlowElement extends AbstractTableElement
     public List<Rectangle2D> layoutElements(Graphics2D g2, Rectangle2D bounds, 
             Map<String, Object> constraints) {
         int elementCount = this.elements.size();
-        List<Rectangle2D> result = new ArrayList<Rectangle2D>(elementCount);
+        List<Rectangle2D> result = new ArrayList<>(elementCount);
         int i = 0;
         double x = bounds.getX() + getInsets().left;
         double y = bounds.getY() + getInsets().top;
