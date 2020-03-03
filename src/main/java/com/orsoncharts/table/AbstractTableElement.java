@@ -42,7 +42,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.orsoncharts.internal.Args;
-import com.orsoncharts.util.ObjectUtils;
+import com.orsoncharts.internal.ObjectUtils;
 import com.orsoncharts.util.RefPt2D;
 
 /**

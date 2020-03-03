@@ -65,7 +65,7 @@ import com.orsoncharts.legend.StandardLegendItemInfo;
 import com.orsoncharts.renderer.ComposeType;
 import com.orsoncharts.renderer.Renderer3DChangeEvent;
 import com.orsoncharts.renderer.Renderer3DChangeListener;
-import com.orsoncharts.util.ObjectUtils;
+import com.orsoncharts.internal.ObjectUtils;
 import com.orsoncharts.internal.SerialUtils;
 
 /**

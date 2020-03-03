@@ -44,7 +44,7 @@ import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.renderer.Renderer3DChangeEvent;
-import com.orsoncharts.util.ObjectUtils;
+import com.orsoncharts.internal.ObjectUtils;
 
 /**
  * A renderer that draws 3D bars on an {@link XYZPlot} using data from an

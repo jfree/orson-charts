@@ -53,7 +53,7 @@ import com.orsoncharts.graphics3d.internal.Utils2D;
 import com.orsoncharts.label.ItemLabelPositioning;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.Renderer3DChangeEvent;
-import com.orsoncharts.util.ObjectUtils;
+import com.orsoncharts.internal.ObjectUtils;
 
 /**
  * A renderer for creating 3D area charts from data in a 

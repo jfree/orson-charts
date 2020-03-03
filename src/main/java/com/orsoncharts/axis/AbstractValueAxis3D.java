@@ -55,7 +55,7 @@ import com.orsoncharts.marker.ValueMarker;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.internal.Args;
-import com.orsoncharts.util.ObjectUtils;
+import com.orsoncharts.internal.ObjectUtils;
 import com.orsoncharts.internal.SerialUtils;
 
 /**

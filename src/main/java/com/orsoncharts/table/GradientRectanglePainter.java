@@ -44,7 +44,7 @@ import java.io.Serializable;
 
 import com.orsoncharts.Anchor2D;
 import com.orsoncharts.internal.Args;
-import com.orsoncharts.util.ObjectUtils;
+import com.orsoncharts.internal.ObjectUtils;
 
 /**
  * A {@link RectanglePainter} that can fill a rectangle with a gradient (the

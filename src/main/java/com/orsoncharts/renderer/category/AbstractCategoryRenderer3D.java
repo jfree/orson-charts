@@ -43,7 +43,7 @@ import com.orsoncharts.label.CategoryItemLabelGenerator;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.AbstractRenderer3D;
 import com.orsoncharts.renderer.Renderer3DChangeEvent;
-import com.orsoncharts.util.ObjectUtils;
+import com.orsoncharts.internal.ObjectUtils;
 
 /**
  * A base class that can be used to implement renderers for a 

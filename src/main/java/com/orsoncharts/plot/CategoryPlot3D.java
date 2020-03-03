@@ -65,7 +65,7 @@ import com.orsoncharts.renderer.Renderer3DChangeEvent;
 import com.orsoncharts.renderer.Renderer3DChangeListener;
 import com.orsoncharts.renderer.category.CategoryRenderer3D;
 import com.orsoncharts.internal.Args;
-import com.orsoncharts.util.ObjectUtils;
+import com.orsoncharts.internal.ObjectUtils;
 import com.orsoncharts.internal.SerialUtils;
 
 /**

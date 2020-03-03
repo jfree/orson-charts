@@ -35,7 +35,7 @@ package com.orsoncharts.data;
 import java.io.Serializable;
 
 import com.orsoncharts.internal.Args;
-import com.orsoncharts.util.ObjectUtils;
+import com.orsoncharts.internal.ObjectUtils;
 
 /**
  * A data item where a key is associated with a value (typically numerical).

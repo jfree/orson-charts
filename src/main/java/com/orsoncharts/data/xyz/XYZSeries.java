@@ -39,7 +39,7 @@ import javax.swing.event.EventListenerList;
 import com.orsoncharts.data.Series3DChangeEvent;
 import com.orsoncharts.data.Series3DChangeListener;
 import com.orsoncharts.internal.Args;
-import com.orsoncharts.util.ObjectUtils;
+import com.orsoncharts.internal.ObjectUtils;
 
 /**
  * A data series containing a sequence of {@code (x, y, z)} data items.  

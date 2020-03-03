@@ -57,7 +57,7 @@ import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.internal.TextUtils;
 import com.orsoncharts.util.TextAnchor;
 import com.orsoncharts.internal.Args;
-import com.orsoncharts.util.ObjectUtils;
+import com.orsoncharts.internal.ObjectUtils;
 
 /**
  * A numerical axis for use with 3D plots (implements {@link ValueAxis3D}).

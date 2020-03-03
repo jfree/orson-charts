@@ -40,7 +40,7 @@ import com.orsoncharts.data.KeyedValues3DItemKey;
 import com.orsoncharts.interaction.KeyedValues3DItemSelection;
 import com.orsoncharts.interaction.StandardKeyedValues3DItemSelection;
 import com.orsoncharts.internal.Args;
-import com.orsoncharts.util.ObjectUtils;
+import com.orsoncharts.internal.ObjectUtils;
 
 /**
  * A default implementation of the {@link CategoryItemLabelGenerator} interface.  

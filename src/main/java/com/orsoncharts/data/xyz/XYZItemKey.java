@@ -36,7 +36,7 @@ import java.io.Serializable;
 
 import com.orsoncharts.data.ItemKey;
 import com.orsoncharts.internal.Args;
-import com.orsoncharts.util.ObjectUtils;
+import com.orsoncharts.internal.ObjectUtils;
 
 /**
  * An object that references one data item in an {@link XYZDataset}.  This is 

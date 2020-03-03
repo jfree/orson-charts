@@ -32,6 +32,7 @@
 
 package com.orsoncharts.util;
 
+import com.orsoncharts.internal.ObjectUtils;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.LinearGradientPaint;

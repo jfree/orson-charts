@@ -37,7 +37,7 @@ import java.io.Serializable;
 
 import com.orsoncharts.Colors;
 import com.orsoncharts.internal.Args;
-import com.orsoncharts.util.ObjectUtils;
+import com.orsoncharts.internal.ObjectUtils;
 
 /**
  * A standard implementation of the {@link XYZColorSource} interface.

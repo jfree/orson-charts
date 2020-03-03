@@ -46,7 +46,7 @@ import java.io.Serializable;
 import com.orsoncharts.data.Range;
 import com.orsoncharts.Anchor2D;
 import com.orsoncharts.internal.Args;
-import com.orsoncharts.util.ObjectUtils;
+import com.orsoncharts.internal.ObjectUtils;
 import com.orsoncharts.internal.SerialUtils;
 
 /**

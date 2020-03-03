@@ -44,7 +44,7 @@ import com.orsoncharts.renderer.AbstractRenderer3D;
 import com.orsoncharts.renderer.ComposeType;
 import com.orsoncharts.renderer.Renderer3DChangeEvent;
 import com.orsoncharts.internal.Args;
-import com.orsoncharts.util.ObjectUtils;
+import com.orsoncharts.internal.ObjectUtils;
 
 /**
  * An abstract base class that can be used to create new {@link XYZRenderer}

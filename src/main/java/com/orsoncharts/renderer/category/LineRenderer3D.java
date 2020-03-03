@@ -49,7 +49,7 @@ import com.orsoncharts.graphics3d.World;
 import com.orsoncharts.label.ItemLabelPositioning;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.renderer.Renderer3DChangeEvent;
-import com.orsoncharts.util.ObjectUtils;
+import com.orsoncharts.internal.ObjectUtils;
 
 /**
  * A renderer that can be used with the {@link CategoryPlot3D} class to create

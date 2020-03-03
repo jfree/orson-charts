@@ -53,7 +53,7 @@ import com.orsoncharts.data.Range;
 import com.orsoncharts.graphics3d.RenderingInfo;
 import com.orsoncharts.graphics3d.internal.Utils2D;
 import com.orsoncharts.internal.Args;
-import com.orsoncharts.util.ObjectUtils;
+import com.orsoncharts.internal.ObjectUtils;
 import com.orsoncharts.util.TextAnchor;
 import com.orsoncharts.internal.TextUtils;
 

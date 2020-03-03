@@ -35,7 +35,7 @@ package com.orsoncharts.data;
 import java.io.Serializable;
 
 import com.orsoncharts.internal.Args;
-import com.orsoncharts.util.ObjectUtils;
+import com.orsoncharts.internal.ObjectUtils;
 
 /**
  * An object that references one data item in a {@link KeyedValues3D} data

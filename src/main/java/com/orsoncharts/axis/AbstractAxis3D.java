@@ -60,7 +60,7 @@ import com.orsoncharts.marker.MarkerChangeEvent;
 import com.orsoncharts.marker.MarkerChangeListener;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.internal.Args;
-import com.orsoncharts.util.ObjectUtils;
+import com.orsoncharts.internal.ObjectUtils;
 import com.orsoncharts.internal.SerialUtils;
 import com.orsoncharts.util.TextAnchor;
 import com.orsoncharts.internal.TextUtils;

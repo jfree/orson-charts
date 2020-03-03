@@ -44,7 +44,7 @@ import com.orsoncharts.data.Series3DChangeEvent;
 import com.orsoncharts.data.Series3DChangeListener;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.renderer.xyz.XYZRenderer;
-import com.orsoncharts.util.ObjectUtils;
+import com.orsoncharts.internal.ObjectUtils;
 
 /**
  * A collection of {@link XYZSeries} objects (implements the {@link XYZDataset}
