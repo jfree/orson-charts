@@ -55,6 +55,7 @@ import com.orsoncharts.Chart3DHints;
 import com.orsoncharts.ChartElementVisitor;
 import com.orsoncharts.data.Range;
 import com.orsoncharts.data.category.CategoryDataset3D;
+import com.orsoncharts.graphics2d.TextAnchor;
 import com.orsoncharts.graphics3d.RenderedElement;
 import com.orsoncharts.graphics3d.RenderingInfo;
 import com.orsoncharts.graphics3d.internal.Utils2D;
@@ -70,7 +71,6 @@ import com.orsoncharts.renderer.category.AreaRenderer3D;
 import com.orsoncharts.internal.Args;
 import com.orsoncharts.internal.ObjectUtils;
 import com.orsoncharts.internal.SerialUtils;
-import com.orsoncharts.util.TextAnchor;
 import com.orsoncharts.internal.TextUtils;
 
 /**

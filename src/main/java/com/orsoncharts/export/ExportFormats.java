@@ -30,28 +30,49 @@
  * 
  */
 
-package com.orsoncharts.util;
+package com.orsoncharts.export;
 
 /**
- * An enumeration of the different export formats supported by Orson Charts.
- * PNG and JPEG export are provided by the Java standard library.  PDF export
- * is enabled when JFreePDF is available on the classpath, and SVG export is
- * enabled when JFreeSVG is available on the classpath.
+ * Utility methods related to export formats.
  * 
  * @since 1.2
  */
-public enum ExportFormat {
-    
-    /** The PNG image format. */
-    PNG,
-    
-    /** The JPEG image format. */
-    JPEG,
-    
-    /** The Acrobat Portable Document Format. */
-    PDF,
-    
-    /** The Scalable Vector Graphics format. */
-    SVG;
+public class ExportFormats {
 
+    /**
+     * Returns {@code true} if JFreeSVG is on the classpath, and 
+     * {@code false} otherwise.  The JFreeSVG library can be found at
+     * http://www.jfree.org/jfreesvg/
+     * 
+     * @return A boolean.
+     * 
+     * @since 1.2
+     */
+    public static boolean isJFreeSVGAvailable() {
+        Class<?> svgClass = null;
+        try {
+            svgClass = Class.forName("org.jfree.svg.SVGGraphics2D");
+        } catch (ClassNotFoundException e) {
+            // svgClass will be null so the function will return false
+        }
+        return (svgClass != null);
+    }
+
+    /**
+     * Returns {@code true} if {@code JFreePDF} is on the classpath, and 
+     * {@code false} otherwise.  The JFreePDF library can be found at
+     * https://github.com/jfree/jfreepdf
+     * 
+     * @return A boolean.
+     */
+    public static boolean isJFreePDFAvailable() {
+        Class<?> pdfDocumentClass = null;
+        try {
+            pdfDocumentClass = Class.forName("org.jfree.pdf.PDFDocument");
+        } catch (ClassNotFoundException e) {
+            // pdfDocument class will be null so the function will return false
+        }
+        return (pdfDocumentClass != null);
+    }
+    
 }

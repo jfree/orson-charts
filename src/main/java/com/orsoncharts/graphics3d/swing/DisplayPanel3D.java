@@ -50,9 +50,9 @@ import javax.swing.JToolBar;
 import javax.swing.JMenu;
 
 import com.orsoncharts.Resources;
+import com.orsoncharts.export.ExportFormat;
+import com.orsoncharts.export.ExportFormats;
 import com.orsoncharts.internal.Args;
-import com.orsoncharts.util.ExportFormat;
-import com.orsoncharts.util.ExportFormats;
 
 /**
  * A panel for displaying 3D content, with a toolbar and popup menu to control 

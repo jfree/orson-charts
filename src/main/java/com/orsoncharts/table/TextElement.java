@@ -43,8 +43,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.orsoncharts.graphics2d.TextAnchor;
 import com.orsoncharts.internal.Args;
-import com.orsoncharts.util.TextAnchor;
 import com.orsoncharts.internal.TextUtils;
 
 /**

@@ -52,13 +52,13 @@ import com.orsoncharts.table.AbstractTableElement;
 import com.orsoncharts.table.ElementDimension;
 import com.orsoncharts.table.TableElement;
 import com.orsoncharts.Orientation;
-import com.orsoncharts.util.TextAnchor;
-import com.orsoncharts.internal.TextUtils;
 import com.orsoncharts.data.Range;
 import com.orsoncharts.graphics2d.Fit2D;
+import com.orsoncharts.graphics2d.TextAnchor;
 import com.orsoncharts.table.TableElementOnDraw;
 import com.orsoncharts.table.TableElementVisitor;
 import com.orsoncharts.internal.Args;
+import com.orsoncharts.internal.TextUtils;
 
 /**
  * A {@link TableElement} that displays a {@link ColorScale}.

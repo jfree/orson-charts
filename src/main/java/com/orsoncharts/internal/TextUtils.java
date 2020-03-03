@@ -32,8 +32,6 @@
 
 package com.orsoncharts.internal;
 
-import com.orsoncharts.internal.Args;
-import com.orsoncharts.util.TextAnchor;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
@@ -44,6 +42,7 @@ import java.awt.font.TextLayout;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.text.AttributedString;
+import com.orsoncharts.graphics2d.TextAnchor;
 
 /**
  * Utility methods for working with text.

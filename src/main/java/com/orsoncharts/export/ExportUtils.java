@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.graphics3d;
+package com.orsoncharts.export;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -46,8 +46,9 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import javax.imageio.ImageIO;
+import com.orsoncharts.graphics3d.Drawable3D;
+import com.orsoncharts.graphics3d.RenderingInfo;
 import com.orsoncharts.internal.Args;
-import com.orsoncharts.util.ExportFormats;
 
 /**
  * Export utility methods.

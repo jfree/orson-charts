@@ -52,6 +52,7 @@ import javax.swing.event.EventListenerList;
 
 import com.orsoncharts.Chart3DHints;
 import com.orsoncharts.ChartElementVisitor;
+import com.orsoncharts.graphics2d.TextAnchor;
 import com.orsoncharts.graphics3d.RenderedElement;
 import com.orsoncharts.graphics3d.RenderingInfo;
 import com.orsoncharts.graphics3d.internal.Utils2D;
@@ -62,7 +63,6 @@ import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.internal.Args;
 import com.orsoncharts.internal.ObjectUtils;
 import com.orsoncharts.internal.SerialUtils;
-import com.orsoncharts.util.TextAnchor;
 import com.orsoncharts.internal.TextUtils;
 
 /**
@@ -472,7 +472,7 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
         }
         
         if (hinting) {
-            Map<String, String> m = new HashMap<String, String>();
+            Map<String, String> m = new HashMap<>();
             m.put("ref", "{\"type\": \"axisLabel\", \"axis\": \"" + axisStr() 
                     + "\", \"label\": \"" + getLabel() + "\"}");
             g2.setRenderingHint(Chart3DHints.KEY_BEGIN_ELEMENT, m);

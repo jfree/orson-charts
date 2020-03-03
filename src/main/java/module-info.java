@@ -96,6 +96,7 @@ module org.jfree.chart3d {
     exports com.orsoncharts.data.category; 
     exports com.orsoncharts.data.function;
     exports com.orsoncharts.data.xyz;
+    exports com.orsoncharts.export;
     exports com.orsoncharts.graphics2d;
     exports com.orsoncharts.graphics3d;
     exports com.orsoncharts.graphics3d.swing;
@@ -109,5 +110,4 @@ module org.jfree.chart3d {
     exports com.orsoncharts.renderer.xyz;
     exports com.orsoncharts.style;
     exports com.orsoncharts.table;
-    exports com.orsoncharts.util;
 }

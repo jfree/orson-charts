@@ -32,6 +32,7 @@
 
 package com.orsoncharts.graphics3d.swing;
 
+import com.orsoncharts.export.ExportUtils;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -56,7 +57,6 @@ import com.orsoncharts.graphics3d.Drawable3D;
 import com.orsoncharts.graphics3d.Offset2D;
 import com.orsoncharts.graphics3d.ViewPoint3D;
 import com.orsoncharts.graphics3d.Dimension3D;
-import com.orsoncharts.graphics3d.ExportUtils;
 import com.orsoncharts.graphics3d.RenderingInfo;
 
 /**

@@ -48,6 +48,7 @@ import java.util.List;
 
 import com.orsoncharts.Chart3DHints;
 import com.orsoncharts.data.Range;
+import com.orsoncharts.graphics2d.TextAnchor;
 import com.orsoncharts.graphics3d.RenderedElement;
 import com.orsoncharts.graphics3d.RenderingInfo;
 import com.orsoncharts.graphics3d.internal.Utils2D;
@@ -55,7 +56,6 @@ import com.orsoncharts.interaction.InteractiveElementType;
 import com.orsoncharts.plot.CategoryPlot3D;
 import com.orsoncharts.plot.XYZPlot;
 import com.orsoncharts.internal.TextUtils;
-import com.orsoncharts.util.TextAnchor;
 import com.orsoncharts.internal.Args;
 import com.orsoncharts.internal.ObjectUtils;
 
