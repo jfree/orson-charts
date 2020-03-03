@@ -228,7 +228,7 @@ public class DisplayPanel3D extends JPanel implements MouseListener {
                             this.content));
                     exportSubMenu.add(jpgItem);                    
                 } else if (f.equals(ExportFormat.PDF)) {
-                    if (ExportFormats.isOrsonPDFAvailable()) {
+                    if (ExportFormats.isJFreePDFAvailable()) {
                         JMenuItem pdfItem = new JMenuItem(new ExportToPDFAction(
                                 this.content));
                         exportSubMenu.add(pdfItem);

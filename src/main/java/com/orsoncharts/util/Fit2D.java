@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -166,10 +166,10 @@ public class Fit2D implements Serializable {
             = new Fit2D(Anchor2D.CENTER, Scale2D.SCALE_BOTH);
 
     /** The anchor point for alignment. */
-    private Anchor2D anchor;
+    private final Anchor2D anchor;
     
     /** The scaling to apply. */
-    private Scale2D scale;
+    private final Scale2D scale;
     
     /**
      * Creates a new instance.

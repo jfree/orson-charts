@@ -126,7 +126,7 @@ public class ExportUtils {
      */
     public static final RenderingInfo writeAsPDF(Drawable3D drawable, 
             int w, int h, File file) {
-        if (!ExportFormats.isOrsonPDFAvailable()) {
+        if (!ExportFormats.isJFreePDFAvailable()) {
             throw new IllegalStateException(
                     "OrsonPDF is not present on the classpath.");
         }

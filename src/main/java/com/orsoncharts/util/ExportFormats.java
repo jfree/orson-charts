@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -51,7 +51,7 @@ public class ExportFormats {
     public static boolean isJFreeSVGAvailable() {
         Class<?> svgClass = null;
         try {
-            svgClass = Class.forName("org.jfree.graphics2d.svg.SVGGraphics2D");
+            svgClass = Class.forName("org.jfree.svg.SVGGraphics2D");
         } catch (ClassNotFoundException e) {
             // svgClass will be null so the function will return false
         }
@@ -59,16 +59,16 @@ public class ExportFormats {
     }
 
     /**
-     * Returns {@code true} if OrsonPDF is on the classpath, and 
-     * {@code false} otherwise.  The OrsonPDF library can be found at
-     * http://www.object-refinery.com/orsonpdf/
+     * Returns {@code true} if {@code JFreePDF} is on the classpath, and 
+     * {@code false} otherwise.  The JFreePDF library can be found at
+     * https://github.com/jfree/jfreepdf
      * 
      * @return A boolean.
      */
-    public static boolean isOrsonPDFAvailable() {
+    public static boolean isJFreePDFAvailable() {
         Class<?> pdfDocumentClass = null;
         try {
-            pdfDocumentClass = Class.forName("com.orsonpdf.PDFDocument");
+            pdfDocumentClass = Class.forName("org.jfree.pdf.PDFDocument");
         } catch (ClassNotFoundException e) {
             // pdfDocument class will be null so the function will return false
         }
