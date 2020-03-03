@@ -39,7 +39,6 @@ import org.junit.Test;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
-import com.orsoncharts.util.Fit2D;
 import com.orsoncharts.util.Scale2D;
 
 /**

@@ -43,7 +43,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.orsoncharts.internal.Args;
-import com.orsoncharts.util.Fit2D;
+import com.orsoncharts.Fit2D;
 
 /**
  * A table element that displays a list of sub-elements in a flow layout.

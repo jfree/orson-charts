@@ -30,10 +30,12 @@
  * 
  */
 
-package com.orsoncharts.util;
+package com.orsoncharts;
 
 import com.orsoncharts.internal.Args;
 import com.orsoncharts.Anchor2D;
+import com.orsoncharts.util.RefPt2D;
+import com.orsoncharts.util.Scale2D;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;

@@ -45,7 +45,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import com.orsoncharts.internal.Args;
-import com.orsoncharts.util.Fit2D;
+import com.orsoncharts.Fit2D;
 import com.orsoncharts.util.ObjectUtils;
 import com.orsoncharts.util.Scale2D;
 import com.orsoncharts.internal.SerialUtils;
