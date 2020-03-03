@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -42,9 +42,9 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 
-import com.orsoncharts.Anchor2D;
 import com.orsoncharts.internal.Args;
 import com.orsoncharts.internal.ObjectUtils;
+import com.orsoncharts.util.Anchor2D;
 
 /**
  * A {@link RectanglePainter} that can fill a rectangle with a gradient (the

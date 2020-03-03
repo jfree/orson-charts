@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -43,7 +43,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.orsoncharts.internal.Args;
-import com.orsoncharts.Fit2D;
+import com.orsoncharts.util.Fit2D;
 
 /**
  * A table element that displays a list of sub-elements in a vertical flow 

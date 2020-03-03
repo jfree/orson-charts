@@ -44,10 +44,10 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import com.orsoncharts.data.Range;
-import com.orsoncharts.Anchor2D;
 import com.orsoncharts.internal.Args;
 import com.orsoncharts.internal.ObjectUtils;
 import com.orsoncharts.internal.SerialUtils;
+import com.orsoncharts.util.Anchor2D;
 
 /**
  * A marker used to mark one value on an axis.

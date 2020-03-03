@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -46,9 +46,9 @@ import java.io.Serializable;
 
 import com.orsoncharts.axis.CategoryAxis3D;
 import com.orsoncharts.internal.SerialUtils;
-import com.orsoncharts.Anchor2D;
 import com.orsoncharts.internal.Args;
 import com.orsoncharts.internal.ObjectUtils;
+import com.orsoncharts.util.Anchor2D;
 
 /**
  * A marker for a category on a {@link CategoryAxis3D}.  This marker could be 

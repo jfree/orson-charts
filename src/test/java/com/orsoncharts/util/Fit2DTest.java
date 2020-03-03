@@ -30,8 +30,10 @@
  * 
  */
 
-package com.orsoncharts;
+package com.orsoncharts.util;
 
+import com.orsoncharts.TestUtils;
+import com.orsoncharts.TitleAnchor;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

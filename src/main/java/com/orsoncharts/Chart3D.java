@@ -104,6 +104,7 @@ import com.orsoncharts.internal.Args;
 import com.orsoncharts.internal.ObjectUtils;
 import com.orsoncharts.util.RefPt2D;
 import com.orsoncharts.internal.TextUtils;
+import com.orsoncharts.util.Anchor2D;
 import com.orsoncharts.util.TextAnchor;
 
 /**

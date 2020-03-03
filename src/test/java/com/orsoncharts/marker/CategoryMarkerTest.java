@@ -42,7 +42,7 @@ import java.awt.Color;
 import java.awt.Font;
 
 import com.orsoncharts.TestUtils;
-import com.orsoncharts.Anchor2D;
+import com.orsoncharts.util.Anchor2D;
 
 /**
  * Tests for the {@link CategoryMarker} class.

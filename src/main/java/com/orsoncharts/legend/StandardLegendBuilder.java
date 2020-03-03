@@ -54,10 +54,10 @@ import com.orsoncharts.table.TableElement;
 import com.orsoncharts.table.TextElement;
 import com.orsoncharts.table.VAlign;
 import com.orsoncharts.table.VerticalFlowElement;
-import com.orsoncharts.Anchor2D;
 import com.orsoncharts.internal.Args;
 import com.orsoncharts.internal.ObjectUtils;
 import com.orsoncharts.Orientation;
+import com.orsoncharts.util.Anchor2D;
 
 /**
  * The standard legend builder, which creates a simple legend

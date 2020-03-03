@@ -108,4 +108,5 @@ module org.jfree.chart3d {
     exports com.orsoncharts.renderer.xyz;
     exports com.orsoncharts.style;
     exports com.orsoncharts.table;
+    exports com.orsoncharts.util;
 }

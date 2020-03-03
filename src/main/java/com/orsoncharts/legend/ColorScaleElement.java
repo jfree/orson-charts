@@ -58,7 +58,7 @@ import com.orsoncharts.data.Range;
 import com.orsoncharts.table.TableElementOnDraw;
 import com.orsoncharts.table.TableElementVisitor;
 import com.orsoncharts.internal.Args;
-import com.orsoncharts.Fit2D;
+import com.orsoncharts.util.Fit2D;
 
 /**
  * A {@link TableElement} that displays a {@link ColorScale}.
