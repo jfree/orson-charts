@@ -74,7 +74,7 @@ public class MarkerData {
         Args.nullNotPermitted(key, "key");
         this.markerKey = key;
         this.type = MarkerDataType.VALUE;
-        this.data = new HashMap<String, Object>();
+        this.data = new HashMap<>();
         this.data.put("valueLine", new MarkerLine(pos, false));
     }
     
@@ -93,7 +93,7 @@ public class MarkerData {
         Args.nullNotPermitted(key, "key");
         this.markerKey = key;
         this.type = MarkerDataType.RANGE;
-        this.data = new HashMap<String, Object>();
+        this.data = new HashMap<>();
         this.data.put("startLine", new MarkerLine(startPos, startPegged));
         this.data.put("endLine", new MarkerLine(endPos, endPegged));
     }
@@ -113,7 +113,7 @@ public class MarkerData {
         }
         this.markerKey = source.markerKey;
         this.type = source.type;
-        this.data = new HashMap<String, Object>(source.data);
+        this.data = new HashMap<>(source.data);
         double pos = source.getValueLine().getPos();
         MarkerLine valueLine = new MarkerLine(pos, false, v0, v1);
         this.data.put("valueLine", valueLine);
@@ -136,7 +136,7 @@ public class MarkerData {
         }
         this.markerKey = source.markerKey;
         this.type = MarkerDataType.RANGE;
-        this.data = new HashMap<String, Object>(source.data);
+        this.data = new HashMap<>(source.data);
         double startPos = source.getStartLine().getPos();
         boolean startPegged = source.getStartLine().isPegged();
         MarkerLine startLine = new MarkerLine(startPos, startPegged, v0, v1);
@@ -227,7 +227,7 @@ public class MarkerData {
      * @param labelVertexIndex  the label vertex index.
      */
     public void setLabelVertexIndex(int labelVertexIndex) {
-        this.data.put("labelVertexIndex", Integer.valueOf(labelVertexIndex));    
+        this.data.put("labelVertexIndex", labelVertexIndex);    
     }
     
     /**
