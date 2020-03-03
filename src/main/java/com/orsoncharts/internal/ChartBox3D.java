@@ -44,7 +44,7 @@ import com.orsoncharts.graphics3d.Point3D;
 import com.orsoncharts.axis.TickData;
 import com.orsoncharts.marker.MarkerData;
 import com.orsoncharts.marker.MarkerDataType;
-import com.orsoncharts.util.Anchor2D;
+import com.orsoncharts.Anchor2D;
 import com.orsoncharts.util.ArgChecks;
 
 /**

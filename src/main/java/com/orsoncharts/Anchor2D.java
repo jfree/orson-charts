@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.util;
+package com.orsoncharts;
 
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
@@ -39,6 +39,8 @@ import java.io.Serializable;
 import com.orsoncharts.TitleAnchor;
 import com.orsoncharts.graphics3d.Offset2D;
 import com.orsoncharts.legend.LegendAnchor;
+import com.orsoncharts.util.ArgChecks;
+import com.orsoncharts.util.RefPt2D;
 
 /**
  * Represents an anchor point for a chart title and/or legend.  The anchor

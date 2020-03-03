@@ -39,7 +39,6 @@ import com.orsoncharts.table.GridElement;
 import com.orsoncharts.table.HAlign;
 import com.orsoncharts.table.TableElement;
 import com.orsoncharts.table.TextElement;
-import com.orsoncharts.util.Anchor2D;
 
 /**
  * Some utility methods for creating chart titles.

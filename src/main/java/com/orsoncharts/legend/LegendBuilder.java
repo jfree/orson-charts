@@ -36,7 +36,7 @@ import com.orsoncharts.Chart3D;
 import com.orsoncharts.plot.Plot3D;
 import com.orsoncharts.style.ChartStyle;
 import com.orsoncharts.table.TableElement;
-import com.orsoncharts.util.Anchor2D;
+import com.orsoncharts.Anchor2D;
 import com.orsoncharts.Orientation;
 
 /**

@@ -32,7 +32,7 @@
 
 package com.orsoncharts.table;
 
-import com.orsoncharts.util.Anchor2D;
+import com.orsoncharts.Anchor2D;
 
 import java.awt.Dimension;
 import java.awt.Image;

@@ -40,7 +40,7 @@ import javax.swing.event.EventListenerList;
 import com.orsoncharts.Chart3DChangeListener;
 import com.orsoncharts.ChartElementVisitor;
 import com.orsoncharts.graphics3d.internal.Utils2D;
-import com.orsoncharts.util.Anchor2D;
+import com.orsoncharts.Anchor2D;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.RefPt2D;
 import com.orsoncharts.util.TextAnchor;

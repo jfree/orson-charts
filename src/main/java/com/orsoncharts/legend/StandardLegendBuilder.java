@@ -54,7 +54,7 @@ import com.orsoncharts.table.TableElement;
 import com.orsoncharts.table.TextElement;
 import com.orsoncharts.table.VAlign;
 import com.orsoncharts.table.VerticalFlowElement;
-import com.orsoncharts.util.Anchor2D;
+import com.orsoncharts.Anchor2D;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.ObjectUtils;
 import com.orsoncharts.Orientation;

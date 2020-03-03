@@ -32,7 +32,6 @@
 
 package com.orsoncharts;
 
-import com.orsoncharts.util.Anchor2D;
 import com.orsoncharts.util.RefPt2D;
 
 /**

@@ -46,7 +46,7 @@ import java.io.Serializable;
 
 import com.orsoncharts.axis.CategoryAxis3D;
 import com.orsoncharts.util.SerialUtils;
-import com.orsoncharts.util.Anchor2D;
+import com.orsoncharts.Anchor2D;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.ObjectUtils;
 

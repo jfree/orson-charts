@@ -33,7 +33,7 @@
 package com.orsoncharts.legend;
 
 import com.orsoncharts.TitleAnchor;
-import com.orsoncharts.util.Anchor2D;
+import com.orsoncharts.Anchor2D;
 
 /**
  * Predefined legend anchor points, provided for convenience.  The anchor
