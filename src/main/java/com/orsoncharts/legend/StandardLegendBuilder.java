@@ -57,7 +57,7 @@ import com.orsoncharts.table.VerticalFlowElement;
 import com.orsoncharts.util.Anchor2D;
 import com.orsoncharts.util.ArgChecks;
 import com.orsoncharts.util.ObjectUtils;
-import com.orsoncharts.util.Orientation;
+import com.orsoncharts.Orientation;
 
 /**
  * The standard legend builder, which creates a simple legend

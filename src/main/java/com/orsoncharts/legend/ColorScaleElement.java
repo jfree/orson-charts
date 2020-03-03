@@ -51,7 +51,7 @@ import com.orsoncharts.renderer.ColorScale;
 import com.orsoncharts.table.AbstractTableElement;
 import com.orsoncharts.table.ElementDimension;
 import com.orsoncharts.table.TableElement;
-import com.orsoncharts.util.Orientation;
+import com.orsoncharts.Orientation;
 import com.orsoncharts.util.TextAnchor;
 import com.orsoncharts.util.TextUtils;
 import com.orsoncharts.data.Range;

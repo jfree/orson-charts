@@ -44,7 +44,7 @@ import com.orsoncharts.renderer.category.CategoryRenderer3D;
 import com.orsoncharts.renderer.xyz.XYZRenderer;
 import com.orsoncharts.table.TableElement;
 import com.orsoncharts.util.Anchor2D;
-import com.orsoncharts.util.Orientation;
+import com.orsoncharts.Orientation;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.style.ChartStyle;
 

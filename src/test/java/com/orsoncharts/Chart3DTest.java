@@ -51,7 +51,6 @@ import com.orsoncharts.data.xyz.XYZSeriesCollection;
 import com.orsoncharts.legend.LegendAnchor;
 import com.orsoncharts.legend.StandardLegendBuilder;
 import com.orsoncharts.style.ChartStyles;
-import com.orsoncharts.util.Orientation;
 import com.orsoncharts.table.StandardRectanglePainter;
 
 /**

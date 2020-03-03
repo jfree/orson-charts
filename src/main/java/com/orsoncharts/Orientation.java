@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.util;
+package com.orsoncharts;
 
 /**
  * General enumeration of orientations.  One application for this is to 

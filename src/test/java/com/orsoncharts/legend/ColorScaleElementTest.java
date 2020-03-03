@@ -39,7 +39,7 @@ import java.awt.Font;
 import org.junit.Test;
 import com.orsoncharts.TestUtils;
 import com.orsoncharts.renderer.FixedColorScale;
-import com.orsoncharts.util.Orientation;
+import com.orsoncharts.Orientation;
 
 /**
  * Tests for the {@link ColorScaleElement} class.
