@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -65,7 +65,7 @@ import com.orsoncharts.table.TableElementStyler;
 public class ChartStyler implements ChartElementVisitor {
     
     /** The chart style. */
-    private ChartStyle style;
+    private final ChartStyle style;
     
     /**
      * Creates a new instance.
@@ -118,14 +118,14 @@ public class ChartStyler implements ChartElementVisitor {
         // "CHART_TITLE"
         TableElement chartTitle = chart.getTitle();
         if (chartTitle != null) {
-            Map<String, Font> fontChanges = new HashMap<String, Font>();
+            Map<String, Font> fontChanges = new HashMap<>();
             fontChanges.put("CHART_TITLE", this.style.getTitleFont());
             fontChanges.put("CHART_SUBTITLE", this.style.getSubtitleFont());
-            Map<String, Color> bgChanges = new HashMap<String, Color>();
+            Map<String, Color> bgChanges = new HashMap<>();
             bgChanges.put("CHART_TITLE", this.style.getTitleBackgroundColor());
             bgChanges.put("CHART_SUBTITLE", 
                     this.style.getSubtitleBackgroundColor());
-            Map<String, Color> fgChanges = new HashMap<String, Color>();
+            Map<String, Color> fgChanges = new HashMap<>();
             fgChanges.put("CHART_TITLE", this.style.getTitleColor());
             fgChanges.put("CHART_SUBTITLE", this.style.getSubtitleColor());
             TableElementStyler m1 = new TableElementStyler(fontChanges, 
