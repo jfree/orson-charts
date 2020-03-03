@@ -41,9 +41,9 @@ import java.awt.geom.Point2D;
 import java.io.Serializable;
 
 import com.orsoncharts.data.Range;
+import com.orsoncharts.graphics2d.Anchor2D;
 import com.orsoncharts.internal.Args;
 import com.orsoncharts.internal.ObjectUtils;
-import com.orsoncharts.util.Anchor2D;
 
 /**
  * A marker that marks a range of values on an axis.

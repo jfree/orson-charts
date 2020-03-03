@@ -35,8 +35,8 @@ package com.orsoncharts.marker;
 import java.awt.geom.Point2D;
 import java.util.Map;
 import java.util.HashMap;
+import com.orsoncharts.graphics2d.Anchor2D;
 import com.orsoncharts.internal.Args;
-import com.orsoncharts.util.Anchor2D;
 
 /**
  * A record holder for data relating to markers that needs to be passed

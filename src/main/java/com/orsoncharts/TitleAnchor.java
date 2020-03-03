@@ -32,8 +32,8 @@
 
 package com.orsoncharts;
 
-import com.orsoncharts.util.Anchor2D;
-import com.orsoncharts.util.RefPt2D;
+import com.orsoncharts.graphics2d.Anchor2D;
+import com.orsoncharts.graphics2d.RefPt2D;
 
 /**
  * Predefined title anchor points, provided for convenience.  These anchor

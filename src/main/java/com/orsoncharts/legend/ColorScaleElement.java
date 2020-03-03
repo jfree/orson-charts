@@ -55,10 +55,10 @@ import com.orsoncharts.Orientation;
 import com.orsoncharts.util.TextAnchor;
 import com.orsoncharts.internal.TextUtils;
 import com.orsoncharts.data.Range;
+import com.orsoncharts.graphics2d.Fit2D;
 import com.orsoncharts.table.TableElementOnDraw;
 import com.orsoncharts.table.TableElementVisitor;
 import com.orsoncharts.internal.Args;
-import com.orsoncharts.util.Fit2D;
 
 /**
  * A {@link TableElement} that displays a {@link ColorScale}.

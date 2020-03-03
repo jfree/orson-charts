@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.util;
+package com.orsoncharts.graphics2d;
 
 import com.orsoncharts.TestUtils;
 import static org.junit.Assert.assertEquals;
@@ -39,7 +39,6 @@ import static org.junit.Assert.assertFalse;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 import com.orsoncharts.graphics3d.Offset2D;
-import com.orsoncharts.util.RefPt2D;
 
 import org.junit.Test;
 

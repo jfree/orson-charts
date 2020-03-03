@@ -32,8 +32,6 @@
 
 package com.orsoncharts.table;
 
-import com.orsoncharts.TitleAnchor;
-
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics2D;
@@ -42,9 +40,10 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 
+import com.orsoncharts.TitleAnchor;
+import com.orsoncharts.graphics2d.Anchor2D;
 import com.orsoncharts.internal.Args;
 import com.orsoncharts.internal.ObjectUtils;
-import com.orsoncharts.util.Anchor2D;
 
 /**
  * A {@link RectanglePainter} that can fill a rectangle with a gradient (the

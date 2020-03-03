@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.util;
+package com.orsoncharts.graphics2d;
 
 /**
  * An enumeration of reference points within a rectangle.  These reference 

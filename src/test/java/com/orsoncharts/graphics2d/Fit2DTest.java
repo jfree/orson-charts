@@ -30,18 +30,19 @@
  * 
  */
 
-package com.orsoncharts.util;
+package com.orsoncharts.graphics2d;
 
-import com.orsoncharts.TestUtils;
-import com.orsoncharts.TitleAnchor;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
+
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
-import com.orsoncharts.util.Scale2D;
+
+import com.orsoncharts.TestUtils;
+import com.orsoncharts.TitleAnchor;
 
 /**
  * Tests for the {@link Fit2D} class.

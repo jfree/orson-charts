@@ -61,6 +61,8 @@ import com.orsoncharts.axis.Axis3D;
 import com.orsoncharts.axis.TickData;
 import com.orsoncharts.axis.ValueAxis3D;
 import com.orsoncharts.data.ItemKey;
+import com.orsoncharts.graphics2d.Anchor2D;
+import com.orsoncharts.graphics2d.RefPt2D;
 import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.DoubleSidedFace;
 import com.orsoncharts.graphics3d.Drawable3D;
@@ -102,9 +104,7 @@ import com.orsoncharts.table.StandardRectanglePainter;
 import com.orsoncharts.table.RectanglePainter;
 import com.orsoncharts.internal.Args;
 import com.orsoncharts.internal.ObjectUtils;
-import com.orsoncharts.util.RefPt2D;
 import com.orsoncharts.internal.TextUtils;
-import com.orsoncharts.util.Anchor2D;
 import com.orsoncharts.util.TextAnchor;
 
 /**

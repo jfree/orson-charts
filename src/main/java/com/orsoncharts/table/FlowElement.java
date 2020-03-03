@@ -42,8 +42,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.orsoncharts.graphics2d.Fit2D;
 import com.orsoncharts.internal.Args;
-import com.orsoncharts.util.Fit2D;
 
 /**
  * A table element that displays a list of sub-elements in a flow layout.

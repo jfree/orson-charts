@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.util;
+package com.orsoncharts.graphics2d;
 
 import com.orsoncharts.internal.Args;
 import java.awt.geom.Dimension2D;

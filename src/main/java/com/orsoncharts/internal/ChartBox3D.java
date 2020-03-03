@@ -42,9 +42,9 @@ import com.orsoncharts.graphics3d.Face;
 import com.orsoncharts.graphics3d.Object3D;
 import com.orsoncharts.graphics3d.Point3D;
 import com.orsoncharts.axis.TickData;
+import com.orsoncharts.graphics2d.Anchor2D;
 import com.orsoncharts.marker.MarkerData;
 import com.orsoncharts.marker.MarkerDataType;
-import com.orsoncharts.util.Anchor2D;
 
 /**
  * A chart box is the container within which the chart elements are drawn.
@@ -87,7 +87,7 @@ public class ChartBox3D {
     /** Required data for z-axis markers. */
     private List<MarkerData> zMarkers;
 
-    private Color color;
+    private final Color color;
 
     private ChartBoxFace faceA;
     private ChartBoxFace faceB;

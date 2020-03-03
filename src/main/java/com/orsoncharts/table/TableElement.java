@@ -37,7 +37,7 @@ import java.awt.geom.Dimension2D;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
 import java.util.Map;
-import com.orsoncharts.util.RefPt2D;
+import com.orsoncharts.graphics2d.RefPt2D;
 
 /**
  * An element (typically a single cell) in a table.  This interface defines

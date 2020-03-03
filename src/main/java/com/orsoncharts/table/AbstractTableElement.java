@@ -32,6 +32,7 @@
 
 package com.orsoncharts.table;
 
+import com.orsoncharts.graphics2d.RefPt2D;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Insets;
@@ -43,7 +44,6 @@ import java.util.Map;
 
 import com.orsoncharts.internal.Args;
 import com.orsoncharts.internal.ObjectUtils;
-import com.orsoncharts.util.RefPt2D;
 
 /**
  * A base class that can be used to implement a {@link TableElement}.
@@ -72,7 +72,7 @@ public abstract class AbstractTableElement implements Serializable {
     private String tag;
     
     /** Stores properties for the element. */
-    private HashMap<String, Object> properties;
+    private final HashMap<String, Object> properties;
     
     /**
      * Creates a new instance.
@@ -83,7 +83,7 @@ public abstract class AbstractTableElement implements Serializable {
         this.background = new StandardRectanglePainter(
                 DEFAULT_BACKGROUND_COLOR);
         this.tag = "";
-        this.properties = new HashMap<String, Object>();
+        this.properties = new HashMap<>();
     }
 
     /**

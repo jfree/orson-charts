@@ -42,12 +42,13 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import com.orsoncharts.graphics2d.Anchor2D;
+import com.orsoncharts.graphics2d.Fit2D;
+import com.orsoncharts.graphics2d.Scale2D;
 import com.orsoncharts.internal.Args;
 import com.orsoncharts.internal.ObjectUtils;
-import com.orsoncharts.util.Scale2D;
 import com.orsoncharts.internal.SerialUtils;
-import com.orsoncharts.util.Anchor2D;
-import com.orsoncharts.util.Fit2D;
+
 
 /**
  * A {@link RectanglePainter} that fills the rectangle with a 
