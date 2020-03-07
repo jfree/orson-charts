@@ -4,7 +4,7 @@
  * 
  * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
- * http://www.object-refinery.com/orsoncharts/index.html
+ * https://github.com/jfree/orson-charts
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -110,7 +110,7 @@ public class Chart3DFactory {
      * <br><br>
      * For reference, here is a sample pie chart:
      * <div>
-     * <img src="../../doc-files/PieChart3DDemo1.svg"  
+     * <img src="../../../../doc-files/PieChart3DDemo1.svg"  
      * alt="PieChart3DDemo1.svg" width="500" height="359">
      * </div>
      * 
@@ -135,7 +135,7 @@ public class Chart3DFactory {
      * <br><br>
      * For reference, here is a sample bar chart:
      * <div>
-     * <img src="../../doc-files/BarChart3DDemo1.svg"  
+     * <img src="../../../../doc-files/BarChart3DDemo1.svg"  
      * alt="BarChart3DDemo1.svg" width="500" height="359">
      * </div>
      * 
@@ -174,7 +174,7 @@ public class Chart3DFactory {
      * <br><br>
      * For reference, here is a sample stacked bar chart:
      * <div>
-     * <img src="../../doc-files/StackedBarChart3DDemo1.svg"  
+     * <img src="../../../../doc-files/StackedBarChart3DDemo1.svg"  
      * alt="StackedBarChart3DDemo1.svg" width="500" height="359">
      * </div>
      * 
@@ -212,7 +212,7 @@ public class Chart3DFactory {
      * <br><br>
      * For reference, here is a sample area chart:
      * <div>
-     * <img src="../../doc-files/AreaChart3DDemo1.svg"  
+     * <img src="../../../../doc-files/AreaChart3DDemo1.svg"  
      * alt="AreaChart3DDemo1.svg" width="500" height="359">
      * </div>
      * 
@@ -253,7 +253,7 @@ public class Chart3DFactory {
      * <br><br>
      * For reference, here is a sample line chart:
      * <div>
-     * <img src="../../doc-files/LineChart3DDemo1.svg"  
+     * <img src="../../../../doc-files/LineChart3DDemo1.svg"  
      * alt="LineChart3DDemo1.svg" width="500" height="359">
      * </div>
      * 
@@ -295,7 +295,7 @@ public class Chart3DFactory {
      * <br><br>
      * For reference, here is a sample scatter chart:
      * <div>
-     * <img src="../../doc-files/ScatterPlot3DDemo1.svg"  
+     * <img src="../../../../doc-files/ScatterPlot3DDemo1.svg"  
      * alt="ScatterPlot3DDemo1.svg" width="564" height="351">
      * </div>
      * 
@@ -325,7 +325,7 @@ public class Chart3DFactory {
      * <br><br>
      * For reference, here is a sample surface chart:
      * <div>
-     * <img src="../../doc-files/SurfaceRendererDemo2.svg"  
+     * <img src="../../../../doc-files/SurfaceRendererDemo2.svg"  
      * alt="SurfaceRendererDemo2.svg" width="562" height="408">
      * </div>
      * 
@@ -369,7 +369,7 @@ public class Chart3DFactory {
      * <br><br>
      * For reference, here is a sample XYZ bar chart:
      * <div>
-     * <img src="../../doc-files/XYZBarChart3DDemo1.svg"  
+     * <img src="../../../../doc-files/XYZBarChart3DDemo1.svg"  
      * alt="XYZBarChart3DDemo1.svg" width="500" height="359">
      * </div>
      * 
