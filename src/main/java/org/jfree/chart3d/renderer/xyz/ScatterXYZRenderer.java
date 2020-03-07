@@ -4,7 +4,7 @@
  * 
  * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
- * http://www.object-refinery.com/orsoncharts/index.html
+ * https://github.com/jfree/orson-charts
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -51,7 +51,7 @@ import org.jfree.chart3d.renderer.Renderer3DChangeEvent;
  * A renderer for 3D scatter plots.  This renderer is used with an
  * {@link XYZPlot} and any {@link XYZDataset} instance.  Here is a sample:
  * <div>
- * <img src="../../../../../doc-files/ScatterPlot3DDemo2.svg"  
+ * <img src="../../../../../../doc-files/ScatterPlot3DDemo2.svg"  
  * alt="ScatterPlot3DDemo2.svg" width="500" height="359">
  * </div>
  * (refer to {@code ScatterPlot3DDemo2.java} for the code to generate 
