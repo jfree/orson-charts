@@ -134,8 +134,8 @@ public class ExportUtils {
         Args.nullNotPermitted(drawable, "drawable");
         Args.nullNotPermitted(file, "file");
         try {
-            Class<?> pdfDocClass = Class.forName("com.orsonpdf.PDFDocument");
-            Object pdfDoc = pdfDocClass.newInstance();
+            Class<?> pdfDocClass = Class.forName("org.jfree.pdf.PDFDocument");
+            Object pdfDoc = pdfDocClass.getDeclaredConstructor().newInstance();
             Method m = pdfDocClass.getMethod("createPage", Rectangle2D.class);
             Rectangle2D rect = new Rectangle(w, h);
             Object page = m.invoke(pdfDoc, rect);
