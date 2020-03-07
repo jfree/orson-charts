@@ -30,10 +30,10 @@
  * 
  */
 
-package com.orsoncharts.legend;
+package org.jfree.chart3d.legend;
 
-import com.orsoncharts.TitleAnchor;
-import com.orsoncharts.graphics2d.Anchor2D;
+import org.jfree.chart3d.TitleAnchor;
+import org.jfree.chart3d.graphics2d.Anchor2D;
 
 /**
  * Predefined legend anchor points, provided for convenience.  The anchor

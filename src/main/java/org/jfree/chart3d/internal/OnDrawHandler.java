@@ -30,19 +30,22 @@
  * 
  */
 
-package com.orsoncharts.internal;
+package org.jfree.chart3d.internal;
 
-import com.orsoncharts.Chart3D;
-import com.orsoncharts.Chart3DHints;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.util.HashMap;
 import java.util.Map;
-import com.orsoncharts.graphics3d.RenderedElement;
-import com.orsoncharts.graphics3d.RenderingInfo;
-import com.orsoncharts.interaction.InteractiveElementType;
-import com.orsoncharts.table.TableElement;
-import com.orsoncharts.table.TableElementOnDraw;
+import org.jfree.chart3d.Chart3D;
+import org.jfree.chart3d.Chart3DHints;
+import org.jfree.chart3d.graphics3d.RenderedElement;
+import org.jfree.chart3d.graphics3d.RenderingInfo;
+import org.jfree.chart3d.interaction.InteractiveElementType;
+import static org.jfree.chart3d.interaction.InteractiveElementType.LEGEND_ITEM;
+import static org.jfree.chart3d.interaction.InteractiveElementType.SUBTITLE;
+import static org.jfree.chart3d.interaction.InteractiveElementType.TITLE;
+import org.jfree.chart3d.table.TableElement;
+import org.jfree.chart3d.table.TableElementOnDraw;
 
 /**
  * An 'onDraw' handler that handles two aspects related to chart interactivity:

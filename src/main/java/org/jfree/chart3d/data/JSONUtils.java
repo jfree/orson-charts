@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.data;
+package org.jfree.chart3d.data;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -41,15 +41,15 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import com.orsoncharts.data.category.StandardCategoryDataset3D;
-import com.orsoncharts.util.json.JSONValue;
-import com.orsoncharts.util.json.parser.JSONParser;
-import com.orsoncharts.util.json.parser.ParseException;
-import com.orsoncharts.internal.Args;
-import com.orsoncharts.util.json.parser.ContainerFactory;
-import com.orsoncharts.data.xyz.XYZDataset;
-import com.orsoncharts.data.xyz.XYZSeries;
-import com.orsoncharts.data.xyz.XYZSeriesCollection;
+import org.jfree.chart3d.util.json.JSONValue;
+import org.jfree.chart3d.util.json.parser.JSONParser;
+import org.jfree.chart3d.util.json.parser.ParseException;
+import org.jfree.chart3d.internal.Args;
+import org.jfree.chart3d.util.json.parser.ContainerFactory;
+import org.jfree.chart3d.data.category.StandardCategoryDataset3D;
+import org.jfree.chart3d.data.xyz.XYZDataset;
+import org.jfree.chart3d.data.xyz.XYZSeries;
+import org.jfree.chart3d.data.xyz.XYZSeriesCollection;
 
 /**
  * Utility methods for interchange between datasets ({@link KeyedValues}, 
@@ -395,7 +395,7 @@ public class JSONUtils {
      * Parses character data from the reader and (if possible) creates a
      * {@link KeyedValues3D} instance.  This method will read back the data
      * written by {@link JSONUtils#writeKeyedValues3D(
-     * com.orsoncharts.data.KeyedValues3D, java.io.Writer) }.
+     * org.jfree.chart3d.data.KeyedValues3D, java.io.Writer) }.
      * 
      * @param reader  the reader ({@code null} not permitted).
      * 
@@ -674,13 +674,13 @@ public class JSONUtils {
      * Parses the string and (if possible) creates an {XYZDataset} instance 
      * that represents the data.  This method will read back the data that
      * is written by 
-     * {@link #writeXYZDataset(com.orsoncharts.data.xyz.XYZDataset)}.
+     * {@link #writeXYZDataset(org.jfree.chart3d.data.xyz.XYZDataset)}.
      * 
      * @param json  a JSON formatted string ({@code null} not permitted).
      * 
      * @return A dataset.
      * 
-     * @see #writeXYZDataset(com.orsoncharts.data.xyz.XYZDataset) 
+     * @see #writeXYZDataset(org.jfree.chart3d.data.xyz.XYZDataset) 
      */
     public static XYZDataset<String> readXYZDataset(String json) {
         Args.nullNotPermitted(json, "json");

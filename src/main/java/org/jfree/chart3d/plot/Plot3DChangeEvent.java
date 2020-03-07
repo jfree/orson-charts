@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -30,13 +30,13 @@
  * 
  */
 
-package com.orsoncharts.plot;
+package org.jfree.chart3d.plot;
 
 import java.util.EventObject;
 
-import com.orsoncharts.Chart3D;
-import com.orsoncharts.data.Dataset3DChangeEvent;
-import com.orsoncharts.internal.Args;
+import org.jfree.chart3d.Chart3D;
+import org.jfree.chart3d.data.Dataset3DChangeEvent;
+import org.jfree.chart3d.internal.Args;
 
 /**
  * An event used to signal a change to a {@link Plot3D}.  Any object that
@@ -53,10 +53,10 @@ import com.orsoncharts.internal.Args;
 public class Plot3DChangeEvent extends EventObject {
 
     /** The plot. */
-    private Plot3D plot;
+    private final Plot3D plot;
     
     /** Does the plot change require the world to be updated? */
-    private boolean requiresWorldUpdate;
+    private final boolean requiresWorldUpdate;
   
     /**
      * Creates a new event.  The {@code source} of the event can be

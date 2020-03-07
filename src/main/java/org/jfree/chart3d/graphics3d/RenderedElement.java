@@ -30,12 +30,12 @@
  * 
  */
 
-package com.orsoncharts.graphics3d;
+package org.jfree.chart3d.graphics3d;
 
 import java.awt.Shape;
 import java.util.HashMap;
 import java.util.Map;
-import com.orsoncharts.internal.Args;
+import org.jfree.chart3d.internal.Args;
 
 /**
  * Represents an item or element that has been rendered by the graphics engine.

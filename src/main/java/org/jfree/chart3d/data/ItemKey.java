@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.data;
+package org.jfree.chart3d.data;
 
 /**
  * A key that references a single data item in a dataset.

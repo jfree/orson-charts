@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.plot;
+package org.jfree.chart3d.plot;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -43,11 +43,11 @@ import org.junit.Test;
 import java.awt.Color;
 import java.awt.Font;
 
-import com.orsoncharts.data.StandardPieDataset3D;
-import com.orsoncharts.Chart3D;
-import com.orsoncharts.Chart3DFactory;
-import com.orsoncharts.TestUtils;
-import com.orsoncharts.label.StandardPieLabelGenerator;
+import org.jfree.chart3d.Chart3D;
+import org.jfree.chart3d.Chart3DFactory;
+import org.jfree.chart3d.TestUtils;
+import org.jfree.chart3d.data.StandardPieDataset3D;
+import org.jfree.chart3d.label.StandardPieLabelGenerator;
 
 /** 
  * Some tests for the {@link PiePlot3D} class.

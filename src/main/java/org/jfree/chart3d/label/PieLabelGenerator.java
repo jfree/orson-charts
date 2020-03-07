@@ -30,9 +30,9 @@
  * 
  */
 
-package com.orsoncharts.label;
+package org.jfree.chart3d.label;
 
-import com.orsoncharts.data.PieDataset3D;
+import org.jfree.chart3d.data.PieDataset3D;
 
 /**
  * A label generator for pie charts.  A default implementation

@@ -30,9 +30,9 @@
  * 
  */
 
-package com.orsoncharts.label;
+package org.jfree.chart3d.label;
 
-import com.orsoncharts.data.xyz.XYZDataset;
+import org.jfree.chart3d.data.xyz.XYZDataset;
 
 /**
  * A label generator for XYZ charts, used to create labels for the chart 

@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.renderer.category;
+package org.jfree.chart3d.renderer.category;
 
 import java.awt.Color;
 

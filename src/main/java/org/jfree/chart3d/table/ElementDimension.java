@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.table;
+package org.jfree.chart3d.table;
 
 import java.awt.geom.Dimension2D;
 import java.io.Serializable;

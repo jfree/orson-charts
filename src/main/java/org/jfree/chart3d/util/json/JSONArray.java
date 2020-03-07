@@ -16,12 +16,12 @@
  * which is licensed under the Apache Software License version 2.0.  
  * 
  * It has been modified locally and repackaged under 
- * com.orsoncharts.util.json.* to avoid conflicts with any other version that
+ * org.jfree.chart3d.util.json.* to avoid conflicts with any other version that
  * may be present on the classpath. 
  * 
  */
 
-package com.orsoncharts.util.json;
+package org.jfree.chart3d.util.json;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -49,7 +49,7 @@ public class JSONArray extends ArrayList implements List, JSONAware,
      * {@code JSONStreamAware} and {@code JSONAware} specific 
      * behaviours will be ignored at this top level.
      * 
-     * @see com.orsoncharts.util.json.JSONValue#writeJSONString(Object, Writer)
+     * @see org.jfree.chart3d.util.json.JSONValue#writeJSONString(Object, Writer)
      * 
      * @param list  the list ({@code null} permitted).
      * @param out  the output writer ({@code null} not permitted).
@@ -101,7 +101,7 @@ public class JSONArray extends ArrayList implements List, JSONAware,
      * If this list is also a {@link JSONAware}, {@link JSONAware} specific 
      * behaviours will be omitted at this top level.
      * 
-     * @see com.orsoncharts.util.json.JSONValue#toJSONString(Object)
+     * @see org.jfree.chart3d.util.json.JSONValue#toJSONString(Object)
      * 
      * @param list  the list ({@code null} permitted).
      * 

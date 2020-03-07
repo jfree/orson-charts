@@ -30,9 +30,8 @@
  * 
  */
 
-package com.orsoncharts.graphics3d.swing;
+package org.jfree.chart3d.graphics3d.swing;
 
-import com.orsoncharts.export.ExportUtils;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -52,12 +51,13 @@ import java.io.File;
 import javax.swing.JPanel;
 import javax.swing.ToolTipManager;
 
-import com.orsoncharts.internal.Args;
-import com.orsoncharts.graphics3d.Drawable3D;
-import com.orsoncharts.graphics3d.Offset2D;
-import com.orsoncharts.graphics3d.ViewPoint3D;
-import com.orsoncharts.graphics3d.Dimension3D;
-import com.orsoncharts.graphics3d.RenderingInfo;
+import org.jfree.chart3d.internal.Args;
+import org.jfree.chart3d.export.ExportUtils;
+import org.jfree.chart3d.graphics3d.Dimension3D;
+import org.jfree.chart3d.graphics3d.Drawable3D;
+import org.jfree.chart3d.graphics3d.Offset2D;
+import org.jfree.chart3d.graphics3d.RenderingInfo;
+import org.jfree.chart3d.graphics3d.ViewPoint3D;
 
 /**
  * A panel that displays a set of 3D objects from a particular viewing point.

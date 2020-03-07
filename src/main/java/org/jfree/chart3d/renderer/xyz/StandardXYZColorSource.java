@@ -30,14 +30,14 @@
  * 
  */
 
-package com.orsoncharts.renderer.xyz;
+package org.jfree.chart3d.renderer.xyz;
 
 import java.awt.Color;
 import java.io.Serializable;
 
-import com.orsoncharts.Colors;
-import com.orsoncharts.internal.Args;
-import com.orsoncharts.internal.ObjectUtils;
+import org.jfree.chart3d.Colors;
+import org.jfree.chart3d.internal.Args;
+import org.jfree.chart3d.internal.ObjectUtils;
 
 /**
  * A standard implementation of the {@link XYZColorSource} interface.

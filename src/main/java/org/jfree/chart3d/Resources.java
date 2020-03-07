@@ -30,11 +30,11 @@
  * 
  */
 
-package com.orsoncharts;
+package org.jfree.chart3d;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
-import com.orsoncharts.internal.Args;
+import org.jfree.chart3d.internal.Args;
 
 /**
  * Provides centralised access to localised resources.
@@ -48,7 +48,7 @@ public class Resources {
     
     /** Localised resources. */
     private static ResourceBundle resources = ResourceBundle.getBundle(
-            "com.orsoncharts.Resources", Locale.getDefault());
+            "org.jfree.chart3d.Resources", Locale.getDefault());
     
     /**
      * Returns the locale that is being used for supplying resources.  The
@@ -68,7 +68,7 @@ public class Resources {
     public static void setLocale(Locale l) {
         Args.nullNotPermitted(l, "l");
         locale = l;
-        resources = ResourceBundle.getBundle("com.orsoncharts.Resources",
+        resources = ResourceBundle.getBundle("org.jfree.chart3d.Resources",
                 locale);
     }
     

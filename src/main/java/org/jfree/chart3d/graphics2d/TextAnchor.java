@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.graphics2d;
+package org.jfree.chart3d.graphics2d;
 
 /**
  * Used to indicate the position of an anchor point for a text string.  This is

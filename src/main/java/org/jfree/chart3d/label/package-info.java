@@ -1,4 +1,4 @@
 /**
  * Classes related to chart labels.
  */
-package com.orsoncharts.label;
+package org.jfree.chart3d.label;

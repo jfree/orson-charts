@@ -30,13 +30,13 @@
  * 
  */
 
-package com.orsoncharts.data;
+package org.jfree.chart3d.data;
 
 import java.io.Serializable;
 import java.util.List;
 
-import com.orsoncharts.internal.Args;
-import com.orsoncharts.plot.PiePlot3D;
+import org.jfree.chart3d.internal.Args;
+import org.jfree.chart3d.plot.PiePlot3D;
 
 /**
  * A dataset that can be used with a {@link PiePlot3D}.  This class represents
@@ -50,8 +50,8 @@ import com.orsoncharts.plot.PiePlot3D;
  * {@code KeyedValues&lt;Number&gt;}, so the following useful utility 
  * methods can be used:
  * <ul>
- * {@link DataUtils#total(com.orsoncharts.data.Values)}
- * {@link JSONUtils#writeKeyedValues(com.orsoncharts.data.KeyedValues)}
+ * {@link DataUtils#total(org.jfree.chart3d.data.Values)}
+ * {@link JSONUtils#writeKeyedValues(org.jfree.chart3d.data.KeyedValues)}
  * </ul>
  * <br><br>
  * NOTE: This class is serializable, but the serialization format is subject 
@@ -213,7 +213,7 @@ public final class StandardPieDataset3D<K extends Comparable<K>>
      * <br><br>
      * Implementation note: the current implementation (which is subject to 
      * change) writes the dataset in JSON format using 
-     * {@link JSONUtils#writeKeyedValues(com.orsoncharts.data.KeyedValues)}.
+     * {@link JSONUtils#writeKeyedValues(org.jfree.chart3d.data.KeyedValues)}.
      * 
      * @return A string. 
      */

@@ -30,15 +30,15 @@
  * 
  */
 
-package com.orsoncharts.graphics3d;
+package org.jfree.chart3d.graphics3d;
 
 import java.awt.Color;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 
-import com.orsoncharts.graphics3d.internal.TaggedFace;
-import com.orsoncharts.graphics3d.internal.Utils2D;
-import com.orsoncharts.internal.Args;
+import org.jfree.chart3d.graphics3d.internal.TaggedFace;
+import org.jfree.chart3d.graphics3d.internal.Utils2D;
+import org.jfree.chart3d.internal.Args;
 
 /**
  * Represents a face in one {@link Object3D}, defined in terms of vertex

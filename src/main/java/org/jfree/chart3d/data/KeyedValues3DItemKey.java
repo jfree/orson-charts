@@ -30,12 +30,12 @@
  * 
  */
 
-package com.orsoncharts.data;
+package org.jfree.chart3d.data;
 
 import java.io.Serializable;
 
-import com.orsoncharts.internal.Args;
-import com.orsoncharts.internal.ObjectUtils;
+import org.jfree.chart3d.internal.Args;
+import org.jfree.chart3d.internal.ObjectUtils;
 
 /**
  * An object that references one data item in a {@link KeyedValues3D} data

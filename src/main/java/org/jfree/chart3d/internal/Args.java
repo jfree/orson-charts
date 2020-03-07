@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.internal;
+package org.jfree.chart3d.internal;
 
 /**
  * Utility methods for argument checking.  Throughout Orson Charts, arguments

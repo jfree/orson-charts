@@ -30,11 +30,11 @@
  * 
  */
 
-package com.orsoncharts.axis;
+package org.jfree.chart3d.axis;
 
 import java.util.EventObject;
 
-import com.orsoncharts.internal.Args;
+import org.jfree.chart3d.internal.Args;
 
 /**
  * An event associated with a change to an {@link Axis3D}.  These change 

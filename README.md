@@ -1,9 +1,9 @@
 Orson Charts
 ============
 
-(C)opyright 2013-2017, by Object Refinery Limited.  All rights reserved.
+(C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
 
-Version 1.7, 17 November 2017.
+Version 2.0, not yet released.
 
 
 Overview
@@ -26,7 +26,7 @@ Key features include:
 - support for PDF, SVG, PNG and JPG export of charts for reporting;
 - a clean and well-documented API with a high degree of chart configurability.
 
-Orson Charts is very easy to use, and includes comprehensive Javadocs.  It is licensed under the terms of the GNU General Public License version 3 or later.  For companies that do not wish to be bound by the terms of the GPLv3, a commercial license can be purchased from Object Refinery Limited.  The license permits royalty-free redistribution of the Orson Charts runtime jar file.  Orson Charts requires JDK/JRE 1.6 or later.  To use Orson Charts with JavaFX requires the Orson Charts FX extension project (and JDK/JRE 1.8 or later).
+Orson Charts is very easy to use, and includes comprehensive Javadocs.  It is licensed under the terms of the GNU General Public License version 3 or later.  For companies that do not wish to be bound by the terms of the GPLv3, a commercial license can be purchased from Object Refinery Limited.  The license permits royalty-free redistribution of the Orson Charts runtime jar file.  Orson Charts requires JDK/JRE 11 or later.  To use Orson Charts with JavaFX requires the Orson Charts FX extension project.
 
 
 Documentation
@@ -52,7 +52,7 @@ You can build Orson Charts using Maven by issuing the following command from the
 
     mvn clean install
 
-The build requires JDK 1.6 or later.  
+The build requires JDK 11 or later.  
 
 
 Reporting Bugs
@@ -73,6 +73,11 @@ If you have any questions, don't hesitate to send a mail to info@object-refinery
 
 History
 -------
+
+Version 2.0 : not yet released
+
+- created a Java module (`org.jfree.chart3d`)
+
 
 Version 1.7 : 17-Nov-2017
 

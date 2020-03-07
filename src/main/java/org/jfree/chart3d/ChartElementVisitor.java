@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts;
+package org.jfree.chart3d;
 
 /**
  * A visitor for a {@link ChartElement}.

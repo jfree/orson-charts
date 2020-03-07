@@ -3,4 +3,4 @@
  * This is used for chart legend construction, but the API is intended to be
  * general purpose and should not contain any chart-specific code.
  */
-package com.orsoncharts.table;
+package org.jfree.chart3d.table;

@@ -30,13 +30,13 @@
  * 
  */
 
-package com.orsoncharts.data.xyz;
+package org.jfree.chart3d.data.xyz;
 
 import java.io.Serializable;
 
-import com.orsoncharts.data.ItemKey;
-import com.orsoncharts.internal.Args;
-import com.orsoncharts.internal.ObjectUtils;
+import org.jfree.chart3d.data.ItemKey;
+import org.jfree.chart3d.internal.Args;
+import org.jfree.chart3d.internal.ObjectUtils;
 
 /**
  * An object that references one data item in an {@link XYZDataset}.  This is 

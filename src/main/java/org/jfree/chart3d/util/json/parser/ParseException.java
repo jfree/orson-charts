@@ -16,12 +16,12 @@
  * which is licensed under the Apache Software License version 2.0.  
  * 
  * It has been modified locally and repackaged under 
- * com.orsoncharts.util.json.* to avoid conflicts with any other version that
+ * org.jfree.chart3d.util.json.* to avoid conflicts with any other version that
  * may be present on the classpath. 
  * 
  */
 
-package com.orsoncharts.util.json.parser;
+package org.jfree.chart3d.util.json.parser;
 
 /**
  * ParseException explains why and where the error occurs in source JSON text.
@@ -63,7 +63,7 @@ public class ParseException extends Exception {
     }
     
     /**
-     * @see com.orsoncharts.util.json.parser.JSONParser#getPosition()
+     * @see org.jfree.chart3d.util.json.parser.JSONParser#getPosition()
      * 
      * @return The character position (starting with 0) of the input where the 
      * error occurs.
@@ -77,11 +77,11 @@ public class ParseException extends Exception {
     }
     
     /**
-     * @see com.orsoncharts.util.json.parser.Yytoken
+     * @see org.jfree.chart3d.util.json.parser.Yytoken
      * 
      * @return One of the following base on the value of errorType:
      *         ERROR_UNEXPECTED_CHAR        java.lang.Character
-     *         ERROR_UNEXPECTED_TOKEN       com.orsoncharts.util.json.simple.parser.Yytoken
+     *         ERROR_UNEXPECTED_TOKEN       org.jfree.chart3d.util.json.simple.parser.Yytoken
      *         ERROR_UNEXPECTED_EXCEPTION   java.lang.Exception
      */
     public Object getUnexpectedObject() {

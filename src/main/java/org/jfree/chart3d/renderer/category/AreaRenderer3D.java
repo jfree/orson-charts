@@ -30,30 +30,29 @@
  * 
  */
 
-package com.orsoncharts.renderer.category;
+package org.jfree.chart3d.renderer.category;
 
 import java.awt.Color;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.orsoncharts.axis.CategoryAxis3D;
-import com.orsoncharts.Chart3DFactory;
-import com.orsoncharts.data.Range;
-import com.orsoncharts.axis.ValueAxis3D;
-import com.orsoncharts.data.category.CategoryDataset3D;
-import com.orsoncharts.data.DataUtils;
-import com.orsoncharts.data.Values3D;
-import com.orsoncharts.data.KeyedValues3DItemKey;
-import com.orsoncharts.graphics3d.Dimension3D;
-import com.orsoncharts.graphics3d.Object3D;
-import com.orsoncharts.graphics3d.Offset3D;
-import com.orsoncharts.graphics3d.World;
-import com.orsoncharts.graphics3d.internal.Utils2D;
-import com.orsoncharts.label.ItemLabelPositioning;
-import com.orsoncharts.plot.CategoryPlot3D;
-import com.orsoncharts.renderer.Renderer3DChangeEvent;
-import com.orsoncharts.internal.ObjectUtils;
+import org.jfree.chart3d.Chart3DFactory;
+import org.jfree.chart3d.axis.CategoryAxis3D;
+import org.jfree.chart3d.axis.ValueAxis3D;
+import org.jfree.chart3d.data.DataUtils;
+import org.jfree.chart3d.data.KeyedValues3DItemKey;
+import org.jfree.chart3d.data.Range;
+import org.jfree.chart3d.data.Values3D;
+import org.jfree.chart3d.data.category.CategoryDataset3D;
+import org.jfree.chart3d.graphics3d.Dimension3D;
+import org.jfree.chart3d.graphics3d.Object3D;
+import org.jfree.chart3d.graphics3d.Offset3D;
+import org.jfree.chart3d.graphics3d.World;
+import org.jfree.chart3d.graphics3d.internal.Utils2D;
+import org.jfree.chart3d.internal.ObjectUtils;
+import org.jfree.chart3d.label.ItemLabelPositioning;
+import org.jfree.chart3d.plot.CategoryPlot3D;
+import org.jfree.chart3d.renderer.Renderer3DChangeEvent;
 
 /**
  * A renderer for creating 3D area charts from data in a 

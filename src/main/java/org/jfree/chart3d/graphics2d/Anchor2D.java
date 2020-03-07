@@ -30,16 +30,15 @@
  * 
  */
 
-package com.orsoncharts.graphics2d;
+package org.jfree.chart3d.graphics2d;
 
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
-
-import com.orsoncharts.TitleAnchor;
-import com.orsoncharts.graphics3d.Offset2D;
-import com.orsoncharts.legend.LegendAnchor;
-import com.orsoncharts.internal.Args;
+import org.jfree.chart3d.TitleAnchor;
+import org.jfree.chart3d.graphics3d.Offset2D;
+import org.jfree.chart3d.internal.Args;
+import org.jfree.chart3d.legend.LegendAnchor;
 
 /**
  * Represents an anchor point for a chart title and/or legend.  The anchor

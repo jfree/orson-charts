@@ -30,9 +30,8 @@
  * 
  */
 
-package com.orsoncharts.table;
+package org.jfree.chart3d.table;
 
-import com.orsoncharts.graphics2d.RefPt2D;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Insets;
@@ -41,9 +40,10 @@ import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import org.jfree.chart3d.graphics2d.RefPt2D;
 
-import com.orsoncharts.internal.Args;
-import com.orsoncharts.internal.ObjectUtils;
+import org.jfree.chart3d.internal.Args;
+import org.jfree.chart3d.internal.ObjectUtils;
 
 /**
  * A base class that can be used to implement a {@link TableElement}.

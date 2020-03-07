@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.graphics3d;
+package org.jfree.chart3d.graphics3d;
 
 import java.awt.Color;
 

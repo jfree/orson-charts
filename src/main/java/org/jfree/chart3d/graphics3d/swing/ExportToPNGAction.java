@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.graphics3d.swing;
+package org.jfree.chart3d.graphics3d.swing;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -44,9 +44,8 @@ import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
-import com.orsoncharts.Resources;
-import com.orsoncharts.internal.Args;
+import org.jfree.chart3d.Resources;
+import org.jfree.chart3d.internal.Args;
 
 /**
  * An action that handles saving the content of a panel to a PNG image.

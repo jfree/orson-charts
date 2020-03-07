@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.axis;
+package org.jfree.chart3d.axis;
 
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
@@ -46,18 +46,18 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 
-import com.orsoncharts.Chart3DHints;
-import com.orsoncharts.data.Range;
-import com.orsoncharts.graphics2d.TextAnchor;
-import com.orsoncharts.graphics3d.RenderedElement;
-import com.orsoncharts.graphics3d.RenderingInfo;
-import com.orsoncharts.graphics3d.internal.Utils2D;
-import com.orsoncharts.interaction.InteractiveElementType;
-import com.orsoncharts.plot.CategoryPlot3D;
-import com.orsoncharts.plot.XYZPlot;
-import com.orsoncharts.internal.TextUtils;
-import com.orsoncharts.internal.Args;
-import com.orsoncharts.internal.ObjectUtils;
+import org.jfree.chart3d.Chart3DHints;
+import org.jfree.chart3d.data.Range;
+import org.jfree.chart3d.graphics2d.TextAnchor;
+import org.jfree.chart3d.graphics3d.RenderedElement;
+import org.jfree.chart3d.graphics3d.RenderingInfo;
+import org.jfree.chart3d.graphics3d.internal.Utils2D;
+import org.jfree.chart3d.interaction.InteractiveElementType;
+import org.jfree.chart3d.internal.TextUtils;
+import org.jfree.chart3d.internal.Args;
+import org.jfree.chart3d.internal.ObjectUtils;
+import org.jfree.chart3d.plot.CategoryPlot3D;
+import org.jfree.chart3d.plot.XYZPlot;
 
 /**
  * A numerical axis for use with 3D plots (implements {@link ValueAxis3D}).

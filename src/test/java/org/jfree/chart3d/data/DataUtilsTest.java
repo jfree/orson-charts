@@ -30,18 +30,17 @@
  * 
  */
 
-package com.orsoncharts.data;
+package org.jfree.chart3d.data;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
-import com.orsoncharts.data.Range;
-import com.orsoncharts.data.category.StandardCategoryDataset3D;
-import com.orsoncharts.data.xyz.XYZDataset;
-import com.orsoncharts.data.xyz.XYZSeries;
-import com.orsoncharts.data.xyz.XYZSeriesCollection;
+import org.jfree.chart3d.data.category.StandardCategoryDataset3D;
+import org.jfree.chart3d.data.xyz.XYZDataset;
+import org.jfree.chart3d.data.xyz.XYZSeries;
+import org.jfree.chart3d.data.xyz.XYZSeriesCollection;
 
 /**
  * Tests for the {@link DataUtils} class.
@@ -53,7 +52,7 @@ public class DataUtilsTest {
     @Test
     public void testCount() {
         DefaultKeyedValues3D<String, String, String, Number> dataset 
-                = new DefaultKeyedValues3D<String, String, String, Number>();
+                = new DefaultKeyedValues3D<>();
         dataset.setValue(1.0, "S1", "R1", "C1");
         assertEquals(1, DataUtils.count(dataset, "S1"));
         dataset.setValue(2.0, "S1", "R2", "C1");
@@ -67,7 +66,7 @@ public class DataUtilsTest {
     @Test
     public void testCountForRow() {
         DefaultKeyedValues3D<String, String, String, Number> dataset 
-                = new DefaultKeyedValues3D<String, String, String, Number>();
+                = new DefaultKeyedValues3D<>();
         dataset.setValue(1.0, "S1", "R1", "C1");
         assertEquals(1, DataUtils.countForRow(dataset, "R1"));
         dataset.setValue(2.0, "S2", "R1", "C1");
@@ -81,7 +80,7 @@ public class DataUtilsTest {
     @Test
     public void testCountForColumn() {
         DefaultKeyedValues3D<String, String, String, Number> dataset 
-                = new DefaultKeyedValues3D<String, String, String, Number>();
+                = new DefaultKeyedValues3D<>();
         dataset.setValue(1.0, "S1", "R1", "C1");
         assertEquals(1, DataUtils.countForColumn(dataset, "C1"));
         dataset.setValue(2.0, "S1", "R2", "C1");
@@ -95,7 +94,7 @@ public class DataUtilsTest {
     @Test
     public void testTotal() {
         DefaultKeyedValues<String, Number> values 
-                = new DefaultKeyedValues<String, Number>();
+                = new DefaultKeyedValues<>();
         assertEquals(0.0, DataUtils.total(values), EPSILON);
         
         values.put("K1", 1.0);
@@ -111,7 +110,7 @@ public class DataUtilsTest {
     @Test
     public void testTotal_KeyedValues3D() {
         DefaultKeyedValues3D<String, String, String, Double> data 
-                = new DefaultKeyedValues3D<String, String, String, Double>();
+                = new DefaultKeyedValues3D<>();
         data.setValue(1.0, "S1", "R1", "C1");
         assertEquals(1.0, DataUtils.total(data, "S1"), EPSILON);
         data.setValue(null, "S1", "R2", "C1");
@@ -122,8 +121,8 @@ public class DataUtilsTest {
     
     @Test
     public void testTotal_XYZDataset() {
-        XYZSeries<String> s1 = new XYZSeries<String>("S1");
-        XYZSeriesCollection<String> dataset = new XYZSeriesCollection<String>();
+        XYZSeries<String> s1 = new XYZSeries<>("S1");
+        XYZSeriesCollection<String> dataset = new XYZSeriesCollection<>();
         dataset.add(s1);
         assertEquals(0.0, DataUtils.total(dataset, "S1"), EPSILON);
         s1.add(1.0, 2.0, 3.0);
@@ -135,7 +134,7 @@ public class DataUtilsTest {
     @Test
     public void testStackSubTotal() {
         DefaultKeyedValues3D<String, String, String, Number> data 
-                = new DefaultKeyedValues3D<String, String, String, Number>();
+                = new DefaultKeyedValues3D<>();
         double[] result = DataUtils.stackSubTotal(data, 0.0, 0, 0, 0);
         assertArrayEquals(result, new double[] { 0.0, 0.0 }, EPSILON);
         result = DataUtils.stackSubTotal(data, -1.0, 0, 0, 0);
@@ -207,8 +206,8 @@ public class DataUtilsTest {
     
     @Test
     public void testFindXRange() {
-        XYZSeries<String> s1 = new XYZSeries<String>("S1");
-        XYZSeriesCollection<String> dataset = new XYZSeriesCollection<String>();
+        XYZSeries<String> s1 = new XYZSeries<>("S1");
+        XYZSeriesCollection<String> dataset = new XYZSeriesCollection<>();
         dataset.add(s1);
         assertNull(DataUtils.findXRange(dataset));
         assertNull(DataUtils.findXRange(dataset, Double.NaN));
@@ -245,8 +244,8 @@ public class DataUtilsTest {
 
     @Test
     public void testFindYRange() {
-        XYZSeries<String> s1 = new XYZSeries<String>("S1");
-        XYZSeriesCollection<String> dataset = new XYZSeriesCollection<String>();
+        XYZSeries<String> s1 = new XYZSeries<>("S1");
+        XYZSeriesCollection<String> dataset = new XYZSeriesCollection<>();
         dataset.add(s1);
         assertNull(DataUtils.findYRange(dataset));
         assertNull(DataUtils.findYRange(dataset, Double.NaN));
@@ -283,8 +282,8 @@ public class DataUtilsTest {
     
     @Test
     public void testFindZRange() {
-        XYZSeries<String> s1 = new XYZSeries<String>("S1");
-        XYZSeriesCollection<String> dataset = new XYZSeriesCollection<String>();
+        XYZSeries<String> s1 = new XYZSeries<>("S1");
+        XYZSeriesCollection<String> dataset = new XYZSeriesCollection<>();
         dataset.add(s1);
         assertNull(DataUtils.findZRange(dataset));
         assertNull(DataUtils.findZRange(dataset, Double.NaN));

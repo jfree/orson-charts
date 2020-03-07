@@ -30,9 +30,9 @@
  * 
  */
 
-package com.orsoncharts.data;
+package org.jfree.chart3d.data;
 
-import com.orsoncharts.plot.PiePlot3D;
+import org.jfree.chart3d.plot.PiePlot3D;
 
 /**
  * The interface through which the {@link PiePlot3D} class obtains data for

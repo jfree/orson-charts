@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.graphics2d;
+package org.jfree.chart3d.graphics2d;
 
 /**
  * Scaling options for fitting rectangles.

@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.table;
+package org.jfree.chart3d.table;
 
 /**
  * A {@link TableElement} that contains other elements (provides the

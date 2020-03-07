@@ -30,9 +30,9 @@
  * 
  */
 
-package com.orsoncharts.graphics2d;
+package org.jfree.chart3d.graphics2d;
 
-import com.orsoncharts.internal.Args;
+import org.jfree.chart3d.internal.Args;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;

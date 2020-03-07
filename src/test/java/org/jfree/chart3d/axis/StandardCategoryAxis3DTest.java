@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.axis;
+package org.jfree.chart3d.axis;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
@@ -39,12 +39,12 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GradientPaint;
+import org.jfree.chart3d.TestUtils;
 
 import org.junit.Test;
 
-import com.orsoncharts.TestUtils;
-import com.orsoncharts.label.StandardCategoryLabelGenerator;
-import com.orsoncharts.marker.CategoryMarker;
+import org.jfree.chart3d.label.StandardCategoryLabelGenerator;
+import org.jfree.chart3d.marker.CategoryMarker;
 
 /**
  * Tests for the {@link StandardCategoryAxis3D} class.

@@ -30,15 +30,15 @@
  * 
  */
 
-package com.orsoncharts.graphics3d.swing;
+package org.jfree.chart3d.graphics3d.swing;
 
-import com.orsoncharts.Resources;
-import com.orsoncharts.internal.Args;
+import org.jfree.chart3d.internal.Args;
 
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import org.jfree.chart3d.Resources;
 
 /**
  * An action that handles rotating the 3D view towards the top of the screen.

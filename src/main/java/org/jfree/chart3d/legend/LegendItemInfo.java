@@ -30,12 +30,12 @@
  * 
  */
 
-package com.orsoncharts.legend;
+package org.jfree.chart3d.legend;
 
 import java.awt.Shape;
 import java.util.Map;
 import java.awt.Color;
-import com.orsoncharts.plot.Plot3D;
+import org.jfree.chart3d.plot.Plot3D;
 
 /**
  * Information about an item (typically a data series) that can be displayed

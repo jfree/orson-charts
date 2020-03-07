@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.data;
+package org.jfree.chart3d.data;
 
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertEquals;

@@ -30,10 +30,10 @@
  * 
  */
 
-package com.orsoncharts.interaction;
+package org.jfree.chart3d.interaction;
 
-import com.orsoncharts.data.KeyedValues3D;
-import com.orsoncharts.data.KeyedValues3DItemKey;
+import org.jfree.chart3d.data.KeyedValues3D;
+import org.jfree.chart3d.data.KeyedValues3DItemKey;
 
 /**
  * An object representing a set of selected items for a {@link KeyedValues3D}

@@ -30,19 +30,19 @@
  * 
  */
 
-package com.orsoncharts.style;
+package org.jfree.chart3d.style;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Shape;
 import java.awt.Stroke;
-import com.orsoncharts.Chart3D;
-import com.orsoncharts.table.RectanglePainter;
+import org.jfree.chart3d.Chart3D;
+import org.jfree.chart3d.table.RectanglePainter;
 
 /**
  * A chart style provides styling attributes for a chart.  To apply a style
  * to a chart, use the 
- * {@link Chart3D#setStyle(com.orsoncharts.style.ChartStyle)} method.  See the 
+ * {@link Chart3D#setStyle(org.jfree.chart3d.style.ChartStyle)} method.  See the 
  * {@link ChartStyles} class for predefined styles.
  * 
  * @since 1.2

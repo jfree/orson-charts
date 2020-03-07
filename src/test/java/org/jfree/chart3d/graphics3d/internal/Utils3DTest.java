@@ -30,9 +30,9 @@
  * 
  */
 
-package com.orsoncharts.graphics3d.internal;
+package org.jfree.chart3d.graphics3d.internal;
 
-import com.orsoncharts.graphics3d.Point3D;
+import org.jfree.chart3d.graphics3d.Point3D;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 

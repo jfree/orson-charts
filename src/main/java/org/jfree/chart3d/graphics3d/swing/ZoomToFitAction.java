@@ -30,16 +30,15 @@
  * 
  */
 
-package com.orsoncharts.graphics3d.swing;
-
-import com.orsoncharts.Resources;
+package org.jfree.chart3d.graphics3d.swing;
 
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import org.jfree.chart3d.Resources;
 
-import com.orsoncharts.internal.Args;
+import org.jfree.chart3d.internal.Args;
 
 /**
  * An action that performs a zoom-to-fit operation.

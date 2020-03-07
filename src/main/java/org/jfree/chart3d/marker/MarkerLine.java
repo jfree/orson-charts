@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.marker;
+package org.jfree.chart3d.marker;
 
 import java.awt.geom.Point2D;
 

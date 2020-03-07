@@ -1,7 +1,7 @@
 /**
- * Standard plot types ({@link com.orsoncharts.plot.PiePlot3D},
- * {@link com.orsoncharts.plot.CategoryPlot3D} and 
- * {@link com.orsoncharts.plot.XYZPlot}) that can be used with the 
- * {@link com.orsoncharts.Chart3D} class.
+ * Standard plot types ({@link org.jfree.chart3d.plot.PiePlot3D},
+ * {@link org.jfree.chart3d.plot.CategoryPlot3D} and 
+ * {@link org.jfree.chart3d.plot.XYZPlot}) that can be used with the 
+ * {@link org.jfree.chart3d.Chart3D} class.
  */
-package com.orsoncharts.plot;
+package org.jfree.chart3d.plot;

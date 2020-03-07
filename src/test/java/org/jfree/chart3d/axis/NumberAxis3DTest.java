@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.axis;
+package org.jfree.chart3d.axis;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -46,8 +46,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GradientPaint;
 import java.text.DecimalFormat;
-import com.orsoncharts.data.Range;
-import com.orsoncharts.TestUtils;
+import org.jfree.chart3d.TestUtils;
+import org.jfree.chart3d.data.Range;
 
 /**
  * Checks for the {@link NumberAxis3D} class.

@@ -30,14 +30,14 @@
  * 
  */
 
-package com.orsoncharts.label;
+package org.jfree.chart3d.label;
 
 import java.io.Serializable;
 import java.util.Formatter;
 
-import com.orsoncharts.data.DataUtils;
-import com.orsoncharts.data.xyz.XYZDataset;
-import com.orsoncharts.internal.Args;
+import org.jfree.chart3d.data.DataUtils;
+import org.jfree.chart3d.data.xyz.XYZDataset;
+import org.jfree.chart3d.internal.Args;
 
 /**
  * A default implementation of the {@link XYZLabelGenerator} interface.  

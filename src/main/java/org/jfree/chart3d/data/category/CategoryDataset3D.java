@@ -30,11 +30,11 @@
  * 
  */
 
-package com.orsoncharts.data.category;
+package org.jfree.chart3d.data.category;
 
-import com.orsoncharts.data.Dataset3D;
-import com.orsoncharts.data.KeyedValues3D;
-import com.orsoncharts.plot.CategoryPlot3D;
+import org.jfree.chart3d.data.Dataset3D;
+import org.jfree.chart3d.data.KeyedValues3D;
+import org.jfree.chart3d.plot.CategoryPlot3D;
 
 /**
  * An interface for a dataset with multiple series of data in the form of

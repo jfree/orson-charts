@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.style;
+package org.jfree.chart3d.style;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -45,13 +45,12 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 import javax.swing.event.EventListenerList;
-
-import com.orsoncharts.Colors;
-import com.orsoncharts.internal.ChartBox3D;
-import com.orsoncharts.table.RectanglePainter;
-import com.orsoncharts.table.StandardRectanglePainter;
-import com.orsoncharts.internal.Args;
-import com.orsoncharts.internal.SerialUtils;
+import org.jfree.chart3d.Colors;
+import org.jfree.chart3d.internal.Args;
+import org.jfree.chart3d.internal.ChartBox3D;
+import org.jfree.chart3d.internal.SerialUtils;
+import org.jfree.chart3d.table.RectanglePainter;
+import org.jfree.chart3d.table.StandardRectanglePainter;
 
 /**
  * A standard implementation of the {@link ChartStyle} interface.

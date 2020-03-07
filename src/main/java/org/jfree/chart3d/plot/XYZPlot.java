@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.plot;
+package org.jfree.chart3d.plot;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -43,30 +43,30 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.orsoncharts.ChartElementVisitor;
-import com.orsoncharts.axis.Axis3DChangeEvent;
-import com.orsoncharts.axis.Axis3DChangeListener;
-import com.orsoncharts.axis.ValueAxis3D;
-import com.orsoncharts.data.Dataset3DChangeEvent;
-import com.orsoncharts.data.Dataset3DChangeListener;
-import com.orsoncharts.data.ItemKey;
-import com.orsoncharts.data.xyz.XYZDataset;
-import com.orsoncharts.data.xyz.XYZItemKey;
-import com.orsoncharts.renderer.xyz.XYZRenderer;
-import com.orsoncharts.internal.Args;
-import com.orsoncharts.graphics3d.Dimension3D;
-import com.orsoncharts.graphics3d.World;
-import com.orsoncharts.label.StandardXYZLabelGenerator;
-import com.orsoncharts.label.StandardXYZItemLabelGenerator;
-import com.orsoncharts.label.XYZLabelGenerator;
-import com.orsoncharts.label.XYZItemLabelGenerator;
-import com.orsoncharts.legend.LegendItemInfo;
-import com.orsoncharts.legend.StandardLegendItemInfo;
-import com.orsoncharts.renderer.ComposeType;
-import com.orsoncharts.renderer.Renderer3DChangeEvent;
-import com.orsoncharts.renderer.Renderer3DChangeListener;
-import com.orsoncharts.internal.ObjectUtils;
-import com.orsoncharts.internal.SerialUtils;
+import org.jfree.chart3d.internal.Args;
+import org.jfree.chart3d.ChartElementVisitor;
+import org.jfree.chart3d.axis.Axis3DChangeEvent;
+import org.jfree.chart3d.axis.Axis3DChangeListener;
+import org.jfree.chart3d.axis.ValueAxis3D;
+import org.jfree.chart3d.data.Dataset3DChangeEvent;
+import org.jfree.chart3d.data.Dataset3DChangeListener;
+import org.jfree.chart3d.data.ItemKey;
+import org.jfree.chart3d.data.xyz.XYZDataset;
+import org.jfree.chart3d.data.xyz.XYZItemKey;
+import org.jfree.chart3d.graphics3d.Dimension3D;
+import org.jfree.chart3d.graphics3d.World;
+import org.jfree.chart3d.internal.ObjectUtils;
+import org.jfree.chart3d.internal.SerialUtils;
+import org.jfree.chart3d.label.StandardXYZItemLabelGenerator;
+import org.jfree.chart3d.label.StandardXYZLabelGenerator;
+import org.jfree.chart3d.label.XYZItemLabelGenerator;
+import org.jfree.chart3d.label.XYZLabelGenerator;
+import org.jfree.chart3d.legend.LegendItemInfo;
+import org.jfree.chart3d.legend.StandardLegendItemInfo;
+import org.jfree.chart3d.renderer.ComposeType;
+import org.jfree.chart3d.renderer.Renderer3DChangeEvent;
+import org.jfree.chart3d.renderer.Renderer3DChangeListener;
+import org.jfree.chart3d.renderer.xyz.XYZRenderer;
 
 /**
  * A 3D plot with three numerical axes that displays data from an

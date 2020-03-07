@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.data;
+package org.jfree.chart3d.data;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -38,8 +38,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
-import com.orsoncharts.TestUtils;
-import com.orsoncharts.data.category.StandardCategoryDataset3D;
+import org.jfree.chart3d.TestUtils;
 
 /**
  * Some checks for the {@link DefaultKeyedValues2D} class.
@@ -51,7 +50,7 @@ public class DefaultKeyedValues2DTest {
     @Test
     public void testGetValue() {
         DefaultKeyedValues2D<String, String, Number> kv2d 
-                = new DefaultKeyedValues2D<String, String, Number>();
+                = new DefaultKeyedValues2D<>();
         kv2d.setValue(1.0, "R1", "C1");
         kv2d.setValue(2.0, "R1", "C2");
         kv2d.setValue(3.0, "R1", "C3");
@@ -71,7 +70,7 @@ public class DefaultKeyedValues2DTest {
     public void testSetValue() {
         // empty data
         DefaultKeyedValues2D<String, String, Number> data 
-                = new DefaultKeyedValues2D<String, String, Number>();
+                = new DefaultKeyedValues2D<>();
         data.setValue(1.0, "R1", "C1");
         assertEquals(1.0, data.getValue("R1", "C1").doubleValue(), EPSILON);
         assertEquals(1, data.getRowCount());
@@ -107,9 +106,9 @@ public class DefaultKeyedValues2DTest {
     @Test
     public void testEquals() {
         DefaultKeyedValues2D<String, String, Number> d1 
-                = new DefaultKeyedValues2D<String, String, Number>();
+                = new DefaultKeyedValues2D<>();
         DefaultKeyedValues2D<String, String, Number> d2 
-                = new DefaultKeyedValues2D<String, String, Number>();
+                = new DefaultKeyedValues2D<>();
         assertTrue(d1.equals(d2));
         assertFalse(d1.equals(null));
         
@@ -126,7 +125,7 @@ public class DefaultKeyedValues2DTest {
     @SuppressWarnings("unchecked")
     public void testSerialization() {
         DefaultKeyedValues2D<String, String, Number> d1 
-                = new DefaultKeyedValues2D<String, String, Number>();
+                = new DefaultKeyedValues2D<>();
         d1.setValue(1.0, "R1", "C1");
         DefaultKeyedValues2D<String, String, Number> d2 
                 = (DefaultKeyedValues2D<String, String, Number>) 

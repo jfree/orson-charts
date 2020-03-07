@@ -30,26 +30,26 @@
  * 
  */
 
-package com.orsoncharts.renderer.category;
+package org.jfree.chart3d.renderer.category;
 
 import java.awt.Color;
 import java.io.Serializable;
 
-import com.orsoncharts.Chart3DFactory;
-import com.orsoncharts.data.Range;
-import com.orsoncharts.axis.CategoryAxis3D;
-import com.orsoncharts.axis.ValueAxis3D;
-import com.orsoncharts.data.category.CategoryDataset3D;
-import com.orsoncharts.data.DataUtils;
-import com.orsoncharts.data.KeyedValues3DItemKey;
-import com.orsoncharts.data.Values3D;
-import com.orsoncharts.graphics3d.Dimension3D;
-import com.orsoncharts.graphics3d.Object3D;
-import com.orsoncharts.graphics3d.World;
-import com.orsoncharts.label.ItemLabelPositioning;
-import com.orsoncharts.plot.CategoryPlot3D;
-import com.orsoncharts.renderer.Renderer3DChangeEvent;
-import com.orsoncharts.internal.ObjectUtils;
+import org.jfree.chart3d.Chart3DFactory;
+import org.jfree.chart3d.axis.CategoryAxis3D;
+import org.jfree.chart3d.axis.ValueAxis3D;
+import org.jfree.chart3d.data.DataUtils;
+import org.jfree.chart3d.data.KeyedValues3DItemKey;
+import org.jfree.chart3d.data.Range;
+import org.jfree.chart3d.data.Values3D;
+import org.jfree.chart3d.data.category.CategoryDataset3D;
+import org.jfree.chart3d.graphics3d.Dimension3D;
+import org.jfree.chart3d.graphics3d.Object3D;
+import org.jfree.chart3d.graphics3d.World;
+import org.jfree.chart3d.internal.ObjectUtils;
+import org.jfree.chart3d.label.ItemLabelPositioning;
+import org.jfree.chart3d.plot.CategoryPlot3D;
+import org.jfree.chart3d.renderer.Renderer3DChangeEvent;
 
 /**
  * A renderer for creating 3D bar charts from a {@link CategoryDataset3D} (for 
@@ -123,7 +123,7 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
     
     /**
      * Sets the base value for the bars and fires a 
-     * {@link com.orsoncharts.renderer.Renderer3DChangeEvent}.
+     * {@link org.jfree.chart3d.renderer.Renderer3DChangeEvent}.
      * 
      * @param base  the new base value.
      * 
@@ -169,7 +169,7 @@ public class BarRenderer3D extends AbstractCategoryRenderer3D
     
     /**
      * Sets the the bar width as a percentage of the row width and
-     * fires a {@link com.orsoncharts.renderer.Renderer3DChangeEvent}.
+     * fires a {@link org.jfree.chart3d.renderer.Renderer3DChangeEvent}.
      * 
      * @param barZWidth  the new width.
      */

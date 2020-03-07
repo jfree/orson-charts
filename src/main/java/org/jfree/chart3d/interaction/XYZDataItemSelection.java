@@ -30,10 +30,10 @@
  * 
  */
 
-package com.orsoncharts.interaction;
+package org.jfree.chart3d.interaction;
 
-import com.orsoncharts.data.xyz.XYZDataset;
-import com.orsoncharts.data.xyz.XYZItemKey;
+import org.jfree.chart3d.data.xyz.XYZDataset;
+import org.jfree.chart3d.data.xyz.XYZItemKey;
 
 /**
  * An object representing a selection of items from an {@link XYZDataset}.

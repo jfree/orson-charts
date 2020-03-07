@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.graphics2d;
+package org.jfree.chart3d.graphics2d;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -41,8 +41,8 @@ import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 
-import com.orsoncharts.TestUtils;
-import com.orsoncharts.TitleAnchor;
+import org.jfree.chart3d.TestUtils;
+import org.jfree.chart3d.TitleAnchor;
 
 /**
  * Tests for the {@link Fit2D} class.

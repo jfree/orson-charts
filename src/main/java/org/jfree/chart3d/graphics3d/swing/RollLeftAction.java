@@ -30,15 +30,15 @@
  * 
  */
 
-package com.orsoncharts.graphics3d.swing;
+package org.jfree.chart3d.graphics3d.swing;
 
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 
-import com.orsoncharts.Resources;
-import com.orsoncharts.internal.Args;
+import org.jfree.chart3d.Resources;
+import org.jfree.chart3d.internal.Args;
 
 /**
  * An action that handles rolling the 3D view counter-clockwise around an

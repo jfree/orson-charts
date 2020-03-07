@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts;
+package org.jfree.chart3d;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -40,18 +40,18 @@ import org.junit.Test;
 
 import java.awt.Color;
 import java.awt.GradientPaint;
-import com.orsoncharts.data.StandardPieDataset3D;
-import com.orsoncharts.data.PieDataset3D;
-import com.orsoncharts.data.category.CategoryDataset3D;
-import com.orsoncharts.data.category.StandardCategoryDataset3D;
-import com.orsoncharts.data.DefaultKeyedValues;
-import com.orsoncharts.data.xyz.XYZDataset;
-import com.orsoncharts.data.xyz.XYZSeries;
-import com.orsoncharts.data.xyz.XYZSeriesCollection;
-import com.orsoncharts.legend.LegendAnchor;
-import com.orsoncharts.legend.StandardLegendBuilder;
-import com.orsoncharts.style.ChartStyles;
-import com.orsoncharts.table.StandardRectanglePainter;
+import org.jfree.chart3d.data.DefaultKeyedValues;
+import org.jfree.chart3d.data.PieDataset3D;
+import org.jfree.chart3d.data.StandardPieDataset3D;
+import org.jfree.chart3d.data.category.CategoryDataset3D;
+import org.jfree.chart3d.data.category.StandardCategoryDataset3D;
+import org.jfree.chart3d.data.xyz.XYZDataset;
+import org.jfree.chart3d.data.xyz.XYZSeries;
+import org.jfree.chart3d.data.xyz.XYZSeriesCollection;
+import org.jfree.chart3d.legend.LegendAnchor;
+import org.jfree.chart3d.legend.StandardLegendBuilder;
+import org.jfree.chart3d.style.ChartStyles;
+import org.jfree.chart3d.table.StandardRectanglePainter;
 
 /**
  * Tests for the {@link Chart3D} class.

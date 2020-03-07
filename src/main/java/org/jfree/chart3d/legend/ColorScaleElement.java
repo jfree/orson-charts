@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.legend;
+package org.jfree.chart3d.legend;
 
 import java.awt.Shape;
 import java.util.ArrayList;
@@ -47,18 +47,18 @@ import java.awt.FontMetrics;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
-import com.orsoncharts.renderer.ColorScale;
-import com.orsoncharts.table.AbstractTableElement;
-import com.orsoncharts.table.ElementDimension;
-import com.orsoncharts.table.TableElement;
-import com.orsoncharts.Orientation;
-import com.orsoncharts.data.Range;
-import com.orsoncharts.graphics2d.Fit2D;
-import com.orsoncharts.graphics2d.TextAnchor;
-import com.orsoncharts.table.TableElementOnDraw;
-import com.orsoncharts.table.TableElementVisitor;
-import com.orsoncharts.internal.Args;
-import com.orsoncharts.internal.TextUtils;
+import org.jfree.chart3d.Orientation;
+import org.jfree.chart3d.data.Range;
+import org.jfree.chart3d.graphics2d.Fit2D;
+import org.jfree.chart3d.graphics2d.TextAnchor;
+import org.jfree.chart3d.internal.Args;
+import org.jfree.chart3d.internal.TextUtils;
+import org.jfree.chart3d.renderer.ColorScale;
+import org.jfree.chart3d.table.AbstractTableElement;
+import org.jfree.chart3d.table.ElementDimension;
+import org.jfree.chart3d.table.TableElement;
+import org.jfree.chart3d.table.TableElementOnDraw;
+import org.jfree.chart3d.table.TableElementVisitor;
 
 /**
  * A {@link TableElement} that displays a {@link ColorScale}.

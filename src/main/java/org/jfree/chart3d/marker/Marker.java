@@ -30,14 +30,14 @@
  * 
  */
 
-package com.orsoncharts.marker;
+package org.jfree.chart3d.marker;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
-import com.orsoncharts.ChartElement;
+import org.jfree.chart3d.ChartElement;
 
 /**
  * A base interface for all markers.

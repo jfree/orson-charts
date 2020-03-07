@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -30,13 +30,13 @@
  * 
  */
 
-package com.orsoncharts.data.xyz;
+package org.jfree.chart3d.data.xyz;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
-import com.orsoncharts.TestUtils;
+import org.jfree.chart3d.TestUtils;
 
 /**
  * Tests for the {@link XYZItemKey} class.
@@ -45,17 +45,17 @@ public class XYZItemKeyTest {
     
     @Test
     public void testEquals() {
-        XYZItemKey<String> k1 = new XYZItemKey<String>("S1", 1);
-        XYZItemKey<String> k2 = new XYZItemKey<String>("S1", 1);
+        XYZItemKey<String> k1 = new XYZItemKey<>("S1", 1);
+        XYZItemKey<String> k2 = new XYZItemKey<>("S1", 1);
         assertTrue(k1.equals(k2));
         assertFalse(k1.equals(null));
         
-        k1 = new XYZItemKey<String>("S2", 1);
+        k1 = new XYZItemKey<>("S2", 1);
         assertFalse(k1.equals(k2));
-        k2 = new XYZItemKey<String>("S2", 1);
+        k2 = new XYZItemKey<>("S2", 1);
         assertTrue(k1.equals(k2));
         
-        k1 = new XYZItemKey<String>("S2", 2);
+        k1 = new XYZItemKey<>("S2", 2);
         assertFalse(k1.equals(k2));
         k2 = new XYZItemKey<String>("S2", 2);
         assertTrue(k1.equals(k2));
@@ -67,7 +67,7 @@ public class XYZItemKeyTest {
     @Test
     @SuppressWarnings("unchecked")
     public void testSerialization() {
-        XYZItemKey<String> k1 = new XYZItemKey<String>("S1", 1);
+        XYZItemKey<String> k1 = new XYZItemKey<>("S1", 1);
         XYZItemKey<String> k2 = (XYZItemKey<String>) TestUtils.serialized(k1);
         assertEquals(k1, k2);
     }

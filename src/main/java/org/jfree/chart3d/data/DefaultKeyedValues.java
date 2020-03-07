@@ -30,13 +30,13 @@
  * 
  */
 
-package com.orsoncharts.data;
+package org.jfree.chart3d.data;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.orsoncharts.internal.Args;
+import org.jfree.chart3d.internal.Args;
 
 /**
  * A list of {@code (key, value)} pairs.

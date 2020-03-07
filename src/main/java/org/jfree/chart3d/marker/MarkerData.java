@@ -30,13 +30,13 @@
  * 
  */
 
-package com.orsoncharts.marker;
+package org.jfree.chart3d.marker;
 
 import java.awt.geom.Point2D;
 import java.util.Map;
 import java.util.HashMap;
-import com.orsoncharts.graphics2d.Anchor2D;
-import com.orsoncharts.internal.Args;
+import org.jfree.chart3d.graphics2d.Anchor2D;
+import org.jfree.chart3d.internal.Args;
 
 /**
  * A record holder for data relating to markers that needs to be passed

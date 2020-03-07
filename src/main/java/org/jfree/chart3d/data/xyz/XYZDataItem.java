@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.data.xyz;
+package org.jfree.chart3d.data.xyz;
 
 import java.io.Serializable;
 

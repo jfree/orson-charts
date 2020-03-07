@@ -30,10 +30,10 @@
  * 
  */
 
-package com.orsoncharts.data.xyz;
+package org.jfree.chart3d.data.xyz;
 
-import com.orsoncharts.data.Range;
-import com.orsoncharts.data.function.Function3D;
+import org.jfree.chart3d.data.Range;
+import org.jfree.chart3d.data.function.Function3D;
 
 /**
  * A collection of utility methods related to {@link XYZDataset}.

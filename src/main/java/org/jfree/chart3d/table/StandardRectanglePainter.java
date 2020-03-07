@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.table;
+package org.jfree.chart3d.table;
 
 import java.awt.Dimension;
 import java.awt.Image;
@@ -42,12 +42,12 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import com.orsoncharts.graphics2d.Anchor2D;
-import com.orsoncharts.graphics2d.Fit2D;
-import com.orsoncharts.graphics2d.Scale2D;
-import com.orsoncharts.internal.Args;
-import com.orsoncharts.internal.ObjectUtils;
-import com.orsoncharts.internal.SerialUtils;
+import org.jfree.chart3d.graphics2d.Anchor2D;
+import org.jfree.chart3d.graphics2d.Fit2D;
+import org.jfree.chart3d.graphics2d.Scale2D;
+import org.jfree.chart3d.internal.Args;
+import org.jfree.chart3d.internal.ObjectUtils;
+import org.jfree.chart3d.internal.SerialUtils;
 
 
 /**

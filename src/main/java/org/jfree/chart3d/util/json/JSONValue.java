@@ -16,12 +16,12 @@
  * which is licensed under the Apache Software License version 2.0.  
  * 
  * It has been modified locally and repackaged under 
- * com.orsoncharts.util.json.* to avoid conflicts with any other version that
+ * org.jfree.chart3d.util.json.* to avoid conflicts with any other version that
  * may be present on the classpath. 
  * 
  */
 
-package com.orsoncharts.util.json;
+package org.jfree.chart3d.util.json;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -29,8 +29,8 @@ import java.io.StringReader;
 import java.io.Writer;
 import java.util.List;
 import java.util.Map;
-import com.orsoncharts.util.json.parser.JSONParser;
-import com.orsoncharts.util.json.parser.ParseException;
+import org.jfree.chart3d.util.json.parser.JSONParser;
+import org.jfree.chart3d.util.json.parser.ParseException;
 
 /**
  * Utility methods for JSON values.
@@ -42,13 +42,13 @@ public class JSONValue {
      * Please use parseWithException() if you don't want to ignore the 
      * exception.
      * 
-     * @see com.orsoncharts.util.json.parser.JSONParser#parse(Reader)
+     * @see org.jfree.chart3d.util.json.parser.JSONParser#parse(Reader)
      * @see #parseWithException(Reader)
      * 
      * @param in  the input reader.
      * @return Instance of the following:
-     *     com.orsoncharts.util.json.JSONObject,
-     *     com.orsoncharts.util.json.JSONArray,
+     *     org.jfree.chart3d.util.json.JSONObject,
+     *     org.jfree.chart3d.util.json.JSONArray,
      *     java.lang.String,
      *     java.lang.Number,
      *     java.lang.Boolean,
@@ -79,13 +79,13 @@ public class JSONValue {
     /**
      * Parse JSON text into java object from the input source.
      * 
-     * @see com.orsoncharts.util.json.parser.JSONParser
+     * @see org.jfree.chart3d.util.json.parser.JSONParser
      * 
      * @param in  the input reader ({@code null} not permitted).
      * 
      * @return Instance of the following:
-     *     com.orsoncharts.util.json.JSONObject,
-     *     com.orsoncharts.util.json.JSONArray,
+     *     org.jfree.chart3d.util.json.JSONObject,
+     *     org.jfree.chart3d.util.json.JSONArray,
      *     java.lang.String,
      *     java.lang.Number,
      *     java.lang.Boolean,
@@ -127,8 +127,8 @@ public class JSONValue {
      * "this" as the first parameter, use JSONObject.writeJSONString(Map, 
      * Writer) or JSONArray.writeJSONString(List, Writer) instead. 
      * 
-     * @see com.orsoncharts.util.json.JSONObject#writeJSONString(Map, Writer)
-     * @see com.orsoncharts.util.json.JSONArray#writeJSONString(List, Writer)
+     * @see org.jfree.chart3d.util.json.JSONObject#writeJSONString(Map, Writer)
+     * @see org.jfree.chart3d.util.json.JSONArray#writeJSONString(List, Writer)
      * 
      * @param value  the value.
      * @param out  the output writer.
@@ -212,8 +212,8 @@ public class JSONValue {
      * "this" as the parameter, use JSONObject.toJSONString(Map) or 
      * JSONArray.toJSONString(List) instead. 
      * 
-     * @see com.orsoncharts.util.json.JSONObject#toJSONString(Map)
-     * @see com.orsoncharts.util.json.JSONArray#toJSONString(List)
+     * @see org.jfree.chart3d.util.json.JSONObject#toJSONString(Map)
+     * @see org.jfree.chart3d.util.json.JSONArray#toJSONString(List)
      * 
      * @param value the value.
      * @return JSON text, or "null" if value is null or it's an NaN or an INF 

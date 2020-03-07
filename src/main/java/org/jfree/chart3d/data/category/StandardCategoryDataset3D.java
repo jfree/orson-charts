@@ -30,16 +30,16 @@
  * 
  */
 
-package com.orsoncharts.data.category;
+package org.jfree.chart3d.data.category;
 
 import java.util.List;
 import java.io.Serializable;
 
-import com.orsoncharts.data.AbstractDataset3D;
-import com.orsoncharts.data.DefaultKeyedValues3D;
-import com.orsoncharts.data.JSONUtils;
-import com.orsoncharts.data.KeyedValues;
-import com.orsoncharts.internal.Args;
+import org.jfree.chart3d.data.AbstractDataset3D;
+import org.jfree.chart3d.data.DefaultKeyedValues3D;
+import org.jfree.chart3d.data.JSONUtils;
+import org.jfree.chart3d.data.KeyedValues;
+import org.jfree.chart3d.internal.Args;
 
 /**
  * A standard implementation of the {@link CategoryDataset3D} interface.
@@ -342,7 +342,7 @@ public final class StandardCategoryDataset3D
      * <br><br>
      * Implementation note: the current implementation (which is subject to 
      * change) writes the dataset in JSON format using 
-     * {@link JSONUtils#writeKeyedValues3D(com.orsoncharts.data.KeyedValues3D)}.
+     * {@link JSONUtils#writeKeyedValues3D(org.jfree.chart3d.data.KeyedValues3D)}.
      * 
      * @return A string. 
      */

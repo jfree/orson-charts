@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.data;
+package org.jfree.chart3d.data;
 
 /**
  * A {@code (key, value)} pair that is used as a building block for some

@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.legend;
+package org.jfree.chart3d.legend;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -38,26 +38,26 @@ import java.awt.Shape;
 import java.util.List;
 import java.io.Serializable;
 
-import com.orsoncharts.Chart3D;
-import com.orsoncharts.interaction.InteractiveElementType;
-import com.orsoncharts.plot.Plot3D;
-import com.orsoncharts.plot.CategoryPlot3D;
-import com.orsoncharts.plot.PiePlot3D;
-import com.orsoncharts.plot.XYZPlot;
-import com.orsoncharts.style.ChartStyle;
-import com.orsoncharts.table.ContainerElement;
-import com.orsoncharts.table.FlowElement;
-import com.orsoncharts.table.GridElement;
-import com.orsoncharts.table.HAlign;
-import com.orsoncharts.table.ShapeElement;
-import com.orsoncharts.table.TableElement;
-import com.orsoncharts.table.TextElement;
-import com.orsoncharts.table.VAlign;
-import com.orsoncharts.table.VerticalFlowElement;
-import com.orsoncharts.internal.Args;
-import com.orsoncharts.internal.ObjectUtils;
-import com.orsoncharts.Orientation;
-import com.orsoncharts.graphics2d.Anchor2D;
+import org.jfree.chart3d.internal.Args;
+import org.jfree.chart3d.internal.ObjectUtils;
+import org.jfree.chart3d.Chart3D;
+import org.jfree.chart3d.Orientation;
+import org.jfree.chart3d.graphics2d.Anchor2D;
+import org.jfree.chart3d.interaction.InteractiveElementType;
+import org.jfree.chart3d.plot.CategoryPlot3D;
+import org.jfree.chart3d.plot.PiePlot3D;
+import org.jfree.chart3d.plot.Plot3D;
+import org.jfree.chart3d.plot.XYZPlot;
+import org.jfree.chart3d.style.ChartStyle;
+import org.jfree.chart3d.table.ContainerElement;
+import org.jfree.chart3d.table.FlowElement;
+import org.jfree.chart3d.table.GridElement;
+import org.jfree.chart3d.table.HAlign;
+import org.jfree.chart3d.table.ShapeElement;
+import org.jfree.chart3d.table.TableElement;
+import org.jfree.chart3d.table.TextElement;
+import org.jfree.chart3d.table.VAlign;
+import org.jfree.chart3d.table.VerticalFlowElement;
 
 /**
  * The standard legend builder, which creates a simple legend

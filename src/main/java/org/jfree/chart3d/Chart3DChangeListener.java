@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts;
+package org.jfree.chart3d;
 
 import java.util.EventListener;
 

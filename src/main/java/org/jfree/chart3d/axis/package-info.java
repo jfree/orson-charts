@@ -1,7 +1,7 @@
 /**
- * Axes ({@link com.orsoncharts.axis.CategoryAxis3D}, 
- * {@link com.orsoncharts.axis.NumberAxis3D} and 
- * {@link com.orsoncharts.axis.LogAxis3D}) plus supporting classes and 
+ * Axes ({@link org.jfree.chart3d.axis.CategoryAxis3D}, 
+ * {@link org.jfree.chart3d.axis.NumberAxis3D} and 
+ * {@link org.jfree.chart3d.axis.LogAxis3D}) plus supporting classes and 
  * interfaces.
  */
-package com.orsoncharts.axis;
+package org.jfree.chart3d.axis;

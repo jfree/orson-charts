@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.data.xyz;
+package org.jfree.chart3d.data.xyz;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -39,9 +39,9 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import com.orsoncharts.TestUtils;
-import com.orsoncharts.data.Series3DChangeEvent;
-import com.orsoncharts.data.Series3DChangeListener;
+import org.jfree.chart3d.TestUtils;
+import org.jfree.chart3d.data.Series3DChangeEvent;
+import org.jfree.chart3d.data.Series3DChangeListener;
 
 /**
  * Tests for the {@link XYZSeries} class.
@@ -54,7 +54,7 @@ public class XYZSeriesTest implements Series3DChangeListener {
     
     @Test
     public void testGeneral() {
-        XYZSeries<String> s = new XYZSeries<String>("S1");
+        XYZSeries<String> s = new XYZSeries<>("S1");
         assertEquals("S1", s.getKey());
         assertEquals(0, s.getItemCount());
         
@@ -79,7 +79,7 @@ public class XYZSeriesTest implements Series3DChangeListener {
     
     @Test
     public void testEventNotification() {
-        XYZSeries<String> s = new XYZSeries<String>("S1");
+        XYZSeries<String> s = new XYZSeries<>("S1");
         this.lastEvent = null;
         s.addChangeListener(this);
         s.add(1.0, 2.0, 3.0);
@@ -95,15 +95,15 @@ public class XYZSeriesTest implements Series3DChangeListener {
      */
     @Test
     public void testEquals() {
-        XYZSeries<String> s1 = new XYZSeries<String>("S");
-        XYZSeries<String> s2 = new XYZSeries<String>("S");
+        XYZSeries<String> s1 = new XYZSeries<>("S");
+        XYZSeries<String> s2 = new XYZSeries<>("S");
         assertTrue(s1.equals(s2));
         assertFalse(s1.equals(null));
         
         // key
-        s1 = new XYZSeries<String>("SS");
+        s1 = new XYZSeries<>("SS");
         assertFalse(s1.equals(s2));
-        s2 = new XYZSeries<String>("SS");
+        s2 = new XYZSeries<>("SS");
         assertTrue(s1.equals(s2));
         
         // data items
@@ -119,7 +119,7 @@ public class XYZSeriesTest implements Series3DChangeListener {
     @Test
     @SuppressWarnings("unchecked")
     public void testSerialization() {
-        XYZSeries<String> s1 = new XYZSeries<String>("S");
+        XYZSeries<String> s1 = new XYZSeries<>("S");
         XYZSeries<String> s2 = (XYZSeries) TestUtils.serialized(s1);
         assertEquals(s1, s2);
 

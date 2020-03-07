@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.data;
+package org.jfree.chart3d.data;
 
 /**
  * Options for handling {@code null} values during dataset extraction

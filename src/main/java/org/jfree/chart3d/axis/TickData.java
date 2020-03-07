@@ -30,10 +30,10 @@
  * 
  */
 
-package com.orsoncharts.axis;
+package org.jfree.chart3d.axis;
 
 import java.awt.geom.Point2D;
-import com.orsoncharts.internal.Args;
+import org.jfree.chart3d.internal.Args;
 
 /**
  * Data related to the tick marks and labels on a chart.

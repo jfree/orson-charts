@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.table;
+package org.jfree.chart3d.table;
 
 /**
  * A table element visitor.  This is a general purpose mechanism to traverse

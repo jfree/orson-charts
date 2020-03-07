@@ -30,12 +30,12 @@
  * 
  */
 
-package com.orsoncharts.renderer;
+package org.jfree.chart3d.renderer;
 
 import java.awt.Color;
 
-import com.orsoncharts.data.Range;
-import com.orsoncharts.internal.Args;
+import org.jfree.chart3d.data.Range;
+import org.jfree.chart3d.internal.Args;
 
 /**
  * A color scale that returns all the colors of the rainbow.  Instances of 

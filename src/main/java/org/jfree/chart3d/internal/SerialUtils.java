@@ -30,9 +30,9 @@
  * 
  */
 
-package com.orsoncharts.internal;
+package org.jfree.chart3d.internal;
 
-import com.orsoncharts.internal.Args;
+import org.jfree.chart3d.internal.Args;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.GradientPaint;

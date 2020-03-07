@@ -30,16 +30,16 @@
  * 
  */
 
-package com.orsoncharts.data.xyz;
+package org.jfree.chart3d.data.xyz;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.event.EventListenerList;
-import com.orsoncharts.data.Series3DChangeEvent;
-import com.orsoncharts.data.Series3DChangeListener;
-import com.orsoncharts.internal.Args;
-import com.orsoncharts.internal.ObjectUtils;
+import org.jfree.chart3d.data.Series3DChangeEvent;
+import org.jfree.chart3d.data.Series3DChangeListener;
+import org.jfree.chart3d.internal.Args;
+import org.jfree.chart3d.internal.ObjectUtils;
 
 /**
  * A data series containing a sequence of {@code (x, y, z)} data items.  

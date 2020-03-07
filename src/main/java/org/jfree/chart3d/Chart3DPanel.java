@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts;
+package org.jfree.chart3d;
 
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
@@ -40,15 +40,15 @@ import java.io.ObjectInputStream;
 import java.util.EventListener;
 import javax.swing.event.EventListenerList;
 
-import com.orsoncharts.data.ItemKey;
-import com.orsoncharts.graphics3d.Object3D;
-import com.orsoncharts.graphics3d.RenderingInfo;
-import com.orsoncharts.graphics3d.swing.Panel3D;
-import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
-import com.orsoncharts.interaction.Chart3DMouseEvent;
-import com.orsoncharts.interaction.Chart3DMouseListener;
-import com.orsoncharts.graphics3d.RenderedElement;
-import com.orsoncharts.internal.Args;
+import org.jfree.chart3d.data.ItemKey;
+import org.jfree.chart3d.graphics3d.Object3D;
+import org.jfree.chart3d.graphics3d.RenderedElement;
+import org.jfree.chart3d.graphics3d.RenderingInfo;
+import org.jfree.chart3d.graphics3d.swing.DisplayPanel3D;
+import org.jfree.chart3d.graphics3d.swing.Panel3D;
+import org.jfree.chart3d.interaction.Chart3DMouseEvent;
+import org.jfree.chart3d.interaction.Chart3DMouseListener;
+import org.jfree.chart3d.internal.Args;
 
 /**
  * A panel designed to display a {@link Chart3D} in a Swing-based desktop

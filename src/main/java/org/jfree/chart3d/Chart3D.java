@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts;
+package org.jfree.chart3d;
 
 import java.awt.BasicStroke;
 import java.awt.Stroke;
@@ -57,55 +57,55 @@ import java.util.Map;
 
 import javax.swing.event.EventListenerList;
 
-import com.orsoncharts.axis.Axis3D;
-import com.orsoncharts.axis.TickData;
-import com.orsoncharts.axis.ValueAxis3D;
-import com.orsoncharts.data.ItemKey;
-import com.orsoncharts.graphics2d.Anchor2D;
-import com.orsoncharts.graphics2d.RefPt2D;
-import com.orsoncharts.graphics2d.TextAnchor;
-import com.orsoncharts.graphics3d.Dimension3D;
-import com.orsoncharts.graphics3d.DoubleSidedFace;
-import com.orsoncharts.graphics3d.Drawable3D;
-import com.orsoncharts.graphics3d.Face;
-import com.orsoncharts.graphics3d.LabelFace;
-import com.orsoncharts.graphics3d.Object3D;
-import com.orsoncharts.graphics3d.Point3D;
-import com.orsoncharts.graphics3d.ViewPoint3D;
-import com.orsoncharts.graphics3d.World;
-import com.orsoncharts.legend.LegendAnchor;
-import com.orsoncharts.plot.CategoryPlot3D;
-import com.orsoncharts.plot.PiePlot3D;
-import com.orsoncharts.plot.Plot3DChangeEvent;
-import com.orsoncharts.plot.Plot3DChangeListener;
-import com.orsoncharts.plot.Plot3D;
-import com.orsoncharts.plot.XYZPlot;
-import com.orsoncharts.graphics3d.Offset2D;
-import com.orsoncharts.graphics3d.RenderingInfo;
-import com.orsoncharts.graphics3d.RenderedElement;
-import com.orsoncharts.graphics3d.internal.FaceSorter;
-import com.orsoncharts.graphics3d.internal.StandardFaceSorter;
-import com.orsoncharts.graphics3d.internal.Utils2D;
-import com.orsoncharts.interaction.InteractiveElementType;
-import com.orsoncharts.internal.ChartBox3D;
-import com.orsoncharts.internal.ChartBox3D.ChartBoxFace;
-import com.orsoncharts.internal.OnDrawHandler;
-import com.orsoncharts.legend.LegendBuilder;
-import com.orsoncharts.legend.StandardLegendBuilder;
-import com.orsoncharts.marker.Marker;
-import com.orsoncharts.marker.MarkerData;
-import com.orsoncharts.style.ChartStyle;
-import com.orsoncharts.style.ChartStyleChangeEvent;
-import com.orsoncharts.style.ChartStyleChangeListener;
-import com.orsoncharts.style.ChartStyler;
-import com.orsoncharts.table.GradientRectanglePainter;
-import com.orsoncharts.table.TableElement;
-import com.orsoncharts.table.TextElement;
-import com.orsoncharts.table.StandardRectanglePainter;
-import com.orsoncharts.table.RectanglePainter;
-import com.orsoncharts.internal.Args;
-import com.orsoncharts.internal.ObjectUtils;
-import com.orsoncharts.internal.TextUtils;
+import org.jfree.chart3d.graphics3d.internal.FaceSorter;
+import org.jfree.chart3d.graphics3d.internal.StandardFaceSorter;
+import org.jfree.chart3d.graphics3d.internal.Utils2D;
+import org.jfree.chart3d.internal.ChartBox3D;
+import org.jfree.chart3d.internal.ChartBox3D.ChartBoxFace;
+import org.jfree.chart3d.internal.OnDrawHandler;
+import org.jfree.chart3d.internal.Args;
+import org.jfree.chart3d.internal.ObjectUtils;
+import org.jfree.chart3d.internal.TextUtils;
+import org.jfree.chart3d.axis.Axis3D;
+import org.jfree.chart3d.axis.TickData;
+import org.jfree.chart3d.axis.ValueAxis3D;
+import org.jfree.chart3d.data.ItemKey;
+import org.jfree.chart3d.graphics2d.Anchor2D;
+import org.jfree.chart3d.graphics2d.RefPt2D;
+import org.jfree.chart3d.graphics2d.TextAnchor;
+import org.jfree.chart3d.graphics3d.Dimension3D;
+import org.jfree.chart3d.graphics3d.DoubleSidedFace;
+import org.jfree.chart3d.graphics3d.Drawable3D;
+import org.jfree.chart3d.graphics3d.Face;
+import org.jfree.chart3d.graphics3d.LabelFace;
+import org.jfree.chart3d.graphics3d.Object3D;
+import org.jfree.chart3d.graphics3d.Offset2D;
+import org.jfree.chart3d.graphics3d.Point3D;
+import org.jfree.chart3d.graphics3d.RenderedElement;
+import org.jfree.chart3d.graphics3d.RenderingInfo;
+import org.jfree.chart3d.graphics3d.ViewPoint3D;
+import org.jfree.chart3d.graphics3d.World;
+import org.jfree.chart3d.interaction.InteractiveElementType;
+import org.jfree.chart3d.legend.LegendAnchor;
+import org.jfree.chart3d.legend.LegendBuilder;
+import org.jfree.chart3d.legend.StandardLegendBuilder;
+import org.jfree.chart3d.marker.Marker;
+import org.jfree.chart3d.marker.MarkerData;
+import org.jfree.chart3d.plot.CategoryPlot3D;
+import org.jfree.chart3d.plot.PiePlot3D;
+import org.jfree.chart3d.plot.Plot3D;
+import org.jfree.chart3d.plot.Plot3DChangeEvent;
+import org.jfree.chart3d.plot.Plot3DChangeListener;
+import org.jfree.chart3d.plot.XYZPlot;
+import org.jfree.chart3d.style.ChartStyle;
+import org.jfree.chart3d.style.ChartStyleChangeEvent;
+import org.jfree.chart3d.style.ChartStyleChangeListener;
+import org.jfree.chart3d.style.ChartStyler;
+import org.jfree.chart3d.table.GradientRectanglePainter;
+import org.jfree.chart3d.table.RectanglePainter;
+import org.jfree.chart3d.table.StandardRectanglePainter;
+import org.jfree.chart3d.table.TableElement;
+import org.jfree.chart3d.table.TextElement;
 
 /**
  * A chart object for 3D charts (this is the umbrella object that manages all
@@ -340,7 +340,7 @@ public class Chart3D implements Drawable3D, ChartElement,
      * 
      * @return The background painter (possibly {@code null}).
      * 
-     * @see #setBackground(com.orsoncharts.table.RectanglePainter) 
+     * @see #setBackground(org.jfree.chart3d.table.RectanglePainter) 
      */
     public RectanglePainter getBackground() {
         return this.background;
@@ -428,7 +428,7 @@ public class Chart3D implements Drawable3D, ChartElement,
      * 
      * @return The title anchor (never {@code null}).
      * 
-     * @see #setTitleAnchor(com.orsoncharts.util.Anchor2D) 
+     * @see #setTitleAnchor(org.jfree.chart3d.util.Anchor2D) 
      */
     public Anchor2D getTitleAnchor() {
         return this.titleAnchor;
@@ -583,8 +583,8 @@ public class Chart3D implements Drawable3D, ChartElement,
      * 
      * @return The legend builder (possibly {@code null}).
      * 
-     * @see #setLegendBuilder(com.orsoncharts.legend.LegendBuilder) 
-     * @see #setLegendAnchor(com.orsoncharts.util.Anchor2D) 
+     * @see #setLegendBuilder(org.jfree.chart3d.legend.LegendBuilder) 
+     * @see #setLegendAnchor(org.jfree.chart3d.util.Anchor2D) 
      */
     public LegendBuilder getLegendBuilder() {
         return this.legendBuilder;
@@ -597,7 +597,7 @@ public class Chart3D implements Drawable3D, ChartElement,
      * 
      * @param legendBuilder  the legend builder ({@code null} permitted).
      * 
-     * @see #setLegendAnchor(com.orsoncharts.util.Anchor2D) 
+     * @see #setLegendAnchor(org.jfree.chart3d.util.Anchor2D) 
      */
     public void setLegendBuilder(LegendBuilder legendBuilder) {
         this.legendBuilder = legendBuilder;
@@ -609,7 +609,7 @@ public class Chart3D implements Drawable3D, ChartElement,
      * 
      * @return The legend anchor (never {@code null}).
      * 
-     * @see #setLegendAnchor(com.orsoncharts.util.Anchor2D) 
+     * @see #setLegendAnchor(org.jfree.chart3d.util.Anchor2D) 
      */
     public Anchor2D getLegendAnchor() {
         return this.legendAnchor;
@@ -659,8 +659,8 @@ public class Chart3D implements Drawable3D, ChartElement,
      * Sets the legend position (both the anchor point and the orientation) and
      * sends a {@link Chart3DChangeEvent} to all registered listeners. 
      * This is a convenience method that calls both the 
-     * {@link #setLegendAnchor(com.orsoncharts.util.Anchor2D)} and 
-     * {@link #setLegendOrientation(com.orsoncharts.util.Orientation)}
+     * {@link #setLegendAnchor(org.jfree.chart3d.util.Anchor2D)} and 
+     * {@link #setLegendOrientation(org.jfree.chart3d.util.Orientation)}
      * methods.
      * 
      * @param anchor  the anchor ({@code null} not permitted).

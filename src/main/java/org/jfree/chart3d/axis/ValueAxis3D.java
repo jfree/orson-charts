@@ -30,15 +30,15 @@
  * 
  */
 
-package com.orsoncharts.axis;
+package org.jfree.chart3d.axis;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.util.List;
-import com.orsoncharts.plot.CategoryPlot3D;
-import com.orsoncharts.plot.XYZPlot;
-import com.orsoncharts.marker.MarkerData;
-import com.orsoncharts.marker.ValueMarker;
+import org.jfree.chart3d.marker.MarkerData;
+import org.jfree.chart3d.marker.ValueMarker;
+import org.jfree.chart3d.plot.CategoryPlot3D;
+import org.jfree.chart3d.plot.XYZPlot;
 
 /**
  * An axis that displays a range of continuous values.  These can be used

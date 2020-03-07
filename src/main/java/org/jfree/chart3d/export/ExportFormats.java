@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.export;
+package org.jfree.chart3d.export;
 
 /**
  * Utility methods related to export formats.

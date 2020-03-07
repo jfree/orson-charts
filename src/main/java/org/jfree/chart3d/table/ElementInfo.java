@@ -30,10 +30,10 @@
  * 
  */
 
-package com.orsoncharts.table;
+package org.jfree.chart3d.table;
 
 import java.awt.geom.Dimension2D;
-import com.orsoncharts.internal.Args;
+import org.jfree.chart3d.internal.Args;
 
 /**
  * An object that pairs an element with its dimension for one specific

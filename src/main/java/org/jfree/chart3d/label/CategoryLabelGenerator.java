@@ -30,10 +30,10 @@
  * 
  */
 
-package com.orsoncharts.label;
+package org.jfree.chart3d.label;
 
-import com.orsoncharts.data.category.CategoryDataset3D;
-import com.orsoncharts.plot.CategoryPlot3D;
+import org.jfree.chart3d.data.category.CategoryDataset3D;
+import org.jfree.chart3d.plot.CategoryPlot3D;
 
 /**
  * A label generator for category charts, used to create labels for the axes 

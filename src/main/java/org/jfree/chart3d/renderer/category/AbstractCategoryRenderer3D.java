@@ -30,20 +30,20 @@
  * 
  */
 
-package com.orsoncharts.renderer.category;
+package org.jfree.chart3d.renderer.category;
 
 import java.awt.Color;
 import java.io.Serializable;
-import com.orsoncharts.internal.Args;
-import com.orsoncharts.data.Range;
-import com.orsoncharts.data.DataUtils;
-import com.orsoncharts.data.Values3D;
-import com.orsoncharts.graphics3d.Offset3D;
-import com.orsoncharts.label.CategoryItemLabelGenerator;
-import com.orsoncharts.plot.CategoryPlot3D;
-import com.orsoncharts.renderer.AbstractRenderer3D;
-import com.orsoncharts.renderer.Renderer3DChangeEvent;
-import com.orsoncharts.internal.ObjectUtils;
+import org.jfree.chart3d.internal.Args;
+import org.jfree.chart3d.data.DataUtils;
+import org.jfree.chart3d.data.Range;
+import org.jfree.chart3d.data.Values3D;
+import org.jfree.chart3d.graphics3d.Offset3D;
+import org.jfree.chart3d.internal.ObjectUtils;
+import org.jfree.chart3d.label.CategoryItemLabelGenerator;
+import org.jfree.chart3d.plot.CategoryPlot3D;
+import org.jfree.chart3d.renderer.AbstractRenderer3D;
+import org.jfree.chart3d.renderer.Renderer3DChangeEvent;
 
 /**
  * A base class that can be used to implement renderers for a 

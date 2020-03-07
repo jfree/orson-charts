@@ -30,11 +30,11 @@
  * 
  */
 
-package com.orsoncharts.axis;
+package org.jfree.chart3d.axis;
 
 import java.util.EventListener;
-import com.orsoncharts.plot.CategoryPlot3D;
-import com.orsoncharts.plot.XYZPlot;
+import org.jfree.chart3d.plot.CategoryPlot3D;
+import org.jfree.chart3d.plot.XYZPlot;
 
 /**
  * A listener for axis change events.  The plot classes that have axes

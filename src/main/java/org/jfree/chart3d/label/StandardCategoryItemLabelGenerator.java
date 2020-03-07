@@ -30,17 +30,17 @@
  * 
  */
 
-package com.orsoncharts.label;
+package org.jfree.chart3d.label;
 
 import java.io.Serializable;
 import java.util.Formatter;
 
-import com.orsoncharts.data.category.CategoryDataset3D;
-import com.orsoncharts.data.KeyedValues3DItemKey;
-import com.orsoncharts.interaction.KeyedValues3DItemSelection;
-import com.orsoncharts.interaction.StandardKeyedValues3DItemSelection;
-import com.orsoncharts.internal.Args;
-import com.orsoncharts.internal.ObjectUtils;
+import org.jfree.chart3d.data.KeyedValues3DItemKey;
+import org.jfree.chart3d.data.category.CategoryDataset3D;
+import org.jfree.chart3d.interaction.KeyedValues3DItemSelection;
+import org.jfree.chart3d.interaction.StandardKeyedValues3DItemSelection;
+import org.jfree.chart3d.internal.Args;
+import org.jfree.chart3d.internal.ObjectUtils;
 
 /**
  * A default implementation of the {@link CategoryItemLabelGenerator} interface.  

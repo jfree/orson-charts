@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.graphics3d.swing;
+package org.jfree.chart3d.graphics3d.swing;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
@@ -49,10 +49,10 @@ import javax.swing.JPopupMenu;
 import javax.swing.JToolBar;
 import javax.swing.JMenu;
 
-import com.orsoncharts.Resources;
-import com.orsoncharts.export.ExportFormat;
-import com.orsoncharts.export.ExportFormats;
-import com.orsoncharts.internal.Args;
+import org.jfree.chart3d.Resources;
+import org.jfree.chart3d.export.ExportFormat;
+import org.jfree.chart3d.export.ExportFormats;
+import org.jfree.chart3d.internal.Args;
 
 /**
  * A panel for displaying 3D content, with a toolbar and popup menu to control 

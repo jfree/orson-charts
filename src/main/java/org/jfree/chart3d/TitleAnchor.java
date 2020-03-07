@@ -30,10 +30,10 @@
  * 
  */
 
-package com.orsoncharts;
+package org.jfree.chart3d;
 
-import com.orsoncharts.graphics2d.Anchor2D;
-import com.orsoncharts.graphics2d.RefPt2D;
+import org.jfree.chart3d.graphics2d.Anchor2D;
+import org.jfree.chart3d.graphics2d.RefPt2D;
 
 /**
  * Predefined title anchor points, provided for convenience.  These anchor

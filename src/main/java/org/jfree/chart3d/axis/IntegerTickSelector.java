@@ -30,12 +30,12 @@
  * 
  */
 
-package com.orsoncharts.axis;
+package org.jfree.chart3d.axis;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.text.Format;
-import com.orsoncharts.internal.Args;
+import org.jfree.chart3d.internal.Args;
 
 /**
  * A {@link TickSelector} implementation that selects tick units in multiples 

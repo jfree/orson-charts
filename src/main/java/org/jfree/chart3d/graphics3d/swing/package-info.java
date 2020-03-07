@@ -3,4 +3,4 @@
  * provides general purpose facilities, you should not find any chart-specific
  * code in here.
  */
-package com.orsoncharts.graphics3d.swing;
+package org.jfree.chart3d.graphics3d.swing;

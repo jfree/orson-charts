@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts;
+package org.jfree.chart3d;
 
 /**
  * General enumeration of orientations.  One application for this is to 

@@ -30,12 +30,11 @@
  * 
  */
 
-package com.orsoncharts.renderer;
+package org.jfree.chart3d.renderer;
 
 import java.io.Serializable;
-
-import com.orsoncharts.data.Range;
-import com.orsoncharts.internal.Args;
+import org.jfree.chart3d.data.Range;
+import org.jfree.chart3d.internal.Args;
 
 /**
  * An abstract class from which a {@link ColorScale} implementation can be

@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.axis;
+package org.jfree.chart3d.axis;
 
 /**
  * The orientation of an axis label relative to the axis.

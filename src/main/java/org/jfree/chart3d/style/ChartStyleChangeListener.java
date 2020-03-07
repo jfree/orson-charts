@@ -30,10 +30,10 @@
  * 
  */
 
-package com.orsoncharts.style;
+package org.jfree.chart3d.style;
 
 import java.util.EventListener;
-import com.orsoncharts.Chart3D;
+import org.jfree.chart3d.Chart3D;
 
 /**
  * An interface for receiving notification of changes to a {@link ChartStyle}

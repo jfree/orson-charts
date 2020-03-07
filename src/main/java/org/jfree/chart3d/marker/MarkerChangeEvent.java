@@ -30,11 +30,11 @@
  * 
  */
 
-package com.orsoncharts.marker;
+package org.jfree.chart3d.marker;
 
 import java.util.EventObject;
 
-import com.orsoncharts.internal.Args;
+import org.jfree.chart3d.internal.Args;
 
 /**
  * An event associated with a change to a {@link Marker}.  These change 

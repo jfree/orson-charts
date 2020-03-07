@@ -30,15 +30,15 @@
  * 
  */
 
-package com.orsoncharts.graphics3d.swing;
+package org.jfree.chart3d.graphics3d.swing;
 
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 
-import com.orsoncharts.Resources;
-import com.orsoncharts.graphics3d.ViewPoint3D;
+import org.jfree.chart3d.Resources;
+import org.jfree.chart3d.graphics3d.ViewPoint3D;
 
 /**
  * An action that performs a zoom out operation on the content in a 

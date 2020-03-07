@@ -30,11 +30,11 @@
  * 
  */
 
-package com.orsoncharts.table;
+package org.jfree.chart3d.table;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
-import com.orsoncharts.Chart3D;
+import org.jfree.chart3d.Chart3D;
 
 /**
  * An object that can paint a rectangular region with a color, gradient, image

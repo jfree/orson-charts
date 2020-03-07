@@ -30,14 +30,14 @@
  * 
  */
 
-package com.orsoncharts.interaction;
+package org.jfree.chart3d.interaction;
 
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.Collection;
-import com.orsoncharts.data.xyz.XYZDataset;
-import com.orsoncharts.data.xyz.XYZItemKey;
-import com.orsoncharts.internal.Args;
+import org.jfree.chart3d.data.xyz.XYZDataset;
+import org.jfree.chart3d.data.xyz.XYZItemKey;
+import org.jfree.chart3d.internal.Args;
 
 /**
  * An object that tracks selected items from an {@link XYZDataset}.

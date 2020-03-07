@@ -30,21 +30,21 @@
  * 
  */
 
-package com.orsoncharts.marker;
+package org.jfree.chart3d.marker;
 
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 import javax.swing.event.EventListenerList;
-import com.orsoncharts.Chart3DChangeListener;
-import com.orsoncharts.ChartElementVisitor;
-import com.orsoncharts.graphics2d.Anchor2D;
-import com.orsoncharts.graphics2d.RefPt2D;
-import com.orsoncharts.graphics2d.TextAnchor;
-import com.orsoncharts.graphics3d.internal.Utils2D;
-import com.orsoncharts.internal.Args;
-import com.orsoncharts.internal.TextUtils;
+import org.jfree.chart3d.Chart3DChangeListener;
+import org.jfree.chart3d.ChartElementVisitor;
+import org.jfree.chart3d.graphics2d.Anchor2D;
+import org.jfree.chart3d.graphics2d.RefPt2D;
+import org.jfree.chart3d.graphics2d.TextAnchor;
+import org.jfree.chart3d.graphics3d.internal.Utils2D;
+import org.jfree.chart3d.internal.Args;
+import org.jfree.chart3d.internal.TextUtils;
 
 /**
  * A base class for implementing markers (includes the event notification 

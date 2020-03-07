@@ -1,4 +1,4 @@
 /**
  * Classes related to chart legends.
  */
-package com.orsoncharts.legend;
+package org.jfree.chart3d.legend;

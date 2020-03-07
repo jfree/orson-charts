@@ -30,20 +30,20 @@
  * 
  */
 
-package com.orsoncharts.renderer.category;
+package org.jfree.chart3d.renderer.category;
 
-import com.orsoncharts.data.Range;
-import com.orsoncharts.data.category.CategoryDataset3D;
-import com.orsoncharts.data.DataUtils;
-import com.orsoncharts.data.Values3D;
-import com.orsoncharts.graphics3d.Dimension3D;
-import com.orsoncharts.graphics3d.World;
-import com.orsoncharts.plot.CategoryPlot3D;
-import com.orsoncharts.Chart3DFactory;
-import com.orsoncharts.data.KeyedValues3DItemKey;
-import com.orsoncharts.graphics3d.Object3D;
-import com.orsoncharts.graphics3d.Offset3D;
-import com.orsoncharts.label.ItemLabelPositioning;
+import org.jfree.chart3d.Chart3DFactory;
+import org.jfree.chart3d.data.DataUtils;
+import org.jfree.chart3d.data.KeyedValues3DItemKey;
+import org.jfree.chart3d.data.Range;
+import org.jfree.chart3d.data.Values3D;
+import org.jfree.chart3d.data.category.CategoryDataset3D;
+import org.jfree.chart3d.graphics3d.Dimension3D;
+import org.jfree.chart3d.graphics3d.Object3D;
+import org.jfree.chart3d.graphics3d.Offset3D;
+import org.jfree.chart3d.graphics3d.World;
+import org.jfree.chart3d.label.ItemLabelPositioning;
+import org.jfree.chart3d.plot.CategoryPlot3D;
 
 /**
  * A renderer that can be used with the {@link CategoryPlot3D} class to create

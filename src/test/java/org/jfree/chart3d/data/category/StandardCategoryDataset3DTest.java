@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -30,9 +30,9 @@
  * 
  */
 
-package com.orsoncharts.data.category;
+package org.jfree.chart3d.data.category;
 
-import com.orsoncharts.TestUtils;
+import org.jfree.chart3d.TestUtils;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -59,9 +59,9 @@ public class StandardCategoryDataset3DTest {
     @Test
     public void checkEquals() {
         StandardCategoryDataset3D<String, String, String> d1 
-                = new StandardCategoryDataset3D<String, String, String>();
+                = new StandardCategoryDataset3D<>();
         StandardCategoryDataset3D<String, String, String> d2 
-                = new StandardCategoryDataset3D<String, String, String>();
+                = new StandardCategoryDataset3D<>();
         assertTrue(d1.equals(d2));
         assertFalse(d1.equals(null));
         
@@ -83,7 +83,7 @@ public class StandardCategoryDataset3DTest {
     @SuppressWarnings("unchecked")
     public void checkSerialization() {
         StandardCategoryDataset3D<String, String, String> d1 
-                = new StandardCategoryDataset3D<String, String, String>();
+                = new StandardCategoryDataset3D<>();
         d1.addValue(1.0, "S1", "R1", "C1");
         StandardCategoryDataset3D<String, String, String> d2 
                 = (StandardCategoryDataset3D) TestUtils.serialized(d1);
@@ -93,7 +93,7 @@ public class StandardCategoryDataset3DTest {
     @Test
     public void checkToString() {
         StandardCategoryDataset3D<String, String, String> dataset 
-                = new StandardCategoryDataset3D<String, String, String>();
+                = new StandardCategoryDataset3D<>();
         assertEquals("{}", dataset.toString());
         
         dataset.addValue(1.0, "S1", "R1", "C1");

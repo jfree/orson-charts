@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.table;
+package org.jfree.chart3d.table;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -43,7 +43,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.awt.Insets;
 
-import com.orsoncharts.data.DefaultKeyedValues2D;
+import org.jfree.chart3d.data.DefaultKeyedValues2D;
 
 /**
  * A table element that contains a grid of elements.  

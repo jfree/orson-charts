@@ -30,14 +30,14 @@
  * 
  */
 
-package com.orsoncharts.table;
+package org.jfree.chart3d.table;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
 import java.util.Map;
-import com.orsoncharts.graphics2d.RefPt2D;
+import org.jfree.chart3d.graphics2d.RefPt2D;
 
 /**
  * An element (typically a single cell) in a table.  This interface defines

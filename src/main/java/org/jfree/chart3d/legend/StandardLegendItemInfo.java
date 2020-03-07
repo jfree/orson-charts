@@ -30,13 +30,13 @@
  * 
  */
 
-package com.orsoncharts.legend;
+package org.jfree.chart3d.legend;
 
 import java.awt.Shape;
 import java.util.HashMap;
 import java.util.Map;
 import java.awt.Color;
-import com.orsoncharts.internal.Args;
+import org.jfree.chart3d.internal.Args;
 
 /**
  * A standard implementation of the {@link LegendItemInfo} interface.

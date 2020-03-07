@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.internal;
+package org.jfree.chart3d.internal;
 
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -42,7 +42,7 @@ import java.awt.font.TextLayout;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.text.AttributedString;
-import com.orsoncharts.graphics2d.TextAnchor;
+import org.jfree.chart3d.graphics2d.TextAnchor;
 
 /**
  * Utility methods for working with text.

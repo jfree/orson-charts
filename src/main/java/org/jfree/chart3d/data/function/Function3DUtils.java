@@ -30,10 +30,10 @@
  * 
  */
 
-package com.orsoncharts.data.function;
+package org.jfree.chart3d.data.function;
 
-import com.orsoncharts.data.Range;
-import com.orsoncharts.internal.Args;
+import org.jfree.chart3d.data.Range;
+import org.jfree.chart3d.internal.Args;
 
 /**
  * Utility methods related to {@link Function3D}.

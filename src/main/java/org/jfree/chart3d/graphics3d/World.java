@@ -30,16 +30,16 @@
  * 
  */
 
-package com.orsoncharts.graphics3d;
+package org.jfree.chart3d.graphics3d;
 
-import com.orsoncharts.graphics3d.internal.Utils3D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import com.orsoncharts.internal.Args;
+import org.jfree.chart3d.graphics3d.internal.Utils3D;
+import org.jfree.chart3d.internal.Args;
 
 /**
  * A world is a model containing a collection of objects in 3D space and a 

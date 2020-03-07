@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -30,11 +30,11 @@
  * 
  */
 
-package com.orsoncharts.plot;
+package org.jfree.chart3d.plot;
 
 import java.util.EventListener;
-import com.orsoncharts.Chart3D;
-import com.orsoncharts.Chart3DChangeEvent;
+import org.jfree.chart3d.Chart3D;
+import org.jfree.chart3d.Chart3DChangeEvent;
 
 /**
  * An interface used to receive change events from {@link Plot3D} instances.

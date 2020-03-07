@@ -30,31 +30,31 @@
  * 
  */
 
-package com.orsoncharts.style;
+package org.jfree.chart3d.style;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.util.HashMap;
 import java.util.Map;
-import com.orsoncharts.Chart3D;
-import com.orsoncharts.ChartElement;
-import com.orsoncharts.ChartElementVisitor;
-import com.orsoncharts.axis.Axis3D;
-import com.orsoncharts.axis.CategoryAxis3D;
-import com.orsoncharts.axis.ValueAxis3D;
-import com.orsoncharts.marker.CategoryMarker;
-import com.orsoncharts.marker.Marker;
-import com.orsoncharts.marker.NumberMarker;
-import com.orsoncharts.marker.RangeMarker;
-import com.orsoncharts.plot.CategoryPlot3D;
-import com.orsoncharts.plot.PiePlot3D;
-import com.orsoncharts.plot.Plot3D;
-import com.orsoncharts.plot.XYZPlot;
-import com.orsoncharts.renderer.Renderer3D;
-import com.orsoncharts.renderer.category.CategoryRenderer3D;
-import com.orsoncharts.renderer.xyz.XYZRenderer;
-import com.orsoncharts.table.TableElement;
-import com.orsoncharts.table.TableElementStyler;
+import org.jfree.chart3d.Chart3D;
+import org.jfree.chart3d.ChartElement;
+import org.jfree.chart3d.ChartElementVisitor;
+import org.jfree.chart3d.axis.Axis3D;
+import org.jfree.chart3d.axis.CategoryAxis3D;
+import org.jfree.chart3d.axis.ValueAxis3D;
+import org.jfree.chart3d.marker.CategoryMarker;
+import org.jfree.chart3d.marker.Marker;
+import org.jfree.chart3d.marker.NumberMarker;
+import org.jfree.chart3d.marker.RangeMarker;
+import org.jfree.chart3d.plot.CategoryPlot3D;
+import org.jfree.chart3d.plot.PiePlot3D;
+import org.jfree.chart3d.plot.Plot3D;
+import org.jfree.chart3d.plot.XYZPlot;
+import org.jfree.chart3d.renderer.Renderer3D;
+import org.jfree.chart3d.renderer.category.CategoryRenderer3D;
+import org.jfree.chart3d.renderer.xyz.XYZRenderer;
+import org.jfree.chart3d.table.TableElement;
+import org.jfree.chart3d.table.TableElementStyler;
 
 /**
  * A {@link ChartElementVisitor} that applies a chart style to the elements

@@ -30,11 +30,11 @@
  * 
  */
 
-package com.orsoncharts.graphics3d.internal;
+package org.jfree.chart3d.graphics3d.internal;
 
-import com.orsoncharts.graphics3d.Face;
-import com.orsoncharts.graphics3d.Point3D;
 import java.util.List;
+import org.jfree.chart3d.graphics3d.Face;
+import org.jfree.chart3d.graphics3d.Point3D;
 
 /**
  * An interface that must be implemented by objects that can sort faces prior

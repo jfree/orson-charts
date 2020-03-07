@@ -30,22 +30,22 @@
  * 
  */
 
-package com.orsoncharts.renderer.xyz;
+package org.jfree.chart3d.renderer.xyz;
 
 import java.awt.Color;
 import java.io.Serializable;
 
-import com.orsoncharts.Chart3DFactory;
-import com.orsoncharts.axis.Axis3D;
-import com.orsoncharts.data.xyz.XYZDataset;
-import com.orsoncharts.data.xyz.XYZItemKey;
-import com.orsoncharts.plot.XYZPlot;
-import com.orsoncharts.graphics3d.Dimension3D;
-import com.orsoncharts.graphics3d.Object3D;
-import com.orsoncharts.graphics3d.Offset3D;
-import com.orsoncharts.graphics3d.World;
-import com.orsoncharts.renderer.Renderer3DChangeEvent;
-import com.orsoncharts.internal.Args;
+import org.jfree.chart3d.Chart3DFactory;
+import org.jfree.chart3d.axis.Axis3D;
+import org.jfree.chart3d.data.xyz.XYZDataset;
+import org.jfree.chart3d.data.xyz.XYZItemKey;
+import org.jfree.chart3d.graphics3d.Dimension3D;
+import org.jfree.chart3d.graphics3d.Object3D;
+import org.jfree.chart3d.graphics3d.Offset3D;
+import org.jfree.chart3d.graphics3d.World;
+import org.jfree.chart3d.internal.Args;
+import org.jfree.chart3d.plot.XYZPlot;
+import org.jfree.chart3d.renderer.Renderer3DChangeEvent;
 
 /**
  * A renderer for 3D scatter plots.  This renderer is used with an

@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.export;
+package org.jfree.chart3d.export;
 
 /**
  * An enumeration of the different export formats supported by Orson Charts.

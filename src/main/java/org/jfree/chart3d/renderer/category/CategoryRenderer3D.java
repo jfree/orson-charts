@@ -30,17 +30,17 @@
  * 
  */
 
-package com.orsoncharts.renderer.category;
+package org.jfree.chart3d.renderer.category;
 
 import java.awt.Color;
-import com.orsoncharts.data.Range;
-import com.orsoncharts.data.category.CategoryDataset3D;
-import com.orsoncharts.data.Values3D;
-import com.orsoncharts.graphics3d.Dimension3D;
-import com.orsoncharts.graphics3d.World;
-import com.orsoncharts.plot.CategoryPlot3D;
-import com.orsoncharts.renderer.Renderer3D;
-import com.orsoncharts.renderer.Renderer3DChangeEvent;
+import org.jfree.chart3d.data.Range;
+import org.jfree.chart3d.data.Values3D;
+import org.jfree.chart3d.data.category.CategoryDataset3D;
+import org.jfree.chart3d.graphics3d.Dimension3D;
+import org.jfree.chart3d.graphics3d.World;
+import org.jfree.chart3d.plot.CategoryPlot3D;
+import org.jfree.chart3d.renderer.Renderer3D;
+import org.jfree.chart3d.renderer.Renderer3DChangeEvent;
 
 /**
  * Defines the methods that all renderers must support to work with a 

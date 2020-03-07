@@ -30,11 +30,11 @@
  * 
  */
 
-package com.orsoncharts.style;
+package org.jfree.chart3d.style;
 
 import java.util.EventObject;
 
-import com.orsoncharts.internal.Args;
+import org.jfree.chart3d.internal.Args;
 
 /**
  * An event that signals a change to a {@link ChartStyle}.

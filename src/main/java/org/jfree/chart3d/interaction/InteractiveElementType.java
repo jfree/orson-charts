@@ -30,9 +30,9 @@
  * 
  */
 
-package com.orsoncharts.interaction;
+package org.jfree.chart3d.interaction;
 
-import com.orsoncharts.graphics3d.RenderedElement;
+import org.jfree.chart3d.graphics3d.RenderedElement;
 
 /**
  * The type for an interactive chart element.  These values are used when 

@@ -1,4 +1,4 @@
 /**
  * Classes for exporting charts.
  */
-package com.orsoncharts.export;
+package org.jfree.chart3d.export;

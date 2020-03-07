@@ -30,14 +30,14 @@
  * 
  */
 
-package com.orsoncharts.interaction;
+package org.jfree.chart3d.interaction;
 
 import java.awt.event.MouseEvent;
 import java.io.Serializable;
 import java.util.EventObject;
-import com.orsoncharts.Chart3D;
-import com.orsoncharts.Chart3DPanel;
-import com.orsoncharts.graphics3d.RenderedElement;
+import org.jfree.chart3d.Chart3D;
+import org.jfree.chart3d.Chart3DPanel;
+import org.jfree.chart3d.graphics3d.RenderedElement;
 
 /**
  * A mouse event for a chart that is displayed in a {@link Chart3DPanel}.

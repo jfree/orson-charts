@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts;
+package org.jfree.chart3d;
 
 /**
  * A chart element used to implement the Visitor pattern for applying changes

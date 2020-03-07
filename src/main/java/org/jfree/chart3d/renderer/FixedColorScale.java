@@ -30,14 +30,14 @@
  * 
  */
 
-package com.orsoncharts.renderer;
+package org.jfree.chart3d.renderer;
 
 import java.awt.Color;
 import java.io.Serializable;
 
-import com.orsoncharts.data.Range;
-import com.orsoncharts.renderer.xyz.SurfaceRenderer;
-import com.orsoncharts.internal.Args;
+import org.jfree.chart3d.data.Range;
+import org.jfree.chart3d.internal.Args;
+import org.jfree.chart3d.renderer.xyz.SurfaceRenderer;
 
 /**
  * A {@link ColorScale} that returns the same color for every value on the

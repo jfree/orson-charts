@@ -16,12 +16,12 @@
  * which is licensed under the Apache Software License version 2.0.  
  * 
  * It has been modified locally and repackaged under 
- * com.orsoncharts.util.json.* to avoid conflicts with any other version that
+ * org.jfree.chart3d.util.json.* to avoid conflicts with any other version that
  * may be present on the classpath. 
  * 
  */
 
-package com.orsoncharts.util.json;
+package org.jfree.chart3d.util.json;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -43,7 +43,7 @@ public class JSONObject extends HashMap implements Map, JSONAware,
      * {@code JSONAware} or {@code JSONStreamAware} specific 
      * behaviours will be ignored at this top level.
      * 
-     * @see com.orsoncharts.util.json.JSONValue#writeJSONString(Object, Writer)
+     * @see org.jfree.chart3d.util.json.JSONValue#writeJSONString(Object, Writer)
      * 
      * @param map  the map to write ({@code null} permitted).
      * @param out  the output writer ({@code null} not permitted).
@@ -93,7 +93,7 @@ public class JSONObject extends HashMap implements Map, JSONAware,
      * If this map is also a {@link JSONAware}, {@code JSONAware} specific 
      * behaviours will be omitted at this top level.
      * 
-     * @see com.orsoncharts.util.json.JSONValue#toJSONString(Object)
+     * @see org.jfree.chart3d.util.json.JSONValue#toJSONString(Object)
      * 
      * @param map  the map ({@code null} permitted).
      * 

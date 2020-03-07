@@ -1,5 +1,5 @@
 /**
- * Datasets that can be used by the {@link com.orsoncharts.plot.CategoryPlot3D} 
+ * Datasets that can be used by the {@link org.jfree.chart3d.plot.CategoryPlot3D} 
  * class.
  */
-package com.orsoncharts.data.category;
+package org.jfree.chart3d.data.category;

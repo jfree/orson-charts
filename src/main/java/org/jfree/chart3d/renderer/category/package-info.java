@@ -1,5 +1,5 @@
 /**
  * Renderers that can be used with the 
- * {@link com.orsoncharts.plot.CategoryPlot3D} class.
+ * {@link org.jfree.chart3d.plot.CategoryPlot3D} class.
  */
-package com.orsoncharts.renderer.category;
+package org.jfree.chart3d.renderer.category;

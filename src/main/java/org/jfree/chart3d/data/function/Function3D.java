@@ -30,11 +30,11 @@
  * 
  */
 
-package com.orsoncharts.data.function;
+package org.jfree.chart3d.data.function;
 
 import java.io.Serializable;
-import com.orsoncharts.data.Range;
-import com.orsoncharts.data.xyz.XYZDatasetUtils;
+import org.jfree.chart3d.data.Range;
+import org.jfree.chart3d.data.xyz.XYZDatasetUtils;
 
 /**
  * Represents a function {@code y = f(x, z)}.  
@@ -42,7 +42,7 @@ import com.orsoncharts.data.xyz.XYZDatasetUtils;
  * A dataset can be created by sampling a function - see the 
  * {@link XYZDatasetUtils#sampleFunction(Function3D, String, Range, double, Range, double)} 
  * method.  In addition, any {@code Function3D} instance can be plotted
- * by a {@link com.orsoncharts.renderer.xyz.SurfaceRenderer}.
+ * by a {@link org.jfree.chart3d.renderer.xyz.SurfaceRenderer}.
  */
 public interface Function3D extends Serializable {
 

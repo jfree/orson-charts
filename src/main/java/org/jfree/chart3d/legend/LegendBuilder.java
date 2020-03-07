@@ -30,14 +30,14 @@
  * 
  */
 
-package com.orsoncharts.legend;
+package org.jfree.chart3d.legend;
 
-import com.orsoncharts.Chart3D;
-import com.orsoncharts.plot.Plot3D;
-import com.orsoncharts.style.ChartStyle;
-import com.orsoncharts.table.TableElement;
-import com.orsoncharts.Orientation;
-import com.orsoncharts.graphics2d.Anchor2D;
+import org.jfree.chart3d.Chart3D;
+import org.jfree.chart3d.Orientation;
+import org.jfree.chart3d.graphics2d.Anchor2D;
+import org.jfree.chart3d.plot.Plot3D;
+import org.jfree.chart3d.style.ChartStyle;
+import org.jfree.chart3d.table.TableElement;
 
 /**
  * A legend builder is responsible for creating a legend for a chart.  The API

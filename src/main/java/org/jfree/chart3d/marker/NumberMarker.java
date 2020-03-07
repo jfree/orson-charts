@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.marker;
+package org.jfree.chart3d.marker;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -43,11 +43,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-import com.orsoncharts.data.Range;
-import com.orsoncharts.graphics2d.Anchor2D;
-import com.orsoncharts.internal.Args;
-import com.orsoncharts.internal.ObjectUtils;
-import com.orsoncharts.internal.SerialUtils;
+import org.jfree.chart3d.data.Range;
+import org.jfree.chart3d.graphics2d.Anchor2D;
+import org.jfree.chart3d.internal.Args;
+import org.jfree.chart3d.internal.ObjectUtils;
+import org.jfree.chart3d.internal.SerialUtils;
 
 /**
  * A marker used to mark one value on an axis.

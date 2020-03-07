@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.axis;
+package org.jfree.chart3d.axis;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -45,18 +45,18 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.orsoncharts.ChartElementVisitor;
-import com.orsoncharts.data.Range;
-import com.orsoncharts.data.category.CategoryDataset3D;
-import com.orsoncharts.marker.MarkerData;
-import com.orsoncharts.marker.NumberMarker;
-import com.orsoncharts.marker.RangeMarker;
-import com.orsoncharts.marker.ValueMarker;
-import com.orsoncharts.plot.CategoryPlot3D;
-import com.orsoncharts.plot.XYZPlot;
-import com.orsoncharts.internal.Args;
-import com.orsoncharts.internal.ObjectUtils;
-import com.orsoncharts.internal.SerialUtils;
+import org.jfree.chart3d.internal.Args;
+import org.jfree.chart3d.internal.ObjectUtils;
+import org.jfree.chart3d.internal.SerialUtils;
+import org.jfree.chart3d.ChartElementVisitor;
+import org.jfree.chart3d.data.Range;
+import org.jfree.chart3d.data.category.CategoryDataset3D;
+import org.jfree.chart3d.marker.MarkerData;
+import org.jfree.chart3d.marker.NumberMarker;
+import org.jfree.chart3d.marker.RangeMarker;
+import org.jfree.chart3d.marker.ValueMarker;
+import org.jfree.chart3d.plot.CategoryPlot3D;
+import org.jfree.chart3d.plot.XYZPlot;
 
 /**
  * A base class for implementing numerical axes.
@@ -325,7 +325,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
      * 
      * @return The default range (never {@code null}).
      * 
-     * @see #setDefaultAutoRange(com.orsoncharts.Range) 
+     * @see #setDefaultAutoRange(org.jfree.chart3d.Range) 
      */
     public Range getDefaultAutoRange() {
         return this.defaultAutoRange;

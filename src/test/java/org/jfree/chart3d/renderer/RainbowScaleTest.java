@@ -30,14 +30,14 @@
  * 
  */
 
-package com.orsoncharts.renderer;
+package org.jfree.chart3d.renderer;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
-import com.orsoncharts.data.Range;
-import com.orsoncharts.TestUtils;
+import org.jfree.chart3d.TestUtils;
+import org.jfree.chart3d.data.Range;
 
 /**
  * Tests for the {@link RainbowScale} class.

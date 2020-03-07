@@ -30,15 +30,15 @@
  * 
  */
 
-package com.orsoncharts.graphics2d;
+package org.jfree.chart3d.graphics2d;
 
-import com.orsoncharts.TestUtils;
+import org.jfree.chart3d.TestUtils;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
-import com.orsoncharts.graphics3d.Offset2D;
+import org.jfree.chart3d.graphics3d.Offset2D;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
 /**
  * Classes for controlling chart styles.
  */
-package com.orsoncharts.style;
+package org.jfree.chart3d.style;

@@ -1,4 +1,4 @@
 /**
  * Utility classes related to 2D graphics.
  */
-package com.orsoncharts.graphics2d;
+package org.jfree.chart3d.graphics2d;

@@ -30,11 +30,11 @@
  * 
  */
 
-package com.orsoncharts.data;
+package org.jfree.chart3d.data;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import com.orsoncharts.internal.Args;
+import org.jfree.chart3d.internal.Args;
 
 /**
  * Utility methods related to the {@link KeyedValues3DItemKey} class.

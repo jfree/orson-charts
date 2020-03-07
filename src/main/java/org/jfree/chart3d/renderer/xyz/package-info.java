@@ -1,6 +1,5 @@
 /**
  * Renderers that can be used with the 
- * {@link com.orsoncharts.plot.XYZPlot} class.
+ * {@link org.jfree.chart3d.plot.XYZPlot} class.
  */
-package com.orsoncharts.renderer.xyz
-;
+package org.jfree.chart3d.renderer.xyz;

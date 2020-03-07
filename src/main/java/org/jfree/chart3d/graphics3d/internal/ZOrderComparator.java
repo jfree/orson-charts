@@ -30,11 +30,11 @@
  * 
  */
 
-package com.orsoncharts.graphics3d.internal;
+package org.jfree.chart3d.graphics3d.internal;
 
 import java.util.Comparator;
-import com.orsoncharts.graphics3d.Face;
-import com.orsoncharts.graphics3d.Point3D;
+import org.jfree.chart3d.graphics3d.Face;
+import org.jfree.chart3d.graphics3d.Point3D;
 
 /**
  * A comparator that orders {@link Face} instances by Z-order.

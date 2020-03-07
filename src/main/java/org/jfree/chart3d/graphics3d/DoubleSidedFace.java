@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.graphics3d;
+package org.jfree.chart3d.graphics3d;
 
 /**
  * A double-sided face.  This is identical to a normal face except that during

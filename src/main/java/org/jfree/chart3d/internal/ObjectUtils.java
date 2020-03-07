@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.internal;
+package org.jfree.chart3d.internal;
 
 import java.awt.GradientPaint;
 import java.awt.LinearGradientPaint;

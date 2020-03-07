@@ -30,13 +30,13 @@
  * 
  */
 
-package com.orsoncharts.graphics3d.internal;
+package org.jfree.chart3d.graphics3d.internal;
 
-import com.orsoncharts.graphics3d.Face;
-import com.orsoncharts.graphics3d.Point3D;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
+import org.jfree.chart3d.graphics3d.Face;
+import org.jfree.chart3d.graphics3d.Point3D;
 
 /**
  * A face sorter that orders the faces by z-value.

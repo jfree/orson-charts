@@ -30,13 +30,13 @@
  * 
  */
 
-package com.orsoncharts.marker;
+package org.jfree.chart3d.marker;
 
-import com.orsoncharts.data.Range;
+import org.jfree.chart3d.data.Range;
 
 /**
  * A marker that can be used to mark a value or range of values on a 
- * {@link com.orsoncharts.axis.ValueAxis3D}.
+ * {@link org.jfree.chart3d.axis.ValueAxis3D}.
  * 
  * @since 1.2
  */

@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.marker;
+package org.jfree.chart3d.marker;
 
 /**
  * An enumeration of the different types of {@link CategoryMarker}.

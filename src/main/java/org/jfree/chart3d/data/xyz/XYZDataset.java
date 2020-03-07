@@ -30,11 +30,11 @@
  * 
  */
 
-package com.orsoncharts.data.xyz;
+package org.jfree.chart3d.data.xyz;
 
 import java.util.List;
-import com.orsoncharts.data.Dataset3D;
-import com.orsoncharts.plot.XYZPlot;
+import org.jfree.chart3d.data.Dataset3D;
+import org.jfree.chart3d.plot.XYZPlot;
 
 /**
  * Defines the methods used to access data in the form of multiple series

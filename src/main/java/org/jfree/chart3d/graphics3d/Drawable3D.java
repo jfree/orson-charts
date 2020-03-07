@@ -30,13 +30,13 @@
  * 
  */
 
-package com.orsoncharts.graphics3d;
+package org.jfree.chart3d.graphics3d;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 
-import com.orsoncharts.Chart3D;
-import com.orsoncharts.graphics3d.swing.Panel3D;
+import org.jfree.chart3d.Chart3D;
+import org.jfree.chart3d.graphics3d.swing.Panel3D;
 
 /**
  * A three dimensional scene that can be viewed from an arbitrary viewpoint 

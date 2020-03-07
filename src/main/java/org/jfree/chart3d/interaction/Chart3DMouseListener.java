@@ -30,16 +30,16 @@
  * 
  */
 
-package com.orsoncharts.interaction;
+package org.jfree.chart3d.interaction;
 
 import java.util.EventListener;
-import com.orsoncharts.Chart3DPanel;
+import org.jfree.chart3d.Chart3DPanel;
 
 /**
  * The interface that must be implemented by classes that wish to receive
  * {@link Chart3DMouseEvent} notifications from a {@link Chart3DPanel}.
  *
- * @see Chart3DPanel#addChartMouseListener(com.orsoncharts.interaction.Chart3DMouseListener) 
+ * @see Chart3DPanel#addChartMouseListener(org.jfree.chart3d.interaction.Chart3DMouseListener) 
  * 
  * @since 1.3
  */

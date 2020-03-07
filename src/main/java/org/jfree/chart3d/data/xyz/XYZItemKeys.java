@@ -30,9 +30,9 @@
  * 
  */
 
-package com.orsoncharts.data.xyz;
+package org.jfree.chart3d.data.xyz;
 
-import com.orsoncharts.internal.Args;
+import org.jfree.chart3d.internal.Args;
 import java.util.ArrayList;
 import java.util.Collection;
 

@@ -1,4 +1,4 @@
 /**
  * Representation of functions in the form {@code y = f(x, z)}.
  */
-package com.orsoncharts.data.function;
+package org.jfree.chart3d.data.function;

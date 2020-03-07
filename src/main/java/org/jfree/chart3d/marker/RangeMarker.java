@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.marker;
+package org.jfree.chart3d.marker;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -40,10 +40,10 @@ import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 import java.io.Serializable;
 
-import com.orsoncharts.data.Range;
-import com.orsoncharts.graphics2d.Anchor2D;
-import com.orsoncharts.internal.Args;
-import com.orsoncharts.internal.ObjectUtils;
+import org.jfree.chart3d.data.Range;
+import org.jfree.chart3d.graphics2d.Anchor2D;
+import org.jfree.chart3d.internal.Args;
+import org.jfree.chart3d.internal.ObjectUtils;
 
 /**
  * A marker that marks a range of values on an axis.

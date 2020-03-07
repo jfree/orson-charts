@@ -30,15 +30,15 @@
  * 
  */
 
-package com.orsoncharts.graphics3d;
+package org.jfree.chart3d.graphics3d;
 
-import com.orsoncharts.graphics3d.internal.Utils2D;
-import com.orsoncharts.graphics3d.internal.Utils3D;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 import java.io.Serializable;
+import org.jfree.chart3d.graphics3d.internal.Utils2D;
+import org.jfree.chart3d.graphics3d.internal.Utils3D;
 
 /**
  * Specifies the location and orientation of the view point in 3D space.  

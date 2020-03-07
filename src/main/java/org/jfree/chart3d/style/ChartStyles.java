@@ -30,12 +30,12 @@
  * 
  */
 
-package com.orsoncharts.style;
+package org.jfree.chart3d.style;
 
 import java.awt.Color;
 import java.awt.Font;
-import com.orsoncharts.Colors;
-import com.orsoncharts.table.StandardRectanglePainter;
+import org.jfree.chart3d.Colors;
+import org.jfree.chart3d.table.StandardRectanglePainter;
 
 /**
  * Some predefined chart styles.

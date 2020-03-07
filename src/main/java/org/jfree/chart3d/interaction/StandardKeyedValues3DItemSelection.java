@@ -30,15 +30,15 @@
  * 
  */
 
-package com.orsoncharts.interaction;
+package org.jfree.chart3d.interaction;
 
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Set;
 import java.util.TreeSet;
-import com.orsoncharts.data.KeyedValues3D;
-import com.orsoncharts.data.KeyedValues3DItemKey;
-import com.orsoncharts.internal.Args;
+import org.jfree.chart3d.data.KeyedValues3D;
+import org.jfree.chart3d.data.KeyedValues3DItemKey;
+import org.jfree.chart3d.internal.Args;
 
 /**
  * An object that tracks selected items from a {@link KeyedValues3D} dataset.

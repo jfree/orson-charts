@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.graphics3d.internal;
+package org.jfree.chart3d.graphics3d.internal;
 
 import java.awt.Dimension;
 import java.awt.geom.Line2D;

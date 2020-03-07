@@ -1,6 +1,6 @@
 /**
- * Core classes, including {@link com.orsoncharts.Chart3D},
- * {@link com.orsoncharts.Chart3DPanel} and 
- * {@link com.orsoncharts.Chart3DFactory}.
+ * Core classes, including {@link org.jfree.chart3d.Chart3D},
+ * {@link org.jfree.chart3d.Chart3DPanel} and 
+ * {@link org.jfree.chart3d.Chart3DFactory}.
  */
-package com.orsoncharts;
+package org.jfree.chart3d;

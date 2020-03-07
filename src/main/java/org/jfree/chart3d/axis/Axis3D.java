@@ -30,16 +30,16 @@
  * 
  */
 
-package com.orsoncharts.axis;
+package org.jfree.chart3d.axis;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.awt.Font;
 import java.util.List;
-import com.orsoncharts.ChartElement;
-import com.orsoncharts.data.Range;
-import com.orsoncharts.graphics3d.RenderingInfo;
+import org.jfree.chart3d.ChartElement;
+import org.jfree.chart3d.data.Range;
+import org.jfree.chart3d.graphics3d.RenderingInfo;
 
 /**
  * An interface that must be supported by axes for 3D plots.

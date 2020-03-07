@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.plot;
+package org.jfree.chart3d.plot;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -44,16 +44,16 @@ import org.junit.Test;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.GradientPaint;
-import com.orsoncharts.axis.NumberAxis3D;
-import com.orsoncharts.data.Range;
-import com.orsoncharts.TestUtils;
-import com.orsoncharts.axis.ValueAxis3D;
-import com.orsoncharts.data.xyz.XYZDataset;
-import com.orsoncharts.data.xyz.XYZSeriesCollection;
-import com.orsoncharts.graphics3d.Dimension3D;
-import com.orsoncharts.label.StandardXYZLabelGenerator;
-import com.orsoncharts.renderer.xyz.ScatterXYZRenderer;
-import com.orsoncharts.renderer.xyz.XYZRenderer;
+import org.jfree.chart3d.TestUtils;
+import org.jfree.chart3d.axis.NumberAxis3D;
+import org.jfree.chart3d.axis.ValueAxis3D;
+import org.jfree.chart3d.data.Range;
+import org.jfree.chart3d.data.xyz.XYZDataset;
+import org.jfree.chart3d.data.xyz.XYZSeriesCollection;
+import org.jfree.chart3d.graphics3d.Dimension3D;
+import org.jfree.chart3d.label.StandardXYZLabelGenerator;
+import org.jfree.chart3d.renderer.xyz.ScatterXYZRenderer;
+import org.jfree.chart3d.renderer.xyz.XYZRenderer;
 
 /**
  * Checks for the {@link XYZPlot} class.

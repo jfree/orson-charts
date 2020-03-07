@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.table;
+package org.jfree.chart3d.table;
 
 import java.awt.Color;
 import java.awt.GradientPaint;
@@ -40,10 +40,10 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 
-import com.orsoncharts.TitleAnchor;
-import com.orsoncharts.graphics2d.Anchor2D;
-import com.orsoncharts.internal.Args;
-import com.orsoncharts.internal.ObjectUtils;
+import org.jfree.chart3d.TitleAnchor;
+import org.jfree.chart3d.graphics2d.Anchor2D;
+import org.jfree.chart3d.internal.Args;
+import org.jfree.chart3d.internal.ObjectUtils;
 
 /**
  * A {@link RectanglePainter} that can fill a rectangle with a gradient (the

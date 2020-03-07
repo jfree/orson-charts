@@ -30,21 +30,21 @@
  * 
  */
 
-package com.orsoncharts.data.xyz;
+package org.jfree.chart3d.data.xyz;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.orsoncharts.internal.Args;
-import com.orsoncharts.data.AbstractDataset3D;
-import com.orsoncharts.data.Dataset3DChangeEvent;
-import com.orsoncharts.data.JSONUtils;
-import com.orsoncharts.data.Series3DChangeEvent;
-import com.orsoncharts.data.Series3DChangeListener;
-import com.orsoncharts.plot.XYZPlot;
-import com.orsoncharts.renderer.xyz.XYZRenderer;
-import com.orsoncharts.internal.ObjectUtils;
+import org.jfree.chart3d.internal.Args;
+import org.jfree.chart3d.data.AbstractDataset3D;
+import org.jfree.chart3d.data.Dataset3DChangeEvent;
+import org.jfree.chart3d.data.JSONUtils;
+import org.jfree.chart3d.data.Series3DChangeEvent;
+import org.jfree.chart3d.data.Series3DChangeListener;
+import org.jfree.chart3d.internal.ObjectUtils;
+import org.jfree.chart3d.plot.XYZPlot;
+import org.jfree.chart3d.renderer.xyz.XYZRenderer;
 
 /**
  * A collection of {@link XYZSeries} objects (implements the {@link XYZDataset}
@@ -324,7 +324,7 @@ public class XYZSeriesCollection<S extends Comparable<S>>
      * <br><br>
      * Implementation note: the current implementation (which is subject to 
      * change) writes the dataset in JSON format using 
-     * {@link JSONUtils#writeXYZDataset(com.orsoncharts.data.xyz.XYZDataset)}.
+     * {@link JSONUtils#writeXYZDataset(org.jfree.chart3d.data.xyz.XYZDataset)}.
      * 
      * @return A string. 
      */

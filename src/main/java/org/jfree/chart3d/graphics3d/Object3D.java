@@ -30,9 +30,8 @@
  * 
  */
 
-package com.orsoncharts.graphics3d;
+package org.jfree.chart3d.graphics3d;
 
-import com.orsoncharts.graphics3d.internal.TaggedFace;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.geom.Point2D;
@@ -40,7 +39,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import com.orsoncharts.internal.Args;
+import org.jfree.chart3d.graphics3d.internal.TaggedFace;
+import org.jfree.chart3d.internal.Args;
 
 /**
  * An object defined in 3D space by (a) a list of coordinates, and (b) a list

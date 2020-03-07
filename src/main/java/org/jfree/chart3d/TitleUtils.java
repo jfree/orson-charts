@@ -30,16 +30,16 @@
  * 
  */
 
-package com.orsoncharts;
+package org.jfree.chart3d;
 
 import java.awt.Color;
 import java.awt.Font;
-import com.orsoncharts.graphics2d.Anchor2D;
-import com.orsoncharts.interaction.InteractiveElementType;
-import com.orsoncharts.table.GridElement;
-import com.orsoncharts.table.HAlign;
-import com.orsoncharts.table.TableElement;
-import com.orsoncharts.table.TextElement;
+import org.jfree.chart3d.graphics2d.Anchor2D;
+import org.jfree.chart3d.interaction.InteractiveElementType;
+import org.jfree.chart3d.table.GridElement;
+import org.jfree.chart3d.table.HAlign;
+import org.jfree.chart3d.table.TableElement;
+import org.jfree.chart3d.table.TextElement;
 
 /**
  * Some utility methods for creating chart titles.

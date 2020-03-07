@@ -30,14 +30,14 @@
  * 
  */
 
-package com.orsoncharts.renderer.category;
+package org.jfree.chart3d.renderer.category;
 
 import java.awt.Color;
 import java.io.Serializable;
 import java.util.Arrays;
 
-import com.orsoncharts.Colors;
-import com.orsoncharts.internal.Args;
+import org.jfree.chart3d.Colors;
+import org.jfree.chart3d.internal.Args;
 
 /**
  * A standard implementation of the {@link CategoryColorSource} interface.

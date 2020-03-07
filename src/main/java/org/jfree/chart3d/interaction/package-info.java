@@ -1,4 +1,4 @@
 /**
  * Classes that support user interaction with charts.
  */
-package com.orsoncharts.interaction;
+package org.jfree.chart3d.interaction;

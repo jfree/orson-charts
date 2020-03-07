@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -30,13 +30,13 @@
  * 
  */
 
-package com.orsoncharts.data;
+package org.jfree.chart3d.data;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
-import com.orsoncharts.TestUtils;
+import org.jfree.chart3d.TestUtils;
 
 /**
  * Tests for the {@link StandardPieDataset} class.
@@ -86,7 +86,7 @@ public class StandardPieDataset3DTest {
     
     /**
      * Checks for the toString() method.  Since this uses the 
-     * {@link JSONUtils#writeKeyedValues3DToJSON(com.orsoncharts.data.KeyedValues3D)}
+     * {@link JSONUtils#writeKeyedValues3DToJSON(org.jfree.chart3d.data.KeyedValues3D)}
      * method, we are really checking the JSON conversion.
      */
     @Test

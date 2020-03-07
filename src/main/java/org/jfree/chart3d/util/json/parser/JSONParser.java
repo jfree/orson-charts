@@ -16,12 +16,12 @@
  * which is licensed under the Apache Software License version 2.0.  
  * 
  * It has been modified locally and repackaged under 
- * com.orsoncharts.util.json.* to avoid conflicts with any other version that
+ * org.jfree.chart3d.util.json.* to avoid conflicts with any other version that
  * may be present on the classpath. 
  * 
  */
 
-package com.orsoncharts.util.json.parser;
+package org.jfree.chart3d.util.json.parser;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -29,8 +29,8 @@ import java.io.StringReader;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import com.orsoncharts.util.json.JSONArray;
-import com.orsoncharts.util.json.JSONObject;
+import org.jfree.chart3d.util.json.JSONArray;
+import org.jfree.chart3d.util.json.JSONObject;
 
 
 /**
@@ -117,8 +117,8 @@ public class JSONParser {
      * @param containerFactory  use this factory to create your own JSON 
      *     object and JSON array containers.
      * @return Instance of the following:
-     *     com.orsoncharts.util.json.simple.JSONObject,
-     *     com.orsoncharts.util.json.simple.JSONArray,
+     *     org.jfree.chart3d.util.json.simple.JSONObject,
+     *     org.jfree.chart3d.util.json.simple.JSONArray,
      *     java.lang.String,
      *     java.lang.Number,
      *     java.lang.Boolean,

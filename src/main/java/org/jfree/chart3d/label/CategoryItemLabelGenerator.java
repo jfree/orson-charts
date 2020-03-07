@@ -30,9 +30,9 @@
  * 
  */
 
-package com.orsoncharts.label;
+package org.jfree.chart3d.label;
 
-import com.orsoncharts.data.category.CategoryDataset3D;
+import org.jfree.chart3d.data.category.CategoryDataset3D;
 
 /**
  * An item label generator for category charts (this is used for tooltips and

@@ -1,4 +1,4 @@
 /**
  * Base package for renderer support.
  */
-package com.orsoncharts.renderer;
+package org.jfree.chart3d.renderer;

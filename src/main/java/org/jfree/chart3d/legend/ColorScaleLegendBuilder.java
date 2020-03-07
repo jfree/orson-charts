@@ -30,23 +30,23 @@
  * 
  */
 
-package com.orsoncharts.legend;
+package org.jfree.chart3d.legend;
 
 import java.io.Serializable;
 
-import com.orsoncharts.plot.CategoryPlot3D;
-import com.orsoncharts.plot.Plot3D;
-import com.orsoncharts.plot.XYZPlot;
-import com.orsoncharts.renderer.ColorScale;
-import com.orsoncharts.renderer.ColorScaleRenderer;
-import com.orsoncharts.renderer.FixedColorScale;
-import com.orsoncharts.renderer.category.CategoryRenderer3D;
-import com.orsoncharts.renderer.xyz.XYZRenderer;
-import com.orsoncharts.table.TableElement;
-import com.orsoncharts.Orientation;
-import com.orsoncharts.Chart3D;
-import com.orsoncharts.graphics2d.Anchor2D;
-import com.orsoncharts.style.ChartStyle;
+import org.jfree.chart3d.Chart3D;
+import org.jfree.chart3d.Orientation;
+import org.jfree.chart3d.graphics2d.Anchor2D;
+import org.jfree.chart3d.plot.CategoryPlot3D;
+import org.jfree.chart3d.plot.Plot3D;
+import org.jfree.chart3d.plot.XYZPlot;
+import org.jfree.chart3d.renderer.ColorScale;
+import org.jfree.chart3d.renderer.ColorScaleRenderer;
+import org.jfree.chart3d.renderer.FixedColorScale;
+import org.jfree.chart3d.renderer.category.CategoryRenderer3D;
+import org.jfree.chart3d.renderer.xyz.XYZRenderer;
+import org.jfree.chart3d.style.ChartStyle;
+import org.jfree.chart3d.table.TableElement;
 
 /**
  * A legend builder that creates a legend representing a {@link ColorScale}.

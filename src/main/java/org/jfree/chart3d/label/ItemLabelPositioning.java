@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.label;
+package org.jfree.chart3d.label;
 
 /**
  * An enumeration of the item label positioning types.

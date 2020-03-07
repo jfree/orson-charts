@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.data;
+package org.jfree.chart3d.data;
 
 import java.util.EventObject;
 
@@ -64,8 +64,8 @@ public class Dataset3DChangeEvent extends EventObject {
     /**
      * Returns the dataset that this event is associated with.  This will
      * normally be an instance of {@link PieDataset3D}, 
-     * {@link com.orsoncharts.data.category.CategoryDataset3D} or 
-     * {@link com.orsoncharts.data.xyz.XYZDataset}.
+     * {@link org.jfree.chart3d.data.category.CategoryDataset3D} or 
+     * {@link org.jfree.chart3d.data.xyz.XYZDataset}.
      * 
      * @return The dataset. 
      */

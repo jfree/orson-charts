@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.graphics3d;
+package org.jfree.chart3d.graphics3d;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -43,16 +43,16 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import com.orsoncharts.internal.Args;
-import com.orsoncharts.Chart3D;
-import com.orsoncharts.graphics3d.internal.Utils2D;
-import com.orsoncharts.graphics3d.internal.ZOrderComparator;
+import org.jfree.chart3d.internal.Args;
+import org.jfree.chart3d.Chart3D;
+import org.jfree.chart3d.graphics3d.internal.Utils2D;
+import org.jfree.chart3d.graphics3d.internal.ZOrderComparator;
 
 /**
  * Provides a default implementation of the {@link Drawable3D} interface.
  * This is not used directly in Orson Charts, since the {@link Chart3D} class
  * implements the {@link Drawable3D} interface itself.  However, it is used
- * in testing to ensure that the {@code com.orsoncharts.graphics3d}
+ * in testing to ensure that the {@code org.jfree.chart3d.graphics3d}
  * package can function on a stand-alone basis.
  */
 public class DefaultDrawable3D implements Drawable3D {

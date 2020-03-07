@@ -30,21 +30,21 @@
  * 
  */
 
-package com.orsoncharts.renderer.xyz;
+package org.jfree.chart3d.renderer.xyz;
 
 import java.awt.Color;
 import java.io.Serializable;
 
-import com.orsoncharts.axis.Axis3D;
-import com.orsoncharts.data.Range;
-import com.orsoncharts.data.DataUtils;
-import com.orsoncharts.data.xyz.XYZDataset;
-import com.orsoncharts.plot.XYZPlot;
-import com.orsoncharts.graphics3d.Dimension3D;
-import com.orsoncharts.graphics3d.Object3D;
-import com.orsoncharts.graphics3d.World;
-import com.orsoncharts.renderer.Renderer3DChangeEvent;
-import com.orsoncharts.internal.ObjectUtils;
+import org.jfree.chart3d.axis.Axis3D;
+import org.jfree.chart3d.data.DataUtils;
+import org.jfree.chart3d.data.Range;
+import org.jfree.chart3d.data.xyz.XYZDataset;
+import org.jfree.chart3d.graphics3d.Dimension3D;
+import org.jfree.chart3d.graphics3d.Object3D;
+import org.jfree.chart3d.graphics3d.World;
+import org.jfree.chart3d.internal.ObjectUtils;
+import org.jfree.chart3d.plot.XYZPlot;
+import org.jfree.chart3d.renderer.Renderer3DChangeEvent;
 
 /**
  * A renderer that draws 3D bars on an {@link XYZPlot} using data from an

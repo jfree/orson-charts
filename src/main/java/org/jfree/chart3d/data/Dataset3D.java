@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.data;
+package org.jfree.chart3d.data;
 
 import java.util.EventListener;
 
@@ -41,7 +41,7 @@ import java.util.EventListener;
  * event, then pass on the change event to the chart.  The chart in turn will
  * pass on the event and this can result in the chart being repainted (for
  * example, if the chart is displayed in a
- * {@link com.orsoncharts.Chart3DPanel}).
+ * {@link org.jfree.chart3d.Chart3DPanel}).
  */
 public interface Dataset3D {
 

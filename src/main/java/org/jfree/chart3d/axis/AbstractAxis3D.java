@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.axis;
+package org.jfree.chart3d.axis;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -49,21 +49,20 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.event.EventListenerList;
-
-import com.orsoncharts.Chart3DHints;
-import com.orsoncharts.ChartElementVisitor;
-import com.orsoncharts.graphics2d.TextAnchor;
-import com.orsoncharts.graphics3d.RenderedElement;
-import com.orsoncharts.graphics3d.RenderingInfo;
-import com.orsoncharts.graphics3d.internal.Utils2D;
-import com.orsoncharts.interaction.InteractiveElementType;
-import com.orsoncharts.marker.MarkerChangeEvent;
-import com.orsoncharts.marker.MarkerChangeListener;
-import com.orsoncharts.plot.CategoryPlot3D;
-import com.orsoncharts.internal.Args;
-import com.orsoncharts.internal.ObjectUtils;
-import com.orsoncharts.internal.SerialUtils;
-import com.orsoncharts.internal.TextUtils;
+import org.jfree.chart3d.internal.Args;
+import org.jfree.chart3d.internal.ObjectUtils;
+import org.jfree.chart3d.internal.SerialUtils;
+import org.jfree.chart3d.internal.TextUtils;
+import org.jfree.chart3d.Chart3DHints;
+import org.jfree.chart3d.ChartElementVisitor;
+import org.jfree.chart3d.graphics2d.TextAnchor;
+import org.jfree.chart3d.graphics3d.RenderedElement;
+import org.jfree.chart3d.graphics3d.RenderingInfo;
+import org.jfree.chart3d.graphics3d.internal.Utils2D;
+import org.jfree.chart3d.interaction.InteractiveElementType;
+import org.jfree.chart3d.marker.MarkerChangeEvent;
+import org.jfree.chart3d.marker.MarkerChangeListener;
+import org.jfree.chart3d.plot.CategoryPlot3D;
 
 /**
  * A base class that can be used to create an {@link Axis3D} implementation.

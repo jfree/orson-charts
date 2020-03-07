@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.plot;
+package org.jfree.chart3d.plot;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -38,22 +38,22 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.orsoncharts.Chart3D;
-import com.orsoncharts.data.PieDataset3D;
-import com.orsoncharts.internal.Args;
-import com.orsoncharts.graphics3d.Dimension3D;
-import com.orsoncharts.graphics3d.Dot3D;
-import com.orsoncharts.graphics3d.Object3D;
-import com.orsoncharts.graphics3d.World;
-import com.orsoncharts.legend.LegendItemInfo;
-import com.orsoncharts.legend.StandardLegendItemInfo;
-import com.orsoncharts.Chart3DFactory;
-import com.orsoncharts.ChartElementVisitor;
-import com.orsoncharts.data.DataUtils;
-import com.orsoncharts.data.ItemKey;
-import com.orsoncharts.data.KeyedValuesItemKey;
-import com.orsoncharts.label.PieLabelGenerator;
-import com.orsoncharts.label.StandardPieLabelGenerator;
+import org.jfree.chart3d.internal.Args;
+import org.jfree.chart3d.Chart3D;
+import org.jfree.chart3d.Chart3DFactory;
+import org.jfree.chart3d.ChartElementVisitor;
+import org.jfree.chart3d.data.DataUtils;
+import org.jfree.chart3d.data.ItemKey;
+import org.jfree.chart3d.data.KeyedValuesItemKey;
+import org.jfree.chart3d.data.PieDataset3D;
+import org.jfree.chart3d.graphics3d.Dimension3D;
+import org.jfree.chart3d.graphics3d.Dot3D;
+import org.jfree.chart3d.graphics3d.Object3D;
+import org.jfree.chart3d.graphics3d.World;
+import org.jfree.chart3d.label.PieLabelGenerator;
+import org.jfree.chart3d.label.StandardPieLabelGenerator;
+import org.jfree.chart3d.legend.LegendItemInfo;
+import org.jfree.chart3d.legend.StandardLegendItemInfo;
 
 /**
  * A plot for creating 3D pie charts.  To create a pie chart, you can use the 

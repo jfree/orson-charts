@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.table;
+package org.jfree.chart3d.table;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -43,9 +43,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.orsoncharts.graphics2d.TextAnchor;
-import com.orsoncharts.internal.Args;
-import com.orsoncharts.internal.TextUtils;
+import org.jfree.chart3d.graphics2d.TextAnchor;
+import org.jfree.chart3d.internal.Args;
+import org.jfree.chart3d.internal.TextUtils;
 
 /**
  * A table element consisting of some text that will be drawn on one line.

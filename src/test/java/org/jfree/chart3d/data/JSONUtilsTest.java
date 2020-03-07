@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -30,16 +30,16 @@
  * 
  */
 
-package com.orsoncharts.data;
+package org.jfree.chart3d.data;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
-import com.orsoncharts.data.category.StandardCategoryDataset3D;
-import com.orsoncharts.data.xyz.XYZDataset;
-import com.orsoncharts.data.xyz.XYZSeries;
-import com.orsoncharts.data.xyz.XYZSeriesCollection;
+import org.jfree.chart3d.data.category.StandardCategoryDataset3D;
+import org.jfree.chart3d.data.xyz.XYZDataset;
+import org.jfree.chart3d.data.xyz.XYZSeries;
+import org.jfree.chart3d.data.xyz.XYZSeriesCollection;
 
 /**
  * Some tests for the {@link JSONUtils} class.
@@ -80,8 +80,7 @@ public class JSONUtilsTest {
     public void checkWriteKeyedValues() {
         // some standard cases are already checked in the tests for the
         // toString() method in StandardPieDataset3D
-        DefaultKeyedValues<String, Number> dkv 
-                = new DefaultKeyedValues<String, Number>();
+        DefaultKeyedValues<String, Number> dkv = new DefaultKeyedValues<>();
         dkv.put("\"", 1.0);
         assertEquals("[[\"\\\"\", 1.0]]", JSONUtils.writeKeyedValues(dkv));
         dkv.clear();
@@ -139,7 +138,7 @@ public class JSONUtilsTest {
     @Test 
     public void checkWriteKeyedValues2D() {
         DefaultKeyedValues2D<String, String, Number> dkv2d 
-                = new DefaultKeyedValues2D<String, String, Number>();
+                = new DefaultKeyedValues2D<>();
         String expected = "{}";
         assertEquals(expected, JSONUtils.writeKeyedValues2D(dkv2d));
         
@@ -181,7 +180,7 @@ public class JSONUtilsTest {
     @Test
     public void checkWriteKeyedValues3D() {
         StandardCategoryDataset3D<String, String, String> dataset 
-                = new StandardCategoryDataset3D<String, String, String>();
+                = new StandardCategoryDataset3D<>();
         dataset.addValue(1.0, "S1", "R1", "C1");
         dataset.addValue(2.0, "S1", "R1", "C2");
         dataset.addValue(3.0, "S1", "R2", "C1");
@@ -239,10 +238,10 @@ public class JSONUtilsTest {
      */
     @Test
     public void checkWriteXYZDataset() {
-        XYZSeriesCollection<String> dataset = new XYZSeriesCollection<String>();
+        XYZSeriesCollection<String> dataset = new XYZSeriesCollection<>();
         assertEquals("[]", JSONUtils.writeXYZDataset(dataset));
         
-        XYZSeries<String> s1 = new XYZSeries<String>("S1");
+        XYZSeries<String> s1 = new XYZSeries<>("S1");
         dataset.add(s1);
         assertEquals("[[\"S1\", []]]", JSONUtils.writeXYZDataset(dataset));
 

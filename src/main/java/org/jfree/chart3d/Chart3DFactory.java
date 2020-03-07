@@ -30,36 +30,36 @@
  * 
  */
 
-package com.orsoncharts;
+package org.jfree.chart3d;
 
-import com.orsoncharts.axis.CategoryAxis3D;
-import com.orsoncharts.axis.LabelOrientation;
-import com.orsoncharts.axis.StandardCategoryAxis3D;
-import com.orsoncharts.axis.NumberAxis3D;
-import com.orsoncharts.axis.ValueAxis3D;
-import com.orsoncharts.data.category.CategoryDataset3D;
-import com.orsoncharts.data.PieDataset3D;
-import com.orsoncharts.data.Range;
-import com.orsoncharts.data.function.Function3D;
-import com.orsoncharts.data.xyz.XYZDataset;
-import com.orsoncharts.data.xyz.XYZSeriesCollection;
-import com.orsoncharts.legend.ColorScaleLegendBuilder;
-import com.orsoncharts.plot.CategoryPlot3D;
-import com.orsoncharts.plot.PiePlot3D;
-import com.orsoncharts.plot.XYZPlot;
-import com.orsoncharts.renderer.xyz.BarXYZRenderer;
-import com.orsoncharts.renderer.xyz.XYZRenderer;
-import com.orsoncharts.renderer.category.AreaRenderer3D;
-import com.orsoncharts.renderer.category.BarRenderer3D;
-import com.orsoncharts.renderer.category.CategoryRenderer3D;
-import com.orsoncharts.renderer.category.LineRenderer3D;
-import com.orsoncharts.renderer.category.StackedBarRenderer3D;
-import com.orsoncharts.renderer.xyz.LineXYZRenderer;
-import com.orsoncharts.renderer.xyz.ScatterXYZRenderer;
-import com.orsoncharts.renderer.xyz.SurfaceRenderer;
-import com.orsoncharts.style.ChartStyle;
-import com.orsoncharts.style.StandardChartStyle;
-import com.orsoncharts.internal.Args;
+import org.jfree.chart3d.axis.CategoryAxis3D;
+import org.jfree.chart3d.axis.LabelOrientation;
+import org.jfree.chart3d.axis.NumberAxis3D;
+import org.jfree.chart3d.axis.StandardCategoryAxis3D;
+import org.jfree.chart3d.axis.ValueAxis3D;
+import org.jfree.chart3d.data.PieDataset3D;
+import org.jfree.chart3d.data.Range;
+import org.jfree.chart3d.data.category.CategoryDataset3D;
+import org.jfree.chart3d.data.function.Function3D;
+import org.jfree.chart3d.data.xyz.XYZDataset;
+import org.jfree.chart3d.data.xyz.XYZSeriesCollection;
+import org.jfree.chart3d.internal.Args;
+import org.jfree.chart3d.legend.ColorScaleLegendBuilder;
+import org.jfree.chart3d.plot.CategoryPlot3D;
+import org.jfree.chart3d.plot.PiePlot3D;
+import org.jfree.chart3d.plot.XYZPlot;
+import org.jfree.chart3d.renderer.category.AreaRenderer3D;
+import org.jfree.chart3d.renderer.category.BarRenderer3D;
+import org.jfree.chart3d.renderer.category.CategoryRenderer3D;
+import org.jfree.chart3d.renderer.category.LineRenderer3D;
+import org.jfree.chart3d.renderer.category.StackedBarRenderer3D;
+import org.jfree.chart3d.renderer.xyz.BarXYZRenderer;
+import org.jfree.chart3d.renderer.xyz.LineXYZRenderer;
+import org.jfree.chart3d.renderer.xyz.ScatterXYZRenderer;
+import org.jfree.chart3d.renderer.xyz.SurfaceRenderer;
+import org.jfree.chart3d.renderer.xyz.XYZRenderer;
+import org.jfree.chart3d.style.ChartStyle;
+import org.jfree.chart3d.style.StandardChartStyle;
 
 /**
  * Utility methods for constructing common chart types.  Charts can be 

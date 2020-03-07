@@ -7,4 +7,4 @@
  * (https://code.google.com/p/json-simple/) or some other JSON library directly
  * in your project. 
  */
-package com.orsoncharts.util.json.parser;
+package org.jfree.chart3d.util.json.parser;

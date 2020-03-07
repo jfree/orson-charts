@@ -30,12 +30,12 @@
  * 
  */
 
-package com.orsoncharts.renderer;
+package org.jfree.chart3d.renderer;
 
 import java.awt.Color;
 
-import com.orsoncharts.data.Range;
-import com.orsoncharts.internal.Args;
+import org.jfree.chart3d.data.Range;
+import org.jfree.chart3d.internal.Args;
 
 /**
  * A color scale that runs a linear gradient between two colors.
@@ -51,13 +51,13 @@ public class GradientColorScale extends AbstractColorScale
         implements ColorScale {
 
     /** The color at the low end of the value range. */
-    private Color lowColor;
+    private final Color lowColor;
     
     /** The color at the high end of the value range. */
-    private Color highColor;
+    private final Color highColor;
     
     /** Storage for the color samples. */
-    private Color[] colors;
+    private final Color[] colors;
 
     /**
      * Creates a new instance with the specified value range and colors.

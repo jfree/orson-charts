@@ -30,29 +30,29 @@
  * 
  */
 
-package com.orsoncharts.renderer.xyz;
+package org.jfree.chart3d.renderer.xyz;
 
 import java.awt.Color;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.orsoncharts.data.Range;
-import com.orsoncharts.axis.ValueAxis3D;
-import com.orsoncharts.data.function.Function3D;
-import com.orsoncharts.data.function.Function3DUtils;
-import com.orsoncharts.data.xyz.XYZDataset;
-import com.orsoncharts.graphics3d.Dimension3D;
-import com.orsoncharts.graphics3d.Object3D;
-import com.orsoncharts.graphics3d.Point3D;
-import com.orsoncharts.graphics3d.World;
-import com.orsoncharts.plot.XYZPlot;
-import com.orsoncharts.renderer.ColorScale;
-import com.orsoncharts.renderer.ColorScaleRenderer;
-import com.orsoncharts.renderer.ComposeType;
-import com.orsoncharts.renderer.FixedColorScale;
-import com.orsoncharts.renderer.Renderer3DChangeEvent;
-import com.orsoncharts.internal.Args;
+import org.jfree.chart3d.axis.ValueAxis3D;
+import org.jfree.chart3d.data.Range;
+import org.jfree.chart3d.data.function.Function3D;
+import org.jfree.chart3d.data.function.Function3DUtils;
+import org.jfree.chart3d.data.xyz.XYZDataset;
+import org.jfree.chart3d.graphics3d.Dimension3D;
+import org.jfree.chart3d.graphics3d.Object3D;
+import org.jfree.chart3d.graphics3d.Point3D;
+import org.jfree.chart3d.graphics3d.World;
+import org.jfree.chart3d.internal.Args;
+import org.jfree.chart3d.plot.XYZPlot;
+import org.jfree.chart3d.renderer.ColorScale;
+import org.jfree.chart3d.renderer.ColorScaleRenderer;
+import org.jfree.chart3d.renderer.ComposeType;
+import org.jfree.chart3d.renderer.FixedColorScale;
+import org.jfree.chart3d.renderer.Renderer3DChangeEvent;
 
 /**
  * A renderer that plots a surface based on a function (any implementation
@@ -167,8 +167,8 @@ public class SurfaceRenderer extends AbstractXYZRenderer implements XYZRenderer,
     /**
      * Returns the compose-type for the renderer.  Here the value is
      * {@code ComposeType.ALL} which means the plot will call the 
-     * {@link #composeAll(com.orsoncharts.plot.XYZPlot, 
-     * com.orsoncharts.graphics3d.World, com.orsoncharts.graphics3d.Dimension3D,
+     * {@link #composeAll(org.jfree.chart3d.plot.XYZPlot, 
+     * org.jfree.chart3d.graphics3d.World, org.jfree.chart3d.graphics3d.Dimension3D,
      * double, double, double)} method for composing the chart.
      * 
      * @return The compose type (never {@code null}). 

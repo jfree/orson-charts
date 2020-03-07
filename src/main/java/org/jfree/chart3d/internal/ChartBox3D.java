@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.internal;
+package org.jfree.chart3d.internal;
 
 import java.awt.Color;
 import java.awt.geom.Point2D;
@@ -38,13 +38,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.orsoncharts.graphics3d.Face;
-import com.orsoncharts.graphics3d.Object3D;
-import com.orsoncharts.graphics3d.Point3D;
-import com.orsoncharts.axis.TickData;
-import com.orsoncharts.graphics2d.Anchor2D;
-import com.orsoncharts.marker.MarkerData;
-import com.orsoncharts.marker.MarkerDataType;
+import org.jfree.chart3d.axis.TickData;
+import org.jfree.chart3d.graphics2d.Anchor2D;
+import org.jfree.chart3d.graphics3d.Face;
+import org.jfree.chart3d.graphics3d.Object3D;
+import org.jfree.chart3d.graphics3d.Point3D;
+import org.jfree.chart3d.marker.MarkerData;
+import org.jfree.chart3d.marker.MarkerDataType;
 
 /**
  * A chart box is the container within which the chart elements are drawn.
@@ -977,28 +977,28 @@ public class ChartBox3D {
     public static final class ChartBoxFace extends Face {
 
         /** Info about the x-axis ticks on edge A. */
-        private List<TickData> xTicksA;
+        private final List<TickData> xTicksA;
         
         /** Info about the x-axis ticks on edge B. */
-        private List<TickData> xTicksB;
+        private final List<TickData> xTicksB;
         
         /** Info about the y-axis ticks on edge A. */
-        private List<TickData> yTicksA;
+        private final List<TickData> yTicksA;
         
         /** Info about the y-axis ticks on edge B. */
-        private List<TickData> yTicksB;
+        private final List<TickData> yTicksB;
         
         /** Info about the z-axis ticks on edge A. */
-        private List<TickData> zTicksA;
+        private final List<TickData> zTicksA;
         
         /** Info about the z-axis ticks on edge B. */
-        private List<TickData> zTicksB;
+        private final List<TickData> zTicksB;
         
-        private List<MarkerData> xMarkers;
+        private final List<MarkerData> xMarkers;
         
-        private List<MarkerData> yMarkers;
+        private final List<MarkerData> yMarkers;
         
-        private List<MarkerData> zMarkers;
+        private final List<MarkerData> zMarkers;
         
         /**
          * Creates a new face for a {@link ChartBox3D}.

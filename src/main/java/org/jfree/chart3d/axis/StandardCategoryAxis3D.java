@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.axis;
+package org.jfree.chart3d.axis;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -51,27 +51,27 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.orsoncharts.Chart3DHints;
-import com.orsoncharts.ChartElementVisitor;
-import com.orsoncharts.data.Range;
-import com.orsoncharts.data.category.CategoryDataset3D;
-import com.orsoncharts.graphics2d.TextAnchor;
-import com.orsoncharts.graphics3d.RenderedElement;
-import com.orsoncharts.graphics3d.RenderingInfo;
-import com.orsoncharts.graphics3d.internal.Utils2D;
-import com.orsoncharts.interaction.InteractiveElementType;
-import com.orsoncharts.label.CategoryLabelGenerator;
-import com.orsoncharts.label.StandardCategoryLabelGenerator;
-import com.orsoncharts.marker.CategoryMarker;
-import com.orsoncharts.marker.CategoryMarkerType;
-import com.orsoncharts.marker.Marker;
-import com.orsoncharts.marker.MarkerData;
-import com.orsoncharts.plot.CategoryPlot3D;
-import com.orsoncharts.renderer.category.AreaRenderer3D;
-import com.orsoncharts.internal.Args;
-import com.orsoncharts.internal.ObjectUtils;
-import com.orsoncharts.internal.SerialUtils;
-import com.orsoncharts.internal.TextUtils;
+import org.jfree.chart3d.graphics3d.internal.Utils2D;
+import org.jfree.chart3d.Chart3DHints;
+import org.jfree.chart3d.ChartElementVisitor;
+import org.jfree.chart3d.data.Range;
+import org.jfree.chart3d.data.category.CategoryDataset3D;
+import org.jfree.chart3d.graphics2d.TextAnchor;
+import org.jfree.chart3d.graphics3d.RenderedElement;
+import org.jfree.chart3d.graphics3d.RenderingInfo;
+import org.jfree.chart3d.interaction.InteractiveElementType;
+import org.jfree.chart3d.internal.Args;
+import org.jfree.chart3d.internal.ObjectUtils;
+import org.jfree.chart3d.internal.SerialUtils;
+import org.jfree.chart3d.internal.TextUtils;
+import org.jfree.chart3d.label.CategoryLabelGenerator;
+import org.jfree.chart3d.label.StandardCategoryLabelGenerator;
+import org.jfree.chart3d.marker.CategoryMarker;
+import org.jfree.chart3d.marker.CategoryMarkerType;
+import org.jfree.chart3d.marker.Marker;
+import org.jfree.chart3d.marker.MarkerData;
+import org.jfree.chart3d.plot.CategoryPlot3D;
+import org.jfree.chart3d.renderer.category.AreaRenderer3D;
 
 /**
  * An axis that displays categories.

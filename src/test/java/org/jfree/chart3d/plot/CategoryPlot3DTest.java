@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2016, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
  * http://www.object-refinery.com/orsoncharts/index.html
  * 
@@ -30,7 +30,7 @@
  * 
  */
 
-package com.orsoncharts.plot;
+package org.jfree.chart3d.plot;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -39,14 +39,14 @@ import org.junit.Test;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.GradientPaint;
+import org.jfree.chart3d.TestUtils;
 
-import com.orsoncharts.axis.StandardCategoryAxis3D;
-import com.orsoncharts.axis.NumberAxis3D;
-import com.orsoncharts.data.category.CategoryDataset3D;
-import com.orsoncharts.data.category.StandardCategoryDataset3D;
-import com.orsoncharts.renderer.category.BarRenderer3D;
-import com.orsoncharts.TestUtils;
-import com.orsoncharts.label.StandardCategoryLabelGenerator;
+import org.jfree.chart3d.axis.NumberAxis3D;
+import org.jfree.chart3d.axis.StandardCategoryAxis3D;
+import org.jfree.chart3d.data.category.CategoryDataset3D;
+import org.jfree.chart3d.data.category.StandardCategoryDataset3D;
+import org.jfree.chart3d.label.StandardCategoryLabelGenerator;
+import org.jfree.chart3d.renderer.category.BarRenderer3D;
 
 /**
  * Tests for the {@link CategoryPlot3D} class.

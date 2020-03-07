@@ -30,10 +30,10 @@
  * 
  */
 
-package com.orsoncharts.renderer;
+package org.jfree.chart3d.renderer;
 
 import java.awt.Color;
-import com.orsoncharts.data.Range;
+import org.jfree.chart3d.data.Range;
 
 /**
  * A color scale converts a data value into a color according to some

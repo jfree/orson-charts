@@ -30,16 +30,16 @@
  * 
  */
 
-package com.orsoncharts.renderer;
+package org.jfree.chart3d.renderer;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.io.Serializable;
 import javax.swing.event.EventListenerList;
 
-import com.orsoncharts.ChartElementVisitor;
-import com.orsoncharts.label.ItemLabelPositioning;
-import com.orsoncharts.internal.Args;
+import org.jfree.chart3d.ChartElementVisitor;
+import org.jfree.chart3d.internal.Args;
+import org.jfree.chart3d.label.ItemLabelPositioning;
 
 /**
  * A base class for 3D renderers.
