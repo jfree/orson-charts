@@ -4,7 +4,7 @@
  * 
  * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
- * http://www.object-refinery.com/orsoncharts/index.html
+ * https://github.com/jfree/orson-charts
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -57,7 +57,7 @@ import org.jfree.chart3d.renderer.Renderer3DChangeEvent;
  * {@code createLineChart()} method in the {@link Chart3DFactory} class 
  * will construct a chart that uses this renderer.  Here is a sample:
  * <div>
- * <img src="../../../../../doc-files/LineChart3DDemo1.svg" 
+ * <img src="../../../../../../doc-files/LineChart3DDemo1.svg" 
  * alt="LineChart3DDemo1.svg" width="500" height="359">
  * </div>
  * (refer to {@code LineChart3DDemo1.java} for the code to generate the
