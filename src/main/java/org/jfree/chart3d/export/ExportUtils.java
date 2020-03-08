@@ -81,13 +81,13 @@ public class ExportUtils {
         Args.nullNotPermitted(file, "file");
         try {
             Class<?> svg2Class = Class.forName(
-                    "org.jfree.graphics2d.svg.SVGGraphics2D");
+                    "org.jfree.svg.SVGGraphics2D");
             Constructor<?> c1 = svg2Class.getConstructor(int.class, int.class);
             Graphics2D svg2 = (Graphics2D) c1.newInstance(w, h);
             Rectangle2D drawArea = new Rectangle2D.Double(0, 0, w, h);
             RenderingInfo info = drawable.draw(svg2, drawArea);
             Class<?> svgUtilsClass = Class.forName(
-                    "org.jfree.graphics2d.svg.SVGUtils");
+                    "org.jfree.svg.SVGUtils");
             Method m1 = svg2Class.getMethod("getSVGElement", (Class[]) null);
             String element = (String) m1.invoke(svg2, (Object[]) null);
             Method m2 = svgUtilsClass.getMethod("writeToSVG", File.class, 
