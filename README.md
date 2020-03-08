@@ -3,7 +3,7 @@ Orson Charts
 
 (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
 
-Version 2.0, not yet released.
+Version 2.0, 8 March 2020.
 
 
 Overview
@@ -74,9 +74,10 @@ If you have any questions, don't hesitate to send a mail to info@object-refinery
 History
 -------
 
-Version 2.0 : not yet released
+Version 2.0 : 8-Mar-2020
 
-- created a Java module (`org.jfree.chart3d`)
+- created a Java module (`org.jfree.chart3d`);
+- refactored into org.jfree.chart3d namespace.
 
 
 Version 1.7 : 17-Nov-2017
