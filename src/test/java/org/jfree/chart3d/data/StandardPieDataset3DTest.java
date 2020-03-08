@@ -4,7 +4,7 @@
  * 
  * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
- * http://www.object-refinery.com/orsoncharts/index.html
+ * https://github.com/jfree/orson-charts
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -45,14 +45,14 @@ public class StandardPieDataset3DTest {
     
     @Test
     public void testGeneral() {
-        StandardPieDataset3D<String> d1 = new StandardPieDataset3D<String>();
+        StandardPieDataset3D<String> d1 = new StandardPieDataset3D<>();
         assertTrue(d1.isNotify());
     }
     
     @Test
     public void testEquals() {
-        StandardPieDataset3D<String> d1 = new StandardPieDataset3D<String>();
-        StandardPieDataset3D<String> d2 = new StandardPieDataset3D<String>();
+        StandardPieDataset3D<String> d1 = new StandardPieDataset3D<>();
+        StandardPieDataset3D<String> d2 = new StandardPieDataset3D<>();
         assertTrue(d1.equals(d2));
         assertFalse(d1.equals(null));
         
@@ -70,7 +70,7 @@ public class StandardPieDataset3DTest {
     @Test
     @SuppressWarnings("unchecked")
     public void testSerialization() {
-        StandardPieDataset3D<String> d1 = new StandardPieDataset3D<String>();
+        StandardPieDataset3D<String> d1 = new StandardPieDataset3D<>();
         StandardPieDataset3D<String> d2 
                 = (StandardPieDataset3D) TestUtils.serialized(d1);
         assertTrue(d1.equals(d2));
@@ -91,8 +91,7 @@ public class StandardPieDataset3DTest {
      */
     @Test
     public void checkToString() {
-        StandardPieDataset3D<String> dataset 
-                = new StandardPieDataset3D<String>();
+        StandardPieDataset3D<String> dataset = new StandardPieDataset3D<>();
         assertEquals("[]", dataset.toString());
         dataset.add("key", 1.0);
         assertEquals("[[\"key\", 1.0]]", dataset.toString());

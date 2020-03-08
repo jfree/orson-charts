@@ -4,7 +4,7 @@
  * 
  * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
- * http://www.object-refinery.com/orsoncharts/index.html
+ * https://github.com/jfree/orson-charts
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -46,39 +46,36 @@ public class DefaultKeyedValueTest {
     
     @Test
     public void testEquals() {
-        DefaultKeyedValue<String, Number> kv1 = new DefaultKeyedValue<String, 
-                Number>("K1", Double.valueOf(1.0));
-        DefaultKeyedValue<String, Number> kv2 = new DefaultKeyedValue<String, 
-                Number>("K1", Double.valueOf(1.0));
+        DefaultKeyedValue<String, Number> kv1 = new DefaultKeyedValue<>("K1", Double.valueOf(1.0));
+        DefaultKeyedValue<String, Number> kv2 = new DefaultKeyedValue<>("K1", 1.0);
         assertEquals(kv1, kv2);
         assertFalse(kv1.equals(null));
         
-        kv1 = new DefaultKeyedValue<String, Number>("K2", Double.valueOf(1.0));
+        kv1 = new DefaultKeyedValue<>("K2", 1.0);
         assertFalse(kv1.equals(kv2));
-        kv2 = new DefaultKeyedValue<String, Number>("K2", Double.valueOf(1.0));
+        kv2 = new DefaultKeyedValue<>("K2", 1.0);
         assertTrue(kv1.equals(kv2));
        
-        kv1 = new DefaultKeyedValue<String, Number>("K2", Double.valueOf(2.0));
+        kv1 = new DefaultKeyedValue<>("K2", 2.0);
         assertFalse(kv1.equals(kv2));
-        kv2 = new DefaultKeyedValue<String, Number>("K2", Double.valueOf(2.0));
+        kv2 = new DefaultKeyedValue<>("K2", 2.0);
         assertTrue(kv1.equals(kv2));
         
-        kv1 = new DefaultKeyedValue<String, Number>("K2", null);
+        kv1 = new DefaultKeyedValue<>("K2", null);
         assertFalse(kv1.equals(kv2));
-        kv2 = new DefaultKeyedValue<String, Number>("K2", null);
+        kv2 = new DefaultKeyedValue<>("K2", null);
         assertTrue(kv1.equals(kv2));
     }
     
     @Test
     @SuppressWarnings("unchecked")
     public void testSerialization() {
-        DefaultKeyedValue<String, Number> kv1 = new DefaultKeyedValue<String, 
-                Number>("K1", 1.0);
+        DefaultKeyedValue<String, Number> kv1 = new DefaultKeyedValue<>("K1", 1.0);
         DefaultKeyedValue<String, Number> kv2 = (DefaultKeyedValue<String, 
                 Number>) TestUtils.serialized(kv1);
         assertTrue(kv1.equals(kv2));
         
-        kv1 = new DefaultKeyedValue<String, Number>("K1", null);
+        kv1 = new DefaultKeyedValue<>("K1", null);
         kv2 = (DefaultKeyedValue<String, Number>) TestUtils.serialized(kv1);
         assertTrue(kv1.equals(kv2));
     }

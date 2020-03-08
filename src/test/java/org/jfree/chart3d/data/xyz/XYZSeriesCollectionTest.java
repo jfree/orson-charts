@@ -4,7 +4,7 @@
  * 
  * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
- * http://www.object-refinery.com/orsoncharts/index.html
+ * https://github.com/jfree/orson-charts
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -64,14 +64,14 @@ public class XYZSeriesCollectionTest implements Dataset3DChangeListener {
     
     @Test
     public void testGeneral() {
-        XYZSeriesCollection<String> dataset = new XYZSeriesCollection<String>();
+        XYZSeriesCollection<String> dataset = new XYZSeriesCollection<>();
         assertTrue(dataset.isNotify());               
     }
     
     @Test
     public void testAdd() {
-        XYZSeriesCollection<String> dataset = new XYZSeriesCollection<String>();
-        XYZSeries<String> s = new XYZSeries<String>("S1");
+        XYZSeriesCollection<String> dataset = new XYZSeriesCollection<>();
+        XYZSeries<String> s = new XYZSeries<>("S1");
         dataset.add(s);
         assertEquals(1, dataset.getSeriesCount());
         
@@ -88,11 +88,11 @@ public class XYZSeriesCollectionTest implements Dataset3DChangeListener {
      */
     @Test
     public void testEventNotification() {
-        XYZSeriesCollection<String> dataset = new XYZSeriesCollection<String>();
+        XYZSeriesCollection<String> dataset = new XYZSeriesCollection<>();
         dataset.addChangeListener(this);
 
         assertNull(this.lastEvent);
-        XYZSeries<String> s = new XYZSeries<String>("S1");
+        XYZSeries<String> s = new XYZSeries<>("S1");
         dataset.add(s);
         assertNotNull(this.lastEvent);
         
@@ -111,8 +111,8 @@ public class XYZSeriesCollectionTest implements Dataset3DChangeListener {
 
     @Test
     public void testEquals() {
-        XYZSeriesCollection<String> c1 = new XYZSeriesCollection<String>();
-        XYZSeriesCollection<String> c2 = new XYZSeriesCollection<String>();
+        XYZSeriesCollection<String> c1 = new XYZSeriesCollection<>();
+        XYZSeriesCollection<String> c2 = new XYZSeriesCollection<>();
         assertTrue(c1.equals(c2));
         assertFalse(c1.equals(null));
         
@@ -129,9 +129,9 @@ public class XYZSeriesCollectionTest implements Dataset3DChangeListener {
     @Test
     @SuppressWarnings("unchecked")
     public void testSerialization() {
-        XYZSeries<String> s1 = new XYZSeries<String>("S");
+        XYZSeries<String> s1 = new XYZSeries<>("S");
         s1.add(1.0, 2.0, 3.0);
-        XYZSeriesCollection<String> c1 = new XYZSeriesCollection<String>();
+        XYZSeriesCollection<String> c1 = new XYZSeriesCollection<>();
         c1.add(s1);
         XYZSeriesCollection<String> c2 = (XYZSeriesCollection) TestUtils.serialized(c1);
         assertEquals(c1, c2);
@@ -139,10 +139,10 @@ public class XYZSeriesCollectionTest implements Dataset3DChangeListener {
     
     @Test
     public void checkToString() {
-        XYZSeriesCollection<String> c = new XYZSeriesCollection<String>();
+        XYZSeriesCollection<String> c = new XYZSeriesCollection<>();
         assertEquals("[]", c.toString());
         
-        XYZSeries<String> s1 = new XYZSeries<String>("S1");
+        XYZSeries<String> s1 = new XYZSeries<>("S1");
         c.add(s1);
         assertEquals("[[\"S1\", []]]", c.toString());
         
@@ -153,7 +153,7 @@ public class XYZSeriesCollectionTest implements Dataset3DChangeListener {
         assertEquals("[[\"S1\", [[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]]]]", 
                 c.toString());
         
-        XYZSeries<String> s2 = new XYZSeries<String>("S2");
+        XYZSeries<String> s2 = new XYZSeries<>("S2");
         c.add(s2);
         assertEquals("[[\"S1\", [[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]]], "
                 + "[\"S2\", []]]", c.toString());

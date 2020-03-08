@@ -4,7 +4,7 @@
  * 
  * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
- * http://www.object-refinery.com/orsoncharts/index.html
+ * https://github.com/jfree/orson-charts
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,6 +43,7 @@ import org.jfree.chart3d.TestUtils;
  * Tests for the {@link StandardKeyedValues3DItemSelection} class.
  */
 public class StandardKeyedValues3DItemSelectionTest {
+
     /**
      * Some checks for the equals() method.
      */

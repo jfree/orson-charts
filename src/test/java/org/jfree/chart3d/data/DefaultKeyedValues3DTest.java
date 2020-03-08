@@ -4,7 +4,7 @@
  * 
  * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
- * http://www.object-refinery.com/orsoncharts/index.html
+ * https://github.com/jfree/orson-charts
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -51,7 +51,7 @@ public class DefaultKeyedValues3DTest {
     @Test
     public void testSetValue() {
         DefaultKeyedValues3D<String, String, String, Number> data 
-                = new DefaultKeyedValues3D<String, String, String, Number>();
+                = new DefaultKeyedValues3D<>();
         
         // adding to an empty dataset...
         data.setValue(1.0, "S1", "R1", "C1");
@@ -142,9 +142,9 @@ public class DefaultKeyedValues3DTest {
     @Test
     public void testEquals() {
         DefaultKeyedValues3D<String, String, String, Number> d1 
-                = new DefaultKeyedValues3D<String, String, String, Number>();
+                = new DefaultKeyedValues3D<>();
         DefaultKeyedValues3D<String, String, String, Number> d2 
-                = new DefaultKeyedValues3D<String, String, String, Number>();
+                = new DefaultKeyedValues3D<>();
         assertTrue(d1.equals(d2));
         assertFalse(d1.equals(null));
         
@@ -161,11 +161,10 @@ public class DefaultKeyedValues3DTest {
     @SuppressWarnings("unchecked")
     public void testSerialization() {
         DefaultKeyedValues3D<String, String, String, Number> d1 
-                = new DefaultKeyedValues3D<String, String, String, Number>();
+                = new DefaultKeyedValues3D<>();
         d1.setValue(1.0, "S1", "R1", "C1");
         DefaultKeyedValues3D<String, String, String, Number> d2 
-                = (DefaultKeyedValues3D<String, String, String, Number>) 
-                TestUtils.serialized(d1);
+                = (DefaultKeyedValues3D) TestUtils.serialized(d1);
         assertEquals(d1, d2);
     }
 
