@@ -4,7 +4,7 @@
  * 
  * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
  * 
- * http://www.object-refinery.com/orsoncharts/index.html
+ * https://github.com/jfree/orson-charts
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -47,23 +47,23 @@ public class StandardColorSourceTest {
 
     @Test
     public void testConstructors() {
-        StandardColorSource<String> scs = new StandardColorSource<String>(Color.RED);
+        StandardColorSource<String> scs = new StandardColorSource<>(Color.RED);
         assertEquals(Color.RED, scs.getColor("A"));
         
-        scs = new StandardColorSource<String>(Color.RED, Color.GREEN, Color.BLUE);
+        scs = new StandardColorSource<>(Color.RED, Color.GREEN, Color.BLUE);
         assertEquals(Color.RED, scs.getColor("A"));
         assertEquals(Color.GREEN, scs.getColor("B"));
         assertEquals(Color.BLUE, scs.getColor("C"));
         
         try {
-            scs = new StandardColorSource<String>((Color[]) null);
+            scs = new StandardColorSource<>((Color[]) null);
             fail("Should have thrown an exception.");
         } catch (IllegalArgumentException e) {
             // expected
         }
         
         try {
-            scs = new StandardColorSource<String>(Color.RED, null);
+            scs = new StandardColorSource<>(Color.RED, null);
             fail("Should have thrown an exception");
         } catch (IllegalArgumentException e) {
             // expected
@@ -72,8 +72,8 @@ public class StandardColorSourceTest {
 
     @Test
     public void testEquals() {
-        StandardColorSource<String> scs1 = new StandardColorSource<String>(Color.RED);
-        StandardColorSource<String> scs2 = new StandardColorSource<String>(Color.RED);
+        StandardColorSource<String> scs1 = new StandardColorSource<>(Color.RED);
+        StandardColorSource<String> scs2 = new StandardColorSource<>(Color.RED);
         assertTrue(scs1.equals(scs2));
         
         scs1.setColor("A", Color.YELLOW);
