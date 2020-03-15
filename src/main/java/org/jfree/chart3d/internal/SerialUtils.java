@@ -32,7 +32,6 @@
 
 package org.jfree.chart3d.internal;
 
-import org.jfree.chart3d.internal.Args;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.GradientPaint;

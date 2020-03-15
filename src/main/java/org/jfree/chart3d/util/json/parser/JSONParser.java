@@ -53,7 +53,7 @@ public class JSONParser {
     private int status = S_INIT;
     
     private int peekStatus(LinkedList statusStack){
-        if (statusStack.size() == 0) {
+        if (statusStack.isEmpty()) {
             return -1;
         }
         Integer result = (Integer) statusStack.getFirst();

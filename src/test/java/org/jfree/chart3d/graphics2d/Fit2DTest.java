@@ -49,7 +49,7 @@ import org.jfree.chart3d.TitleAnchor;
  */
 public class Fit2DTest {
     
-    private static double EPSILON = 0.00000001;
+    private static final double EPSILON = 0.00000001;
     
     @Test
     public void testEquals() {
