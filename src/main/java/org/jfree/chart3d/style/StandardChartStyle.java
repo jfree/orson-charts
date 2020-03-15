@@ -184,16 +184,21 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
     /** The default foreground color for the legend footer if there is one. */
     public static final Color DEFAULT_LEGEND_FOOTER_COLOR = Color.BLACK;
 
+    /** The default font for marker labels. */
     public static final Font DEFAULT_MARKER_LABEL_FONT = createDefaultFont(
             Font.PLAIN, 10);
     
+    /** The default foreground color for marker labels. */
     public static final Color DEFAULT_MARKER_LABEL_COLOR = Color.DARK_GRAY;
     
+    /** The default stroke for marker lines. */
     public static final Stroke DEFAULT_MARKER_LINE_STROKE = new BasicStroke(
             2.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
     
+    /** The default color for marker lines. */
     public static final Color DEFAULT_MARKER_LINE_COLOR = Color.DARK_GRAY;
     
+    /** The default fill color for markers. */
     public static final Color DEFAULT_MARKER_FILL_COLOR 
             = new Color(127, 127, 127, 63);
 

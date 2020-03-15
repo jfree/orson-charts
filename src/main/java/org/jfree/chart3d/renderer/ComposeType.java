@@ -44,9 +44,11 @@ import org.jfree.chart3d.renderer.xyz.SurfaceRenderer;
  * the function on-the-fly).
  */
 public enum ComposeType {
-    
+
+    /** Compose each item individually. */
     PER_ITEM,
     
+    /** Compose all items at once. */
     ALL
     
 }

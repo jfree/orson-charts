@@ -122,11 +122,22 @@ public class TextElement extends AbstractTableElement
         Args.nullNotPermitted(font, "font");
         this.font = font;
     }
-    
+
+    /** 
+     * Returns the foreground color for the text element.  The default value
+     * is {@code Color#BLACK}.
+     * 
+     * @return The foreground color (never {@code null}). 
+     */
     public Color getColor() {
         return this.color;
     }
     
+    /**
+     * Sets the foreground color for the text element.
+     * 
+     * @param color  the new color ({@code null} not permitted).
+     */
     public void setColor(Color color) {
         Args.nullNotPermitted(color, "color");
         this.color = color;

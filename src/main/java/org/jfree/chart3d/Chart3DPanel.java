@@ -71,10 +71,10 @@ public class Chart3DPanel extends Panel3D implements Chart3DChangeListener,
     /**
      * The chart being rendered.
      */
-    private Chart3D chart;
+    private final Chart3D chart;
     
     /** Auto-fit the chart on resize? */
-    private boolean autoFitOnPanelResize;
+    private final boolean autoFitOnPanelResize;
     
     /** Storage for registered (chart) mouse listeners. */
     private transient EventListenerList chartMouseListeners;

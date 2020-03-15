@@ -154,16 +154,16 @@ public class NumberTickSelector implements TickSelector, Serializable {
         return this.factor * Math.pow(10.0, this.power);
     }
     
-    private DecimalFormat dfNeg4 = new DecimalFormat("0.0000");
-    private DecimalFormat dfNeg3 = new DecimalFormat("0.000");
-    private DecimalFormat dfNeg2 = new DecimalFormat("0.00");
-    private DecimalFormat dfNeg1 = new DecimalFormat("0.0");
-    private DecimalFormat df0 = new DecimalFormat("#,##0");
-    private DecimalFormat dfNeg4P = new DecimalFormat("0.00%");
-    private DecimalFormat dfNeg3P = new DecimalFormat("0.0%");
-    private DecimalFormat dfNeg2P = new DecimalFormat("0%");
-    private DecimalFormat dfNeg1P = new DecimalFormat("0%");
-    private DecimalFormat df0P = new DecimalFormat("#,##0%");
+    private final DecimalFormat dfNeg4 = new DecimalFormat("0.0000");
+    private final DecimalFormat dfNeg3 = new DecimalFormat("0.000");
+    private final DecimalFormat dfNeg2 = new DecimalFormat("0.00");
+    private final DecimalFormat dfNeg1 = new DecimalFormat("0.0");
+    private final DecimalFormat df0 = new DecimalFormat("#,##0");
+    private final DecimalFormat dfNeg4P = new DecimalFormat("0.00%");
+    private final DecimalFormat dfNeg3P = new DecimalFormat("0.0%");
+    private final DecimalFormat dfNeg2P = new DecimalFormat("0%");
+    private final DecimalFormat dfNeg1P = new DecimalFormat("0%");
+    private final DecimalFormat df0P = new DecimalFormat("#,##0%");
 
     @Override
     public Format getCurrentTickLabelFormat() {

@@ -201,12 +201,31 @@ public class ChartStyler implements ChartElementVisitor {
         }   
     }
     
+    /**
+     * Applies the current style to a category axis.  This implementation does
+     * nothing, it is here for overriding.
+     * 
+     * @param axis  the axis ({@code null} not permitted). 
+     */
     protected void styleCategoryAxis(CategoryAxis3D axis) {
+        // for overriding
     }
     
+    /**
+     * Applies the current style to a value axis.  This implementation does
+     * nothing, it is here for overriding.
+     * 
+     * @param axis  the axis ({@code null} not permitted). 
+     */
     protected void styleValueAxis(ValueAxis3D axis) {
+        // for overriding
     }
     
+    /**
+     * Applies the current style to the renderer.
+     * 
+     * @param renderer  the renderer ({@code null} not permitted). 
+     */
     protected void styleRenderer(Renderer3D renderer) {
         if (renderer instanceof CategoryRenderer3D) {
             styleCategoryRenderer3D((CategoryRenderer3D) renderer);
@@ -216,14 +235,29 @@ public class ChartStyler implements ChartElementVisitor {
         }
     }
     
+    /**
+     * Applies the current style to a category renderer.
+     * 
+     * @param renderer  the renderer ({@code null} not permitted). 
+     */
     protected void styleCategoryRenderer3D(CategoryRenderer3D renderer) {
         renderer.getColorSource().style(this.style.getStandardColors());
     }
     
+    /**
+     * Applies the current style to an XYZ renderer.
+     * 
+     * @param renderer  the renderer ({@code null} not permitted). 
+     */
     protected void styleXYZRenderer(XYZRenderer renderer) {
         renderer.getColorSource().style(this.style.getStandardColors());
     }
     
+    /**
+     * Applies the current style to a marker.
+     * 
+     * @param marker  the marker ({@code null} not permitted). 
+     */
     protected void styleMarker(Marker marker) {
         if (marker instanceof CategoryMarker) {
             CategoryMarker cm = (CategoryMarker) marker;

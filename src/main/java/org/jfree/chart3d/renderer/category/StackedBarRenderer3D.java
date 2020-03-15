@@ -128,6 +128,18 @@ public class StackedBarRenderer3D extends BarRenderer3D {
         
     }
     
+    /**
+     * Draws the item labels.
+     * 
+     * @param world  the world.
+     * @param dataset  the dataset.
+     * @param itemKey  the item key.
+     * @param xw  the x-coordinate.
+     * @param yw  the y-coordinate.
+     * @param zw  the z-coordinate.
+     * @param basew  the base coordinate.
+     * @param inverted  is the y-axis inverted?
+     */
     @Override
     protected void drawItemLabels(World world, CategoryDataset3D dataset, 
             KeyedValues3DItemKey itemKey, double xw, double yw, double zw, 

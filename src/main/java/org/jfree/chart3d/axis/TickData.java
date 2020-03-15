@@ -41,19 +41,19 @@ import org.jfree.chart3d.internal.Args;
 public class TickData {
     
     /** The position along the axis as a percentage. */
-    private double pos;
+    private final double pos;
     
     /** The key for the tick (used for CategoryAxis3D, null otherwise). */
-    private Comparable<?> key;
+    private final Comparable<?> key;
     
     /** 
      * The label used for the category key (used for CategoryAxis3D, null 
      * otherwise). 
      */
-    private String keyLabel;
+    private final String keyLabel;
     
     /** The data value (used for ValueAxis3D). */
-    private double dataValue;
+    private final double dataValue;
 
     /** The vertex in the ChartBox that is the anchor point for this tick. */
     private int vertexIndex;
