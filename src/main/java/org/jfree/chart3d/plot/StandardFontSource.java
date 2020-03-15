@@ -72,7 +72,7 @@ public final class StandardFontSource<K extends Comparable<K>>
     public StandardFontSource(Font defaultFont) {
         Args.nullNotPermitted(defaultFont, "defaultFont");
         this.defaultFont = defaultFont;
-        this.fonts = new DefaultKeyedValues<K, Font>();
+        this.fonts = new DefaultKeyedValues<>();
     }
     
     /**

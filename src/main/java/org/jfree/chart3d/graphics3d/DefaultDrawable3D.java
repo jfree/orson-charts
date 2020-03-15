@@ -184,8 +184,7 @@ public class DefaultDrawable3D implements Drawable3D {
 
         Point2D[] pts = this.world.calculateProjectedPoints(this.viewPoint,
                     this.projDist);
-        List<Face> facesInPaintOrder = new ArrayList<Face>(
-                this.world.getFaces());
+        List<Face> facesInPaintOrder = new ArrayList<>(this.world.getFaces());
 
         // sort faces by z-order
         Collections.sort(facesInPaintOrder, new ZOrderComparator(eyePts));

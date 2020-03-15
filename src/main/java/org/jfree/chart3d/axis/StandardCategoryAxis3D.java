@@ -191,7 +191,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
         this.tickLabelOrientation = LabelOrientation.PARALLEL;
         this.tickLabelFactor = 1.4;
         this.maxTickLabelLevels = 3;
-        this.markers = new LinkedHashMap<String, CategoryMarker>();
+        this.markers = new LinkedHashMap<>();
         this.isRowAxis = false;
         this.isColumnAxis = false;
     }

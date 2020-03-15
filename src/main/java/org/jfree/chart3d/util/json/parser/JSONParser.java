@@ -52,12 +52,11 @@ public class JSONParser {
     private Yytoken token = null;
     private int status = S_INIT;
     
-    private int peekStatus(LinkedList statusStack){
+    private int peekStatus(LinkedList<Integer> statusStack){
         if (statusStack.isEmpty()) {
             return -1;
         }
-        Integer result = (Integer) statusStack.getFirst();
-        return result.intValue();
+        return statusStack.getFirst();
     }
     
     /**
@@ -131,8 +130,8 @@ public class JSONParser {
     public Object parse(Reader in, ContainerFactory containerFactory) 
             throws IOException, ParseException{
         reset(in);
-        LinkedList<Integer> statusStack = new LinkedList<Integer>();
-        LinkedList<Object> valueStack = new LinkedList<Object>();
+        LinkedList<Integer> statusStack = new LinkedList<>();
+        LinkedList<Object> valueStack = new LinkedList<>();
         
         try {
             do {

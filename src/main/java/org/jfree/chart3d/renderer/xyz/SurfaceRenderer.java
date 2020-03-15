@@ -329,7 +329,7 @@ public class SurfaceRenderer extends AbstractXYZRenderer implements XYZRenderer,
     private List<Point3D> facePoints1(double x0, double x1, double z0, 
             double z1, double y00, double y01, double y11, Range yRange) {
         
-        List<Point3D> pts = new ArrayList<Point3D>(4);
+        List<Point3D> pts = new ArrayList<>(4);
         double ymin = yRange.getMin();
         double ymax = yRange.getMax();
         
@@ -410,7 +410,7 @@ public class SurfaceRenderer extends AbstractXYZRenderer implements XYZRenderer,
     private List<Point3D> facePoints2(double x0, double x1, double z0, 
             double z1, double y00, double y11, double y10, Range yRange) {
         
-        List<Point3D> pts = new ArrayList<Point3D>(4);
+        List<Point3D> pts = new ArrayList<>(4);
         double ymin = yRange.getMin();
         double ymax = yRange.getMax();        
         // handle y00

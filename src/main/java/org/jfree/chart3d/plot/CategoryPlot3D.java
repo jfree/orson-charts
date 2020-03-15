@@ -686,7 +686,7 @@ public class CategoryPlot3D extends AbstractPlot3D
     @Override
     @SuppressWarnings("unchecked") // we don't know the dataset generic types
     public List<LegendItemInfo> getLegendInfo() {
-        List<LegendItemInfo> result = new ArrayList<LegendItemInfo>();
+        List<LegendItemInfo> result = new ArrayList<>();
         List<Comparable<?>> keys = this.dataset.getSeriesKeys();
         for (Comparable<?> key : keys) {
             int series = this.dataset.getSeriesIndex(key);
@@ -842,7 +842,7 @@ public class CategoryPlot3D extends AbstractPlot3D
         double width = Math.max(1.0, this.dataset.getColumnCount() + 1);
         double height = Math.max(1.0, Math.min(width, depth));
         if (this.yDimensionOverride != null) {
-            height = this.yDimensionOverride.doubleValue();
+            height = this.yDimensionOverride;
         }
         return new Dimension3D(width, height, depth);
     }

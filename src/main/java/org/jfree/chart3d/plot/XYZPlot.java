@@ -80,7 +80,7 @@ import org.jfree.chart3d.renderer.xyz.XYZRenderer;
 public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener, 
         Axis3DChangeListener, Renderer3DChangeListener, Serializable {
 
-    private static Stroke DEFAULT_GRIDLINE_STROKE = new BasicStroke(0.5f, 
+    private static final Stroke DEFAULT_GRIDLINE_STROKE = new BasicStroke(0.5f, 
             BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 1f, 
             new float[] { 3f, 3f }, 0f);
 
@@ -535,7 +535,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
     @Override
     @SuppressWarnings("unchecked") // we don't know the generic types of the dataset
     public List<LegendItemInfo> getLegendInfo() {
-        List<LegendItemInfo> result = new ArrayList<LegendItemInfo>();
+        List<LegendItemInfo> result = new ArrayList<>();
         List<Comparable<?>> keys = this.dataset.getSeriesKeys();
         for (Comparable key : keys) {
             String label = this.legendLabelGenerator.generateSeriesLabel(

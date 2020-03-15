@@ -777,7 +777,7 @@ public class DataUtils {
                         } else if (y == null) {
                             rrKey = yRowKey;
                         }
-                        exceptions.add(new KeyedValues3DItemKey<S, R, C>(seriesKey, 
+                        exceptions.add(new KeyedValues3DItemKey<>(seriesKey, 
                                 rrKey, colKey));
                     }
                     if (nullConversion.equals(NullConversion.THROW_EXCEPTION)) {
@@ -894,8 +894,8 @@ public class DataUtils {
                         } else if (y == null) {
                             ccKey = yColKey;
                         }
-                        exceptions.add(new KeyedValues3DItemKey<S, R, C>(
-                                seriesKey, rowKey, ccKey));
+                        exceptions.add(new KeyedValues3DItemKey<>(seriesKey, 
+                                rowKey, ccKey));
                     }
                     if (nullConversion.equals(NullConversion.THROW_EXCEPTION)) {
                         Comparable<?> ccKey = zColKey;

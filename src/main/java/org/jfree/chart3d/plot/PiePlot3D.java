@@ -403,7 +403,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
      */
     @Override @SuppressWarnings("unchecked")
     public List<LegendItemInfo> getLegendInfo() {
-        List<LegendItemInfo> result = new ArrayList<LegendItemInfo>();
+        List<LegendItemInfo> result = new ArrayList<>();
         for (Comparable<?> key : (List<Comparable<?>>)
                 this.dataset.getKeys()) {
             String label = this.legendLabelGenerator.generateLabel(dataset, 
@@ -468,7 +468,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
     public List<Object3D> getLabelFaces(double xOffset, double yOffset, 
             double zOffset) {
         double total = DataUtils.total(this.dataset);
-        List<Object3D> result = new ArrayList<Object3D>();
+        List<Object3D> result = new ArrayList<>();
         // this adds the centre points
         result.add(new Dot3D(0.0f, 0.0f, 0.0f, Color.RED));
         result.add(new Dot3D(0.0f, (float) yOffset, 0.0f, Color.RED));

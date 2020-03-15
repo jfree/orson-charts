@@ -218,7 +218,7 @@ public class MarkerData {
      */
     public int getLabelVertexIndex() {
         Integer i = (Integer) this.data.get("labelVertexIndex");
-        return (i != null ? i.intValue() : -1);
+        return (i != null ? i : -1);
     }
     
     /**

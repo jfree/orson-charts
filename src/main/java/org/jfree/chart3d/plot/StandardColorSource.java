@@ -87,7 +87,7 @@ public final class StandardColorSource<K extends Comparable<K>>
             }
         }
         this.standardColors = colors.clone();
-        this.colors = new DefaultKeyedValues<K, Color>();
+        this.colors = new DefaultKeyedValues<>();
     }
  
     /**

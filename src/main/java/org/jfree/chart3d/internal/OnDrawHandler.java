@@ -59,7 +59,7 @@ import org.jfree.chart3d.table.TableElementOnDraw;
 public class OnDrawHandler implements TableElementOnDraw {
     
     /** The rendering info the be populated (if not null). */
-    private RenderingInfo info;
+    private final RenderingInfo info;
     
     /** A flag indicating whether or not element hinting is added. */
     boolean elementHinting;
@@ -107,7 +107,7 @@ public class OnDrawHandler implements TableElementOnDraw {
         
         // handle hinting
         if (t != null && this.elementHinting) {
-            Map<String, String> m = new HashMap<String, String>();
+            Map<String, String> m = new HashMap<>();
             switch (t) {
                 case TITLE:
                     m.put("ref", "{\"type\": \"title\"}");
