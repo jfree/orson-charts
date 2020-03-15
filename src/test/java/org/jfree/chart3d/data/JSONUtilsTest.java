@@ -249,7 +249,7 @@ public class JSONUtilsTest {
         assertEquals("[[\"S1\", [[1.0, 2.0, 3.0]]]]", 
                 JSONUtils.writeXYZDataset(dataset));
         
-        XYZSeries<String> s2 = new XYZSeries<String>("S2");
+        XYZSeries<String> s2 = new XYZSeries<>("S2");
         dataset.add(s2);
         assertEquals("[[\"S1\", [[1.0, 2.0, 3.0]]], [\"S2\", []]]", 
                 JSONUtils.writeXYZDataset(dataset));

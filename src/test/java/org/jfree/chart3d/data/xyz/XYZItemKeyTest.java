@@ -57,7 +57,7 @@ public class XYZItemKeyTest {
         
         k1 = new XYZItemKey<>("S2", 2);
         assertFalse(k1.equals(k2));
-        k2 = new XYZItemKey<String>("S2", 2);
+        k2 = new XYZItemKey<>("S2", 2);
         assertTrue(k1.equals(k2));
     }
 

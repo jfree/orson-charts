@@ -186,7 +186,7 @@ public class PiePlot3DTest implements Plot3DChangeListener {
      * @return A new dataset. 
      */
     private StandardPieDataset3D<String> createNewDataset() {
-        StandardPieDataset3D<String> dataset = new StandardPieDataset3D<String>();
+        StandardPieDataset3D<String> dataset = new StandardPieDataset3D<>();
         dataset.add("A", 123.4);
         return dataset;
     }

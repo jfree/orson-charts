@@ -76,7 +76,7 @@ public class XYZSeriesCollectionTest implements Dataset3DChangeListener {
         assertEquals(1, dataset.getSeriesCount());
         
         try {
-            dataset.add(new XYZSeries<String>("S1"));
+            dataset.add(new XYZSeries<>("S1"));
             fail("Adding a series with the same name not permitted.");
         } catch (IllegalArgumentException e) {
             // expected
@@ -116,11 +116,11 @@ public class XYZSeriesCollectionTest implements Dataset3DChangeListener {
         assertTrue(c1.equals(c2));
         assertFalse(c1.equals(null));
         
-        XYZSeries<String> s1 = new XYZSeries<String>("S");
+        XYZSeries<String> s1 = new XYZSeries<>("S");
         s1.add(1.0, 2.0, 3.0);
         c1.add(s1);
         assertFalse(c1.equals(c2));
-        XYZSeries<String> s2 = new XYZSeries<String>("S");
+        XYZSeries<String> s2 = new XYZSeries<>("S");
         s2.add(1.0, 2.0, 3.0);
         c2.add(s2);
         assertEquals(c1, c2);

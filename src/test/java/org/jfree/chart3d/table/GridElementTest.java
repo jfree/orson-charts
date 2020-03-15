@@ -44,8 +44,8 @@ public class GridElementTest {
     
     @Test
     public void testEquals() {
-        GridElement<String, String> e1 = new GridElement<String, String>();
-        GridElement<String, String> e2 = new GridElement<String, String>();
+        GridElement<String, String> e1 = new GridElement<>();
+        GridElement<String, String> e2 = new GridElement<>();
         assertTrue(e1.equals(e2));
         
         e1.setElement(new TextElement("A"), "R1", "C1");
@@ -60,7 +60,7 @@ public class GridElementTest {
     @Test
     @SuppressWarnings("unchecked")
     public void testSerialization() {
-        GridElement<String, String> e1 = new GridElement<String, String>();
+        GridElement<String, String> e1 = new GridElement<>();
         GridElement<String, String> e2 = (GridElement) TestUtils.serialized(e1);
         assertTrue(e1.equals(e2));        
     }

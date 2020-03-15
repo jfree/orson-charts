@@ -135,7 +135,7 @@ public class VerticalFlowElementTest {
         s1.setInsets(new Insets(0, 0, 0, 0));
         ShapeElement s2 = new ShapeElement(new Rectangle2D.Double(0, 0, 11.25, 7.25), Color.RED);
         s2.setInsets(new Insets(0, 0, 0, 0));
-        GridElement<String, String> grid1 = new GridElement<String, String>();
+        GridElement<String, String> grid1 = new GridElement<>();
         grid1.setInsets(new Insets(0, 0, 0, 0));
         grid1.setElement(s1, "R1", "C1");
         grid1.setElement(s2, "R1", "C2");
@@ -143,7 +143,7 @@ public class VerticalFlowElementTest {
         s3.setInsets(new Insets(0, 0, 0, 0));
         ShapeElement s4 = new ShapeElement(new Rectangle2D.Double(0, 0, 11.25, 7.25), Color.RED);
         s4.setInsets(new Insets(0, 0, 0, 0));
-        GridElement<String, String> grid2 = new GridElement<String, String>();
+        GridElement<String, String> grid2 = new GridElement<>();
         grid2.setInsets(new Insets(0, 0, 0, 0));
         grid2.setElement(s3, "R1", "C1");
         grid2.setElement(s4, "R1", "C2");

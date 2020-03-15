@@ -243,18 +243,16 @@ public class Chart3DTest {
     }
 
     private PieDataset3D<String> createPieDataset() {
-        StandardPieDataset3D<String> dataset 
-                = new StandardPieDataset3D<String>();
-        dataset.add("United States", new Double(30.0));
-        dataset.add("France", new Double(20.0));
+        StandardPieDataset3D<String> dataset = new StandardPieDataset3D<>();
+        dataset.add("United States", 30.0);
+        dataset.add("France", 20.0);
         return dataset; 
     }
     
     private CategoryDataset3D<String, String, String> createCategoryDataset() {
         StandardCategoryDataset3D<String, String, String> dataset 
-                = new StandardCategoryDataset3D<String, String, String>();
-        DefaultKeyedValues<String, Number> s1 
-                = new DefaultKeyedValues<String, Number>();
+                = new StandardCategoryDataset3D<>();
+        DefaultKeyedValues<String, Number> s1 = new DefaultKeyedValues<>();
         s1.put("Q1", 1.0);
         s1.put("Q2", 7.0);
         s1.put("Q3", 3.0);
@@ -264,9 +262,9 @@ public class Chart3DTest {
     }
     
     private XYZDataset<String> createXYZDataset() {
-        XYZSeries<String> s1 = new XYZSeries<String>("S1");
+        XYZSeries<String> s1 = new XYZSeries<>("S1");
         s1.add(1, 2, 3);
-        XYZSeriesCollection<String> dataset = new XYZSeriesCollection<String>();
+        XYZSeriesCollection<String> dataset = new XYZSeriesCollection<>();
         dataset.add(s1);
         return dataset;
     }

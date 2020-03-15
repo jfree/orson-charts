@@ -363,13 +363,13 @@ public class JSONParser {
             boolean isResume) throws IOException, ParseException {
         if (!isResume) {
             reset(in);
-            handlerStatusStack = new LinkedList<Integer>();
+            handlerStatusStack = new LinkedList<>();
         }
         else{
             if (handlerStatusStack == null) {
                 isResume = false;
                 reset(in);
-                handlerStatusStack = new LinkedList<Integer>();
+                handlerStatusStack = new LinkedList<>();
             }
         }
         

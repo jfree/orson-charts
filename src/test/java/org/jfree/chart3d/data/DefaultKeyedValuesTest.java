@@ -50,17 +50,14 @@ public class DefaultKeyedValuesTest {
      */
     @Test
     public void testGetValueForNonExistentKey() {
-        DefaultKeyedValues<String, String> kv1 = new DefaultKeyedValues<String,
-                String>();
+        DefaultKeyedValues<String, String> kv1 = new DefaultKeyedValues<>();
         assertNull(kv1.getValue("ABC"));
     }
     
     @Test
     public void testEquals() {
-        DefaultKeyedValues<String, Number> kv1 = new DefaultKeyedValues<String, 
-                Number>();
-        DefaultKeyedValues<String, Number> kv2 = new DefaultKeyedValues<String, 
-                Number>();
+        DefaultKeyedValues<String, Number> kv1 = new DefaultKeyedValues<>();
+        DefaultKeyedValues<String, Number> kv2 = new DefaultKeyedValues<>();
         assertTrue(kv1.equals(kv2));
         assertFalse(kv1.equals(null));
         
@@ -78,14 +75,12 @@ public class DefaultKeyedValuesTest {
     @Test
     @SuppressWarnings("unchecked")
     public void testSerialization() {
-        DefaultKeyedValues<String, Number> kv1 = new DefaultKeyedValues<String, 
-                Number>();
+        DefaultKeyedValues<String, Number> kv1 = new DefaultKeyedValues<>();
         kv1.put("A", 1.0);
         kv1.put("B", 2.0);
         kv1.put("C", null);
         DefaultKeyedValues<String, Number> kv2 = (DefaultKeyedValues<String, 
-                Number>) 
-        TestUtils.serialized(kv1);
+                Number>) TestUtils.serialized(kv1);
         assertTrue(kv1.equals(kv2));
     }
 
