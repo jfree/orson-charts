@@ -77,7 +77,7 @@ History
 Version 2.0 : 15-Mar-2020
 
 - created a Java module (`org.jfree.chart3d`);
-- refactored into org.jfree.chart3d namespace.
+- refactored into `org.jfree.chart3d` namespace.
 
 
 Version 1.7 : 17-Nov-2017
