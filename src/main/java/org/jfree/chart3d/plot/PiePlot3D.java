@@ -60,7 +60,7 @@ import org.jfree.chart3d.legend.StandardLegendItemInfo;
  * {@code createPieChart()} method in the {@link Chart3DFactory} class.  
  * A typical pie chart will look like this:  
  * <div>
- * <img src="../../../doc-files/PieChart3DDemo1.svg" alt="PieChart3DDemo1.svg" 
+ * <img src="../../../../../doc-files/PieChart3DDemo1.svg" alt="PieChart3DDemo1.svg" 
  * width="500" height="359">
  * </div>
  * <br><br>
