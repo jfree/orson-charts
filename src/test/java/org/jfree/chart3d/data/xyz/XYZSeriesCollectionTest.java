@@ -32,15 +32,15 @@
 
 package org.jfree.chart3d.data.xyz;
 
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
 import org.jfree.chart3d.TestUtils;
 import org.jfree.chart3d.data.Dataset3DChangeEvent;
 import org.jfree.chart3d.data.Dataset3DChangeListener;
@@ -52,7 +52,7 @@ public class XYZSeriesCollectionTest implements Dataset3DChangeListener {
 
     private Dataset3DChangeEvent lastEvent;
     
-    @Before
+    @BeforeEach
     public void setup() {
         this.lastEvent = null;
     }

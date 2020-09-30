@@ -32,8 +32,8 @@
 
 package org.jfree.chart3d.axis;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -41,7 +41,7 @@ import java.awt.Font;
 import java.awt.GradientPaint;
 import java.text.DecimalFormat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import org.jfree.chart3d.TestUtils;
 

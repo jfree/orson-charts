@@ -33,8 +33,8 @@
 package org.jfree.chart3d.graphics3d.internal;
 
 import org.jfree.chart3d.graphics3d.Point3D;
-import static org.junit.Assert.assertEquals;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 /**
  * Some tests for the methods in {@link Utils3D}.

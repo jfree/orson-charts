@@ -74,6 +74,10 @@ If you have any questions, don't hesitate to send a mail to info@object-refinery
 History
 -------
 
+Version 2.1 : not-yet-released
+
+- upgrade JUnit to version 5.
+
 Version 2.0 : 15-Mar-2020
 
 - created a Java module (`org.jfree.chart3d`);

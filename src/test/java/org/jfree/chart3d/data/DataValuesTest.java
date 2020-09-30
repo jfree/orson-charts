@@ -32,10 +32,10 @@
 
 package org.jfree.chart3d.data;
 
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Some checks for the {@link DataUtilities} class.

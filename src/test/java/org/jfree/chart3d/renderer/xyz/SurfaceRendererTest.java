@@ -33,9 +33,9 @@
 package org.jfree.chart3d.renderer.xyz;
 
 import java.awt.Color;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
 import org.jfree.chart3d.TestUtils;
 import org.jfree.chart3d.data.function.Function3D;
 import org.jfree.chart3d.renderer.FixedColorScale;
