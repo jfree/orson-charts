@@ -81,7 +81,8 @@ Version 2.1 : not-yet-released
 Version 2.0 : 15-Mar-2020
 
 - created a Java module (`org.jfree.chart3d`);
-- refactored into `org.jfree.chart3d` namespace.
+- refactored into `org.jfree.chart3d` namespace;
+- fixed bug #4 in `NumberAxis3D` where tick label override is not applied.
 
 
 Version 1.7 : 17-Nov-2017
