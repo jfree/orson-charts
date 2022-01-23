@@ -5,9 +5,7 @@ Orson Charts
 
 Version 2.0, 15 March 2020.
 
-
-Overview
---------
+### Overview
 Orson Charts is a 3D chart library for the Java(tm) platform that can generate a wide variety of 3D charts for use in client-side applications (JavaFX and Swing) and server-side applications (with export to PDF, SVG, PNG and JPEG). 
 
 ![Orson Charts sample](http://www.object-refinery.com/orsoncharts/images/orsoncharts_fx.png)
@@ -28,49 +26,41 @@ Key features include:
 
 Orson Charts is very easy to use, and includes comprehensive [Javadocs](https://www.javadoc.io/doc/org.jfree/org.jfree.chart3d/latest/org.jfree.chart3d/module-summary.html).  It is licensed under the terms of the GNU General Public License version 3 or later.  Orson Charts requires JDK/JRE 11 or later.  To use Orson Charts with JavaFX requires the [Orson Charts FX](https://github.com/jfree/orson-charts-fx) extension project.
 
-
-Demos
------
+### Demos
 Demo applications can be found in the following projects at GitHub:
 
 * [JFree-Demos](https://github.com/jfree/jfree-demos "JFree-Demos Project Page at GitHub")
 * [JFree-FXDemos](https://github.com/jfree/jfree-fxdemos "JFree-FXDemos Project Page at GitHub")
 
-
-Building
---------
+### Building
 You can build Orson Charts using Maven by issuing the following command from the root directory of the project:
 
     mvn clean install
 
 The build requires JDK 11 or later.  
 
-
-Reporting Bugs
---------------
+### Reporting Bugs
 If you find a bug in Orson Charts, please file a bug report at:
 
 https://github.com/jfree/orson-charts/issues
 
 
-History
--------
+### History
 
-Version 2.1.0 : not-yet-released
+#### Version 2.1.0 : not-yet-released
 
 - bug fix - axis ranges not being updated correctly. See issue [#9](https://github.com/jfree/orson-charts/issues/9)
 - clean-up - fix numerous warnings/hints highlighted by IntelliJ IDEA.
 - project - upgraded JUnit to version 5;
 - project - set plugin versions in `pom.xml`.
 
-Version 2.0 : 15-Mar-2020
+#### Version 2.0 : 15-Mar-2020
 
 - created a Java module (`org.jfree.chart3d`);
 - refactored into `org.jfree.chart3d` namespace;
 - fixed bug [#4](https://github.com/jfree/orson-charts/issues/4) in `NumberAxis3D` where tick label override is not applied.
 
-
-Version 1.7 : 17-Nov-2017
+#### Version 1.7 : 17-Nov-2017
 
 - removed JavaFX support to a separate project [Orson Charts FX](https://github.com/jfree/orson-charts-fx);
 - fixed cell content bug in `GridElement`;
@@ -78,8 +68,7 @@ Version 1.7 : 17-Nov-2017
 - protect from `NullPointerException` in `AbstractValueAxis3D`;
 - streamline build by removing Ant build support and moving demo code to external projects.
 
-
-Version 1.6 : 2-Nov-2016
+#### Version 1.6 : 2-Nov-2016
 
 - added `remove()` method to `XYZSeries` and added change notification mechanism;
 - added `remove()` and `removeAll()` methods to `XYZSeriesCollection` and added change notification;
@@ -87,8 +76,7 @@ Version 1.6 : 2-Nov-2016
 - updated `FXGraphics2D` to version 1.5;
 - updated `JFreeSVG` to version 3.2.
 
-
-Version 1.5 : 28-Jan-2016
+#### Version 1.5 : 28-Jan-2016
 
 - added new `LineXYZRenderer`;
 - added option to invert axes;
@@ -101,8 +89,7 @@ Version 1.5 : 28-Jan-2016
 - JavaFX demos brought up to match the Swing demos;
 - various Javadoc improvements.
 
-
-Version 1.4 : 27-May-2014
+#### Version 1.4 : 27-May-2014
 
 - added JavaFX support;
 - added support to marker elements and item labels for `KEY_BEGIN_ELEMENT` and `KEY_END_ELEMENT` rendering hints;
@@ -112,8 +99,7 @@ Version 1.4 : 27-May-2014
 - fixed bug in hinting for tick labels on `NumberAxis3D`;
 - fixed `Utils.js` functions that didn't work with Internet Explorer 9.
 
-
-Version 1.3 : 11-Apr-2014
+#### Version 1.3 : 11-Apr-2014
 
 - added chart mouse event and tooltip support for the chart viewer in Swing;
 - added item label support;
@@ -124,8 +110,7 @@ Version 1.3 : 11-Apr-2014
 and mouse events on chart elements);
 - added JavaScript utility library to support JFreeSVG export;
 
-
-Version 1.2 : 7-Mar-2014
+#### Version 1.2 : 7-Mar-2014
 
 - added value and range markers for numerical axes, and category markers for category axes;
 - added a `tickLabelOrientation` attribute for axes so that tick labels can be drawn either perpendicular or parallel to the axis line;
@@ -141,8 +126,7 @@ Version 1.2 : 7-Mar-2014
 - fixed an issue with the `StackedBarRenderer` and negative values;
 - incorporated various other bug fixes.
 
-
-Version 1.1 : 23-Dec-2013
+#### Version 1.1 : 23-Dec-2013
 
 - added surface plots (via the new `SurfaceRenderer` class and `Chart3DFactory.createSurfaceChart()`);
 - added `ColorScale` and supporting classes for use by the surface charts;
@@ -152,7 +136,6 @@ Version 1.1 : 23-Dec-2013
 - added constants including `SCALE_TO_FIT_TARGET` and `CENTER_NO_SCALING` to the `Fit2D` class;
 - added `setColors(Color...)` to `AbstractCategoryRenderer3D` and `AbstractXYZRenderer3D`;
 
-
-Version 1.0 : 17-Nov-2013
+#### Version 1.0 : 17-Nov-2013
 
 This is the first public release of Orson Charts, we welcome your feedback and suggestions.
