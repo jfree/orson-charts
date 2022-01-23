@@ -33,7 +33,7 @@ Documentation
 -------------
 The Javadoc generated documentation is the principal source of documentation for Orson Charts:
 
-http://www.object-refinery.com/orsoncharts/javadoc/index.html
+https://www.javadoc.io/doc/org.jfree/org.jfree.chart3d/latest/org.jfree.chart3d/module-summary.html
 
 If there are topics that are not covered or not clear in the documentation, please let us know so that we can improve the coverage.
 
@@ -62,19 +62,10 @@ If you find a bug in Orson Charts, please file a bug report at:
 https://github.com/jfree/orson-charts/issues
 
 
-More Info
----------
-You can find out more about Orson Charts at:
-
-http://www.object-refinery.com/orsoncharts/
-
-If you have any questions, don't hesitate to send a mail to info@object-refinery.com.
-
-
 History
 -------
 
-Version 2.1 : not-yet-released
+Version 2.1.0 : not-yet-released
 
 - bug fix - axis ranges not being updated correctly. See issue [#9](https://github.com/jfree/orson-charts/issues/9)
 - clean-up - fix numerous warnings/hints highlighted by IntelliJ IDEA.
