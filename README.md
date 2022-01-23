@@ -76,13 +76,15 @@ History
 
 Version 2.1 : not-yet-released
 
-- upgrade JUnit to version 5.
+- upgrade JUnit to version 5;
+- set plugin versions in `pom.xml`;
+- fix various warnings/hints by IntelliJ IDEA.
 
 Version 2.0 : 15-Mar-2020
 
 - created a Java module (`org.jfree.chart3d`);
 - refactored into `org.jfree.chart3d` namespace;
-- fixed bug #4 in `NumberAxis3D` where tick label override is not applied.
+- fixed bug [#4](https://github.com/jfree/orson-charts/issues/4) in `NumberAxis3D` where tick label override is not applied.
 
 
 Version 1.7 : 17-Nov-2017

@@ -47,13 +47,13 @@ public interface KeyedValue<K extends Comparable<K>, T> {
      * 
      * @return The key (never {@code null}). 
      */
-    public K getKey();
+    K getKey();
   
     /**
      * Returns the value.
      * 
      * @return The value (possibly {@code null}). 
      */
-    public T getValue();
+    T getValue();
   
 }

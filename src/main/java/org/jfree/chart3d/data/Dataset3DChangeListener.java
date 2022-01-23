@@ -47,6 +47,6 @@ public interface Dataset3DChangeListener extends EventListener {
      * 
      * @param event  the event details. 
      */
-    public void datasetChanged(Dataset3DChangeEvent event);
+    void datasetChanged(Dataset3DChangeEvent event);
 
 }

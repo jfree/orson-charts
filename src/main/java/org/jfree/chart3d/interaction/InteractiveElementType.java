@@ -81,9 +81,6 @@ public enum InteractiveElementType {
     LEGEND_ITEM,
     
     /** A marker. */
-    MARKER;
-
-    private InteractiveElementType() {
-    }
+    MARKER
 
 }

@@ -59,7 +59,7 @@ public abstract class AbstractRenderer3D implements Renderer3D, Serializable {
     private ItemLabelPositioning itemLabelPositioning;
 
     /** Storage for registered change listeners. */
-    private transient EventListenerList listenerList;
+    private final transient EventListenerList listenerList;
 
     /**
      * A flag that controls whether or not the renderer will notify listeners

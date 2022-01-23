@@ -55,7 +55,7 @@ import org.jfree.chart3d.internal.TextUtils;
 public abstract class AbstractMarker implements Marker {
     
     /** Storage for registered change listeners. */
-    private transient EventListenerList listenerList;
+    private final transient EventListenerList listenerList;
     
     /**
      * Default constructor.

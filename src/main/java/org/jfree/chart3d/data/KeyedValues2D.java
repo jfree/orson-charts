@@ -55,7 +55,7 @@ public interface KeyedValues2D<R extends Comparable<R>,
      * 
      * @return The key. 
      */
-    public R getRowKey(int rowIndex);
+    R getRowKey(int rowIndex);
 
     /**
      * Returns the column key with the specified index.
@@ -64,7 +64,7 @@ public interface KeyedValues2D<R extends Comparable<R>,
      * 
      * @return The key. 
      */
-    public C getColumnKey(int columnIndex);
+    C getColumnKey(int columnIndex);
 
     /**
      * Returns the index of the specified key, or {@code -1} if there
@@ -74,7 +74,7 @@ public interface KeyedValues2D<R extends Comparable<R>,
      * 
      * @return The index, or {@code -1}. 
      */
-    public int getRowIndex(R rowKey);
+    int getRowIndex(R rowKey);
 
     /**
      * Returns the index of the specified key, or {@code -1} if there
@@ -84,7 +84,7 @@ public interface KeyedValues2D<R extends Comparable<R>,
      * 
      * @return The index, or {@code -1}. 
      */
-    public int getColumnIndex(C columnKey);
+    int getColumnIndex(C columnKey);
   
     /**
      * Returns a list of the row keys (the order is significant, since data 
@@ -95,7 +95,7 @@ public interface KeyedValues2D<R extends Comparable<R>,
      * 
      * @return A list of row keys.
      */
-    public List<R> getRowKeys();
+    List<R> getRowKeys();
 
     /**
      * Returns a list of the column keys (the order is significant, since data 
@@ -106,7 +106,7 @@ public interface KeyedValues2D<R extends Comparable<R>,
      * 
      * @return A list of column keys.
      */
-    public List<C> getColumnKeys();
+    List<C> getColumnKeys();
 
     /**
      * Returns the value (possibly {@code null}) associated with the 
@@ -118,6 +118,6 @@ public interface KeyedValues2D<R extends Comparable<R>,
      * 
      * @return The value (possibly {@code null}). 
      */
-    public T getValue(R rowKey, C columnKey);
+    T getValue(R rowKey, C columnKey);
 
 }

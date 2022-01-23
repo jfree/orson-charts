@@ -49,6 +49,6 @@ public interface Chart3DChangeListener extends EventListener {
      * 
      * @param event  the event. 
      */
-    public void chartChanged(Chart3DChangeEvent event);
+    void chartChanged(Chart3DChangeEvent event);
 
 }

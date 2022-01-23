@@ -2094,7 +2094,7 @@ public class Chart3D implements Drawable3D, ChartElement,
             ItemKey itemKey = (ItemKey) element.getProperty(Object3D.ITEM_KEY);
             if (itemKey != null) {
                 sb.append(" representing the data item [");
-                sb.append(itemKey.toString());
+                sb.append(itemKey);
                 sb.append("]");
             }
             return sb.toString();

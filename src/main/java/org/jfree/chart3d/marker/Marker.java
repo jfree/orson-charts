@@ -47,21 +47,21 @@ import org.jfree.chart3d.ChartElement;
 public interface Marker extends ChartElement {
 
     /** The default line stroke for markers. */
-    public static final Stroke DEFAULT_LINE_STROKE = new BasicStroke(0f, 
+    Stroke DEFAULT_LINE_STROKE = new BasicStroke(0f,
             BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
 
     /** The default line color for markers. */
-    public static final Color DEFAULT_LINE_COLOR = Color.DARK_GRAY;
+    Color DEFAULT_LINE_COLOR = Color.DARK_GRAY;
 
     /** The default fill color for markers. */
-    public static final Color DEFAULT_FILL_COLOR = new Color(128, 128, 192, 64);
+    Color DEFAULT_FILL_COLOR = new Color(128, 128, 192, 64);
 
     /** The default font for marker labels. */
-    public static final Font DEFAULT_MARKER_FONT = new Font(Font.DIALOG, 
+    Font DEFAULT_MARKER_FONT = new Font(Font.DIALOG,
             Font.PLAIN, 10);
     
     /** The default color for the marker labels. */
-    public static final Color DEFAULT_LABEL_COLOR = Color.BLACK;
+    Color DEFAULT_LABEL_COLOR = Color.BLACK;
     
     /** 
      * Draws the marker based on the {@code markerData} which has been 

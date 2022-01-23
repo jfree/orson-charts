@@ -91,7 +91,7 @@ public enum TextAnchor {
      *
      * @param name  the name.
      */
-    private TextAnchor(String name) {
+    TextAnchor(String name) {
         this.name = name;
     }
     

@@ -60,7 +60,7 @@ public interface TableElement {
      * 
      * @since 1.3
      */
-    final String CLASS = "class";
+    String CLASS = "class";
     
     /**
      * Calculates the preferred size for the element, with reference to the 

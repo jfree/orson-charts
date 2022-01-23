@@ -55,6 +55,6 @@ public interface Function3D extends Serializable {
      *
      * @return The function value.
      */
-    public double getValue(double x, double z);
+    double getValue(double x, double z);
 
 }

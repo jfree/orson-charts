@@ -49,7 +49,7 @@ public interface KeyedValues<K extends Comparable<K>, T> extends Values<T> {
      * 
      * @return The key. 
      */
-    public K getKey(int index);
+    K getKey(int index);
   
     /**
      * Returns the index for the specified key, or {@code -1} if the key
@@ -59,7 +59,7 @@ public interface KeyedValues<K extends Comparable<K>, T> extends Values<T> {
      * 
      * @return The item index, or {@code -1}. 
      */
-    public int getIndex(K key);
+    int getIndex(K key);
   
     /**
      * Returns a list of all the keys.  Note that the list will be a copy, so
@@ -67,7 +67,7 @@ public interface KeyedValues<K extends Comparable<K>, T> extends Values<T> {
      * 
      * @return A list of keys (possibly empty, but never {@code null}).
      */
-    public List<K> getKeys();
+    List<K> getKeys();
 
     /**
      * Returns the value associated with the specified key, or 
@@ -77,6 +77,6 @@ public interface KeyedValues<K extends Comparable<K>, T> extends Values<T> {
      * 
      * @return The value (possibly {@code null}). 
      */
-    public T getValue(K key);
+    T getValue(K key);
 
 }

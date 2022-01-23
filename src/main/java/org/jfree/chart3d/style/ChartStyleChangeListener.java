@@ -51,6 +51,6 @@ public interface ChartStyleChangeListener extends EventListener {
      * 
      * @param event  the event. 
      */
-    public void styleChanged(ChartStyleChangeEvent event);
+    void styleChanged(ChartStyleChangeEvent event);
 
 }

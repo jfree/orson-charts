@@ -52,7 +52,7 @@ public interface XYZLabelGenerator {
      *
      * @return The series label (possibly {@code null}).
      */
-    public <S extends Comparable<S>> String generateSeriesLabel(
+    <S extends Comparable<S>> String generateSeriesLabel(
             XYZDataset<S> dataset, S seriesKey);
 
 }

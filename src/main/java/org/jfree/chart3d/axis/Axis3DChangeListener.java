@@ -48,6 +48,6 @@ public interface Axis3DChangeListener extends EventListener {
      * 
      * @param event  the event ({@code null} not permitted). 
      */
-    public void axisChanged(Axis3DChangeEvent event);
+    void axisChanged(Axis3DChangeEvent event);
 
 }

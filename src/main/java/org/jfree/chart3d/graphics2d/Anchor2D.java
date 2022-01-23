@@ -140,12 +140,12 @@ public final class Anchor2D implements Serializable {
      * The reference point relative to some bounding rectangle, normally the 
      * bounds of the chart (never {@code null}). 
      */
-    private RefPt2D refPt;
+    private final RefPt2D refPt;
     
     /**
      * The offsets to apply (never {@code null}).
      */
-    private Offset2D offset;
+    private final Offset2D offset;
     
     /**
      * Creates a default instance.

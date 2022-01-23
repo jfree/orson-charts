@@ -61,7 +61,7 @@ public interface Renderer3D extends ChartElement {
      * 
      * @since 1.3
      */
-    static final Color TRANSPARENT_COLOR = new Color(0, 0, 0, 0);    
+    Color TRANSPARENT_COLOR = new Color(0, 0, 0, 0);
     
     /**
      * Registers a listener to receive notification of changes to the

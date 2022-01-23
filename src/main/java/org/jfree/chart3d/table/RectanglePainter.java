@@ -55,6 +55,6 @@ public interface RectanglePainter {
      * @param g2  the graphics target ({@code null} not permitted).
      * @param bounds  the rectangle ({@code null} not permitted).
      */
-    public void fill(Graphics2D g2, Rectangle2D bounds);
+    void fill(Graphics2D g2, Rectangle2D bounds);
 
 }

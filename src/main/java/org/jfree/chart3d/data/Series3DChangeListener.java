@@ -46,6 +46,6 @@ public interface Series3DChangeListener extends EventListener {
      *
      * @param event  information about the change.
      */
-    public void seriesChanged(Series3DChangeEvent event);
+    void seriesChanged(Series3DChangeEvent event);
 
 }
