@@ -69,7 +69,6 @@ import org.jfree.chart3d.plot.XYZPlot;
  * to change in future releases and should not be relied upon for persisting 
  * instances of this class. 
  */
-@SuppressWarnings("serial")
 public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
         Serializable {
 
@@ -263,6 +262,10 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
         double um = range.getLength() * getUpperMargin();
         double lowerBound = range.getMin() - lm;
         double upperBound = range.getMax() + um;
+        if (this.autoRangeIncludesZero) {
+            lowerBound = Math.min(lowerBound, 0.0);
+            upperBound = Math.max(upperBound, 0.0);
+        }
         // does zero fall in the margins?
         if (this.autoRangeStickyZero) {
             if (0.0 <= range.getMin() && 0.0 > lowerBound) {

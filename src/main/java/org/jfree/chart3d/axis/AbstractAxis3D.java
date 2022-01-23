@@ -73,7 +73,6 @@ import org.jfree.chart3d.plot.CategoryPlot3D;
  * to change in future releases and should not be relied upon for persisting 
  * instances of this class. 
  */
-@SuppressWarnings("serial")
 public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener, 
         Serializable {
     
@@ -604,7 +603,7 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
     }
   
     /**
-     * Deregisters a listener so that it will no longer receive axis
+     * Unregisters a listener so that it will no longer receive axis
      * change events.
      * 
      * @param listener  the listener ({@code null} not permitted). 
@@ -615,7 +614,7 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
     }
   
     /**
-     * Notifies all registered listeners that the plot has been modified.
+     * Notifies all registered listeners that the axis has been modified.
      *
      * @param event  information about the change event.
      */
@@ -631,7 +630,7 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
     /**
      * Sends an {@link Axis3DChangeEvent} to all registered listeners.
      * 
-     * @param requiresWorldUpdate   a flag indicating whether or not this change
+     * @param requiresWorldUpdate   a flag indicating whether this change
      *     requires the 3D world to be updated.
      */
     protected void fireChangeEvent(boolean requiresWorldUpdate) {

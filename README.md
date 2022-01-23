@@ -76,9 +76,10 @@ History
 
 Version 2.1 : not-yet-released
 
-- upgrade JUnit to version 5;
-- set plugin versions in `pom.xml`;
-- fix various warnings/hints by IntelliJ IDEA.
+- bug fix - axis ranges not being updated correctly. See issue [#9](https://github.com/jfree/orson-charts/issues/9)
+- clean-up - fix numerous warnings/hints highlighted by IntelliJ IDEA.
+- project - upgraded JUnit to version 5;
+- project - set plugin versions in `pom.xml`.
 
 Version 2.0 : 15-Mar-2020
 

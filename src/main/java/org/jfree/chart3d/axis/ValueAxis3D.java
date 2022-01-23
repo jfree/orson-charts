@@ -72,7 +72,7 @@ public interface ValueAxis3D extends Axis3D {
     void configureAsXAxis(XYZPlot plot);
 
     /**
-     * Configure the axis as an y-axis for the specified plot.
+     * Configure the axis as a y-axis for the specified plot.
      * 
      * @param plot  the plot ({@code null} not permitted). 
      */

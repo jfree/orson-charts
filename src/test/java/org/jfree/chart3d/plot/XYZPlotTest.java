@@ -39,6 +39,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.jfree.chart3d.data.xyz.XYZSeries;
 import org.junit.jupiter.api.Test;
 
 import java.awt.BasicStroke;
@@ -168,6 +169,33 @@ public class XYZPlotTest implements Plot3DChangeListener {
                 Color.LIGHT_GRAY));
         p2 = (XYZPlot) TestUtils.serialized(p1);
         assertEquals(p1, p2);
+    }
+
+    /**
+     * https://github.com/jfree/orson-charts/issues/9
+     */
+    @Test
+    public void testBug9() {
+        XYZSeries<String> series = new XYZSeries<>("S1");
+        series.add(5.0, 6.0, 7.0);
+        series.add(8.0, 9.0, 10.0);
+        XYZSeriesCollection<String> dataset = new XYZSeriesCollection<>();
+        dataset.add(series);
+
+        NumberAxis3D xAxis = new NumberAxis3D("X", new Range(0, 10));
+        NumberAxis3D yAxis = new NumberAxis3D("Y", new Range(0, 10));
+        NumberAxis3D zAxis = new NumberAxis3D("Z", new Range(0, 10));
+        XYZRenderer renderer = new ScatterXYZRenderer();
+        XYZPlot plot = new XYZPlot(dataset, renderer, xAxis, yAxis, zAxis);
+        assertEquals(new Range(4.85, 8.15), xAxis.getRange());
+        xAxis.setAutoRangeIncludeZero(true);
+        assertEquals(new Range(0.0, 8.15), xAxis.getRange());
+        assertEquals(new Range(5.85, 9.15), yAxis.getRange());
+        yAxis.setAutoRangeIncludeZero(true);
+        assertEquals(new Range(0.0, 9.15), yAxis.getRange());
+        assertEquals(new Range(6.85, 10.15), zAxis.getRange());
+        zAxis.setAutoRangeIncludeZero(true);
+        assertEquals(new Range(0.0, 10.15), zAxis.getRange());
     }
     
     /**

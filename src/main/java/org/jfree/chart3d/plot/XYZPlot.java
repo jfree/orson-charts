@@ -76,7 +76,6 @@ import org.jfree.chart3d.renderer.xyz.XYZRenderer;
  * to change in future releases and should not be relied upon for persisting 
  * instances of this class. 
  */
-@SuppressWarnings("serial")
 public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener, 
         Axis3DChangeListener, Renderer3DChangeListener, Serializable {
 
@@ -680,7 +679,13 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
      */
     @Override
     public void axisChanged(Axis3DChangeEvent event) {
-        this.yAxis.configureAsYAxis(this);
+        if (xAxis == event.getAxis()) {
+            xAxis.configureAsXAxis(this);
+        } else if (yAxis == event.getAxis()) {
+            yAxis.configureAsYAxis(this);
+        } else if (zAxis == event.getAxis()) {
+            zAxis.configureAsZAxis(this);
+        }
         fireChangeEvent(event.requiresWorldUpdate());
     }
 
