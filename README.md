@@ -3,12 +3,12 @@ Orson Charts
 
 (C)opyright 2013-2022, by David Gilbert.  All rights reserved.
 
-Version 2.0, 15 March 2020.
+Version 2.1.0, 23 January 2022.
 
 ### Overview
-Orson Charts is a 3D chart library for the Java(tm) platform that can generate a wide variety of 3D charts for use in client-side applications (JavaFX and Swing) and server-side applications (with export to PDF, SVG, PNG and JPEG). 
+Orson Charts is a 3D chart library for the Java&trade; platform that can generate a wide variety of 3D charts for use in client-side applications (JavaFX and Swing) and server-side applications (with export to PDF, SVG, PNG and JPEG). 
 
-![Orson Charts sample](http://www.object-refinery.com/orsoncharts/images/orsoncharts_fx.png)
+<img width="1287" alt="JFree Demo for Orson Charts" src="https://user-images.githubusercontent.com/1835893/150690870-8153f58e-ab6c-4898-a730-9f49d9293e38.png">
 
 Key features include:
 
@@ -47,12 +47,12 @@ https://github.com/jfree/orson-charts/issues
 
 ### History
 
-#### Version 2.1.0 : not-yet-released
+#### Version 2.1.0 : 23-Jan-2022
 
 - bug fix - axis ranges not being updated correctly. See issue [#9](https://github.com/jfree/orson-charts/issues/9)
 - clean-up - fix numerous warnings/hints highlighted by IntelliJ IDEA.
-- project - upgraded JUnit to version 5;
-- project - set plugin versions in `pom.xml`.
+- dependencies - upgraded JUnit to version 5;
+- build - set plugin versions in `pom.xml`.
 
 #### Version 2.0 : 15-Mar-2020
 
