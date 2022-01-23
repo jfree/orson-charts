@@ -33,7 +33,6 @@
 package org.jfree.chart3d.graphics3d.internal;
 
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.List;
 import org.jfree.chart3d.graphics3d.Face;
 import org.jfree.chart3d.graphics3d.Point3D;

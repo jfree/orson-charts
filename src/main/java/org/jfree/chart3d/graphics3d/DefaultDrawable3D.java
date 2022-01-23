@@ -41,7 +41,6 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import org.jfree.chart3d.internal.Args;
 import org.jfree.chart3d.Chart3D;
@@ -219,8 +218,7 @@ public class DefaultDrawable3D implements Drawable3D {
             } 
         }
         g2.setTransform(saved);
-        RenderingInfo info = new RenderingInfo(facesInPaintOrder, pts, dx, dy);
-        return info;
+        return new RenderingInfo(facesInPaintOrder, pts, dx, dy);
     }
     
 }
