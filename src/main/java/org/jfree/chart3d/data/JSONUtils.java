@@ -808,7 +808,7 @@ public class JSONUtils {
         }
         double result = Double.NaN;
         try {
-            result = Double.valueOf(obj.toString());
+            result = Double.parseDouble(obj.toString());
         } catch (Exception e) {
             
         }

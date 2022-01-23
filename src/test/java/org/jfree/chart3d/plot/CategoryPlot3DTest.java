@@ -32,8 +32,6 @@
 
 package org.jfree.chart3d.plot;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import java.awt.BasicStroke;
@@ -48,6 +46,8 @@ import org.jfree.chart3d.data.category.StandardCategoryDataset3D;
 import org.jfree.chart3d.label.StandardCategoryLabelGenerator;
 import org.jfree.chart3d.renderer.category.BarRenderer3D;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 /**
  * Tests for the {@link CategoryPlot3D} class.
  */
@@ -55,60 +55,60 @@ public class CategoryPlot3DTest {
     
     @Test
     public void testEquals() {
-        StandardCategoryDataset3D d1 = new StandardCategoryDataset3D();
+        StandardCategoryDataset3D<String, String, String> d1 = new StandardCategoryDataset3D<>();
         BarRenderer3D r1 = new BarRenderer3D();
         CategoryPlot3D p1 = new CategoryPlot3D(d1, r1, 
                 new StandardCategoryAxis3D("R"), 
                 new StandardCategoryAxis3D("C"), 
                 new NumberAxis3D("N"));
-        StandardCategoryDataset3D d2 = new StandardCategoryDataset3D();
+        StandardCategoryDataset3D<String, String, String> d2 = new StandardCategoryDataset3D<>();
         BarRenderer3D r2 = new BarRenderer3D();
         CategoryPlot3D p2 = new CategoryPlot3D(d2, r2, 
                 new StandardCategoryAxis3D("R"), 
                 new StandardCategoryAxis3D("C"), 
                 new NumberAxis3D("N"));
-        assertTrue(p1.equals(p2));
-        assertFalse(p1.equals(null));
+        assertEquals(p1, p2);
+        assertNotEquals(null, p1);
         
         p1.setGridlinesVisibleForValues(false);
-        assertFalse(p1.equals(p2));
+        assertNotEquals(p1, p2);
         p2.setGridlinesVisibleForValues(false);
-        assertTrue(p1.equals(p2));
+        assertEquals(p1, p2);
         
         p1.setGridlinePaintForValues(Color.RED);
-        assertFalse(p1.equals(p2));
+        assertNotEquals(p1, p2);
         p2.setGridlinePaintForValues(Color.RED);
-        assertTrue(p1.equals(p2));
+        assertEquals(p1, p2);
         
         p1.setGridlineStrokeForValues(new BasicStroke(0.5f));
-        assertFalse(p1.equals(p2));
+        assertNotEquals(p1, p2);
         p2.setGridlineStrokeForValues(new BasicStroke(0.5f));
-        assertTrue(p1.equals(p2));
+        assertEquals(p1, p2);
         
         p1.setGridlinesVisibleForRows(true);
-        assertFalse(p1.equals(p2));
+        assertNotEquals(p1, p2);
         p2.setGridlinesVisibleForRows(true);
-        assertTrue(p1.equals(p2));
+        assertEquals(p1, p2);
         
         p1.setGridlinePaintForRows(Color.GREEN);
-        assertFalse(p1.equals(p2));
+        assertNotEquals(p1, p2);
         p2.setGridlinePaintForRows(Color.GREEN);
-        assertTrue(p1.equals(p2));
+        assertEquals(p1, p2);
         
         p1.setGridlineStrokeForRows(new BasicStroke(0.6f));
-        assertFalse(p1.equals(p2));
+        assertNotEquals(p1, p2);
         p2.setGridlineStrokeForRows(new BasicStroke(0.6f));
-        assertTrue(p1.equals(p2));
+        assertEquals(p1, p2);
         
-        p1.setLegendLabelGenerator(new StandardCategoryLabelGenerator("%s XX"));
-        assertFalse(p1.equals(p2));
-        p2.setLegendLabelGenerator(new StandardCategoryLabelGenerator("%s XX"));
-        assertTrue(p1.equals(p2));
+        p1.setLegendLabelGenerator(new StandardCategoryLabelGenerator<>("%s XX"));
+        assertNotEquals(p1, p2);
+        p2.setLegendLabelGenerator(new StandardCategoryLabelGenerator<>("%s XX"));
+        assertEquals(p1, p2);
         
-        p1.setYDimensionOverride(new Double(123));
-        assertFalse(p1.equals(p2));
-        p2.setYDimensionOverride(new Double(123));
-        assertTrue(p1.equals(p2));
+        p1.setYDimensionOverride(123.0);
+        assertNotEquals(p1, p2);
+        p2.setYDimensionOverride(123.0);
+        assertEquals(p1, p2);
     }
         
     /**
@@ -118,32 +118,30 @@ public class CategoryPlot3DTest {
     public void testSerialization() {
         CategoryPlot3D p1 = createCategory3DPlot();
         CategoryPlot3D p2 = (CategoryPlot3D) TestUtils.serialized(p1);
-        assertTrue(p1.equals(p2));
+        assertEquals(p1, p2);
         
         p1.setGridlinePaintForRows(new GradientPaint(1f, 2f, Color.RED, 3f, 4f, 
                 Color.BLUE));
         p2 = (CategoryPlot3D) TestUtils.serialized(p1);
-        assertTrue(p1.equals(p2));
+        assertEquals(p1, p2);
 
         p1.setGridlinePaintForColumns(new GradientPaint(5f, 6f, Color.GRAY, 7f,
                 8f, Color.YELLOW));
         p2 = (CategoryPlot3D) TestUtils.serialized(p1);
-        assertTrue(p1.equals(p2));
+        assertEquals(p1, p2);
         
         p1.setGridlinePaintForValues(new GradientPaint(9f, 10f, Color.GREEN, 
                 11f, 12f, Color.LIGHT_GRAY));
         p2 = (CategoryPlot3D) TestUtils.serialized(p1);
-        assertTrue(p1.equals(p2));
+        assertEquals(p1, p2);
     }
 
     private CategoryPlot3D createCategory3DPlot() {
-        CategoryDataset3D dataset = new StandardCategoryDataset3D();
+        CategoryDataset3D<String, String, String> dataset = new StandardCategoryDataset3D<>();
         BarRenderer3D renderer = new BarRenderer3D();
         StandardCategoryAxis3D rowAxis = new StandardCategoryAxis3D("rowAxis");
         StandardCategoryAxis3D colAxis = new StandardCategoryAxis3D("colAxis");
         NumberAxis3D valueAxis = new NumberAxis3D("Value");
-        CategoryPlot3D plot = new CategoryPlot3D(dataset, renderer, rowAxis, 
-                colAxis, valueAxis);
-        return plot;
+        return new CategoryPlot3D(dataset, renderer, rowAxis, colAxis, valueAxis);
     }
 }

@@ -557,7 +557,7 @@ public class ChartBox3D {
                 base + 6); // D 
         MarkerData md2 = new MarkerData(m, base + 2, base + 3, base + 6, 
                 base + 7); // C
-        MarkerData md3 = new MarkerData(m, base + 3, base + 0, base + 7, 
+        MarkerData md3 = new MarkerData(m, base + 3, base, base + 7,
                 base + 4);  // B
         if (m.getLabelAnchor() != null) {
             // add vertices for the label anchor

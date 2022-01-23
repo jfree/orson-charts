@@ -424,7 +424,7 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
                         opposingPt, tickData, hinting);
             } else if (orientation.equals(LabelOrientation.PARALLEL)) {
                 maxTickLabelDim = g2.getFontMetrics().getHeight();
-                double adj = g2.getFontMetrics().getAscent() / 2;
+                double adj = g2.getFontMetrics().getAscent() / 2.0;
                 drawParallelTickLabels(g2, axisLine, opposingPt, tickData, adj,
                         hinting);
             }
