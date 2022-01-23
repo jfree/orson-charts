@@ -26,16 +26,7 @@ Key features include:
 - support for PDF, SVG, PNG and JPG export of charts for reporting;
 - a clean and well-documented API with a high degree of chart configurability.
 
-Orson Charts is very easy to use, and includes comprehensive Javadocs.  It is licensed under the terms of the GNU General Public License version 3 or later.  For companies that do not wish to be bound by the terms of the GPLv3, a commercial license can be purchased from Object Refinery Limited.  The license permits royalty-free redistribution of the Orson Charts runtime jar file.  Orson Charts requires JDK/JRE 11 or later.  To use Orson Charts with JavaFX requires the Orson Charts FX extension project.
-
-
-Documentation
--------------
-The Javadoc generated documentation is the principal source of documentation for Orson Charts:
-
-https://www.javadoc.io/doc/org.jfree/org.jfree.chart3d/latest/org.jfree.chart3d/module-summary.html
-
-If there are topics that are not covered or not clear in the documentation, please let us know so that we can improve the coverage.
+Orson Charts is very easy to use, and includes comprehensive [Javadocs](https://www.javadoc.io/doc/org.jfree/org.jfree.chart3d/latest/org.jfree.chart3d/module-summary.html).  It is licensed under the terms of the GNU General Public License version 3 or later.  Orson Charts requires JDK/JRE 11 or later.  To use Orson Charts with JavaFX requires the [Orson Charts FX](https://github.com/jfree/orson-charts-fx) extension project.
 
 
 Demos
