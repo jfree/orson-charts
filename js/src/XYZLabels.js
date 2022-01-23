@@ -1,7 +1,7 @@
 /* 
  * Orson Charts
  * ------------
- * Copyright (C) 2014 Object Refinery Limited.
+ * Copyright 2014-2022 by David Gilbert.
  */
 
 "use strict";

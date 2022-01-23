@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2014 Object Refinery Limited and KNIME AG
+ * Copyright 2014-2022 by David Gilbert and KNIME AG
  */
 
 "use strict";

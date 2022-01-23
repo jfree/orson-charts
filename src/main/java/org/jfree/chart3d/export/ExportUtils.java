@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * (C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
+ * (C)opyright 2013-2022, by David Gilbert.  All rights reserved.
  * 
  * https://github.com/jfree/orson-charts
  * 
@@ -82,7 +82,7 @@ public class ExportUtils {
         try {
             Class<?> svg2Class = Class.forName(
                     "org.jfree.svg.SVGGraphics2D");
-            Constructor<?> c1 = svg2Class.getConstructor(int.class, int.class);
+            Constructor<?> c1 = svg2Class.getConstructor(double.class, double.class);
             Graphics2D svg2 = (Graphics2D) c1.newInstance(w, h);
             Rectangle2D drawArea = new Rectangle2D.Double(0, 0, w, h);
             RenderingInfo info = drawable.draw(svg2, drawArea);

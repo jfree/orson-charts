@@ -2,7 +2,7 @@
  * Orson Charts
  * ============
  * 
- * (C)opyright 2013-2020, by Object Refinery Limited.
+ * (C)opyright 2013-2022, by David Gilbert.
  * 
  * https://github.com/jfree/orson-charts
  * 

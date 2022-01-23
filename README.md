@@ -1,7 +1,7 @@
 Orson Charts
 ============
 
-(C)opyright 2013-2020, by Object Refinery Limited.  All rights reserved.
+(C)opyright 2013-2022, by David Gilbert.  All rights reserved.
 
 Version 2.0, 15 March 2020.
 
