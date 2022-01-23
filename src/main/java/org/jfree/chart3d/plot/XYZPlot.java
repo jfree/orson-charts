@@ -539,7 +539,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
         List<Comparable<?>> keys = this.dataset.getSeriesKeys();
         for (Comparable key : keys) {
             String label = this.legendLabelGenerator.generateSeriesLabel(
-                    this.dataset, (Comparable) key);
+                    this.dataset, key);
             int series = this.dataset.getSeriesIndex(key);
             Color color = this.renderer.getColorSource().getLegendColor(series);
             LegendItemInfo info = new StandardLegendItemInfo(key, label, color);

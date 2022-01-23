@@ -122,21 +122,14 @@ public class XYZItemKey<S extends Comparable<S>> implements ItemKey,
 
     @Override
     public String toJSONString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("{\"seriesKey\": \"").append(this.seriesKey.toString());
-        sb.append("\", ");
-        sb.append("\"itemIndex\": ").append(this.itemIndex).append("}");
-        return sb.toString();
+        return "{\"seriesKey\": \"" + this.seriesKey.toString()
+                + "\", " + "\"itemIndex\": " + this.itemIndex + "}";
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("XYZItemKey[seriesKey=");
-        sb.append(this.seriesKey.toString()).append(",item=");
-        sb.append(itemIndex);
-        sb.append("]");
-        return sb.toString();
+        return "XYZItemKey[seriesKey=" + this.seriesKey.toString()
+                + ",item=" + itemIndex + "]";
     }
 
     @Override

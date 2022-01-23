@@ -404,8 +404,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
     @Override @SuppressWarnings("unchecked")
     public List<LegendItemInfo> getLegendInfo() {
         List<LegendItemInfo> result = new ArrayList<>();
-        for (Comparable<?> key : (List<Comparable<?>>)
-                this.dataset.getKeys()) {
+        for (Comparable<?> key : this.dataset.getKeys()) {
             String label = this.legendLabelGenerator.generateLabel(dataset, 
                     key);
             LegendItemInfo info = new StandardLegendItemInfo(key, 
@@ -435,7 +434,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
         int count = this.dataset.getItemCount();
         for (int i = 0; i < count; i++) {
             Comparable<?> key = this.dataset.getKey(i);
-            Number n = (Number) this.dataset.getValue(i);
+            Number n = this.dataset.getValue(i);
             if (n != null) {
                 double angle = Math.PI * 2 * (n.doubleValue() / total);
                 Color c = this.sectionColorSource.getColor(
@@ -475,7 +474,7 @@ public class PiePlot3D extends AbstractPlot3D implements Serializable {
         double r = 0.0;
         int count = this.dataset.getItemCount();
         for (int i = 0; i < count; i++) {
-            Number n = (Number) this.dataset.getValue(i);
+            Number n = this.dataset.getValue(i);
             double angle = 0.0;
             if (n != null) {
                 angle = Math.PI * 2 * (n.doubleValue() / total);

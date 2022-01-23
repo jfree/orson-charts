@@ -152,25 +152,16 @@ public class KeyedValues3DItemKey<S extends Comparable<S>,
 
     @Override
     public String toJSONString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("{\"seriesKey\": \"").append(this.seriesKey.toString());
-        sb.append("\", ");
-        sb.append("\"rowKey\": \"").append(this.rowKey.toString());
-        sb.append("\", ");
-        sb.append("\"columnKey\": \"").append(this.columnKey.toString());
-        sb.append("\"}");
-        return sb.toString();
+        return "{\"seriesKey\": \"" + this.seriesKey.toString() + "\", "
+                + "\"rowKey\": \"" + this.rowKey.toString() + "\", "
+                + "\"columnKey\": \"" + this.columnKey.toString() + "\"}";
     }
     
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Values3DItemKey[series=");
-        sb.append(seriesKey.toString()).append(",row=");
-        sb.append(rowKey.toString()).append(",column=");
-        sb.append(columnKey.toString());
-        sb.append("]");
-        return sb.toString();
+        return "Values3DItemKey[series=" + seriesKey.toString()
+                + ",row=" + rowKey.toString()
+                + ",column=" + columnKey.toString() + "]";
     }
 
 }

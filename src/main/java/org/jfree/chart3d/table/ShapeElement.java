@@ -192,9 +192,7 @@ public class ShapeElement extends AbstractTableElement
      */
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("ShapeElement[shape=").append(this.shape).append("]");
-        return sb.toString();
+        return "ShapeElement[shape=" + this.shape + "]";
     }
     
 }

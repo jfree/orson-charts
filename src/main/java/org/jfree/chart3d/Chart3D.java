@@ -2083,23 +2083,11 @@ public class Chart3D implements Drawable3D, ChartElement,
             sb.append("'");
             return sb.toString();
         } else if (InteractiveElementType.AXIS_LABEL.equals(type)) {
-            StringBuilder sb = new StringBuilder();
-            sb.append("Axis label with the label '");
-            sb.append(element.getProperty("label"));
-            sb.append("'");
-            return sb.toString();
+            return "Axis label with the label '" + element.getProperty("label") + "'";
         } else if (InteractiveElementType.CATEGORY_AXIS_TICK_LABEL.equals(type)) {
-            StringBuilder sb = new StringBuilder();
-            sb.append("Axis tick label with the label '");
-            sb.append(element.getProperty("label"));
-            sb.append("'");
-            return sb.toString();
+            return "Axis tick label with the label '" + element.getProperty("label") + "'";
         } else if (InteractiveElementType.VALUE_AXIS_TICK_LABEL.equals(type)) {
-            StringBuilder sb = new StringBuilder();
-            sb.append("Axis tick label with the value '");
-            sb.append(element.getProperty("value"));
-            sb.append("'");
-            return sb.toString();
+            return "Axis tick label with the value '" + element.getProperty("value") + "'";
         } else if ("obj3d".equals(type)) {
             StringBuilder sb = new StringBuilder();
             sb.append("An object in the 3D model");

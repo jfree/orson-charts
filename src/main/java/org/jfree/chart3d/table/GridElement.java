@@ -273,11 +273,8 @@ public class GridElement<R extends Comparable<R>, C extends Comparable<C>>
      */
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("GridElement[rowCount=").append(this.elements.getRowCount());
-        sb.append(", columnCount=").append(this.elements.getColumnCount());
-        sb.append("]");
-        return sb.toString();
+        return "GridElement[rowCount=" + this.elements.getRowCount()
+                + ", columnCount=" + this.elements.getColumnCount() + "]";
     }
     
 }

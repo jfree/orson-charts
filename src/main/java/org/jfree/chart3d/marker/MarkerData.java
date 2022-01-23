@@ -268,10 +268,6 @@ public class MarkerData {
     
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("MarkerData[key=");
-        sb.append(this.markerKey); 
-        sb.append("]");
-        return sb.toString();
+        return "MarkerData[key=" + this.markerKey + "]";
     }
 }

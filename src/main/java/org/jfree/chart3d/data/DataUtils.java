@@ -200,7 +200,7 @@ public class DataUtils {
         int columnCount = data.getColumnCount();
         for (int r = 0; r < rowCount; r++) {
             for (int c = 0; c < columnCount; c++) {
-                Number n = (Number) data.getValue(seriesIndex, r, c);
+                Number n = data.getValue(seriesIndex, r, c);
                 if (n != null) {
                     total += n.doubleValue();
                 }
@@ -234,7 +234,7 @@ public class DataUtils {
         int columnCount = data.getColumnCount();
         for (int s = 0; s < seriesCount; s++) {
             for (int c = 0; c < columnCount; c++) {
-                Number n = (Number) data.getValue(s, rowIndex, c);
+                Number n = data.getValue(s, rowIndex, c);
                 if (n != null) {
                     total += n.doubleValue();
                 }
@@ -269,7 +269,7 @@ public class DataUtils {
         int rowCount = data.getRowCount();
         for (int s = 0; s < seriesCount; s++) {
             for (int r = 0; r < rowCount; r++) {
-                Number n = (Number) data.getValue(s, r, columnIndex);
+                Number n = data.getValue(s, r, columnIndex);
                 if (n != null) {
                     total += n.doubleValue();
                 }

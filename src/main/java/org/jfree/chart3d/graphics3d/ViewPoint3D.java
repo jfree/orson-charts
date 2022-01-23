@@ -391,7 +391,7 @@ public class ViewPoint3D implements Serializable {
         ViewPoint3D vp = new ViewPoint3D(this.theta, this.phi, this.rho, 
                 calcRollAngle());
         float near = (float) dim3D.getDiagonalLength();
-        float far = (float) near * 40;
+        float far = near * 40;
         
         World w = new World();
         double ww = dim3D.getWidth();

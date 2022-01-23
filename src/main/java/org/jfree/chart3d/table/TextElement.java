@@ -317,8 +317,6 @@ public class TextElement extends AbstractTableElement
     
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("TextElement[text=").append(this.text).append("]");
-        return sb.toString();
+        return "TextElement[text=" + this.text + "]";
     }
 }

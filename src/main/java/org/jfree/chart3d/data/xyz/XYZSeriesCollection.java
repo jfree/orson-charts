@@ -121,7 +121,7 @@ public class XYZSeriesCollection<S extends Comparable<S>>
      */
     @Override
     public S getSeriesKey(int seriesIndex) {
-        return (S) getSeries(seriesIndex).getKey();
+        return getSeries(seriesIndex).getKey();
     }
 
     /**

@@ -89,17 +89,11 @@ public class KeyedValuesItemKey implements ItemKey, Serializable {
     
     @Override
     public String toJSONString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("{\"key\": \"").append(this.key.toString()).append("\"}");
-        return sb.toString();
+        return "{\"key\": \"" + this.key.toString() + "\"}";
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("ValuesItemKey[");
-        sb.append(this.key.toString());
-        sb.append("]");
-        return sb.toString();
+        return "ValuesItemKey[" + this.key.toString() + "]";
     }
 }
