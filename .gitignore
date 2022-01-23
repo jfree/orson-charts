@@ -5,3 +5,7 @@
 *.war
 *.ear
 /target/
+*.DS_Store
+.idea
+nb-configuration.xml
+nbactions.xml
