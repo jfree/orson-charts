@@ -73,11 +73,11 @@ public class XYZPlotTest implements Plot3DChangeListener {
   
     @Test
     public void checkSetDatasetRemovesPreviousListener() {
-        XYZDataset dataset1 = createNewDataset();
+        XYZDataset<String> dataset1 = createNewDataset();
         XYZPlot plot = createXYZPlot();
         plot.setDataset(dataset1);
         assertTrue(dataset1.hasListener(plot));
-        XYZDataset dataset2 = createNewDataset();
+        XYZDataset<String> dataset2 = createNewDataset();
         plot.setDataset(dataset2);
         assertFalse(dataset1.hasListener(plot));
         assertTrue(dataset2.hasListener(plot));
@@ -95,54 +95,54 @@ public class XYZPlotTest implements Plot3DChangeListener {
         assertEquals(p1, p2);
         
         p1.setGridlinesVisibleX(false);
-        assertFalse(p1.equals(p2));
+        assertNotEquals(p1, p2);
         p2.setGridlinesVisibleX(false);
-        assertTrue(p1.equals(p2));
+        assertEquals(p1, p2);
         
         p1.setGridlinePaintX(Color.YELLOW);
-        assertFalse(p1.equals(p2));
+        assertNotEquals(p1, p2);
         p2.setGridlinePaintX(Color.YELLOW);
-        assertTrue(p1.equals(p2));
+        assertEquals(p1, p2);
         
         p1.setGridlineStrokeX(new BasicStroke(0.3f));
-        assertFalse(p1.equals(p2));
+        assertNotEquals(p1, p2);
         p2.setGridlineStrokeX(new BasicStroke(0.3f));
-        assertTrue(p1.equals(p2));
+        assertEquals(p1, p2);
         
         p1.setGridlinesVisibleY(false);
-        assertFalse(p1.equals(p2));
+        assertNotEquals(p1, p2);
         p2.setGridlinesVisibleY(false);
-        assertTrue(p1.equals(p2));
+        assertEquals(p1, p2);
 
         p1.setGridlinePaintY(Color.GREEN);
-        assertFalse(p1.equals(p2));
+        assertNotEquals(p1, p2);
         p2.setGridlinePaintY(Color.GREEN);
-        assertTrue(p1.equals(p2));
+        assertEquals(p1, p2);
         
         p1.setGridlineStrokeY(new BasicStroke(0.36f));
-        assertFalse(p1.equals(p2));
+        assertNotEquals(p1, p2);
         p2.setGridlineStrokeY(new BasicStroke(0.36f));
-        assertTrue(p1.equals(p2));
+        assertEquals(p1, p2);
 
         p1.setGridlinesVisibleZ(false);
-        assertFalse(p1.equals(p2));
+        assertNotEquals(p1, p2);
         p2.setGridlinesVisibleZ(false);
-        assertTrue(p1.equals(p2));
+        assertEquals(p1, p2);
 
         p1.setGridlinePaintZ(Color.BLUE);
-        assertFalse(p1.equals(p2));
+        assertNotEquals(p1, p2);
         p2.setGridlinePaintZ(Color.BLUE);
-        assertTrue(p1.equals(p2));
+        assertEquals(p1, p2);
         
         p1.setGridlineStrokeZ(new BasicStroke(0.6f));
-        assertFalse(p1.equals(p2));
+        assertNotEquals(p1, p2);
         p2.setGridlineStrokeZ(new BasicStroke(0.6f));
-        assertTrue(p1.equals(p2));
+        assertEquals(p1, p2);
         
         p1.setLegendLabelGenerator(new StandardXYZLabelGenerator("%s XX"));
-        assertFalse(p1.equals(p2));
+        assertNotEquals(p1, p2);
         p2.setLegendLabelGenerator(new StandardXYZLabelGenerator("%s XX"));
-        assertTrue(p1.equals(p2));
+        assertEquals(p1, p2);
     }
 
     /**
@@ -152,22 +152,22 @@ public class XYZPlotTest implements Plot3DChangeListener {
     public void testSerialization() {
         XYZPlot p1 = createXYZPlot();
         XYZPlot p2 = (XYZPlot) TestUtils.serialized(p1);
-        assertTrue(p1.equals(p2));
+        assertEquals(p1, p2);
         
         p1.setGridlinePaintX(new GradientPaint(1f, 2f, Color.RED, 3f, 4f, 
                 Color.BLUE));
         p2 = (XYZPlot) TestUtils.serialized(p1);
-        assertTrue(p1.equals(p2));
+        assertEquals(p1, p2);
 
         p1.setGridlinePaintY(new GradientPaint(5f, 6f, Color.GRAY, 7f, 8f, 
                 Color.YELLOW));
         p2 = (XYZPlot) TestUtils.serialized(p1);
-        assertTrue(p1.equals(p2));
+        assertEquals(p1, p2);
         
         p1.setGridlinePaintZ(new GradientPaint(9f, 10f, Color.GREEN, 11f, 12f, 
                 Color.LIGHT_GRAY));
         p2 = (XYZPlot) TestUtils.serialized(p1);
-        assertTrue(p1.equals(p2));
+        assertEquals(p1, p2);
     }
     
     /**
@@ -176,8 +176,7 @@ public class XYZPlotTest implements Plot3DChangeListener {
      * @return A new dataset.
      */
     private XYZDataset<String> createNewDataset() {
-        XYZSeriesCollection<String> dataset = new XYZSeriesCollection<>();
-        return dataset;
+        return new XYZSeriesCollection<>();
     }
   
     /**
