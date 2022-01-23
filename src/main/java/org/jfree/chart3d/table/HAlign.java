@@ -44,5 +44,5 @@ public enum HAlign {
     CENTER, 
     
     /** Right alignment. */
-    RIGHT;
+    RIGHT
 }

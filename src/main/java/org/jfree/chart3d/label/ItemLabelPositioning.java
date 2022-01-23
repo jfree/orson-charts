@@ -48,6 +48,6 @@ public enum ItemLabelPositioning {
     /**
      * A single label is placed centrally. 
      */
-    CENTRAL;
+    CENTRAL
     
 }

@@ -325,7 +325,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
      * 
      * @return The default range (never {@code null}).
      * 
-     * @see #setDefaultAutoRange(org.jfree.chart3d.Range) 
+     * @see #setDefaultAutoRange(Range) 
      */
     public Range getDefaultAutoRange() {
         return this.defaultAutoRange;

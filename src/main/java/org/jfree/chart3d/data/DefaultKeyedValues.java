@@ -61,7 +61,7 @@ public final class DefaultKeyedValues<K extends Comparable<K>, T>
      * Creates a new (empty) list of keyed values.
      */
     public DefaultKeyedValues() {
-        this(new ArrayList<K>());
+        this(new ArrayList<>());
     }
   
     /**

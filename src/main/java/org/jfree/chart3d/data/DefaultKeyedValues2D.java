@@ -68,7 +68,7 @@ public final class DefaultKeyedValues2D<R extends Comparable<R>, C extends Compa
      * Creates a new (empty) instance.
      */
     public DefaultKeyedValues2D() {
-        this(new ArrayList<R>(), new ArrayList<C>());
+        this(new ArrayList<>(), new ArrayList<>());
     }
     
     /**

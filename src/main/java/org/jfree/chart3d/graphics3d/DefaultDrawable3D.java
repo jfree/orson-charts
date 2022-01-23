@@ -187,7 +187,7 @@ public class DefaultDrawable3D implements Drawable3D {
         List<Face> facesInPaintOrder = new ArrayList<>(this.world.getFaces());
 
         // sort faces by z-order
-        Collections.sort(facesInPaintOrder, new ZOrderComparator(eyePts));
+        facesInPaintOrder.sort(new ZOrderComparator(eyePts));
 
         for (Face f : facesInPaintOrder) {
             double[] plane = f.calculateNormal(eyePts);

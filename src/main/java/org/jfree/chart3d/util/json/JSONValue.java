@@ -287,8 +287,9 @@ public class JSONValue {
     }
 
     /**
-     * @param s - Must not be null.
-     * @param sb
+     * Appends the string to a buffer with certain characters escaped.
+     * @param s Must not be null.
+     * @param sb a string buffer
      */
     static void escape(String s, StringBuffer sb) {
         for(int i = 0; i < s.length(); i++) {

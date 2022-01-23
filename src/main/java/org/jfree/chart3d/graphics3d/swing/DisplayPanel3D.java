@@ -83,10 +83,7 @@ public class DisplayPanel3D extends JPanel implements MouseListener {
                 InputStream in = DisplayPanel3D.class.getResourceAsStream(
                         "fontawesome-webfont.ttf");
                 FONT_AWESOME = Font.createFont(Font.TRUETYPE_FONT, in);
-            } catch (FontFormatException ex) {
-                Logger.getLogger(Panel3D.class.getName()).log(Level.SEVERE, 
-                        null, ex);
-            } catch (IOException ex) {
+            } catch (FontFormatException | IOException ex) {
                 Logger.getLogger(Panel3D.class.getName()).log(Level.SEVERE, 
                         null, ex);
             }

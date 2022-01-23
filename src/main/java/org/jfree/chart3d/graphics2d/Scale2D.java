@@ -47,6 +47,6 @@ public enum Scale2D {
     SCALE_VERTICAL, 
     
     /** Scale both horizontally and vertically. */
-    SCALE_BOTH;
+    SCALE_BOTH
     
 }

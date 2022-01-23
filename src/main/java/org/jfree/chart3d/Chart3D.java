@@ -428,7 +428,7 @@ public class Chart3D implements Drawable3D, ChartElement,
      * 
      * @return The title anchor (never {@code null}).
      * 
-     * @see #setTitleAnchor(org.jfree.chart3d.util.Anchor2D) 
+     * @see #setTitleAnchor(Anchor2D) 
      */
     public Anchor2D getTitleAnchor() {
         return this.titleAnchor;
@@ -584,7 +584,7 @@ public class Chart3D implements Drawable3D, ChartElement,
      * @return The legend builder (possibly {@code null}).
      * 
      * @see #setLegendBuilder(org.jfree.chart3d.legend.LegendBuilder) 
-     * @see #setLegendAnchor(org.jfree.chart3d.util.Anchor2D) 
+     * @see #setLegendAnchor(Anchor2D) 
      */
     public LegendBuilder getLegendBuilder() {
         return this.legendBuilder;
@@ -597,7 +597,7 @@ public class Chart3D implements Drawable3D, ChartElement,
      * 
      * @param legendBuilder  the legend builder ({@code null} permitted).
      * 
-     * @see #setLegendAnchor(org.jfree.chart3d.util.Anchor2D) 
+     * @see #setLegendAnchor(Anchor2D)  
      */
     public void setLegendBuilder(LegendBuilder legendBuilder) {
         this.legendBuilder = legendBuilder;
@@ -609,7 +609,7 @@ public class Chart3D implements Drawable3D, ChartElement,
      * 
      * @return The legend anchor (never {@code null}).
      * 
-     * @see #setLegendAnchor(org.jfree.chart3d.util.Anchor2D) 
+     * @see #setLegendAnchor(Anchor2D) 
      */
     public Anchor2D getLegendAnchor() {
         return this.legendAnchor;
@@ -659,8 +659,8 @@ public class Chart3D implements Drawable3D, ChartElement,
      * Sets the legend position (both the anchor point and the orientation) and
      * sends a {@link Chart3DChangeEvent} to all registered listeners. 
      * This is a convenience method that calls both the 
-     * {@link #setLegendAnchor(org.jfree.chart3d.util.Anchor2D)} and 
-     * {@link #setLegendOrientation(org.jfree.chart3d.util.Orientation)}
+     * {@link #setLegendAnchor(Anchor2D)} and 
+     * {@link #setLegendOrientation(Orientation)}
      * methods.
      * 
      * @param anchor  the anchor ({@code null} not permitted).

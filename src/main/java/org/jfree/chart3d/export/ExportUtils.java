@@ -94,19 +94,9 @@ public class ExportUtils {
                     String.class);
             m2.invoke(svgUtilsClass, file, element);
             return info;
-        } catch (ClassNotFoundException ex) {
-            throw new RuntimeException(ex);
-        } catch (InstantiationException ex) {
-            throw new RuntimeException(ex);
-        } catch (IllegalAccessException ex) {
-            throw new RuntimeException(ex);
-        } catch (NoSuchMethodException ex) {
-            throw new RuntimeException(ex);
-        } catch (SecurityException ex) {
-            throw new RuntimeException(ex);
-        } catch (IllegalArgumentException ex) {
-            throw new RuntimeException(ex);
-        } catch (InvocationTargetException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+                | NoSuchMethodException | SecurityException | IllegalArgumentException
+                | InvocationTargetException ex) {
             throw new RuntimeException(ex);
         }
     }
@@ -125,11 +115,11 @@ public class ExportUtils {
      * 
      * @return The rendering info.
      */
-    public static final RenderingInfo writeAsPDF(Drawable3D drawable, 
-            int w, int h, File file) {
+    public static RenderingInfo writeAsPDF(Drawable3D drawable, int w, int h,
+                                           File file) {
         if (!ExportFormats.isJFreePDFAvailable()) {
             throw new IllegalStateException(
-                    "OrsonPDF is not present on the classpath.");
+                    "JFreePDF is not present on the classpath.");
         }
         Args.nullNotPermitted(drawable, "drawable");
         Args.nullNotPermitted(file, "file");
@@ -146,9 +136,7 @@ public class ExportUtils {
             Method m3 = pdfDocClass.getMethod("writeToFile", File.class);
             m3.invoke(pdfDoc, file);
             return info;
-        } catch (ClassNotFoundException ex) {
-            throw new RuntimeException(ex);
-        } catch (InstantiationException ex) {
+        } catch (ClassNotFoundException | InstantiationException ex) {
             throw new RuntimeException(ex);
         } catch (IllegalAccessException ex) {
             throw new RuntimeException(ex);

@@ -43,6 +43,6 @@ public enum MarkerDataType {
     VALUE,
     
     /** A value range. */
-    RANGE;
+    RANGE
 
 }

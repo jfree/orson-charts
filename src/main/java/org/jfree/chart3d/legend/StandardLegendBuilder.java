@@ -67,8 +67,7 @@ import org.jfree.chart3d.table.VerticalFlowElement;
  * to change in future releases and should not be relied upon for persisting 
  * instances of this class.
  */
-@SuppressWarnings("serial")
-public final class StandardLegendBuilder implements LegendBuilder, 
+public final class StandardLegendBuilder implements LegendBuilder,
         Serializable {
 
     /** An optional header/title for the legend (can be {@code null}). */
@@ -303,9 +302,9 @@ public final class StandardLegendBuilder implements LegendBuilder,
      * 
      * @param items  the items to be added to the legend ({@code null} 
      *     not permitted).
-     * @param plot  the plot ({@code null} not permitted).
      * @param anchor  the anchor point ({@code null} not permitted).
      * @param orientation  the orientation ({@code null} not permitted).
+     * @param style the chart style.
      * 
      * @return The simple legend.
      */
@@ -387,7 +386,7 @@ public final class StandardLegendBuilder implements LegendBuilder,
      * 
      * @param text  the legend item text ({@code null} not permitted).
      * @param font  the font ({@code null} not permitted).
-     * @param textcolor  the text color ({@code null} not permitted).
+     * @param textColor  the text color ({@code null} not permitted).
      * @param shape  the shape ({@code null} not permitted).
      * @param shapeColor  the shape color ({@code null} not permitted).
      * @param background  the background color ({@code null} not 

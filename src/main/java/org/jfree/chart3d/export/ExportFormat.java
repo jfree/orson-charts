@@ -52,6 +52,6 @@ public enum ExportFormat {
     PDF,
     
     /** The Scalable Vector Graphics format. */
-    SVG;
+    SVG
 
 }

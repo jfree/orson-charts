@@ -54,7 +54,7 @@ public class StandardFaceSorter implements FaceSorter, Serializable {
     
     @Override
     public List<Face> sort(List<Face> faces, Point3D[] eyePts) {
-        Collections.sort(faces, new ZOrderComparator(eyePts));
+        faces.sort(new ZOrderComparator(eyePts));
         return faces;
     }
     

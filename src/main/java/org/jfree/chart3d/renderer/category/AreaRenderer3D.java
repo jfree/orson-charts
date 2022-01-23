@@ -483,8 +483,6 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
      * @param x1
      * @param y1
      * @param z
-     * @param lineWidth
-     * @param lineHeight
      * @param ymin
      * @param ymax
      * @param color

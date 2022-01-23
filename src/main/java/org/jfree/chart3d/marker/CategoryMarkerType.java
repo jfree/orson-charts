@@ -43,6 +43,6 @@ public enum CategoryMarkerType {
     LINE,
     
     /** The marker is represented as a band covering the category width. */
-    BAND;
+    BAND
 
 }

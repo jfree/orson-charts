@@ -59,13 +59,7 @@ public class ZOrderComparator implements Comparator<Face> {
     public int compare(Face f1, Face f2) {
         double z1 = f1.calculateAverageZValue(this.pts);
         double z2 = f2.calculateAverageZValue(this.pts);
-        if (z1 > z2) {
-            return 1;
-        } else if (z2 > z1) {
-            return -1;
-        } else {
-            return 0;
-        }
+        return Double.compare(z1, z2);
     }
    
 }

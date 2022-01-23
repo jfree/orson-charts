@@ -562,23 +562,11 @@ public class JSONParser {
                 }
             } while(token.type != Yytoken.TYPE_EOF);
         }
-        catch (IOException ie) {
+        catch (IOException | ParseException | RuntimeException | Error ex) {
             status = S_IN_ERROR;
-            throw ie;
+            throw ex;
         }
-        catch (ParseException pe) {
-            status = S_IN_ERROR;
-            throw pe;
-        }
-        catch (RuntimeException re) {
-            status = S_IN_ERROR;
-            throw re;
-        }
-        catch (Error e) {
-            status = S_IN_ERROR;
-            throw e;
-        }
-        
+
         status = S_IN_ERROR;
         throw new ParseException(getPosition(), 
                 ParseException.ERROR_UNEXPECTED_TOKEN, token);
