@@ -2,7 +2,7 @@
  * Orson Charts : a 3D chart library for the Java(tm) platform
  * ===========================================================
  * 
- * Copyright 2013-2022, by David Gilbert. All rights reserved.
+ * Copyright 2013-present, by David Gilbert. All rights reserved.
  * 
  * https://github.com/jfree/orson-charts
  * 

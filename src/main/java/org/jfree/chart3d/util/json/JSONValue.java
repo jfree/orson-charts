@@ -2,7 +2,7 @@
  * Orson Charts
  * ============
  * 
- * (C)opyright 2013-2022, by David Gilbert.
+ * (C)opyright 2013-present, by David Gilbert.
  * 
  * https://github.com/jfree/orson-charts
  * 

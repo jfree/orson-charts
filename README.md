@@ -1,7 +1,7 @@
 Orson Charts
 ============
 
-(C)opyright 2013-2022, by David Gilbert.  All rights reserved.
+(C)opyright 2013-present, by David Gilbert.  All rights reserved.
 
 Version 2.1.0, 23 January 2022.
 
