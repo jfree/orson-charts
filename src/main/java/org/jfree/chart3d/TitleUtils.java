@@ -53,7 +53,7 @@ public class TitleUtils {
     /** The default foreground color for titles. */
     public static final Color DEFAULT_TITLE_COLOR = Color.BLACK;
     
-    /** The default sub-title font. */
+    /** The default subtitle font. */
     public static final Font DEFAULT_SUBTITLE_FONT = new Font("Dialog", 
             Font.PLAIN, 12);
     

@@ -221,7 +221,7 @@ public final class DefaultKeyedValues2D<R extends Comparable<R>, C extends Compa
     @Override
     public double getDoubleValue(int rowIndex, int columnIndex) {
         T n = getValue(rowIndex, columnIndex);
-        if (n != null && n instanceof Number) {
+        if (n instanceof Number) {
             return ((Number) n).doubleValue();
         }
         return Double.NaN;
@@ -262,9 +262,9 @@ public final class DefaultKeyedValues2D<R extends Comparable<R>, C extends Compa
                     dkvs.put(columnKey, n);
                 }
             } else {
+                this.rowKeys.add(rowKey);
                 if (columnIndex >= 0) {
                     // 4.  rowKey does not exist, but columnKey does
-                    this.rowKeys.add(rowKey);
                     DefaultKeyedValues<C, T> d = new DefaultKeyedValues<>(
                             this.columnKeys);
                     d.put(columnKey, n);
@@ -272,7 +272,6 @@ public final class DefaultKeyedValues2D<R extends Comparable<R>, C extends Compa
                 } else {
                     // 5.  neither key exists, need to create the new series, 
                     //     plus the new entry in every series
-                    this.rowKeys.add(rowKey);
                     this.columnKeys.add(columnKey);
                     for (DefaultKeyedValues<C, T> kv : this.data) {
                         kv.put(columnKey, null);

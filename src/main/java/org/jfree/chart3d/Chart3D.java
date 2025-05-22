@@ -130,7 +130,7 @@ import org.jfree.chart3d.table.TextElement;
  * PDF file).  
  * <br><br>
  * Charts can have simple titles or composite titles (anything that can be
- * constructed as a {@link TableElement} instance.  The {@link TitleUtils}
+ * constructed as a {@link TableElement} instance).  The {@link TitleUtils}
  * class contains methods to create a common title/subtitle composite title. 
  * This is illustrated in some of the demo applications.  The chart title
  * and legend (and also the axis labels) are not part of the 3D world model,
@@ -708,7 +708,7 @@ public class Chart3D implements Drawable3D, ChartElement,
     }
 
     /**
-     * Returns a flag that indicates whether anti-aliasing is used when
+     * Returns a flag that indicates whether antialiasing is used when
      * the chart is drawn.
      *
      * @return The flag.
@@ -722,10 +722,10 @@ public class Chart3D implements Drawable3D, ChartElement,
     }
 
     /**
-     * Sets a flag that indicates whether anti-aliasing is used when the
+     * Sets a flag that indicates whether antialiasing is used when the
      * chart is drawn.
      * <P>
-     * Anti-aliasing usually improves the appearance of charts, but is slower.
+     * Antialiasing usually improves the appearance of charts, but is slower.
      *
      * @param flag  the new value of the flag.
      *

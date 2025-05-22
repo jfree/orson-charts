@@ -92,7 +92,7 @@ public final class Chart3DHints {
                     return val == null || val instanceof String 
                             || val instanceof Map;
                 case 1:
-                    return val == null || val instanceof Object;
+                    return true;
                 default:
                     throw new RuntimeException("Not possible!");
             }

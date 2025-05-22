@@ -35,7 +35,7 @@ package org.jfree.chart3d.data;
 import java.util.List;
 
 /**
- * A two dimensional grid of data values where each value is uniquely 
+ * A two-dimensional grid of data values where each value is uniquely
  * identified by two keys (the {@code rowKey} and the 
  * {@code columnKey}).  Any instance of {@code Comparable} can be 
  * used as a key ({@code String} objects are instances of 

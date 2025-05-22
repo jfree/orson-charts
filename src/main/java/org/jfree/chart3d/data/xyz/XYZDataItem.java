@@ -125,12 +125,9 @@ public class XYZDataItem implements Serializable {
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 79 * hash + (int) (Double.doubleToLongBits(this.x) 
-                ^ (Double.doubleToLongBits(this.x) >>> 32));
-        hash = 79 * hash + (int) (Double.doubleToLongBits(this.y) 
-                ^ (Double.doubleToLongBits(this.y) >>> 32));
-        hash = 79 * hash + (int) (Double.doubleToLongBits(this.z) 
-                ^ (Double.doubleToLongBits(this.z) >>> 32));
+        hash = 79 * hash + Long.hashCode(Double.doubleToLongBits(this.x));
+        hash = 79 * hash + Long.hashCode(Double.doubleToLongBits(this.y));
+        hash = 79 * hash + Long.hashCode(Double.doubleToLongBits(this.z));
         return hash;
     }
 

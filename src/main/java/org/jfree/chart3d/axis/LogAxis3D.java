@@ -670,15 +670,12 @@ public class LogAxis3D extends AbstractValueAxis3D implements ValueAxis3D {
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 59 * hash + (int) (Double.doubleToLongBits(this.base) 
-                ^ (Double.doubleToLongBits(this.base) >>> 32));
-        hash = 59 * hash + (int) (Double.doubleToLongBits(this.smallestValue) 
-                ^ (Double.doubleToLongBits(this.smallestValue) >>> 32));
+        hash = 59 * hash + Long.hashCode(Double.doubleToLongBits(this.base));
+        hash = 59 * hash + Long.hashCode(Double.doubleToLongBits(this.smallestValue));
         hash = 59 * hash + ObjectUtils.hashCode(this.baseSymbol);
         hash = 59 * hash + ObjectUtils.hashCode(this.baseFormatter);
         hash = 59 * hash + ObjectUtils.hashCode(this.tickSelector);
-        hash = 59 * hash + (int) (Double.doubleToLongBits(this.tickSize) 
-                ^ (Double.doubleToLongBits(this.tickSize) >>> 32));
+        hash = 59 * hash + Long.hashCode(Double.doubleToLongBits(this.tickSize));
         hash = 59 * hash + ObjectUtils.hashCode(this.tickLabelFormatter);
         return hash;
     }

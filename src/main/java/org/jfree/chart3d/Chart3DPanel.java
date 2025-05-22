@@ -265,7 +265,7 @@ public class Chart3DPanel extends Panel3D implements Chart3DChangeListener,
         stream.defaultReadObject();
         // we create a new but empty chartMouseListeners list
         this.chartMouseListeners = new EventListenerList();
-        // register as a listener with sub-components...
+        // register as a listener with subcomponents...
         if (this.chart != null) {
             this.chart.addChangeListener(this);
         }

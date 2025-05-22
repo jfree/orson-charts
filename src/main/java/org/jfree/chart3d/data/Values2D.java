@@ -33,7 +33,7 @@
 package org.jfree.chart3d.data;
 
 /**
- * A generic representation of a two dimensional grid of data values.
+ * A generic representation of a two-dimensional grid of data values.
  * 
  * @param <T> the type of value stored in the grid.
  */

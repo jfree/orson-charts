@@ -136,17 +136,8 @@ public class ExportUtils {
             Method m3 = pdfDocClass.getMethod("writeToFile", File.class);
             m3.invoke(pdfDoc, file);
             return info;
-        } catch (ClassNotFoundException | InstantiationException ex) {
-            throw new RuntimeException(ex);
-        } catch (IllegalAccessException ex) {
-            throw new RuntimeException(ex);
-        } catch (NoSuchMethodException ex) {
-            throw new RuntimeException(ex);
-        } catch (SecurityException ex) {
-            throw new RuntimeException(ex);
-        } catch (IllegalArgumentException ex) {
-            throw new RuntimeException(ex);
-        } catch (InvocationTargetException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchMethodException |
+                 IllegalArgumentException | SecurityException | InvocationTargetException ex) {
             throw new RuntimeException(ex);
         }
     }
@@ -170,12 +161,8 @@ public class ExportUtils {
                 BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2 = image.createGraphics();
         RenderingInfo result = drawable.draw(g2, new Rectangle(w, h));
-        OutputStream out = new BufferedOutputStream(new FileOutputStream(file));
-        try {
+        try (OutputStream out = new BufferedOutputStream(new FileOutputStream(file))) {
             ImageIO.write(image, "png", out);
-        }
-        finally {
-            out.close();
         }
         return result;
     }
@@ -199,12 +186,8 @@ public class ExportUtils {
                 BufferedImage.TYPE_INT_RGB);
         Graphics2D g2 = image.createGraphics();
         RenderingInfo result = drawable.draw(g2, new Rectangle(w, h));
-        OutputStream out = new BufferedOutputStream(new FileOutputStream(file));
-        try {
+        try (OutputStream out = new BufferedOutputStream(new FileOutputStream(file))) {
             ImageIO.write(image, "jpg", out);
-        }
-        finally {
-            out.close();
         }
         return result;
     }

@@ -230,10 +230,8 @@ public class Range implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 43 * hash + (int) (Double.doubleToLongBits(this.min) 
-                ^ (Double.doubleToLongBits(this.min) >>> 32));
-        hash = 43 * hash + (int) (Double.doubleToLongBits(this.max) 
-                ^ (Double.doubleToLongBits(this.max) >>> 32));
+        hash = 43 * hash + Long.hashCode(Double.doubleToLongBits(this.min));
+        hash = 43 * hash + Long.hashCode(Double.doubleToLongBits(this.max));
         return hash;
     }
     

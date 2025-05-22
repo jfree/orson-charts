@@ -227,7 +227,7 @@ public final class DefaultKeyedValues<K extends Comparable<K>, T>
     @Override
     public double getDoubleValue(int item) {  
         T n = getValue(item);
-        if (n != null && n instanceof Number) {
+        if (n instanceof Number) {
             return ((Number) n).doubleValue();
         }
         return Double.NaN;

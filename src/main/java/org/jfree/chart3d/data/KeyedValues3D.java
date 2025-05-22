@@ -35,7 +35,7 @@ package org.jfree.chart3d.data;
 import java.util.List;
 
 /**
- * A three dimensional cube of data values where each value is uniquely 
+ * A three-dimensional cube of data values where each value is uniquely
  * identified by three keys (the {@code seriesKey}, {@code rowKey} 
  * and {@code columnKey}).
  * 

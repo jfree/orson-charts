@@ -249,7 +249,7 @@ public final class DefaultKeyedValues3D<S extends Comparable<S>, R extends Compa
     public double getDoubleValue(int seriesIndex, int rowIndex, 
             int columnIndex) {
         V n = getValue(seriesIndex, rowIndex, columnIndex);
-        if (n != null && n instanceof Number) {
+        if (n instanceof Number) {
             return ((Number) n).doubleValue();
         }
         return Double.NaN;

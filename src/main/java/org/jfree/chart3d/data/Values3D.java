@@ -33,11 +33,11 @@
 package org.jfree.chart3d.data;
 
 /**
- * A generic representation of a three dimensional grid (cube) of data values.
+ * A generic representation of a three-dimensional grid (cube) of data values.
  * We refer to the indices in the three dimensions as the 
  * {@code seriesIndex}, the {@code rowIndex} and the 
  * {@code columnIndex} (to match the downstream use of this data
- * structure to represent data values in a three dimensional plot).
+ * structure to represent data values in a three-dimensional plot).
  * 
  * @param <T> The value type (normally a numeric type).
  * 

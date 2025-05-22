@@ -50,7 +50,7 @@ import org.jfree.chart3d.internal.Args;
 public class Chart3DChangeEvent extends EventObject {
 
     /** The chart that is the source of the event. */
-    private Chart3D chart;
+    private final Chart3D chart;
   
     /**
      * Creates a new event.

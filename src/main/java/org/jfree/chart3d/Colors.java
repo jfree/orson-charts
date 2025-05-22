@@ -474,7 +474,7 @@ public class Colors {
     } 
 
     /**
-     * Returns a newly created array containing 9 colors from the the 
+     * Returns a newly created array containing 9 colors from the
      * ColorBrewer tool.  This is a high-contrast set of colors, good for
      * pie charts.
      * 
@@ -497,7 +497,7 @@ public class Colors {
     }
   
     /**
-     * Returns a newly created array containing 12 colors from the the 
+     * Returns a newly created array containing 12 colors from the
      * ColorBrewer tool.
      * 
      * http://colorbrewer2.org/?type=qualitative&amp;scheme=Paired&amp;n=12
@@ -522,7 +522,7 @@ public class Colors {
     }
     
     /**
-     * Returns a newly created array containing 11 colors from the the 
+     * Returns a newly created array containing 11 colors from the
      * ColorBrewer tool.  Good for pie charts and bar charts, not so good for 
      * scatter plots.
      * 
