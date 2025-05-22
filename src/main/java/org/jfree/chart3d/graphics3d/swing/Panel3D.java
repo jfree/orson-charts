@@ -68,7 +68,6 @@ import org.jfree.chart3d.graphics3d.ViewPoint3D;
  * to change in future releases and should not be relied upon for persisting 
  * instances of this class. 
  */
-@SuppressWarnings("serial")
 public class Panel3D extends JPanel implements MouseListener, 
         MouseMotionListener, MouseWheelListener {
   
@@ -324,7 +323,7 @@ public class Panel3D extends JPanel implements MouseListener,
     /**
      * Adjusts the viewing distance so that the chart fits the current panel
      * size.  A margin is left (see {@link #getMargin()} around the edges to 
-     * leave room for labels etc.
+     * leave room for labels etc.)
      */
     public void zoomToFit() {
         zoomToFit(getSize());
@@ -333,7 +332,7 @@ public class Panel3D extends JPanel implements MouseListener,
     /**
      * Adjusts the viewing distance so that the chart fits the specified
      * size.  A margin is left (see {@link #getMargin()} around the edges to 
-     * leave room for labels etc.
+     * leave room for labels etc.)
      * 
      * @param size  the target size ({@code null} not permitted).
      */    
@@ -434,15 +433,14 @@ public class Panel3D extends JPanel implements MouseListener,
      */
     @Override
     public void mouseDragged(MouseEvent e) {
+        Point currPt = e.getPoint();
         if (e.isAltDown()) {
-            Point currPt = e.getPoint();
             Offset2D offset = this.offsetAtMousePressed;
             Point lastPt = getLastClickPoint();
             double dx = offset.getDX() + (currPt.x - lastPt.x);
             double dy = offset.getDY() + (currPt.y - lastPt.y);
             this.drawable.setTranslate2D(new Offset2D(dx, dy));
         } else {
-            Point currPt = e.getPoint();
             int dx = currPt.x - this.lastMovePoint.x;
             int dy = currPt.y - this.lastMovePoint.y;
             this.lastMovePoint = currPt;
@@ -490,6 +488,7 @@ public class Panel3D extends JPanel implements MouseListener,
      * 
      * @deprecated Use ExportUtils.writeAsPDF() directly.
      */
+    @Deprecated
     void writeAsPDF(File file, int w, int h) {
         ExportUtils.writeAsPDF(drawable, w, h, file);
     }
@@ -506,6 +505,7 @@ public class Panel3D extends JPanel implements MouseListener,
      * 
      * @deprecated Use ExportUtils.writeAsPDF() directly.
      */
+    @Deprecated
     void writeAsSVG(File file, int w, int h) {
         ExportUtils.writeAsSVG(this.drawable, w, h, file);
     }

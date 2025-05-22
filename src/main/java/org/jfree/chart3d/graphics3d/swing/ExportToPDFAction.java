@@ -40,6 +40,7 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.jfree.chart3d.Resources;
+import org.jfree.chart3d.export.ExportUtils;
 import org.jfree.chart3d.internal.Args;
 
 /**
@@ -87,8 +88,8 @@ public class ExportToPDFAction extends AbstractAction {
             if (!filename.endsWith(".pdf")) {
                 filename = filename + ".pdf";
             }
-            this.panel.writeAsPDF(new File(filename), this.panel.getWidth(), 
-                    this.panel.getHeight());
+            ExportUtils.writeAsPDF(this.panel.getDrawable(), this.panel.getWidth(),
+                    this.panel.getHeight(), new File(filename));
         }
     }
     

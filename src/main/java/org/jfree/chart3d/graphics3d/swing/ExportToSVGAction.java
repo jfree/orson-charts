@@ -40,6 +40,7 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.jfree.chart3d.Resources;
+import org.jfree.chart3d.export.ExportUtils;
 import org.jfree.chart3d.internal.Args;
 
 /**
@@ -87,8 +88,8 @@ public class ExportToSVGAction extends AbstractAction {
             if (!filename.endsWith(".svg")) {
                 filename = filename + ".svg";
             }
-            this.panel.writeAsSVG(new File(filename), this.panel.getWidth(), 
-                    this.panel.getHeight());
+            ExportUtils.writeAsSVG(this.panel.getDrawable(), this.panel.getWidth(),
+                    this.panel.getHeight(), new File(filename));
         }
     }
     
