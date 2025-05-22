@@ -23,11 +23,10 @@
  * Other names may be trademarks of their respective owners.]
  * 
  * If you do not wish to be bound by the terms of the GPL, an alternative
- * commercial license can be purchased.  For details, please see visit the
- * Orson Charts home page:
- * 
- * http://www.object-refinery.com/orsoncharts/index.html
- * 
+ * license is available to sponsors (higher tiers only) of the JFree projects.
+ * For details, please see visit:
+ *
+ * https://github.com/sponsors/jfree
  */
 
 package org.jfree.chart3d.axis;
