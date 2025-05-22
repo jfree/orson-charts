@@ -53,7 +53,7 @@ public class Axis3DChangeEvent extends EventObject {
     private Axis3D axis;
   
     /** 
-     * A flag indicating whether or not the change requires the 3D world to 
+     * A flag indicating whether the change requires the 3D world to 
      * be updated.
      */
     private boolean requiresWorldUpdate;
@@ -62,7 +62,7 @@ public class Axis3DChangeEvent extends EventObject {
      * Creates a new event.
      * 
      * @param axis  the axis ({@code null} not permitted).
-     * @param requiresWorldUpdate  a flag indicating whether or not this change
+     * @param requiresWorldUpdate  a flag indicating whether this change
      *     requires the 3D world to be updated.
      */
     public Axis3DChangeEvent(Axis3D axis, boolean requiresWorldUpdate) {
@@ -74,7 +74,7 @@ public class Axis3DChangeEvent extends EventObject {
      * 
      * @param source  the event source.
      * @param axis  the axis ({@code null} not permitted).
-     * @param requiresWorldUpdate  a flag indicating whether or not this change
+     * @param requiresWorldUpdate  a flag indicating whether this change
      *     requires the 3D world to be updated.
      */
     public Axis3DChangeEvent(Object source, Axis3D axis, 
@@ -95,7 +95,7 @@ public class Axis3DChangeEvent extends EventObject {
     }
 
     /**
-     * Returns the flag that indicates whether or not this change will require
+     * Returns the flag that indicates whether this change will require
      * the 3D world to be updated.
      * 
      * @return A boolean.

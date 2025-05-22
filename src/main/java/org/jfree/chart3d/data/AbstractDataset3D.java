@@ -46,7 +46,7 @@ public class AbstractDataset3D implements Dataset3D {
     private final transient EventListenerList listenerList; 
   
     /**
-     * A flag that controls whether or not the dataset will notify listeners
+     * A flag that controls whether the dataset will notify listeners
      * of changes (defaults to {@code true}, but sometimes it is useful 
      * to disable this).
      */
@@ -62,7 +62,7 @@ public class AbstractDataset3D implements Dataset3D {
     }
   
     /**
-     * Returns a flag that controls whether or not change events are sent to
+     * Returns a flag that controls whether change events are sent to
      * registered listeners.
      *
      * @return A boolean.
@@ -74,7 +74,7 @@ public class AbstractDataset3D implements Dataset3D {
     }
 
     /**
-     * Sets a flag that controls whether or not listeners receive
+     * Sets a flag that controls whether listeners receive
      * {@link Dataset3DChangeEvent} notifications.
      *
      * @param notify  a boolean.

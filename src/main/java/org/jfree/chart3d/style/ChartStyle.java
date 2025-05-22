@@ -107,7 +107,7 @@ public interface ChartStyle {
     Color getChartBoxColor();
     
     /**
-     * Returns the flag that controls whether or not gridlines are drawn 
+     * Returns the flag that controls whether gridlines are drawn 
      * perpendicular to the column axis in category plots.
      * 
      * @return A boolean. 
@@ -115,7 +115,7 @@ public interface ChartStyle {
     boolean getColumnAxisGridlinesVisible();
     
     /**
-     * Returns the flag that controls whether or not gridlines are drawn 
+     * Returns the flag that controls whether gridlines are drawn 
      * perpendicular to the row axis in category plots.
      * 
      * @return A boolean. 
@@ -123,7 +123,7 @@ public interface ChartStyle {
     boolean getRowAxisGridlinesVisible();
 
     /**
-     * Returns the flag that controls whether or not gridlines are drawn 
+     * Returns the flag that controls whether gridlines are drawn 
      * perpendicular to the x-axis (or column axis).
      * 
      * @return A boolean. 
@@ -131,7 +131,7 @@ public interface ChartStyle {
     boolean getXAxisGridlinesVisible();
     
     /**
-     * Returns the flag that controls whether or not gridlines are drawn 
+     * Returns the flag that controls whether gridlines are drawn 
      * perpendicular to the y-axis (or value axis).
      * 
      * @return A boolean. 
@@ -139,7 +139,7 @@ public interface ChartStyle {
     boolean getYAxisGridlinesVisible();
     
     /**
-     * Returns the flag that controls whether or not gridlines are drawn 
+     * Returns the flag that controls whether gridlines are drawn 
      * perpendicular to the z-axis (or row axis).
      * 
      * @return A boolean. 

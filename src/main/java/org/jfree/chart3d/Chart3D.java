@@ -217,7 +217,7 @@ public class Chart3D implements Drawable3D, ChartElement,
     private transient EventListenerList listenerList;
 
     /**
-     * A flag that controls whether or not the chart will notify listeners
+     * A flag that controls whether the chart will notify listeners
      * of changes (defaults to {@code true}, but sometimes it is useful 
      * to disable this).
      */
@@ -245,7 +245,7 @@ public class Chart3D implements Drawable3D, ChartElement,
     private FaceSorter faceSorter;
 
     /**
-     * A flag that controls whether or not element hints are added to the
+     * A flag that controls whether element hints are added to the
      * {@code Graphics2D} output.
      */
     private boolean elementHinting;
@@ -708,7 +708,7 @@ public class Chart3D implements Drawable3D, ChartElement,
     }
 
     /**
-     * Returns a flag that indicates whether or not anti-aliasing is used when
+     * Returns a flag that indicates whether anti-aliasing is used when
      * the chart is drawn.
      *
      * @return The flag.
@@ -722,7 +722,7 @@ public class Chart3D implements Drawable3D, ChartElement,
     }
 
     /**
-     * Sets a flag that indicates whether or not anti-aliasing is used when the
+     * Sets a flag that indicates whether anti-aliasing is used when the
      * chart is drawn.
      * <P>
      * Anti-aliasing usually improves the appearance of charts, but is slower.
@@ -744,7 +744,7 @@ public class Chart3D implements Drawable3D, ChartElement,
     }
  
     /**
-     * Returns the flag that controls whether or not element hints will be
+     * Returns the flag that controls whether element hints will be
      * added to the {@code Graphics2D} output when the chart is rendered.
      * The default value is {@code false}.
      * 
@@ -757,7 +757,7 @@ public class Chart3D implements Drawable3D, ChartElement,
     }
     
     /**
-     * Sets the flag that controls whether or not element hints will be
+     * Sets the flag that controls whether element hints will be
      * added to the {@code Graphics2D} output when the chart is rendered
      * and sends a change event to all registered listeners.
      * 
@@ -1999,7 +1999,7 @@ public class Chart3D implements Drawable3D, ChartElement,
     }
   
     /**
-     * Returns a flag that controls whether or not change events are sent to
+     * Returns a flag that controls whether change events are sent to
      * registered listeners.
      * 
      * @return A boolean.
@@ -2011,7 +2011,7 @@ public class Chart3D implements Drawable3D, ChartElement,
     }
 
     /**
-     * Sets a flag that controls whether or not listeners receive
+     * Sets a flag that controls whether listeners receive
      * {@link Chart3DChangeEvent} notifications.
      *
      * @param notify  a boolean.

@@ -307,7 +307,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
     }
 
     /**
-     * Returns the flag that controls whether or not gridlines are shown for
+     * Returns the flag that controls whether gridlines are shown for
      * the x-axis.
      * 
      * @return A boolean. 
@@ -317,7 +317,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
     }
 
     /**
-     * Sets the flag that controls whether or not gridlines are shown for the
+     * Sets the flag that controls whether gridlines are shown for the
      * x-axis and sends a {@link Plot3DChangeEvent} to all registered
      * listeners.
      * 
@@ -371,7 +371,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
     }
 
     /**
-     * Returns the flag that controls whether or not gridlines are shown for
+     * Returns the flag that controls whether gridlines are shown for
      * the y-axis.
      * 
      * @return A boolean. 
@@ -381,7 +381,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
     }
     
     /**
-     * Sets the flag that controls whether or not gridlines are shown for the
+     * Sets the flag that controls whether gridlines are shown for the
      * y-axis and sends a {@link Plot3DChangeEvent} to all registered
      * listeners.
      * 
@@ -435,7 +435,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
     }
 
     /**
-     * Returns the flag that controls whether or not gridlines are shown for
+     * Returns the flag that controls whether gridlines are shown for
      * the z-axis.
      * 
      * @return A boolean. 
@@ -445,7 +445,7 @@ public class XYZPlot extends AbstractPlot3D implements Dataset3DChangeListener,
     }
     
     /**
-     * Sets the flag that controls whether or not gridlines are shown for the
+     * Sets the flag that controls whether gridlines are shown for the
      * z-axis and sends a {@link Plot3DChangeEvent} to all registered
      * listeners.
      * 

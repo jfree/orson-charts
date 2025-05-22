@@ -72,7 +72,7 @@ public class ColorScaleLegendBuilder implements LegendBuilder, Serializable {
     private double barLength;
     
     /** 
-     * A flag to determine whether or not FixedColorScale is ignored (defaults 
+     * A flag to determine whether FixedColorScale is ignored (defaults 
      * to {@code true}). 
      */
     private boolean ignoreFixedColorScale;
@@ -123,7 +123,7 @@ public class ColorScaleLegendBuilder implements LegendBuilder, Serializable {
     }
     
     /**
-     * Returns the flag that controls whether or not a {@link FixedColorScale}
+     * Returns the flag that controls whether a {@link FixedColorScale}
      * will be ignored for the purposes of generating a legend.
      * 
      * @return A boolean. 
@@ -133,7 +133,7 @@ public class ColorScaleLegendBuilder implements LegendBuilder, Serializable {
     }
     
     /**
-     * Sets the flag that controls whether or not a {@link FixedColorScale}
+     * Sets the flag that controls whether a {@link FixedColorScale}
      * will be ignored for the purposes of generating a legend.
      * 
      * @param ignore  the new flag value. 

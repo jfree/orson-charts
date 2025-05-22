@@ -62,7 +62,7 @@ public abstract class AbstractRenderer3D implements Renderer3D, Serializable {
     private final transient EventListenerList listenerList;
 
     /**
-     * A flag that controls whether or not the renderer will notify listeners
+     * A flag that controls whether the renderer will notify listeners
      * of changes (defaults to {@code true}, but sometimes it is useful 
      * to disable this).
      */
@@ -185,7 +185,7 @@ public abstract class AbstractRenderer3D implements Renderer3D, Serializable {
     }
 
     /**
-     * Returns a flag that controls whether or not change events are sent to
+     * Returns a flag that controls whether change events are sent to
      * registered listeners.
      *
      * @return A boolean.
@@ -197,7 +197,7 @@ public abstract class AbstractRenderer3D implements Renderer3D, Serializable {
     }
 
     /**
-     * Sets a flag that controls whether or not listeners receive
+     * Sets a flag that controls whether listeners receive
      * {@link Renderer3DChangeEvent} notifications.
      *
      * @param notify  a boolean.
@@ -274,7 +274,7 @@ public abstract class AbstractRenderer3D implements Renderer3D, Serializable {
     /**
      * Sends a {@link Renderer3DChangeEvent} to all registered listeners.
      * 
-     * @param requiresWorldUpdate  a flag indicating whether or not the change
+     * @param requiresWorldUpdate  a flag indicating whether the change
      *     requires the 3D world to be updated.
      */
     protected void fireChangeEvent(boolean requiresWorldUpdate) {

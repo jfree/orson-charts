@@ -47,7 +47,7 @@ import org.jfree.chart3d.graphics3d.RenderingInfo;
 public interface Axis3D extends ChartElement {
 
     /**
-     * Returns the flag that determines whether or not the axis is drawn 
+     * Returns the flag that determines whether the axis is drawn 
      * on the chart.
      * 
      * @return A boolean.
@@ -57,7 +57,7 @@ public interface Axis3D extends ChartElement {
     boolean isVisible();
     
     /**
-     * Sets the flag that determines whether or not the axis is drawn on the
+     * Sets the flag that determines whether the axis is drawn on the
      * chart and sends an {@link Axis3DChangeEvent} to all registered listeners.
      * 
      * @param visible  the flag.
@@ -162,7 +162,7 @@ public interface Axis3D extends ChartElement {
     void setRange(double min, double max);
     
     /**
-     * Returns the flag that determines whether or not the order of values on 
+     * Returns the flag that determines whether the order of values on 
      * the axis is inverted.  The default value is {@code false}.
      * 
      * @return A boolean.
@@ -172,7 +172,7 @@ public interface Axis3D extends ChartElement {
     boolean isInverted();
     
     /**
-     * Sets the flag that determines whether or not the order of values on the
+     * Sets the flag that determines whether the order of values on the
      * axis is inverted, and sends an {@link Axis3DChangeEvent} to all 
      * registered listeners.
      * 
@@ -208,7 +208,7 @@ public interface Axis3D extends ChartElement {
      *     permitted).
      * @param info  an object to be populated with rendering info 
      *     ({@code null} permitted).
-     * @param hinting  a flag that controls whether or not element hinting 
+     * @param hinting  a flag that controls whether element hinting 
      *     should be performed.
      * 
      * @since 1.3

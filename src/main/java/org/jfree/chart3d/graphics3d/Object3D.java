@@ -84,7 +84,7 @@ public class Object3D {
     private Color color;
     
     /** 
-     * A flag that indicates whether or not faces for this object have their
+     * A flag that indicates whether faces for this object have their
      * outlines drawn (that is, the shape is filled then drawn versus just 
      * filled only).
      */

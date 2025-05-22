@@ -56,7 +56,7 @@ public class Renderer3DChangeEvent extends EventObject {
      * Creates a new change event.
      * 
      * @param renderer  the renderer that changed ({@code null} not permitted). 
-     * @param requiresWorldUpdate  a flag indicating whether or not the change
+     * @param requiresWorldUpdate  a flag indicating whether the change
      *     requires the 3D world to be updated.
      */
     public Renderer3DChangeEvent(Renderer3D renderer, 
@@ -69,7 +69,7 @@ public class Renderer3DChangeEvent extends EventObject {
      * 
      * @param source  the source.
      * @param renderer  the renderer.
-     * @param requiresWorldUpdate  a flag indicating whether or not the change
+     * @param requiresWorldUpdate  a flag indicating whether the change
      *     requires the 3D world to be updated.
      */
     public Renderer3DChangeEvent(Object source, Renderer3D renderer,
@@ -89,7 +89,7 @@ public class Renderer3DChangeEvent extends EventObject {
     }
 
     /**
-     * Returns the flag that indicates whether or not this change will require
+     * Returns the flag that indicates whether this change will require
      * the 3D world to be updated.
      * 
      * @return A boolean.

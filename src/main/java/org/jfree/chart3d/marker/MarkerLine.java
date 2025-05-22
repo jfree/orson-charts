@@ -45,7 +45,7 @@ public class MarkerLine {
     private double pos;
 
     /** 
-     * A flag indicating whether or not the line is pegged at the boundary of
+     * A flag indicating whether the line is pegged at the boundary of
      * the axis.  If the line is pegged, then it is not drawn (since it lies
      * outside the visible range of the chart.
      */
@@ -67,7 +67,7 @@ public class MarkerLine {
      * Creates a new marker line.
      * 
      * @param pos  the relative position (in the range 0.0 to 1.0). 
-     * @param pegged  a flag indicating whether or not the line has been
+     * @param pegged  a flag indicating whether the line has been
      *     pegged to the end of the range.
      */
     public MarkerLine(double pos, boolean pegged) {
@@ -78,7 +78,7 @@ public class MarkerLine {
      * Creates a new marker line with vertex indices.
      * 
      * @param pos  the relative position (in the range 0.0 to 1.0). 
-     * @param pegged  a flag indicating whether or not the line has been
+     * @param pegged  a flag indicating whether the line has been
      *     pegged to the end of the range.
      * @param v0  the index of the first vertex.
      * @param v1  the index of the second vertex.

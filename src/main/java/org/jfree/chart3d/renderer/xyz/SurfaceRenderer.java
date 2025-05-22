@@ -202,7 +202,7 @@ public class SurfaceRenderer extends AbstractXYZRenderer implements XYZRenderer,
     }
     
     /**
-     * Returns the flag that controls whether or not the faces that make
+     * Returns the flag that controls whether the faces that make
      * up the surface have their outlines drawn during rendering.  The
      * default value is {@code true}.  
      * 
@@ -213,7 +213,7 @@ public class SurfaceRenderer extends AbstractXYZRenderer implements XYZRenderer,
     }
     
     /**
-     * Sets a flag that controls whether or not the faces that make up the 
+     * Sets a flag that controls whether the faces that make up the 
      * surface are drawn (as well as filled) and sends a 
      * {@link Renderer3DChangeEvent} to all registered listeners.  If the face 
      * outlines are drawn (the default), the surface is solid (but takes longer

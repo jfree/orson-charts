@@ -131,7 +131,7 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
      */
     public static final Color DEFAULT_LINE_COLOR = Color.GRAY;
     
-    /** A flag that determines whether or not the axis will be drawn. */
+    /** A flag that determines whether the axis will be drawn. */
     private boolean visible;
     
     /** The axis label (if {@code null}, no label is displayed). */
@@ -185,7 +185,7 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
     }
 
     /**
-     * Returns the flag that determines whether or not the axis is drawn 
+     * Returns the flag that determines whether the axis is drawn 
      * on the chart.
      * 
      * @return A boolean.
@@ -198,7 +198,7 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
     }
     
     /**
-     * Sets the flag that determines whether or not the axis is drawn on the
+     * Sets the flag that determines whether the axis is drawn on the
      * chart and sends an {@link Axis3DChangeEvent} to all registered listeners.
      * 
      * @param visible  the flag.
@@ -352,7 +352,7 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
     }
 
     /**
-     * Returns the flag that controls whether or not the tick labels are
+     * Returns the flag that controls whether the tick labels are
      * drawn.  The default value is {@code true}.
      * 
      * @return A boolean.
@@ -362,7 +362,7 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
     }
     
     /**
-     * Sets the flag that controls whether or not the tick labels are drawn,
+     * Sets the flag that controls whether the tick labels are drawn,
      * and sends a change event to all registered listeners.  You should think
      * carefully before setting this flag to {@code false}, because if 
      * the tick labels are not shown it will be hard for the reader to 
@@ -518,7 +518,7 @@ public abstract class AbstractAxis3D implements Axis3D, MarkerChangeListener,
      *     permitted).
      * @param info  an object to be populated with rendering info 
      *     ({@code null} permitted).
-     * @param hinting  a flag that controls whether or not element hinting 
+     * @param hinting  a flag that controls whether element hinting 
      *     should be performed.
      */
     @Override

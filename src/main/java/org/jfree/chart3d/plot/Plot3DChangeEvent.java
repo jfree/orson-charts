@@ -65,7 +65,7 @@ public class Plot3DChangeEvent extends EventObject {
      * 
      * @param source  the event source ({@code null} not permitted).
      * @param plot  the plot ({@code null} not permitted).
-     * @param requiresWorldUpdate  a flag that indicates whether or not the 
+     * @param requiresWorldUpdate  a flag that indicates whether the 
      *     world requires updating because of this change.
      */
     public Plot3DChangeEvent(Object source, Plot3D plot, 
@@ -86,7 +86,7 @@ public class Plot3DChangeEvent extends EventObject {
     }
     
     /**
-     * Returns the flag indicating whether or not this change event
+     * Returns the flag indicating whether this change event
      * requires the world to be updated/recreated.
      * 
      * @return A boolean.

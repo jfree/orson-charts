@@ -108,7 +108,7 @@ public interface CategoryAxis3D extends Axis3D {
      * as the row axis).  The dataset is passed as an argument to provide the 
      * opportunity to incorporate dataset-specific info into tick labels (for 
      * example, a row label might show the total for that row in the dataset)
-     * ---whether or not this is used depends on the axis implementation.
+     * ---whether this is used depends on the axis implementation.
      * 
      * @param dataset  the dataset ({@code null} not permitted).
      * 
@@ -123,7 +123,7 @@ public interface CategoryAxis3D extends Axis3D {
      * as the row axis).  The dataset is passed as an argument to provide the 
      * opportunity to incorporate dataset-specific info into tick labels (for 
      * example, a row label might show the total for that row in the dataset)
-     * ---whether or not this is used depends on the axis implementation.
+     * ---whether this is used depends on the axis implementation.
      * 
      * @param dataset  the dataset ({@code null} not permitted).
      * 

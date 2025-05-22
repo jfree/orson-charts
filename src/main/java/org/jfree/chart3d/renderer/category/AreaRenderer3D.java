@@ -103,7 +103,7 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
     private CategoryColorSource clipColorSource;
 
     /** 
-     * A flag that controls whether or not outlines are drawn for the faces 
+     * A flag that controls whether outlines are drawn for the faces 
      * making up the area segments. 
      */
     private boolean drawFaceOutlines;
@@ -215,7 +215,7 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
     }
     
     /**
-     * Returns the flag that controls whether or not the faces making up area
+     * Returns the flag that controls whether the faces making up area
      * segments will be drawn with outlines.  The default value is 
      * {@code true}.  When anti-aliasing is on, the fill area for the 
      * faces will have some gray shades around the edges, and these will show
@@ -234,7 +234,7 @@ public class AreaRenderer3D extends AbstractCategoryRenderer3D
     }
     
     /**
-     * Sets the flag that controls whether or not outlines are drawn for the
+     * Sets the flag that controls whether outlines are drawn for the
      * faces making up the area segments and sends a change event to all
      * registered listeners.
      * 

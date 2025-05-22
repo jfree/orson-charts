@@ -79,7 +79,7 @@ public abstract class AbstractPlot3D implements Plot3D,
     protected Dimension3D dimensions;
   
     /**
-     * A flag that controls whether or not the plot dimensions (in the 3D
+     * A flag that controls whether the plot dimensions (in the 3D
      * model) are adjusted automatically.
      */
     protected boolean autoAdjustDimensions;
@@ -88,7 +88,7 @@ public abstract class AbstractPlot3D implements Plot3D,
     private transient EventListenerList listenerList;
 
     /**
-     * A flag that controls whether or not the plot will notify listeners
+     * A flag that controls whether the plot will notify listeners
      * of changes (defaults to {@code true}, but sometimes it is useful 
      * to disable this).
      */
@@ -144,7 +144,7 @@ public abstract class AbstractPlot3D implements Plot3D,
     }
 
     /**
-     * Returns the flag that controls whether or not the plot dimensions are
+     * Returns the flag that controls whether the plot dimensions are
      * auto-adjusted when the dataset changes.  Certain subclasses will allow
      * this flag to be changed ({@link CategoryPlot3D} and {@link XYZPlot}) 
      * while others will always auto-adjust the dimensions ({@link PiePlot3D}).
@@ -201,7 +201,7 @@ public abstract class AbstractPlot3D implements Plot3D,
     }
  
     /**
-     * Returns a flag that controls whether or not change events are sent to
+     * Returns a flag that controls whether change events are sent to
      * registered listeners.
      *
      * @return A boolean.
@@ -213,7 +213,7 @@ public abstract class AbstractPlot3D implements Plot3D,
     }
 
     /**
-     * Sets a flag that controls whether or not listeners receive
+     * Sets a flag that controls whether listeners receive
      * {@link Plot3DChangeEvent} notifications.
      *
      * @param notify  a boolean.

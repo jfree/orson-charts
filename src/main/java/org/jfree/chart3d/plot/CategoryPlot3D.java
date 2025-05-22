@@ -398,7 +398,7 @@ public class CategoryPlot3D extends AbstractPlot3D
     }
 
     /**
-     * Sets the flag that controls whether or not gridlines are shown for the
+     * Sets the flag that controls whether gridlines are shown for the
      * row axis and sends a {@link Plot3DChangeEvent} to all registered
      * listeners.
      *
@@ -466,7 +466,7 @@ public class CategoryPlot3D extends AbstractPlot3D
     }
 
     /**
-     * Sets the flag that controls whether or not gridlines are shown for the
+     * Sets the flag that controls whether gridlines are shown for the
      * column axis and sends a {@link Plot3DChangeEvent} to all registered
      * listeners.
      *
@@ -488,7 +488,7 @@ public class CategoryPlot3D extends AbstractPlot3D
     }
 
     /**
-     * Sets the flag that controls whether or not gridlines are shown for the
+     * Sets the flag that controls whether gridlines are shown for the
      * value axis and sends a {@link Plot3DChangeEvent} to all registered
      * listeners.
      *

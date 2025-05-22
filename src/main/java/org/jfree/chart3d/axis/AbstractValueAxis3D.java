@@ -78,7 +78,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
     private boolean inverted;
     
     /** 
-     * A flag that controls whether or not the axis range is automatically
+     * A flag that controls whether the axis range is automatically
      * adjusted to display all of the data items in the dataset.
      */
     private boolean autoAdjustRange;
@@ -240,7 +240,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
     }
 
     /**
-     * Returns the flag that controls whether or not the axis range is 
+     * Returns the flag that controls whether the axis range is 
      * automatically updated in response to dataset changes.  The default 
      * value is {@code true}.
      * 
@@ -251,7 +251,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
     }
     
     /**
-     * Sets the flag that controls whether or not the axis range is 
+     * Sets the flag that controls whether the axis range is 
      * automatically updated in response to dataset changes, and sends an
      * {@link Axis3DChangeEvent} to all registered listeners.
      * 
@@ -373,7 +373,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
     }
 
     /**
-     * Returns the flag that determines whether or not the order of values on 
+     * Returns the flag that determines whether the order of values on 
      * the axis is inverted.  The default value is {@code false}.
      * 
      * @return A boolean.
@@ -386,7 +386,7 @@ public abstract class AbstractValueAxis3D extends AbstractAxis3D
     }
     
     /**
-     * Sets the flag that determines whether or not the order of values on the
+     * Sets the flag that determines whether the order of values on the
      * axis is inverted, and sends an {@link Axis3DChangeEvent} to all 
      * registered listeners.
      * 

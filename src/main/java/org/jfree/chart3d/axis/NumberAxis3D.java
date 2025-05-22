@@ -78,7 +78,7 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
     private static final Format DEFAULT_TICK_LABEL_FORMATTER = new DecimalFormat("0.00");
 
     /** 
-     * A flag indicating whether or not the auto-range calculation should
+     * A flag indicating whether the auto-range calculation should
      * include zero.
      */
     private boolean autoRangeIncludesZero;
@@ -130,7 +130,7 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
     }
       
     /**
-     * Returns the flag that determines whether or not the auto range 
+     * Returns the flag that determines whether the auto range 
      * mechanism should force zero to be included in the range.  The default
      * value is {@code false}.
      * 
@@ -141,7 +141,7 @@ public class NumberAxis3D extends AbstractValueAxis3D implements ValueAxis3D,
     }
     
     /**
-     * Sets the flag that controls whether or not the auto range mechanism 
+     * Sets the flag that controls whether the auto range mechanism 
      * should force zero to be included in the axis range, and sends an
      * {@link Axis3DChangeEvent} to all registered listeners.
      * 

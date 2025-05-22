@@ -69,7 +69,7 @@ public class XYZSeries<K extends Comparable<K>> implements Serializable {
     /** Storage for registered change listeners. */
     private EventListenerList listeners;
     
-    /** A flag that controls whether or not changes are notified. */
+    /** A flag that controls whether changes are notified. */
     private boolean notify;
     
     /**
@@ -218,7 +218,7 @@ public class XYZSeries<K extends Comparable<K>> implements Serializable {
     }
 
     /**
-     * Returns the flag that controls whether or not change events are sent to
+     * Returns the flag that controls whether change events are sent to
      * registered listeners.
      *
      * @return A boolean.
@@ -231,7 +231,7 @@ public class XYZSeries<K extends Comparable<K>> implements Serializable {
     }
 
     /**
-     * Sets the flag that controls whether or not change events are sent to
+     * Sets the flag that controls whether change events are sent to
      * registered listeners.
      *
      * @param notify  the new value of the flag.

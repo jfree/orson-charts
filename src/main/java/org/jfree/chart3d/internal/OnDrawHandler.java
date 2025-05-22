@@ -61,7 +61,7 @@ public class OnDrawHandler implements TableElementOnDraw {
     /** The rendering info the be populated (if not null). */
     private final RenderingInfo info;
     
-    /** A flag indicating whether or not element hinting is added. */
+    /** A flag indicating whether element hinting is added. */
     boolean elementHinting;
     
     /**
@@ -69,7 +69,7 @@ public class OnDrawHandler implements TableElementOnDraw {
      * 
      * @param info  the rendering info to be populated ({@code null} 
      *     permitted).
-     * @param elementHinting  a flag that controls whether or not element 
+     * @param elementHinting  a flag that controls whether element 
      *     hinting is performed.
      */
     public OnDrawHandler(RenderingInfo info, boolean elementHinting) {

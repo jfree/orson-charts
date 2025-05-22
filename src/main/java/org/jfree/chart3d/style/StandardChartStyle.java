@@ -317,7 +317,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
     private transient EventListenerList listenerList;
 
     /**
-     * A flag that controls whether or not the chart will notify listeners
+     * A flag that controls whether the chart will notify listeners
      * of changes (defaults to {@code true}, but sometimes it is useful 
      * to disable this).
      */
@@ -598,7 +598,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
     }
     
     /**
-     * Returns the flag that controls whether or not gridlines are drawn 
+     * Returns the flag that controls whether gridlines are drawn 
      * perpendicular to the column axis in category plots.
      * 
      * @return A boolean. 
@@ -609,7 +609,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
     }
     
     /**
-     * Returns the flag that controls whether or not gridlines are drawn 
+     * Returns the flag that controls whether gridlines are drawn 
      * perpendicular to the row axis in category plots.
      * 
      * @return A boolean. 
@@ -620,7 +620,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
     }
 
     /**
-     * Returns the flag that specifies whether or not gridlines are drawn for
+     * Returns the flag that specifies whether gridlines are drawn for
      * the x-axis.  The default value is {@code false}.
      * 
      * @return A boolean. 
@@ -631,7 +631,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
     }
     
     /**
-     * Sets the flag that controls whether or not gridlines are drawn for 
+     * Sets the flag that controls whether gridlines are drawn for 
      * the x-axis and sends a {@link ChartStyleChangeEvent}  to all 
      * registered listeners.
      * 
@@ -643,7 +643,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
     }
     
     /**
-     * Returns the flag that specifies whether or not gridlines are drawn for
+     * Returns the flag that specifies whether gridlines are drawn for
      * the y-axis.  The default value is {@code true}.
      * 
      * @return A boolean. 
@@ -654,7 +654,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
     }
     
     /**
-     * Sets the flag that controls whether or not gridlines are drawn for 
+     * Sets the flag that controls whether gridlines are drawn for 
      * the y-axis and sends a {@link ChartStyleChangeEvent}  to all 
      * registered listeners.
      * 
@@ -666,7 +666,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
     }
 
     /**
-     * Returns the flag that specifies whether or not gridlines are drawn for
+     * Returns the flag that specifies whether gridlines are drawn for
      * the z-axis.  The default value is {@code true}.
      * 
      * @return A boolean. 
@@ -677,7 +677,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
     }
     
     /**
-     * Sets the flag that controls whether or not gridlines are drawn for 
+     * Sets the flag that controls whether gridlines are drawn for 
      * the z-axis and sends a {@link ChartStyleChangeEvent}  to all 
      * registered listeners.
      * 
@@ -1276,7 +1276,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
         }
     }
     /**
-     * Returns a flag that controls whether or not change events are sent to
+     * Returns a flag that controls whether change events are sent to
      * registered listeners.
      * 
      * @return A boolean.
@@ -1288,7 +1288,7 @@ public class StandardChartStyle implements ChartStyle, Cloneable, Serializable {
     }
 
     /**
-     * Sets a flag that controls whether or not listeners receive
+     * Sets a flag that controls whether listeners receive
      * {@link ChartStyleChangeEvent} notifications.  This can be useful when
      * updating multiple style attributes, you can call setNotify(false) first,
      * update the styles, then call setNotify(true) at the end. 

@@ -917,7 +917,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      * as the row axis).  The dataset is passed as an argument to provide the 
      * opportunity to incorporate dataset-specific info into tick labels (for 
      * example, a row label might show the total for that row in the dataset)
-     * ---whether or not this is used depends on the axis implementation.
+     * ---whether this is used depends on the axis implementation.
      * 
      * @param dataset  the dataset ({@code null} not permitted).
      * 
@@ -943,7 +943,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
      * as the row axis).  The dataset is passed as an argument to provide the 
      * opportunity to incorporate dataset-specific info into tick labels (for 
      * example, a row label might show the total for that row in the dataset)
-     * ---whether or not this is used depends on the axis implementation.
+     * ---whether this is used depends on the axis implementation.
      * 
      * @param dataset  the dataset ({@code null} not permitted).
      * 
@@ -1119,7 +1119,7 @@ public class StandardCategoryAxis3D extends AbstractAxis3D
     }
     
     /**
-     * Sets the flag that controls whether or not the axis inverts the order
+     * Sets the flag that controls whether the axis inverts the order
      * of the data items and sends an {@link Axis3DChangeEvent} to all 
      * registered listeners.
      * 
