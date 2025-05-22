@@ -3,7 +3,7 @@ Orson Charts
 
 (C)opyright 2013-present, by David Gilbert.  All rights reserved.
 
-Version 2.1.1, 22 Mayy 2025.
+Version 2.1.1, 22 May 2025.
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.jfree/org.jfree.chart3d/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.jfree/org.jfree.chart3d) [![javadoc](https://javadoc.io/badge2/org.jfree/org.jfree.chart3d/javadoc.svg)](https://javadoc.io/doc/org.jfree/org.jfree.chart3d)
 ### Overview
