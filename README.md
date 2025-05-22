@@ -5,6 +5,7 @@ Orson Charts
 
 Version 2.1.0, 23 January 2022.
 
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.jfree/org.jfree.chart3d/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.jfree/org.jfree.chart3d) [![javadoc](https://javadoc.io/badge2/org.jfree/org.jfree.chart3d/javadoc.svg)](https://javadoc.io/doc/org.jfree/org.jfree.chart3d)
 ### Overview
 Orson Charts is a 3D chart library for the Java&trade; platform that can generate a wide variety of 3D charts for use in client-side applications (JavaFX and Swing) and server-side applications (with export to PDF, SVG, PNG and JPEG). 
 
@@ -46,6 +47,9 @@ https://github.com/jfree/orson-charts/issues
 
 
 ### History
+
+#### Version 2.1.1 : 22-May-2025
+- updated Maven release setup
 
 #### Version 2.1.0 : 23-Jan-2022
 
