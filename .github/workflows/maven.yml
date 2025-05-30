@@ -30,7 +30,7 @@ jobs:
           cache: maven
           server-id: central
           server-username: MAVEN_USERNAME
-          server-password: MAVEN_PASSWORD
+          server-password: MAVEN_TOKEN
       - name: Build and publish with Maven
         run: mvn --batch-mode deploy --file pom.xml
         env:
