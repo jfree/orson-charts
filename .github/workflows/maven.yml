@@ -29,4 +29,4 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Build with Maven
-        run: mvn --batch-mode package --file pom.xml
+        run: mvn --batch-mode deploy --file pom.xml
